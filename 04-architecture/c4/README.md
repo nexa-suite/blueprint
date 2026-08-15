@@ -1,6 +1,7 @@
 ---
-status: accepted baseline
-scope: C4 L1/L2 and runway
+status: accepted
+maturity: BASELINED
+scope: cross-cutting
 owner: architecture
 last-reviewed: 2026-08-14
 ---

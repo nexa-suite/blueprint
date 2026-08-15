@@ -1,5 +1,6 @@
 ---
 status: draft
+maturity: DRAFT
 scope: cross-cutting
 owner: domain
 last-reviewed: 2026-08-14
@@ -22,6 +23,10 @@ Maturity: **NOT STARTED** for domain discovery. This page is an index, not a dis
 ## Explicit non-decisions
 
 The current API modules, PostgreSQL schemas and frontend feature areas are implementation evidence only. None is a declared capability, subdomain, Bounded Context, aggregate or context-map relationship.
+
+## Discovery input boundary
+
+The current product baseline, personas, known rules, AS-IS behavior evidence and the [legacy evidence register](../11-reference/legacy-ecosystem-report/legacy-evidence-register.md) are workshop inputs only. They are not a Capability Map, EventStorming board, Domain Storytelling result, Ubiquitous Language, subdomain model, Bounded Context model or Context Map.
 
 ## Open evidence questions
 

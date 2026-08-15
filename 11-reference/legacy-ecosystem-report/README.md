@@ -18,7 +18,6 @@ Legacy is evidence, not authority. Current accepted Nexa decisions and current g
 - Source URL: <https://github.com/upc-pre-202610-1asi0730-12242-king/nexa-ecosystem-report>
 - Inspected source commit: `e161fe522023bfe5929e76c4d7c66af211884b7e`
 - Snapshot: current `main` tree at commit above; release notes and source directories inventoried.
-- Reference destination: `/Users/diegosandoval284/Developer/nexa-suite/11-reference/legacy-ecosystem-report/`
 - Publication status: `REVIEW_BEFORE_REPUBLICATION` where authorship, participant consent, external links or asset rights are not independently established.
 
 ## Reading order
@@ -32,13 +31,14 @@ Legacy is evidence, not authority. Current accepted Nexa decisions and current g
 7. [Validation findings](validation-findings.md)
 8. [Artifact classification](artifact-classification.md)
 9. [Asset provenance](asset-provenance.md)
+10. [Legacy evidence register](legacy-evidence-register.md)
 
 ## Deliberate boundaries
 
 - No application repository changed.
 - No current domain model, Context Map, C4 L3, TARGET data/security architecture or current EventStorming board created.
 - No Legacy code, database diagram, class diagram, C4 diagram, Design-Level EventStorming board or deployment design migrated as current architecture.
-- No commit, push, merge, tag, release or GitHub governance mutation.
+- This report does not authorize commit, push, merge, tag, release or GitHub governance mutation.
 
 ## Evidence labels
 

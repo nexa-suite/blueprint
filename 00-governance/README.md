@@ -11,11 +11,11 @@ Define documentation authority, accepted decisions, maturity semantics, current 
 - [Current state](current-state.md)
 - [Documentation standard](documentation-standard.md)
 - [Architecture roadmap](roadmap.md)
-- [Future Blueprint publication manifest](publication-manifest.md)
+- [Blueprint publication policy](publication-policy.md)
 
 ## Current status
 
-BASELINED. Product & Business V1 is FROZEN. The pre-Strategic-DDD architecture baseline is CLOSED WITH CAVEAT; Capability Mapping is NOT STARTED.
+BASELINED. Product & Business V1 is FROZEN. The pre-Strategic-DDD architecture baseline is ACCEPTED WITH CAVEAT; Strategic DDD is NOT STARTED.
 
 ## Expected artifacts
 

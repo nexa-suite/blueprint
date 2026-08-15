@@ -1,6 +1,7 @@
 ---
-status: evidence
-scope: AS-IS local runtime
+status: reference
+maturity: HISTORICAL
+scope: cross-cutting
 owner: architecture
 last-reviewed: 2026-08-14
 ---

@@ -1,34 +1,58 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-12
+last-reviewed: 2026-08-15
 ---
 
 # Architecture roadmap
 
+## Completed baseline
+
 1. Clean project foundation — BASELINED
-2. C4 L1/L2 baseline — BASELINED
+2. C4 L1/L2 V1 and Runway — BASELINED
 3. Initial Architecture Drivers — BASELINED
 4. AS-IS evidence baseline — CLOSED WITH CAVEAT
-5. V1 readiness baseline — HISTORICAL reference preserved
-6. Capability Mapping — NOT STARTED
-7. EventStorming — NOT STARTED
-8. Domain Storytelling — NOT STARTED
-9. Subdomain Discovery
-10. Candidate Bounded Contexts
-11. Bounded Context Canvases
-12. Context Mapping
-13. Ubiquitous Language Consolidation
-14. Strategic DDD — NOT STARTED
-15. Data Architecture — NOT STARTED
-16. IAM/Security Architecture — NOT STARTED
-17. Integration/Event Architecture — NOT STARTED
-18. Cloud/Deployment Architecture — NOT STARTED
-19. C4 L3 — NOT STARTED
-20. Implementation Rebaseline
-21. Production Hardening
-22. Mobile runway refinement
-23. IoT runway refinement
+5. Product & Business V1 — FROZEN
 
-Implementation work must not be inserted before domain discovery unless it is an urgent security or data-integrity hotfix.
+## Strategic DDD sequence
+
+6. Capability Mapping — NOT STARTED
+7. Big Picture EventStorming — NOT STARTED
+8. Process-Level EventStorming — NOT STARTED
+9. Domain Storytelling — NOT STARTED
+10. Language Collisions / Ubiquitous Language work — NOT STARTED
+11. Subdomain classification — NOT STARTED
+12. Bounded Context discovery — NOT STARTED
+13. Bounded Context canvases — NOT STARTED
+14. Context Mapping — NOT STARTED
+15. Strategic DDD freeze — NOT STARTED
+
+## Post-DDD technical architecture maturation
+
+After Strategic DDD, mature technical architecture iteratively as each decision requires:
+
+- Application Architecture.
+- Tenant and Provisioning.
+- IAM and Security.
+- Data and RLS/isolation.
+- API and Integration/Events.
+- Object Storage.
+- Frontend Architecture.
+- Runtime, Deployment and Cloud.
+- CI/CD, Observability, Reliability and Performance.
+- ADRs and Architecture Fitness.
+
+## Later architecture and delivery
+
+16. C4 L3 when accepted component boundaries make it useful — NOT STARTED
+17. Implementation Rebaseline — NOT STARTED
+18. Production Hardening — NOT STARTED
+19. Mobile, Driver, Control Center and IoT runway refinement — FUTURE
+
+## Implementation gate
+
+Implementation may proceed before full Strategic DDD when work is safely independent of unresolved architecture decisions. Examples include read-only audits, deterministic test reliability, documentation validation, nonsemantic tooling and urgent security/integrity fixes.
+
+Module realignment, ownership redesign, Buyer identity redesign, structural Tenant genericization, broad RLS redesign, data ownership migration and frontend architecture restructuring normally wait for the relevant architecture decision. Architecture must be sufficient for the decision being implemented, not infinitely complete.

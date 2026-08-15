@@ -1,5 +1,6 @@
 ---
 status: draft
+maturity: DRAFT
 scope: cross-cutting
 owner: security
 last-reviewed: 2026-08-14

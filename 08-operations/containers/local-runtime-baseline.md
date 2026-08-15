@@ -1,5 +1,6 @@
 ---
 status: reference
+maturity: HISTORICAL
 scope: cross-cutting
 owner: architecture
 last-reviewed: 2026-08-12
@@ -13,7 +14,7 @@ Verified local runtime topology for the Modern V1 evidence environment. This doc
 
 File:
 
-`/Users/diegosandoval284/Developer/nexa-suite/10-repositories/active/api/ops/compose/modern.compose.yml`
+`10-repositories/active/api/ops/compose/modern.compose.yml` (local-only application checkout)
 
 From the API repository root:
 

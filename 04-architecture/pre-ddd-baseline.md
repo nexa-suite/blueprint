@@ -1,5 +1,6 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: architecture
 last-reviewed: 2026-08-12
@@ -56,7 +57,7 @@ The accepted drivers are Strong Tenant Isolation, Role-Focused Simplicity, High 
 
 ## Known domain rules
 
-The accepted rules include Tenant isolation, Tenant 1:1 Workspace in V1, single-Warehouse physical lots, source-batch traceability, Purchase Request modification before order creation, no mandatory Buyer reconfirmation after Sales adjustment, authoritative pricing protection and explicit/auditable Sales Order changes. See [Known domain rules](../02-domain/business-rules/known-rules.md).
+The accepted rules include Tenant isolation, Tenant 1:1 Workspace in V1, single-Warehouse physical lots, source-batch traceability, Purchase Request modification before order creation, authoritative pricing protection and explicit/auditable Sales Order changes. Buyer acknowledgement/reconfirmation after Sales adjustment remains unresolved. See [Known domain rules](../02-domain/business-rules/known-rules.md).
 
 ## Current implementation strengths — AS-IS evidence
 
@@ -119,13 +120,15 @@ Production gates remain open for deployment architecture, secrets/key management
 
 ## Closure
 
-Pre-Strategic-DDD Architecture Baseline: **CLOSED**.
+Pre-Strategic-DDD Architecture Baseline: **ACCEPTED WITH CAVEAT**.
 
 The next architecture activity is:
 
 ```text
 Capability Mapping
--> EventStorming
+-> Big Picture EventStorming
+-> Process-Level EventStorming
 -> Domain Storytelling
+-> Ubiquitous Language
 -> Strategic DDD
 ```

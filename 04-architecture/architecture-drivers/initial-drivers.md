@@ -1,5 +1,6 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: v1
 owner: architecture
 last-reviewed: 2026-08-12

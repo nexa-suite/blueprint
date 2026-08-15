@@ -2,21 +2,21 @@
 
 ## Purpose
 
-Organize Nexa brand sources, design-system evidence, information architecture and UX artifacts without redesigning the product.
+Organize Nexa design evidence and future system guidance without redesigning the product.
 
 ## Authoritative content
 
-- [Brand](brand/README.md) — canonical brand sources and safe exports.
-- [Design System](design-system/README.md) — accepted foundations, tokens, components, patterns and accessibility rules when available.
-- `ux/` — user flows, wireframes, mockups and prototypes when authored.
+- [Design baseline](design-baseline.md) — accepted direction, evidence and deferred decisions.
+- [Style guidelines and architecture](style-guidelines-architecture.md) — future token/component/accessibility guidance.
+- [Legacy design evidence](legacy-design-evidence.md) — historical references, not current tokens or implementation.
 
 ## Current status
 
-Current design evidence and brand foundations are BASELINED where files exist. Design-system expansion, visual parity and polish are deferred unless separately evidenced.
+Current design evidence is BASELINED where recorded. A final token package, component library and visual-parity closure are not yet authorized.
 
 ## Expected artifacts
 
-Source brand assets, design tokens, component/pattern guidance, information architecture, user flows, wireframes, mockups and accessibility evidence.
+Authored design baseline, token/component guidance, information architecture, user flows, wireframes, mockups and accessibility evidence.
 
 ## What must not live here
 

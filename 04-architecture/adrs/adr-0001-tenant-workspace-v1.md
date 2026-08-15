@@ -1,5 +1,6 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: v1
 owner: architecture
 last-reviewed: 2026-08-12
@@ -19,13 +20,14 @@ Tenant is the maximum SaaS isolation boundary. Workspace represents the complete
 
 Use `Tenant 1:1 Workspace` in V1. Future multiple workspaces are explicitly deferred.
 
-## Alternatives currently known
+## Alternatives considered for the baseline
 
-No alternatives were recorded as accepted decisions.
+- `Tenant 1:N Workspace`: deferred because no accepted V1 requirement needs multiple operational environments.
+- Workspace as a separate C4 Container: rejected because it is an operational/domain concept, not a deployable runtime.
 
 ## Consequences
 
-Workspace is not a C4 Container and must not shape V1 architecture as a separate product surface.
+Workspace is not a C4 Container and must not shape V1 architecture as a separate product surface. Future multi-workspace work would affect identity, data isolation, provisioning and authorization.
 
 ## What remains open
 

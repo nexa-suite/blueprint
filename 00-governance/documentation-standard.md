@@ -1,5 +1,6 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: governance
 last-reviewed: 2026-08-12
@@ -7,13 +8,25 @@ last-reviewed: 2026-08-12
 
 # Documentation standard
 
-## Maturity vocabulary
+## Metadata schema
 
-Use these statuses for major documentation areas and records:
+Canonical records use this YAML frontmatter:
 
-`NOT STARTED`, `DISCOVERY`, `DRAFT`, `BASELINED`, `FROZEN`, `BLOCKED`, `SUPERSEDED`, `HISTORICAL`.
+```yaml
+status: accepted
+maturity: BASELINED
+scope: v1
+owner: architecture
+last-reviewed: 2026-08-15
+```
 
-Status means documentation maturity, not code completion or product completeness. A document may also state `VERIFIED`, `CLOSED WITH CAVEAT` or `NOT DEFINED` when those are the accepted evidence labels for a baseline or unresolved TARGET area.
+`status` is a lifecycle value. `maturity` describes the evidence state. `scope` limits the claim. `owner` is the accountable documentation area. `last-reviewed` is an ISO date.
+
+Allowed `status` values: `accepted`, `draft`, `planned`, `reference`, `deprecated`.
+Allowed `maturity` values: `NOT STARTED`, `DISCOVERY`, `DRAFT`, `BASELINED`, `FROZEN`, `BLOCKED`, `SUPERSEDED`, `HISTORICAL`, `VERIFIED`, `CLOSED WITH CAVEAT`, `NOT DEFINED`.
+Allowed `scope` values: `v1`, `runway`, `v2`, `cross-cutting`.
+
+## Documentation rules
 
 - Use lower-kebab-case filenames.
 - Keep one authoritative document per question.
@@ -22,6 +35,5 @@ Status means documentation maturity, not code completion or product completeness
 - Co-locate visuals with the concept they document.
 - Do not create invented documentation to fill directories.
 - Every major area must state what exists, its maturity, its authority, unresolved items and the activity that will resolve them.
-- Canonical documents may use lightweight YAML metadata with `status`, `scope`, `owner` and `last-reviewed`.
-- Allowed statuses: `accepted`, `draft`, `planned`, `reference`, `deprecated`.
-- Allowed scopes: `v1`, `runway`, `v2`, `cross-cutting`.
+- Status and maturity are not code-completion claims.
+- A document may state `AS-IS`, `TARGET`, `RUNWAY`, or `HISTORICAL` in its body when that distinction is needed.

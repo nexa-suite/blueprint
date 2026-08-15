@@ -1,13 +1,11 @@
-# Bibliography
+# Bibliography and research boundaries
 
-## Purpose
+This directory contains safe authored research guidance. Commercial books, PDFs and EPUBs remain private local references and are not redistributed by Blueprint.
 
-Keep safe citation metadata and links used by Nexa documentation.
+## Contents
 
-## Current status
+- [Curated reading list](curated-reading-list.md)
+- [Reading path](reading-path.md)
+- [Research gaps](research-gaps.md)
 
-HISTORICAL/REFERENCE only. No external copyrighted book, PDF or copied course source belongs in the future Blueprint repository.
-
-## Boundary
-
-Prefer bibliographic records, repository-relative notes and links. Store only authored material that is safe to publish.
+Use official standards and vendor documentation for current claims. Record exact source URLs and review dates when a future architecture activity begins. Commercial books, PDFs and EPUBs remain private local references.

@@ -1,6 +1,6 @@
 # Repository map
 
-This index describes independent repositories and their documentation boundary. Branch/SHA values below refer to the verified remote `develop` baseline where available, not necessarily the branch currently checked out in the local workspace. Re-verify remote refs before any future publication or release decision.
+This index describes independent repositories and their documentation boundary. Branch/SHA values below are immutable remote references verified on 2026-08-15; they are not claims about local checkout branches.
 
 ## Active V1 repositories
 
@@ -25,10 +25,10 @@ This index describes independent repositories and their documentation boundary. 
 | `legacy/platform-vue` | Vue internal-platform visual/flow evidence | HISTORICAL; remote not established |
 | `legacy/portal-vue` | Vue buyer-portal visual/flow evidence | HISTORICAL; remote not established |
 
-Legacy is evidence, not authority. Vue and ASP.NET material is not copied into the future Blueprint repository as application source.
+Legacy is evidence, not authority. Vue and ASP.NET material is not copied into the Blueprint repository as application source.
 
 ## Local workspace boundary
 
-The independent checkouts under `10-repositories/active/` and `10-repositories/runway/` are LOCAL WORKSPACE MATERIAL. They must not be moved, copied, rewritten, initialized as a monorepo, or committed into the future Blueprint repository. This workspace root is intentionally not itself a Git repository.
+The independent checkouts under `10-repositories/active/` and `10-repositories/runway/` are LOCAL WORKSPACE MATERIAL. They must not be moved, copied, rewritten, initialized as a monorepo, or committed into this Blueprint repository. The workspace root is the documentation repository; application checkouts remain independent repositories.
 
 Current local checkouts may preserve feature branches for engineering work. That does not change the documented remote `develop` baseline and does not authorize application-repository mutations from this documentation workspace.
