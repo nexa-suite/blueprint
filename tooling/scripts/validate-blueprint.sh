@@ -138,6 +138,9 @@ docker run --rm \
 echo "STRUCTURIZR DSL VALIDATION: PASS"
 
 GENERATED_DIR="$(mktemp -d)"
+# Docker image writes generated JSON as its container user; grant access only to
+# this ephemeral validation directory.
+chmod 777 "$GENERATED_DIR"
 docker run --rm \
   -v "$ROOT/04-architecture/c4/structurizr:/usr/local/structurizr:ro" \
   -v "$GENERATED_DIR:/generated" \
