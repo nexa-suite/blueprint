@@ -1,13 +1,14 @@
 ---
-status: draft
+status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: governance
 last-reviewed: 2026-08-14
 ---
 
-# Future Blueprint publication manifest
+# Blueprint publication manifest
 
-This is a proposed publication boundary for the future GitHub repository `nexa-suite/blueprint`. It is documentation guidance only. Git initialization, repository creation, commits, tags, releases and pushes are explicitly outside this workspace task.
+This is the publication boundary for `nexa-suite/blueprint`. It is checked against the filesystem and candidate Git tree before a push. GitHub visibility, releases and branch governance are separate controls.
 
 | Area | Publication decision | Boundary |
 |---|---|---|
@@ -22,7 +23,7 @@ This is a proposed publication boundary for the future GitHub repository `nexa-s
 | `08-operations` | INCLUDE | Safe local/runtime evidence and production-gap indexes |
 | `09-evolution` | INCLUDE | Roadmap and runway documentation |
 | `10-repositories` | INCLUDE DOCUMENTATION ONLY | Repository maps and references; not application clones |
-| `11-reference` | INCLUDE SAFE/AUTHORED EVIDENCE ONLY | No secrets, dumps or external copyrighted source |
+| `11-reference` | INCLUDE SAFE/AUTHORED EVIDENCE ONLY | No secrets, dumps, private binaries or external copyrighted source |
 | `90-academic` | INCLUDE IF GOVERNANCE ALLOWS | Academic mapping remains non-authoritative |
 | `tooling` | INCLUDE SAFE TOOLING | No machine-specific secrets or transient runtime output |
 | `AGENTS.md` | INCLUDE | Workspace operating instructions |
@@ -36,4 +37,4 @@ This is a proposed publication boundary for the future GitHub repository `nexa-s
 - External copyrighted books, PDFs or copied course material.
 - Git metadata, worktrees and release-management state.
 
-Do not create a final `.gitignore` from this proposal until the eventual repository paths and publication policy are verified.
+The authoritative allowlist is the reviewed candidate tree, not this table alone. A validator must reject secrets, private material, nested Git metadata, active checkouts, runtime state, personal machine paths and unreviewed binaries. `REVIEW_BEFORE_REPUBLICATION` assets remain excluded.

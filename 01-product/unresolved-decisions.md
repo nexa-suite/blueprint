@@ -1,5 +1,6 @@
 ---
 status: draft
+maturity: DRAFT
 scope: cross-cutting
 owner: product
 last-reviewed: 2026-08-14

@@ -1,5 +1,6 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: v1
 owner: product
 last-reviewed: 2026-08-14
@@ -14,6 +15,8 @@ This is the consolidated accepted product direction. Maturity: **FROZEN**. It re
 ## Positioning
 
 Nexa is a multi-tenant B2B SaaS platform with ERP/CRM orientation for importers and distributors, particularly cold-chain businesses. Non-cold-chain distributors may also use the same product. Nexa coordinates catalog, commercial operations, inventory, warehouse, logistics, dispatch, tracking, billing and buyer self-service. It is not defined as a generic ecommerce product.
+
+The product uses one codebase for all Tenants. Tenant is the maximum business/data isolation boundary; V1 keeps `Tenant 1:1 Workspace`. The Website, Internal Web Platform, Buyer Portal and Application API are separate product/runtime surfaces over the same Nexa product.
 
 ## Multi-tenant product principles
 
@@ -35,6 +38,7 @@ Nexa is a multi-tenant B2B SaaS platform with ERP/CRM orientation for importers 
 - A Customer Account may exist without a Portal identity.
 - Sales must not impersonate Buyers.
 - A Buyer identity may have commercial relationships with multiple Tenants.
+- Workforce membership and the buyer-to-customer commercial relationship remain distinct. A Customer Account may exist without a Portal identity, and Sales does not impersonate a Buyer.
 
 ## Catalog, commercial and inventory direction
 
@@ -46,6 +50,9 @@ Nexa is a multi-tenant B2B SaaS platform with ERP/CRM orientation for importers 
 - Price Lists belong to V1.
 - Promotions apply through commercial policy, not arbitrary Sales price override.
 - Physical stock differs from sellable availability.
+- Lots, expiry, FEFO, holds and traceability are cold-chain concerns for V1; temperature telemetry and laboratory/QMS scope are runway or future concerns.
+- Purchase Request and Sales Order are distinct business concepts. Sales may adjust a request before order creation; a confirmed order is immutable by silent edits.
+- Sales pricing authority remains distinct from arbitrary user-entered prices; pricing, promotions and stock availability require explicit policy.
 
 ## Cold-chain and provider direction
 
@@ -53,6 +60,7 @@ Nexa is a multi-tenant B2B SaaS platform with ERP/CRM orientation for importers 
 - Payment is a domain concept; Stripe is a provider/adapter.
 - Production providers and credentials remain unresolved.
 - Mobile and IoT are future/runway, not V1 implementation scope.
+- The V1 external-system boundary is Payment Provider, Email Delivery Service and Maps & Geolocation Provider. Provider selection remains an adapter/configuration concern unless separately accepted.
 
 ## Authority and boundary
 

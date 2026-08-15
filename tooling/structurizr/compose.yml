@@ -1,6 +1,6 @@
 services:
   structurizr:
-    image: structurizr/structurizr:latest
+    image: structurizr/structurizr:2026.06.28
     command: local
     ports:
       - "9090:8080"

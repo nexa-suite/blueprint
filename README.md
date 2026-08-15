@@ -2,7 +2,7 @@
 
 Nexa is a multi-tenant B2B SaaS platform for importers and distributors, with particularly strong support for cold-chain operations. It coordinates commercial operations, catalog and pricing, inventory, fulfillment, delivery, documents and buyer self-service in one product/codebase.
 
-This workspace is the canonical documentation baseline for the future `nexa-suite/blueprint` repository. It contains accepted product decisions, architecture baselines, AS-IS evidence, engineering and operations records, future-analysis indexes and safe publication guidance.
+This repository is the canonical, publication-safe documentation baseline for `nexa-suite/blueprint`. It contains accepted product decisions, architecture baselines, AS-IS evidence, engineering and operations records, future-analysis indexes and safe publication guidance.
 
 It does not contain the application source repositories as Blueprint content, a final TARGET architecture, Strategic DDD outputs, production cloud decisions, secrets, temporary runtime data or copied external copyrighted material. The local application checkouts under `10-repositories/active/` are workspace material only.
 
@@ -13,6 +13,7 @@ It does not contain the application source repositories as Blueprint content, a 
 3. Read [Current state](00-governance/current-state.md).
 4. Use the area README for the question being investigated.
 5. Treat [AS-IS evidence](11-reference/as-is/README.md) as evidence, never as TARGET authority.
+6. Run `bash tooling/scripts/validate-blueprint.sh` before publication or review.
 
 ## Documentation authority
 
@@ -34,7 +35,7 @@ See [Source of truth](00-governance/source-of-truth.md) for the canonical rule. 
 |---|---|
 | Product and Business V1 baseline | FROZEN |
 | AS-IS implementation baseline | CLOSED WITH CAVEAT |
-| Exact merged-develop runtime provenance | VERIFIED |
+| Exact remote baseline provenance | VERIFIED 2026-08-15 |
 | C4 Level 1 | BASELINED |
 | C4 Level 2 | BASELINED |
 | Capability Mapping | NOT STARTED |
@@ -47,7 +48,7 @@ See [Source of truth](00-governance/source-of-truth.md) for the canonical rule. 
 | TARGET Security Architecture | NOT DEFINED |
 | TARGET Cloud / Deployment Architecture | NOT DEFINED |
 
-The readiness scores in the preserved [V1 readiness baseline](11-reference/as-is/v1-readiness-baseline-2026-08-12.md) are readiness measures, not completion percentages.
+The preserved [V1 readiness baseline](11-reference/as-is/v1-readiness-baseline-2026-08-12.md) is historical evidence, not a completion claim.
 
 ## Directory map
 
@@ -56,7 +57,7 @@ The readiness scores in the preserved [V1 readiness baseline](11-reference/as-is
 | [00-governance](00-governance/README.md) | Authority, decisions, states, standards and roadmap | BASELINED |
 | [01-product](01-product/README.md) | Product vision, positioning, V1 scope and actors | FROZEN baseline |
 | [02-domain](02-domain/README.md) | Discovery readiness and known terminology/rules | NOT STARTED for discovery |
-| [03-design](03-design/README.md) | Brand, design-system and UX evidence | BASELINED / deferred polish |
+| [03-design](03-design/README.md) | Design evidence and future system guidance | BASELINED / deferred polish |
 | [04-architecture](04-architecture/README.md) | C4, ADRs, drivers and pre-DDD baseline | C4 BASELINED; TARGET work pending |
 | [05-data](05-data/README.md) | AS-IS data evidence and TARGET readiness | TARGET NOT STARTED |
 | [06-security](06-security/README.md) | Security evidence and architecture readiness | TARGET NOT DEFINED |
@@ -86,4 +87,4 @@ The current application repositories are indexed in [10-repositories/repository-
 
 ## Contribution and agent navigation
 
-Keep one authoritative document per question, preserve existing evidence, use repository-relative links, label provisional or unresolved material, and never infer TARGET architecture from folder names. Before architectural work read governance first. Before publication review [Publication manifest](00-governance/publication-manifest.md).
+Keep one authoritative document per question, preserve existing evidence, use repository-relative links, label provisional or unresolved material, and never infer TARGET architecture from folder names. Before architectural work read governance first. Before publication review [Publication policy](00-governance/publication-policy.md).

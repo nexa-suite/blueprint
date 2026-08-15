@@ -23,4 +23,4 @@ Copied or moved application source, Git submodules, secrets, generated build/run
 
 ## Related areas
 
-[Engineering](../07-engineering/README.md), [Operations](../08-operations/README.md), [Publication manifest](../00-governance/publication-manifest.md), [AS-IS evidence](../11-reference/as-is/README.md).
+[Engineering](../07-engineering/README.md), [Operations](../08-operations/README.md), [Publication policy](../00-governance/publication-policy.md), [AS-IS evidence](../11-reference/as-is/README.md).

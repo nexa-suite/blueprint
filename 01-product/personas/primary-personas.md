@@ -1,5 +1,6 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: product
 last-reviewed: 2026-08-12

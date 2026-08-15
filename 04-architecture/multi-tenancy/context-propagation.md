@@ -1,6 +1,7 @@
 ---
-status: accepted conceptual baseline
-scope: multi-tenant context propagation
+status: accepted
+maturity: BASELINED
+scope: cross-cutting
 owner: architecture
 last-reviewed: 2026-08-14
 ---

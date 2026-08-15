@@ -1,5 +1,6 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: architecture
 last-reviewed: 2026-08-12
@@ -19,13 +20,14 @@ A human may have independent authorized commercial relationships with multiple T
 
 Use one global Nexa human identity with independent authorized Tenant relationships. Elena may relate to ICISA and Laive; commercial data remains isolated.
 
-## Alternatives currently known
+## Alternatives considered for the baseline
 
-No alternatives were recorded as accepted decisions.
+- One isolated user identity per Tenant: rejected because it duplicates a human identity and weakens cross-Tenant Buyer usability.
+- Global identity with no explicit Tenant relationship: rejected because authorization and commercial data require an independent relationship boundary.
 
 ## Consequences
 
-Buyer authentication can select an authorized Tenant context without sharing tenant data.
+Buyer authentication can select an authorized Tenant context without sharing tenant data. The model requires explicit membership/relationship checks and does not grant cross-Tenant visibility.
 
 ## What remains open
 

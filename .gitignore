@@ -33,6 +33,22 @@ output/
 *.temp
 *.lock
 *.gz
+*.zip
+*.tar
+*.tar.gz
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.bak
+*.swp
+*.swo
+*.DS_Store
+tmp/
+temp/
+.worktrees/
+worktrees/
+**/.git/
 
 # Independent application/runway/legacy checkouts; their Git histories and
 # working trees remain outside the Blueprint publication boundary.
@@ -41,8 +57,9 @@ output/
 10-repositories/legacy/*/
 
 # Private or non-cleared reference material.
-11-reference/library/**/*.pdf
-11-reference/library/**/*.epub
+11-reference/library/
+11-reference/bibliography/**/*.pdf
+11-reference/bibliography/**/*.epub
 11-reference/legacy-ecosystem-report/assets/
 *.pdf
 *.epub

@@ -1,5 +1,6 @@
 ---
 status: draft
+maturity: DRAFT
 scope: cross-cutting
 owner: data
 last-reviewed: 2026-08-14
@@ -12,6 +13,8 @@ Maturity: **NOT STARTED** for TARGET Data Architecture.
 ## What exists
 
 Current PostgreSQL, Flyway, RLS, persistence and object-storage adapter evidence is catalogued in the [AS-IS implementation baseline](../11-reference/as-is/v1-implementation-baseline.md). That evidence is useful input, not a TARGET model.
+
+The [data requirements evidence](data-requirements-evidence.md) records information concerns that future discovery must resolve without assigning ownership or designing a schema.
 
 ## What is not defined
 

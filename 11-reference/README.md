@@ -11,17 +11,16 @@ Catalogue evidence, legacy references, verified flows and safe bibliography poin
 - [Legacy ecosystem report archaeology](legacy-ecosystem-report/README.md).
 - [Flow references](flows/README.md).
 - [Bibliography](bibliography/README.md).
-- [Curated private technical/domain library](library/README.md).
 
 ## Current status
 
-AS-IS evidence is BASELINED with explicit caveats. Legacy material is HISTORICAL/reference only. `library/` is a private local reference copy; copyrighted material remains excluded from publication artifacts.
+AS-IS evidence is BASELINED with explicit caveats. Legacy material is HISTORICAL/reference only. Private local binaries are not part of the Blueprint; the bibliography contains safe authored research pointers only.
 
-`as-is/` = evidence from current Modern Nexa. `library/` = external technical/domain references. `legacy-ecosystem-report/` = historical product, UX and implementation archaeology. None is TARGET authority.
+`as-is/` = evidence from current Modern Nexa. `bibliography/` = safe authored research pointers. Private local references, if present on the workstation, are not Blueprint content. `legacy-ecosystem-report/` = historical product, UX and implementation archaeology. None is TARGET authority.
 
 ## Expected artifacts
 
-Evidence registers, provenance, flow indexes, historical comparisons, safe authored extracts and private reference-library indexes.
+Evidence registers, provenance, flow indexes, historical comparisons and safe authored bibliography pointers.
 
 ## What must not live here
 

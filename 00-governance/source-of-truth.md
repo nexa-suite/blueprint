@@ -1,5 +1,6 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: governance
 last-reviewed: 2026-08-12

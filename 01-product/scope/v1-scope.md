@@ -1,5 +1,6 @@
 ---
 status: accepted
+maturity: BASELINED
 scope: v1
 owner: product
 last-reviewed: 2026-08-12
@@ -9,7 +10,15 @@ last-reviewed: 2026-08-12
 
 V1 product scope is FROZEN as an accepted baseline. Detailed implementation completeness is tracked separately as AS-IS evidence.
 
-## V1
+## V1 product capabilities
+
+- Tenant and workforce administration, global identity and tenant-scoped buyer relationships.
+- Product/catalog discovery, sellable SKU presentation, brands, categories, price lists and commercial policy.
+- Purchase Request to Sales Order progression with authoritative pricing and auditable confirmation.
+- Inventory, warehouses, lots, expiry, FEFO, holds, fulfillment, dispatch, delivery evidence and buyer visibility.
+- Public product discovery, contact/demo request, Internal Web Platform and Buyer Portal self-service.
+
+## V1 runtime boundary
 
 - Public Website
 - Internal Web Platform
@@ -25,6 +34,7 @@ V1 product scope is FROZEN as an accepted baseline. Detailed implementation comp
 
 - Nexa Mobile
 - Delivery Driver mobile workflows
+- Nexa Control Center, future identity providers and IoT/telemetry integrations.
 
 ## Product principles carried by V1
 
@@ -45,5 +55,6 @@ V1 product scope is FROZEN as an accepted baseline. Detailed implementation comp
 - Feature tiers
 - IoT
 - Advanced platform administration
+- Laboratory/QMS depth and deep telemetry operations
 
 This document does not assert detailed feature completeness beyond accepted architecture.

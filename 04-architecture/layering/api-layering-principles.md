@@ -1,6 +1,7 @@
 ---
-status: accepted conceptual baseline
-scope: Nexa Application API internal layering
+status: accepted
+maturity: BASELINED
+scope: cross-cutting
 owner: architecture
 last-reviewed: 2026-08-14
 ---
@@ -25,7 +26,6 @@ flowchart TB
 
     P --> A
     A --> D
-    A --> I
     I -. "implements ports owned by Application" .-> A
     R --> P
     R --> A

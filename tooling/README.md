@@ -7,6 +7,7 @@ Provide safe, local documentation and architecture tooling for validating author
 ## Authoritative content
 
 - [Structurizr local tooling](structurizr/README.md).
+- [Blueprint validator](scripts/validate-blueprint.sh).
 - Tool configurations that are safe, reproducible and repository-relative.
 
 ## Current status
@@ -23,4 +24,4 @@ Secrets, machine-specific credentials, runtime dumps, generated application arti
 
 ## Related areas
 
-[Architecture](../04-architecture/README.md), [Operations](../08-operations/README.md), [Publication manifest](../00-governance/publication-manifest.md).
+[Architecture](../04-architecture/README.md), [Operations](../08-operations/README.md), [Publication policy](../00-governance/publication-policy.md).
