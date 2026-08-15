@@ -1,0 +1,48 @@
+# Operating-system and IDE noise
+.DS_Store
+.idea/
+.vscode/
+
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+**/credentials*
+**/*credentials*.json
+**/secrets*
+**/*secret*.json
+
+# Build, dependency, runtime and temporary state
+node_modules/
+target/
+dist/
+coverage/
+build/
+out/
+output/
+.cache/
+.tmp/
+.runtime/
+.structurizr/
+*.log
+*.tmp
+*.temp
+*.lock
+*.gz
+
+# Independent application/runway/legacy checkouts; their Git histories and
+# working trees remain outside the Blueprint publication boundary.
+10-repositories/active/*/
+10-repositories/runway/*/
+10-repositories/legacy/*/
+
+# Private or non-cleared reference material.
+11-reference/library/**/*.pdf
+11-reference/library/**/*.epub
+11-reference/legacy-ecosystem-report/assets/
+*.pdf
+*.epub
