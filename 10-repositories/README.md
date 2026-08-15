@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provide a documentation-only index of Nexa's independent application repositories and their evidence boundaries for the future Blueprint repository.
+Provide a documentation-only index of Nexa's independent application repositories and their evidence boundaries for the Blueprint repository.
 
 ## Authoritative content
 

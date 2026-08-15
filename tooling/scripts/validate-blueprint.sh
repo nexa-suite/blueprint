@@ -136,3 +136,16 @@ docker run --rm \
   -workspace /usr/local/structurizr/workspace.dsl
 
 echo "STRUCTURIZR DSL VALIDATION: PASS"
+
+GENERATED_DIR="$(mktemp -d)"
+docker run --rm \
+  -v "$ROOT/04-architecture/c4/structurizr:/usr/local/structurizr:ro" \
+  -v "$GENERATED_DIR:/generated" \
+  structurizr/structurizr:2026.06.28 export \
+  -workspace /usr/local/structurizr/workspace.dsl \
+  -format json \
+  -output /generated
+
+python3 tooling/scripts/compare-structurizr-semantic.py \
+  "$GENERATED_DIR/workspace.json" \
+  "$ROOT/04-architecture/c4/structurizr/workspace.json"

@@ -27,7 +27,7 @@ last-reviewed: 2026-08-12
 | AS-IS implementation baseline | CLOSED WITH CAVEAT |
 | Exact merged-develop runtime provenance | VERIFIED |
 | Product & Business V1 baseline | FROZEN |
-| Pre-DDD Architecture Baseline | CLOSED WITH CAVEAT |
+| Pre-DDD Architecture Baseline | ACCEPTED WITH CAVEAT |
 | Capability Mapping | NOT STARTED |
 | EventStorming | NOT STARTED |
 | Domain Storytelling | NOT STARTED |

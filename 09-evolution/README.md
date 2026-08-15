@@ -1,29 +1,22 @@
-# Evolution
+# Evolution and runway
 
 ## Purpose
 
-Describe the controlled movement from AS-IS evidence toward a future TARGET, plus explicitly deferred V2, Mobile and IoT runway.
+Describe controlled movement from AS-IS evidence toward future TARGET work. Runway items are visible without claiming V1 implementation.
 
 ## Authoritative content
 
-- [Architecture roadmap](../00-governance/roadmap.md).
-- [Mobile runway](mobile/README.md).
-- [IoT runway](iot/README.md).
-- [V2 runway](v2/README.md).
-- Future KEEP/REFINE/REWORK decision work remains pending.
+- [Architecture roadmap](../00-governance/roadmap.md)
+- [Runway register](runway.md)
 
 ## Current status
 
-The pre-DDD evolution roadmap is BASELINED. KEEP, REFINE and REWORK classification is the intended analysis model but classifications are NOT STARTED. Mobile and IoT are future/runway; V2 concepts are not V1 implementation.
+Strategic DDD and KEEP/REFINE/REWORK classification are NOT STARTED. Runway entries below are accepted future direction, not delivery commitments.
 
-## Expected artifacts
+## Boundary
 
-AS-IS to TARGET roadmap, KEEP/REFINE/REWORK decisions after evidence, architecture evolution gates, V2 runway, Mobile runway, IoT runway and production closure tracking.
-
-## What must not live here
-
-Premature classification of application areas, V2/Mobile/IoT implementation claims or speculative target architecture.
+This directory does not create capabilities, subdomains, Bounded Contexts, Context Maps, C4 L3, cloud architecture or implementation plans.
 
 ## Related areas
 
-[Governance roadmap](../00-governance/roadmap.md), [Domain readiness](../02-domain/README.md), [Architecture](../04-architecture/README.md).
+[Governance](../00-governance/README.md), [Domain discovery](../02-domain/README.md), [Architecture](../04-architecture/README.md), [Product scope](../01-product/scope/v1-scope.md).

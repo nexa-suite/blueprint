@@ -76,14 +76,14 @@ AS-IS documents record observed code, runtime, tests, Git state, flows or histor
 The next analysis sequence is deliberately:
 
 ```text
-Capability Mapping -> EventStorming -> Domain Storytelling -> Strategic DDD
+Capability Mapping -> Big Picture EventStorming -> Process-Level EventStorming -> Domain Storytelling -> Ubiquitous Language -> Subdomain classification -> Bounded Context discovery -> Context Mapping -> Strategic DDD
 ```
 
 Data Architecture, Security Architecture and Cloud/Deployment Architecture depend on the resulting domain and ownership decisions. C4 Level 3 remains uncreated until the required architecture work exists.
 
 ## Independent application repositories
 
-The current application repositories are indexed in [10-repositories/repository-map.md](10-repositories/repository-map.md): API, Platform, Portal and Website are active independent Git repositories; Mobile is runway. Their source, Git history and repository-owned documentation stay in those repositories. `10-repositories/active/*` must not be committed into the future Blueprint repository.
+The current application repositories are indexed in [10-repositories/repository-map.md](10-repositories/repository-map.md): API, Platform, Portal and Website are active independent Git repositories; Mobile is runway. Their source, Git history and repository-owned documentation stay in those repositories. `10-repositories/active/*` must not be committed into the Blueprint repository.
 
 ## Contribution and agent navigation
 

@@ -8,6 +8,7 @@ Provide safe, local documentation and architecture tooling for validating author
 
 - [Structurizr local tooling](structurizr/README.md).
 - [Blueprint validator](scripts/validate-blueprint.sh).
+- [Structurizr semantic comparator](scripts/compare-structurizr-semantic.py).
 - Tool configurations that are safe, reproducible and repository-relative.
 
 ## Current status

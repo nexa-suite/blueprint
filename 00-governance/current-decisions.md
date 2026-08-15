@@ -48,7 +48,7 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 ## Domain rules accepted for V1
 
 - One physical Inventory Lot belongs to exactly one Warehouse at a time; split source batches retain traceability when needed.
-- Sales may modify Purchase Requests before order creation; Buyer reconfirmation is not mandatory after Sales adjustments.
+- Sales may modify Purchase Requests before order creation. Buyer acknowledgement/reconfirmation semantics remain a discovery question; no universal rule is accepted.
 - Sales cannot arbitrarily alter authoritative pricing.
 - Confirmed Sales Orders cannot be silently edited; exceptional changes must eventually be explicit and auditable.
 

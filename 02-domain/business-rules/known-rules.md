@@ -13,7 +13,7 @@ last-reviewed: 2026-08-12
 - One physical Inventory Lot belongs to one Warehouse.
 - A source batch may be split into multiple physical Inventory Lots.
 - Sales may modify a Purchase Request before order creation.
-- Buyer reconfirmation is not mandatory after Sales adjustments.
+- Buyer acknowledgement/reconfirmation after Sales adjustments is unresolved. EventStorming and Domain Storytelling must determine which adjustments require acknowledgement, reconfirmation, replacement or prohibition.
 - Sales cannot arbitrarily edit authoritative prices.
 - Confirmed Sales Orders cannot be silently edited.
 - Tenant-specific product media is private.

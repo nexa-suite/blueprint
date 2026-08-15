@@ -25,7 +25,7 @@ This index describes independent repositories and their documentation boundary. 
 | `legacy/platform-vue` | Vue internal-platform visual/flow evidence | HISTORICAL; remote not established |
 | `legacy/portal-vue` | Vue buyer-portal visual/flow evidence | HISTORICAL; remote not established |
 
-Legacy is evidence, not authority. Vue and ASP.NET material is not copied into the future Blueprint repository as application source.
+Legacy is evidence, not authority. Vue and ASP.NET material is not copied into the Blueprint repository as application source.
 
 ## Local workspace boundary
 
