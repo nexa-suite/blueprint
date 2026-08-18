@@ -2,7 +2,7 @@
 
 <br />
 
-<img src="https://raw.githubusercontent.com/nexa-suite/api/develop/docs/assets/nexa.svg" alt="Nexa" width="220" />
+<img src="./docs/assets/nexa.svg" alt="Nexa" width="220" />
 
 <br /><br />
 
@@ -63,15 +63,15 @@ AS-IS records observed code, runtime, tests, Git state, flows or historical evid
 <tr><td><a href="10-repositories/README.md"><strong>Repositories</strong></a><br />Documentation-only independent repository index.</td><td><a href="11-reference/README.md"><strong>Reference</strong></a><br />Evidence catalogues and safe references.</td></tr>
 </table>
 
-## Current Nexa Product Ecosystem
+## Repository reference
 
-The current product family uses exact repository identities. Blueprint documents these surfaces; it is not itself a public product card.
+The organization profile owns the full public ecosystem map. Blueprint records repository identity without becoming another product card.
 
-<table>
-<tr><td width="50%" valign="top"><strong><a href="https://github.com/nexa-suite/website">Nexa Website</a></strong><br />Public product experience and entry point.<br /><a href="https://github.com/nexa-suite/website">Open Repository</a><br /><img src="https://img.shields.io/badge/HTML5-static-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" /> <img src="https://img.shields.io/badge/CSS3-responsive-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" /> <img src="https://img.shields.io/badge/JavaScript-vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" /></td><td width="50%" valign="top"><strong><a href="https://github.com/nexa-suite/platform">Nexa Platform</a></strong><br />Internal operational workspace.<br /><a href="https://github.com/nexa-suite/platform">Open Repository</a><br /><img src="https://img.shields.io/badge/Angular-22-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular 22" /> <img src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" /> <img src="https://img.shields.io/badge/Material-22-757575?style=flat-square&logo=materialdesign&logoColor=white" alt="Angular Material" /></td></tr>
-<tr><td width="50%" valign="top"><strong><a href="https://github.com/nexa-suite/portal">Nexa Buyer Portal</a></strong><br />Buyer-facing B2B experience.<br /><a href="https://github.com/nexa-suite/portal">Open Repository</a><br /><img src="https://img.shields.io/badge/Angular-22-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular 22" /> <img src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" /> <img src="https://img.shields.io/badge/Material-22-757575?style=flat-square&logo=materialdesign&logoColor=white" alt="Angular Material" /></td><td width="50%" valign="top"><strong><a href="https://github.com/nexa-suite/api">Nexa API</a></strong><br />Business and integration backbone.<br /><a href="https://github.com/nexa-suite/api">Open Repository</a><br /><img src="https://img.shields.io/badge/Java-25-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java 25" /> <img src="https://img.shields.io/badge/Spring%20Boot-4.1-6DB33F?style=flat-square&logo=springboot&logoColor=white" alt="Spring Boot" /> <img src="https://img.shields.io/badge/PostgreSQL-18-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL" /> <img src="https://img.shields.io/badge/Flyway-migrations-CC0200?style=flat-square&logo=flyway&logoColor=white" alt="Flyway" /></td></tr>
-<tr><td colspan="2" valign="top"><strong><a href="https://github.com/nexa-suite/mobile">Nexa Mobile</a></strong><br />Documentation and native runway. No application framework selected.<br /><a href="https://github.com/nexa-suite/mobile">Open Repository</a><br /><img src="https://img.shields.io/badge/status-planned-64748B?style=flat-square" alt="Planned" /> <img src="https://img.shields.io/badge/scope-documentation-64748B?style=flat-square" alt="Documentation" /></td></tr>
-</table>
+- [Nexa API](https://github.com/nexa-suite/api) — business and integration backbone.
+- [Nexa Platform](https://github.com/nexa-suite/platform) — internal operational workspace.
+- [Nexa Buyer Portal](https://github.com/nexa-suite/portal) — buyer-facing experience.
+- [Nexa Website](https://github.com/nexa-suite/website) — public product experience.
+- [Nexa Mobile](https://github.com/nexa-suite/mobile) — documentation and native runway.
 
 ## Project lineage
 
