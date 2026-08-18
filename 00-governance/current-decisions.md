@@ -33,6 +33,7 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 - One human has one Nexa identity.
 - A Buyer may have independent authorized relationships with multiple Tenants; data remains tenant-scoped.
 - V1 has one Internal Web Platform for Tenant Administrator, Company Owner, Business Operations Manager, Sales Representative, Warehouse Operator and Dispatch Coordinator.
+- V1 has exactly one Company Owner; multiple Business Operations Managers may exist. These are business-governance roles, not one simple hierarchy.
 - Tenant Administrator governs technical access and configuration.
 - Company Owner governs company identity, sensitive organization data, members, role assignment and executive visibility.
 - Business Operations Manager supervises cross-functional day-to-day business operations without owning technical RBAC/security configuration.
@@ -57,7 +58,7 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 ## Domain rules accepted for V1
 
 - One physical Inventory Lot belongs to exactly one Warehouse at a time; split source batches retain traceability when needed.
-- Sales may modify Purchase Requests before Sales Order creation. No universal system-enforced Buyer reconfirmation ceremony is required; where Buyer agreement is commercially needed, the agreed result is recorded in Nexa.
+- Sales may modify Purchase Requests before Sales Order creation. No universal system-enforced Buyer reconfirmation ceremony is required; where Buyer agreement is commercially needed, Buyer and Sales communicate through Nexa, WhatsApp, phone or another human channel, then Sales records the mutual agreement in Nexa.
 - Purchase Requests expire by default after 3 days and never beyond 7 days; expiry releases related commitment.
 - Cart never reserves inventory. No automatic backorder. Confirmed Sales Orders are immutable history; cancellation is exceptional Company Owner or Business Operations Manager authority.
 - Credit is Tenant-specific and insufficient Available Credit hard-blocks order progression.

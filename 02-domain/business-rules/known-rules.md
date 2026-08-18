@@ -30,11 +30,11 @@ This is a curated invariant register, not Strategic DDD. Terminology, sequence, 
 
 - Cart never reserves inventory.
 - Purchase Request is not Sales Order and not Supplier Purchase Order.
-- Sales may modify a Purchase Request before Sales Order creation. No universal system-enforced Buyer reconfirmation ceremony is required; commercially required agreement is recorded.
+- Sales may modify a Purchase Request before Sales Order creation. No universal system-enforced Buyer reconfirmation ceremony is required; where commercially required, Buyer and Sales communicate through Nexa, WhatsApp, phone or another human channel, then Sales records the mutual agreement.
 - Active Purchase Request default expiry is 3 days, maximum 7 days; expiry releases related commitment.
 - No oversell and no automatic backorder. Final-unit conflict returns current availability to the losing attempt.
 - Substitution is never silent; Buyer accepts or rejects the alternative.
-- Confirmed Sales Order is immutable business history. Material change uses explicit cancellation/void and replacement semantics; cancellation authority is exceptional Company Owner or Business Operations Manager authority.
+- Confirmed Sales Order is immutable business history. Buyer and Sales cannot directly cancel it; they may request cancellation. Material change uses explicit cancellation/void and replacement semantics; cancellation authority is exceptional Company Owner or Business Operations Manager authority.
 
 ## Inventory, fulfillment and delivery
 
@@ -51,7 +51,7 @@ This is a curated invariant register, not Strategic DDD. Terminology, sequence, 
 
 - Manual temperature recording is V1. Excursion requires evaluation and may lead to release, hold, quarantine or disposition; IoT telemetry is future.
 - Credit is Tenant-specific. `Credit Limit`, `Current Exposure` and `Available Credit` are distinct; insufficient Available Credit hard-blocks order progression.
-- Payment is the business concept; Stripe is the V1 online-payment direction/provider choice, not the definition of Payment.
+- Payment is the business concept; Stripe is Nexa's V1 integrated online-payment provider, not the definition of Payment. V1 is not an arbitrary bring-your-own-online-gateway platform; commercial credit, bank transfer, cash/COD and direct Tenant-supported arrangements remain valid business methods.
 - Payment reported is not Payment confirmed.
 - Business Document is not SUNAT integration. Business Traceability is not Security Log.
 

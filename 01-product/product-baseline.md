@@ -30,7 +30,7 @@ Nexa is a generic multi-tenant B2B SaaS platform with ERP/CRM orientation for im
 
 ## Governance axes and identity
 
-Business governance follows Company Owner, Business Operations Manager, then operational Sales, Warehouse and Dispatch responsibilities. Access/technical governance belongs to Tenant Administrator. Tenant Administrator is not automatically the highest business operator.
+Business governance has exactly one Company Owner and may have multiple Business Operations Managers, alongside operational Sales, Warehouse and Dispatch responsibilities. It is not one simple hierarchy. Access/technical governance belongs to Tenant Administrator. Tenant Administrator is not automatically the highest business operator.
 
 Recommended roles are templates or capability-oriented access constructs, not product-wide hardcoded domain enums.
 
@@ -66,12 +66,12 @@ V1 includes Customer Accounts, contacts, Sales assignment, commercial history, n
 - V1 Tenant policy supports `DIRECT_ORDER` and `APPROVAL_REQUIRED` conceptual modes. Approval flow is Buyer, Purchase Request, Sales review, Sales Order. Direct flow is Buyer, authoritative validation, confirmed Order/Sales Order.
 - Cart does not reserve inventory.
 - Backend revalidates authoritative sellable availability transactionally. V1 accepts no oversell/backorder behavior; competing buyers for the final unit require concurrency-correct conflict handling.
-- Sales may adjust a Purchase Request before Sales Order creation. Nexa does not require a universal system-enforced reconfirmation ceremony; commercially required Buyer agreement is recorded as the accepted business result.
+- Sales may adjust a Purchase Request before Sales Order creation. Nexa does not require a universal system-enforced reconfirmation ceremony; where commercially required, Buyer and Sales communicate through Nexa, WhatsApp, phone or another human channel, then Sales records the mutual agreement as the accepted business result.
 - Active Purchase Requests expire after a default 3 days and a configurable maximum of 7 days; expiry releases related inventory commitment.
 - Manual/assisted Sales order capture is valid without fabricating Buyer identity. Cart never reserves inventory, no automatic backorder is accepted, and competing final-unit claims resolve with one success and one availability conflict.
 - Substitution requires Buyer approval by default. Operational exceptions require escalation; Buyer-selected items are never silently replaced.
 - Confirmed Sales Orders are commercial commitments. Significant changes are not silent mutation; cancel/void/replace semantics are preferred where appropriate. Formal amendment machinery remains V2 unless discovery proves V1 need.
-- Buyer and Sales may request cancellation, but exceptional cancellation authority belongs to Company Owner or Business Operations Manager.
+- Buyer and Sales cannot directly cancel a confirmed Sales Order; they may request cancellation. Exceptional cancellation authority belongs to Company Owner or Business Operations Manager.
 - Order-time prices require historical snapshot semantics.
 
 ## Inventory, warehouse and fulfillment
@@ -93,7 +93,7 @@ Fulfillment is broader than Picking: Allocate, Pick, Pack, Stage, Handover and R
 
 ## Basic Finance, documents, notifications and dashboard
 
-- V1 Finance is basic: Tenant-specific credit limit/exposure/available credit, hard credit block, payment terms, payment recording, Stripe-backed Nexa online payment direction and external/manual payment representation where needed. Payment reported is not payment confirmed.
+- V1 Finance is basic: Tenant-specific credit limit/exposure/available credit, hard credit block, payment terms, payment recording, Stripe-backed Nexa online payment direction and external/manual payment representation where needed. Payment reported is not payment confirmed. Payment is not Stripe; V1 is not an arbitrary bring-your-own-online-gateway platform. Commercial credit, bank transfer, cash/COD and other direct Tenant-supported arrangements remain valid business methods.
 - Full accounting, reconciliation, bank reconciliation, advanced receivables, statements and allocation/accounting depth are V2 unless later required.
 - V1 includes basic business documents. Historical document meaning must not depend on mutable master data; document snapshots/history preserve truth at issuance time. PDF may be regenerated from historical snapshot. SUNAT remains future.
 - Business policy determines notification WHAT, WHO and WHEN; infrastructure determines HOW. Business traceability and security/audit evidence remain distinct.
