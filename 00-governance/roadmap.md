@@ -14,7 +14,7 @@ last-reviewed: 2026-08-15
 2. C4 L1/L2 V1 and Runway — BASELINED
 3. Initial Architecture Drivers — BASELINED
 4. AS-IS evidence baseline — CLOSED WITH CAVEAT
-5. Product & Business V1 — FROZEN
+5. Product & Business V1 — FROZEN / CLOSED
 
 ## Strategic DDD sequence
 
@@ -28,6 +28,10 @@ last-reviewed: 2026-08-15
 13. Bounded Context canvases — NOT STARTED
 14. Context Mapping — NOT STARTED
 15. Strategic DDD freeze — NOT STARTED
+
+## Parallel Technical Foundation Wave 0
+
+Business closure does not merge with technical architecture. A separate Technical Architect workstream may execute genuinely business-independent, SCM-authorized foundation work; module realignment, data ownership, broad RLS redesign and other boundary decisions remain gated by the relevant architecture evidence.
 
 ## Post-DDD technical architecture maturation
 

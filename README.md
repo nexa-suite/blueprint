@@ -44,10 +44,11 @@ AS-IS records observed code, runtime, tests, Git state, flows or historical evid
 
 | Area | Status |
 | --- | --- |
-| Product and Business V1 | FROZEN |
+| Product and Business V1 | FROZEN / CLOSED |
 | AS-IS implementation | CLOSED WITH CAVEAT |
 | C4 Level 1 and Level 2 | BASELINED |
-| Capability Mapping, EventStorming, Domain Storytelling | NOT STARTED |
+| Capability Mapping | READY / NOT STARTED |
+| EventStorming, Domain Storytelling | NOT STARTED |
 | Strategic DDD, Bounded Contexts, Context Map | NOT STARTED |
 | C4 Level 3 | BLOCKED until Strategic DDD |
 | TARGET data, security and cloud architecture | NOT DEFINED |

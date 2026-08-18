@@ -3,16 +3,16 @@ status: draft
 maturity: DRAFT
 scope: cross-cutting
 owner: domain
-last-reviewed: 2026-08-14
+last-reviewed: 2026-08-18
 ---
 
 # Domain discovery readiness
 
-Maturity: **NOT STARTED** for domain discovery. This page is an index, not a discovery result.
+Product baseline input: **READY / FROZEN**. Product questions are no longer the primary blocker. Domain discovery remains **NOT STARTED** and must understand domain structure, not decide what Product V1 should be.
 
 | Future artifact | Status | What exists now | What resolves it |
 |---|---|---|---|
-| Capability Mapping | NOT STARTED | Product baseline, personas, known rules and AS-IS behavior evidence | Collaborative Capability Mapping |
+| Capability Mapping | READY / NOT STARTED | Closed Product baseline, personas, known rules and AS-IS behavior evidence | Collaborative Capability Mapping |
 | EventStorming | NOT STARTED | Business behavior evidence and open lifecycle questions | EventStorming |
 | Domain Storytelling | NOT STARTED | Flow references and observed behavior evidence | Domain Storytelling |
 | Ubiquitous Language | NOT STARTED | Current terminology evidence with semantic collisions | Discovery and Strategic DDD |
@@ -23,6 +23,8 @@ Maturity: **NOT STARTED** for domain discovery. This page is an index, not a dis
 ## Explicit non-decisions
 
 The current API modules, PostgreSQL schemas and frontend feature areas are implementation evidence only. None is a declared capability, subdomain, Bounded Context, aggregate or context-map relationship.
+
+The Product headings in `01-product/` are not a Capability Map. Do not derive capabilities, subdomains or Bounded Contexts from current folder/module names.
 
 ## Discovery input boundary
 

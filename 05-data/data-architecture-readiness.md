@@ -3,12 +3,12 @@ status: draft
 maturity: DRAFT
 scope: cross-cutting
 owner: data
-last-reviewed: 2026-08-14
+last-reviewed: 2026-08-18
 ---
 
 # Data Architecture readiness
 
-Maturity: **NOT STARTED** for TARGET Data Architecture.
+Maturity: **NOT STARTED** for TARGET Data Architecture. Closed Product / Business V1 is an input; it does not define data ownership or schema.
 
 ## What exists
 

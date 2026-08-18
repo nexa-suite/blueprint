@@ -6,16 +6,32 @@ owner: product
 last-reviewed: 2026-08-14
 ---
 
-# Unresolved product decisions
+# Product decisions and discovery backlog
 
-Maturity: **DRAFT**. These are known open points, not proposed solutions.
+Product V1 has no known major Product decision blocker: it is **FROZEN / CLOSED**. Items below are deliberately reclassified; open technical/domain detail must not be misread as open Product scope.
 
-| Open point | Current wording | Activity that should resolve it |
+## A. Product V1 decisions
+
+None currently blocking Product V1.
+
+## B. Domain discovery questions
+
+| Open point | Accepted boundary | Activity that should resolve it |
 |---|---|---|
-| Production providers and credentials | Payment, email, maps/geolocation, object storage, malware scanning and observability production choices remain unresolved where local adapters/mocks exist. | Security Architecture; Cloud/Deployment Architecture; provider decisions |
-| Product versus Variant | Product -> sellable SKU is favored; a separate Variant is not accepted as required. | Capability Mapping; EventStorming; Strategic DDD |
-| Tenant provisioning and ICISA reproduction | The desired outcome is accepted; exact provisioning and seed/import workflow is not yet defined. | Domain discovery; Data Architecture; Operations |
-| Configurable role templates and policies | Configuration/policy direction is accepted; the final policy model is not defined here. | Capability Mapping; Strategic DDD; Security Architecture |
-| Detailed commercial and cold-chain rules | Accepted principles exist; complete invariants and ownership are not yet discovered. | EventStorming; Domain Storytelling; Strategic DDD |
+| Product versus Variant | Product to sellable SKU is accepted; Variant is not mandatory. | Capability Mapping; EventStorming; Strategic DDD |
+| Tenant provisioning and ICISA reproduction | Fresh, Generic and ICISA outcomes are accepted; exact workflow is not defined. | Domain discovery; Data Architecture; Operations |
+| Configurable role templates and policies | Supported configuration is accepted; final policy language/model is not defined. | Capability Mapping; Strategic DDD; Security Architecture |
+| Detailed commercial and cold-chain rules | Product principles are accepted; complete sequence, ownership and exceptions remain to discover. | EventStorming; Domain Storytelling; Strategic DDD |
 
-Do not promote these items to FROZEN or implement them from this register alone.
+## C. Technical Architecture questions
+
+| Open point | Boundary | Activity that should resolve it |
+|---|---|---|
+| Production providers and credentials | Stripe direction is a V1 Product choice; provider contracts, credentials, email/maps/storage/scanning/observability and deployment remain open. | Security Architecture; Cloud/Deployment Architecture |
+| Data, RLS and security ownership | Product isolation and traceability principles are accepted; TARGET ownership and policy are not defined. | Strategic DDD; Data/Security Architecture |
+
+## D. Future Product questions
+
+Plans/entitlements, multi-workspace, multi-user Buyer organizations, full Procurement, advanced CRM/Finance, Mobile, Driver, IoT and deeper fiscal/QMS workflows remain V2+/future.
+
+Do not promote open detail to Product uncertainty or implement it from this register alone.

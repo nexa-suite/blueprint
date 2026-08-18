@@ -15,7 +15,7 @@ Define documentation authority, accepted decisions, maturity semantics, current 
 
 ## Current status
 
-BASELINED. Product & Business V1 is FROZEN. The pre-Strategic-DDD architecture baseline is ACCEPTED WITH CAVEAT; Strategic DDD is NOT STARTED.
+BASELINED. Product & Business V1 is FROZEN / CLOSED. The pre-Strategic-DDD architecture baseline is READY FOR CAPABILITY MAPPING; Strategic DDD is NOT STARTED.
 
 ## Expected artifacts
 

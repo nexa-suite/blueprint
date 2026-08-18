@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: v1
 owner: product
-last-reviewed: 2026-08-15
+last-reviewed: 2026-08-18
 ---
 
 # V1 scope
@@ -38,7 +38,7 @@ Base Price, Price Lists, Customer Commercial Terms and Promotions as policy conc
 
 ### Sales, Purchase Request and Sales Order
 
-Buyer and assisted request capture, Purchase Request review/adjustment, Tenant policy supporting direct or approval-required ordering, authoritative validation, Sales Order confirmation, historical order prices and explicit non-silent change handling. Buyer adjustment acknowledgement/reconfirmation rules remain discovery work.
+Buyer and assisted request capture, Purchase Request review/adjustment, Tenant policy supporting direct or approval-required ordering, authoritative validation, 3-day default/7-day maximum PR expiry, Sales Order confirmation, historical order prices and explicit non-silent change handling. No universal Buyer reconfirmation ceremony is required; commercially necessary agreement is recorded.
 
 ### Inventory and availability
 
@@ -46,19 +46,19 @@ Physical stock, unavailable/hold quantities, safety stock, commitments/reservati
 
 ### Warehouse and fulfillment
 
-Multiple Warehouses, operational Zones where useful, receiving, Source Batch and physical Inventory Lot traceability, expiration, FEFO, holds/quarantine, Allocate, Pick, Pack, Stage, Handover, Ready for Dispatch and waste/merma.
+Multiple Warehouses, operational Zones where useful, partial receiving, basic traceable Warehouse transfers, manual inventory adjustments, Source Batch and physical Inventory Lot traceability, expiration, FEFO, holds/quarantine, Allocate, Pick, Pack, Stage, Handover, Ready for Dispatch and waste/merma.
 
 ### Dispatch, delivery and POD
 
-Dispatch handoff, delivery execution, Route grouping where useful, blocked/failed/completed distinctions and basic POD direction including photo/signature subject to later refinement.
+Dispatch handoff, delivery execution, Route grouping where useful, blocked/failed/completed distinctions, partial delivery, total/partial rejection, basic operational return and POD direction including photo/signature and outcome evidence.
 
 ### Cold-chain essentials
 
-Expiration, FEFO, storage constraints, holds/quarantine, traceability, justified temperature incident awareness and delivery evidence. Automatic IoT telemetry and laboratory/QMS depth are future.
+Expiration, FEFO, storage constraints, holds/quarantine, traceability, manual temperature recording, justified temperature incident awareness and delivery evidence. Automatic IoT telemetry and laboratory/QMS depth are future.
 
 ### Basic credit and payments
 
-Credit limit, payment terms, payment recording, provider integration and external/manual payment representation. Full accounting, reconciliation and advanced receivables are future.
+Tenant-specific Credit Limit, Current Exposure/Used Credit and Available Credit exposed live in Buyer Portal for current supplier relationship, with hard block when unavailable, payment terms, payment recording, Stripe-backed Nexa online-payment direction and external/manual payment representation. No global Buyer credit balance. Full accounting, reconciliation and advanced receivables are future.
 
 ### Basic documents
 
@@ -71,6 +71,10 @@ Policy-driven notification intent, infrastructure delivery, business traceabilit
 ### Operational dashboard
 
 Operational dashboard capability for current work. No full BI or data warehouse claim.
+
+### Product guardrails
+
+Tenant customization is limited to Nexa-supported configuration/policies and light branding; arbitrary workflow building is not V1. V1 capabilities must close coherently end-to-end or have scope reduced/deferred to V2/Future.
 
 ## V1 product/runtime surfaces
 
