@@ -3,7 +3,7 @@ status: planned
 maturity: NOT STARTED
 scope: runway
 owner: architecture
-last-reviewed: 2026-08-15
+last-reviewed: 2026-08-18
 ---
 
 # Nexa runway register
@@ -11,6 +11,7 @@ last-reviewed: 2026-08-15
 | Item | Status | Reason | Dependency | Non-V1 classification | Trigger for deeper architecture |
 |---|---|---|---|---|---|
 | Nexa Mobile | RUNWAY | Field and mobile workflows remain future product evolution | Product discovery, API contracts, UX and security review | Future; not V1 implementation | Accepted mobile scope and workflow evidence |
+| Buyer Mobile Delivery Communication Experience | RUNWAY | Future lightweight Buyer communication for delivery instructions and coordination | Buyer delivery discovery, UX, API and security review | Future; not V1 implementation | Accepted mobile delivery communication scope |
 | Delivery Driver Experience | RUNWAY | Delivery execution and POD may need dedicated field experience | Dispatch/Delivery discovery, offline/security evidence | Future; not V1 implementation | Validated driver journeys and delivery policy |
 | Nexa Control Center | FUTURE/V2 | Platform administration, support and plans are deferred | Product strategy, tenancy and commercial governance | V2/future | Accepted platform-administration scope |
 | Google, Apple and LinkedIn Identity Providers | RUNWAY | Future identity-provider options are visible in Runway C4 | IAM/Security Architecture and product decision | Future; not V1 implementation | Accepted provider and identity policy |

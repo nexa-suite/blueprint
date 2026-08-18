@@ -3,12 +3,12 @@ status: draft
 maturity: DRAFT
 scope: cross-cutting
 owner: security
-last-reviewed: 2026-08-14
+last-reviewed: 2026-08-18
 ---
 
 # Security Architecture readiness
 
-Maturity: **NOT DEFINED** for TARGET Security Architecture.
+Maturity: **NOT DEFINED** for TARGET Security Architecture. Product closure confirms Tenant isolation, identity separation and authorized/traceable support access as business invariants; technical policy remains open.
 
 ## Evidence available
 

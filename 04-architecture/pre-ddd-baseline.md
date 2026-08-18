@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-12
+last-reviewed: 2026-08-18
 ---
 
 # Pre-Strategic-DDD baseline
@@ -17,6 +17,8 @@ This document closes the architecture baseline before Strategic DDD. It answers 
 Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and distributors, particularly cold-chain businesses. It coordinates commercial operations, inventory, fulfillment and delivery while providing buyers with a simple purchasing experience.
 
 Canonical source: [Product vision](../01-product/vision.md).
+
+Product / Business V1 input: **FROZEN / CLOSED**. No major Product blocker remains. This baseline is ready for Capability Mapping; it does not create strategic boundaries.
 
 ## V1 system boundary
 
@@ -57,7 +59,7 @@ The accepted drivers are Strong Tenant Isolation, Role-Focused Simplicity, High 
 
 ## Known domain rules
 
-The accepted rules include Tenant isolation, Tenant 1:1 Workspace in V1, single-Warehouse physical lots, source-batch traceability, Purchase Request modification before order creation, authoritative pricing protection and explicit/auditable Sales Order changes. Buyer acknowledgement/reconfirmation after Sales adjustment remains unresolved. See [Known domain rules](../02-domain/business-rules/known-rules.md).
+The accepted rules include Tenant isolation, Tenant 1:1 Workspace in V1, single-Warehouse physical lots, source-batch traceability, Purchase Request adjustment and bounded expiry, cart non-reservation, authoritative pricing protection, credit hard block and explicit/auditable Sales Order changes. See [Known domain rules](../02-domain/business-rules/known-rules.md).
 
 ## Current implementation strengths — AS-IS evidence
 
@@ -120,7 +122,7 @@ Production gates remain open for deployment architecture, secrets/key management
 
 ## Closure
 
-Pre-Strategic-DDD Architecture Baseline: **ACCEPTED WITH CAVEAT**.
+Pre-Strategic-DDD Architecture Baseline: **READY FOR CAPABILITY MAPPING**.
 
 The next architecture activity is:
 

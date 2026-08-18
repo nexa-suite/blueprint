@@ -3,10 +3,16 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-12
+last-reviewed: 2026-08-18
 ---
 
 # Current accepted decisions
+
+## Product / Business V1 closure
+
+- Product and Business V1 is **FROZEN / CLOSED**. No major Product V1 decision blocker remains.
+- Acceptance covers Fresh Nexa Tenant, Generic Tenant and ICISA Reference Tenant states. Same product, code and release line; ICISA is never required by Nexa.
+- Next business architecture activity is Capability Mapping. EventStorming, Domain Storytelling, Ubiquitous Language, subdomains, Bounded Contexts and Context Map remain not started.
 
 ## Nexa
 
@@ -36,6 +42,8 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 - Public Website markets Nexa, explains Nexa Buyer, provides login entry points and handles Contact/Request a Demo.
 - Public Website does not expose tenant catalogs, products, prices or commercial information without authentication.
 - A public request does not automatically create a Tenant.
+- No anonymous instant Tenant signup is required for V1; assisted commercial review, approval, provisioning and activation precede ACTIVE.
+- Tenant business data is not immediately deleted on suspension or exit; retention/export policy remains open.
 - Mobile is Architecture Runway, not V1 implementation.
 - Nexa Control Center, Platform Administrator, Support, Plans, Subscriptions, Entitlements and Feature tiers are V2/future.
 
@@ -44,11 +52,16 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 - V1 external systems: Payment Provider, Email Delivery Service, Maps & Geolocation Provider.
 - TARGET catalog media is tenant-owned binary content in Object Storage.
 - Sellable product presentations/SKUs may have independent images.
+- V1 online payment experience uses Nexa's Stripe direction; Payment remains the business concept and production provider/technical integration decisions remain open.
 
 ## Domain rules accepted for V1
 
 - One physical Inventory Lot belongs to exactly one Warehouse at a time; split source batches retain traceability when needed.
-- Sales may modify Purchase Requests before order creation. Buyer acknowledgement/reconfirmation semantics remain a discovery question; no universal rule is accepted.
+- Sales may modify Purchase Requests before Sales Order creation. No universal system-enforced Buyer reconfirmation ceremony is required; where Buyer agreement is commercially needed, the agreed result is recorded in Nexa.
+- Purchase Requests expire by default after 3 days and never beyond 7 days; expiry releases related commitment.
+- Cart never reserves inventory. No automatic backorder. Confirmed Sales Orders are immutable history; cancellation is exceptional Company Owner or Business Operations Manager authority.
+- Credit is Tenant-specific and insufficient Available Credit hard-blocks order progression.
+- Product substitution is never silent; partial receiving, basic traceable Warehouse transfer, manual inventory adjustment, manual temperature recording and partial/rejected Delivery are V1 product rules.
 - Sales cannot arbitrarily alter authoritative pricing.
 - Confirmed Sales Orders cannot be silently edited; exceptional changes must eventually be explicit and auditable.
 

@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-14
+last-reviewed: 2026-08-18
 ---
 
 # Canonical C4 model
@@ -59,7 +59,7 @@ La lista canónica V1 es exactamente:
 |---|---|---|
 | Public Website | HTML/CSS/JavaScript estático servido por Nginx | Descubrimiento público, comunicación del producto, intake de Contact/Request Demo y entrada a experiencias autenticadas. |
 | Internal Web Platform | Angular 22 SPA servido por Nginx | Experiencia autenticada de la workforce interna del Tenant para administración, clientes, catálogo, operaciones comerciales y operaciones físicas. |
-| Buyer Portal | Angular 22 SPA servido por Nginx | Experiencia autenticada B2B Buyer para catálogo, solicitudes/órdenes, visibilidad y autoservicio. |
+| Buyer Portal | Angular 22 SPA servido por Nginx | Experiencia autenticada B2B Buyer por contexto de proveedor autorizado: catálogo, condiciones aplicables, disponibilidad vendible, crédito específico del Tenant, solicitudes/órdenes, entregas, documentos y pagos. |
 | Nexa Application API | Java 25, Spring Boot 4.1, Spring Modulith modular monolith | Autoridad de comportamiento de aplicación y dominio, seguridad, autorización, tenant enforcement, workflows, integraciones y orquestación de persistencia. |
 | PostgreSQL Database | PostgreSQL | Persistencia relacional autoritativa de datos transaccionales y de configuración actuales. En V1 es compartida y la separación es lógica, con mecanismos tenant/workspace y RLS observados. |
 | Object Storage | Frontera S3-compatible; MinIO local | Bytes de documentos/media tenant-owned; la API conserva la autorización y metadatos asociados. |
@@ -76,7 +76,7 @@ La lista canónica V1 es exactamente:
 
 Payment, email y maps/geolocation aparecen como sistemas externos abstractos, no como marcas o proveedores productivos concretos. El API es el dueño actual de las fronteras de integración observadas:
 
-- Payment: Payment es concepto de negocio; Stripe o WireMock son proveedor/adapters, no el núcleo.
+- Payment: Payment es concepto de negocio; Stripe es la dirección de pago online V1 de Nexa; WireMock es test double. El contrato productivo y decisiones técnicas siguen abiertos.
 - Email: SMTP y entrega son infraestructura; Mailpit es un sink local.
 - Maps/geolocation: el API contiene `GoogleMapsRoutingAdapter` y `LocalDeterministicMapAdapter`. El navegador puede obtener geolocalización del dispositivo, pero no se observó una integración client-side directa con Google/Apple/LinkedIn Maps.
 

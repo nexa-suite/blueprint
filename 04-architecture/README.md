@@ -18,7 +18,7 @@ Index accepted architecture decisions, the defensible C4 L1/L2 baseline, logical
 
 ## Current status
 
-C4 Level 1 and Level 2 are BASELINED and reconstructed from current product, implementation and runtime evidence. The Architecture Runway is BASELINED. Logical layering and multi-tenant propagation are conceptual pre-DDD architecture principles, not final domain/data/security architecture. The pre-DDD baseline is CLOSED WITH CAVEAT. Future application, tenant and integration architecture are NOT STARTED. C4 Level 3 is NOT STARTED and intentionally not created.
+C4 Level 1 and Level 2 are BASELINED and synchronized with the closed Product / Business V1 input. The Architecture Runway is BASELINED. Logical layering and multi-tenant propagation are conceptual pre-DDD architecture principles, not final domain/data/security architecture. The pre-DDD baseline is READY FOR CAPABILITY MAPPING. Future application, tenant and integration architecture are NOT STARTED. C4 Level 3 is BLOCKED and intentionally not created.
 
 ## Expected artifacts
 
