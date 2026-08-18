@@ -32,6 +32,7 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 
 - One human has one Nexa identity.
 - A Buyer may have independent authorized relationships with multiple Tenants; data remains tenant-scoped.
+- Buyer/Tenant relationship may begin through Tenant invitation or Buyer request; Tenant approval/authorization is required. Existing Customer Account may later link/claim to a corresponding Nexa identity rather than duplicate the customer.
 - V1 has one Internal Web Platform for Tenant Administrator, Company Owner, Business Operations Manager, Sales Representative, Warehouse Operator and Dispatch Coordinator.
 - V1 has exactly one Company Owner; multiple Business Operations Managers may exist. These are business-governance roles, not one simple hierarchy.
 - Tenant Administrator governs technical access and configuration.
@@ -44,7 +45,7 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 - Public Website does not expose tenant catalogs, products, prices or commercial information without authentication.
 - A public request does not automatically create a Tenant.
 - No anonymous instant Tenant signup is required for V1; assisted commercial review, approval, provisioning and activation precede ACTIVE.
-- Tenant business data is not immediately deleted on suspension or exit; retention/export policy remains open.
+- Tenant controls its business information; Nexa processes it to provide the service. Suspension/exit does not immediately delete business data, and departing Tenant must have a reasonable way to export it. Exact retention, format, mechanism, legal obligations and deletion procedure remain open.
 - Mobile is Architecture Runway, not V1 implementation.
 - Nexa Control Center, Platform Administrator, Support, Plans, Subscriptions, Entitlements and Feature tiers are V2/future.
 
@@ -62,6 +63,7 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 - Purchase Requests expire by default after 3 days and never beyond 7 days; expiry releases related commitment.
 - Cart never reserves inventory. No automatic backorder. Confirmed Sales Orders are immutable history; cancellation is exceptional Company Owner or Business Operations Manager authority.
 - Credit is Tenant-specific and insufficient Available Credit hard-blocks order progression.
+- Buyer Portal exposes live Credit Limit, Current Exposure/Used Credit and Available Credit for current supplier Tenant; no global Nexa-wide Buyer credit balance exists.
 - Product substitution is never silent; partial receiving, basic traceable Warehouse transfer, manual inventory adjustment, manual temperature recording and partial/rejected Delivery are V1 product rules.
 - Sales cannot arbitrarily alter authoritative pricing.
 - Confirmed Sales Orders cannot be silently edited; exceptional changes must eventually be explicit and auditable.

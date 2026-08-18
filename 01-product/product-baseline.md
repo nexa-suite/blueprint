@@ -28,6 +28,8 @@ Nexa is a generic multi-tenant B2B SaaS platform with ERP/CRM orientation for im
 - Public Contact / Request Demo does not anonymously create a Tenant. Accepted direction is human/commercial review, approval/agreement, provisioning, designated Tenant Administrator activation/claim/invitation, organization configuration and Tenant ACTIVE. Exact implementation states remain open.
 - Control Center UI remains future/V2.
 
+Tenant controls its business information; Nexa processes it to provide the service. Suspension or exit does not immediately delete Tenant business data, and a departing Tenant must have a reasonable way to export it. Exact retention duration, export format, technical mechanism, legal/contractual obligations and deletion procedure remain open.
+
 ## Governance axes and identity
 
 Business governance has exactly one Company Owner and may have multiple Business Operations Managers, alongside operational Sales, Warehouse and Dispatch responsibilities. It is not one simple hierarchy. Access/technical governance belongs to Tenant Administrator. Tenant Administrator is not automatically the highest business operator.
@@ -41,7 +43,9 @@ Keep these concepts distinct:
 - One human has one global Nexa identity.
 - Workforce membership is tenant-scoped.
 - A Buyer may have independent authorized commercial relationships with multiple Tenants.
+- A Buyer/Tenant relationship may begin through Tenant invitation or Buyer request; Tenant approval/authorization is required. The Buyer experience remains supplier-context-specific and is not a marketplace.
 - A Customer Account may exist without a Buyer identity or Portal access.
+- When an existing Customer Account later corresponds to a Nexa identity, Nexa should support linking/claiming that relationship instead of automatically duplicating the customer. Workflow, states and implementation remain open.
 - Sales may create/manage offline commercial customer information, but does not impersonate a Buyer or fabricate Buyer credentials.
 - V1 direction is one principal Buyer user per Customer Account relationship. Multi-user customer business accounts are V2.
 
@@ -94,6 +98,7 @@ Fulfillment is broader than Picking: Allocate, Pick, Pack, Stage, Handover and R
 ## Basic Finance, documents, notifications and dashboard
 
 - V1 Finance is basic: Tenant-specific credit limit/exposure/available credit, hard credit block, payment terms, payment recording, Stripe-backed Nexa online payment direction and external/manual payment representation where needed. Payment reported is not payment confirmed. Payment is not Stripe; V1 is not an arbitrary bring-your-own-online-gateway platform. Commercial credit, bank transfer, cash/COD and other direct Tenant-supported arrangements remain valid business methods.
+- Buyer Portal exposes live Tenant-specific Credit Limit, Current Exposure/Used Credit and Available Credit for the current supplier relationship. Buyer has no global Nexa-wide credit balance. Insufficient Available Credit remains a hard block.
 - Full accounting, reconciliation, bank reconciliation, advanced receivables, statements and allocation/accounting depth are V2 unless later required.
 - V1 includes basic business documents. Historical document meaning must not depend on mutable master data; document snapshots/history preserve truth at issuance time. PDF may be regenerated from historical snapshot. SUNAT remains future.
 - Business policy determines notification WHAT, WHO and WHEN; infrastructure determines HOW. Business traceability and security/audit evidence remain distinct.
@@ -102,6 +107,10 @@ Fulfillment is broader than Picking: Allocate, Pick, Pack, Stage, Handover and R
 ## Market and configuration
 
 Peru may be the first operational market without making Peru the only possible country. Country, jurisdiction, timezone, locale, currency, address semantics and branding/configuration remain distinguishable where future architecture needs them. No unnecessary global complexity is created now.
+
+V1 Tenant customization is limited to Nexa-supported configuration/policies and light branding. Nexa is not an arbitrary workflow-builder platform. Exceptional enterprise customization may be evaluated in future versions without changing the generic V1 product model.
+
+A capability presented as V1 must close coherently end-to-end. If it cannot be delivered solidly, reduce its V1 scope or defer it to V2/Future; do not preserve decorative or nominal functionality merely to claim broader scope.
 
 ## V2 and future
 

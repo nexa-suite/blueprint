@@ -15,6 +15,7 @@ This is a curated invariant register, not Strategic DDD. Terminology, sequence, 
 - `Tenant != Workspace`; V1 is Tenant 1:1 Workspace and Tenant is maximum business/data isolation boundary.
 - One human has one Nexa identity. Workforce membership, Buyer relationship, Customer Account and Portal Access remain distinct.
 - Buyer may have separate supplier relationships and commercial state per Tenant. Nexa is not a public marketplace.
+- Buyer/Tenant relationship requires Tenant approval, whether initiated by Tenant invitation or Buyer request. Existing Customer Account may link/claim to a later Nexa identity instead of being duplicated.
 - Fresh, Generic and ICISA reference Tenants must be possible with the same product; ICISA data is never an implicit Tenant seed.
 - Company Owner and Business Operations Manager hold business authority; Tenant Administrator governs access. They are not one hierarchy.
 
@@ -51,6 +52,7 @@ This is a curated invariant register, not Strategic DDD. Terminology, sequence, 
 
 - Manual temperature recording is V1. Excursion requires evaluation and may lead to release, hold, quarantine or disposition; IoT telemetry is future.
 - Credit is Tenant-specific. `Credit Limit`, `Current Exposure` and `Available Credit` are distinct; insufficient Available Credit hard-blocks order progression.
+- Buyer Portal exposes those three live credit values for current supplier Tenant; no global Nexa-wide Buyer credit balance exists.
 - Payment is the business concept; Stripe is Nexa's V1 integrated online-payment provider, not the definition of Payment. V1 is not an arbitrary bring-your-own-online-gateway platform; commercial credit, bank transfer, cash/COD and direct Tenant-supported arrangements remain valid business methods.
 - Payment reported is not Payment confirmed.
 - Business Document is not SUNAT integration. Business Traceability is not Security Log.

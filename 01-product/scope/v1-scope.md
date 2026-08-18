@@ -58,7 +58,7 @@ Expiration, FEFO, storage constraints, holds/quarantine, traceability, manual te
 
 ### Basic credit and payments
 
-Tenant-specific Credit Limit, Current Exposure and Available Credit with hard block when unavailable, payment terms, payment recording, Stripe-backed Nexa online-payment direction and external/manual payment representation. Full accounting, reconciliation and advanced receivables are future.
+Tenant-specific Credit Limit, Current Exposure/Used Credit and Available Credit exposed live in Buyer Portal for current supplier relationship, with hard block when unavailable, payment terms, payment recording, Stripe-backed Nexa online-payment direction and external/manual payment representation. No global Buyer credit balance. Full accounting, reconciliation and advanced receivables are future.
 
 ### Basic documents
 
@@ -71,6 +71,10 @@ Policy-driven notification intent, infrastructure delivery, business traceabilit
 ### Operational dashboard
 
 Operational dashboard capability for current work. No full BI or data warehouse claim.
+
+### Product guardrails
+
+Tenant customization is limited to Nexa-supported configuration/policies and light branding; arbitrary workflow building is not V1. V1 capabilities must close coherently end-to-end or have scope reduced/deferred to V2/Future.
 
 ## V1 product/runtime surfaces
 
