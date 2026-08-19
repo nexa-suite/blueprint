@@ -6,6 +6,7 @@ This branch contains the normative v1 design-system baseline. It defines intent,
 
 - [v1 release baseline](06-release-baselines/v1.md) — release-scoped baseline and classification rules.
 - [Design system charter](00-governance/design-system-charter.md) — authority, scope and laws.
+- [Source of truth](00-governance/source-of-truth.md) — authority order and adoption boundary.
 - [Foundations](01-foundations/README.md) — semantic visual language.
 - [Components](02-components/README.md) — reusable contracts and maturity.
 - [Patterns](03-patterns/README.md) — product-safe composition guidance.
