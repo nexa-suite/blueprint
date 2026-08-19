@@ -57,4 +57,3 @@ Frozen Product baseline
 - Credit, Financial Posting, Receivable, Payment and Document ownership;
 - analytics and notification projection ownership;
 - global Buyer identity privacy and multi-Tenant relationship behavior.
-

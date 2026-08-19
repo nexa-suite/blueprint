@@ -32,4 +32,3 @@ Disposition is evidence-based. `REWRITE` is not proposed for any audited area. A
 ## REWORK rules
 
 Any future REWORK must name the current consumers, semantic target, migration path, observability, rollback, compatibility strategy and tests. No current area meets evidence for REWRITE.
-

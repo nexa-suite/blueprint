@@ -29,4 +29,3 @@ These are candidate model boundaries discovered from language, authority, lifecy
 - Cross-context references use stable identifiers or explicit snapshots; no foreign aggregate object leakage.
 - A current Spring module may host several proposed contexts or split one proposed context; technical realization follows review.
 - The catalog intentionally keeps Payments and Business Documents separate from Credit / Receivables even though current implementation and transactions touch them.
-

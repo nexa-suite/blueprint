@@ -179,4 +179,3 @@ Each canvas is a boundary hypothesis. Aggregate candidates are deliberately smal
 | Dependencies | all source contexts; security audit boundary |
 | Integrations | email, SSE/change-feed delivery, observability |
 | Hotspots | KPI authority, retention, projection lag, channel policy |
-

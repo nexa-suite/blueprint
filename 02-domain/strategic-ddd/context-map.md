@@ -37,4 +37,3 @@ Relationships below describe authority direction, not deployment or Spring modul
 - A Published Language is proposed only for stable business facts/contracts; it requires versioning, ownership and compatibility tests.
 - An Anti-Corruption Layer protects Payment, Maps, Email, Object Storage and malware-scanning provider vocabulary.
 - Current Spring Modulith open modules are implementation evidence. They do not become Context Map relationships by annotation.
-

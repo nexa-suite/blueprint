@@ -29,4 +29,3 @@ This is the evidence register for Strategic DDD. Classification controls authori
 ## Reconciliation rule
 
 The final execution handoff is newer authority than older local wording. In particular, this rebaseline does **not** treat a numeric Purchase Request expiry as a frozen Product invariant. Any exact default or maximum must be accepted through later domain discovery and policy review.
-

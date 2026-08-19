@@ -36,4 +36,3 @@ One proposed authoritative owner is listed for each concept. `Review` means the 
 | Business Notification | Notification & Business Traceability | surfaces, Email | source facts remain source-owned |
 | Security audit fact | Security boundary / Tenant & Access | security review, Platform audit | distinct from business timeline |
 | Operational KPI/projection | Review; likely supporting analytics capability | Platform dashboards | no canonical KPI owner yet |
-

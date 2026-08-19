@@ -51,4 +51,3 @@ The map describes business abilities, not applications, APIs, repositories, Spri
 ## Discovery limits
 
 Capability names do not imply subdomains or Bounded Contexts. Process discovery must test boundaries, actors, information authority, invariants and change coupling.
-

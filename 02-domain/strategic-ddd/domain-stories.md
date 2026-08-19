@@ -122,4 +122,3 @@ Buyer
 ```
 
 Internal lot changes, security audit details and worker notes are not Buyer timeline content.
-

@@ -24,4 +24,3 @@ last-reviewed: 2026-08-19
 ## Decision quality gate
 
 No entry above is a Product change or canonical Business Architect acceptance. A review may merge, split, rename or reject candidates using evidence from workshops and process exceptions.
-

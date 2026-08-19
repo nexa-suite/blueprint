@@ -30,4 +30,3 @@ The current proposal treats Sales Commitment, Inventory Availability / Cold-Chai
 ## Explicitly excluded from V1 subdomains
 
 Mobile, Driver application, IoT telemetry, full Procurement, advanced Finance/accounting, SUNAT, advanced BI, plans/subscriptions/entitlements, Control Center, Support impersonation and arbitrary payment providers remain future or deferred.
-

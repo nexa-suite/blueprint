@@ -49,4 +49,3 @@ The repository now contains a systematic synthesis from Capability Mapping throu
 ## Technical dependency
 
 Technical TARGET documents in `04-architecture`, `05-data` and `06-security` may use these candidates as explicit assumptions, but must remain marked PROPOSED until review. Independent AS-IS hardening, contract validation and documentation work does not wait for acceptance.
-

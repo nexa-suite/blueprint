@@ -64,4 +64,3 @@ This is a contextual vocabulary proposal. Terms are protected from accidental sy
 ## Contextual language rule
 
 A term may have a local meaning inside a proposed context only when its owner, invariants and translation are explicit. Shared database column names do not establish shared language.
-

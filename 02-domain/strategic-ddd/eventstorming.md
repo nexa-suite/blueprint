@@ -117,4 +117,3 @@ This textual synthesis is self-contained enough to review without the Miro board
 ## EventStorming closure
 
 The package identifies business events and hotspots required for boundary review. It intentionally leaves exact event names, aggregate shapes, process variants, expiry values, financial posting triggers and ownership splits as review work.
-
