@@ -1,0 +1,32 @@
+---
+status: draft
+maturity: DRAFT
+scope: v1
+owner: operations
+last-reviewed: 2026-08-19
+---
+
+# Runtime and reliability TARGET
+
+## Reliability posture
+
+Local Compose is a development/test topology, not production architecture. Production provider, edge, secret management, backup/restore, disaster recovery, SLOs, alert ownership and rollout strategy remain explicit decisions.
+
+| Concern | Target contract |
+|---|---|
+| Health | separate liveness/readiness; dependency health visible without leaking secrets |
+| Correlation | request, command, event, provider and job correlation IDs |
+| Metrics | latency/error/saturation plus queue/outbox/inbox, lease, retry, reconciliation and business-critical conflict metrics |
+| Logs | structured, scoped, redacted, actor/correlation aware; no tokens/payment secrets |
+| Tracing | API to DB/provider/worker spans with tenant-safe attributes |
+| Retry | bounded, classified, jittered; no retry of non-idempotent external side effect without key/state |
+| Outage | explicit degraded state, operator signal and reconciliation path |
+| Rollout | forward-compatible migration, health gate, rollback/forward-fix plan and evidence |
+
+## Operational invariants
+
+Outbox/inbox records, provider callbacks, document scans, payment reconciliation, delivery continuation and failed order/payment handoffs must be observable as state, not only logs. Leases expire safely; fencing prevents an old worker from committing after ownership changes. Alerts must distinguish infrastructure failure, business conflict, authorization denial and data reconciliation.
+
+## Readiness blockers
+
+No production readiness claim until provider decisions, secret paths, backup/restore test, DR target, edge/TLS, SLO/error budget, on-call ownership, migration rollback and authenticated end-to-end evidence are accepted. Do not invent numeric SLOs or retention values in this baseline.

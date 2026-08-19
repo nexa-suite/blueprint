@@ -11,6 +11,7 @@ Index the canonical local runtime, Docker/Compose, observability and CI evidence
 - The distinction between C4 containers, local Docker services and future deployment is maintained in the [C4 model rationale](../04-architecture/c4/README.md) and the runtime mapping in the Compose evidence.
 - Production and operational gaps in [AS-IS evidence](../11-reference/as-is/architecture-readiness-gaps.md).
 - Repository-specific CI and runbooks remain in independent application repositories.
+- [Runtime and reliability TARGET](runtime-reliability-target.md) records proposed operational contracts and open production gates.
 
 ## Current status
 
