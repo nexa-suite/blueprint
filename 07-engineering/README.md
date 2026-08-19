@@ -7,12 +7,13 @@ Record verified technology baselines, implementation conventions, testing eviden
 ## Authoritative content
 
 - [Technology baseline](technology-baseline.md).
+- [Quality attribute scenarios](quality-attribute-scenarios.md), [construction readiness](construction-readiness.md) and [vertical slice contract](vertical-slice-contract.md).
 - Verified engineering and test evidence in [AS-IS references](../11-reference/as-is/README.md).
 - Repository-owned implementation conventions remain in the independent application repositories.
 
 ## Current status
 
-Technology baseline and selected engineering evidence are BASELINED. Testing strategy is evidence-led and repository-specific. New standards are not invented to fill this area.
+Technology baseline and selected engineering evidence are BASELINED. Quality and construction guidance is PROPOSED / REVIEW-GATED. Testing strategy remains evidence-led and repository-specific.
 
 ## Expected artifacts
 

@@ -12,7 +12,7 @@ Organize Nexa design evidence and future system guidance without redesigning the
 
 ## Current status
 
-Current design evidence is BASELINED where recorded. A final token package, component library and visual-parity closure are not yet authorized.
+Current design evidence is BASELINED where recorded. Design convergence is an active review gate; a final token package, component library and visual-parity closure are not yet authorized.
 
 ## Expected artifacts
 

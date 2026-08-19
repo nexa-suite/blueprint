@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: design
-last-reviewed: 2026-08-15
+last-reviewed: 2026-08-19
 ---
 
 # Design baseline
@@ -29,6 +29,10 @@ Shared foundations may coexist with different density and surface expression. On
 - Responsive behavior must cover desktop operations, narrow screens and field urgency without inventing a mobile V1 product.
 - Accessibility is a quality goal: keyboard access, visible focus, labels, semantic structure, contrast and non-color-only status communication.
 - Do not claim visual parity without matched authenticated captures, current contracts and an evidence matrix.
+
+## Current status
+
+The Product/UX principles remain accepted. The design baseline is active, not closed: the [Design Convergence Interface](../04-architecture/design-convergence-interface.md) defines the evidence that must be reviewed before TARGET frontend architecture is treated as implementation-ready.
 
 ## Future Design decisions
 

@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-14
+last-reviewed: 2026-08-19
 ---
 
 # Canonical C4 model
@@ -17,7 +17,8 @@ Este documento fija la semántica C4 L1/L2 de Nexa antes de Strategic DDD. Model
 ## Fuente canónica
 
 - [Structurizr DSL](structurizr/workspace.dsl) es la fuente semántica.
-- [README de Structurizr](structurizr/README.md) documenta las cuatro vistas y su validación.
+- [README de Structurizr](structurizr/README.md) documenta las vistas y su validación.
+- [Selective Level 4 code views](code-views.md) trace security, commitment, availability, payment and frontend seams.
 - `workspace.json` es representación generada; no debe editarse manualmente.
 
 Vistas canónicas:
@@ -27,7 +28,18 @@ Vistas canónicas:
 - `Nexa-SystemContext-Runway`
 - `Nexa-Containers-Runway`
 
-No existe ninguna vista L3, de componentes o de deployment.
+Las vistas L3 son selectivas y review-gated:
+
+- `Nexa-API-Overall-ASIS`
+- `Nexa-API-IdentityTenantCustomer-TARGET`
+- `Nexa-API-CommercialInventory-TARGET`
+- `Nexa-API-FulfillmentDelivery-TARGET`
+- `Nexa-API-CreditPaymentDocuments-TARGET`
+- `Nexa-API-IntegrationReliability-ASIS`
+- `Nexa-Platform-Frontend-TARGET`
+- `Nexa-Portal-Frontend-TARGET`
+
+No se crea una vista de componentes del Website: su implementación estática y frontera pública son simples y no agregan una decisión arquitectónica útil en este corte. No hay vista de deployment.
 
 ## V1 System Context
 
@@ -59,7 +71,7 @@ La lista canónica V1 es exactamente:
 |---|---|---|
 | Public Website | HTML/CSS/JavaScript estático servido por Nginx | Descubrimiento público, comunicación del producto, intake de Contact/Request Demo y entrada a experiencias autenticadas. |
 | Internal Web Platform | Angular 22 SPA servido por Nginx | Experiencia autenticada de la workforce interna del Tenant para administración, clientes, catálogo, operaciones comerciales y operaciones físicas. |
-| Buyer Portal | Angular 22 SPA servido por Nginx | Experiencia autenticada B2B Buyer para catálogo, solicitudes/órdenes, visibilidad y autoservicio. |
+| Buyer Portal | Angular 22 SPA servido por Nginx | Experiencia autenticada B2B Buyer por contexto de proveedor autorizado: catálogo, condiciones aplicables, disponibilidad vendible, crédito específico del Tenant, solicitudes/órdenes, entregas, documentos y pagos. |
 | Nexa Application API | Java 25, Spring Boot 4.1, Spring Modulith modular monolith | Autoridad de comportamiento de aplicación y dominio, seguridad, autorización, tenant enforcement, workflows, integraciones y orquestación de persistencia. |
 | PostgreSQL Database | PostgreSQL | Persistencia relacional autoritativa de datos transaccionales y de configuración actuales. En V1 es compartida y la separación es lógica, con mecanismos tenant/workspace y RLS observados. |
 | Object Storage | Frontera S3-compatible; MinIO local | Bytes de documentos/media tenant-owned; la API conserva la autorización y metadatos asociados. |
@@ -76,7 +88,7 @@ La lista canónica V1 es exactamente:
 
 Payment, email y maps/geolocation aparecen como sistemas externos abstractos, no como marcas o proveedores productivos concretos. El API es el dueño actual de las fronteras de integración observadas:
 
-- Payment: Payment es concepto de negocio; Stripe o WireMock son proveedor/adapters, no el núcleo.
+- Payment: Payment es concepto de negocio; Stripe es la dirección de pago online V1 de Nexa; WireMock es test double. El contrato productivo y decisiones técnicas siguen abiertos.
 - Email: SMTP y entrega son infraestructura; Mailpit es un sink local.
 - Maps/geolocation: el API contiene `GoogleMapsRoutingAdapter` y `LocalDeterministicMapAdapter`. El navegador puede obtener geolocalización del dispositivo, pero no se observó una integración client-side directa con Google/Apple/LinkedIn Maps.
 
@@ -100,7 +112,7 @@ Estos elementos no están presentes en las vistas V1 ni deben describirse como i
 - Los módulos Java (`catalogmanagement`, `sales`, `warehouse`, `logistics`, etc.) son evidencia de organización de implementación. No son Bounded Contexts ni containers C4.
 - ClamAV, Mailpit, Stripe mock, OTEL Collector y Jaeger son infraestructura/adapters locales; se documentan en la [evidencia de runtime](../../08-operations/containers/compose-runtime-architecture-evidence.md), no en el L1 ni en la lista primaria L2.
 - Docker Compose es runtime local AS-IS, no Cloud Deployment Architecture.
-- C4 L3 se difiere hasta `Capability Mapping -> EventStorming -> Domain Storytelling -> Strategic DDD`.
+- C4 L3/L4 aquí son propuestas técnicas derivadas de `Capability Mapping -> EventStorming -> Domain Storytelling -> Strategic DDD`; no convierten nombres de paquetes en Bounded Contexts ni autorizan refactor.
 
 ## Preguntas críticas resueltas por esta baseline
 
