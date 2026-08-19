@@ -19,10 +19,10 @@ Capabilities are examples for review; role labels do not replace relationship an
 | Purchase Request review | manage/read | manage/read | manage | create/review | read operational | read handoff | create/read own | no |
 | Sales Order accept/cancel | manage | manage | manage | manage within grant | read | read | request/cancel allowed state | no |
 | Inventory adjustment | audited manage | audited manage | manage | no | manage within grant | read | no | bounded job |
-| Reservation/allocation | manage/read | manage/read | manage | request/read | manage | read | read allowed | bounded job |
+| Commercial Commitment / Physical Allocation | manage/read | manage/read | manage | request/read | manage | read | read allowed | bounded job |
 | Fulfillment/pick/pack | read | read | manage | read | manage | read | read own status | bounded job |
 | Dispatch/POD/incident | read | read | manage | read | read handoff | manage | read own delivery | bounded job |
-| Credit terms/exposure | manage | manage | read | read allowed | no | no | read own exposure | bounded |
+| Credit terms and status | manage | manage | read | read allowed | no | no | read own credit status | bounded |
 | Payment/refund/reconciliation | manage | manage | manage within grant | initiate/read | no | no | initiate/read own | provider worker |
 | Business document issue/download | manage | manage | manage | read/issue grant | read needed | read/attach grant | read own | bounded |
 | Audit/export | manage, audited | manage, audited | read/export grant | read own work | read own work | read own work | read own | no raw export |

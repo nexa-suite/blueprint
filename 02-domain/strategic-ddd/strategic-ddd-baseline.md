@@ -40,10 +40,10 @@ The repository now contains a systematic synthesis from Capability Mapping throu
 
 1. Accept, merge or reject candidate ownership of Customer / Buyer Relationships.
 2. Decide whether Catalog and Commercial Policy remain together for V1.
-3. Validate Commercial Commitment versus physical Allocation language.
-4. Validate Fulfillment, Dispatch, Delivery and cold-chain disposition ownership.
-5. Confirm Financial Posting, Receivable, Payment and Document boundaries.
-6. Define exact Purchase Request expiry and material-change consent policy if needed.
+3. Decide Commercial Commitment ownership and integration direction with Inventory Availability; the SKU + quantity versus Inventory Lot distinction is closed.
+4. Validate Fulfillment, Dispatch, Delivery and cold-chain disposition ownership, preserving failed-attempt versus Continuation Delivery semantics.
+5. Confirm Financial Posting, Receivable, Payment and Document boundaries, including notification/projection ownership.
+6. Define only the numeric Purchase Request expiry policy; accepted consent, substitution and material-change semantics are not reopened.
 7. Assign analytics/KPI authority and projection freshness expectations.
 
 ## Technical dependency

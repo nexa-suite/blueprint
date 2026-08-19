@@ -93,7 +93,7 @@ Each canvas is a boundary hypothesis. Aggregate candidates are deliberately smal
 | Read models | availability by SKU/Warehouse, lot queue, shortage incident |
 | Dependencies | Catalog SKU identity; Sales Commitment demand; Fulfillment allocation |
 | Integrations | Object Storage/ClamAV for evidence; no IoT V1 |
-| Hotspots | Commitment versus reservation, negative adjustment, disposition authority |
+| Hotspots | commitment/physical-allocation handoff, negative adjustment, disposition authority |
 
 ## Fulfillment & Delivery
 
@@ -117,14 +117,14 @@ Each canvas is a boundary hypothesis. Aggregate candidates are deliberately smal
 | Field | Proposal |
 |---|---|
 | Responsibility | Tenant-specific credit risk and formal commercial debt recognition |
-| Owned capabilities | credit limit, reserved exposure, financial posting, receivable lifecycle |
+| Owned capabilities | credit limit, Credit Reserved, financial posting, Outstanding Receivables lifecycle |
 | Subdomain | Supporting |
 | Language | Credit Limit, Credit Reserved, Outstanding Receivable, Available Credit, Financial Posting, Receivable |
-| Authority / information | available credit and formal debt exposure |
+| Authority / information | Available Credit and formal Outstanding Receivables |
 | Aggregate candidates | Credit Account, Receivable, Financial Posting |
 | Invariants | Available = limit - reserved - outstanding; no double count on transform; hard block; partial payments; one Payment one Receivable V1 |
 | Commands / events | reserve, release, post, apply payment; CreditReserved, ReceivableCreated |
-| Read models | live credit summary, receivable list, exposure ledger |
+| Read models | live credit summary, receivable list, credit ledger |
 | Dependencies | Customer Account, Sales Commitment, Payments, Documents |
 | Integrations | payment provider is not authority for receivable creation; document evidence |
 | Hotspots | financial posting trigger, due-date basis, cancellation and partial fulfilment |

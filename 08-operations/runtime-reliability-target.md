@@ -12,6 +12,10 @@ last-reviewed: 2026-08-19
 
 Local Compose is a development/test topology, not production architecture. Production provider, edge, secret management, backup/restore, disaster recovery, SLOs, alert ownership and rollout strategy remain explicit decisions.
 
+## Current evidence boundary
+
+Reconnaissance reports successful API compile/architecture tests/API tests, Platform and Portal unit tests, both frontend builds and frontend asset validation. It reports 373 API tests run with 0 failures, 0 errors and 96 skipped integration tests; 53 Platform unit files/102 tests; and 40 Portal unit files/79 tests. Playwright tests were discovered/listed but not executed in a browser. Full integration, authenticated browser E2E and live API runtime are not proven. The local runtime attempt was blocked by missing `NEXA_MINIO_MINIO_ROOT_USER`; this is `RUNTIME ACCEPTANCE EVIDENCE PENDING`, not an architecture failure.
+
 | Concern | Target contract |
 |---|---|
 | Health | separate liveness/readiness; dependency health visible without leaking secrets |

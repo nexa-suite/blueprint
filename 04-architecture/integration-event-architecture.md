@@ -56,10 +56,10 @@ Spring Modulith supports transactional event publication and module interaction 
 |---|---|---|
 | Access | `MembershipActivated`, `MembershipSuspended`, `CapabilityChanged` | Platform/Portal authorization projection, audit |
 | Relationship | `BuyerRelationshipApproved`, `BuyerRelationshipSuspended` | Catalog visibility, Portal projection |
-| Commercial | `PurchaseRequestSubmitted`, `SalesOrderConfirmed`, `SalesOrderCancelled` | Availability, Credit, notifications |
-| Availability | `StockCommitted`, `AllocationChanged`, `InventoryAdjusted` | Sales, fulfillment, operational views |
+| Commercial | `PurchaseRequestSubmitted`, `CommercialCommitmentEstablished`, `SalesOrderConfirmed`, `SalesOrderCancelled` | Availability, Credit, notifications |
+| Availability | `AvailabilityChanged`, `AllocationChanged`, `InventoryAdjusted` | Sales, fulfillment, operational views |
 | Fulfillment | `FulfillmentShort`, `DispatchCreated`, `DeliveryCompleted`, `ContinuationRequired` | Portal tracking, documents, notifications |
 | Finance | `CreditReserved`, `ReceivableRecorded`, `PaymentConfirmed`, `PaymentFailed` | Sales, reconciliation, Portal read models |
 | Evidence | `DocumentIssued`, `NotificationDelivered`, `AuditRecorded` | traceability and support |
 
-The list is a starting contract register, not permission to emit events from every method. Each event must have an owner, consumer, retention, privacy classification and test.
+The list is a starting contract register, not permission to emit events from every method. Current implementation event names such as `StockCommitted` remain AS-IS translation evidence where found; the target Product language is Commercial Commitment versus Physical Allocation. Each event must have an owner, consumer, retention, privacy classification and test.

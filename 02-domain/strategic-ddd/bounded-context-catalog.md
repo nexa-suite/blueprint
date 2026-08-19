@@ -18,7 +18,7 @@ These are candidate model boundaries discovered from language, authority, lifecy
 | Sales Commitment | Cart intent, Purchase Request, negotiation/revision evidence, Commercial Commitment and immutable Sales Order | Core candidate | Commercial obligation and order history |
 | Inventory Availability | Receiving, Batch/Lot, physical stock, sellability, safety stock, transfer, adjustment and temperature qualification | Core candidate | Physical stock truth and sellability state |
 | Fulfillment & Delivery | Fulfillment, lot allocation, picking, packing, Dispatch, Delivery, Route, POD and cold-chain execution evidence | Core candidate | Physical fulfillment and delivery outcome |
-| Credit & Receivables | Credit limit/reserved exposure, Financial Posting, Receivable, due state and partial payment exposure | Supporting | Tenant-specific credit exposure and formal debt |
+| Credit & Receivables | Credit Limit, Credit Reserved, Financial Posting, Outstanding Receivables, due state and partial payment | Supporting | Tenant-specific Available Credit and formal debt |
 | Payments | Online/external payment report, provider interaction, confirmation, reversal, refund and reconciliation state | Supporting | Payment state and provider translation |
 | Business Documents | Document family, numbering, rendering, evidence metadata, revision/correction and authorized delivery | Supporting | Issued business evidence and document history |
 | Notification & Business Traceability | Significant business notifications, Buyer timeline, operational projections and delivery status to surfaces | Supporting | Projection and channel policy; source contexts retain facts |

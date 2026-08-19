@@ -50,10 +50,13 @@ Frozen Product baseline
 
 ## Open review hotspots
 
-- exact ownership split between Tenant & Access and Customer / Buyer Relationships;
-- whether Catalog and Commercial Policy should remain one context for V1 or separate after process discovery;
-- commitment authority versus physical allocation authority;
-- Fulfillment, Dispatch, Delivery and cold-chain disposition handoffs;
-- Credit, Financial Posting, Receivable, Payment and Document ownership;
-- analytics and notification projection ownership;
-- global Buyer identity privacy and multi-Tenant relationship behavior.
+- whether Tenant Governance and Identity/Access are one context or distinct contexts;
+- authoritative Workforce Membership lifecycle ownership;
+- Buyer Relationship authority relative to Customer Account and global Identity;
+- whether Catalog and Commercial Policy remain one model boundary;
+- Commercial Commitment ownership and its integration direction with Inventory Availability; the commitment/allocation distinction itself is closed;
+- where Fulfillment ends and Delivery authority begins, including cold-chain disposition ownership;
+- Financial Posting authority and the boundary between Credit/Receivables, Payment and Business Documents;
+- notification policy ownership versus business projections/traceability;
+- global Buyer identity privacy and multi-Tenant relationship behavior;
+- numeric Purchase Request expiry policy only. Consent semantics, PR-submit commitment, substitution acceptance and continuation delivery are closed Product decisions.

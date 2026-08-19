@@ -26,10 +26,10 @@ This is a contextual vocabulary proposal. Terms are protected from accidental sy
 | Cart | Persisted buyer selection before checkout | Inventory commitment or reservation |
 | Purchase Request | Buyer-originated commercial request subject to review | Sales Order, Purchase Order |
 | Sales Order | Confirmed immutable commercial obligation | Purchase Request, backorder |
-| Commercial Commitment | Demand quantity committed before physical lot selection | Inventory Lot, physical reservation |
+| Commercial Commitment | SKU + quantity committed when a submitted PR is accepted for commercial processing, before physical lot selection | Inventory Lot, physical allocation |
 | Physical Stock | Actual quantity in Warehouse, including non-sellable states | Sellable Availability |
 | Sellable Availability | Quantity eligible for a new commercial commitment | Physical Stock, Safety Stock |
-| Safety Stock | Quantity protected by warehouse policy | Commitment, reservation |
+| Safety Stock | Quantity protected by warehouse policy | Commercial Commitment, Physical Allocation |
 | Inventory Lot | Physical traceable stock unit in one Warehouse | Manufacturer Batch, SKU |
 | Manufacturer Batch | Source traceability grouping that may produce multiple lots | Inventory Lot |
 | Allocation | Selection of valid physical lots for Fulfillment | Commercial Commitment |
@@ -37,9 +37,13 @@ This is a contextual vocabulary proposal. Terms are protected from accidental sy
 | Dispatch | Coordination grouping for deliveries | Delivery, Route |
 | Delivery | Scheduled/attempted obligation to deliver goods | Dispatch, Route |
 | Continuation Delivery | Remaining portion after partial delivery | New backorder |
-| Temperature Excursion | Out-of-range observation requiring evaluation | Automatic Waste |
-| Hold | Non-sellable pending evaluation state | Quarantine, confirmed Waste |
-| Credit Reserved | Exposure reserved for relevant commitments before receivable | Outstanding Receivable |
+| Temperature Excursion | Out-of-range observation requiring evaluation | Automatic Waste or automatic Quarantine |
+| Hold | Non-sellable pending-evaluation state created by an excursion or other operational decision | Quarantine, confirmed Waste |
+| Quarantine | Separate restricted disposition only when explicitly selected after evaluation | Automatic consequence of every excursion |
+| Credit Limit | Tenant-specific maximum credit policy for the current supplier relationship | Global Buyer balance |
+| Credit Reserved | Amount reserved for relevant Commercial Commitments before formal Receivable recognition | Outstanding Receivable |
+| Outstanding Receivables | Formal recognized commercial debt not yet settled | Credit Reserved |
+| Available Credit | Credit Limit minus Credit Reserved minus Outstanding Receivables | legacy `exposure` / `used` implementation labels as final Product language |
 | Receivable | Formal commercial debt/claim created by Financial Posting | Sales Order by default |
 | Financial Posting | Business recognition event that makes obligation financially due/recognized | Payment, invoice rendering only |
 | Payment | Business money movement/report/confirmation concept | Stripe provider |

@@ -59,11 +59,11 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 ## Domain rules accepted for V1
 
 - One physical Inventory Lot belongs to exactly one Warehouse at a time; split source batches retain traceability when needed.
-- Sales may modify Purchase Requests before Sales Order creation. No universal system-enforced Buyer reconfirmation ceremony is required; where Buyer agreement is commercially needed, Buyer and Sales communicate through Nexa, WhatsApp, phone or another human channel, then Sales records the mutual agreement in Nexa.
-- Purchase Request expiry, material-change evidence and commitment release sequence require explicit process discovery. This closure does not freeze a numeric default or maximum.
+- Cart and PR Draft create no commitment. PR Submitted establishes a Commercial Inventory Commitment for each SKU + quantity; Withdrawn, Rejected or Expired releases it; conversion to Sales Order continues it. Sales may modify submitted content before Sales Order creation, but Buyer does not freely mutate it. No universal system-enforced re-accept click follows every Sales modification; consent-required changes preserve evidence, material agreed modification resets validity, Sales rejection requires a reason and Buyer withdrawal may omit one.
+- Purchase Request commitment release transitions are closed; only the numeric expiry policy remains open for Business Architect review. No numeric default or maximum is frozen here.
 - Cart never reserves inventory. No automatic backorder. Confirmed Sales Orders are immutable history; cancellation is exceptional Company Owner or Business Operations Manager authority.
-- Credit is Tenant-specific and insufficient Available Credit hard-blocks order progression.
-- Buyer Portal exposes live Credit Limit, Current Exposure/Used Credit and Available Credit for current supplier Tenant; no global Nexa-wide Buyer credit balance exists.
+- Credit is Tenant-specific and insufficient Available Credit hard-blocks order progression. `Available Credit = Credit Limit - Credit Reserved - Outstanding Receivables`; transition from Credit Reserved to Outstanding Receivables must not double-count.
+- Buyer Portal exposes live Credit Limit, Credit Reserved, Outstanding Receivables and Available Credit for current supplier Tenant; `Available Credit = Credit Limit - Credit Reserved - Outstanding Receivables`; no global Nexa-wide Buyer credit balance exists. Existing `exposure`/`used` implementation fields are AS-IS terms only.
 - Product substitution is never silent; partial receiving, basic traceable Warehouse transfer, manual inventory adjustment, manual temperature recording and partial/rejected Delivery are V1 product rules.
 - Sales cannot arbitrarily alter authoritative pricing.
 - Confirmed Sales Orders cannot be silently edited; exceptional changes must eventually be explicit and auditable.

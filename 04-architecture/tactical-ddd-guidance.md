@@ -20,11 +20,11 @@ This guide turns the proposed Strategic DDD language into implementation questio
 | Price List / Terms | effective pricing, eligibility, payment terms and snapshot source | policy version and its lines | resolve/activate; effective-date uniqueness | `CommercialPolicyChanged`; policy repository |
 | Purchase Request | draft/revision/submit/accept/reject/cancel and immutable submitted lines | request, revision and line snapshots | submit/revise/decide; `If-Match` + idempotency | `PurchaseRequestSubmitted`; request repository |
 | Sales Order | accepted commercial commitment, immutable price/terms and lifecycle | order, lines and commercial snapshots | confirm/cancel; version + idempotency | `SalesOrderConfirmed`; order repository |
-| Stock Commitment | committed quantity and expiry/release policy | commitment and owned lines | commit/release/expire; row/version lock + idempotency | `StockCommitted`, `CommitmentReleased` |
-| Inventory Lot / Availability | on-hand, usable quantity, lot/expiry and FEFO policy | lot balance and adjustment | reserve/allocate/adjust/transfer; row lock + version | `InventoryAdjusted`, `AllocationChanged` |
+| Commercial Commitment | committed SKU + quantity and expiry/release policy | commitment and owned lines | establish/release/expire; row/version lock + idempotency | `CommercialCommitmentEstablished`, `CommercialCommitmentReleased` |
+| Inventory Lot / Availability | physical truth, usable quantity, lot/expiry and FEFO policy | lot balance and adjustment | qualify/adjust/transfer/release; row lock + version | `InventoryAdjusted`, `AvailabilityChanged` |
 | Fulfillment | planned quantities and execution state | fulfillment plan and line execution | create/short/complete; version | `FulfillmentProgressed`; fulfillment repository |
 | Dispatch / Delivery | dispatch handoff, route stop, POD, incident and continuation | delivery attempt and evidence metadata | dispatch/accept/deliver/continue; version + idempotency | `DeliveryCompleted`, `ContinuationRequired` |
-| Credit / Receivable | exposure, reserved amount, receivable and posting intent | credit ledger entry / receivable state | reserve/release/record/settle; serializable or guarded ledger update | `CreditReserved`, `ReceivableRecorded` |
+| Credit / Receivable | Credit Limit, Credit Reserved, Outstanding Receivables and posting intent | credit ledger entry / receivable state | reserve/release/record/settle; serializable or guarded ledger update | `CreditReserved`, `ReceivableRecorded` |
 | Payment | payment intent, reported/confirmed state, refund and provider event identity | payment state plus provider event inbox | create/confirm/refund/reconcile; idempotency + inbox lease | `PaymentConfirmed`, `PaymentReconciled` |
 | Business Document | immutable metadata/version, number and evidence link | metadata/version/number allocation | issue/replace/download; unique number + authorization | `DocumentIssued`; document repository |
 

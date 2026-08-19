@@ -59,19 +59,20 @@ V1 includes Customer Accounts, contacts, Sales assignment, commercial history, n
 - Every sellable presentation owns its SKU. Product/SKU media may be independent where useful.
 - Brand and Category are Tenant-scoped.
 - SKU lifecycle, inventory availability and Buyer visibility are separate concerns. `ACTIVE + VISIBLE + OUT OF STOCK` is valid.
-- Conceptual sellable availability considers physical stock minus unavailable/hold quantities, safety stock and committed/reserved quantities. Safety stock is not a reservation. Buyer-facing availability must not expose unsafe raw stock.
+- Conceptual sellable availability considers physical stock minus unavailable/HOLD quantities, safety stock and Commercial Commitments. Safety stock is not a Commercial Commitment. Physical Allocation of Inventory Lot(s) occurs later in Fulfillment. Buyer-facing availability must not expose unsafe raw stock.
 - SKU identity is independent from price. Do not create SKU-per-customer-price.
 - V1 conceptual pricing precedence is Base Price, Price List, Customer Commercial Terms, then Promotion. Buyer does not manually select a Price List.
 - Sales cannot arbitrarily override authoritative prices. No quantity-tier pricing requirement is accepted for V1. Near-expiry inventory does not auto-discount by architecture fiat.
 
 ## Sales and order policy
 
-- Purchase Request is commercial intent; Sales may review or adjust it before Sales Order creation.
+- Purchase Request is commercial intent. A PR Draft creates no commitment; PR Submitted creates the Commercial Inventory Commitment for each SKU and quantity. Withdrawal, rejection or expiry releases that commitment. When the PR becomes a Sales Order, the commitment continues into the confirmed commercial obligation.
 - V1 Tenant policy supports `DIRECT_ORDER` and `APPROVAL_REQUIRED` conceptual modes. Approval flow is Buyer, Purchase Request, Sales review, Sales Order. Direct flow is Buyer, authoritative validation, confirmed Order/Sales Order.
 - Cart does not reserve inventory.
+- `DIRECT_ORDER` requires availability validation, successful Commercial Inventory Commitment and Sales Order confirmation as one accepted commercial outcome. If required availability cannot be committed, return a deterministic current/insufficient-availability result; do not create a partial order or backorder.
 - Backend revalidates authoritative sellable availability transactionally. V1 accepts no oversell/backorder behavior; competing buyers for the final unit require concurrency-correct conflict handling.
-- Sales may adjust a Purchase Request before Sales Order creation. Nexa does not require a universal system-enforced reconfirmation ceremony; where commercially required, Buyer and Sales communicate through Nexa, WhatsApp, phone or another human channel, then Sales records the mutual agreement as the accepted business result.
-- Purchase Request expiry and commitment-release timing are scenario-specific discovery inputs. No numeric default or maximum is frozen by this closure.
+- Sales may adjust a submitted Purchase Request before Sales Order creation, but the Buyer does not freely mutate submitted content. No universal system-enforced re-accept click is required after every Sales modification; changes requiring business consent preserve evidence. Material agreed modification resets the request validity window. Sales rejection requires a reason; Buyer withdrawal may omit a reason.
+- Purchase Request commitment release transitions are closed; only the numeric expiry policy remains open for Business Architect review. No numeric default or maximum is invented here.
 - Manual/assisted Sales order capture is valid without fabricating Buyer identity. Cart never reserves inventory, no automatic backorder is accepted, and competing final-unit claims resolve with one success and one availability conflict.
 - Substitution requires Buyer approval by default. Operational exceptions require escalation; Buyer-selected items are never silently replaced.
 - Confirmed Sales Orders are commercial commitments. Significant changes are not silent mutation; cancel/void/replace semantics are preferred where appropriate. Formal amendment machinery remains V2 unless discovery proves V1 need.
@@ -80,7 +81,7 @@ V1 includes Customer Accounts, contacts, Sales assignment, commercial history, n
 
 ## Inventory, warehouse and fulfillment
 
-V1 direction includes multiple Warehouses, operational Zones where useful, receiving (including partial receiving), basic traceable Warehouse transfers, manual inventory adjustments, Source Batch and physical Inventory Lot traceability, expiration, FEFO, Safety Stock, holds/quarantine where justified, commitments, sellable availability, picking, packing, staging and waste/merma.
+V1 direction includes multiple Warehouses, operational Zones where useful, receiving (including partial receiving), basic traceable Warehouse transfers, manual inventory adjustments, Source Batch and physical Inventory Lot traceability, expiration, FEFO, Safety Stock, distinct HOLD/QUARANTINE states where justified, Commercial Commitments, sellable availability, picking, packing, staging and waste/merma.
 
 Fulfillment is broader than Picking: Allocate, Pick, Pack, Stage, Handover and Ready for Dispatch. No ownership or Bounded Context is assigned here.
 
@@ -89,16 +90,16 @@ Fulfillment is broader than Picking: Allocate, Pick, Pack, Stage, Handover and R
 - Warehouse/Fulfillment eventually hands responsibility to Dispatch.
 - Delivery can exist independently of a Route; Route can group deliveries.
 - Minimum POD direction includes photo and signature, subject to later UX/domain refinement.
-- Partial delivery, total/partial rejection, basic operational return and post-delivery issue communication/traceability are V1; Nexa does not adjudicate the commercial dispute or become a full RMA system.
+- Partial delivery, total/partial rejection, basic operational return and post-delivery issue communication/traceability are V1; Nexa does not adjudicate the commercial dispute or become a full RMA system. A Failed Delivery Attempt remains the same Delivery and may be attempted again. A Partial Delivery closes the performed Delivery as partial and creates a new Continuation Delivery for the remaining existing Sales Order obligation.
 - `Dispatch Blocked`, `Delivery Attempt Failed` and `Delivery Completed` remain distinct concepts.
-- Cold-chain specialization cuts across relevant V1 work: expiration, FEFO, storage constraints, holds/quarantine, traceability, temperature incident awareness where justified and delivery evidence.
+- Cold-chain specialization cuts across relevant V1 work: expiration, FEFO, storage constraints, distinct HOLD/QUARANTINE states, traceability, temperature incident awareness where justified and delivery evidence.
 - IoT automatic telemetry and laboratory/QMS depth are future. No ColdChain Bounded Context is created.
-- Manual temperature recording is V1; an excursion requires evaluation and may result in release, hold, quarantine or disposition. IoT remains future.
+- Manual temperature recording is V1. An out-of-range receiving temperature creates `HOLD` plus a pending `Temperature Excursion` evaluation; it does not automatically create `QUARANTINE`. Possible disposition is Release, continued Hold, Waste or Return to Supplier. IoT remains future.
 
 ## Basic Finance, documents, notifications and dashboard
 
-- V1 Finance is basic: Tenant-specific credit limit/exposure/available credit, hard credit block, payment terms, payment recording, Stripe-backed Nexa online payment direction and external/manual payment representation where needed. Payment reported is not payment confirmed. Payment is not Stripe; V1 is not an arbitrary bring-your-own-online-gateway platform. Commercial credit, bank transfer, cash/COD and other direct Tenant-supported arrangements remain valid business methods.
-- Buyer Portal exposes live Tenant-specific Credit Limit, Current Exposure/Used Credit and Available Credit for the current supplier relationship. Buyer has no global Nexa-wide credit balance. Insufficient Available Credit remains a hard block.
+- V1 Finance is basic: Tenant-specific Credit Limit, Credit Reserved, Outstanding Receivables and Available Credit, hard credit block, payment terms, payment recording, Stripe-backed Nexa online payment direction and external/manual payment representation where needed. `Available Credit = Credit Limit - Credit Reserved - Outstanding Receivables`; transition from Credit Reserved to Outstanding Receivables must not double-count. If online money is captured but Sales Order creation fails, record `UNALLOCATED / RECONCILIATION_REQUIRED`, attempt an automatic refund, resolve on refund success or require operational intervention on refund failure, and retain financial history. Payment reported is not payment confirmed. Payment is not Stripe; V1 is not an arbitrary bring-your-own-online-gateway platform. Commercial credit, bank transfer, cash/COD and other direct Tenant-supported arrangements remain valid business methods.
+- Buyer Portal exposes live Tenant-specific Credit Limit, Credit Reserved, Outstanding Receivables and Available Credit for the current supplier relationship. Buyer has no global Nexa-wide credit balance. Insufficient Available Credit remains a hard block. Existing implementation fields named `exposure` or `used` are AS-IS vocabulary, not the final Product model.
 - Full accounting, reconciliation, bank reconciliation, advanced receivables, statements and allocation/accounting depth are V2 unless later required.
 - V1 includes basic business documents. Historical document meaning must not depend on mutable master data; document snapshots/history preserve truth at issuance time. PDF may be regenerated from historical snapshot. SUNAT remains future.
 - Business policy determines notification WHAT, WHO and WHEN; infrastructure determines HOW. Business traceability and security/audit evidence remain distinct.
@@ -118,7 +119,7 @@ Deferred items include full Procurement, advanced CRM, advanced Finance, formal 
 
 ## Closure reconciliation
 
-This file remains the single Product / Business V1 authority. The Strategic DDD package in [02-domain/strategic-ddd](../02-domain/strategic-ddd/README.md) proposes business boundaries without changing frozen scope. The final Product closure deliberately leaves numeric Purchase Request expiry open for Process EventStorming and policy review.
+This file remains the single Product / Business V1 authority. The Strategic DDD package in [02-domain/strategic-ddd](../02-domain/strategic-ddd/README.md) proposes business boundaries without changing frozen scope. The final Product closure deliberately leaves only numeric Purchase Request expiry open for Process EventStorming and policy review; commitment existence, consent semantics, Credit formula, delivery continuation and payment/order failure handling are closed here.
 
 ## Authority boundary
 

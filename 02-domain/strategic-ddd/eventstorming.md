@@ -16,11 +16,11 @@ This textual synthesis is self-contained enough to review without the Miro board
 |---|---|---|
 | Establish relationship | Demo request received; Tenant approved; Tenant provisioned; Tenant activated; workforce invited; Buyer Relationship approved | Prospective Customer, Company Owner, Tenant Administrator, Buyer; Tenant controls business admission |
 | Prepare offer | Product published; SKU made sellable; Price List scheduled; Customer Terms applied; catalog visibility granted | Catalog/commercial policy authority; Tenant configuration |
-| Form intent | Cart prepared; direct order requested; Purchase Request submitted; manual order drafted | Buyer, Sales; cart has no commitment |
-| Commit demand | availability validated; credit checked; commitment established; Purchase Request rejected/withdrawn/expired; Sales Order confirmed | Sales Commitment authority; atomic invariant owner to be confirmed |
-| Make stock sellable | receiving recorded; lot accepted; temperature excursion held; inventory released; availability recalculated | Warehouse / qualified disposition authority |
+| Form intent | Cart prepared; direct order requested; Purchase Request drafted; Purchase Request submitted; manual order drafted | Buyer, Sales; cart and PR Draft have no commitment |
+| Commit demand | availability validated; credit checked; Commercial Inventory Commitment established at PR submission; Purchase Request rejected/withdrawn/expired and commitment released; Sales Order confirmed with commitment continued | Sales Commitment authority; atomic invariant owner to be confirmed |
+| Make stock sellable | receiving recorded; lot accepted; temperature excursion put on HOLD; disposition released/held/wasted/returned; availability recalculated | Warehouse / qualified disposition authority |
 | Fulfill | Fulfillment planned; lot allocated; pick completed; fulfillment ready | Warehouse / Fulfillment authority |
-| Deliver | Dispatch planned; Delivery scheduled; attempt recorded; partial Delivery completed; continuation created; POD recorded | Dispatch Coordinator, Delivery actor; actual outcome authority |
+| Deliver | Dispatch planned; Delivery scheduled; failed attempt recorded on same Delivery; partial Delivery completed; Continuation Delivery created; POD recorded | Dispatch Coordinator, Delivery actor; actual outcome authority |
 | Recognize money | financial posting recorded; receivable created; payment reported; payment confirmed; payment reversed; refund reconciled | Credit/Receivables and Payment authority |
 | Evidence and visibility | business document issued; notification delivered; timeline projection updated; audit event recorded | Document, Notification and Security/Traceability authorities |
 
@@ -29,15 +29,15 @@ This textual synthesis is self-contained enough to review without the Miro board
 | Element | Candidate result |
 |---|---|
 | Actors | Buyer, Sales, Company Owner / Business Operations Manager for exceptional authority |
-| Commands/actions | build cart, price preview, submit direct order, create/update/submit Purchase Request, review, negotiate, accept substitution, reject, withdraw, confirm Sales Order |
-| Domain events | CartPrepared, PurchaseRequestSubmitted, CommercialContentChanged, BuyerAcceptanceRecorded, PurchaseRequestRejected, PurchaseRequestWithdrawn, PurchaseRequestExpired, CommitmentEstablished, SalesOrderConfirmed |
-| Policies/invariants | cart never reserves; authoritative price resolution; no silent substitution; no automatic backorder; direct order validates availability and creates commitment atomically; confirmed Sales Order preserves immutable commercial truth |
+| Commands/actions | build cart, price preview, submit direct order, create/update/submit Purchase Request, review, negotiate, record material agreement, accept substitution, reject with reason, withdraw, confirm Sales Order |
+| Domain events | CartPrepared, PurchaseRequestSubmitted, CommercialCommitmentEstablished, CommercialContentChanged, MaterialAgreementRecorded, BuyerSubstitutionAccepted, PurchaseRequestRejected, PurchaseRequestWithdrawn, PurchaseRequestExpired, CommercialCommitmentReleased, SalesOrderConfirmed |
+| Policies/invariants | cart and PR Draft have no commitment; PR submission establishes SKU + quantity commitment; direct order requires availability validation + successful commitment + Sales Order confirmation; no partial/backorder outcome; no silent substitution; material agreed modification resets validity; confirmed Sales Order preserves immutable commercial truth |
 | Read models | catalog/pricing preview, request work queue, current availability, credit summary, order detail/timeline |
 | External systems | Payment Provider only when prepaid online flow is selected; email/in-app notifications |
 | Exceptions/compensation | stale version, last-unit conflict, insufficient credit, expired request, payment capture with failed order creation; reconcile/refund without erasing payment history |
 | Authority | Proposed Sales Commitment context; Customer Relationship supplies account relationship; Catalog/Commercial Policy supplies price; Inventory supplies availability; Credit supplies hard-block decision |
 | Consistency | Same transaction for final commitment decision, availability/credit checks and Sales Order creation where owned; asynchronous notifications after commit |
-| Hotspots | material-change consent, exact expiry policy, commitment storage versus reservation terminology, payment/order boundary |
+| Hotspots | numeric expiry policy, evidence implementation for consent-required changes, commitment owner/integration direction, payment/order boundary |
 
 ## P2 — Receiving to Sellable Availability to Commitment to Fulfillment
 
@@ -45,14 +45,14 @@ This textual synthesis is self-contained enough to review without the Miro board
 |---|---|
 | Actors | Warehouse Operator, qualified disposition actor, Sales, Fulfillment actor |
 | Commands/actions | receive, record lot/batch, capture temperature, hold/release/waste/return, adjust, transfer, compute sellability, establish commitment, allocate lot, pick |
-| Domain events | ReceivingRecorded, LotAccepted, TemperatureExcursionDetected, LotHeld, LotReleased, LotDisposed, StockAdjusted, TransferReceived, AvailabilityChanged, CommitmentEstablished, LotAllocated, PickCompleted |
-| Policies/invariants | physical truth wins; expired/quarantined/held stock is not sellable; FEFO recommendation may be overridden only with capability and reason; one line may consume multiple lots but not multiple warehouses V1; no backorder |
+| Domain events | ReceivingRecorded, LotAccepted, TemperatureExcursionDetected, LotHeld, LotReleased, LotDisposed, StockAdjusted, TransferReceived, AvailabilityChanged, CommercialCommitmentEstablished, LotAllocated, PickCompleted |
+| Policies/invariants | physical truth wins; an out-of-range receiving temperature creates HOLD pending evaluation and is not automatic Quarantine; disposition may release/hold/waste/return; expired/quarantined/held stock is not sellable; FEFO recommendation may be overridden only with capability and reason; one line may consume multiple lots but not multiple warehouses V1; no backorder |
 | Read models | sellable availability by SKU/warehouse, lot status, commitment shortage, fulfillment readiness |
 | External systems | Object Storage/ClamAV for evidence; maps not required for receiving |
 | Exceptions/compensation | rejected receiving remains evidence; negative adjustment creates shortage incident and downstream resolution; transfer/allocations race requires retry or conflict |
-| Authority | Proposed Inventory Availability owns physical stock/sellability; Sales Commitment owns demand commitment; Fulfillment owns physical allocation; final split requires review |
+| Authority | Proposed Inventory Availability owns physical stock/sellability; Sales Commitment owns demand commitment; Fulfillment owns physical allocation; context ownership/integration direction requires review |
 | Consistency | DB constraints/locks per SKU-warehouse availability and commitment; event projection for read models; no global lock pattern |
-| Hotspots | reservation versus commitment naming, source batch versus lot, disposition authority, shortage recovery |
+| Hotspots | source batch versus lot, disposition authority, shortage recovery and commitment/allocation integration direction |
 
 ## P3 — Ready for Dispatch to Delivery / POD / Exception
 
@@ -61,13 +61,13 @@ This textual synthesis is self-contained enough to review without the Miro board
 | Actors | Warehouse Operator, Dispatch Coordinator, Delivery actor, Buyer, qualified cold-chain actor |
 | Commands/actions | mark ready, revert ready exceptionally, create Dispatch, group Deliveries, schedule window, record attempt, complete partial delivery, create continuation, record POD, record temperature/incident |
 | Domain events | FulfillmentReady, DispatchPlanned, DeliveryScheduled, DeliveryAttempted, DeliveryPartiallyCompleted, ContinuationDeliveryCreated, DeliveryCompleted, DeliveryFailed, PODRecorded, TemperatureExcursionRecorded |
-| Policies/invariants | Dispatch != Delivery != Route; failed attempt belongs to same Delivery; partial outcome closes performed Delivery and creates continuation; returned goods go to HOLD; buyer sees useful compliance status, not raw internal telemetry |
+| Policies/invariants | Dispatch != Delivery != Route; failed attempt belongs to same Delivery and may be retried; partial outcome closes performed Delivery as PARTIAL and creates a new Continuation Delivery for the remaining existing Sales Order obligation; returned goods go to HOLD; buyer sees useful compliance status, not raw internal telemetry |
 | Read models | dispatch board, delivery tracking, buyer timeline, POD/document availability, exception queue |
 | External systems | Maps/geolocation Provider through adapter; Email/in-app notifications; Object Storage for evidence |
 | Exceptions/compensation | failed delivery retry, partial continuation, returned goods inspection, temperature excursion disposition, controlled readiness reversal |
 | Authority | Proposed Fulfillment & Delivery context; Inventory remains authority for returned stock; Buyer receives reduced projection |
 | Consistency | Delivery outcome and POD evidence atomic within Delivery boundary; notification/document generation asynchronous with durable publication |
-| Hotspots | route scope, partial continuation wording, cold-chain disposition rights, document issuance trigger |
+| Hotspots | route scope, attempt versus continuation implementation, cold-chain disposition rights, document issuance trigger |
 
 ## P4 — Tenant Activation to Workforce / Customer Account / Buyer Relationship
 
@@ -89,12 +89,12 @@ This textual synthesis is self-contained enough to review without the Miro board
 | Element | Candidate result |
 |---|---|
 | Actors | Company Owner, Business Operations Manager, Sales, Buyer, payment provider, authorized payment confirmer |
-| Commands/actions | set limit, reserve credit, release reserved exposure, record financial posting, create receivable, apply payment, initiate online payment, report external payment, confirm/reverse/refund, issue document |
+| Commands/actions | set limit, reserve Credit Reserved, release Credit Reserved, record financial posting, create Outstanding Receivable, apply payment, initiate online payment, report external payment, confirm/reverse/refund, issue document |
 | Domain events | CreditLimitChanged, CreditReserved, CreditReleased, FinancialPostingRecorded, ReceivableCreated, PaymentReported, PaymentConfirmed, PaymentReversed, RefundRequired, RefundCompleted, BusinessDocumentIssued |
-| Policies/invariants | Available Credit = Limit - Reserved - Outstanding; no double-counting when reserved becomes receivable; Payment Reported != Confirmed; one Payment allocates one Receivable V1; payment failure enters reconciliation/refund path |
+| Policies/invariants | Available Credit = Credit Limit - Credit Reserved - Outstanding Receivables; no double-counting when reserved becomes receivable; Payment Reported != Confirmed; one Payment allocates one Receivable V1; successful capture with failed Sales Order creates UNALLOCATED / RECONCILIATION_REQUIRED, triggers automatic refund attempt, resolves on refund success or requires operational intervention on refund failure while retaining financial history |
 | Read models | live credit summary, receivables, payment status, document list, reconciliation queue |
 | External systems | Stripe/payment provider, email, object storage, malware scanner |
-| Exceptions/compensation | duplicate provider callback, captured money + failed Sales Order, refund failure, overpayment, incorrect confirmation correction history |
+| Exceptions/compensation | duplicate provider callback, captured money + failed Sales Order, automatic refund success/failure, overpayment, incorrect confirmation correction history |
 | Authority | Proposed Credit & Receivables, Payments, Business Documents contexts; exact financial posting trigger requires Process EventStorming |
 | Consistency | lock Credit/Receivable/Payment rows per invariant; provider callbacks deduplicated by provider event identity; document number uniqueness per Tenant/type |
 | Hotspots | Invoice versus basic/commercial document, fiscal deferral, payment allocation, payment/order transaction boundary |
@@ -116,4 +116,4 @@ This textual synthesis is self-contained enough to review without the Miro board
 
 ## EventStorming closure
 
-The package identifies business events and hotspots required for boundary review. It intentionally leaves exact event names, aggregate shapes, process variants, expiry values, financial posting triggers and ownership splits as review work.
+The package identifies business events and hotspots required for boundary review. It intentionally leaves exact event names, aggregate shapes, numeric expiry values, financial posting triggers, integration direction and ownership splits as review work. It does not reopen the closed commitment, consent, Credit formula, substitution or delivery-continuation rules.

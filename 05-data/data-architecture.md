@@ -22,9 +22,11 @@ PostgreSQL Row-Level Security is a defense-in-depth control: when enabled, norma
 | Buyer relationship and Customer Account | Customer and Buyer Relationship | relationship status and allowed commercial view |
 | Product/SKU, price policy and terms | Catalog and Commercial Policy | immutable resolution/snapshot |
 | Purchase Request and Sales Order | Sales Commitment | status, line and snapshot projections |
-| stock, lots, reservations, allocation | Inventory Availability | availability/commitment decisions |
+| physical stock, lots, sellable availability | Inventory Availability | availability and shortage facts; Commercial Commitment demand |
+| Commercial Commitment and release state | Sales Commitment | SKU + quantity commitment status |
+| Physical Allocation and fulfillment execution | Fulfillment and Delivery | selected Inventory Lot(s), progress and delivery facts |
 | fulfillment, dispatch, delivery, POD, incidents | Fulfillment and Delivery | progress and evidence projection |
-| exposure, credit, receivable, posting intent | Credit and Receivables | decision and financial status |
+| Credit Limit, Credit Reserved, Outstanding Receivables, posting intent | Credit and Receivables | Available Credit decision and financial status |
 | payment intent/report/confirmation/provider event | Payments | business payment status; no raw provider secret |
 | document metadata, versions, numbering | Business Documents | authorized reference and download capability |
 | notification delivery and audit/change feed | Notification and Traceability | delivery/status/trace facts |
@@ -38,6 +40,7 @@ Logical schema ownership may remain physically shared. A module must not write a
 - Every tenant-scoped row carries an explicit scope path appropriate to its owner; do not infer authorization from a client-provided Tenant ID.
 - RLS policies, application access context, repository predicates and worker scope form defense in depth. A missing context fails closed.
 - A Buyer relationship is not workforce membership. Buyer access is authorized per relationship and current supplier Tenant.
+- Product credit language is `Credit Limit - Credit Reserved - Outstanding Receivables = Available Credit`. Existing `exposure`/`used` columns remain AS-IS translation points and must not be silently treated as final Product terms.
 
 ## History and snapshots
 

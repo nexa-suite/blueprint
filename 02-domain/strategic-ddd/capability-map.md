@@ -28,12 +28,12 @@ The map describes business abilities, not applications, APIs, repositories, Spri
 | Sales commitment | Establish Sales Commitment | validate availability, credit and policy; create/confirm immutable Sales Order |
 | Inventory availability | Receive and qualify stock | receive, record batch/lot, capture temperature, hold, release, waste, return |
 | Inventory availability | Maintain physical truth | adjust, transfer, inspect, preserve rejection and shortage evidence |
-| Inventory availability | Calculate sellable availability | exclude expired, quarantined, held, safety stock and committed quantity |
+| Inventory availability | Calculate sellable availability | exclude expired, quarantined, held, safety stock and active Commercial Commitments |
 | Fulfillment and delivery | Allocate commercial commitment | plan fulfillment, select lots, confirm physical allocation, record FEFO override |
 | Fulfillment and delivery | Prepare fulfillment | pick, pack, mark ready, revert exceptional readiness with reason |
 | Fulfillment and delivery | Execute Dispatch and Delivery | group dispatches, plan route, schedule window, attempt, partial deliver, continue |
 | Fulfillment and delivery | Preserve cold-chain evidence | record temperature, evaluate excursion, approve disposition, attach POD |
-| Credit and receivables | Govern Tenant-specific credit | set limit, calculate reserved exposure, hard-block insufficient availability |
+| Credit and receivables | Govern Tenant-specific credit | set limit, calculate Credit Reserved and Outstanding Receivables, hard-block insufficient Available Credit |
 | Credit and receivables | Recognize financial obligation | post financial basis, create receivable, set due date, manage partial payment |
 | Payments and documents | Record and confirm Payment | initiate online payment, record external report, confirm/reverse, refund/reconcile |
 | Payments and documents | Issue business documents | number, render, store, publish, revise/correct without overwriting history |
@@ -44,7 +44,7 @@ The map describes business abilities, not applications, APIs, repositories, Spri
 
 - Sales Commitment is an ability to create commercial obligation; it is not the same as physical stock, lot allocation or delivery.
 - Inventory Availability protects physical truth and sellability; it does not own Customer price or Sales Order meaning.
-- Credit and Receivables share exposure language but have different lifecycle authority: reserved exposure is not a formal receivable.
+- Credit and Receivables distinguish Credit Reserved from Outstanding Receivables; AS-IS exposure/used labels are translation evidence, not final Product language.
 - Payment and Stripe must remain separate vocabulary. Documents are business evidence, not a synonym for receivables or fiscal integration.
 - Notifications and analytics are likely supporting projection capabilities; their ownership must follow meaningful business events rather than current listener classes.
 

@@ -31,7 +31,7 @@ Authority notes: Cart has no commitment. Catalog / Commercial Policy owns price 
 Sales
   reviews submitted Purchase Request
   changes commercial content under controlled review
-  records material agreement when customer consent is required
+  records evidence when a change requires business consent
   confirms Sales Order, rejects with reason, or leaves request unresolved
 Buyer
   may withdraw before Sales Order
@@ -39,7 +39,7 @@ Sales Commitment
   preserves revision/history and recalculates commitment when material content changes
 ```
 
-Hotspot: Product authority does not impose a universal Buyer reconfirmation ceremony or a numeric expiry in this rebaseline. Process discovery must define material-change evidence and expiry policy.
+Accepted policy: Buyer does not freely mutate submitted PR; no universal system-enforced re-accept click follows every Sales modification; consent-required changes preserve evidence; Product substitution requires explicit Buyer acceptance; material agreed modification resets validity; Sales rejection requires reason; Buyer withdrawal may omit reason. Only numeric expiry remains open.
 
 ## Story 3 — Warehouse makes stock sellable
 
@@ -66,13 +66,14 @@ Dispatch Coordinator
 Delivery actor
   records actual attempt and delivered quantity
 Fulfillment & Delivery
+  keeps a failed attempt on the same Delivery for another attempt
   closes Delivery as partial when only part is delivered
   creates Continuation Delivery for remaining existing Sales Order obligation
 Buyer
   sees delivered result and remaining obligation
 ```
 
-The continuation is not a new backorder. Returned or rejected goods go to Warehouse HOLD pending inspection.
+The continuation is not another attempt of the original Delivery and is not a new backorder. Returned or rejected goods go to Warehouse HOLD pending inspection.
 
 ## Story 5 — Global identity with independent Tenant relationships
 

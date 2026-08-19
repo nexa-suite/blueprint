@@ -22,14 +22,14 @@ One proposed authoritative owner is listed for each concept. `Review` means the 
 | Price resolution | Catalog & Commercial Policy | Cart, PR, Sales Order snapshot | promotion and terms sequence |
 | Cart intent | Sales Commitment | Portal, pricing/availability previews | no reservation |
 | Purchase Request lifecycle | Sales Commitment | Buyer, Sales, notification | expiry/material change policy |
-| Commercial Commitment | Sales Commitment | Inventory availability, Credit, Fulfillment | current reservation name may differ |
+| Commercial Commitment | Sales Commitment candidate | Inventory availability, Credit, Fulfillment | AS-IS reservation terminology is translated; Product distinction is closed, context ownership remains review-gated |
 | Confirmed Sales Order history | Sales Commitment | Fulfillment, Credit, Documents, Buyer | immutable correction/cancellation |
 | Physical Stock / Inventory Lot | Inventory Availability | Sales Commitment read, Fulfillment | Batch/lot and warehouse handoff |
 | Sellable Availability | Inventory Availability | Sales Commitment | safety stock and commitment deduction |
 | Lot Allocation | Fulfillment & Delivery | warehouse execution, delivery | one line/multiple lots rule |
 | Fulfillment readiness | Fulfillment & Delivery | Dispatch, Platform | Warehouse handoff |
 | Dispatch/Delivery/POD outcome | Fulfillment & Delivery | Buyer timeline, Documents | route versus delivery |
-| Credit limit/reserved/outstanding exposure | Credit & Receivables | Sales Commitment, Buyer Portal | transformation without double count |
+| Credit Limit/Credit Reserved/Outstanding Receivables | Credit & Receivables | Sales Commitment, Buyer Portal | transformation without double count |
 | Financial Posting | Credit & Receivables | Receivables, Documents, Payments | exact trigger open |
 | Payment state | Payments | Receivables, Sales Commitment, Documents | provider boundary |
 | Business Document identity/version | Business Documents | Buyer, Platform, Payments, Delivery | fiscal status and retention |

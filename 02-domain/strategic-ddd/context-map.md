@@ -18,7 +18,7 @@ Relationships below describe authority direction, not deployment or Spring modul
 | Catalog & Commercial Policy | Sales Commitment | Published Language candidate | Price resolution and commercial snapshot; price authority remains upstream |
 | Inventory Availability | Sales Commitment | Customer/Supplier-like availability supplier | Sellable availability query; final commitment command must preserve invariant ownership |
 | Sales Commitment | Inventory Availability | Downstream demand fact | Commercial Commitment event/reference; inventory does not own Sales Order |
-| Sales Commitment | Credit & Receivables | Downstream exposure fact | commitment/reserved amount; transformation must avoid double count |
+| Sales Commitment | Credit & Receivables | Downstream credit-demand fact | Commercial Commitment reference/amount; Credit Reserved to Outstanding Receivables transition must avoid double count |
 | Sales Commitment | Fulfillment & Delivery | Upstream commercial obligation | immutable Sales Order snapshot and fulfillment request |
 | Inventory Availability | Fulfillment & Delivery | Upstream physical stock | eligible lot/availability contract; Fulfillment owns selection/actual allocation |
 | Fulfillment & Delivery | Business Documents | Upstream delivery evidence | Delivery/POD facts and document request |

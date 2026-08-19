@@ -31,10 +31,10 @@ This is a curated invariant register, not Strategic DDD. Terminology, sequence, 
 
 - Cart never reserves inventory.
 - Purchase Request is not Sales Order and not Supplier Purchase Order.
-- Sales may modify a Purchase Request before Sales Order creation. No universal system-enforced Buyer reconfirmation ceremony is required; where commercially required, Buyer and Sales communicate through Nexa, WhatsApp, phone or another human channel, then Sales records the mutual agreement.
-- Purchase Request expiry and commitment release require explicit scenario policy; no numeric default or maximum is frozen by the final closure.
+- Cart and PR Draft create no commitment. PR Submitted establishes Commercial Inventory Commitment for SKU + quantity; Withdrawn, Rejected or Expired releases it; conversion to Sales Order continues it. Sales may modify submitted content before Sales Order creation, but Buyer does not freely mutate it. No universal system-enforced Buyer re-accept click is required after every Sales modification; consent-required changes preserve evidence, material agreed modification resets validity, Sales rejection requires reason, and Buyer withdrawal may omit reason.
+- Purchase Request commitment release transitions are closed; only the numeric expiry policy remains open for Business Architect review. No numeric default or maximum is invented here.
 - No oversell and no automatic backorder. Final-unit conflict returns current availability to the losing attempt.
-- Substitution is never silent; Buyer accepts or rejects the alternative.
+- Substitution is never silent; Buyer explicitly accepts or rejects the alternative.
 - Confirmed Sales Order is immutable business history. Buyer and Sales cannot directly cancel it; they may request cancellation. Material change uses explicit cancellation/void and replacement semantics; cancellation authority is exceptional Company Owner or Business Operations Manager authority.
 
 ## Inventory, fulfillment and delivery
@@ -50,13 +50,13 @@ This is a curated invariant register, not Strategic DDD. Terminology, sequence, 
 
 ## Cold-chain, credit, payments and traceability
 
-- Manual temperature recording is V1. Excursion requires evaluation and may lead to release, hold, quarantine or disposition; IoT telemetry is future.
-- Credit is Tenant-specific. `Credit Limit`, `Current Exposure` and `Available Credit` are distinct; insufficient Available Credit hard-blocks order progression.
-- Buyer Portal exposes those three live credit values for current supplier Tenant; no global Nexa-wide Buyer credit balance exists.
+- Manual temperature recording is V1. Out-of-range receiving temperature creates `HOLD` plus a pending Temperature Excursion evaluation; it is not automatic Quarantine. Disposition may be Release, continued Hold, Waste or Return to Supplier; IoT telemetry is future.
+- Credit is Tenant-specific: `Credit Limit - Credit Reserved - Outstanding Receivables = Available Credit`; Credit Reserved covers relevant commercial commitments before formal Receivable recognition, and transition must not double-count.
+- Buyer Portal exposes those four live credit values for current supplier Tenant; no global Nexa-wide Buyer credit balance exists. `exposure`/`used` fields remain AS-IS implementation vocabulary.
 - Payment is the business concept; Stripe is Nexa's V1 integrated online-payment provider, not the definition of Payment. V1 is not an arbitrary bring-your-own-online-gateway platform; commercial credit, bank transfer, cash/COD and direct Tenant-supported arrangements remain valid business methods.
 - Payment reported is not Payment confirmed.
 - Business Document is not SUNAT integration. Business Traceability is not Security Log.
 
 ## Discovery intentionally left open
 
-Exact lifecycle states, event/command vocabulary, adjustment evidence, cancellation sequence, expiry policy, ownership, subdomains and context boundaries are proposed in [Strategic DDD](../strategic-ddd/README.md) and require Business Architect review. No rule here creates an Aggregate, Bounded Context or technical schema.
+Exact lifecycle states, event/command vocabulary, adjustment evidence, cancellation sequence, ownership, subdomains and context boundaries are proposed in [Strategic DDD](../strategic-ddd/README.md) and require Business Architect review. Numeric Purchase Request expiry remains the only unresolved Product detail. No rule here creates an Aggregate, Bounded Context or technical schema, and closed Product semantics are not reopened.

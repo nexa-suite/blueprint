@@ -38,15 +38,15 @@ Base Price, Price Lists, Customer Commercial Terms and Promotions as policy conc
 
 ### Sales, Purchase Request and Sales Order
 
-Buyer and assisted request capture, Purchase Request review/adjustment, Tenant policy supporting direct or approval-required ordering, authoritative validation, scenario-specific PR expiry, Sales Order confirmation, historical order prices and explicit non-silent change handling. No universal Buyer reconfirmation ceremony is required; commercially necessary agreement is recorded.
+Buyer and assisted request capture, Purchase Request review/adjustment, Tenant policy supporting direct or approval-required ordering, authoritative validation, Commercial Inventory Commitment at PR submission, scenario-specific PR expiry, Sales Order confirmation, historical order prices and explicit non-silent change handling. Submitted PR content is controlled; no universal Buyer reconfirmation ceremony is required after every Sales change, but consent-required changes preserve evidence and material agreed modification resets validity. Sales rejection requires a reason; Buyer withdrawal may omit one.
 
 ### Inventory and availability
 
-Physical stock, unavailable/hold quantities, safety stock, commitments/reservations, sellable availability, concurrency-correct final-unit handling, no accepted oversell/backorder behavior and Buyer-safe availability presentation.
+Physical stock, unavailable/HOLD quantities, safety stock, Commercial Commitments, sellable availability, concurrency-correct final-unit handling, no accepted oversell/backorder behavior and Buyer-safe availability presentation. Physical Allocation of Inventory Lot(s) occurs later in Fulfillment.
 
 ### Warehouse and fulfillment
 
-Multiple Warehouses, operational Zones where useful, partial receiving, basic traceable Warehouse transfers, manual inventory adjustments, Source Batch and physical Inventory Lot traceability, expiration, FEFO, holds/quarantine, Allocate, Pick, Pack, Stage, Handover, Ready for Dispatch and waste/merma.
+Multiple Warehouses, operational Zones where useful, partial receiving, basic traceable Warehouse transfers, manual inventory adjustments, Source Batch and physical Inventory Lot traceability, expiration, FEFO, distinct HOLD/QUARANTINE states, Allocate, Pick, Pack, Stage, Handover, Ready for Dispatch and waste/merma.
 
 ### Dispatch, delivery and POD
 
@@ -54,11 +54,11 @@ Dispatch handoff, delivery execution, Route grouping where useful, blocked/faile
 
 ### Cold-chain essentials
 
-Expiration, FEFO, storage constraints, holds/quarantine, traceability, manual temperature recording, justified temperature incident awareness and delivery evidence. Automatic IoT telemetry and laboratory/QMS depth are future.
+Expiration, FEFO, storage constraints, distinct HOLD/QUARANTINE states, traceability, manual temperature recording, justified temperature incident awareness and delivery evidence. An out-of-range receiving temperature starts HOLD plus excursion evaluation, not automatic Quarantine. Automatic IoT telemetry and laboratory/QMS depth are future.
 
 ### Basic credit and payments
 
-Tenant-specific Credit Limit, Current Exposure/Used Credit and Available Credit exposed live in Buyer Portal for current supplier relationship, with hard block when unavailable, payment terms, payment recording, Stripe-backed Nexa online-payment direction and external/manual payment representation. No global Buyer credit balance. Full accounting, reconciliation and advanced receivables are future.
+Tenant-specific Credit Limit, Credit Reserved, Outstanding Receivables and Available Credit exposed live in Buyer Portal for current supplier relationship, with `Available Credit = Credit Limit - Credit Reserved - Outstanding Receivables`, hard block when unavailable, payment terms, payment recording, Stripe-backed Nexa online-payment direction and external/manual payment representation. No global Buyer credit balance. Full accounting, reconciliation and advanced receivables are future.
 
 ### Basic documents
 

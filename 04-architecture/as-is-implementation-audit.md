@@ -14,9 +14,9 @@ Audit date: 2026-08-19. This is a fresh read-only audit of the current Modern re
 
 | Repository | Remote ref audited | SHA | Local checkout state | Mutation |
 |---|---|---|---|---|
-| API | `origin/develop` | `118e4ccd591af8f259ad38dc11cb3f62e5939f15` | preserved feature checkout clean; tree matches merged Wave 0 ref | none |
-| Platform | `origin/develop` | `7ecdceff21c749b3149e0d01454e16539061fdc4` | preserved feature checkout clean; tree matches merged Wave 0 ref | none |
-| Portal | `origin/develop` | `b13f42101f747579594b592edc607741086ae88c` | preserved feature checkout clean; tree matches merged Wave 0 ref | none |
+| API | `origin/develop` | `118e4ccd591af8f259ad38dc11cb3f62e5939f15` | local `feature/technical-foundation-wave-0@3de329b`; clean; preserved feature tip differs from audited remote ref | none |
+| Platform | `origin/develop` | `7ecdceff21c749b3149e0d01454e16539061fdc4` | local `feature/technical-foundation-wave-0@f75c172`; clean; preserved feature tip differs from audited remote ref | none |
+| Portal | `origin/develop` | `b13f42101f747579594b592edc607741086ae88c` | local `feature/technical-foundation-wave-0@5e729267`; clean; preserved feature tip differs from audited remote ref | none |
 | Website | `origin/develop` | `2bfeb6a37b3b75099a0c91b8d3c811a9ee89cdf0` | clean, current develop is ahead of known main baseline | none |
 | Mobile | `origin/develop` | `4a94db73336f93b460b564bddb9fa0a100114e87` | clean; runway only | none |
 | Design Lab | `origin/main` reference `e7f5ece93a56aa5953b955adf343b96e9835e7be` | local branch has unrelated user diffs | preserved unchanged | none |
@@ -95,7 +95,40 @@ Remote checks: API, Platform, Portal, Website, Mobile and Design Lab remotes poi
 ## Mobile and Design Lab
 
 - Mobile is current documentation/native runway only, not a V1 implementation container. No mobile business scope is promoted by this audit.
-- Design Lab is non-canonical design evidence. Its local branch contains unrelated user modifications; no files were changed or interpreted as final Design System decisions.
+- Design Lab is non-canonical design evidence. Its current checkout was inspected read-only and no files were changed or interpreted as final Design System decisions.
+
+## Implementation Reconnaissance convergence addendum
+
+The following is current AS-IS evidence from the PR #5 read-only Implementation Reconnaissance. It is not Product or Strategic DDD authority.
+
+### Purchase Request write-path collision
+
+Two active Portal write paths coexist:
+
+1. Canonical draft builder: create draft -> mutate lines -> destination -> route preview -> warehouse -> preferences -> submit.
+2. Direct Purchase Request: create/update PR -> line mutations -> submit -> review -> adjust -> approve/reject/cancel.
+
+The Portal uses the canonical builder and the direct PR list/detail/action flow. Platform uses the PR inbox/Sales operations flow. This is a high construction-convergence concern. The evidence supports `REWORK / converge to one authoritative write model` as the default transition, but does not authorize deleting either path before the accepted target contract names consumers, migration/compatibility behavior, observability and tests.
+
+### Catalog identifier and vocabulary collision
+
+Current contracts and screens use overlapping identifiers/concepts: `catalogItemId`, `productId`, `skuId`, Product Family, Product Variant and Sellable SKU. Direct PR still consumes `catalogItemId`; pricing preview uses `productId`; the Builder carries `catalogItemId + skuId`. Product authority remains `Product -> sellable SKU`; Variant is not a required Product abstraction. This is an AS-IS vocabulary/contract collision, not permission to rename source code in this task.
+
+### Buyer Relationship fragmentation
+
+Buyer relationship semantics are distributed across `tenant_management.workspace_membership`, `sales.client_account_membership`, the `BUYER` role, `ClientAccount` and `/client-accounts/me`. Migration V71 enforces one Buyer association per Client Account. This is useful implementation evidence but only `PARTIAL / REQUIRES TARGET RECONCILIATION`; it does not prove that the final Buyer Relationship model is already realized.
+
+### Payment and document surface mismatch
+
+The API exposes Payment/Credit/Receivable capabilities. Portal exposes receivables, payment methods and Stripe Payment Element. Platform has no meaningful Payments feature; Platform and Portal invoicing folders are placeholder-only (`.gitkeep`). Business Documents exist through the documents feature. Backend external/bank-transfer payment semantics are present, but no end-to-end Portal UI evidence proves bank-transfer evidence upload. This is a surface parity/evidence gap, not a Product decision to add a dedicated Invoicing UI module.
+
+### Spring Modulith encapsulation pressure
+
+`ApplicationModules.verify()` passes, but `sales`, `warehouse`, `logistics`, `payments`, `invoicing`, `notifications` and `shared` are observed as OPEN modules. `iam`, `tenantmanagement` and `catalogmanagement` have stronger closed-module metadata. Technical modularity therefore exists, while critical business areas lack strong enforced encapsulation. This is a transition/fitness pressure pending accepted Strategic DDD boundaries; no blanket module-closing change is proposed.
+
+### Build, test and runtime evidence boundary
+
+The Reconnaissance reports PASS for API compile, API architecture tests, API tests, Platform unit tests, Portal unit tests, Platform build, Portal build and frontend asset validation. Reported test reality is: API 373 run, 0 failures, 0 errors, 96 skipped integration tests; Platform 53 unit files / 102 tests; Portal 40 unit files / 79 tests. Playwright tests were discovered/listed, not executed in a browser. Authenticated browser E2E, full integration execution and live API runtime remain unproven. The runtime attempt was blocked by missing local configuration `NEXA_MINIO_MINIO_ROOT_USER`; classify this as `RUNTIME ACCEPTANCE EVIDENCE PENDING`, not architecture failure.
 
 ## Evidence classes and gaps
 
@@ -106,6 +139,9 @@ Remote checks: API, Platform, Portal, Website, Mobile and Design Lab remotes poi
 | INFERENCE | Current modules are useful technical seams for incremental construction, but not accepted business contexts. |
 | CAVEAT | Current code and static contracts show broad V1 coverage, not production or product-completion proof. |
 | CAVEAT | Authenticated browser/provider production evidence remains credential/provider-gated. |
+| FACT | Dual PR write paths, catalog identifiers, Buyer relationship fragments, surface mismatch and OPEN Modulith modules are current construction evidence. |
+| CAVEAT | Unit/build evidence is not browser E2E, full integration or live-runtime acceptance. |
+| BLOCKER FOR ACCEPTANCE | Runtime acceptance remains pending local environment completion; missing `NEXA_MINIO_MINIO_ROOT_USER` is an environment blocker, not an architecture violation. |
 | BLOCKER FOR ACCEPTANCE | Business Architect must review proposed Strategic DDD boundaries before ownership-driven module/data migration. |
 
 ## Audit conclusion

@@ -21,7 +21,7 @@ This is the evidence register for Strategic DDD. Classification controls authori
 | HISTORICAL | Legacy ecosystem and Vue/ASP evidence | Domain examples, user language, acceptance clues | Cannot override frozen Product authority |
 | HISTORICAL | Prior Miro / proposed context names | Workshop prompts and hypotheses | No boundary is preserved solely because it already has a name |
 | HYPOTHESIS | Capability, process, subdomain and context proposals in this package | Reviewable Strategic DDD model | Must remain PROPOSED until Business Architect review |
-| HOTSPOT | Commitment, allocation, partial delivery, credit transformation and payment failure | Places where inconsistent models create business loss | Requires Process EventStorming and transaction design |
+| HOTSPOT | Commitment ownership/integration, partial delivery implementation, credit transformation and payment failure | Places where inconsistent models create business loss | Requires Process EventStorming and transaction design; Product semantics are already closed |
 | HOTSPOT | Tenant / Workspace / Identity / Buyer relationships | Isolation, privacy and authorization consequences | Requires Business Architect and Security review |
 | DEFERRED | Mobile, IoT, advanced Procurement, advanced Finance, plans and subscriptions | Future runway | Not a V1 context or construction dependency |
 | DEFERRED | Final visual Design System | Parallel active workstream | Technical frontend contracts must stay design-neutral |
