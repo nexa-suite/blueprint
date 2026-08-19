@@ -1,27 +1,24 @@
-# Design
+# Nexa Design System v1 baseline
 
-## Purpose
+This branch contains the normative v1 design-system baseline. It defines intent, vocabulary, tokens, component contracts, patterns, quality gates and adoption rules. It does not copy application implementation or claim that production applications already consume the system.
 
-Organize Nexa design evidence and future system guidance without redesigning the product.
+## Authority and evidence
 
-## Authoritative content
+- [v1 release baseline](06-release-baselines/v1.md) — release-scoped baseline and classification rules.
+- [Design system charter](00-governance/design-system-charter.md) — authority, scope and laws.
+- [Foundations](01-foundations/README.md) — semantic visual language.
+- [Components](02-components/README.md) — reusable contracts and maturity.
+- [Patterns](03-patterns/README.md) — product-safe composition guidance.
+- [Quality](04-quality/README.md) — accessibility, contrast, heuristics and regression.
+- [Engineering](05-engineering/README.md) — Angular consumption, tokens, APIs and adoption.
+- [Legacy design evidence](legacy-design-evidence.md) — historical evidence only.
 
-- [Design baseline](design-baseline.md) — accepted direction, evidence and deferred decisions.
-- [Style guidelines and architecture](style-guidelines-architecture.md) — future token/component/accessibility guidance.
-- [Legacy design evidence](legacy-design-evidence.md) — historical references, not current tokens or implementation.
+The executable companion is the Nexa Design Lab release candidate. It renders evidence and runs gates; it does not replace this Blueprint.
 
-## Current status
+## Classification
 
-Current design evidence is BASELINED where recorded. Design convergence is an active review gate; a final token package, component library and visual-parity closure are not yet authorized.
+`FROZEN` means a human-approved direction that must not drift casually. `CANDIDATE` means reviewable and usable as evidence, not production certification. `EXPERIMENTAL` means a bounded investigation. `DEFERRED` means intentionally outside v1. Every page names its maturity and owner.
 
-## Expected artifacts
+## Boundaries
 
-Authored design baseline, token/component guidance, information architecture, user flows, wireframes, mockups and accessibility evidence.
-
-## What must not live here
-
-Invented UI redesigns, copied legacy assets, tenant-owned runtime catalog media, secrets or application implementation.
-
-## Related areas
-
-[Product](../01-product/README.md), [AS-IS references](../11-reference/as-is/README.md), [Engineering](../07-engineering/README.md).
+The Website, Internal Web Platform and Buyer Portal share foundations but do not share identical information architecture or density. Legacy Vue is evidence only. Mobile, IoT, Control Center, subscriptions and provider-specific production contracts remain outside the v1 design baseline unless separately accepted.

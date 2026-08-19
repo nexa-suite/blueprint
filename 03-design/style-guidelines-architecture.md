@@ -1,14 +1,14 @@
 ---
-status: planned
-maturity: NOT STARTED
+status: deprecated
+maturity: SUPERSEDED
 scope: cross-cutting
 owner: design
 last-reviewed: 2026-08-15
 ---
 
-# Style Guidelines and Design System architecture
+# Style Guidelines and Design System architecture — superseded
 
-Future architecture for a mature Nexa style-guidelines/design-system body. This document defines information architecture and governance, not final visual decisions or implementation.
+This planning note is retained for provenance. The accepted v1 guidance is split into the focused documents linked from [Design](README.md) and the [v1 release baseline](06-release-baselines/v1.md). It is not a second source of truth.
 
 ## Foundations
 
@@ -46,6 +46,6 @@ Govern terminology, microcopy, errors, confirmations and status labels. Shared f
 
 ## Implementation relationship and governance
 
-Design tokens, Figma/code parity and incremental adoption should be explicit when implementation begins. Shared versus surface-specific components require evidence. Design ownership, change review, versioning, accessibility regression checks, design debt and documentation maintenance require named governance later.
+Design tokens, code parity and incremental adoption are now governed by the focused v1 documents. Shared versus surface-specific components require evidence. Design ownership, change review, versioning, accessibility regression checks and design debt are not inferred from this historical planning note.
 
 Official references: [WCAG 2.2](https://www.w3.org/TR/WCAG22/), [Material 3](https://m3.material.io/), [Angular Material](https://material.angular.dev/), and [Design Tokens Community Group](https://www.w3.org/community/design-tokens/). Reverify current versions when implementation is authorized.
