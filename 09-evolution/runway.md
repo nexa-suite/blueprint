@@ -19,4 +19,4 @@ last-reviewed: 2026-08-18
 | Full Procurement | V2+ | Supplier lifecycle, POs, RFQ and import/customs are deferred | Product and Strategic DDD discovery | V2/future | Accepted procurement scope |
 | Advanced Finance and BI | V2+ | Reconciliation, accounting depth, projections and warehouse are deferred | Data, finance and product discovery | V2/future | Accepted finance/analytics scope |
 
-Runway status does not authorize code, C4 L3, Bounded Contexts or technical topology.
+Runway status does not authorize code, Bounded Contexts or technical topology. The current selective C4 L3/L4 proposal is documented separately and does not promote runway items into V1.
