@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-18
+last-reviewed: 2026-08-19
 ---
 
 # Canonical C4 model
@@ -17,7 +17,8 @@ Este documento fija la semántica C4 L1/L2 de Nexa antes de Strategic DDD. Model
 ## Fuente canónica
 
 - [Structurizr DSL](structurizr/workspace.dsl) es la fuente semántica.
-- [README de Structurizr](structurizr/README.md) documenta las cuatro vistas y su validación.
+- [README de Structurizr](structurizr/README.md) documenta las vistas y su validación.
+- [Selective Level 4 code views](code-views.md) trace security, commitment, availability, payment and frontend seams.
 - `workspace.json` es representación generada; no debe editarse manualmente.
 
 Vistas canónicas:
@@ -27,7 +28,18 @@ Vistas canónicas:
 - `Nexa-SystemContext-Runway`
 - `Nexa-Containers-Runway`
 
-No existe ninguna vista L3, de componentes o de deployment.
+Las vistas L3 son selectivas y review-gated:
+
+- `Nexa-API-Overall-ASIS`
+- `Nexa-API-IdentityTenantCustomer-TARGET`
+- `Nexa-API-CommercialInventory-TARGET`
+- `Nexa-API-FulfillmentDelivery-TARGET`
+- `Nexa-API-CreditPaymentDocuments-TARGET`
+- `Nexa-API-IntegrationReliability-ASIS`
+- `Nexa-Platform-Frontend-TARGET`
+- `Nexa-Portal-Frontend-TARGET`
+
+No se crea una vista de componentes del Website: su implementación estática y frontera pública son simples y no agregan una decisión arquitectónica útil en este corte. No hay vista de deployment.
 
 ## V1 System Context
 
@@ -100,7 +112,7 @@ Estos elementos no están presentes en las vistas V1 ni deben describirse como i
 - Los módulos Java (`catalogmanagement`, `sales`, `warehouse`, `logistics`, etc.) son evidencia de organización de implementación. No son Bounded Contexts ni containers C4.
 - ClamAV, Mailpit, Stripe mock, OTEL Collector y Jaeger son infraestructura/adapters locales; se documentan en la [evidencia de runtime](../../08-operations/containers/compose-runtime-architecture-evidence.md), no en el L1 ni en la lista primaria L2.
 - Docker Compose es runtime local AS-IS, no Cloud Deployment Architecture.
-- C4 L3 se difiere hasta `Capability Mapping -> EventStorming -> Domain Storytelling -> Strategic DDD`.
+- C4 L3/L4 aquí son propuestas técnicas derivadas de `Capability Mapping -> EventStorming -> Domain Storytelling -> Strategic DDD`; no convierten nombres de paquetes en Bounded Contexts ni autorizan refactor.
 
 ## Preguntas críticas resueltas por esta baseline
 

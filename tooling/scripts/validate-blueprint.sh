@@ -100,15 +100,20 @@ try:
     actual_views = sorted(
         [v["key"] for v in views.get("systemContextViews", [])]
         + [v["key"] for v in views.get("containerViews", [])]
+        + [v["key"] for v in views.get("componentViews", [])]
     )
     expected_views = sorted([
         "Nexa-SystemContext-V1", "Nexa-Containers-V1",
         "Nexa-SystemContext-Runway", "Nexa-Containers-Runway",
+        "Nexa-API-Overall-ASIS", "Nexa-API-IdentityTenantCustomer-TARGET",
+        "Nexa-API-CommercialInventory-TARGET", "Nexa-API-FulfillmentDelivery-TARGET",
+        "Nexa-API-CreditPaymentDocuments-TARGET", "Nexa-API-IntegrationReliability-ASIS",
+        "Nexa-Platform-Frontend-TARGET", "Nexa-Portal-Frontend-TARGET",
     ])
     if actual_views != expected_views:
         failures.append(f"unexpected C4 views: {actual_views}")
-    if any(k.lower().startswith("component") or k.lower().startswith("deployment") for k in views):
-        failures.append("C4 component/deployment views present")
+    if any(k.lower().startswith("deployment") for k in views):
+        failures.append("C4 deployment views present")
     system = next(s for s in workspace["model"]["softwareSystems"] if s["name"] == "Nexa")
     v1 = {c["name"] for c in system["containers"] if "Future" not in c.get("tags", "") and "V2/Future" not in c.get("tags", "")}
     expected_containers = {

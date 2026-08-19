@@ -13,7 +13,7 @@ def load(path: str):
 def signature(workspace):
     model = workspace["model"]
     nodes = {}
-    entities = {"people": [], "softwareSystems": [], "containers": []}
+    entities = {"people": [], "softwareSystems": [], "containers": [], "components": []}
 
     for person in model.get("people", []):
         nodes[str(person["id"])] = ("person", person["name"])
@@ -41,6 +41,18 @@ def signature(workspace):
                 "technology": container.get("technology", ""),
                 "tags": sorted(container.get("tags", "").split(",")),
             })
+            for component in container.get("components", []):
+                nodes[str(component["id"])] = (
+                    "component", f"{system['name']}::{container['name']}::{component['name']}"
+                )
+                entities["components"].append({
+                    "system": system["name"],
+                    "container": container["name"],
+                    "name": component["name"],
+                    "description": component.get("description", ""),
+                    "technology": component.get("technology", ""),
+                    "tags": sorted(component.get("tags", "").split(",")),
+                })
 
     relationships = []
     for person in model.get("people", []):
@@ -49,6 +61,8 @@ def signature(workspace):
         relationships.extend((str(system["id"]), r) for r in system.get("relationships", []))
         for container in system.get("containers", []):
             relationships.extend((str(container["id"]), r) for r in container.get("relationships", []))
+            for component in container.get("components", []):
+                relationships.extend((str(component["id"]), r) for r in component.get("relationships", []))
 
     relation_signature = []
     for source_id, relation in relationships:
@@ -64,7 +78,7 @@ def signature(workspace):
     entities["relationships"] = sorted(relation_signature, key=lambda x: tuple(x.values()))
 
     views = {}
-    view_groups = ("systemContextViews", "containerViews")
+    view_groups = ("systemContextViews", "containerViews", "componentViews")
     for group in view_groups:
         for view in workspace.get("views", {}).get(group, []):
             view_signature = {
