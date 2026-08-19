@@ -12,7 +12,7 @@
 
 <br />
 
-[![Status](https://img.shields.io/badge/status-baselined-2563EB?style=flat-square)](00-governance/current-state.md) [![C4](https://img.shields.io/badge/C4-L1%20%2B%20L2%20baselined-0F766E?style=flat-square)](04-architecture/c4/README.md) [![Validation](https://img.shields.io/badge/validation-local-64748B?style=flat-square)](tooling/scripts/validate-blueprint.sh)
+[![Status](https://img.shields.io/badge/status-baselined-2563EB?style=flat-square)](00-governance/current-state.md) [![C4](https://img.shields.io/badge/C4-L1%20%2B%20L2%20baselined%20%2B%20L3%20proposed-0F766E?style=flat-square)](04-architecture/c4/README.md) [![Validation](https://img.shields.io/badge/validation-local-64748B?style=flat-square)](tooling/scripts/validate-blueprint.sh)
 
 [Start here](#start-here) · [Governance](00-governance/README.md) · [Architecture](04-architecture/README.md) · [Validation](#validation)
 
@@ -23,7 +23,7 @@
 
 Blueprint is the publication-safe documentation baseline for `nexa-suite/blueprint`. It records accepted product decisions, architecture baselines, AS-IS evidence, engineering and operations evidence, future-analysis indexes and safe publication guidance.
 
-It does not contain application source as Blueprint content, final TARGET architecture, Strategic DDD outputs, production cloud decisions, secrets or copied external copyrighted material. Local application checkouts under `10-repositories/` are workspace material only.
+It does not contain application source as Blueprint content, final accepted TARGET architecture, production cloud decisions, secrets or copied external copyrighted material. Strategic DDD and technical TARGET proposals are documented with explicit review gates. Local application checkouts under `10-repositories/` are workspace material only.
 
 ## Start here
 
@@ -47,18 +47,18 @@ AS-IS records observed code, runtime, tests, Git state, flows or historical evid
 | Product and Business V1 | FROZEN / CLOSED |
 | AS-IS implementation | CLOSED WITH CAVEAT |
 | C4 Level 1 and Level 2 | BASELINED |
-| Capability Mapping | READY / NOT STARTED |
-| EventStorming, Domain Storytelling | NOT STARTED |
-| Strategic DDD, Bounded Contexts, Context Map | NOT STARTED |
-| C4 Level 3 | BLOCKED until Strategic DDD |
-| TARGET data, security and cloud architecture | NOT DEFINED |
+| Capability Mapping, EventStorming, Domain Storytelling | PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW |
+| Strategic DDD, Bounded Contexts, Context Map | PROPOSED; not canonically accepted |
+| C4 Level 3/4 | SELECTIVE PROPOSED / REVIEW-GATED |
+| TARGET data, security and application architecture | PROPOSED / REVIEW-GATED |
+| Production cloud/deployment architecture | DEFERRED / OPEN |
 
 ## Workspace map
 
 <table>
 <tr><td><a href="00-governance/README.md"><strong>Governance</strong></a><br />Authority, decisions, states and publication controls.</td><td><a href="01-product/README.md"><strong>Product</strong></a><br />Positioning, V1 scope and actors.</td></tr>
 <tr><td><a href="02-domain/README.md"><strong>Domain</strong></a><br />Discovery readiness, terminology and rules.</td><td><a href="03-design/README.md"><strong>Design</strong></a><br />Design evidence and future system guidance.</td></tr>
-<tr><td><a href="04-architecture/README.md"><strong>Architecture</strong></a><br />C4, ADRs, drivers and pre-DDD baseline.</td><td><a href="05-data/README.md"><strong>Data</strong></a><br />AS-IS evidence and TARGET readiness.</td></tr>
+<tr><td><a href="04-architecture/README.md"><strong>Architecture</strong></a><br />C4, ADRs, AS-IS audit and review-gated TARGET proposals.</td><td><a href="05-data/README.md"><strong>Data</strong></a><br />AS-IS evidence and review-gated TARGET ownership/concurrency.</td></tr>
 <tr><td><a href="06-security/README.md"><strong>Security</strong></a><br />Evidence and architecture readiness.</td><td><a href="07-engineering/README.md"><strong>Engineering</strong></a><br />Technology and engineering practice.</td></tr>
 <tr><td><a href="08-operations/README.md"><strong>Operations</strong></a><br />Runtime, CI and observability evidence.</td><td><a href="09-evolution/README.md"><strong>Evolution</strong></a><br />AS-IS to TARGET runway.</td></tr>
 <tr><td><a href="10-repositories/README.md"><strong>Repositories</strong></a><br />Documentation-only independent repository index.</td><td><a href="11-reference/README.md"><strong>Reference</strong></a><br />Evidence catalogues and safe references.</td></tr>
@@ -93,7 +93,7 @@ Capability Mapping -> Big Picture EventStorming -> Process-Level EventStorming
 -> Bounded Context discovery -> Context Mapping -> Strategic DDD
 ```
 
-C4 Level 3, TARGET data, security and deployment architecture wait for resulting ownership decisions.
+C4 Level 3/4 and TARGET data/security/application proposals remain review-gated by resulting ownership decisions; production deployment remains deferred.
 
 ## Validation
 

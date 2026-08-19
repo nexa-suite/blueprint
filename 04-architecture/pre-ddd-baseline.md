@@ -6,7 +6,7 @@ owner: architecture
 last-reviewed: 2026-08-18
 ---
 
-# Pre-Strategic-DDD baseline
+# Pre-Strategic-DDD baseline (historical boundary)
 
 ## Purpose
 
@@ -43,7 +43,7 @@ The eight V1 personas are canonicalized in [Primary personas](../01-product/pers
 - C4 L1 V1: BASELINED.
 - C4 L2 V1: BASELINED.
 - C4 Architecture Runway: BASELINED.
-- C4 L3: NOT CREATED and remains blocked until Strategic DDD.
+- C4 L3/L4 were intentionally not created at the time of this baseline. The current proposal superseding this boundary is indexed in [Architecture README](README.md) and remains review-gated.
 - Workspace is not a C4 Container.
 - PostgreSQL Database is a C4 Container and runtime service.
 - Object Storage is a C4 Container abstraction.
@@ -103,7 +103,7 @@ Production gates remain open for deployment architecture, secrets/key management
 
 ## Explicitly deferred
 
-- C4 L3 and component views.
+- Additional C4 L3/L4 beyond the current selective, review-gated proposal.
 - Mobile and Delivery Driver implementation.
 - IoT/sensor implementation.
 - Control Center and Support.
