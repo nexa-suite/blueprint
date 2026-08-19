@@ -32,7 +32,7 @@ This is a curated invariant register, not Strategic DDD. Terminology, sequence, 
 - Cart never reserves inventory.
 - Purchase Request is not Sales Order and not Supplier Purchase Order.
 - Sales may modify a Purchase Request before Sales Order creation. No universal system-enforced Buyer reconfirmation ceremony is required; where commercially required, Buyer and Sales communicate through Nexa, WhatsApp, phone or another human channel, then Sales records the mutual agreement.
-- Active Purchase Request default expiry is 3 days, maximum 7 days; expiry releases related commitment.
+- Purchase Request expiry and commitment release require explicit scenario policy; no numeric default or maximum is frozen by the final closure.
 - No oversell and no automatic backorder. Final-unit conflict returns current availability to the losing attempt.
 - Substitution is never silent; Buyer accepts or rejects the alternative.
 - Confirmed Sales Order is immutable business history. Buyer and Sales cannot directly cancel it; they may request cancellation. Material change uses explicit cancellation/void and replacement semantics; cancellation authority is exceptional Company Owner or Business Operations Manager authority.
@@ -59,4 +59,4 @@ This is a curated invariant register, not Strategic DDD. Terminology, sequence, 
 
 ## Discovery intentionally left open
 
-Exact lifecycle states, event/command vocabulary, adjustment evidence, cancellation sequence, ownership, subdomains and context boundaries require Capability Mapping, EventStorming, Domain Storytelling and Strategic DDD. No rule here creates an Aggregate, Bounded Context or technical schema.
+Exact lifecycle states, event/command vocabulary, adjustment evidence, cancellation sequence, expiry policy, ownership, subdomains and context boundaries are proposed in [Strategic DDD](../strategic-ddd/README.md) and require Business Architect review. No rule here creates an Aggregate, Bounded Context or technical schema.

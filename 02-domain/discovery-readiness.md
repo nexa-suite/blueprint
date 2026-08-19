@@ -3,22 +3,22 @@ status: draft
 maturity: DRAFT
 scope: cross-cutting
 owner: domain
-last-reviewed: 2026-08-18
+last-reviewed: 2026-08-19
 ---
 
 # Domain discovery readiness
 
-Product baseline input: **READY / FROZEN**. Product questions are no longer the primary blocker. Domain discovery remains **NOT STARTED** and must understand domain structure, not decide what Product V1 should be.
+Product baseline input: **FROZEN / CLOSED**. Domain discovery outputs are **PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW** and must understand domain structure, not redefine Product V1.
 
 | Future artifact | Status | What exists now | What resolves it |
 |---|---|---|---|
-| Capability Mapping | READY / NOT STARTED | Closed Product baseline, personas, known rules and AS-IS behavior evidence | Collaborative Capability Mapping |
-| EventStorming | NOT STARTED | Business behavior evidence and open lifecycle questions | EventStorming |
-| Domain Storytelling | NOT STARTED | Flow references and observed behavior evidence | Domain Storytelling |
-| Ubiquitous Language | NOT STARTED | Current terminology evidence with semantic collisions | Discovery and Strategic DDD |
-| Subdomains | NOT STARTED | No accepted decomposition | Strategic DDD |
-| Bounded Contexts | NOT STARTED | No accepted boundaries | Strategic DDD |
-| Context Map | NOT STARTED | No accepted context relationships | Strategic DDD |
+| Capability Mapping | PROPOSED / READY FOR REVIEW | Closed Product baseline, personas, known rules and AS-IS behavior evidence | Business Architect review |
+| EventStorming | PROPOSED / READY FOR REVIEW | Business behavior evidence and open lifecycle questions | Process validation |
+| Domain Storytelling | PROPOSED / READY FOR REVIEW | Selected responsibility and exception stories | Workshop validation |
+| Ubiquitous Language | PROPOSED / READY FOR REVIEW | Contextual terminology and rejected synonyms | Business language review |
+| Subdomains | PROPOSED / READY FOR REVIEW | Differentiation/value/complexity hypotheses | Strategic DDD review |
+| Bounded Contexts | PROPOSED / READY FOR REVIEW | Ownership, lifecycle and invariant candidates | Business Architect acceptance |
+| Context Map | PROPOSED / READY FOR REVIEW | Directional authority and adapter hypotheses | Boundary review |
 
 ## Explicit non-decisions
 
@@ -28,7 +28,7 @@ The Product headings in `01-product/` are not a Capability Map. Do not derive ca
 
 ## Discovery input boundary
 
-The current product baseline, personas, known rules, AS-IS behavior evidence and the [legacy evidence register](../11-reference/legacy-ecosystem-report/legacy-evidence-register.md) are workshop inputs only. They are not a Capability Map, EventStorming board, Domain Storytelling result, Ubiquitous Language, subdomain model, Bounded Context model or Context Map.
+The current product baseline, personas, known rules, AS-IS behavior evidence and the [legacy evidence register](../11-reference/legacy-ecosystem-report/legacy-evidence-register.md) are inputs. The proposed outputs are maintained in [strategic-ddd](strategic-ddd/README.md) and remain review-gated.
 
 ## Open evidence questions
 

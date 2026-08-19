@@ -38,7 +38,7 @@ Base Price, Price Lists, Customer Commercial Terms and Promotions as policy conc
 
 ### Sales, Purchase Request and Sales Order
 
-Buyer and assisted request capture, Purchase Request review/adjustment, Tenant policy supporting direct or approval-required ordering, authoritative validation, 3-day default/7-day maximum PR expiry, Sales Order confirmation, historical order prices and explicit non-silent change handling. No universal Buyer reconfirmation ceremony is required; commercially necessary agreement is recorded.
+Buyer and assisted request capture, Purchase Request review/adjustment, Tenant policy supporting direct or approval-required ordering, authoritative validation, scenario-specific PR expiry, Sales Order confirmation, historical order prices and explicit non-silent change handling. No universal Buyer reconfirmation ceremony is required; commercially necessary agreement is recorded.
 
 ### Inventory and availability
 

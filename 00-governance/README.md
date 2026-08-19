@@ -15,7 +15,7 @@ Define documentation authority, accepted decisions, maturity semantics, current 
 
 ## Current status
 
-BASELINED. Product & Business V1 is FROZEN / CLOSED. The pre-Strategic-DDD architecture baseline is READY FOR CAPABILITY MAPPING; Strategic DDD is NOT STARTED.
+BASELINED. Product & Business V1 is FROZEN / CLOSED. Strategic DDD is **PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW**. Technical architecture, data, security and C4 L3/L4 are explicit proposals and remain review-gated.
 
 ## Expected artifacts
 
@@ -27,4 +27,4 @@ Application source, inferred domain architecture, duplicated AS-IS reports, secr
 
 ## Related areas
 
-[Product](../01-product/README.md), [Domain](../02-domain/README.md), [Architecture](../04-architecture/README.md), [AS-IS evidence](../11-reference/as-is/README.md).
+[Product](../01-product/README.md), [Domain](../02-domain/README.md), [Architecture](../04-architecture/README.md), [AS-IS evidence](../11-reference/as-is/README.md), [Strategic DDD synthesis](../02-domain/strategic-ddd/README.md).

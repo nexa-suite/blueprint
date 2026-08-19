@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-18
+last-reviewed: 2026-08-19
 ---
 
 # Current accepted decisions
@@ -12,7 +12,7 @@ last-reviewed: 2026-08-18
 
 - Product and Business V1 is **FROZEN / CLOSED**. No major Product V1 decision blocker remains.
 - Acceptance covers Fresh Nexa Tenant, Generic Tenant and ICISA Reference Tenant states. Same product, code and release line; ICISA is never required by Nexa.
-- Next business architecture activity is Capability Mapping. EventStorming, Domain Storytelling, Ubiquitous Language, subdomains, Bounded Contexts and Context Map remain not started.
+- Strategic DDD synthesis now exists as **PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW**. Capability Mapping, EventStorming, Domain Storytelling, Ubiquitous Language, subdomains, Bounded Contexts and Context Map in the synthesis remain hypotheses until explicit review acceptance.
 
 ## Nexa
 
@@ -60,7 +60,7 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 
 - One physical Inventory Lot belongs to exactly one Warehouse at a time; split source batches retain traceability when needed.
 - Sales may modify Purchase Requests before Sales Order creation. No universal system-enforced Buyer reconfirmation ceremony is required; where Buyer agreement is commercially needed, Buyer and Sales communicate through Nexa, WhatsApp, phone or another human channel, then Sales records the mutual agreement in Nexa.
-- Purchase Requests expire by default after 3 days and never beyond 7 days; expiry releases related commitment.
+- Purchase Request expiry, material-change evidence and commitment release sequence require explicit process discovery. This closure does not freeze a numeric default or maximum.
 - Cart never reserves inventory. No automatic backorder. Confirmed Sales Orders are immutable history; cancellation is exceptional Company Owner or Business Operations Manager authority.
 - Credit is Tenant-specific and insufficient Available Credit hard-blocks order progression.
 - Buyer Portal exposes live Credit Limit, Current Exposure/Used Credit and Available Credit for current supplier Tenant; no global Nexa-wide Buyer credit balance exists.
@@ -73,4 +73,5 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 - C4 L1 V1: baselined.
 - C4 L2 V1: baselined.
 - C4 Architecture Runway: baselined.
-- C4 L3: blocked until Strategic DDD.
+- C4 L3/L4: proposed and evidence-linked in the architecture rebaseline; component boundaries remain technical views, not accepted Bounded Contexts.
+- TARGET data, security, application, integration, API, frontend and runtime architecture: proposed, review-gated and not a production deployment freeze.

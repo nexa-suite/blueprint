@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: v1
 owner: product
-last-reviewed: 2026-08-18
+last-reviewed: 2026-08-19
 ---
 
 # Product & Business V1 baseline
@@ -71,7 +71,7 @@ V1 includes Customer Accounts, contacts, Sales assignment, commercial history, n
 - Cart does not reserve inventory.
 - Backend revalidates authoritative sellable availability transactionally. V1 accepts no oversell/backorder behavior; competing buyers for the final unit require concurrency-correct conflict handling.
 - Sales may adjust a Purchase Request before Sales Order creation. Nexa does not require a universal system-enforced reconfirmation ceremony; where commercially required, Buyer and Sales communicate through Nexa, WhatsApp, phone or another human channel, then Sales records the mutual agreement as the accepted business result.
-- Active Purchase Requests expire after a default 3 days and a configurable maximum of 7 days; expiry releases related inventory commitment.
+- Purchase Request expiry and commitment-release timing are scenario-specific discovery inputs. No numeric default or maximum is frozen by this closure.
 - Manual/assisted Sales order capture is valid without fabricating Buyer identity. Cart never reserves inventory, no automatic backorder is accepted, and competing final-unit claims resolve with one success and one availability conflict.
 - Substitution requires Buyer approval by default. Operational exceptions require escalation; Buyer-selected items are never silently replaced.
 - Confirmed Sales Orders are commercial commitments. Significant changes are not silent mutation; cancel/void/replace semantics are preferred where appropriate. Formal amendment machinery remains V2 unless discovery proves V1 need.
@@ -115,6 +115,10 @@ A capability presented as V1 must close coherently end-to-end. If it cannot be d
 ## V2 and future
 
 Deferred items include full Procurement, advanced CRM, advanced Finance, formal order amendments where not required, backorders, advanced BI/data warehouse, SUNAT integration, Control Center, advanced warehouse optimization, predictive inventory, multi-user customer accounts, plans/subscriptions/entitlements, Mobile, Driver application, IoT/automatic telemetry, deep QMS workflows and complex carrier integrations.
+
+## Closure reconciliation
+
+This file remains the single Product / Business V1 authority. The Strategic DDD package in [02-domain/strategic-ddd](../02-domain/strategic-ddd/README.md) proposes business boundaries without changing frozen scope. The final Product closure deliberately leaves numeric Purchase Request expiry open for Process EventStorming and policy review.
 
 ## Authority boundary
 

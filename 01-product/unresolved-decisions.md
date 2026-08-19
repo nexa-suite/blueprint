@@ -28,7 +28,7 @@ None currently blocking Product V1.
 | Open point | Boundary | Activity that should resolve it |
 |---|---|---|
 | Production providers and credentials | Stripe direction is a V1 Product choice; provider contracts, credentials, email/maps/storage/scanning/observability and deployment remain open. | Security Architecture; Cloud/Deployment Architecture |
-| Data, RLS and security ownership | Product isolation and traceability principles are accepted; TARGET ownership and policy are not defined. | Strategic DDD; Data/Security Architecture |
+| Data, RLS and security ownership | Product isolation and traceability principles are accepted; TARGET ownership and policy are proposed in the review-gated architecture pack. | Business Architect review; Data/Security Architecture |
 
 ## D. Future Product questions
 
