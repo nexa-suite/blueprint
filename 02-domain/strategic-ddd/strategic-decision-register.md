@@ -11,7 +11,7 @@ last-reviewed: 2026-08-19
 | ID | Proposed decision | Evidence / reason | Status / revisit |
 |---|---|---|---|
 | DDD-001 | Treat current modules as AS-IS technical boundaries, not Bounded Contexts | Source-of-truth rule; code inspection shows cross-module contracts, open modules and shared persistence | Proposed; revisit after Business Architect review |
-| DDD-002 | Keep Commercial Commitment distinct from Physical Allocation | Product closes SKU + quantity commitment versus Inventory Lot allocation; physical truth and lot selection are different | Proposed; review ownership, integration direction and consistency boundary in P1/P2 |
+| DDD-002 | Assign ownership and integration for the closed Commercial Commitment / Physical Allocation distinction | Product closes SKU + quantity commitment versus Inventory Lot allocation; physical truth and lot selection are different | Proposed; review context ownership, integration direction and consistency boundary in P1/P2; do not reopen the distinction |
 | DDD-003 | Keep Customer Account and Buyer Relationship distinct | Buyer can exist without portal/account; relationships are Tenant-specific and independent | Proposed; validate identity/account-claim stories |
 | DDD-004 | Keep Payment distinct from Stripe and Receivable | Provider boundary, Payment Reported != Confirmed, financial posting semantics | Proposed; validate P5 |
 | DDD-005 | Keep Dispatch, Delivery and Route distinct | Partial delivery/continuation and simple route grouping rules | Proposed; validate P3 |
