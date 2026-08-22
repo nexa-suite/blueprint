@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Prepare Nexa for future domain discovery while preserving accepted terminology and observed evidence without performing Strategic DDD.
+Maintain accepted domain invariants and the proposed Strategic DDD synthesis while preserving AS-IS evidence and review boundaries.
 
 ## Authoritative content
 
@@ -10,10 +10,11 @@ Prepare Nexa for future domain discovery while preserving accepted terminology a
 - [Current terminology evidence](../11-reference/as-is/current-terminology-evidence.md) — observed terms and collisions.
 - [Business behavior evidence](../11-reference/as-is/business-behavior-evidence.md) — observed behavior without ownership conclusions.
 - [Discovery readiness](discovery-readiness.md) — future work index and open questions.
+- [Strategic DDD synthesis](strategic-ddd/README.md) — proposed Capability Map through Context Map, ready for Business Architect review.
 
 ## Current status
 
-Capability Mapping, EventStorming, Domain Storytelling and Strategic DDD are **NOT STARTED**. Subdomains, Bounded Contexts, Context Map and Ubiquitous Language are **NOT STARTED**.
+Capability Mapping, EventStorming, Domain Storytelling and Strategic DDD are **PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW**. Subdomains, Bounded Contexts, Context Map and Ubiquitous Language remain proposed, not canonically accepted.
 
 Current Spring modules are not accepted Bounded Contexts. Current PostgreSQL schemas are not accepted Bounded Contexts. Current frontend feature areas are not accepted Bounded Contexts.
 
@@ -23,7 +24,7 @@ Capability Mapping, EventStorming, Domain Storytelling, Ubiquitous Language, sub
 
 ## What must not live here
 
-Invented business rules, inferred domain boundaries, architecture derived from folder names, C4 Level 3, TARGET database models or final security/cloud design.
+Invented business rules, silently accepted boundaries, architecture derived from folder names, product-redefining policies, or technical models presented as canonical business decisions.
 
 ## Related areas
 

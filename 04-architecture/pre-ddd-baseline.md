@@ -3,10 +3,10 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-12
+last-reviewed: 2026-08-18
 ---
 
-# Pre-Strategic-DDD baseline
+# Pre-Strategic-DDD baseline (historical boundary)
 
 ## Purpose
 
@@ -17,6 +17,8 @@ This document closes the architecture baseline before Strategic DDD. It answers 
 Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and distributors, particularly cold-chain businesses. It coordinates commercial operations, inventory, fulfillment and delivery while providing buyers with a simple purchasing experience.
 
 Canonical source: [Product vision](../01-product/vision.md).
+
+Product / Business V1 input: **FROZEN / CLOSED**. No major Product blocker remains. This baseline is ready for Capability Mapping; it does not create strategic boundaries.
 
 ## V1 system boundary
 
@@ -41,7 +43,7 @@ The eight V1 personas are canonicalized in [Primary personas](../01-product/pers
 - C4 L1 V1: BASELINED.
 - C4 L2 V1: BASELINED.
 - C4 Architecture Runway: BASELINED.
-- C4 L3: NOT CREATED and remains blocked until Strategic DDD.
+- C4 L3/L4 were intentionally not created at the time of this baseline. The current proposal superseding this boundary is indexed in [Architecture README](README.md) and remains review-gated.
 - Workspace is not a C4 Container.
 - PostgreSQL Database is a C4 Container and runtime service.
 - Object Storage is a C4 Container abstraction.
@@ -57,7 +59,7 @@ The accepted drivers are Strong Tenant Isolation, Role-Focused Simplicity, High 
 
 ## Known domain rules
 
-The accepted rules include Tenant isolation, Tenant 1:1 Workspace in V1, single-Warehouse physical lots, source-batch traceability, Purchase Request modification before order creation, authoritative pricing protection and explicit/auditable Sales Order changes. Buyer acknowledgement/reconfirmation after Sales adjustment remains unresolved. See [Known domain rules](../02-domain/business-rules/known-rules.md).
+The accepted rules include Tenant isolation, Tenant 1:1 Workspace in V1, single-Warehouse physical lots, source-batch traceability, Purchase Request adjustment and bounded expiry, cart non-reservation, authoritative pricing protection, credit hard block and explicit/auditable Sales Order changes. See [Known domain rules](../02-domain/business-rules/known-rules.md).
 
 ## Current implementation strengths — AS-IS evidence
 
@@ -101,7 +103,7 @@ Production gates remain open for deployment architecture, secrets/key management
 
 ## Explicitly deferred
 
-- C4 L3 and component views.
+- Additional C4 L3/L4 beyond the current selective, review-gated proposal.
 - Mobile and Delivery Driver implementation.
 - IoT/sensor implementation.
 - Control Center and Support.
@@ -120,7 +122,7 @@ Production gates remain open for deployment architecture, secrets/key management
 
 ## Closure
 
-Pre-Strategic-DDD Architecture Baseline: **ACCEPTED WITH CAVEAT**.
+Pre-Strategic-DDD Architecture Baseline: **READY FOR CAPABILITY MAPPING**.
 
 The next architecture activity is:
 

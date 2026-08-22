@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Maintain the accepted Nexa product direction, V1 scope, positioning, actors and unresolved product decisions.
+Maintain the accepted Nexa product direction, V1 scope, positioning, actors and explicitly reclassified discovery/technical questions.
 
 ## Authoritative content
 
@@ -14,7 +14,7 @@ Maintain the accepted Nexa product direction, V1 scope, positioning, actors and 
 
 ## Current status
 
-Product & Business V1 is FROZEN as an accepted baseline. Some implementation and detailed domain behavior remain unresolved or depend on future discovery.
+Product & Business V1 is FROZEN / CLOSED. Detailed domain behavior, technical architecture and future Product evolution remain separate work.
 
 ## Expected artifacts
 

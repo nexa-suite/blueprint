@@ -7,13 +7,14 @@ Index current security evidence and unresolved security architecture concerns wh
 ## Authoritative content
 
 - [Security architecture readiness](security-architecture-readiness.md).
+- [Proposed security architecture](security-architecture-target.md), [authorization matrix](authorization-matrix.md) and [threat model](threat-model.md).
 - [AS-IS implementation baseline](../11-reference/as-is/v1-implementation-baseline.md).
 - [Architecture readiness gaps](../11-reference/as-is/architecture-readiness-gaps.md).
 - Accepted identity and role decisions in [Current accepted decisions](../00-governance/current-decisions.md).
 
 ## Current status
 
-Authentication and authorization mechanisms, tenant-context controls and RLS evidence are BASELINED as AS-IS evidence. TARGET Security Architecture is NOT DEFINED. No final threat model is claimed.
+Authentication and authorization mechanisms, tenant-context controls and RLS evidence are BASELINED as AS-IS evidence. TARGET Security Architecture is PROPOSED / REVIEW-GATED. No production security closure is claimed.
 
 ## Expected artifacts
 

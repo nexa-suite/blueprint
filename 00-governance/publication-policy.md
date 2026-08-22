@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-08-15
+last-reviewed: 2026-08-19
 ---
 
 # Blueprint publication policy
@@ -25,9 +25,9 @@ The Blueprint publishes authored architecture and documentation only. This docum
 | `01-product` | INCLUDE | Accepted Product baseline and clearly labeled open decisions |
 | `02-domain` | INCLUDE | Discovery readiness and known evidence; no invented DDD |
 | `03-design` | INCLUDE | Authored design guidance and classified historical evidence |
-| `04-architecture` | INCLUDE | Accepted C4/ADR/pre-DDD sources; no C4 L3 |
-| `05-data`, `06-security` | INCLUDE | Evidence/readiness only; no final TARGET architecture |
-| `07-engineering`, `08-operations`, `09-evolution` | INCLUDE | Safe evidence, tooling and runway guidance |
+| `04-architecture` | INCLUDE | Accepted C4/ADR, AS-IS audit and review-gated TARGET architecture |
+| `05-data`, `06-security` | INCLUDE | Review-gated TARGET ownership, concurrency and security architecture |
+| `07-engineering`, `08-operations`, `09-evolution` | INCLUDE | Quality, construction, runtime evidence and controlled runway guidance |
 | `10-repositories` | DOCUMENTATION ONLY | Maps and immutable pointers; no application clones |
 | `11-reference` | SAFE EVIDENCE ONLY | No secrets, dumps, private binaries or copyrighted source |
 | `90-academic` | ISOLATED | Non-authoritative academic mapping |

@@ -11,11 +11,11 @@ Describe controlled movement from AS-IS evidence toward future TARGET work. Runw
 
 ## Current status
 
-Strategic DDD and KEEP/REFINE/REWORK classification are NOT STARTED. Runway entries below are accepted future direction, not delivery commitments.
+Strategic DDD and KEEP/REFINE/REWORK classification are proposed and ready for Business Architect review. Runway entries below remain accepted future direction, not delivery commitments. See the [Strategic DDD baseline](../02-domain/strategic-ddd/strategic-ddd-baseline.md) and [AS-IS/TARGET fit](../04-architecture/as-is-target-fit.md).
 
 ## Boundary
 
-This directory does not create capabilities, subdomains, Bounded Contexts, Context Maps, C4 L3, cloud architecture or implementation plans.
+This directory does not authorize implementation, cloud architecture, release scope or production deployment. Proposed domain and architecture artifacts remain review-gated.
 
 ## Related areas
 

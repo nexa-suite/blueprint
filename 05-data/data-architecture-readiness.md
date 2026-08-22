@@ -3,12 +3,12 @@ status: draft
 maturity: DRAFT
 scope: cross-cutting
 owner: data
-last-reviewed: 2026-08-14
+last-reviewed: 2026-08-19
 ---
 
 # Data Architecture readiness
 
-Maturity: **NOT STARTED** for TARGET Data Architecture.
+Maturity: **PROPOSED / REVIEW-GATED** for TARGET Data Architecture. Closed Product / Business V1 is an input; the proposal does not by itself define accepted ownership or schema.
 
 ## What exists
 
@@ -16,12 +16,14 @@ Current PostgreSQL, Flyway, RLS, persistence and object-storage adapter evidence
 
 The [data requirements evidence](data-requirements-evidence.md) records information concerns that future discovery must resolve without assigning ownership or designing a schema.
 
-## What is not defined
+The proposed [data architecture](data-architecture.md) and [transaction/concurrency matrix](transaction-concurrency-matrix.md) make ownership and invariants explicit for review. They do not authorize migrations.
 
-- TARGET conceptual model.
-- TARGET logical model.
-- TARGET physical model.
-- Data ownership and stewardship.
+## What remains open
+
+- Accepted TARGET conceptual model.
+- Accepted TARGET logical model.
+- Accepted TARGET physical model.
+- Approved data ownership and stewardship.
 - Retention, classification and cross-context data policy.
 - Final RLS ownership and worker/system access policy.
 
