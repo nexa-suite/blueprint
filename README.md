@@ -2,8 +2,6 @@
 
 <br />
 
-<img src="./docs/assets/nexa.svg" alt="Nexa" width="220" />
-
 <br /><br />
 
 # Nexa Blueprint
