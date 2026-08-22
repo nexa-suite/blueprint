@@ -10,6 +10,8 @@ Catalogue evidence, legacy references, verified flows and safe bibliography poin
 - [Legacy references](legacy/README.md).
 - [Legacy ecosystem report archaeology](legacy-ecosystem-report/README.md).
 - [Flow references](flows/README.md).
+- [Canonical workflows](flows/workflows.md).
+- [Implementation traceability](implementation-traceability.md).
 - [Bibliography](bibliography/README.md).
 
 ## Current status

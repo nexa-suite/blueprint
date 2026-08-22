@@ -7,6 +7,8 @@ Maintain accepted domain invariants and the proposed Strategic DDD synthesis whi
 ## Authoritative content
 
 - [Known domain rules](business-rules/known-rules.md) — accepted V1 rules only.
+- [Business knowledge layer](business-knowledge.md) — compact business model, capability index and AS-IS/TARGET boundary.
+- [Glossary](glossary.md) — canonical terms and visible vocabulary collisions.
 - [Current terminology evidence](../11-reference/as-is/current-terminology-evidence.md) — observed terms and collisions.
 - [Business behavior evidence](../11-reference/as-is/business-behavior-evidence.md) — observed behavior without ownership conclusions.
 - [Discovery readiness](discovery-readiness.md) — future work index and open questions.

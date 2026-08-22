@@ -10,6 +10,7 @@ Index accepted architecture decisions, the defensible C4 L1/L2 baseline, propose
 - [Initial architecture drivers](architecture-drivers/initial-drivers.md).
 - [ADR index](adrs/README.md) and accepted ADRs.
 - [Canonical C4 model](c4/README.md) — L1/L2 rationale, exact containers, exclusions and runway semantics.
+- [C4 L3/L4 technical views](c4/l3-l4-views.md) — selective API, Platform and Portal lenses plus workflow links; technical only and review-gated.
 - [C4 Structurizr source](c4/structurizr/README.md) — canonical DSL, L1/L2 views and selective L3 views.
 - [AS-IS implementation audit](as-is-implementation-audit.md) and [AS-IS/TARGET fit](as-is-target-fit.md).
 - [Application TARGET](application-architecture-target.md), [tactical DDD guidance](tactical-ddd-guidance.md), [API TARGET](api-architecture-target.md), [integration/event TARGET](integration-event-architecture.md) and [frontend TARGET](frontend-application-architecture.md).

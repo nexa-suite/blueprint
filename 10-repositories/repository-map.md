@@ -11,6 +11,12 @@ This index describes independent repositories and their documentation boundary. 
 | [Portal](https://github.com/nexa-suite/portal) | Buyer self-service portal for catalog, requests, orders and delivery visibility | Angular 22 / TypeScript / Angular Material | `develop @ 730c605324f547335733af96a2f654ec8d41b5fa` | `v0.7.0` published baseline; development artifact is separate |
 | [Website](https://github.com/nexa-suite/website) | Public product discovery and contact/demo entry point | Static HTML/CSS/vanilla JavaScript | `develop @ 3f98a1faf39886a303035b9ce0573518b5bbd766` | `v1.0.0` published baseline; API-backed contact flow is separate develop evidence |
 
+## Design source repository
+
+| Repository | Responsibility | Technology | Baseline | Status |
+|---|---|---|---|---|
+| [Design Lab](https://github.com/nexa-suite/design-lab) | Executable visual source and design-system validation companion for frontend convergence | Design-system lab / frontend tooling | Maintained by the Design Lab repository | Visual source; not application runtime or Product authority |
+
 ## Runway repository
 
 | Repository | Responsibility | Technology | Remote baseline | Status |
