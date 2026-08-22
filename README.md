@@ -25,7 +25,7 @@ It does not contain application source as Blueprint content, final accepted TARG
 
 ## Start here
 
-1. Read [Source of truth](00-governance/source-of-truth.md).
+1. Read [Source of truth](00-governance/source-of-truth.md) and the [Nexa knowledge system](00-governance/knowledge-system.md).
 2. Read [Current accepted decisions](00-governance/current-decisions.md).
 3. Read [Current state](00-governance/current-state.md).
 4. Choose an area from the [workspace map](#workspace-map).
@@ -55,11 +55,11 @@ AS-IS records observed code, runtime, tests, Git state, flows or historical evid
 
 <table>
 <tr><td><a href="00-governance/README.md"><strong>Governance</strong></a><br />Authority, decisions, states and publication controls.</td><td><a href="01-product/README.md"><strong>Product</strong></a><br />Positioning, V1 scope and actors.</td></tr>
-<tr><td><a href="02-domain/README.md"><strong>Domain</strong></a><br />Discovery readiness, terminology and rules.</td><td><a href="03-design/README.md"><strong>Design</strong></a><br />Design evidence and future system guidance.</td></tr>
+<tr><td><a href="02-domain/README.md"><strong>Domain</strong></a><br />Business knowledge, discovery readiness, terminology and rules.</td><td><a href="03-design/README.md"><strong>Design</strong></a><br />Design evidence and future system guidance.</td></tr>
 <tr><td><a href="04-architecture/README.md"><strong>Architecture</strong></a><br />C4, ADRs, AS-IS audit and review-gated TARGET proposals.</td><td><a href="05-data/README.md"><strong>Data</strong></a><br />AS-IS evidence and review-gated TARGET ownership/concurrency.</td></tr>
 <tr><td><a href="06-security/README.md"><strong>Security</strong></a><br />Evidence and architecture readiness.</td><td><a href="07-engineering/README.md"><strong>Engineering</strong></a><br />Technology and engineering practice.</td></tr>
 <tr><td><a href="08-operations/README.md"><strong>Operations</strong></a><br />Runtime, CI and observability evidence.</td><td><a href="09-evolution/README.md"><strong>Evolution</strong></a><br />AS-IS to TARGET runway.</td></tr>
-<tr><td><a href="10-repositories/README.md"><strong>Repositories</strong></a><br />Documentation-only independent repository index.</td><td><a href="11-reference/README.md"><strong>Reference</strong></a><br />Evidence catalogues and safe references.</td></tr>
+<tr><td><a href="10-repositories/README.md"><strong>Repositories</strong></a><br />Documentation-only independent repository index.</td><td><a href="11-reference/README.md"><strong>Reference</strong></a><br />Workflows, implementation traceability and evidence catalogues.</td></tr>
 </table>
 
 ## Repository reference

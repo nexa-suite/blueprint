@@ -19,6 +19,7 @@ Este documento fija la semántica C4 L1/L2 de Nexa antes de Strategic DDD. Model
 - [Structurizr DSL](structurizr/workspace.dsl) es la fuente semántica.
 - [README de Structurizr](structurizr/README.md) documenta las vistas y su validación.
 - [Selective Level 4 code views](code-views.md) trace security, commitment, availability, payment and frontend seams.
+- [L3/L4 technical views](l3-l4-views.md) index the requested API, Platform and Portal responsibility lenses and canonical workflows.
 - `workspace.json` es representación generada; no debe editarse manualmente.
 
 Vistas canónicas:
