@@ -64,7 +64,7 @@ No se estableció una violación concreta en la inspección documental; tampoco 
 3. Mantener la traducción de transporte y serialización fuera del dominio.
 4. Colocar invariantes en el dominio cuando el comportamiento esté descubierto y sea estable; no fabricar aggregates por nombres de paquetes.
 5. Mantener transacciones, idempotencia, outbox y RLS como políticas explícitas; no esconderlas en una capa “utilitaria”.
-6. Revalidar límites después de Capability Mapping, EventStorming, Domain Storytelling y Strategic DDD before accepting C4 L3 or reorganizing modules; the current selective L3/L4 proposal is technical evidence only.
+6. Preserve accepted Strategic DDD ownership when implementing C4 L3 or reorganizing modules; current selective L3/L4 is a technical target view, not evidence that code already conforms.
 
 ## Referencias de evidencia
 

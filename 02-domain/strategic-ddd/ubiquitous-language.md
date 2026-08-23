@@ -1,70 +1,65 @@
 ---
-status: draft
-maturity: DISCOVERY
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
-# Ubiquitous Language proposal
+# Ubiquitous Language
 
-This is a contextual vocabulary proposal. Terms are protected from accidental synonym collapse; final meanings require Business Architect review.
+These terms are canonical for PRE-V1. Context-local synonyms require an explicit translation contract.
 
-| Term | Proposed meaning | Must not be treated as |
+| Term | Canonical meaning | Must not be collapsed into |
 |---|---|---|
-| Tenant | Nexa customer and maximum business/data isolation boundary | Workspace, Customer Account, user organization |
-| Workspace | V1 operational environment associated 1:1 with Tenant | C4 Container, separate Tenant, security shortcut |
-| Human Identity | Global person authentication identity | Workforce Membership, Buyer Relationship |
-| Workforce Membership | Tenant-scoped business/work access relationship for a person | Global identity, Buyer Relationship |
-| Buyer Relationship | Tenant-approved commercial relationship between Buyer and supplier Tenant | Customer Account, Portal Access |
-| Portal Access | Permission to use Buyer Portal for an authorized relationship | Buyer identity, Customer Account |
-| Customer Account | Tenant-scoped business customer record with contacts/addresses | Buyer, global identity |
-| Product | Commercial product concept | Sellable SKU, Inventory Lot |
-| SKU | Concrete sellable presentation/UOM V1 | Product Variant engine, physical lot |
-| Price List | Tenant pricing configuration with validity periods | Arbitrary Sales override |
-| Commercial Terms | Customer-specific commercial conditions used in price/credit/order resolution | Price List, Payment |
-| Cart | Persisted buyer selection before checkout | Inventory commitment or reservation |
-| Purchase Request | Buyer-originated commercial request subject to review | Sales Order, Purchase Order |
-| Sales Order | Confirmed immutable commercial obligation | Purchase Request, backorder |
-| Commercial Commitment | SKU + quantity committed when a submitted PR is accepted for commercial processing, before physical lot selection | Inventory Lot, physical allocation |
-| Physical Stock | Actual quantity in Warehouse, including non-sellable states | Sellable Availability |
-| Sellable Availability | Quantity eligible for a new commercial commitment | Physical Stock, Safety Stock |
-| Safety Stock | Quantity protected by warehouse policy | Commercial Commitment, Physical Allocation |
-| Inventory Lot | Physical traceable stock unit in one Warehouse | Manufacturer Batch, SKU |
-| Manufacturer Batch | Source traceability grouping that may produce multiple lots | Inventory Lot |
-| Allocation | Selection of valid physical lots for Fulfillment | Commercial Commitment |
-| Fulfillment | Work to prepare committed goods for dispatch | Delivery, Dispatch |
-| Dispatch | Coordination grouping for deliveries | Delivery, Route |
-| Delivery | Scheduled/attempted obligation to deliver goods | Dispatch, Route |
-| Continuation Delivery | Remaining portion after partial delivery | New backorder |
-| Temperature Excursion | Out-of-range observation requiring evaluation | Automatic Waste or automatic Quarantine |
-| Hold | Non-sellable pending-evaluation state created by an excursion or other operational decision | Quarantine, confirmed Waste |
-| Quarantine | Separate restricted disposition only when explicitly selected after evaluation | Automatic consequence of every excursion |
-| Credit Limit | Tenant-specific maximum credit policy for the current supplier relationship | Global Buyer balance |
-| Credit Reserved | Amount reserved for relevant Commercial Commitments before formal Receivable recognition | Outstanding Receivable |
-| Outstanding Receivables | Formal recognized commercial debt not yet settled | Credit Reserved |
-| Available Credit | Credit Limit minus Credit Reserved minus Outstanding Receivables | legacy `exposure` / `used` implementation labels as final Product language |
-| Receivable | Formal commercial debt/claim created by Financial Posting | Sales Order by default |
-| Financial Posting | Business recognition event that makes obligation financially due/recognized | Payment, invoice rendering only |
-| Payment | Business money movement/report/confirmation concept | Stripe provider |
-| Payment Report | External/manual claim of a payment operation | Payment Confirmation |
-| Payment Confirmation | Authorized acceptance/reversal of payment evidence | Provider callback alone |
-| Business Document | Issued commercial/evidence artifact preserving history | Security Audit, Receivable |
-| Business Traceability | Buyer/operations timeline of meaningful business facts | Security Audit Logging |
-| Security Audit | Security/authorization evidence retained for protection and review | Buyer timeline |
+| Tenant | Nexa customer and maximum business/data isolation boundary | Workspace, Customer Account or deployment |
+| Workspace | V1 operational environment associated 1:1 with Tenant | Tenant, C4 Container or separate security boundary |
+| Human Identity | global person authentication identity | Workforce Membership or Buyer Relationship |
+| Workforce Membership | Tenant-scoped work/access relationship | Human Identity or Buyer Relationship |
+| Customer Account | Tenant-scoped business customer record | Human Identity or Buyer |
+| Buyer Relationship | Tenant-approved commercial relationship with supplier Tenant | Customer Account or generic Portal Access |
+| Product | catalog concept | SKU or Inventory Lot |
+| SKU | concrete sellable commercial identity/UOM | Product or physical lot |
+| Base Price | catalog starting price | final resolved price |
+| Price List | applicable Tenant/customer pricing configuration | SKU identity or arbitrary Sales override |
+| Customer Terms | permitted customer-specific commercial conditions | Price List, Payment or Receivable |
+| Promotion | one permitted transformation over resolved price in V1 | stacked discount or price authority |
+| Cart / Request Draft | buyer intent before authoritative submission | Purchase Request or inventory commitment |
+| Purchase Request | buyer commercial request subject to review | Sales Order, Supplier Purchase Order or Draft SO |
+| Commercial Commitment | persistent SKU + quantity demand commitment owned by PR/SO | Physical Allocation or Inventory Lot |
+| Sales Order | confirmed immutable commercial obligation | Purchase Request or financial settlement |
+| Physical Stock | actual quantity in a Warehouse, including non-sellable states | Sellable Availability |
+| Sellable Availability | usable on-hand minus active commitments and Safety Stock | Physical Stock or Commercial Commitment |
+| Safety Stock | protected warehouse policy quantity | commitment, allocation or unusable stock |
+| Inventory Lot | traceable physical stock unit in one Warehouse at a time | Manufacturer Batch or SKU |
+| Physical Allocation | selection/authority for Inventory Lot(s) against commitment | Commercial Commitment or fulfillment scan |
+| Fulfillment | operational work preparing committed goods | Delivery or Dispatch |
+| Dispatch | coordination/handover grouping | Delivery or Route |
+| Delivery | scheduled/attempted obligation to deliver goods | Delivery Attempt or Dispatch |
+| Delivery Attempt | one attempt within same Delivery | new Delivery or automatic failure finality |
+| Continuation Delivery | new Delivery for remaining quantity after partial delivery | retry of original attempt or backorder |
+| POD | immutable proof-of-delivery evidence | mutable delivery state |
+| Temperature Excursion | out-of-range observation requiring evaluation | automatic destruction or automatic quarantine |
+| HOLD | non-sellable pending disposition | Quarantine, Waste or Release |
+| Credit Reservation | credit amount reserved for active commercial demand | Outstanding Receivable |
+| Available Credit | Credit Limit - Credit Reservations - Outstanding Receivables | global Buyer balance or `exposure`/`used` |
+| Receivable | formal commercial debt/claim posted at accepted trigger | Payment or document rendering |
+| Payment | business money movement/report/confirmation lifecycle | Stripe provider or Receivable |
+| Payment Report | external/manual payment claim awaiting handling | Payment Confirmed |
+| Financial Adjustment | explicit correction to historical financial obligation | silent rewrite or SUNAT Credit Note |
+| Business Document | issued commercial/evidence artifact with immutable history | Security Audit or automatic fiscal document |
+| Notification | delivery intent and channel state | source business fact or Traceability |
+| Business Traceability | durable representation of meaningful business facts and timeline | Notification or Security Audit |
+| Security Audit | security and authorization evidence | Buyer business timeline |
 
-## Rejected ambiguous synonyms
+## Canonical state names
 
-| Ambiguous usage | Required correction |
-|---|---|
-| Workspace as Tenant | Use Tenant for customer/isolation; Workspace only for V1 operational environment |
-| Customer as Buyer | Use Customer Account for business account; Buyer for person/relationship actor |
-| Order for every request | Use Purchase Request before confirmation; Sales Order after confirmed commitment |
-| Reservation for every commitment | Use Commercial Commitment for demand; Allocation for lot selection |
-| Dispatch as Delivery | Keep coordination grouping separate from scheduled delivery obligation |
-| Invoice as every document | Use Business Document family; Receivable and fiscal invoice semantics remain explicit |
-| Stripe as Payment | Payment is domain concept; Stripe is provider adapter |
+- PR: `SUBMITTED`, `CHANGES_PROPOSED`, `CONVERTED`, `REJECTED`, `WITHDRAWN`, `EXPIRED`.
+- Buyer Relationship: `PENDING / INVITED`, `ACTIVE`, `SUSPENDED`, `REVOKED`.
+- Transfer: `REQUESTED`, `IN_TRANSIT`, `RECEIVED`.
+- Fulfillment: `PLANNED`, `ALLOCATED`, `PICKING`, `PICKED`, `PACKED`, `STAGED`, `READY_FOR_DISPATCH`, `HANDED_OVER`, `COMPLETED`, with explicit exceptions.
+- Delivery: `PLANNED`, `SCHEDULED`, `DISPATCHED / IN_TRANSIT`, `ATTEMPTED`, `DELIVERED`, `PARTIALLY_DELIVERED`, `ATTEMPT_FAILED`, `RESCHEDULED`, `CANCELLED`, `FAILED_FINAL`.
 
-## Contextual language rule
+## Translation rule
 
-A term may have a local meaning inside a proposed context only when its owner, invariants and translation are explicit. Shared database column names do not establish shared language.
+Legacy `catalog_item_id`, `exposure`, `used`, reservation and provider terms are AS-IS translation points. They do not redefine Product language or TARGET ownership.

@@ -1,62 +1,67 @@
 ---
 status: accepted
-maturity: BASELINED
+maturity: FROZEN
 scope: v1
 owner: domain
-last-reviewed: 2026-08-18
+last-reviewed: 2026-08-23
 ---
 
-# Known domain rules
+# Known Business Rules
 
-This is a curated invariant register, not Strategic DDD. Terminology, sequence, ownership and exceptions remain EventStorming/Domain Storytelling work.
+Canonical V1 invariants. Ownership and lifecycle details are in [Strategic DDD](../strategic-ddd/README.md); observed implementation remains AS-IS evidence.
 
-## Identity, tenancy and commercial relationships
+## Identity, tenancy and relationships
 
-- `Tenant != Workspace`; V1 is Tenant 1:1 Workspace and Tenant is maximum business/data isolation boundary.
-- One human has one Nexa identity. Workforce membership, Buyer relationship, Customer Account and Portal Access remain distinct.
-- Buyer may have separate supplier relationships and commercial state per Tenant. Nexa is not a public marketplace.
-- Buyer/Tenant relationship requires Tenant approval, whether initiated by Tenant invitation or Buyer request. Existing Customer Account may link/claim to a later Nexa identity instead of being duplicated.
-- Fresh, Generic and ICISA reference Tenants must be possible with the same product; ICISA data is never an implicit Tenant seed.
-- Company Owner and Business Operations Manager hold business authority; Tenant Administrator governs access. They are not one hierarchy.
+- `Tenant != Workspace`; V1 uses Tenant 1:1 Workspace and Tenant is the maximum business/data isolation boundary.
+- Human Identity, Workforce Membership, Buyer Relationship and Customer Account are distinct. One human may hold independent relationships with multiple Tenants.
+- Customer Account may exist without Portal identity. V1 has one principal active Buyer Identity per Customer Account.
+- Buyer Relationship requires Tenant approval and uses `PENDING / INVITED`, `ACTIVE`, `SUSPENDED`, `REVOKED`.
+- Tenant Administrator controls technical access; Company Owner controls organization/workforce authority; Business Operations Manager controls day-to-day operations.
 
-## Catalog, availability and pricing
+## Catalog, pricing and commercial intent
 
-- Product and SKU are distinct; Variant is not mandatory.
-- SKU lifecycle, stock availability and Buyer visibility are distinct.
-- `Physical Stock != Sellable Availability`; expired, quarantined, held, blocked, safety-stock and committed quantities cannot be treated as freely sellable.
-- `Safety Stock != Inventory Commitment`.
-- Buyer does not choose Price List. Sales cannot arbitrarily alter authoritative pricing.
+- Product, SKU, Price, Customer Terms and visibility are distinct concepts.
+- Cart/Request Draft creates no commitment and no inventory reservation. Cart price is informative until authoritative revalidation.
+- Pricing precedence is Base Price, applicable Price List, permitted Customer Terms, then maximum one applicable Promotion. Promotions do not stack.
+- Submitted PR freezes historical pricing. New attempts after rejection, withdrawal or expiry resolve current authoritative pricing.
+- No silent product substitution.
 
-## Ordering and commercial truth
+## Purchase Request, commitment and Sales Order
 
-- Cart never reserves inventory.
-- Purchase Request is not Sales Order and not Supplier Purchase Order.
-- Cart and PR Draft create no commitment. PR Submitted establishes Commercial Inventory Commitment for SKU + quantity; Withdrawn, Rejected or Expired releases it; conversion to Sales Order continues it. Sales may modify submitted content before Sales Order creation, but Buyer does not freely mutate it. No universal system-enforced Buyer re-accept click is required after every Sales modification; consent-required changes preserve evidence, material agreed modification resets validity, Sales rejection requires reason, and Buyer withdrawal may omit reason.
-- Purchase Request commitment release transitions are closed; only the numeric expiry policy remains open for Business Architect review. No numeric default or maximum is invented here.
-- No oversell and no automatic backorder. Final-unit conflict returns current availability to the losing attempt.
-- Substitution is never silent; Buyer explicitly accepts or rejects the alternative.
-- Confirmed Sales Order is immutable business history. Buyer and Sales cannot directly cancel it; they may request cancellation. Material change uses explicit cancellation/void and replacement semantics; cancellation authority is exceptional Company Owner or Business Operations Manager authority.
+- Approval-required PR submission is all-or-nothing: required Commercial Commitment and Credit Reservation are established in one logical transaction when applicable.
+- PR states: `SUBMITTED`, `CHANGES_PROPOSED`, `CONVERTED`, `REJECTED`, `WITHDRAWN`, `EXPIRED`. UI “Under review” is not a persisted state.
+- Submitted means validation succeeded, full commitment exists, expiry started and Sales can review. Buyer accepts material changes explicitly; Sales rejection has reason; Buyer can withdraw before conversion.
+- Default expiry is 72 hours. Tenant may configure 1–7 integer days. Store UTC absolute `expiresAt: Instant`; conversion fails at `now >= expiresAt` even before worker transition. Expiry releases commitment, inventory reservation and credit reservation atomically and durably.
+- Commercial Commitment is persistent SKU + quantity demand with stable `CommitmentId`. PR-to-SO transfers ownership; no release/re-reserve gap. It selects no Warehouse/Lot.
+- Sales Order is born `CONFIRMED`; no Draft SO V1. Confirmed SO history is immutable. Material changes use explicit cancellation/replacement/correction semantics.
 
 ## Inventory, fulfillment and delivery
 
-- Manufacturer/Supplier Batch and Inventory Lot are distinct; one source batch may yield multiple lots.
-- One physical Inventory Lot belongs to one Warehouse at a time; traceable basic transfers preserve movement/history.
-- Partial receiving and inventory adjustment are allowed with reason, actor and history.
-- Expired inventory is not sellable. FEFO governs normal selection; overrides require justification and cannot select non-sellable stock.
-- `Hold != Quarantine`; no full QMS is implied.
-- Fulfillment is broader than Picking. `Dispatch != Delivery`, `Delivery != Route`.
-- Failed delivery attempt is not automatically final delivery failure. Partial delivery and total/partial rejection preserve actual outcome.
-- POD records actual outcome and evidence, not only signature.
+- Sellable Availability = usable physical on-hand - active Commercial Commitments - Safety Stock.
+- HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are not sellable. Primary authority is SKU + Warehouse. Tenant-wide views are projections.
+- FEFO is default for expiry-tracked SKU. Override requires reason and never selects expired/quarantined stock.
+- Warehouse Transfer states: `REQUESTED`, `IN_TRANSIT`, `RECEIVED`. In-transit stock cannot be sellable at origin and destination simultaneously.
+- Physical Allocation selects Inventory Lot(s) under Inventory Availability authority. Fulfillment & Delivery executes the operational work; allocation cannot exceed commitment or usable stock.
+- Fulfillment states: `PLANNED`, `ALLOCATED`, `PICKING`, `PICKED`, `PACKED`, `STAGED`, `READY_FOR_DISPATCH`, `HANDED_OVER`, `COMPLETED`, plus explicit shortage/hold/cancel exceptions.
+- Delivery Attempt is part of one Delivery. Failed attempt does not create a new Delivery and has no universal numeric exhaustion limit. Partial delivery creates a Continuation Delivery for remaining obligation.
+- POD is immutable; amendment/addendum is linked. Photo/signature requirements are policy-driven, not universal.
 
-## Cold-chain, credit, payments and traceability
+## Cold-chain, credit, payments and finance
 
-- Manual temperature recording is V1. Out-of-range receiving temperature creates `HOLD` plus a pending Temperature Excursion evaluation; it is not automatic Quarantine. Disposition may be Release, continued Hold, Waste or Return to Supplier; IoT telemetry is future.
-- Credit is Tenant-specific: `Credit Limit - Credit Reserved - Outstanding Receivables = Available Credit`; Credit Reserved covers relevant commercial commitments before formal Receivable recognition, and transition must not double-count.
-- Buyer Portal exposes those four live credit values for current supplier Tenant; no global Nexa-wide Buyer credit balance exists. `exposure`/`used` fields remain AS-IS implementation vocabulary.
-- Payment is the business concept; Stripe is Nexa's V1 integrated online-payment provider, not the definition of Payment. V1 is not an arbitrary bring-your-own-online-gateway platform; commercial credit, bank transfer, cash/COD and direct Tenant-supported arrangements remain valid business methods.
-- Payment reported is not Payment confirmed.
-- Business Document is not SUNAT integration. Business Traceability is not Security Log.
+- Cold-chain is optional per Tenant/SKU. V1 temperature capture is manual. Excursion places affected quantity on HOLD pending Release, CONTINUE_HOLD, REJECT or WASTE disposition; no automatic destruction.
+- Available Credit = Credit Limit - Active Credit Reservations - Outstanding Receivable Balances. Reservations and receivables must not double count.
+- Credit purchase reserves at PR submission; direct order reserves during same SO confirmation. Commitment and credit reservation are all-or-nothing.
+- Credit/net Receivable posts at Sales Order confirmation. Delivery or document issuance is not a universal trigger.
+- PREPAID requires Payment Confirmed before physical fulfillment. IMMEDIATE permits SO before payment. Payment is distinct from Receivable, Credit and Stripe.
+- Historical obligation is corrected only by explicit Financial Adjustment and valid Payment/Refund effects. Payment history is never erased.
 
-## Discovery intentionally left open
+## Documents, notifications and traceability
 
-Exact lifecycle states, event/command vocabulary, adjustment evidence, cancellation sequence, ownership, subdomains and context boundaries are proposed in [Strategic DDD](../strategic-ddd/README.md) and require Business Architect review. Numeric Purchase Request expiry remains the only unresolved Product detail. No rule here creates an Aggregate, Bounded Context or technical schema, and closed Product semantics are not reopened.
+- V1 Business Documents: Sales Order Document, Delivery Note, Commercial Invoice, Payment Receipt and Financial Adjustment. Commercial Invoice is not a SUNAT fiscal document.
+- Issued documents are immutable; replacements/addenda preserve links and history. No destructive retention deletion before Production/Legal Gate policy.
+- Notifications use in-app/email V1. Delivery failure retries and never changes source business state. WhatsApp is external/manual.
+- Business Traceability is append-only durable business history, separate from Notifications and Security Audit. Significant facts retain actor, time, reason, correlation and evidence where relevant.
+
+## Deferred boundaries
+
+IoT telemetry, full RMA/returns, multi-currency, SUNAT, advanced accounting, Mobile, full Procurement, Control Center, Support, Plans and subscriptions are not V1 implementation claims.

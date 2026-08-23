@@ -13,7 +13,7 @@ Record verified technology baselines, implementation conventions, testing eviden
 
 ## Current status
 
-Technology baseline and selected engineering evidence are BASELINED. Quality and construction guidance is PROPOSED / REVIEW-GATED. Testing strategy remains evidence-led and repository-specific.
+Technology baseline and selected engineering evidence are BASELINED. Quality and construction guidance is BASELINED for PRE-V1. Testing strategy remains evidence-led and repository-specific; static documentation and build evidence do not certify runtime or production readiness.
 
 ## Expected artifacts
 

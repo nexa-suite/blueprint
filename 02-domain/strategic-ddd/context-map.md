@@ -1,39 +1,43 @@
 ---
-status: draft
-maturity: DISCOVERY
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
-# Proposed Context Map
+# Context Map
 
-Relationships below describe authority direction, not deployment or Spring module dependencies. Pattern labels are used only where they explain a real relationship.
+Relationships describe authority and translation. They do not imply deployment, package dependency or shared database ownership.
 
-| Upstream | Downstream | Proposed relationship | Translation / contract |
+| Upstream | Downstream | Relationship | Contract / translation |
 |---|---|---|---|
-| Tenant & Access Governance | all tenant-scoped contexts | Customer/Supplier-like upstream authorization | Verified Tenant context and capability decision; downstream never trusts raw client tenant IDs |
-| Customer & Buyer Relationships | Catalog & Commercial Policy | Upstream relationship policy | Customer eligibility and active Price List reference by identifier/snapshot |
-| Customer & Buyer Relationships | Sales Commitment | Upstream account relationship | Customer Account and Buyer Relationship identity; no entity sharing |
-| Catalog & Commercial Policy | Sales Commitment | Published Language candidate | Price resolution and commercial snapshot; price authority remains upstream |
-| Inventory Availability | Sales Commitment | Customer/Supplier-like availability supplier | Sellable availability query; final commitment command must preserve invariant ownership |
-| Sales Commitment | Inventory Availability | Downstream demand fact | Commercial Commitment event/reference; inventory does not own Sales Order |
-| Sales Commitment | Credit & Receivables | Downstream credit-demand fact | Commercial Commitment reference/amount; Credit Reserved to Outstanding Receivables transition must avoid double count |
-| Sales Commitment | Fulfillment & Delivery | Upstream commercial obligation | immutable Sales Order snapshot and fulfillment request |
-| Inventory Availability | Fulfillment & Delivery | Upstream physical stock | eligible lot/availability contract; Fulfillment owns selection/actual allocation |
-| Fulfillment & Delivery | Business Documents | Upstream delivery evidence | Delivery/POD facts and document request |
-| Credit & Receivables | Payments | Upstream receivable/payment target | Receivable identifier and allocation contract |
-| Payments | Credit & Receivables | Downstream payment fact | confirmed/reversed payment with immutable provider-independent semantics |
-| Payments | Business Documents | Downstream evidence request | Payment Receipt input; no Stripe vocabulary in document model |
-| all source contexts | Notification & Business Traceability | Upstream facts | versioned business event; projection and delivery eventually consistent |
-| Tenant & Access Governance | Notification & Business Traceability | Security boundary | authorization/audit facts are separate from Buyer timeline |
-| Object Storage / provider adapters | Business Documents and Catalog | Anti-Corruption Layer | storage object metadata and safe retrieval; provider vocabulary stays outside core |
-| Stripe adapter | Payments | Anti-Corruption Layer | provider intent/event/reference translated into Payment semantics |
-| Maps adapter | Fulfillment & Delivery | Anti-Corruption Layer | geolocation/routing response translated to route planning data |
+| Tenant & Access Governance | all tenant-scoped BCs | upstream authorization context | verified Tenant/Workspace scope, membership and capability decision; raw client Tenant IDs are never trusted |
+| Customer & Buyer Relationships | Catalog & Commercial Policy | relationship policy supplier | active relationship and eligibility reference; no shared Customer entity |
+| Customer & Buyer Relationships | Sales Commitment | account/actor supplier | Customer Account, Buyer Relationship and principal Buyer identity reference |
+| Catalog & Commercial Policy | Sales Commitment | Published Language / offer supplier | resolved price, terms, promotion and SKU cold-chain snapshot |
+| Sales Commitment | Inventory Availability | demand contract | Commercial Commitment ID, SKU, quantity, active/released status; no lot selection |
+| Inventory Availability | Sales Commitment | availability decision supplier | atomic availability/commitment result; availability does not own SO |
+| Sales Commitment | Credit & Receivables | credit demand contract | amount, terms, commitment reference and Credit Reservation intent |
+| Credit & Receivables | Sales Commitment | credit decision supplier | reservation accepted/rejected, Available Credit result and receivable status |
+| Sales Commitment | Fulfillment & Delivery | commercial obligation supplier | immutable confirmed SO snapshot and remaining quantities |
+| Inventory Availability | Fulfillment & Delivery | physical truth supplier | usable lots/quantities and Physical Allocation authority; execution remains downstream |
+| Fulfillment & Delivery | Inventory Availability | physical mutation contract | pick/pack/dispatch movement, shortage and disposition facts; no silent substitution |
+| Fulfillment & Delivery | Business Documents | evidence supplier | Delivery/POD facts and document request; source history remains immutable |
+| Credit & Receivables | Payments | payment target supplier | Receivable/payment application contract; no provider terms in credit language |
+| Payments | Credit & Receivables | payment fact supplier | confirmed/rejected/refunded Payment fact with idempotent provider reference |
+| all source BCs | Notifications | published fact consumers | notification candidate with recipient, template, channel and correlation |
+| all source BCs | Business Traceability | published durable fact consumers | append-only business fact with actor, reason, evidence and source reference |
+| Notifications | Business Traceability | delivery evidence consumer | Notification delivery outcome only; never replaces source fact |
 
-## Context Map rules
+## Atomic boundary
 
-- Shared Kernel is not declared for database schemas, DTOs, entities or current `shared` Java package.
-- A Published Language is proposed only for stable business facts/contracts; it requires versioning, ownership and compatibility tests.
-- An Anti-Corruption Layer protects Payment, Maps, Email, Object Storage and malware-scanning provider vocabulary.
-- Current Spring Modulith open modules are implementation evidence. They do not become Context Map relationships by annotation.
+PR submission and required Commercial Commitment/Credit Reservation are one logical PostgreSQL transaction. Direct order confirmation follows the same rule. Published events announce committed facts after commit; they do not create the atomic reservation later.
+
+## Context-map rules
+
+- Stable IDs, snapshots and versioned contracts cross boundaries.
+- No downstream writes upstream state directly.
+- At-least-once event delivery requires inbox/deduplication; no exactly-once transport claim.
+- Business Traceability is a transversal representation. Source BCs retain authority for facts.
+- A technical ACL may translate Stripe, legacy identifiers or current schema terms without changing canonical language.

@@ -1,23 +1,27 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
-# Future architecture readiness
+# PRE-V1 architecture readiness and Production Gate
 
-Maturity: **PROPOSED / REVIEW-GATED** for application, integration, data, security and selective C4 L3/L4 guidance beyond the accepted C4 L1/L2 and runway baselines. Product / Business V1 is FROZEN / CLOSED; this does not authorize implementation.
+PRE-V1 application, integration, data, security and selective C4 L3 construction targets are accepted. This page separates them from future production/deployment decisions.
 
-| Area | Status | Dependency |
+| Area | PRE-V1 status | Remaining gate |
 |---|---|---|
-| Application architecture | PROPOSED | Business Architect review; Strategic DDD |
-| Tenant architecture | PROPOSED | Domain identity/relationship review; Security Architecture |
-| Integration/event architecture | PROPOSED | EventStorming; Strategic DDD |
-| C4 Level 3/4 | PROPOSED / SELECTIVE | Strategic DDD proposal and AS-IS fit |
-| Data Architecture | PROPOSED | Strategic DDD and data ownership review |
-| Security Architecture | PROPOSED | Domain/data ownership and threat analysis |
-| Cloud/Deployment Architecture | NOT DEFINED | Runtime, provider and security decisions |
+| Application architecture | BASELINED | implementation conformance and migration proof |
+| Tenant/access architecture | BASELINED | complete RLS/pool/worker proof |
+| Integration/event architecture | BASELINED | consumer/runtime/replay proof |
+| C4 Level 3/4 | SELECTIVE TARGET BASELINED | implementation traceability; no deployment claim |
+| Data Architecture | BASELINED logical ownership | physical schema, retention and migration proof |
+| Security Architecture | BASELINED construction target | production threat, break-glass and incident proof |
+| Cloud/Deployment Architecture | OPEN-NON-BLOCKER | provider/topology decision at Production Gate |
 
-This page remains an index only. It accepts no final ownership or cloud topology. Proposed technical guidance is linked from [Architecture README](README.md) and remains review-gated.
+## Production Gate
+
+Keep open: cloud/provider, managed PostgreSQL, object storage, email, observability, secret manager, RPO, RTO, backup retention, external SLA/SLO and incident responder organization. Required evidence includes production-like staging, restore, rollback, migration runbook, outage handling, secret rotation, break-glass, failed background processing and data correction.
+
+Current implementation evidence is AS-IS and may be DRIFT, MISSING or UNVERIFIED. It does not invalidate accepted TARGET unless direct contradiction makes the domain model impossible; otherwise record remediation backlog.

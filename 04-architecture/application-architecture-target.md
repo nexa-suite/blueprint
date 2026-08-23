@@ -1,66 +1,63 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: architecture
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
-# Application architecture TARGET
+# Application Architecture TARGET — PRE-V1
 
-This is a construction target, not an implementation claim. Strategic DDD boundaries are proposed in [Strategic DDD](../02-domain/strategic-ddd/strategic-ddd-baseline.md) and require Business Architect review before code ownership changes.
+This is the accepted construction target. It does not claim current code already conforms and does not mandate a microservice or one technical module per Bounded Context.
 
 ## Runtime shape
 
-| Decision | TARGET | Constraint |
+| Decision | PRE-V1 target | Constraint |
 |---|---|---|
-| Deployment | Keep one Nexa Application API modular monolith for V1 | Do not split services before ownership, data and operational evidence justify it |
-| Persistence | Keep shared PostgreSQL for V1 | Logical ownership, scope predicates and RLS are mandatory; no database-per-context assumption |
-| Files | Keep Object Storage behind an application port | API owns metadata, authorization and malware-scan state |
-| Web surfaces | Keep Website, Platform and Buyer Portal separate | Shared design primitives do not erase actor or security boundaries |
-| Integration | Provider ACLs behind ports and durable inbound/outbound processing | Stripe, SMTP, maps and storage remain replaceable adapters |
+| Deployment | one Nexa Application API modular monolith | no service split before ownership, data and operations justify it |
+| Persistence | shared PostgreSQL | logical ownership, tenant scope and RLS; no database-per-BC assumption |
+| Files | Object Storage behind application port | API owns metadata, authorization and scanning state |
+| Web surfaces | Website, Internal Web Platform and Buyer Portal | distinct actors, workflows and information exposure |
+| Integrations | provider ACLs and durable inbound/outbound processing | Payment/Stripe, email, maps and storage details stay at adapters |
 
-## Proposed application modules
+## Strategic ownership to technical responsibility
 
-These are logical responsibility modules, not accepted Bounded Contexts and not a promise to rename current packages.
+| Strategic BC | Technical responsibility lens | Contract boundary |
+|---|---|---|
+| Tenant & Access Governance | identity, tenant, workspace, membership, authorization and context | synchronous access decision; RLS scope |
+| Customer & Buyer Relationships | account, relationship and eligibility application services | relationship query/command contract |
+| Catalog & Commercial Policy | product/SKU, visibility and price resolution | immutable commercial snapshot |
+| Sales Commitment | PR, commitment, SO, revision, conversion and correction | atomic commands; no repository reach-through |
+| Inventory Availability | physical stock, availability, safety stock, FEFO, transfer and allocation authority | conditional availability/allocation contract |
+| Fulfillment & Delivery | fulfillment execution, dispatch, delivery, POD and continuation | committed line/quantity contract |
+| Credit & Receivables | credit decision, reservation, receivable and adjustment | atomic credit result; ledger/application contract |
+| Payments | payment report/confirmation, provider ACL, refund and reconciliation | provider-neutral Payment contract |
+| Business Documents | numbering, snapshot, immutable issue, replacement and storage metadata | document request/reference contract |
+| Notifications | notification intent, channel delivery, retry and terminal failure | durable notification contract |
+| Business Traceability | append-only business fact and timeline projection | source reference/correlation contract |
 
-| Module | Owns | Publishes / consumes | Forbidden coupling |
-|---|---|---|---|
-| Identity and Tenant Access | global identity, Tenant, Workspace, membership, role/capability and access context | membership/access facts; consumes identity provider/session facts | no catalog, order or payment policy |
-| Customer and Buyer Relationship | Customer Account, Buyer relationship, terms visibility and relationship lifecycle | relationship facts; consumes Tenant access and commercial policy | no global Buyer credit or inventory mutation |
-| Catalog and Commercial Policy | Product/SKU, price lists, terms, promotion eligibility and sellable policy | catalog/policy facts; consumes Tenant configuration | no physical stock or order state |
-| Sales Commitment | Purchase Request, revision, Sales Order, commitment and commercial snapshots | commitment facts; consumes customer, price, availability and credit decisions | no direct provider SDK or warehouse row mutation |
-| Inventory Availability | physical stock truth, sellable availability, lot readiness and shortage incidents | availability/physical facts; consumes catalog and Commercial Commitment demand | no Physical Allocation ownership; no payment policy |
-| Fulfillment and Delivery | fulfillment plan, pick/pack, dispatch, delivery, POD, incident and continuation | fulfillment/delivery facts; consumes committed lines and routes | no credit approval or provider credentials |
-| Credit and Receivables | Credit Limit, Credit Reserved, Available Credit, Outstanding Receivables, terms and financial posting intent | credit/receivable facts; consumes commitment and payment facts | no Stripe vocabulary in the business model |
-| Payments | payment intent/report/confirmation, refund/reconciliation and provider identity | payment facts; consumes receivable/payment commands | no direct order acceptance decision |
-| Business Documents | document metadata, numbering, version, evidence and download authorization | document facts; consumes business references | no ownership of source aggregate state |
-| Notification and Traceability | notification intent/delivery and cross-context business trace | notification/audit facts; consumes durable facts | no domain invariant ownership |
+Technical modules may co-host contexts during migration. They must not share entity/repository/table ownership. A module boundary is not a Bounded Context.
 
-### Dependency rule
-
-Dependencies point from use cases to domain ports and from adapters to ports. A module may consume another module's published command/query contract or event; it must not reach into another module's repository, entity, table mapping or provider client. Shared code is limited to technical primitives and explicitly approved value objects, never business policy.
+## Dependency and layer rules
 
 ```text
 presentation -> application -> domain
                          \-> ports <- infrastructure adapters
 
-cross-module: published command/query contract or durable event
-forbidden: module A -> module B entity/repository/table/provider
+cross-context: published command/query contract or durable event
+forbidden: module A -> module B entity/repository/table/provider client
 ```
 
-Spring Modulith verification and application-module tests are suitable guards for these rules; they verify the declared technical module graph, not Strategic DDD acceptance. See the [official verification guide](https://docs.spring.io/spring-modulith/reference/verification.html).
+The application layer owns transaction orchestration and idempotency. Domain layer owns invariants and state transitions. Infrastructure implements ports, RLS scope, outbox/inbox, provider ACLs and leases. Presentation maps canonical UI states and contracts.
 
 ## Consistency strategy
 
-- Keep one local transaction for an aggregate and its owned rows.
-- Use explicit application commands for decisions that need an immediate answer: price resolution, credit decision, availability check and order acceptance.
-- Use durable events for cross-module facts, projections, notifications and provider reconciliation.
-- Treat event handlers as at-least-once. Every handler needs an event identity, idempotent effect and observable retry/dead-letter state.
-- Use an outbox transactionally with the state change. Do not publish a business event from an uncommitted in-memory callback.
-- Use inbox/claim leases and fencing for external callbacks and workers; never rely on a process-local lock.
-- `If-Match` protects user-facing revision changes. Idempotency keys protect command retries. They solve different problems and are both required where applicable.
+- PR submit, required commitment/credit reservation, direct order, PR-to-SO conversion, terminal transition, physical mutation and critical authorization are synchronous in one PostgreSQL transaction where required.
+- Optimistic version/CAS protects mutable objects. Conditional updates/row locks protect scarce inventory and credit. Lock order is deterministic.
+- `If-Match` protects user-facing revisions; idempotency keys protect retried business intentions. Neither replaces the other.
+- Outbox rows commit with source state. Consumers are at-least-once and use inbox/deduplication, lease/fencing and visible retry/terminal state.
+- External calls are not held inside unnecessarily long DB transactions. Provider success with local failure becomes reconciliation state, never erased history.
 
-## Boundary review gates
+## Construction gate
 
-Before implementation ownership changes, review: aggregate ownership, data table ownership, event contracts, authorization capabilities, transaction boundaries, migration compatibility, observability, rollback and consumer tests. No proposed module becomes a Bounded Context or a deployable service from this document alone.
+Before implementation ownership changes, verify aggregate/table ownership, API contracts, event matrix, authorization capabilities, migrations, idempotency, concurrency, observability, rollback and consumer tests. Use KEEP -> REFINE -> REWORK. No application repository mutation is part of Blueprint closure.

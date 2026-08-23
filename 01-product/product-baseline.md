@@ -8,7 +8,7 @@ last-reviewed: 2026-08-19
 
 # Product & Business V1 baseline
 
-This is the frozen Product authority for Nexa V1. It records accepted product direction; it does not create Strategic DDD, final ownership, schemas or implementation contracts.
+This is the frozen Product authority for Nexa V1. It records accepted product direction; Strategic DDD and construction ownership are linked separately and do not turn this Product record into schemas or implementation contracts.
 
 Product / Business V1 status: **FROZEN / CLOSED**. No major Product V1 decision blocker remains. Detailed sequence, terminology, ownership and exceptions are inputs to Domain Discovery, not reasons to reopen the Product baseline.
 
@@ -72,10 +72,10 @@ V1 includes Customer Accounts, contacts, Sales assignment, commercial history, n
 - `DIRECT_ORDER` requires availability validation, successful Commercial Inventory Commitment and Sales Order confirmation as one accepted commercial outcome. If required availability cannot be committed, return a deterministic current/insufficient-availability result; do not create a partial order or backorder.
 - Backend revalidates authoritative sellable availability transactionally. V1 accepts no oversell/backorder behavior; competing buyers for the final unit require concurrency-correct conflict handling.
 - Sales may adjust a submitted Purchase Request before Sales Order creation, but the Buyer does not freely mutate submitted content. No universal system-enforced re-accept click is required after every Sales modification; changes requiring business consent preserve evidence. Material agreed modification resets the request validity window. Sales rejection requires a reason; Buyer withdrawal may omit a reason.
-- Purchase Request commitment release transitions are closed; only the numeric expiry policy remains open for Business Architect review. No numeric default or maximum is invented here.
-- Manual/assisted Sales order capture is valid without fabricating Buyer identity. Cart never reserves inventory, no automatic backorder is accepted, and competing final-unit claims resolve with one success and one availability conflict.
+- Purchase Request states are `SUBMITTED`, `CHANGES_PROPOSED`, `CONVERTED`, `REJECTED`, `WITHDRAWN` and `EXPIRED`. Default expiry is 72 hours; Tenant configuration is 1–7 integer days; store UTC absolute `expiresAt: Instant` and reject conversion at `now >= expiresAt` even before worker materialization.
+- Manual/assisted direct-order capture is valid without fabricating Buyer identity; it is not a persisted Draft Sales Order. Cart never reserves inventory, no automatic backorder is accepted, and competing final-unit claims resolve with one success and one availability conflict.
 - Substitution requires Buyer approval by default. Operational exceptions require escalation; Buyer-selected items are never silently replaced.
-- Confirmed Sales Orders are commercial commitments. Significant changes are not silent mutation; cancel/void/replace semantics are preferred where appropriate. Formal amendment machinery remains V2 unless discovery proves V1 need.
+- Confirmed Sales Orders are commercial commitments. Significant changes are not silent mutation; explicit cancel/void/replace/correction semantics preserve history in V1.
 - Buyer and Sales cannot directly cancel a confirmed Sales Order; they may request cancellation. Exceptional cancellation authority belongs to Company Owner or Business Operations Manager.
 - Order-time prices require historical snapshot semantics.
 
@@ -89,8 +89,8 @@ Fulfillment is broader than Picking: Allocate, Pick, Pack, Stage, Handover and R
 
 - Warehouse/Fulfillment eventually hands responsibility to Dispatch.
 - Delivery can exist independently of a Route; Route can group deliveries.
-- Minimum POD direction includes photo and signature, subject to later UX/domain refinement.
-- Partial delivery, total/partial rejection, basic operational return and post-delivery issue communication/traceability are V1; Nexa does not adjudicate the commercial dispute or become a full RMA system. A Failed Delivery Attempt remains the same Delivery and may be attempted again. A Partial Delivery closes the performed Delivery as partial and creates a new Continuation Delivery for the remaining existing Sales Order obligation.
+- POD is immutable outcome evidence. Photo/signature requirements are Tenant/customer/SKU policy-driven; neither is universally mandatory. Amendments create linked addenda and never overwrite original evidence.
+- Partial delivery, total/partial rejection and post-delivery issue communication/traceability are V1; rejected/not-delivered goods return under HOLD pending disposition. Full Returns/RMA remains V2. A Failed Delivery Attempt remains the same Delivery and may be attempted again. A Partial Delivery closes the performed Delivery as partial and creates a new Continuation Delivery for the remaining existing Sales Order obligation.
 - `Dispatch Blocked`, `Delivery Attempt Failed` and `Delivery Completed` remain distinct concepts.
 - Cold-chain specialization cuts across relevant V1 work: expiration, FEFO, storage constraints, distinct HOLD/QUARANTINE states, traceability, temperature incident awareness where justified and delivery evidence.
 - IoT automatic telemetry and laboratory/QMS depth are future. No ColdChain Bounded Context is created.
@@ -119,7 +119,7 @@ Deferred items include full Procurement, advanced CRM, advanced Finance, formal 
 
 ## Closure reconciliation
 
-This file remains the single Product / Business V1 authority. The Strategic DDD package in [02-domain/strategic-ddd](../02-domain/strategic-ddd/README.md) proposes business boundaries without changing frozen scope. The final Product closure deliberately leaves only numeric Purchase Request expiry open for Process EventStorming and policy review; commitment existence, consent semantics, Credit formula, delivery continuation and payment/order failure handling are closed here.
+This file remains the single Product / Business V1 authority. The Strategic DDD package in [02-domain/strategic-ddd](../02-domain/strategic-ddd/README.md) accepts business boundaries without changing frozen scope. Commitment existence, expiry, consent semantics, Credit formula, delivery continuation and payment/order failure handling are closed here.
 
 ## Authority boundary
 

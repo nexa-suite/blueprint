@@ -345,7 +345,7 @@
           "tags" : "Element,Component,AS-IS / TARGET",
           "technology" : "Transactional outbox/inbox"
         }, {
-          "description" : "Proposed Purchase Request, Sales Order and commitment application boundary",
+          "description" : "PRE-V1 TARGET Purchase Request, Sales Order and commitment application boundary",
           "documentation" : { },
           "id" : "17",
           "name" : "Sales Commitment",
@@ -353,19 +353,19 @@
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetCommercialCommitment"
           },
           "relationships" : [ {
-            "description" : "Target use cases and ports",
+            "description" : "PRE-V1 target use cases and ports",
             "destinationId" : "11",
             "id" : "100",
             "sourceId" : "17",
             "tags" : "Relationship"
           }, {
-            "description" : "Target availability decision contract",
+            "description" : "PRE-V1 availability decision contract",
             "destinationId" : "18",
             "id" : "101",
             "sourceId" : "17",
             "tags" : "Relationship"
           }, {
-            "description" : "Target credit decision contract",
+            "description" : "PRE-V1 credit decision contract",
             "destinationId" : "20",
             "id" : "102",
             "sourceId" : "17",
@@ -377,10 +377,10 @@
             "sourceId" : "17",
             "tags" : "Relationship"
           } ],
-          "tags" : "Element,Component,TARGET / PROPOSED",
-          "technology" : "Target logical component — proposed"
+          "tags" : "Element,Component,TARGET",
+          "technology" : "PRE-V1 target logical component"
         }, {
-          "description" : "Proposed stock, reservation, allocation and FEFO application boundary",
+          "description" : "PRE-V1 TARGET stock, availability, Physical Allocation authority and FEFO application boundary",
           "documentation" : { },
           "id" : "18",
           "name" : "Inventory Availability",
@@ -388,7 +388,7 @@
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetInventoryAvailability"
           },
           "relationships" : [ {
-            "description" : "Target allocation handoff",
+            "description" : "PRE-V1 allocation execution handoff",
             "destinationId" : "19",
             "id" : "104",
             "sourceId" : "18",
@@ -400,10 +400,10 @@
             "sourceId" : "18",
             "tags" : "Relationship"
           } ],
-          "tags" : "Element,Component,TARGET / PROPOSED",
-          "technology" : "Target logical component — proposed"
+          "tags" : "Element,Component,TARGET",
+          "technology" : "PRE-V1 target logical component"
         }, {
-          "description" : "Proposed fulfillment, dispatch, delivery, POD and continuation boundary",
+          "description" : "PRE-V1 TARGET fulfillment, dispatch, delivery, POD and continuation boundary",
           "documentation" : { },
           "id" : "19",
           "name" : "Fulfillment and Delivery",
@@ -411,22 +411,22 @@
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetFulfillmentDelivery"
           },
           "relationships" : [ {
-            "description" : "Target delivery notification/audit facts",
+            "description" : "PRE-V1 delivery notification/trace facts",
             "destinationId" : "22",
             "id" : "106",
             "sourceId" : "19",
             "tags" : "Relationship"
           }, {
-            "description" : "Target evidence/document contract",
+            "description" : "PRE-V1 evidence/document contract",
             "destinationId" : "21",
             "id" : "107",
             "sourceId" : "19",
             "tags" : "Relationship"
           } ],
-          "tags" : "Element,Component,TARGET / PROPOSED",
-          "technology" : "Target logical component — proposed"
+          "tags" : "Element,Component,TARGET",
+          "technology" : "PRE-V1 target logical component"
         }, {
-          "description" : "Proposed exposure, credit, receivable and posting boundary",
+          "description" : "PRE-V1 TARGET credit, reservation, receivable and correction boundary",
           "documentation" : { },
           "id" : "20",
           "name" : "Credit and Receivables",
@@ -434,19 +434,19 @@
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetCreditReceivables"
           },
           "relationships" : [ {
-            "description" : "Target payment/receivable evidence contract",
+            "description" : "PRE-V1 payment/receivable evidence contract",
             "destinationId" : "21",
             "id" : "108",
             "sourceId" : "20",
             "tags" : "Relationship"
           } ],
-          "tags" : "Element,Component,TARGET / PROPOSED",
-          "technology" : "Target logical component — proposed"
+          "tags" : "Element,Component,TARGET",
+          "technology" : "PRE-V1 target logical component"
         }, {
-          "description" : "Proposed payment, provider ACL, document and evidence boundary",
+          "description" : "PRE-V1 co-hosted technical lens for distinct BC-08 Payments and BC-09 Business Documents",
           "documentation" : { },
           "id" : "21",
-          "name" : "Payments and Business Documents",
+          "name" : "Payments and Business Documents Technical Lens",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetPaymentDocuments"
           },
@@ -457,13 +457,13 @@
             "sourceId" : "21",
             "tags" : "Relationship"
           } ],
-          "tags" : "Element,Component,TARGET / PROPOSED",
-          "technology" : "Target logical component — proposed"
+          "tags" : "Element,Component,TARGET",
+          "technology" : "PRE-V1 target logical component"
         }, {
-          "description" : "Proposed notification, audit and change-feed boundary",
+          "description" : "PRE-V1 co-hosted technical lens for distinct BC-10 Notifications and BC-11 Business Traceability",
           "documentation" : { },
           "id" : "22",
-          "name" : "Notification and Traceability",
+          "name" : "Notification and Traceability Technical Lens",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetNotificationTraceability"
           },
@@ -474,8 +474,8 @@
             "sourceId" : "22",
             "tags" : "Relationship"
           } ],
-          "tags" : "Element,Component,TARGET / PROPOSED",
-          "technology" : "Target logical component — proposed"
+          "tags" : "Element,Component,TARGET",
+          "technology" : "PRE-V1 target logical component"
         } ],
         "description" : "Authoritative application and domain behavior, security, tenant enforcement, workflows, integrations and persistence orchestration",
         "documentation" : { },
@@ -1135,7 +1135,7 @@
         "vertices" : true
       },
       "containerId" : "9",
-      "description" : "Proposed identity, Tenant access and Buyer relationship seams",
+      "description" : "PRE-V1 target identity, Tenant access and Buyer relationship seams",
       "elements" : [ {
         "id" : "10",
         "x" : 0,
@@ -1191,7 +1191,7 @@
         "vertices" : true
       },
       "containerId" : "9",
-      "description" : "Proposed commercial commitment and availability seams",
+      "description" : "PRE-V1 target commercial commitment and availability seams",
       "elements" : [ {
         "id" : "11",
         "x" : 0,
@@ -1253,7 +1253,7 @@
         "vertices" : true
       },
       "containerId" : "9",
-      "description" : "Proposed fulfillment, delivery and continuation seams",
+      "description" : "PRE-V1 target fulfillment, delivery and continuation seams",
       "elements" : [ {
         "id" : "16",
         "x" : 0,
@@ -1299,7 +1299,7 @@
         "vertices" : true
       },
       "containerId" : "9",
-      "description" : "Proposed credit, payment and business evidence seams",
+      "description" : "PRE-V1 target credit, payment and business evidence seams",
       "elements" : [ {
         "id" : "15",
         "x" : 0,

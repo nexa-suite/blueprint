@@ -1,38 +1,31 @@
 ---
-status: draft
-maturity: DISCOVERY
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Business Ownership Matrix
 
-One proposed authoritative owner is listed for each concept. `Review` means the model is intentionally unresolved; it is not permission to split or merge implementation modules.
+`Owner` means strategic source-of-truth authority. `Executor` means a context may perform operational work without owning the source fact.
 
-| Concept / fact | Proposed authority | Consumers | Review hotspot |
+| Business concept/fact | Owner | Executor or consumer | Required boundary |
 |---|---|---|---|
-| Tenant lifecycle/status | Tenant & Access Governance | all contexts, authorization | Tenant versus Workspace lifecycle |
-| Workspace operational identity | Tenant & Access Governance | all tenant-scoped contexts | V1 1:1 accepted; future multiplicity deferred |
-| Human Identity authentication identity | Tenant & Access Governance with identity adapter | IAM/session, relationships | privacy and provider ownership |
-| Workforce Membership | Tenant & Access Governance | Platform, authorization, audit | Company Owner versus Tenant Administrator |
-| Buyer Relationship | Customer & Buyer Relationships | Portal, Sales Commitment, Credit | independent from Workforce Membership |
-| Customer Account | Customer & Buyer Relationships | Catalog terms, Sales Commitment, Credit, Documents | RUC uniqueness per Tenant |
-| Sellable SKU/Product definition | Catalog & Commercial Policy | Buyer catalog, Sales Commitment, Inventory | Product/SKU terminology |
-| Price resolution | Catalog & Commercial Policy | Cart, PR, Sales Order snapshot | promotion and terms sequence |
-| Cart intent | Sales Commitment | Portal, pricing/availability previews | no reservation |
-| Purchase Request lifecycle | Sales Commitment | Buyer, Sales, notification | expiry/material change policy |
-| Commercial Commitment | Sales Commitment candidate | Inventory availability, Credit, Fulfillment | AS-IS reservation terminology is translated; Product distinction is closed, context ownership remains review-gated |
-| Confirmed Sales Order history | Sales Commitment | Fulfillment, Credit, Documents, Buyer | immutable correction/cancellation |
-| Physical Stock / Inventory Lot | Inventory Availability | Sales Commitment read, Fulfillment | Batch/lot and warehouse handoff |
-| Sellable Availability | Inventory Availability | Sales Commitment | safety stock and commitment deduction |
-| Lot Allocation | Fulfillment & Delivery | warehouse execution, delivery | one line/multiple lots rule |
-| Fulfillment readiness | Fulfillment & Delivery | Dispatch, Platform | Warehouse handoff |
-| Dispatch/Delivery/POD outcome | Fulfillment & Delivery | Buyer timeline, Documents | route versus delivery |
-| Credit Limit/Credit Reserved/Outstanding Receivables | Credit & Receivables | Sales Commitment, Buyer Portal | transformation without double count |
-| Financial Posting | Credit & Receivables | Receivables, Documents, Payments | exact trigger open |
-| Payment state | Payments | Receivables, Sales Commitment, Documents | provider boundary |
-| Business Document identity/version | Business Documents | Buyer, Platform, Payments, Delivery | fiscal status and retention |
-| Business Notification | Notification & Business Traceability | surfaces, Email | source facts remain source-owned |
-| Security audit fact | Security boundary / Tenant & Access | security review, Platform audit | distinct from business timeline |
-| Operational KPI/projection | Review; likely supporting analytics capability | Platform dashboards | no canonical KPI owner yet |
+| Tenant, Workspace relationship, Workforce Membership, roles/capabilities | Tenant & Access Governance | all tenant-scoped contexts | server authorization and relationship eligibility |
+| Customer Account, Buyer Relationship, contacts, addresses | Customer & Buyer Relationships | Platform/Portal surfaces | Customer Account may exist without Buyer identity |
+| Product, SKU, visibility, price, terms, promotions | Catalog & Commercial Policy | Sales Commitment, Portal/Platform | authoritative resolution then immutable commercial snapshot |
+| Purchase Request, Commercial Commitment, Sales Order | Sales Commitment | Platform/Portal, Inventory, Fulfillment | commitment is SKU + quantity, no Warehouse/Lot |
+| physical stock, Inventory Lot, Sellable Availability, Safety Stock, FEFO | Inventory Availability | Warehouse/Fulfillment, Sales | SKU + Warehouse authority; tenant-wide views are projections |
+| Physical Allocation authority | Inventory Availability | Fulfillment & Delivery executes selection/work | allocation cannot exceed commitment or usable quantity |
+| Fulfillment, Dispatch, Delivery, Attempt, Continuation, POD | Fulfillment & Delivery | Platform/Portal, Documents, Notifications | failed attempt stays on same Delivery; partial creates continuation |
+| Credit Limit, Credit Reservation, Available Credit, Receivable | Credit & Receivables | Sales Commitment, Payments | no double count on reservation-to-receivable transition |
+| Payment Report, Payment, provider callback/refund | Payments | Credit & Receivables applies financial effect | provider vocabulary translated at ACL |
+| issued Business Document and numbering | Business Documents | source contexts request; Portal/Platform consume | issued snapshot immutable; replacement/addendum linked |
+| notification intent/delivery state | Notifications | source contexts produce candidate; channels execute | failure/retry never changes source state |
+| business timeline/trace fact | Business Traceability | all contexts emit facts | append-only representation, source retains authority |
+| security/authorization audit | Tenant & Access Governance plus security technical authority | all contexts emit security facts | separate from Business Traceability |
+
+## Data boundary
+
+Shared PostgreSQL is infrastructure. It does not create shared ownership. Each owner exposes stable identifiers and contracts; another context never writes owner rows directly. Read projections carry source version and correlation.

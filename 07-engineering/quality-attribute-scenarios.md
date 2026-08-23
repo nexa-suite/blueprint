@@ -1,12 +1,14 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: engineering
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Quality attribute scenarios
+
+These are **ENGINEERING BASELINE — NOT SLA**. Priority order for PRE-V1 is: Correctness, Security / Tenant Isolation, Auditability, Maintainability, Recoverability, Availability, Accessibility, Latency, Throughput, Cost. Lower-ranked attributes remain required; order guides tradeoffs and does not waive them.
 
 | Attribute | Stimulus | Response measure / evidence |
 |---|---|---|

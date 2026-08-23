@@ -3,69 +3,35 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
-# Architecture roadmap
+# Architecture and delivery roadmap
 
-## Completed baseline
+## PRE-V1 closure — complete as documentation
 
-1. Clean project foundation — BASELINED
-2. C4 L1/L2 V1 and Runway — BASELINED
-3. Initial Architecture Drivers — BASELINED
-4. AS-IS evidence baseline — CLOSED WITH CAVEAT
-5. Product & Business V1 — FROZEN / CLOSED
+1. Product and Business V1 — FROZEN / CLOSED.
+2. Capability Map, EventStorming and Domain Stories — BASELINED.
+3. Ubiquitous Language and subdomain classification — BASELINED.
+4. Strategic DDD — ACCEPTED.
+5. Bounded Contexts — 11 FROZEN.
+6. Context Map and ownership — ACCEPTED.
+7. State machines, event contracts, transaction/concurrency/idempotency — BASELINED.
+8. C4 L1/L2 and selective C4 L3 TARGET — BASELINED where useful.
+9. AS-IS verification and AS-IS/TARGET fit — recorded with current-ref caveats.
+10. V1 User Stories, Acceptance Criteria and frontend product/UI contracts — COMPLETE.
+11. ADR minimum set and Production Gate separation — BASELINED.
 
-## Strategic DDD sequence — active proposal
+## Construction gate
 
-6. Capability Mapping — PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW
-7. Big Picture EventStorming — PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW
-8. Process-Level EventStorming — PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW
-9. Domain Storytelling — PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW
-10. Language Collisions / Ubiquitous Language work — PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW
-11. Subdomain classification — PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW
-12. Bounded Context discovery — PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW
-13. Bounded Context canvases — PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW
-14. Context Mapping — PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW
-15. Strategic DDD acceptance — PENDING BUSINESS ARCHITECT REVIEW
+Implementation proceeds only through controlled vertical slices with current API/Platform/Portal refs, compatibility mapping, tenant isolation, runtime/OpenAPI, concurrency/idempotency, authenticated browser, accessibility and rollback evidence. Blueprint closure does not mutate application repositories.
 
-## Parallel Technical Foundation Wave 0 — accepted baseline
+Use KEEP -> REFINE -> REWORK. Do not delete legacy paths or duplicate contract owners without consumer mapping, migration, tests and rollback. REWRITE requires extraordinary evidence.
 
-Technical Foundation Wave 0 is accepted / baselined for its current purpose in API, Platform and Portal. It is not a claim that every technical foundation is complete. Product repositories remain unchanged by this Blueprint task.
+## Production Gate — open, non-blocking for PRE-V1
 
-## Technical Architecture Rebaseline — this task
+Cloud/provider topology, managed PostgreSQL, object storage, email, observability, secret manager, RPO/RTO, retention, SLA/SLO and responder organization remain open. Required future proof includes production-like staging, restore, rollback, migration runbook, provider outage, secret rotation, incident, break-glass, failed worker and data correction handling.
 
-This rebaseline documents proposed application, tactical DDD, data, transaction/concurrency, security, integration/event, API, frontend, runtime/reliability, C4 L3/L4 and construction-readiness guidance. Proposed business boundaries await review; implementation changes do not follow automatically.
+## Future runway
 
-## Parallel workstreams and gates
-
-- Design: active parallel workstream; final visual convergence pending.
-- Construction: vertical-slice gated; no blind implementation authorization.
-- Pre-V1 Architecture Convergence: required before V1 freeze/release.
-- Production Architecture / Hardening: later dedicated gate.
-
-## Later technical maturation
-
-- Application Architecture.
-- Tenant and Provisioning.
-- IAM and Security.
-- Data and RLS/isolation.
-- API and Integration/Events.
-- Object Storage.
-- Frontend Architecture.
-- Runtime, Deployment and Cloud.
-- CI/CD, Observability, Reliability and Performance.
-- ADRs and Architecture Fitness.
-
-## Later architecture and delivery
-
-16. Business Architect review and Strategic DDD acceptance — PENDING
-17. Implementation Rebaseline — GATED BY APPROVED BOUNDARIES
-18. Production Hardening — NOT STARTED
-19. Mobile, Driver, Control Center and IoT runway refinement — FUTURE
-
-## Implementation gate
-
-Implementation may proceed before full Strategic DDD when work is safely independent of unresolved architecture decisions. Examples include read-only audits, deterministic test reliability, documentation validation, nonsemantic tooling and urgent security/integrity fixes.
-
-Module realignment, ownership redesign, Buyer identity redesign, structural Tenant genericization, broad RLS redesign, data ownership migration and frontend architecture restructuring wait for approved decisions. Architecture must be sufficient for the decision being implemented, not infinitely complete.
+Mobile, Driver, IoT automation, full Procurement, advanced Finance/BI, SUNAT, Control Center, Support, plans/subscriptions and multi-user Buyer organizations remain future scope. They do not reopen the 11-context V1 baseline.

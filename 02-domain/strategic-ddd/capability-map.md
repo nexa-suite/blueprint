@@ -1,53 +1,39 @@
 ---
-status: draft
-maturity: DISCOVERY
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Capability Map
 
-The map describes business abilities, not applications, APIs, repositories, Spring modules, database schemas or screens. Labels are proposed discovery language, not technical components.
+Capabilities describe business ability. They are not Bounded Contexts, endpoints, screens or technical modules.
 
-## L0 to L2 map
-
-| L0 Business Area | L1 Capability | L2 Sub-capabilities |
+| Capability family | V1 capabilities | Strategic authority |
 |---|---|---|
-| Tenant and access | Establish and govern Tenant | register, approve, provision, activate, suspend, wind down, close, export |
-| Tenant and access | Govern workforce access | invite, activate, suspend, deactivate, assign role, grant capability, revoke access |
-| Tenant and access | Manage global identity relationships | authenticate human, maintain sessions, select authorized Tenant relationship |
-| Customer relationships | Manage Customer Accounts | create account, maintain contacts, maintain delivery addresses, assign primary Sales Representative |
-| Customer relationships | Manage Buyer Relationships | invite/link, receive Buyer request, approve, suspend, revoke, link existing account |
-| Customer relationships | Provide Buyer Portal Access | expose authorized account, catalog, orders, credit and documents for current Tenant |
-| Catalog and commercial policy | Define sellable offer | maintain Product, SKU, presentation, UOM, media, category and temperature requirement |
-| Catalog and commercial policy | Govern commercial pricing | maintain Price List, validity, Customer Commercial Terms, promotions and currency |
-| Catalog and commercial policy | Resolve offer | calculate deterministic price, terms, promotion and sellable availability view |
-| Sales commitment | Capture commercial intent | cart, direct order intent, Purchase Request draft, manual Sales order draft |
-| Sales commitment | Review commercial intent | submit, review, negotiate, record material agreement, reject, withdraw, expire |
-| Sales commitment | Establish Sales Commitment | validate availability, credit and policy; create/confirm immutable Sales Order |
-| Inventory availability | Receive and qualify stock | receive, record batch/lot, capture temperature, hold, release, waste, return |
-| Inventory availability | Maintain physical truth | adjust, transfer, inspect, preserve rejection and shortage evidence |
-| Inventory availability | Calculate sellable availability | exclude expired, quarantined, held, safety stock and active Commercial Commitments |
-| Fulfillment and delivery | Allocate commercial commitment | plan fulfillment, select lots, confirm physical allocation, record FEFO override |
-| Fulfillment and delivery | Prepare fulfillment | pick, pack, mark ready, revert exceptional readiness with reason |
-| Fulfillment and delivery | Execute Dispatch and Delivery | group dispatches, plan route, schedule window, attempt, partial deliver, continue |
-| Fulfillment and delivery | Preserve cold-chain evidence | record temperature, evaluate excursion, approve disposition, attach POD |
-| Credit and receivables | Govern Tenant-specific credit | set limit, calculate Credit Reserved and Outstanding Receivables, hard-block insufficient Available Credit |
-| Credit and receivables | Recognize financial obligation | post financial basis, create receivable, set due date, manage partial payment |
-| Payments and documents | Record and confirm Payment | initiate online payment, record external report, confirm/reverse, refund/reconcile |
-| Payments and documents | Issue business documents | number, render, store, publish, revise/correct without overwriting history |
-| Traceability and notification | Notify business significance | choose in-app/email channel, deliver, retry, suppress low-value noise |
-| Traceability and notification | Expose business timeline | project buyer-visible flow, operational trace, audit/security record distinction |
+| SaaS onboarding | contact/demo intake, assisted provisioning, activation and suspension/exit | Tenant & Access Governance |
+| Workforce and governance | company identity, memberships, roles, capabilities, tenant authorization and access context | Tenant & Access Governance |
+| Customer relationships | Customer Account, contacts, addresses, lifecycle and account association | Customer & Buyer Relationships |
+| Buyer relationships | invitation/request, approval, principal identity link, suspension/revocation and supplier context | Customer & Buyer Relationships |
+| Catalog | Product, SKU, media metadata, visibility, cold-chain requirement and lifecycle | Catalog & Commercial Policy |
+| Commercial policy | Base Price, Price Lists, Customer Terms, promotions, currency and authoritative resolution | Catalog & Commercial Policy |
+| Buyer shopping | private catalog, informative cart/draft, authoritative checkout and availability presentation | Catalog + Sales Commitment |
+| Purchase Requests | submit, commitment, review, material change, buyer response, withdrawal, rejection and expiry | Sales Commitment |
+| Sales Orders | confirmed SO, commercial snapshots, cancellation/replacement and roll-up status | Sales Commitment |
+| Inventory availability | receiving, lots, physical stock, sellable availability, safety stock, holds, FEFO and transfers | Inventory Availability |
+| Warehouse operations | receiving, adjustments, movement history, lot disposition and shortage detection | Inventory Availability |
+| Fulfillment | allocation execution, picking, packing, staging, readiness and shortage handling | Fulfillment & Delivery with Inventory authority |
+| Dispatch and delivery | dispatch, schedule, attempts, partial delivery, continuation and final outcomes | Fulfillment & Delivery |
+| Cold-chain optional capability | manual temperature evidence, excursion, HOLD and disposition | Fulfillment & Delivery operationally; Inventory owns sellability effect |
+| Credit | limits, reservations, available credit and approval/rejection | Credit & Receivables |
+| Receivables and payments | receivable posting, payment report/confirmation, application, refund/correction and reconciliation | Credit & Receivables + Payments |
+| Business documents | SO document, delivery note, commercial invoice, payment receipt, financial adjustment and replacements | Business Documents |
+| Notifications | in-app/email candidate, preference, delivery attempt, retry and failure | Notifications |
+| Business traceability | durable business timeline, actor/reason/evidence/correlation and historical lookup | Business Traceability |
+| Operational visibility | authorized projections for orders, stock, fulfillment, deliveries, credit, payments and exceptions | consuming contexts; source facts remain owned |
+| Website acquisition | public product information, Contact/Request Demo and login/onboarding entry | Website surface; Tenant authority remains API/BC-01 |
 
-## Capability design observations
+## Explicit non-mapping
 
-- Sales Commitment is an ability to create commercial obligation; it is not the same as physical stock, lot allocation or delivery.
-- Inventory Availability protects physical truth and sellability; it does not own Customer price or Sales Order meaning.
-- Credit and Receivables distinguish Credit Reserved from Outstanding Receivables; AS-IS exposure/used labels are translation evidence, not final Product language.
-- Payment and Stripe must remain separate vocabulary. Documents are business evidence, not a synonym for receivables or fiscal integration.
-- Notifications and analytics are likely supporting projection capabilities; their ownership must follow meaningful business events rather than current listener classes.
-
-## Discovery limits
-
-Capability names do not imply subdomains or Bounded Contexts. Process discovery must test boundaries, actors, information authority, invariants and change coupling.
+One capability may use several contexts. One context may support several capabilities. A folder, route, table, schema or Spring module is not evidence of a strategic boundary.

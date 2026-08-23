@@ -1,16 +1,16 @@
 ---
-status: accepted
-maturity: BASELINED
+status: deprecated
+maturity: SUPERSEDED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-18
+last-reviewed: 2026-08-23
 ---
 
 # Pre-Strategic-DDD baseline (historical boundary)
 
 ## Purpose
 
-This document closes the architecture baseline before Strategic DDD. It answers only: **what do we know before beginning Strategic DDD?** It does not design bounded contexts, reopen AS-IS investigation or authorize product implementation.
+This document is preserved as the historical boundary before Strategic DDD. It answers only: **what was known before Strategic DDD acceptance?** It does not override the accepted PRE-V1 target or authorize product implementation.
 
 ## Product identity
 
@@ -18,7 +18,7 @@ Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and di
 
 Canonical source: [Product vision](../01-product/vision.md).
 
-Product / Business V1 input: **FROZEN / CLOSED**. No major Product blocker remains. This baseline is ready for Capability Mapping; it does not create strategic boundaries.
+Product / Business V1 input: **FROZEN / CLOSED**. No major Product blocker remains. This historical record did not create strategic boundaries; the accepted result now lives in [Strategic DDD](../02-domain/strategic-ddd/README.md).
 
 ## V1 system boundary
 
@@ -43,7 +43,7 @@ The eight V1 personas are canonicalized in [Primary personas](../01-product/pers
 - C4 L1 V1: BASELINED.
 - C4 L2 V1: BASELINED.
 - C4 Architecture Runway: BASELINED.
-- C4 L3/L4 were intentionally not created at the time of this baseline. The current proposal superseding this boundary is indexed in [Architecture README](README.md) and remains review-gated.
+- C4 L3/L4 were intentionally not created at the time of this baseline. Selective PRE-V1 TARGET views now supersede this limitation and are indexed in [Architecture README](README.md).
 - Workspace is not a C4 Container.
 - PostgreSQL Database is a C4 Container and runtime service.
 - Object Storage is a C4 Container abstraction.
@@ -78,7 +78,7 @@ These strengths are evidence of current implementation, not automatic TARGET arc
 
 ## Known architectural uncertainties
 
-The following remain OPEN — REQUIRES STRATEGIC DDD or subsequent architecture work:
+The following were OPEN at time of this historical snapshot and are superseded by the accepted PRE-V1 records:
 
 - Final strategic meaning of current implementation modules.
 - Final Bounded Context boundaries.
@@ -95,7 +95,7 @@ The following remain OPEN — REQUIRES STRATEGIC DDD or subsequent architecture 
 - Data ownership.
 - Event and integration ownership.
 
-No solution is inferred here.
+This historical document intentionally contains no accepted solution; read it only as provenance.
 
 ## Known production gaps
 
@@ -103,7 +103,7 @@ Production gates remain open for deployment architecture, secrets/key management
 
 ## Explicitly deferred
 
-- Additional C4 L3/L4 beyond the current selective, review-gated proposal.
+- Additional C4 L3/L4 beyond the current selective PRE-V1 target views.
 - Mobile and Delivery Driver implementation.
 - IoT/sensor implementation.
 - Control Center and Support.
@@ -122,7 +122,7 @@ Production gates remain open for deployment architecture, secrets/key management
 
 ## Closure
 
-Pre-Strategic-DDD Architecture Baseline: **READY FOR CAPABILITY MAPPING**.
+Pre-Strategic-DDD Architecture Baseline: **SUPERSEDED BY PRE-V1 CLOSURE**.
 
 The next architecture activity is:
 

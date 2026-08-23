@@ -1,9 +1,9 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: architecture
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Frontend application architecture TARGET
@@ -23,14 +23,14 @@ Each authenticated feature follows:
 ```text
 route -> guard/resolver -> page/container -> facade/signal state
       -> use-case API client -> HTTP/interceptors -> API contract
-      -> loading / empty / error / forbidden / stale / conflict state
+      -> loading / empty / success / validation / business-rejection / technical-failure / forbidden / stale / conflict state
 ```
 
 Feature state owns server data and command status. Shared UI owns presentation states and accessibility primitives. API clients own transport mapping. No feature imports another feature's private state, repository or component internals.
 
 ## Cross-cutting rules
 
-- Route guards improve navigation; backend authorization remains authoritative.
+- Route guards improve navigation; backend authorization remains authoritative. Product workflow/state semantics are in [Frontend Product Contract](../01-product/frontend-product-contract.md) and [UI State Contract](../01-product/ui-state-contract.md).
 - Carry correlation ID, `If-Match`, `Idempotency-Key` and Problem Details consistently where the API contract requires them.
 - Signals are appropriate for local/server projection state; avoid a global mutable store without an ownership reason.
 - Mutation UX must distinguish validation, permission denied, stale revision, duplicate idempotency result, network retry and server failure.

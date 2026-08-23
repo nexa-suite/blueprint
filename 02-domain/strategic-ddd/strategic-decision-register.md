@@ -1,32 +1,51 @@
 ---
-status: draft
-maturity: DISCOVERY
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Strategic Decision Register
 
-| ID | Proposed decision | Evidence / reason | Status / revisit |
+These decisions close the PRE-V1 domain model. Technical realization remains subject to compatibility and evidence controls.
+
+| ID | Decision | Status | Consequence |
 |---|---|---|---|
-| DDD-001 | Treat current modules as AS-IS technical boundaries, not Bounded Contexts | Source-of-truth rule; code inspection shows cross-module contracts, open modules and shared persistence | Proposed; revisit after Business Architect review |
-| DDD-002 | Assign ownership and integration for the closed Commercial Commitment / Physical Allocation distinction | Product closes SKU + quantity commitment versus Inventory Lot allocation; physical truth and lot selection are different | Proposed; review context ownership, integration direction and consistency boundary in P1/P2; do not reopen the distinction |
-| DDD-003 | Keep Customer Account and Buyer Relationship distinct | Buyer can exist without portal/account; relationships are Tenant-specific and independent | Proposed; validate identity/account-claim stories |
-| DDD-004 | Keep Payment distinct from Stripe and Receivable | Provider boundary, Payment Reported != Confirmed, financial posting semantics | Proposed; validate P5 |
-| DDD-005 | Keep Dispatch, Delivery and Route distinct | Partial delivery/continuation and simple route grouping rules | Proposed; validate P3 |
-| DDD-006 | Model Notification/Timeline as projection authority, not source-of-truth owner | Buyer reduced timeline and business-significance rule | Proposed; validate P6 and KPI ownership |
-| DDD-007 | Treat Inventory Availability and Fulfillment as collaborating candidates | Physical stock/sellability differs from lot allocation/picking/delivery | Proposed; test handoff cost and operational ownership |
-| DDD-008 | Keep only numeric Purchase Request expiry policy open | Consent, substitution acceptance, material-change validity reset, rejection reason and withdrawal semantics are accepted | Product authority preserved; no numeric policy inferred |
-| DDD-009 | Use identifier references/snapshots across proposed contexts | Immutable Sales Order and provider/entity leakage risks | Proposed technical/domain rule; validate data architecture |
-| DDD-010 | Use one business owner per concept before technical module realignment | Prevents schema/package-driven architecture | Proposed governance gate; revisit after review |
-| DDD-011 | Decide Tenant Governance versus Identity/Access context shape | Current IAM/Tenant technical seams are evidence; governance and identity lifecycle may differ strategically | Proposed; Business Architect review |
-| DDD-012 | Assign Workforce Membership lifecycle authority | Membership, roles and access context cross current IAM/Tenant areas | Proposed; review lifecycle and authorization boundary |
-| DDD-013 | Assign Buyer Relationship authority relative to Customer Account and Identity | AS-IS relationship is fragmented across membership, Client Account and Buyer access | Proposed; review privacy, linking and relationship lifecycle |
-| DDD-014 | Decide Catalog and Commercial Policy model boundary | Product/SKU/pricing flows are related but may evolve at different rates | Proposed; review language and policy ownership |
-| DDD-015 | Decide Financial Posting and notification/projection ownership | Credit, Receivable, Payment, Documents and Traceability have separate invariants | Proposed; review facts, projections and integration direction |
-| DDD-016 | Decide cold-chain disposition authority | Inventory, Fulfillment and Delivery all carry temperature/exception evidence | Proposed; preserve HOLD-first semantics |
+| DDD-001 | Accept 11 Bounded Contexts | ACCEPTED / FROZEN | use catalog and ownership matrix as strategic authority |
+| DDD-002 | Split Notification from Business Traceability | ACCEPTED; old combined proposal SUPERSEDED | separate failure/retry semantics from durable history |
+| DDD-003 | Classify Core/Supporting/Generic | ACCEPTED / FROZEN | Core: Sales, Inventory, Fulfillment; Generic does not mean unimportant |
+| DDD-004 | Commercial Commitment is demand, Physical Allocation selects lots | ACCEPTED / FROZEN | no release/re-reserve gap during PR-to-SO transfer |
+| DDD-005 | Submitted PR creates all-or-nothing commitment and credit reservation | ACCEPTED / FROZEN | synchronous atomic invariant boundary |
+| DDD-006 | PR state machine and expiry | ACCEPTED / FROZEN | 72-hour default, Tenant 1–7 integer days, absolute `expiresAt: Instant` |
+| DDD-007 | Sales Order is born CONFIRMED | ACCEPTED / FROZEN | no Draft SO; material changes use replacement/correction semantics |
+| DDD-008 | Delivery attempts and continuation | ACCEPTED / FROZEN | no universal attempt count; partial delivery creates continuation |
+| DDD-009 | Credit/Receivable lifecycle | ACCEPTED / FROZEN | Available Credit formula; Receivable at SO confirmation for credit/net terms |
+| DDD-010 | Payment is distinct from Receivable, Credit and Stripe | ACCEPTED / FROZEN | provider ACL does not redefine business language |
+| DDD-011 | Business Documents are immutable commercial evidence | ACCEPTED / FROZEN | corrections create linked replacements/addenda; SUNAT deferred |
+| DDD-012 | Cold-chain is optional V1 capability | ACCEPTED / FROZEN | manual measurement; excursion affects quantity through HOLD/disposition |
 
-## Decision quality gate
+## 10 -> 11 history
 
-No entry above is a Product change or canonical Business Architect acceptance. A review may merge, split, rename or reject candidates using evidence from workshops and process exceptions.
+The earlier discovery catalog had 10 proposed contexts and combined **Notification & Business Traceability**. That proposal is preserved as `SUPERSEDED / HISTORICAL`. The accepted model separates:
+
+- Notifications: recipient/channel delivery, retry and failure; source business state is unchanged by delivery failure.
+- Business Traceability: append-only durable business facts, actor, reason, evidence, correlation and timeline; source contexts retain authority.
+
+The split is based on different language, invariants, ownership, consumers, lifecycle and change pressure. No history is rewritten.
+
+## Other superseded proposals
+
+| Historical proposal | Accepted replacement |
+|---|---|
+| arbitrary Delivery attempt limit `3` or configurable `1–5` | Operations-driven exhaustion and `FAILED_FINAL` |
+| unresolved commitment timing | submitted PR creates commitment; PR-to-SO transfers ownership |
+| `Credit Reserved -> Receivable` ambiguity | explicit transition without double count; Receivable at SO confirmation for credit/net |
+| Customer/Buyer multiplicity unresolved | one principal active Buyer Identity per Customer Account in V1 |
+| unresolved price precedence | Base Price -> Price List -> Customer Terms -> one Promotion |
+| Commercial Commitment treated as physical reservation | commitment is SKU + quantity; allocation selects lots later |
+| Photo and signature always mandatory POD | policy-driven evidence; POD remains immutable |
+
+## Change rule
+
+A future decision may supersede this register only with explicit authority, evidence, impact on user stories/contracts and a linked replacement. Implementation drift is not a decision.

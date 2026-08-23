@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define documentation authority, accepted decisions, maturity semantics, current state, roadmap and future Blueprint publication rules.
+Define documentation authority, accepted decisions, PRE-V1 closure status, maturity semantics, roadmap and publication rules.
 
 ## Authoritative content
 
@@ -15,7 +15,7 @@ Define documentation authority, accepted decisions, maturity semantics, current 
 
 ## Current status
 
-BASELINED. Product & Business V1 is FROZEN / CLOSED. Strategic DDD is **PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW**. Technical architecture, data, security and C4 L3/L4 are explicit proposals and remain review-gated.
+PRE-V1 BASELINED. Product & Business V1 is FROZEN / CLOSED. Strategic DDD and 11 Bounded Contexts are ACCEPTED / FROZEN. Technical architecture and selective C4 L3 are CLOSED for PRE-V1 construction; production/provider decisions remain an OPEN-NON-BLOCKER Production Gate.
 
 ## Expected artifacts
 
@@ -27,4 +27,4 @@ Application source, inferred domain architecture, duplicated AS-IS reports, secr
 
 ## Related areas
 
-[Product](../01-product/README.md), [Domain](../02-domain/README.md), [Architecture](../04-architecture/README.md), [AS-IS evidence](../11-reference/as-is/README.md), [Strategic DDD synthesis](../02-domain/strategic-ddd/README.md).
+[Product](../01-product/README.md), [Domain](../02-domain/README.md), [Architecture](../04-architecture/README.md), [AS-IS evidence](../11-reference/as-is/README.md), [Strategic DDD baseline](../02-domain/strategic-ddd/README.md).

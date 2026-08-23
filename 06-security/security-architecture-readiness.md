@@ -1,14 +1,14 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: security
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Security Architecture readiness
 
-Maturity: **PROPOSED / REVIEW-GATED** for TARGET Security Architecture. Product closure confirms Tenant isolation, identity separation and authorized/traceable support access as business invariants; the proposal remains open for review.
+Maturity: **BASELINED for PRE-V1 construction**. Product closure confirms Tenant isolation, identity separation, worker scope and authorized/traceable privileged access as business invariants. Production proof remains a gate.
 
 ## Evidence available
 
@@ -20,12 +20,12 @@ See the [security architecture TARGET](security-architecture-target.md), [author
 
 | Concern | Current evidence status | TARGET status |
 |---|---|---|
-| Authentication | AS-IS evidence exists | Proposed controls; review-gated |
-| Authorization | AS-IS evidence exists | Proposed controls; review-gated |
-| Tenant isolation | AS-IS mechanisms/evidence exist | Proposed defense in depth; coverage gate |
-| RLS | Migrations/runtime evidence exists | Proposed policy inventory; complete coverage open |
-| Security audit | Observed audit surfaces/tests exist | Proposed evidence contract |
-| Threat modeling | No final model claimed | Proposed threat model; review-gated |
+| Authentication | AS-IS evidence exists | fail-closed context and re-resolution target |
+| Authorization | AS-IS evidence exists | server-side relationship/object/capability checks |
+| Tenant isolation | AS-IS mechanisms/evidence exist | application predicates + RLS + worker scope |
+| RLS | Migrations/runtime evidence exists | transaction-local scope; complete coverage proof open |
+| Security audit | Observed audit surfaces/tests exist | separate append-only protected evidence target |
+| Threat modeling | target threats recorded | implementation and penetration proof open |
 | Secrets/providers | Local adapters and mocks exist | Production path remains open |
 
 Do not infer final security ownership from current modules, schemas or frontend feature areas.

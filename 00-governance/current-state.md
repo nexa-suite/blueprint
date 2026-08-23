@@ -3,42 +3,54 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Current state
 
-| Area | State |
-|---|---|
-| Legacy archaeology | HISTORICAL |
-| Legacy visual flow review | HISTORICAL |
-| Modern AS-IS audit | BASELINED |
-| Product vision | BASELINED |
-| Primary personas | BASELINED |
-| Tenant semantics | BASELINED |
-| Workspace V1 semantics | BASELINED |
-| Buyer identity direction | BASELINED |
-| Role responsibilities | BASELINED |
-| C4 L1/L2 baseline | BASELINED |
-| Architecture Runway | BASELINED |
-| Clean canonical workspace | BASELINED |
-| Local runtime hardening | BASELINED |
-| V1 Mega Audit | HISTORICAL |
-| AS-IS implementation baseline | CLOSED WITH CAVEAT |
-| Exact merged-develop runtime provenance | VERIFIED |
-| Product & Business V1 baseline | FROZEN / CLOSED |
-| Pre-DDD Architecture Baseline | SUPERSEDED BY REBASELINE; historical boundary preserved |
-| Capability Mapping | PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW |
-| EventStorming | PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW |
-| Domain Storytelling | PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW |
-| Strategic DDD | PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW |
-| Subdomains | PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW |
-| Bounded Contexts | PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW |
-| Context Map | PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW |
-| C4 L3/L4 | PROPOSED; validated model source |
-| Tactical DDD | PROPOSED; depends on strategic review |
-| TARGET Data Architecture | PROPOSED; depends on ownership review |
-| TARGET Security Architecture | PROPOSED; review-gated |
-| TARGET Cloud/Deployment Architecture | DEFERRED; production topology remains open |
+## NEXA BLUEPRINT PRE-V1
 
-The dated readiness measures remain in the preserved [V1 readiness baseline](../11-reference/as-is/v1-readiness-baseline-2026-08-12.md). They are historical evidence and must not be read as current completion percentages.
+| Area | Status |
+|---|---|
+| Product / Business V1 | CLOSED |
+| V1 scope | FROZEN |
+| Business rules | CLOSED |
+| Ubiquitous language | BASELINED / CLOSED |
+| Capability model | BASELINED |
+| Strategic DDD | ACCEPTED |
+| Bounded Contexts | 11 — FROZEN |
+| Context Map | ACCEPTED |
+| Data ownership | ACCEPTED for PRE-V1 target; physical schema migration open |
+| Core Domain | ACCEPTED |
+| State machines | BASELINED |
+| Event model | BASELINED |
+| Transaction / concurrency | BASELINED |
+| Idempotency | BASELINED |
+| Business traceability | BASELINED |
+| C4 L1/L2 | BASELINED |
+| C4 L3 TARGET | BASELINED where useful; technical lens only |
+| AS-IS | VERIFIED against accessible current refs; caveats labeled |
+| AS-IS / TARGET separation | BASELINED |
+| Security / multi-tenancy | BASELINED for construction target; production proof open |
+| Technical architecture | CLOSED for PRE-V1 construction target |
+| V1 User Stories | COMPLETE |
+| Acceptance Criteria | COMPLETE for cataloged stories |
+| Story Points | TBD — DELIVERY REFINEMENT |
+| Design System relationship | BASELINED; Design Lab remains visual authority |
+| Production vendor architecture | OPEN — PRODUCTION GATE |
+| PRE-V1 construction gate | OPEN |
+
+## Evidence state
+
+- Legacy archaeology and legacy visual flows remain `HISTORICAL` evidence.
+- Modern application repositories remain independent Git roots and read-only evidence for this Blueprint task.
+- Current implementation, builds, tests, runtime and browser captures do not prove complete V1 implementation or production readiness.
+- Accessible repository refs and exact limitations are recorded in [current-ref verification](../11-reference/as-is/pre-v1-current-ref-verification.md), the [AS-IS implementation audit](../04-architecture/as-is-implementation-audit.md) and [AS-IS evidence](../11-reference/as-is/README.md).
+
+## Open non-blockers
+
+Production provider, cloud and operational parameters remain open: cloud topology, managed PostgreSQL, object storage, email, observability, secret manager, RPO, RTO, backup retention, external SLA/SLO and responder organization. These do not block PRE-V1 documentation closure.
+
+## Authority
+
+Read [current accepted decisions](current-decisions.md) for canonical semantics. Read [source of truth](source-of-truth.md) for precedence. Do not infer Bounded Contexts from code folders, modules, schemas or screens.

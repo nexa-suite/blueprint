@@ -1,9 +1,9 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: design
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Design convergence interface
@@ -23,4 +23,4 @@ Design remains active. This interface prevents frontend architecture from silent
 
 ## Decision boundary
 
-The target frontend architecture may proceed with structural shell/feature contracts, but final tokens, typography, component inventory, navigation, visual parity and Figma library remain review-gated. Legacy and Design Lab assets are evidence only; they do not establish canonical decisions.
+Structural shell/feature contracts may proceed from the [Frontend Product Contract](../01-product/frontend-product-contract.md). Final token/component adoption remains governed by the Design Lab release evidence and human review; Blueprint does not freeze a candidate merely because it renders. Legacy and Design Lab assets do not establish domain decisions.

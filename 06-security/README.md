@@ -2,19 +2,19 @@
 
 ## Purpose
 
-Index current security evidence and unresolved security architecture concerns while preserving tenant isolation as a non-negotiable product driver.
+Index current security evidence and the accepted PRE-V1 security construction target while preserving tenant isolation as a non-negotiable product driver.
 
 ## Authoritative content
 
 - [Security architecture readiness](security-architecture-readiness.md).
-- [Proposed security architecture](security-architecture-target.md), [authorization matrix](authorization-matrix.md) and [threat model](threat-model.md).
+- [PRE-V1 security architecture](security-architecture-target.md), [authorization matrix](authorization-matrix.md) and [threat model](threat-model.md).
 - [AS-IS implementation baseline](../11-reference/as-is/v1-implementation-baseline.md).
 - [Architecture readiness gaps](../11-reference/as-is/architecture-readiness-gaps.md).
 - Accepted identity and role decisions in [Current accepted decisions](../00-governance/current-decisions.md).
 
 ## Current status
 
-Authentication and authorization mechanisms, tenant-context controls and RLS evidence are BASELINED as AS-IS evidence. TARGET Security Architecture is PROPOSED / REVIEW-GATED. No production security closure is claimed.
+Authentication and authorization mechanisms, tenant-context controls and RLS evidence are BASELINED as AS-IS evidence. PRE-V1 Security Architecture is BASELINED for construction, including fail-closed tenant scope and break-glass constraints. Production security proof remains a gate.
 
 ## Expected artifacts
 

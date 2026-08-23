@@ -1,14 +1,14 @@
 ---
-status: draft
-maturity: DISCOVERY
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Domain Stories
 
-Stories below are selected because they clarify responsibility, authority or exceptional handoff. They are not a complete CRUD catalogue.
+Stories below clarify responsibility, authority or exceptional handoff. The complete actor-value catalog lives in [V1 User Story Catalog](../../01-product/user-story-catalog.md).
 
 ## Story 1 — Buyer submits commercial intent
 
@@ -39,7 +39,7 @@ Sales Commitment
   preserves revision/history and recalculates commitment when material content changes
 ```
 
-Accepted policy: Buyer does not freely mutate submitted PR; no universal system-enforced re-accept click follows every Sales modification; consent-required changes preserve evidence; Product substitution requires explicit Buyer acceptance; material agreed modification resets validity; Sales rejection requires reason; Buyer withdrawal may omit reason. Only numeric expiry remains open.
+Accepted policy: Buyer does not freely mutate submitted PR; no universal system-enforced re-accept click follows every Sales modification; consent-required changes preserve evidence; Product substitution requires explicit Buyer acceptance; material agreed modification resets validity; Sales rejection requires reason; Buyer withdrawal may omit reason. Expiry is 72 hours by default, Tenant configurable 1–7 days, with absolute `expiresAt: Instant`.
 
 ## Story 3 — Warehouse makes stock sellable
 
@@ -114,12 +114,14 @@ Provider details remain behind an adapter. Payment is the business concept; Stri
 ```text
 Business source context
   commits meaningful business fact
-Notification & Traceability
-  projects reduced Buyer timeline and sends configured notifications
+Business Traceability
+  projects reduced Buyer timeline
+Notifications
+  sends configured notifications
 Security layer
   records authorization/security audit fact separately
 Buyer
   sees only authorized business progress and documents
 ```
 
-Internal lot changes, security audit details and worker notes are not Buyer timeline content.
+Internal lot changes, security audit details and worker notes are not Buyer timeline content. Business Traceability and Notifications remain separate Bounded Contexts.

@@ -1,14 +1,14 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: architecture
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Tactical DDD guidance TARGET
 
-This guide turns the proposed Strategic DDD language into implementation questions. It is not a class-generation plan. Each candidate requires example-driven review, invariant confirmation and data ownership acceptance before code changes.
+This guide turns accepted Strategic DDD language into implementation questions. It is not a class-generation plan or a claim that current code conforms. Each candidate still requires example-driven proof, invariant tests, compatibility and migration evidence before code changes.
 
 ## Aggregate candidate register
 
@@ -42,4 +42,4 @@ This guide turns the proposed Strategic DDD language into implementation questio
 
 ## Candidate review questions
 
-For each candidate, record: owner, identity, lifecycle, invariant examples, atomic writes, lock/version strategy, idempotency scope, emitted facts, query projections, migration compatibility, authorization capability, audit event and failure compensation. If any answer is unknown, mark the candidate proposed and do not infer code ownership from package names.
+For each candidate, record: owner, identity, lifecycle, invariant examples, atomic writes, lock/version strategy, idempotency scope, emitted facts, query projections, migration compatibility, authorization capability, audit event and failure compensation. If any answer is unknown, mark the implementation item UNVERIFIED; do not infer code ownership from package names or weaken accepted business semantics.

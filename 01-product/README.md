@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Maintain the accepted Nexa product direction, V1 scope, positioning, actors and explicitly reclassified discovery/technical questions.
+Maintain the accepted Nexa product direction, V1 scope, actor value, User Story Catalog and frontend product contract.
 
 ## Authoritative content
 
@@ -10,11 +10,14 @@ Maintain the accepted Nexa product direction, V1 scope, positioning, actors and 
 - [Product baseline](product-baseline.md)
 - [V1 scope](scope/v1-scope.md)
 - [Primary personas](personas/primary-personas.md)
-- [Unresolved product decisions](unresolved-decisions.md)
+- [V1 User Story Catalog](user-story-catalog.md)
+- [Frontend Product Contract](frontend-product-contract.md)
+- [UI State Contract](ui-state-contract.md)
+- [Unresolved product decisions](unresolved-decisions.md) — only non-blocking Production Gate and future scope.
 
 ## Current status
 
-Product & Business V1 is FROZEN / CLOSED. Detailed domain behavior, technical architecture and future Product evolution remain separate work.
+Product & Business V1 is FROZEN / CLOSED. User Stories and externally observable Acceptance Criteria are complete for PRE-V1; Story Points remain TBD — DELIVERY REFINEMENT. Technical architecture and future Product evolution remain separate boundaries.
 
 ## Expected artifacts
 

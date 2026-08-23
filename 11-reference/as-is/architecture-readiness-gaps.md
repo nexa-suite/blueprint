@@ -1,8 +1,20 @@
-# Architecture readiness gaps — AS-IS evidence register
+---
+status: reference
+maturity: HISTORICAL
+scope: cross-cutting
+owner: architecture
+last-reviewed: 2026-08-23
+---
+
+# Architecture readiness gaps — historical AS-IS evidence register
 
 This document describes AS-IS evidence and must not be interpreted as the TARGET domain or technical architecture.
 
-The register identifies questions that current code, tests, runtime and governance do not resolve. It intentionally records questions rather than architecture decisions.
+The register preserves questions that the earlier code, tests, runtime and
+governance evidence did not resolve. Accepted PRE-V1 domain, data, security
+and application baselines now answer the documentation-closure questions;
+implementation and production gaps remain separate gates. This record does not
+override the accepted TARGET.
 
 | Classification | Gap / observed evidence | Why evidence is insufficient | Future activity that should resolve it |
 |---|---|---|---|
