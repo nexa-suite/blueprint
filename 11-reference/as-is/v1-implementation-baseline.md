@@ -1,12 +1,23 @@
-# Nexa V1 implementation baseline — AS-IS evidence
+---
+status: reference
+maturity: HISTORICAL
+scope: cross-cutting
+owner: architecture
+last-reviewed: 2026-08-23
+---
+
+# Nexa V1 implementation baseline — historical AS-IS evidence
 
 This document describes AS-IS evidence and must not be interpreted as the TARGET domain or technical architecture.
 
-Audit date: 2026-08-13; final micro-closure update: 2026-08-13. Scope: active Modern API, Platform, Portal and Website repositories. No application code, Git history, branch, tag, release or remote state was changed.
+Audit date: 2026-08-13; final micro-closure update: 2026-08-13. Scope: active Modern API, Platform, Portal and Website repositories. No application code, Git history, branch, tag, release or remote state was changed. This record is historical; the [2026-08-23 current-ref verification](pre-v1-current-ref-verification.md) is the current AS-IS cut.
 
 ## Governance boundary
 
-`00-governance/current-state.md:14-38` records the Modern AS-IS audit and pre-DDD baseline as closed, Capability Mapping as next, and Subdomains, Bounded Contexts, Context Map, Data Architecture, Security Architecture and Cloud/Deployment Architecture as not started. `00-governance/source-of-truth.md` establishes verified Modern implementation as AS-IS evidence and explicitly separates it from TARGET. The current accepted decisions at `00-governance/current-decisions.md:14-52` describe current product semantics and rules; they do not authorize redesign in this audit.
+At the historical audit date, `00-governance/current-state.md` recorded the
+Modern AS-IS audit and pre-DDD baseline while Strategic DDD work remained
+pending. The accepted PRE-V1 decisions now supersede that status; this file
+preserves only the older evidence and does not define current TARGET authority.
 
 ## Canonical location and provenance
 
@@ -106,4 +117,8 @@ The previous runtime evidence used preserved local feature worktrees. The final 
 
 ## Architecture boundary
 
-This baseline does not define capabilities, subdomains, Bounded Contexts, aggregates, context maps, final data/security/cloud architecture or C4 L3. Existing implementation areas remain AS-IS evidence only.
+This historical baseline does not define capabilities, subdomains, Bounded
+Contexts, aggregates, context maps, final data/security/cloud architecture or
+C4 L3. Existing implementation areas remain AS-IS evidence only. Use the
+[current-ref verification](pre-v1-current-ref-verification.md) for current
+repository state and the accepted Blueprint documents for TARGET authority.

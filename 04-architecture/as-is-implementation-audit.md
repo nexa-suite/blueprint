@@ -3,12 +3,17 @@ status: accepted
 maturity: CLOSED WITH CAVEAT
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Modern implementation audit — AS-IS
 
-Audit date: 2026-08-19. This is a fresh read-only audit of the current Modern repositories. Product repositories were not modified. Current implementation areas are evidence only; they are not Bounded Contexts.
+Audit date: 2026-08-19. This is a historical read-only audit of the Modern repositories. Product repositories were not modified. Current implementation areas are evidence only; they are not Bounded Contexts.
+
+> **Current-ref correction — 2026-08-23:** the exact refs and inventory in the
+> dated sections below are preserved historical evidence. The canonical current
+> cut is [PRE-V1 current-ref verification](../11-reference/as-is/pre-v1-current-ref-verification.md),
+> which records the live refs and current caveats used for PRE-V1 closure.
 
 ## Exact refs and working-tree result
 
@@ -124,7 +129,7 @@ The API exposes Payment/Credit/Receivable capabilities. Portal exposes receivabl
 
 ### Spring Modulith encapsulation pressure
 
-`ApplicationModules.verify()` passes, but `sales`, `warehouse`, `logistics`, `payments`, `invoicing`, `notifications` and `shared` are observed as OPEN modules. `iam`, `tenantmanagement` and `catalogmanagement` have stronger closed-module metadata. Technical modularity therefore exists, while critical business areas lack strong enforced encapsulation. This is a transition/fitness pressure pending accepted Strategic DDD boundaries; no blanket module-closing change is proposed.
+`ApplicationModules.verify()` passes, but `sales`, `warehouse`, `logistics`, `payments`, `invoicing`, `notifications` and `shared` are observed as OPEN modules. `iam`, `tenantmanagement` and `catalogmanagement` have stronger closed-module metadata. Technical modularity therefore exists, while critical business areas lack strong enforced encapsulation. This is a construction fitness pressure while the accepted Strategic DDD boundaries are implemented; no blanket module-closing change is proposed.
 
 ### Build, test and runtime evidence boundary
 
@@ -141,9 +146,9 @@ The Reconnaissance reports PASS for API compile, API architecture tests, API tes
 | CAVEAT | Authenticated browser/provider production evidence remains credential/provider-gated. |
 | FACT | Dual PR write paths, catalog identifiers, Buyer relationship fragments, surface mismatch and OPEN Modulith modules are current construction evidence. |
 | CAVEAT | Unit/build evidence is not browser E2E, full integration or live-runtime acceptance. |
-| BLOCKER FOR ACCEPTANCE | Runtime acceptance remains pending local environment completion; missing `NEXA_MINIO_MINIO_ROOT_USER` is an environment blocker, not an architecture violation. |
-| BLOCKER FOR ACCEPTANCE | Business Architect must review proposed Strategic DDD boundaries before ownership-driven module/data migration. |
+| OPEN EVIDENCE GATE | Runtime acceptance remains pending local environment completion; missing `NEXA_MINIO_MINIO_ROOT_USER` is an environment blocker, not an architecture violation. |
+| CLOSED FOR DOCUMENTATION | Strategic DDD boundaries are accepted; ownership-driven module/data migration remains outside this Blueprint-only closure and requires its own construction evidence. |
 
 ## Audit conclusion
 
-AS-IS implementation baseline: **CLOSED WITH CAVEAT**. Keep the modular monolith and existing safety mechanisms while using explicit TARGET decisions to refine ownership, transactions, data, security, integration and frontend boundaries.
+AS-IS implementation baseline: **CLOSED WITH CAVEAT**. Keep the modular monolith and existing safety mechanisms while using explicit TARGET decisions to refine ownership, transactions, data, security, integration and frontend boundaries. The former acceptance blockers in this historical record are now classified by the current-ref verification; no application-repository migration is authorized by this documentation closure.

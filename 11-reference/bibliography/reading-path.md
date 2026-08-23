@@ -1,17 +1,17 @@
 ---
-status: planned
-maturity: NOT STARTED
+status: reference
+maturity: SUPERSEDED
 scope: cross-cutting
 owner: research
 last-reviewed: 2026-08-15
 ---
 
-# Research reading path
+# Historical research reading path
 
 1. Read governance and accepted product decisions.
-2. Read C4 L1/L2 source and the architecture fitness register.
-3. Review AS-IS and legacy evidence with provenance.
-4. Prepare Capability Mapping, EventStorming and Domain Storytelling workshops.
-5. Only after discovery, derive Strategic DDD, Data Architecture, Security Architecture and C4 L3.
+2. Read the accepted Strategic DDD, data, security and application baselines.
+3. Review the current-ref AS-IS evidence with provenance.
+4. Treat this document as historical research sequencing; construction and
+   production gates remain in the canonical roadmap.
 
 This path does not authorize implementation, architecture redesign or redistribution of private references.

@@ -1,16 +1,14 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-22
+last-reviewed: 2026-08-23
 ---
 
 # C4 Level 3 and Level 4 technical views
 
-These are selective technical lenses inside V1 applications. They are not
-accepted Bounded Contexts, do not derive ownership from folders and do not
-authorize application refactoring.
+These are selective PRE-V1 TARGET technical lenses inside V1 applications. They are not one-to-one Bounded Contexts, do not derive ownership from folders and do not authorize application refactoring.
 
 ## API component lenses
 
@@ -18,16 +16,16 @@ authorize application refactoring.
 | --- | --- | --- |
 | Identity | Authentication and global human identity | AS-IS / TARGET seam |
 | Tenant | Tenant and Workspace scope enforcement | AS-IS / TARGET seam |
-| Customer | Customer Account and Buyer relationship access | TARGET proposal |
+| Customer | Customer Account and Buyer relationship access | TARGET baseline |
 | Catalog | Product, SKU, visibility and commercial policy | AS-IS / TARGET seam |
 | Sales | Purchase Request and Sales Order orchestration | AS-IS / TARGET seam |
-| Commitment | Commercial Inventory Commitment lifecycle | TARGET proposal |
+| Commitment | Commercial Inventory Commitment lifecycle | TARGET baseline |
 | Inventory | Sellable availability, lots and FEFO policy | AS-IS / TARGET seam |
 | Warehouse | Receiving, movement, adjustment and physical operations | AS-IS / TARGET seam |
-| Fulfillment | Allocation and readiness handoff | TARGET proposal |
+| Fulfillment | Allocation execution and readiness handoff | TARGET baseline |
 | Delivery | Dispatch, attempts, continuation and POD | AS-IS / TARGET seam |
 | Payments | Payment lifecycle and provider adapter | AS-IS / TARGET seam |
-| Credit | Credit limit, reserved credit and receivables | TARGET proposal |
+| Credit | Credit limit, reserved credit and receivables | TARGET baseline |
 | Documents | Business document metadata, evidence and storage | AS-IS / TARGET seam |
 | Notifications | Durable publication and user-facing projections | AS-IS / TARGET seam |
 | Shared infrastructure | Access context, persistence, outbox/inbox, reliability and adapters | AS-IS / TARGET seam |
@@ -61,8 +59,6 @@ The canonical flow views are [Buyer sales](../../11-reference/flows/workflows.md
 and [durable events](../../11-reference/flows/workflows.md#4-durable-business-events).
 Code-level paths and AS-IS/TARGET labels remain in [C4 code views](code-views.md).
 
-## Review gate
+## Construction boundary
 
-Business Architect review must confirm ownership, language and integration
-direction before these technical lenses reshape modules, schemas, APIs or
-event contracts. No L3/L4 view is evidence of production readiness.
+Implementation must preserve accepted ownership, language and integration direction when these technical lenses reshape modules, schemas, APIs or event contracts. No L3/L4 view is evidence of production readiness. Production cloud, provider, RPO/RTO, SLO and break-glass proof remain Production Gate items.

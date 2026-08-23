@@ -14,7 +14,7 @@ component nexa.applicationApi "Nexa-API-Overall-ASIS" "API implementation compon
     autolayout lr
 }
 
-component nexa.applicationApi "Nexa-API-IdentityTenantCustomer-TARGET" "Proposed identity, Tenant access and Buyer relationship seams" {
+component nexa.applicationApi "Nexa-API-IdentityTenantCustomer-TARGET" "PRE-V1 target identity, Tenant access and Buyer relationship seams" {
     include nexa.applicationApi.apiPresentation
     include nexa.applicationApi.apiAccessContext
     include nexa.applicationApi.apiApplication
@@ -24,7 +24,7 @@ component nexa.applicationApi "Nexa-API-IdentityTenantCustomer-TARGET" "Proposed
     autolayout lr
 }
 
-component nexa.applicationApi "Nexa-API-CommercialInventory-TARGET" "Proposed commercial commitment and availability seams" {
+component nexa.applicationApi "Nexa-API-CommercialInventory-TARGET" "PRE-V1 target commercial commitment and availability seams" {
     include nexa.applicationApi.apiApplication
     include nexa.applicationApi.apiDomain
     include nexa.applicationApi.targetCommercialCommitment
@@ -35,7 +35,7 @@ component nexa.applicationApi "Nexa-API-CommercialInventory-TARGET" "Proposed co
     autolayout lr
 }
 
-component nexa.applicationApi "Nexa-API-FulfillmentDelivery-TARGET" "Proposed fulfillment, delivery and continuation seams" {
+component nexa.applicationApi "Nexa-API-FulfillmentDelivery-TARGET" "PRE-V1 target fulfillment, delivery and continuation seams" {
     include nexa.applicationApi.targetInventoryAvailability
     include nexa.applicationApi.targetFulfillmentDelivery
     include nexa.applicationApi.targetNotificationTraceability
@@ -44,7 +44,7 @@ component nexa.applicationApi "Nexa-API-FulfillmentDelivery-TARGET" "Proposed fu
     autolayout lr
 }
 
-component nexa.applicationApi "Nexa-API-CreditPaymentDocuments-TARGET" "Proposed credit, payment and business evidence seams" {
+component nexa.applicationApi "Nexa-API-CreditPaymentDocuments-TARGET" "PRE-V1 target credit, payment and business evidence seams" {
     include nexa.applicationApi.targetCreditReceivables
     include nexa.applicationApi.targetPaymentDocuments
     include nexa.applicationApi.targetNotificationTraceability

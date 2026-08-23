@@ -1,32 +1,41 @@
 ---
-status: draft
-maturity: DISCOVERY
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
-# Subdomain Map
+# Subdomain Classification
 
-Classification is a proposal based on differentiation, business value, complexity and change pressure. It is not based on Java module count or table count.
+Classification reflects differentiation, policy density and business risk. `Generic` means replaceable or commonly solved, never unimportant.
 
-| Proposed subdomain | Classification | Rationale | Evidence / review need |
-|---|---|---|---|
-| Sales Commitment | CORE candidate | Converts B2B intent into controlled commercial obligation; protects price, availability, credit, immutable order truth and no silent substitution | Frozen Product invariants, P1; validate with sales process discovery |
-| Inventory Availability and Cold-Chain Operations | CORE candidate | Physical truth, sellability and temperature disposition are Nexa's cold-chain specialization and create operational differentiation | Frozen inventory/cold-chain rules, P2; validate Warehouse actors and exception ownership |
-| Fulfillment and Delivery Coordination | CORE candidate | Connects committed commercial demand to traceable delivery, partial continuation and POD | P3, delivery/cold-chain evidence; validate operational value and boundaries |
-| Customer / Buyer Relationships | SUPPORTING-to-CORE candidate | Establishes Tenant-specific commercial relationship without becoming public marketplace; affects retention and privacy | P4; review relationship language and lifecycle |
-| Catalog and Commercial Policy | SUPPORTING candidate | Provides configurable sellable offer, deterministic price and Tenant policy inputs | Frozen Product/Pricing rules, P1; review whether pricing deserves separate context |
-| Tenant and Access Governance | SUPPORTING candidate | Enables safe Tenant lifecycle, workforce capability and global identity relationships | Frozen tenancy/identity rules, P4; Security review required |
-| Credit and Receivables | SUPPORTING candidate | Protects credit risk and financial recognition without becoming full accounting | P5; Financial Posting triggers remain open |
-| Payments and Business Documents | SUPPORTING candidate | Integrates external money movement and preserves commercial evidence | P5; provider/fiscal boundaries require further review |
-| Notification and Business Traceability | SUPPORTING candidate | Turns source facts into useful visibility while separating audit from customer timeline | P6; projection ownership and retention open |
-| Identity token/session, email, object storage, malware scanning, maps | GENERIC / enabling candidates | Replaceable technical capabilities; provider details must not leak into core language | Technical evidence and official provider constraints |
+## Core
 
-## Candidate core-domain test
+| Context | Why core |
+|---|---|
+| Sales Commitment | Converts B2B intent into controlled commercial obligation with immutable snapshots, commitment ownership and no silent substitution. |
+| Inventory Availability | Coordinates real physical truth, sellability, safety stock, FEFO and commitment/allocation constraints. |
+| Fulfillment & Delivery | Connects commercial obligation to traceable physical execution, delivery attempts, continuation and optional cold-chain evidence. |
 
-The current proposal treats Sales Commitment, Inventory Availability / Cold-Chain and Fulfillment / Delivery as core candidates. Business Architect review must test whether each contains differentiated policy and knowledge, whether one can be genericized, and whether the proposed split creates harmful handoff cost.
+## Supporting
 
-## Explicitly excluded from V1 subdomains
+| Context | Why supporting |
+|---|---|
+| Tenant & Access Governance | Enables safe multi-tenant operation and workforce authority. |
+| Customer & Buyer Relationships | Establishes tenant-specific commercial relationships and Buyer access. |
+| Catalog & Commercial Policy | Makes the sellable offer and deterministic commercial inputs configurable. |
+| Credit & Receivables | Controls risk, formal obligation and correction without becoming full accounting. |
+| Business Traceability | Preserves durable cross-context business history and accountability. |
 
-Mobile, Driver application, IoT telemetry, full Procurement, advanced Finance/accounting, SUNAT, advanced BI, plans/subscriptions/entitlements, Control Center, Support impersonation and arbitrary payment providers remain future or deferred.
+## Generic
+
+| Context | Why generic, still important |
+|---|---|
+| Payments | Provider/payment lifecycle is a replaceable integration capability; financial correctness remains critical. |
+| Business Documents | Issuance, numbering and storage metadata are broadly applicable; source contexts retain business authority. |
+| Notifications | Channel delivery and retry are common infrastructure; failure semantics must protect source state. |
+
+## Deferred classification
+
+Mobile, IoT automation, full Procurement, advanced Finance/accounting, SUNAT, advanced BI, plans/subscriptions/entitlements, Control Center and Support remain runway/future and are not V1 subdomains.

@@ -1,77 +1,97 @@
 ---
 status: accepted
-maturity: BASELINED
+maturity: FROZEN
 scope: cross-cutting
-owner: architecture
-last-reviewed: 2026-08-19
+owner: governance
+last-reviewed: 2026-08-23
 ---
 
 # Current accepted decisions
 
-## Product / Business V1 closure
+This document is the accepted Product, business and PRE-V1 architecture input. It outranks implementation evidence. AS-IS evidence records what exists; it never silently changes TARGET.
 
-- Product and Business V1 is **FROZEN / CLOSED**. No major Product V1 decision blocker remains.
-- Acceptance covers Fresh Nexa Tenant, Generic Tenant and ICISA Reference Tenant states. Same product, code and release line; ICISA is never required by Nexa.
-- Strategic DDD synthesis now exists as **PROPOSED / READY FOR BUSINESS ARCHITECT REVIEW**. Capability Mapping, EventStorming, Domain Storytelling, Ubiquitous Language, subdomains, Bounded Contexts and Context Map in the synthesis remain hypotheses until explicit review acceptance.
+## Product and business closure
 
-## Nexa
+- Nexa V1 is a fast, role-focused B2B multi-tenant SaaS platform for importers and distributors, particularly cold-chain businesses.
+- Product and Business V1 is **FROZEN / CLOSED**. This closure does not claim V1 implementation complete.
+- Fresh Nexa, Generic Tenant and ICISA Reference Tenant use the same product and release line. ICISA is explanatory evidence, never a required seed.
+- Tenant is the maximum business/data isolation boundary. V1 uses `Tenant 1:1 Workspace`; Workspace is the Tenant's operational environment, not a C4 Container.
+- Public Website handles acquisition and onboarding initiation only. Internal Web Platform serves workforce operations. Buyer Portal serves an authorized Buyer relationship for the current supplier Tenant.
+- Mobile, IoT automation, SUNAT fiscal integration, multi-currency, full returns/RMA, Control Center, Support, Plans, Subscriptions, Entitlements and Feature tiers are deferred or runway items, not implemented V1 claims.
 
-Nexa is a fast, role-focused B2B multi-tenant SaaS platform for importers and distributors, particularly cold-chain businesses, designed to coordinate commercial operations, inventory, fulfillment and delivery while providing buyers with a simple and reliable purchasing experience.
+## Identity, relationship and governance language
 
-## Tenant and Workspace
+- Human Identity, Workforce Membership, Buyer Relationship and Customer Account are distinct concepts.
+- One human has one Nexa identity. A human may have independent workforce and Buyer relationships with multiple Tenants; data remains tenant-scoped.
+- A Customer Account may exist without Portal identity. V1 allows one principal active Buyer Identity per Customer Account; multi-user Buyer organizations are future scope.
+- Buyer Relationship states are `PENDING / INVITED`, `ACTIVE`, `SUSPENDED` and `REVOKED`.
+- V1 has one Company Owner, zero or more Business Operations Managers and one Internal Web Platform. Tenant Administrator governs technical access; Company Owner governs company identity, sensitive organization data and workforce roles; Business Operations Manager governs cross-functional operations.
 
-- `ICISA` is the canonical explanatory Tenant example.
-- Tenant is the SaaS customer and maximum business/data isolation boundary.
-- Typical V1 interpretation: Tenant is approximately a customer company.
-- A Tenant may contain locations, stores, warehouses, employees and B2B customers.
-- V1 uses `Tenant 1:1 Workspace`.
-- Workspace is the complete Nexa operational environment of that Tenant, not a C4 Container.
-- Multiple workspaces per Tenant are deferred beyond V1.
+## Accepted Strategic DDD
 
-## Identity and roles
+The V1 TARGET has **11 frozen Bounded Contexts**. Existing Java packages, Spring Modulith modules, PostgreSQL schemas, endpoints and frontend folders are AS-IS implementation evidence only.
 
-- One human has one Nexa identity.
-- A Buyer may have independent authorized relationships with multiple Tenants; data remains tenant-scoped.
-- Buyer/Tenant relationship may begin through Tenant invitation or Buyer request; Tenant approval/authorization is required. Existing Customer Account may later link/claim to a corresponding Nexa identity rather than duplicate the customer.
-- V1 has one Internal Web Platform for Tenant Administrator, Company Owner, Business Operations Manager, Sales Representative, Warehouse Operator and Dispatch Coordinator.
-- V1 has exactly one Company Owner; multiple Business Operations Managers may exist. These are business-governance roles, not one simple hierarchy.
-- Tenant Administrator governs technical access and configuration.
-- Company Owner governs company identity, sensitive organization data, members, role assignment and executive visibility.
-- Business Operations Manager supervises cross-functional day-to-day business operations without owning technical RBAC/security configuration.
+| ID | Bounded Context | Classification | Conceptual authority |
+|---|---|---|---|
+| BC-01 | Tenant & Access Governance | Supporting | Tenant lifecycle, Workspace relationship, identity access, workforce membership, roles, capabilities and access eligibility |
+| BC-02 | Customer & Buyer Relationships | Supporting | Customer Account, Buyer Relationship, contacts, addresses, lifecycle and supplier/customer relationship |
+| BC-03 | Catalog & Commercial Policy | Supporting | Product, SKU, visibility, Base Price, Price Lists, Customer Terms, Promotions and SKU cold-chain requirement |
+| BC-04 | Sales Commitment | Core | Purchase Request, Commercial Commitment, Sales Order, commercial snapshots and cancellation/replacement semantics |
+| BC-05 | Inventory Availability | Core | Physical stock, lots, sellable availability, safety stock, holds, movements, transfers, physical allocation authority and FEFO |
+| BC-06 | Fulfillment & Delivery | Core | Fulfillment, allocation execution, picking, packing, staging, dispatch, delivery, attempts, continuation, POD and operational cold-chain evidence |
+| BC-07 | Credit & Receivables | Supporting | Credit Account, limit, reservation, available credit, receivable, balance and financial adjustments affecting obligation/exposure |
+| BC-08 | Payments | Generic | Payment, report, provider lifecycle, Stripe translation, confirmation/failure, refund and correction |
+| BC-09 | Business Documents | Generic | Sales Order Document, Delivery Note, Commercial Invoice, Payment Receipt, Financial Adjustment, numbering and immutable issued history |
+| BC-10 | Notifications | Generic | Notification intent, template, recipient, channel, preference, attempt, retry and delivery state |
+| BC-11 | Business Traceability | Supporting | Durable consultable representation of business facts, actors, reasons, evidence, correlation and timeline |
 
-## Product boundaries
+The former proposal combining Notification and Business Traceability is **SUPERSEDED**. The 10-to-11 decision is recorded in the Strategic DDD decision register and ADR set; history is preserved.
 
-- Public Website markets Nexa, explains Nexa Buyer, provides login entry points and handles Contact/Request a Demo.
-- Public Website does not expose tenant catalogs, products, prices or commercial information without authentication.
-- A public request does not automatically create a Tenant.
-- No anonymous instant Tenant signup is required for V1; assisted commercial review, approval, provisioning and activation precede ACTIVE.
-- Tenant controls its business information; Nexa processes it to provide the service. Suspension/exit does not immediately delete business data, and departing Tenant must have a reasonable way to export it. Exact retention, format, mechanism, legal obligations and deletion procedure remain open.
-- Mobile is Architecture Runway, not V1 implementation.
-- Nexa Control Center, Platform Administrator, Support, Plans, Subscriptions, Entitlements and Feature tiers are V2/future.
+## Commercial and operational semantics
 
-## External systems and assets
+- Cart and Request Draft create no commitment.
+- Approval-required flow: `SUBMIT -> Purchase Request SUBMITTED + Commercial Inventory Commitment + Credit Reservation when applicable -> review -> optional CHANGES_PROPOSED -> Buyer acceptance of material changes -> Sales Order CONFIRMED`.
+- Direct order validates authoritatively and confirms Sales Order with Commercial Inventory Commitment and required Credit Reservation in one logical atomic commercial decision.
+- PR submission is all-or-nothing. A submitted PR has full required commitment, starts expiry and is visible to Sales.
+- Purchase Request states are `SUBMITTED`, `CHANGES_PROPOSED`, `CONVERTED`, `REJECTED`, `WITHDRAWN` and `EXPIRED`. No persisted `UNDER_REVIEW` state is introduced for a UI label.
+- Default PR expiry is 72 hours. Tenant policy may be 1–7 integer days. Store absolute UTC `expiresAt: Instant`; `now >= expiresAt` rejects conversion even before a worker materializes `EXPIRED`. Expiry atomically releases commitment, inventory reservation and credit reservation where applicable, with durable outbox evidence.
+- Commercial Inventory Commitment is persistent, stable by `CommitmentId`, owns SKU + quantity demand and selects no Warehouse/Lot. Ownership transfers PR to SO without release/re-reserve gap. Physical Allocation selects Inventory Lot(s) later.
+- Sales Order is born `CONFIRMED`. Commercial roll-up states are `CONFIRMED`, `IN_FULFILLMENT`, `PARTIALLY_FULFILLED`, `FULFILLED`, `PARTIALLY_DELIVERED`, `COMPLETED` and `CANCELLED`. Completion means no unresolved quantity, not financial settlement.
+- Price resolution is Base Price, applicable Price List, permitted Customer Terms, then at most one Promotion transformation. Submitted PR pricing is historical evidence; new attempts resolve current authoritative pricing.
+- Sellable Availability is usable on-hand minus active Commercial Commitments minus Safety Stock. HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT stock is not sellable. Primary availability authority is SKU + Warehouse.
+- FEFO is default for expiry-tracked SKU. Override needs reason and never selects expired or quarantined stock. Warehouse Transfer states are `REQUESTED`, `IN_TRANSIT`, `RECEIVED`; in-transit stock is not sellable in both locations.
+- Fulfillment supports `PLANNED`, `ALLOCATED`, `PICKING`, `PICKED`, `PACKED`, `STAGED`, `READY_FOR_DISPATCH`, `HANDED_OVER`, `COMPLETED`, plus explicit shortage, hold and cancellation exceptions. Multiple Fulfillments per Sales Order are valid.
+- Delivery attempts belong to one Delivery. Failed attempts do not create a new Delivery. Operations decides exhaustion; no universal numeric attempt limit is accepted. Partial delivery closes the current Delivery and creates an idempotent Continuation Delivery for the remaining obligation.
+- POD is immutable evidence. Amendments/addenda never overwrite the original. Photo/signature is policy-driven, not universally mandatory.
+- Cold-chain is optional per Tenant/SKU. V1 captures temperature manually. Excursion places affected quantity on HOLD pending disposition; it does not automatically mean destruction. IoT automation is deferred.
 
-- V1 external systems: Payment Provider, Email Delivery Service, Maps & Geolocation Provider.
-- TARGET catalog media is tenant-owned binary content in Object Storage.
-- Sellable product presentations/SKUs may have independent images.
-- V1 online payment experience uses Nexa's Stripe direction; Payment remains the business concept and production provider/technical integration decisions remain open.
+## Finance, documents, notifications and traceability
 
-## Domain rules accepted for V1
+- Available Credit = Credit Limit - Active Credit Reservations - Outstanding Receivable Balances.
+- Credit purchase reserves credit at PR submission, or during the same logical SO confirmation for direct order. Required inventory commitment and credit reservation are all-or-nothing.
+- For credit/net terms, Receivable posts at Sales Order confirmation. Delivery completion or invoice issuance is not a universal receivable trigger.
+- PREPAID requires Payment Confirmed before physical fulfillment. IMMEDIATE may confirm SO before payment; payment is immediately due. Exact prepaid timeout is OPEN-NON-BLOCKER policy.
+- Historical financial facts are never rewritten: original obligation + explicit Financial Adjustments - valid Payments/Refund effects = current net obligation. A correction does not erase Payment history.
+- V1 Business Documents are Sales Order Document, Delivery Note, Commercial Invoice, Payment Receipt and Financial Adjustment. Commercial Invoice is a Nexa document, not a SUNAT fiscal document. Issued documents are immutable; corrections create linked revisions/replacements.
+- V1 notification channels are in-app and email. Notification failure retries and never changes source business state. WhatsApp is external/manual.
+- Business Traceability is append-only and separate from Notifications and Security Audit. Significant transitions, pricing/terms, inventory disposition, fulfillment/delivery/POD, credit, receivables, payments and document facts retain actor, timestamp, reason, correlation and evidence references. Secrets and unnecessary sensitive payment data are excluded.
 
-- One physical Inventory Lot belongs to exactly one Warehouse at a time; split source batches retain traceability when needed.
-- Cart and PR Draft create no commitment. PR Submitted establishes a Commercial Inventory Commitment for each SKU + quantity; Withdrawn, Rejected or Expired releases it; conversion to Sales Order continues it. Sales may modify submitted content before Sales Order creation, but Buyer does not freely mutate it. No universal system-enforced re-accept click follows every Sales modification; consent-required changes preserve evidence, material agreed modification resets validity, Sales rejection requires a reason and Buyer withdrawal may omit one.
-- Purchase Request commitment release transitions are closed; only the numeric expiry policy remains open for Business Architect review. No numeric default or maximum is frozen here.
-- Cart never reserves inventory. No automatic backorder. Confirmed Sales Orders are immutable history; cancellation is exceptional Company Owner or Business Operations Manager authority.
-- Credit is Tenant-specific and insufficient Available Credit hard-blocks order progression. `Available Credit = Credit Limit - Credit Reserved - Outstanding Receivables`; transition from Credit Reserved to Outstanding Receivables must not double-count.
-- Buyer Portal exposes live Credit Limit, Credit Reserved, Outstanding Receivables and Available Credit for current supplier Tenant; `Available Credit = Credit Limit - Credit Reserved - Outstanding Receivables`; no global Nexa-wide Buyer credit balance exists. Existing `exposure`/`used` implementation fields are AS-IS terms only.
-- Product substitution is never silent; partial receiving, basic traceable Warehouse transfer, manual inventory adjustment, manual temperature recording and partial/rejected Delivery are V1 product rules.
-- Sales cannot arbitrarily alter authoritative pricing.
-- Confirmed Sales Orders cannot be silently edited; exceptional changes must eventually be explicit and auditable.
+## Transaction, concurrency, event and tenant semantics
 
-## Architecture status
+- Strong consistency is required for last-unit commitment, credit reservation, PR terminal transitions, PR-to-SO conversion, ownership transfer, cancellation/release, physical inventory mutation, Payment-to-Receivable application and tenant authorization/isolation decisions.
+- Use optimistic version/CAS for mutable objects; conditional updates or row locks for scarce resources; deterministic lock ordering; explicit stale-state outcomes; never silent last-write-wins.
+- Idempotency survives restart for PR submit, material-change acceptance, conversion, direct order, cancellation, inventory adjustment, transfers, fulfillment/POD finalization, payment initiation/reporting/webhooks/application, refund/correction and document issuance.
+- Separate internal Domain Events, Published Integration Events and Traceability/Audit facts. Publish only with known consumers. Atomic reservations happen synchronously before commit; events announce committed facts afterward.
+- Cross-boundary messages use local state plus durable outbox in one commit. Consumers assume at-least-once delivery and use inbox/deduplication. Exactly-once transport is not claimed.
+- PostgreSQL shared infrastructure, server authorization, object authorization and RLS form defense in depth. Workers claim leases, reconstruct explicit SYSTEM Tenant/Workspace context, set transaction-local scope, verify fencing, process, finalize fenced state and clean up. Missing scope fails closed.
 
-- C4 L1 V1: baselined.
-- C4 L2 V1: baselined.
-- C4 Architecture Runway: baselined.
-- C4 L3/L4: proposed and evidence-linked in the architecture rebaseline; component boundaries remain technical views, not accepted Bounded Contexts.
-- TARGET data, security, application, integration, API, frontend and runtime architecture: proposed, review-gated and not a production deployment freeze.
+## Architecture and production gate
+
+- C4 L1/L2 are baselined. Selective C4 L3 TARGET views are baselined where they explain strategic ownership, synchronous invariant boundaries and asynchronous propagation; they are technical views, not one-container-per-BC claims.
+- V1 remains a Spring Boot modular monolith over shared PostgreSQL with Object Storage behind application ports. Strategic BC, Spring Modulith module, Java package, PostgreSQL schema and deployment unit are different concepts.
+- Target architecture uses KEEP -> REFINE -> REWORK. REWRITE requires extraordinary evidence. No code refactor, schema migration or application repository mutation is authorized by Blueprint closure.
+- Production/provider decisions remain **OPEN-NON-BLOCKER / PRODUCTION GATE**: cloud, managed PostgreSQL, object storage, email, observability, secret manager, RPO/RTO, retention, SLA/SLO and responder organization. Staging, restore, rollback, migration, outage, rotation, incident, break-glass and failed-worker proof remain required later gates.
+
+## Authority and evidence boundary
+
+Accepted decisions and canonical Blueprint outrank verified implementation evidence. Current repository refs, tests, runtime and browser captures are AS-IS evidence. Legacy is historical evidence. Unverified facts are labeled `UNVERIFIED`; implementation completeness, production readiness and V1 release are not implied by this document.

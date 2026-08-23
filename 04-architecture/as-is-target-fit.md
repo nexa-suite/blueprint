@@ -1,14 +1,14 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # AS-IS to TARGET fit
 
-Disposition is evidence-based. `REWRITE` is not proposed for any audited area. A proposed boundary remains review-gated and does not authorize code changes.
+Disposition is evidence-based. `REWRITE` is not selected for any audited area. Accepted TARGET boundaries do not authorize code changes; every migration remains KEEP, REFINE or REWORK with consumer mapping, compatibility, rollback and tests.
 
 | Area | Disposition | Evidence | TARGET direction | Transition / risk / tests |
 |---|---|---|---|---|

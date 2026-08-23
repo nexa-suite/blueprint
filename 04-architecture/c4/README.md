@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Canonical C4 model
@@ -12,7 +12,7 @@ last-reviewed: 2026-08-19
 
 **¿Quién usa Nexa, de qué sistemas externos depende y qué aplicaciones o almacenes ejecutables componen el producto?**
 
-Este documento fija la semántica C4 L1/L2 de Nexa antes de Strategic DDD. Modela el sistema real; no modela el árbol de carpetas, el número de servicios Docker ni módulos Java como si fueran contenedores C4 o Bounded Contexts.
+Este documento fija la semántica C4 L1/L2 de Nexa independiente de los límites estratégicos. Modela el sistema real; no modela el árbol de carpetas, el número de servicios Docker ni módulos Java como si fueran contenedores C4 o Bounded Contexts.
 
 ## Fuente canónica
 
@@ -29,7 +29,7 @@ Vistas canónicas:
 - `Nexa-SystemContext-Runway`
 - `Nexa-Containers-Runway`
 
-Las vistas L3 son selectivas y review-gated:
+Las vistas L3 son selectivas TARGET PRE-V1, baselined donde explican ownership técnico e invariantes útiles:
 
 - `Nexa-API-Overall-ASIS`
 - `Nexa-API-IdentityTenantCustomer-TARGET`
@@ -81,7 +81,7 @@ La lista canónica V1 es exactamente:
 
 - **Platform y Portal** tienen actores, permisos, navegación, workflows y ritmo de UX diferentes. Separarlos permite una experiencia interna orientada a operaciones y una experiencia Buyer orientada a autoservicio sin convertirlas en dos backends ni afirmar dos Bounded Contexts.
 - **Website** es público, anónimo y de contenido/marketing; tiene ciclo de cache, seguridad y publicación distinto de las SPA autenticadas. Su formulario estructurado sí llama al API cuando está configurado; no contiene catálogo ni datos tenant.
-- **API modular monolith** concentra la autoridad transaccional, la seguridad multi-tenant y los handoffs actuales en un despliegue coherente. Spring Modulith y los puertos permiten modularidad interna sin introducir microservicios antes de que Strategic DDD determine límites y ownership.
+- **API modular monolith** concentra la autoridad transaccional, la seguridad multi-tenant y los handoffs actuales en un despliegue coherente. Spring Modulith y los puertos permiten modularidad interna; accepted Strategic DDD ownership does not require one deployment per context.
 - **PostgreSQL compartido** corresponde al V1 aceptado: una base relacional común favorece transacciones, migraciones y operación iniciales. Database-per-Tenant no está aceptado; la garantía pretendida es aislamiento lógico por contexto autorizado, predicados tenant/workspace y RLS. La cobertura completa sigue siendo una pregunta de Security/Data Architecture.
 - **Object Storage separado** evita tratar bytes grandes como filas relacionales: tiene lifecycle, streaming, autorización de descarga y controles de scanning propios. PostgreSQL conserva referencias y metadatos, no sustituye el almacenamiento de objetos.
 
@@ -113,7 +113,7 @@ Estos elementos no están presentes en las vistas V1 ni deben describirse como i
 - Los módulos Java (`catalogmanagement`, `sales`, `warehouse`, `logistics`, etc.) son evidencia de organización de implementación. No son Bounded Contexts ni containers C4.
 - ClamAV, Mailpit, Stripe mock, OTEL Collector y Jaeger son infraestructura/adapters locales; se documentan en la [evidencia de runtime](../../08-operations/containers/compose-runtime-architecture-evidence.md), no en el L1 ni en la lista primaria L2.
 - Docker Compose es runtime local AS-IS, no Cloud Deployment Architecture.
-- C4 L3/L4 aquí son propuestas técnicas derivadas de `Capability Mapping -> EventStorming -> Domain Storytelling -> Strategic DDD`; no convierten nombres de paquetes en Bounded Contexts ni autorizan refactor.
+- C4 L3/L4 aquí son vistas técnicas derivadas de `Capability Mapping -> EventStorming -> Domain Storytelling -> Strategic DDD` aceptado; no convierten nombres de paquetes en Bounded Contexts ni autorizan refactor.
 
 ## Preguntas críticas resueltas por esta baseline
 

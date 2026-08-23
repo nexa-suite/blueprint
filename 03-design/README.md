@@ -14,7 +14,7 @@ This branch contains the normative v1 design-system baseline. It defines intent,
 - [Engineering](05-engineering/README.md) — Angular consumption, tokens, APIs and adoption.
 - [Legacy design evidence](legacy-design-evidence.md) — historical evidence only.
 
-The executable companion is the Nexa Design Lab release candidate. It renders evidence and runs gates; it does not replace this Blueprint.
+The executable companion is the Nexa Design Lab `v1.0.1` release (metadata correction over `v1.0.0`). It renders evidence and runs gates; it does not replace this Blueprint or define domain contracts.
 
 ## Classification
 

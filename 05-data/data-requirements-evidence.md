@@ -1,6 +1,6 @@
 ---
-status: draft
-maturity: DISCOVERY
+status: reference
+maturity: SUPERSEDED
 scope: cross-cutting
 owner: data
 last-reviewed: 2026-08-15
@@ -8,7 +8,10 @@ last-reviewed: 2026-08-15
 
 # Data requirements evidence
 
-Discovery register only. No conceptual ERD, logical schema, physical schema, aggregate ownership, Bounded Context ownership or final RLS architecture is created here.
+Historical discovery register. It is retained as input evidence only. The
+accepted PRE-V1 logical ownership, transaction/concurrency and RLS baseline is
+in [Data Architecture](data-architecture.md), [transaction matrix](transaction-concurrency-matrix.md)
+and [Security Architecture](../06-security/security-architecture-target.md).
 
 | Evidence concern | Known evidence / current interpretation | Open data question | Future resolving activity |
 |---|---|---|---|
@@ -41,4 +44,4 @@ Discovery register only. No conceptual ERD, logical schema, physical schema, agg
 | Jurisdiction/configuration | Peru may be first market; country, jurisdiction, timezone, locale and currency remain distinguishable | Which configuration is Tenant policy versus historical transaction fact? | Product discovery, Data Architecture |
 | Test/demo/reference data | ICISA is explicit reference/demo data, not normal Tenant data | How are test, demo, seed/import and production records separated and identified? | Provisioning/Data/Operations |
 
-Current PostgreSQL, Flyway, RLS, persistence and Object Storage adapter evidence remains AS-IS input. No row above answers ownership prematurely.
+Current PostgreSQL, Flyway, RLS, persistence and Object Storage adapter evidence remains AS-IS input. No row above overrides the accepted target or authorizes application migration.

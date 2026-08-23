@@ -1,43 +1,61 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: security
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
-# Security architecture TARGET
+# Security Architecture TARGET — PRE-V1
 
-## Identity and scope
+This is the accepted construction target. Runtime and penetration proof remain separate gates; current controls are AS-IS evidence until verified against current refs.
 
-Global identity authenticates a person or system actor. Authorization then resolves the requested surface, Tenant, Workspace, workforce membership or Buyer relationship, capabilities and object scope. Tenant ID in a request body is data to validate, never authority.
+## Tenant and object isolation
 
-| Subject | Relationship | Allowed scope |
-|---|---|---|
-| Internal workforce | Tenant membership + role/capability | current Tenant/Workspace and granted operational resources |
-| Buyer | Buyer relationship to supplier Tenant | current authorized relationship and Buyer projections |
-| System worker | explicit system actor + bounded job scope | only recorded Tenant/workspace/object set |
-| External provider | signed/verified integration identity | provider event/resource mapped to known Nexa object |
+- Tenant is maximum business/data isolation boundary; V1 Workspace is 1:1 operational context.
+- Server authorization checks authenticated Human Identity, Workforce Membership or Buyer Relationship, selected Tenant/Workspace and object ownership/capability.
+- Client-supplied Tenant, Workspace, Customer Account, order or document IDs are never sufficient authorization.
+- RLS is defense in depth. Application predicates, object authorization, RLS and repository scope all fail closed when context is missing or invalid.
+- Buyer Relationship is not Workforce Membership. Buyer Portal shows only current authorized supplier Tenant data.
 
-Tenant-wide V1 semantics are the accepted default. Workspace is a product/domain relationship and must not be used to invent a separate deployment or security boundary.
+## Worker contract
 
-## Authorization
+Every tenant-scoped worker must:
 
-- Enforce capability and object/relationship checks in the API application boundary.
-- Use surface checks to keep Platform and Portal roles separated.
-- Company Owner is a special Tenant governance role, not a bypass of audit, scope or destructive-action policy.
-- Read and write permissions are separate where risk differs.
-- File download, payment mutation, export, role change, inventory adjustment and delivery evidence require explicit capability checks.
-- RLS and repository predicates are defense in depth. Admin/bypass roles and worker paths require a separate inventory and test.
+1. claim work with lease and fencing token;
+2. reconstruct explicit `SYSTEM` Tenant/Workspace context from durable work item;
+3. establish transaction-local PostgreSQL scope (`SET LOCAL`);
+4. verify lease/fencing before reads and writes;
+5. process idempotently;
+6. perform provider side effect through an ACL when required;
+7. finalize only while fencing token is valid;
+8. guarantee context cleanup;
+9. persist retry or terminal state and observability.
 
-## Session and secrets
+Pooled session state must not leak between Tenants. Mandatory tests prove Tenant A scope is cleared/fails closed before a reused connection serves Tenant B.
 
-Use short-lived access credentials, refresh rotation/reuse detection, revocation and logout semantics already evidenced in AS-IS. Store secrets only in approved runtime secret management; never in source, events, logs, URLs, screenshots or object metadata. Provider signature verification occurs before persistence or side effect.
+## Authentication and authorization
 
-## Audit and incident evidence
+- One Nexa Human Identity may have multiple independent Tenant relationships.
+- Capabilities are evaluated server-side per surface and relationship. UI guards are presentation aids, not authority.
+- Security Audit records authentication, authorization, scope, break-glass and security events separately from Business Traceability.
+- Secrets, bearer tokens, private keys, card PAN/CVV and unnecessary sensitive provider payloads are excluded from logs/events.
 
-Audit records actor, identity, Tenant/Workspace/relationship scope, capability, action, target, outcome, correlation and source. Security audit is not the same as domain event or business document. Sensitive values are minimized/redacted. Retain enough evidence for support and incident investigation subject to an approved legal/retention policy; no numeric retention is invented here.
+## Privileged support / break-glass
 
-## Security gates
+Break-glass is a privileged emergency path, not a Company Owner or ordinary Support role. Production implementation must require:
 
-Cross-tenant BOLA tests, RLS runtime tests, worker-scope tests, object authorization, webhook signature/replay tests, session revocation, role-change concurrency, rate limiting for public intake and dependency scanning are required before claiming production readiness.
+- named authorized operator and separate emergency role;
+- explicit incident/reason and affected Tenant/object scope;
+- time-limited access with automatic expiry;
+- two-person approval or equivalent independent control;
+- least-privilege action allowlist, read/write distinction and no blanket impersonation;
+- immediate revocation and session termination;
+- immutable Security Audit with actor, approver, scope, reason, timestamps, actions and outcome;
+- post-incident review and evidence retention under Production/Legal Gate policy.
+
+No break-glass bypass is considered implemented by this document.
+
+## Threat and recovery priorities
+
+Protect against cross-tenant data leakage, stale worker finalization, replayed provider callbacks, duplicate financial effects, unauthorized document/media access, privilege escalation, secret exposure and audit tampering. Production proof must include RLS coverage, pool-leakage tests, worker-fencing tests, webhook replay tests, restore/rollback, secret rotation and incident response.

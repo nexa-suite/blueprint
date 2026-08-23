@@ -1,34 +1,24 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: data
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
 # Data Architecture readiness
 
-Maturity: **PROPOSED / REVIEW-GATED** for TARGET Data Architecture. Closed Product / Business V1 is an input; the proposal does not by itself define accepted ownership or schema.
+PRE-V1 logical data ownership, history, scope and concurrency are accepted for construction. Current PostgreSQL/Flyway/RLS evidence remains AS-IS and may be `CONFORMING`, `DRIFT`, `MISSING` or `UNVERIFIED` relative to the target.
 
-## What exists
+## Closed for PRE-V1 construction
 
-Current PostgreSQL, Flyway, RLS, persistence and object-storage adapter evidence is catalogued in the [AS-IS implementation baseline](../11-reference/as-is/v1-implementation-baseline.md). That evidence is useful input, not a TARGET model.
+- Shared PostgreSQL topology; logical ownership by strategic BC.
+- Commercial Commitment vs Physical Allocation vs Physical Stock distinction.
+- Sellable Availability and Credit formulas.
+- Immutable commercial/document/trace snapshots.
+- Stable identifiers, explicit tenant scope, RLS defense in depth and worker scope.
+- Outbox/inbox, idempotency and concurrency requirements in [transaction matrix](transaction-concurrency-matrix.md).
 
-The [data requirements evidence](data-requirements-evidence.md) records information concerns that future discovery must resolve without assigning ownership or designing a schema.
+## Production or migration gates
 
-The proposed [data architecture](data-architecture.md) and [transaction/concurrency matrix](transaction-concurrency-matrix.md) make ownership and invariants explicit for review. They do not authorize migrations.
-
-## What remains open
-
-- Accepted TARGET conceptual model.
-- Accepted TARGET logical model.
-- Accepted TARGET physical model.
-- Approved data ownership and stewardship.
-- Retention, classification and cross-context data policy.
-- Final RLS ownership and worker/system access policy.
-
-## Resolution sequence
-
-Capability Mapping, EventStorming, Domain Storytelling and Strategic DDD must provide domain/ownership input before Data Architecture is baselined. Security Architecture and Cloud/Deployment Architecture provide related constraints.
-
-Current PostgreSQL schemas are not accepted Bounded Contexts.
+Physical schema evolution, retention, legal hold, deletion/anonymization, backup/restore, residency, query budgets, worker system roles and complete RLS coverage require implementation evidence and Production/Legal Gate approval. Current schemas are not Bounded Contexts.

@@ -1,42 +1,51 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
-# Transaction and concurrency matrix
+# Transaction, Concurrency and Idempotency Matrix
 
-The matrix is the minimum construction register. `Owner` means the proposed invariant owner, not the current Java package. All commands require resolved Tenant/Workspace/relationship scope and an auditable actor.
+`Owner` is strategic invariant authority, not current Java package. Required scope, actor, version and idempotency key are resolved before mutation.
 
-| Scenario | Owner / boundary | Consistency and guard | Retry / failure | Required proof |
-|---|---|---|---|---|
-| Two Buyers request the last unit | Inventory Availability + Sales Commitment | atomic availability decision; row lock/version; no negative sellable quantity | one succeeds, one receives conflict/shortage; idempotency preserves result | concurrent last-unit test |
-| Direct order plus existing commitment | Sales Commitment + Inventory | `DIRECT_ORDER` validates required availability, establishes Commercial Commitment and confirms Sales Order; lock same availability rows | deterministic current/insufficient-availability outcome; no partial order, backorder or double commitment | interleaving/direct-order test |
-| Approval-required PR submit | Sales Commitment + Inventory/Credit | submitted PR snapshot, SKU + quantity Commercial Commitment, availability/credit decision and idempotency record in one transaction; no physical lot allocation yet | duplicate returns original result; stale revision or insufficient availability is deterministic; commitment release is explicit | API/DB submit and retry test |
-| Material Purchase Request modification | Sales Commitment | only allowed states; new revision; submitted content controlled; re-evaluate dependencies; material agreed modification resets validity window | reject stale/invalid state; previous submitted revision immutable; consent evidence preserved where required | state-machine/consent evidence test |
-| Commitment expiry/release | Sales Commitment + Inventory | owner command releases only active, unexpired Commercial Commitment; guarded state update | repeat is no-op; worker lease/fencing; release on Withdrawn/Rejected/Expired | clock/worker retry test |
-| Negative inventory adjustment | Inventory Availability | authorized actor records physical truth with valid quantity, scope, reason and row/version guard even when physical stock becomes less than committed demand | do not reject because commitments become insufficient; create explicit shortage/business incident and identify affected commitments for downstream resolution | physical-truth/shortage test |
-| Commercial Commitment versus Physical Allocation | Sales Commitment + Fulfillment/Inventory | Product distinction is closed: commitment is SKU + quantity; allocation selects Inventory Lot(s); allocation cannot exceed commitment or usable physical quantity, but shortage remains explicit | shortage creates affected-commitment resolution, not silent over-allocation or commitment deletion | transition/shortage/allocation test |
-| Transfer versus allocation | Inventory Availability | source decrement and destination increment atomic where same DB; location/version locks ordered | retry-safe transfer ID; deadlock retry bounded | transfer/allocation interleaving test |
-| Temperature excursion | Inventory Availability + Fulfillment | out-of-range receiving temperature creates `HOLD` + pending Temperature Excursion evaluation; disposition is Release, continued Hold, Waste or Return to Supplier | no automatic Quarantine; affected allocations re-evaluated after disposition; notification/event retryable | excursion HOLD/disposition test |
-| Sales Order cancellation | Sales Commitment + Inventory/Credit | order state, release commitment/allocation and credit release follow explicit boundary | local decision committed; downstream retry with reconciliation | cancellation saga/retry test |
-| Partial fulfillment | Fulfillment + Inventory | execution quantities cannot exceed order/allocated remaining; line version | short/exception path; repeated scan no-op | partial pick/pack test |
-| Failed Delivery Attempt | Fulfillment and Delivery | failed attempt is recorded on the same Delivery; Delivery remains open for another attempt; evidence immutable | duplicate attempt/POD idempotent; no Continuation Delivery created | failed-attempt retry test |
-| Partial delivery and continuation | Fulfillment and Delivery | performed Delivery closes `PARTIAL`; remaining existing Sales Order obligation creates a new Continuation Delivery; it is not another attempt of the original Delivery | duplicate POD idempotent; continuation creation idempotent and traceable | partial/continuation test |
-| Credit reserved -> receivable | Credit and Receivables | ledger/state transition once; amount/currency/owner checks | duplicate command returns original; repair via reconciliation | ledger invariant test |
-| Payment reported/confirmed | Payments + Receivables | provider event identity and payment state guarded; financial effect explicit | duplicate callback no-op; invalid transition reviewable | webhook/idempotency test |
-| Stripe success + order creation failure | Payments + Sales Commitment | payment is recorded `UNALLOCATED / RECONCILIATION_REQUIRED`; financial history remains; automatic refund attempt follows | refund success resolves; refund failure requires operational intervention; never charge twice or erase history | failure injection/refund reconciliation test |
-| Duplicate provider callback | Payments | inbox unique `(provider,eventId)`; lease/fencing; signature verified | duplicate acknowledged safely | duplicate webhook test |
-| Duplicate external reference | Owning aggregate | scoped unique constraint on provider/reference or business id | return conflict with no mutation | constraint test |
-| Business document numbering | Business Documents | transaction/sequence uniqueness scoped to numbering policy; immutable issued number | retry reuses allocated result or reviewable gap | parallel numbering test |
-| Concurrent role membership change | Tenant and Access | membership version/status and capability change atomic; authorization re-resolves | stale admin command conflicts; revoked session fails closed | concurrent access test |
+| Scenario | Owner / atomic boundary | Guard | Required outcome |
+|---|---|---|---|
+| Two Buyers request last unit | Inventory Availability + Sales Commitment, one DB transaction | conditional availability update/row lock; deterministic order | one succeeds; loser receives current conflict/shortage; no negative sellable quantity |
+| DIRECT_ORDER | Sales Commitment + Inventory + Credit | same ordered locks; commitment and required credit reservation all-or-nothing | SO confirmed with effects, or no SO/effects |
+| PR submit | Sales Commitment + Inventory + Credit | PR snapshot, commitment, credit reservation, idempotency result and outbox in one transaction | submitted PR complete or rollback; no partial commitment |
+| PR-to-SO conversion | Sales Commitment | version/CAS, expiry check and ownership transfer | no release/re-reserve gap; stale/expired conversion fails |
+| Expire vs Convert | Sales Commitment | terminal-state CAS plus `now >= expiresAt` check | first valid terminal transition wins; conversion cannot win after expiry |
+| PR withdrawal/rejection/expiry | Sales Commitment with Inventory/Credit effects | guarded active state and release ledger | commitment/inventory/credit release exactly once; durable fact/outbox |
+| Material PR change | Sales Commitment | revision/If-Match and consent evidence | stale change conflicts; prior snapshot immutable; material change revalidates |
+| SO cancellation vs Fulfillment | Sales Commitment + Fulfillment | state/quantity version and deterministic lock order | cancellation or execution wins explicitly; no silent quantity loss |
+| Deliver vs Cancel | Fulfillment & Delivery + Sales Commitment | Delivery/POD finalization guard and SO state guard | one authoritative outcome; correction/replacement explicit |
+| Physical Allocation | Inventory Availability | lock/version by SKU + Warehouse + lot; FEFO policy | allocation <= commitment and usable quantity; shortage explicit |
+| Negative inventory adjustment | Inventory Availability | authorized reason, versioned lot/warehouse mutation | physical truth retained; affected commitment shortage created, not hidden |
+| Transfer dispatch/receive | Inventory Availability | transfer ID idempotency and ordered source/destination lock | `REQUESTED -> IN_TRANSIT -> RECEIVED`; no double sellability |
+| Fulfillment scan confirmation | Fulfillment & Delivery | line/quantity version and scan idempotency | duplicate scan no-op; quantity never exceeds allocation/commitment |
+| Partial delivery | Fulfillment & Delivery | immutable POD/finalization key and remaining quantity CAS | one partial outcome; continuation created once for remainder |
+| Delivery retry | Fulfillment & Delivery | Delivery Attempt ID and same Delivery state | failed attempt remains same Delivery; no new Delivery for retry |
+| Temperature excursion | Inventory + Fulfillment | lot quantity/state guard | affected quantity HOLD; disposition explicit; no automatic destruction |
+| Credit reservation race | Credit & Receivables | conditional balance/reservation row lock/version | last available credit deterministic; no overspend |
+| Reservation -> Receivable | Credit & Receivables | transition key and ledger uniqueness | amount counted once; reservation released/converted without double count |
+| Payment application | Payments + Credit & Receivables | Payment ID, Receivable ID and application uniqueness | concurrent payments cannot over-apply; residual/review state explicit |
+| Provider webhook | Payments | signature plus inbox `(provider,eventId)` and lease/fencing | duplicate callback acknowledged safely; one financial effect |
+| Payment success + SO failure | Payments + Sales Commitment | provider side effect outside long DB transaction; reconciliation record | `UNALLOCATED / RECONCILIATION_REQUIRED`; refund attempt; history retained |
+| Business Document issue | Business Documents | scoped numbering uniqueness and issuance idempotency | one immutable issued snapshot or reviewable sequence gap |
+| Notification delivery | Notifications | notification attempt key/inbox and retry lease | at-least-once delivery; terminal failure visible; source state unchanged |
+| Worker claim/finalize | owning worker context | lease expiry, claim token and fencing token | stale worker cannot finalize after lease loss |
 
-## Locking order and isolation
+## Common strategy
 
-Proposed ordering is documented per use case before implementation. When multiple rows are needed, acquire in stable owner/identifier order to reduce deadlocks. Use the least isolation level that proves the invariant; use serializable/explicit locking only for the narrow critical section. A retry must be safe under the same idempotency key and must not replay external side effects blindly.
+- Optimistic concurrency/CAS for mutable business objects.
+- Conditional updates or row locks for scarce inventory/credit and terminal transitions.
+- Deterministic lock ordering; narrow critical section; no silent last-write-wins.
+- `If-Match` handles user-facing revision conflicts. Idempotency keys handle repeatable business intentions and persist across process restart.
+- External provider calls are not held inside unnecessarily long transactions. Provider result plus local failure is reconciled, never erased.
+- All critical mutations emit traceability and required outbox facts in the same local commit.
 
-## Compensation boundary
+## Idempotency contract
 
-A transaction ends at a database invariant boundary. Cross-module work is not made falsely atomic by a long transaction: use an outbox, explicit state machine, reconciliation record and observable retry. Every compensation must state whether it reverses business state, issues a financial correction, or creates an operator decision.
+Persist `(tenant, actor/context, intention type, idempotency key, request fingerprint, source reference, result, status, created/expiry metadata)`. A retry with same key and same fingerprint returns original result. Same key with different fingerprint conflicts. Retention duration is a Production/Legal Gate policy; process-local memory is insufficient.

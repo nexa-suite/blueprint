@@ -1,14 +1,14 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: product
-last-reviewed: 2026-08-14
+last-reviewed: 2026-08-23
 ---
 
 # Product decisions and discovery backlog
 
-Product V1 has no known major Product decision blocker: it is **FROZEN / CLOSED**. Items below are deliberately reclassified; open technical/domain detail must not be misread as open Product scope.
+Product V1 has no known major Product decision blocker: it is **FROZEN / CLOSED**. Items below are deliberately reclassified; open Production Gate detail must not be misread as open Product scope.
 
 ## A. Product V1 decisions
 
@@ -21,14 +21,14 @@ None currently blocking Product V1.
 | Product versus Variant | Product to sellable SKU is accepted; Variant is not mandatory. | Capability Mapping; EventStorming; Strategic DDD |
 | Tenant provisioning and ICISA reproduction | Fresh, Generic and ICISA outcomes are accepted; exact workflow is not defined. | Domain discovery; Data Architecture; Operations |
 | Configurable role templates and policies | Supported configuration is accepted; final policy language/model is not defined. | Capability Mapping; Strategic DDD; Security Architecture |
-| Detailed commercial and cold-chain rules | Product principles are accepted; complete sequence, ownership and exceptions remain to discover. | EventStorming; Domain Storytelling; Strategic DDD |
+| Detailed commercial and cold-chain rules | Product sequences, ownership and exceptions are accepted in PRE-V1 records. | future evidence and implementation refinement |
 
 ## C. Technical Architecture questions
 
 | Open point | Boundary | Activity that should resolve it |
 |---|---|---|
 | Production providers and credentials | Stripe direction is a V1 Product choice; provider contracts, credentials, email/maps/storage/scanning/observability and deployment remain open. | Security Architecture; Cloud/Deployment Architecture |
-| Data, RLS and security ownership | Product isolation and traceability principles are accepted; TARGET ownership and policy are proposed in the review-gated architecture pack. | Business Architect review; Data/Security Architecture |
+| Data, RLS and security ownership | PRE-V1 ownership and fail-closed construction target are accepted; physical policy coverage and production proof remain open. | Data/Security implementation gates |
 
 ## D. Future Product questions
 

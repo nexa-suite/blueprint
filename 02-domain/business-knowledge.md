@@ -2,69 +2,37 @@
 status: accepted
 maturity: BASELINED
 scope: v1
-owner: product-domain
-last-reviewed: 2026-08-22
+owner: domain
+last-reviewed: 2026-08-23
 ---
 
-# Business knowledge layer
+# Business Knowledge Layer
 
-This is the compact business model for Nexa. It links accepted product rules
-to discovery artifacts without turning technical modules into business
-boundaries.
+Compact navigation into accepted domain meaning. Detailed rules live in [Known Business Rules](business-rules/known-rules.md); strategic ownership lives in [Strategic DDD](strategic-ddd/README.md).
 
-## Business model
+## Product proposition
 
-Nexa is a B2B, multi-tenant SaaS platform for importers and distributors,
-especially cold-chain businesses. It coordinates commercial operations,
-buyers, catalog, inventory, warehouse, fulfillment, delivery, credit,
-payments, documents and notifications.
+Nexa coordinates B2B commercial commitments against real inventory availability, then traceable physical fulfillment and delivery under lot, expiry and optional cold-chain constraints.
 
-| Concept | Accepted V1 meaning |
-| --- | --- |
-| Tenant | SaaS customer and maximum business/data isolation boundary; approximately a company in V1. |
-| Workspace | Tenant's 1:1 operational environment in V1; not a C4 container. |
-| Identity | One human has one Nexa identity. Buyer relationships remain Tenant-scoped. |
-| Buyer relationship | Authorized commercial relationship between a Buyer and a Tenant; not a global marketplace relationship. |
-| Purchase Request | Draft creates no commitment; Submitted creates Commercial Inventory Commitment by SKU + quantity. |
-| Commercial Commitment | Demand commitment released by rejection, withdrawal or expiry and continued by Sales Order conversion. |
-| Physical Allocation | Later selection of Inventory Lot(s), distinct from commercial commitment and physical stock. |
-| Available Credit | `Credit Limit - Credit Reserved - Outstanding Receivables`. |
+## Canonical distinctions
 
-## Capability map index
+| Distinction | Meaning |
+|---|---|
+| Tenant != Workspace | Tenant is isolation boundary; Workspace is V1 operational environment. |
+| Human Identity != Workforce Membership != Buyer Relationship != Customer Account | Identity and business relationships have separate authority and lifecycle. |
+| Cart/Draft != Purchase Request != Sales Order | Intent precedes submitted request; confirmed order is immutable commercial history. |
+| Commercial Commitment != Physical Allocation != Physical Stock | Demand protection, lot selection and actual quantity are different facts. |
+| Physical Stock != Sellable Availability | HOLD, quarantine, expiry, safety stock, commitments and transit constrain sellability. |
+| Payment != Receivable != Credit != Stripe | Payment lifecycle, formal debt, credit risk and provider adapter are separate. |
+| Business Document != SUNAT fiscal document | Commercial Invoice is a Nexa V1 document; fiscal integration is deferred. |
+| Notification != Business Traceability != Security Audit | Delivery, business history and security evidence have different ownership/failure semantics. |
 
-This is a business capability index, not a bounded-context decision:
+## Strategic map
 
-1. Tenant and access governance
-2. Customer and Buyer relationships
-3. Catalog and commercial policy
-4. Sales commitment
-5. Inventory availability
-6. Fulfillment and delivery
-7. Credit and receivables
-8. Payments
-9. Business documents
-10. Notification and business traceability
+The accepted model has 11 Bounded Contexts: Tenant & Access Governance; Customer & Buyer Relationships; Catalog & Commercial Policy; Sales Commitment; Inventory Availability; Fulfillment & Delivery; Credit & Receivables; Payments; Business Documents; Notifications; Business Traceability.
 
-The full proposed map lives in the [Capability Map](strategic-ddd/capability-map.md).
-Business Architect review is required before canonical ownership is assigned.
+Core Domain: reliable coordination of B2B commercial commitments against real inventory availability, followed by traceable physical fulfillment and delivery under lot, expiry and optional cold-chain constraints.
 
-## Rule anchors
+## AS-IS / TARGET boundary
 
-- Cart and Purchase Request Draft do not reserve inventory or create commitment.
-- Submitted Purchase Request creates commitment for SKU + quantity.
-- Rejection, withdrawal and expiry release it; Sales Order conversion continues it.
-- Credit Reserved must not be double-counted when becoming Outstanding Receivables.
-- Payment Reported is not Payment Confirmed.
-- Dispatch, Delivery and Route are distinct; partial delivery creates continuation.
-- Expired, held, quarantined or otherwise non-sellable stock is unavailable.
-
-The authoritative invariant register is [Known domain rules](business-rules/known-rules.md).
-
-## Boundary ledger
-
-| Layer | May claim | May not claim |
-| --- | --- | --- |
-| Accepted business | Explicitly decided product rules and actor responsibilities. | Final Strategic DDD ownership not reviewed. |
-| Proposed domain | Capabilities, events, language and candidate contexts. | A package, schema or UI folder is a Bounded Context. |
-| AS-IS evidence | Observed implementation, tests, routes, APIs and runtime behavior. | Production readiness or TARGET conformance. |
-| FUTURE | Mobile, IoT, V2 and deferred runway. | V1 implementation. |
+Existing packages, schemas, APIs and screens are implementation evidence. They may conform, drift or be missing relative to this TARGET. They never define Bounded Contexts and never authorize silent reinterpretation of historical facts.

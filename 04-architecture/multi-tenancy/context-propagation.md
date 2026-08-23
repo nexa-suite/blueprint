@@ -83,4 +83,4 @@ No se afirma que una fila `tenant_id` aislada sea suficiente. La cobertura total
 
 ## No finalizado en este documento
 
-No se definen tablas, schemas finales, aggregate roots, foreign keys, Buyer aggregate, identity aggregate ni el conjunto definitivo de policies RLS. Esas decisiones pertenecen a Strategic DDD, Data Architecture y Security Architecture.
+No se definen tablas ni schemas físicos finales en esta propagation view. Aggregate roots, foreign keys and implementation RLS coverage must preserve accepted Strategic DDD/Data/Security ownership and remain implementation/Production Gate work.

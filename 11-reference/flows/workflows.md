@@ -1,15 +1,16 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: product-architecture
-last-reviewed: 2026-08-22
+last-reviewed: 2026-08-23
 ---
 
 # Canonical V1 workflows
 
-These cross-layer maps preserve accepted rules, show technical handoffs and
-identify review-gated ownership. They are not API contracts or runtime proof.
+These cross-layer maps preserve accepted rules and show technical handoffs
+against the frozen 11-context target. They are not API contracts or runtime
+proof.
 
 ## 1. Buyer sales flow
 
@@ -18,7 +19,8 @@ Buyer -> Portal -> API -> Purchase Request -> Commercial Commitment
       -> Availability -> Credit -> Sales Order
 ```
 
-Draft stops before commitment. Submission creates SKU + quantity commitment.
+The Buyer draft builder stops before commitment; no Draft Sales Order is
+persisted. Submission creates the SKU + quantity commercial commitment.
 Availability and Credit are decision points; Sales Order conversion continues
 the commitment.
 
@@ -57,6 +59,6 @@ not the source of business truth.
 | Dimension | Status |
 | --- | --- |
 | Product invariants | ACCEPTED where linked to current decisions/rules. |
-| Domain ownership | TARGET / proposed; Business Architect review required. |
+| Domain ownership | ACCEPTED PRE-V1 target; implementation migration remains a construction gate. |
 | Technical handoffs | AS-IS evidence plus selective TARGET guidance. |
 | Authenticated browser proof | Not claimed by these diagrams. |

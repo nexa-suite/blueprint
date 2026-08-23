@@ -38,7 +38,7 @@ Base Price, Price Lists, Customer Commercial Terms and Promotions as policy conc
 
 ### Sales, Purchase Request and Sales Order
 
-Buyer and assisted request capture, Purchase Request review/adjustment, Tenant policy supporting direct or approval-required ordering, authoritative validation, Commercial Inventory Commitment at PR submission, scenario-specific PR expiry, Sales Order confirmation, historical order prices and explicit non-silent change handling. Submitted PR content is controlled; no universal Buyer reconfirmation ceremony is required after every Sales change, but consent-required changes preserve evidence and material agreed modification resets validity. Sales rejection requires a reason; Buyer withdrawal may omit one.
+Buyer and assisted request capture, Purchase Request review/adjustment, Tenant policy supporting direct or approval-required ordering, authoritative validation, Commercial Inventory Commitment at PR submission, 72-hour default expiry configurable 1–7 integer days through absolute `expiresAt`, Sales Order confirmation, historical order prices and explicit non-silent change handling. Submitted PR content is controlled; no universal Buyer reconfirmation ceremony is required after every Sales change, but consent-required changes preserve evidence and material agreed modification resets validity. Sales rejection requires a reason; Buyer withdrawal may omit one.
 
 ### Inventory and availability
 
@@ -50,7 +50,7 @@ Multiple Warehouses, operational Zones where useful, partial receiving, basic tr
 
 ### Dispatch, delivery and POD
 
-Dispatch handoff, delivery execution, Route grouping where useful, blocked/failed/completed distinctions, partial delivery, total/partial rejection, basic operational return and POD direction including photo/signature and outcome evidence.
+Dispatch handoff, delivery execution, Route grouping where useful, blocked/failed/completed distinctions, partial delivery, total/partial rejection, rejected-goods HOLD and immutable POD outcome evidence. Full Returns/RMA is deferred. Photo/signature are policy-driven, not universal requirements.
 
 ### Cold-chain essentials
 
@@ -66,7 +66,7 @@ Business document visibility and download with historical snapshot semantics. Fi
 
 ### Notifications and audit/traceability
 
-Policy-driven notification intent, infrastructure delivery, business traceability and security/audit evidence as distinct concerns. Channels and ownership remain to be refined.
+Policy-driven notification intent, in-app/email delivery, retry/failure behavior, Business Traceability and Security Audit as distinct concerns. Notifications never change source business state.
 
 ### Operational dashboard
 

@@ -22,23 +22,23 @@ nexa = softwareSystem "Nexa" "Multi-tenant B2B SaaS platform coordinating commer
         apiReliability = component "Outbox Inbox and Projections" "Durable events, leases, fencing, retries, reconciliation and change-feed projections" "Transactional outbox/inbox" {
             tags "AS-IS / TARGET"
         }
-        targetCommercialCommitment = component "Sales Commitment" "Proposed Purchase Request, Sales Order and commitment application boundary" "Target logical component — proposed" {
-            tags "TARGET / PROPOSED"
+        targetCommercialCommitment = component "Sales Commitment" "PRE-V1 TARGET Purchase Request, Sales Order and commitment application boundary" "PRE-V1 target logical component" {
+            tags "TARGET"
         }
-        targetInventoryAvailability = component "Inventory Availability" "Proposed stock, reservation, allocation and FEFO application boundary" "Target logical component — proposed" {
-            tags "TARGET / PROPOSED"
+        targetInventoryAvailability = component "Inventory Availability" "PRE-V1 TARGET stock, availability, Physical Allocation authority and FEFO application boundary" "PRE-V1 target logical component" {
+            tags "TARGET"
         }
-        targetFulfillmentDelivery = component "Fulfillment and Delivery" "Proposed fulfillment, dispatch, delivery, POD and continuation boundary" "Target logical component — proposed" {
-            tags "TARGET / PROPOSED"
+        targetFulfillmentDelivery = component "Fulfillment and Delivery" "PRE-V1 TARGET fulfillment, dispatch, delivery, POD and continuation boundary" "PRE-V1 target logical component" {
+            tags "TARGET"
         }
-        targetCreditReceivables = component "Credit and Receivables" "Proposed exposure, credit, receivable and posting boundary" "Target logical component — proposed" {
-            tags "TARGET / PROPOSED"
+        targetCreditReceivables = component "Credit and Receivables" "PRE-V1 TARGET credit, reservation, receivable and correction boundary" "PRE-V1 target logical component" {
+            tags "TARGET"
         }
-        targetPaymentDocuments = component "Payments and Business Documents" "Proposed payment, provider ACL, document and evidence boundary" "Target logical component — proposed" {
-            tags "TARGET / PROPOSED"
+        targetPaymentDocuments = component "Payments and Business Documents Technical Lens" "PRE-V1 co-hosted technical lens for distinct BC-08 Payments and BC-09 Business Documents" "PRE-V1 target logical component" {
+            tags "TARGET"
         }
-        targetNotificationTraceability = component "Notification and Traceability" "Proposed notification, audit and change-feed boundary" "Target logical component — proposed" {
-            tags "TARGET / PROPOSED"
+        targetNotificationTraceability = component "Notification and Traceability Technical Lens" "PRE-V1 co-hosted technical lens for distinct BC-10 Notifications and BC-11 Business Traceability" "PRE-V1 target logical component" {
+            tags "TARGET"
         }
     }
     internalWebPlatform = container "Internal Web Platform" "Authenticated Tenant workforce experience for company, customer, catalog, commercial and operational workflows" "Angular 22 SPA served by Nginx" {

@@ -1,56 +1,44 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-23
 ---
 
-# Data architecture TARGET
+# Data Architecture TARGET — PRE-V1
 
-## Position
+Shared PostgreSQL is the V1 topology. It is infrastructure, not a Bounded Context boundary. This target closes logical ownership and invariants; physical migrations, retention, legal hold and production operations remain separate gates.
 
-Keep the shared PostgreSQL V1 topology. It is a deliberate operational choice, not proof that every current schema is an accepted domain boundary. Proposed ownership follows Strategic DDD and must be reconciled with the existing Flyway history before implementation.
+## Ownership matrix
 
-PostgreSQL Row-Level Security is a defense-in-depth control: when enabled, normal queries are constrained by policies, but table ownership, bypass roles and service paths still require explicit review. See the [PostgreSQL RLS documentation](https://www.postgresql.org/docs/current/ddl-rowsecurity.html).
-
-## Ownership model
-
-| Data family | Proposed owner | Other modules receive |
+| Data family | Strategic owner | Other contexts receive |
 |---|---|---|
-| Global identity, Tenant, Workspace, membership | Tenant and Access | authorized identity/context projection |
-| Buyer relationship and Customer Account | Customer and Buyer Relationship | relationship status and allowed commercial view |
-| Product/SKU, price policy and terms | Catalog and Commercial Policy | immutable resolution/snapshot |
-| Purchase Request and Sales Order | Sales Commitment | status, line and snapshot projections |
-| physical stock, lots, sellable availability | Inventory Availability | availability and shortage facts; Commercial Commitment demand |
-| Commercial Commitment and release state | Sales Commitment | SKU + quantity commitment status |
-| Physical Allocation and fulfillment execution | Fulfillment and Delivery | selected Inventory Lot(s), progress and delivery facts |
-| fulfillment, dispatch, delivery, POD, incidents | Fulfillment and Delivery | progress and evidence projection |
-| Credit Limit, Credit Reserved, Outstanding Receivables, posting intent | Credit and Receivables | Available Credit decision and financial status |
-| payment intent/report/confirmation/provider event | Payments | business payment status; no raw provider secret |
-| document metadata, versions, numbering | Business Documents | authorized reference and download capability |
-| notification delivery and audit/change feed | Notification and Traceability | delivery/status/trace facts |
+| Tenant, Workspace relationship, identity, membership and capabilities | Tenant & Access Governance | authorized scope/context |
+| Customer Account and Buyer Relationship | Customer & Buyer Relationships | relationship status and eligible account reference |
+| Product, SKU, visibility, price lists, terms, promotions | Catalog & Commercial Policy | resolved offer and immutable snapshot |
+| Purchase Request, Commercial Commitment, Sales Order and revisions | Sales Commitment | status, line, snapshot and commitment reference |
+| physical stock, Inventory Lot, Sellable Availability, Safety Stock, HOLD/QUARANTINE | Inventory Availability | availability, movement, shortage and allocation contracts |
+| Physical Allocation authority | Inventory Availability | Fulfillment execution receives selected lot/quantity contract |
+| Fulfillment, Dispatch, Delivery, Attempt, Continuation and POD | Fulfillment & Delivery | progress/outcome/evidence projections |
+| Credit Limit, Credit Reservation, Available Credit, Receivable and Financial Adjustment | Credit & Receivables | credit decision and financial status |
+| Payment report/confirmation, provider event, refund and reconciliation | Payments | provider-neutral Payment facts |
+| issued Business Documents, numbering, versions, storage metadata | Business Documents | authorized document reference/download capability |
+| Notification intent, attempts, delivery and retry state | Notifications | delivery outcome |
+| business timeline and trace facts | Business Traceability | authorized historical projection |
+| security/authorization audit | security technical authority with BC-01 scope | protected security evidence, never Buyer timeline |
 
-Logical schema ownership may remain physically shared. A module must not write another owner's rows directly. Cross-owner references use stable IDs and published contracts; read projections may denormalize with recorded source version.
+## Data rules
 
-## Identity and scope
+- One owner writes source rows. Cross-owner references use stable IDs, versioned contracts or immutable snapshots; no direct repository/entity/table reach-through.
+- Every tenant-scoped row has an explicit scope path appropriate to its owner. Client-supplied Tenant IDs are never authorization.
+- RLS, application authorization, repository predicates and worker scope form defense in depth. Missing context fails closed. Use transaction-local PostgreSQL scope (`SET LOCAL`), never unsafe pooled session state.
+- Submitted PR and confirmed SO retain price, terms, line, delivery and commercial snapshots. Inventory facts retain lot, expiry, quantity, hold/disposition and allocation evidence. Payment and document facts retain provider/reference identity without secrets.
+- `Sellable Availability = usable physical on-hand - active Commercial Commitments - Safety Stock`. HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are excluded from usable sellable quantity.
+- Inventory Availability owns Physical Allocation authority; Fulfillment & Delivery owns execution. Allocation cannot exceed commitment or usable physical quantity.
+- Credit formula is `Credit Limit - Active Credit Reservations - Outstanding Receivable Balances`. Reservation-to-receivable transition is explicit and cannot double count.
+- Append-only traceability and issued documents preserve history. Retention/deletion/anonymization periods are Production/Legal Gate decisions; no destructive deletion is assumed.
 
-- Global identity ID is distinct from Tenant, Workspace, membership and Buyer relationship IDs.
-- Use UUID identifiers internally and separate human-readable numbers for business documents/orders where required.
-- Every tenant-scoped row carries an explicit scope path appropriate to its owner; do not infer authorization from a client-provided Tenant ID.
-- RLS policies, application access context, repository predicates and worker scope form defense in depth. A missing context fails closed.
-- A Buyer relationship is not workforce membership. Buyer access is authorized per relationship and current supplier Tenant.
-- Product credit language is `Credit Limit - Credit Reserved - Outstanding Receivables = Available Credit`. Existing `exposure`/`used` columns remain AS-IS translation points and must not be silently treated as final Product terms.
+## Migration policy
 
-## History and snapshots
-
-Submitted Purchase Request and confirmed Sales Order retain line, price, terms, delivery and commercial snapshots. Inventory decisions retain lot/expiry and quantity evidence. Payment and document records retain provider/reference identity without storing secrets. Audit records actor, scope, action, outcome and correlation; it does not replace business state.
-
-## Migration and operations rules
-
-- Flyway migrations are forward-only and backward-compatible with the rollout step.
-- Prefer additive columns/tables, backfill with scoped batches, dual-read/dual-write only with an explicit sunset and rollback plan.
-- Never silently reinterpret current data as a new context owner. Record translation/alias mapping.
-- Index every high-volume scope predicate, foreign key, status/expiry query and idempotency lookup after query-plan evidence.
-- Retention, legal hold, deletion/anonymization, backup, restore and residency are open decisions; do not invent periods.
-- Deterministic seed imports must be explicit, scoped and safe for repeated execution; seed data is not production business history.
+Use additive forward migrations, scoped backfills, compatibility windows and explicit translation aliases. Existing `catalog_item_id`, `exposure`, `used` and reservation columns are AS-IS translation points. No current schema is silently renamed into a strategic owner. Keep, refine or rework before any rewrite.
