@@ -38,9 +38,13 @@ Suspension/revocation and security audit facts are distinct from business timeli
 
 ## P5 — Credit, receivables and payment
 
-`CreditLimitChanged -> CreditReservationEstablished -> SalesOrderConfirmed -> ReceivablePosted (credit/net) -> PaymentReported -> PaymentConfirmed -> PaymentApplied -> CreditReservationReleased`
+Credit/net: `CreditLimitChanged -> CreditReservationEstablished -> SalesOrderConfirmed -> ReceivablePosted (reservation converted/released without double count) -> PaymentReported -> PaymentConfirmed -> PaymentApplied`
 
-PREPAID uses `PaymentConfirmed -> SalesOrderConfirmed`. Provider failure, duplicate callback, refund and correction are explicit facts. Receivable is posted at SO confirmation for credit/net terms; invoice issuance and delivery completion are not universal triggers.
+PREPAID: `PaymentReported -> PaymentConfirmed -> SalesOrderConfirmed`.
+
+IMMEDIATE: `SalesOrderConfirmed -> PaymentReported -> PaymentConfirmed -> PaymentApplied`.
+
+Provider failure, duplicate callback, refund and correction are explicit facts. Receivable is posted at SO confirmation for credit/net terms; invoice issuance and delivery completion are not universal triggers.
 
 ## P6 — Documents, notifications and traceability
 

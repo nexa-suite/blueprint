@@ -46,7 +46,7 @@ These terms are canonical for PRE-V1. Context-local synonyms require an explicit
 | Receivable | formal commercial debt/claim posted at accepted trigger | Payment or document rendering |
 | Payment | business money movement/report/confirmation lifecycle | Stripe provider or Receivable |
 | Payment Report | external/manual payment claim awaiting handling | Payment Confirmed |
-| Financial Adjustment | explicit correction to historical financial obligation | silent rewrite or SUNAT Credit Note |
+| Financial Adjustment | explicit BC-07 correction to historical financial obligation; an issued BC-09 document records its snapshot | silent rewrite, document-only mutation or SUNAT Credit Note |
 | Business Document | issued commercial/evidence artifact with immutable history | Security Audit or automatic fiscal document |
 | Notification | delivery intent and channel state | source business fact or Traceability |
 | Business Traceability | durable representation of meaningful business facts and timeline | Notification or Security Audit |

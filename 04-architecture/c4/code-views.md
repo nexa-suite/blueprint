@@ -18,7 +18,7 @@ flowchart LR
   P --> C[Buyer API client / facade\nAS-IS]
   C --> H[API presentation\nAS-IS]
   H --> A[CurrentAccessContext\nAS-IS]
-  A --> R[Relationship / membership policy\nTARGET ownership review]
+  A --> R[Relationship / membership policy\nTARGET ownership boundary]
   R --> Q[Scoped query projection\nTARGET]
   Q --> DB[(PostgreSQL + RLS\nAS-IS / TARGET coverage)]
 ```
@@ -53,7 +53,7 @@ flowchart LR
   OUT --> F[ Fulfillment and Delivery\nTARGET]
 ```
 
-The target distinction is `commitment != allocation != physical stock`. Existing reservation and FEFO behavior is preserved as evidence while ownership and lifecycle language are reviewed.
+The target distinction is `commitment != allocation != physical stock`. Existing reservation and FEFO behavior is preserved as evidence while accepted ownership and lifecycle language guide construction.
 
 ## Payment provider and reconciliation path
 
@@ -65,7 +65,7 @@ flowchart LR
   ACL --> EXT[Payment Provider\nexternal]
   EXT --> WH[Verified webhook\nAS-IS]
   WH --> IN[Inbox identity + lease/fencing\nAS-IS]
-  IN --> PAY[Payment business state\nTARGET ownership review]
+  IN --> PAY[Payment business state\nTARGET ownership boundary]
   PAY --> REC[Receivable/reconciliation\nTARGET]
   PAY --> OUT[CanonicalOutbox\nAS-IS]
 ```

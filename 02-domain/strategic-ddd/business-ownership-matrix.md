@@ -24,7 +24,7 @@ last-reviewed: 2026-08-23
 | issued Business Document and numbering | Business Documents | source contexts request; Portal/Platform consume | issued snapshot immutable; replacement/addendum linked |
 | notification intent/delivery state | Notifications | source contexts produce candidate; channels execute | failure/retry never changes source state |
 | business timeline/trace fact | Business Traceability | all contexts emit facts | append-only representation, source retains authority |
-| security/authorization audit | Tenant & Access Governance plus security technical authority | all contexts emit security facts | separate from Business Traceability |
+| security/authorization audit | security technical authority; BC-01 supplies tenant/access facts | all contexts emit security facts | protected security store/policy; separate from Business Traceability |
 
 ## Data boundary
 

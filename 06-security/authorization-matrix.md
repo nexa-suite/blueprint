@@ -12,8 +12,8 @@ Capabilities are examples for review; role labels do not replace relationship an
 
 | Use case | Tenant admin | Company owner | Ops manager | Sales | Warehouse | Dispatch | Buyer | System worker |
 |---|---|---|---|---|---|---|---|---|
-| Tenant settings / membership | manage | manage | read | no | no | no | no | bounded |
-| Role/capability change | manage | manage, audited | no | no | no | no | bounded |
+| Tenant settings / membership | manage technical access | manage organization/workforce membership | read | no | no | no | no | bounded |
+| Role/capability change | manage technical capabilities | manage workforce roles, audited | no | no | no | no | bounded |
 | Buyer relationship approve/suspend | manage | manage | propose/read | manage within grant | no | no | read own | no |
 | Product/SKU and price policy | manage | manage | manage | manage within grant | read | read needed | read allowed | projection |
 | Purchase Request review | manage/read | manage/read | manage | create/review | read operational | read handoff | create/read own | no |
@@ -27,4 +27,4 @@ Capabilities are examples for review; role labels do not replace relationship an
 | Business document issue/download | manage | manage | manage | read/issue grant | read needed | read/attach grant | read own | bounded |
 | Audit/export | manage, audited | manage, audited | read/export grant | read own work | read own work | read own work | read own | no raw export |
 
-Every cell still requires Tenant/Workspace scope, object ownership/relationship, state transition and audit policy. `no` means no capability, not merely a hidden UI action.
+Every cell still requires Tenant/Workspace scope, object ownership/relationship, state transition and audit policy. Tenant Administrator governs technical access eligibility; Company Owner governs company identity and workforce roles. `no` means no capability, not merely a hidden UI action.

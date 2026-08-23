@@ -47,6 +47,8 @@ The V1 TARGET has **11 frozen Bounded Contexts**. Existing Java packages, Spring
 
 The former proposal combining Notification and Business Traceability is **SUPERSEDED**. The 10-to-11 decision is recorded in the Strategic DDD decision register and ADR set; history is preserved.
 
+BC-07 owns the Financial Adjustment effect on obligation and exposure. BC-09 owns any issued Financial Adjustment document snapshot, numbering and immutable document history; document rendering does not mutate the financial authority.
+
 ## Commercial and operational semantics
 
 - Cart and Request Draft create no commitment.
@@ -54,7 +56,7 @@ The former proposal combining Notification and Business Traceability is **SUPERS
 - Direct order validates authoritatively and confirms Sales Order with Commercial Inventory Commitment and required Credit Reservation in one logical atomic commercial decision.
 - PR submission is all-or-nothing. A submitted PR has full required commitment, starts expiry and is visible to Sales.
 - Purchase Request states are `SUBMITTED`, `CHANGES_PROPOSED`, `CONVERTED`, `REJECTED`, `WITHDRAWN` and `EXPIRED`. No persisted `UNDER_REVIEW` state is introduced for a UI label.
-- Default PR expiry is 72 hours. Tenant policy may be 1–7 integer days. Store absolute UTC `expiresAt: Instant`; `now >= expiresAt` rejects conversion even before a worker materializes `EXPIRED`. Expiry atomically releases commitment, inventory reservation and credit reservation where applicable, with durable outbox evidence.
+- Default PR expiry is 72 hours. Tenant policy may be 1–7 integer days. Store absolute UTC `expiresAt: Instant`; `now >= expiresAt` rejects conversion even before a worker materializes `EXPIRED`. Expiry atomically releases the Commercial Inventory Commitment and applicable Credit Reservation, with durable outbox evidence.
 - Commercial Inventory Commitment is persistent, stable by `CommitmentId`, owns SKU + quantity demand and selects no Warehouse/Lot. Ownership transfers PR to SO without release/re-reserve gap. Physical Allocation selects Inventory Lot(s) later.
 - Sales Order is born `CONFIRMED`. Commercial roll-up states are `CONFIRMED`, `IN_FULFILLMENT`, `PARTIALLY_FULFILLED`, `FULFILLED`, `PARTIALLY_DELIVERED`, `COMPLETED` and `CANCELLED`. Completion means no unresolved quantity, not financial settlement.
 - Price resolution is Base Price, applicable Price List, permitted Customer Terms, then at most one Promotion transformation. Submitted PR pricing is historical evidence; new attempts resolve current authoritative pricing.
@@ -70,7 +72,7 @@ The former proposal combining Notification and Business Traceability is **SUPERS
 - Available Credit = Credit Limit - Active Credit Reservations - Outstanding Receivable Balances.
 - Credit purchase reserves credit at PR submission, or during the same logical SO confirmation for direct order. Required inventory commitment and credit reservation are all-or-nothing.
 - For credit/net terms, Receivable posts at Sales Order confirmation. Delivery completion or invoice issuance is not a universal receivable trigger.
-- PREPAID requires Payment Confirmed before physical fulfillment. IMMEDIATE may confirm SO before payment; payment is immediately due. Exact prepaid timeout is OPEN-NON-BLOCKER policy.
+- PREPAID requires Payment Confirmed before Sales Order confirmation and physical fulfillment. IMMEDIATE may confirm SO before payment; payment is immediately due. Exact prepaid timeout is OPEN-NON-BLOCKER policy.
 - Historical financial facts are never rewritten: original obligation + explicit Financial Adjustments - valid Payments/Refund effects = current net obligation. A correction does not erase Payment history.
 - V1 Business Documents are Sales Order Document, Delivery Note, Commercial Invoice, Payment Receipt and Financial Adjustment. Commercial Invoice is a Nexa document, not a SUNAT fiscal document. Issued documents are immutable; corrections create linked revisions/replacements.
 - V1 notification channels are in-app and email. Notification failure retries and never changes source business state. WhatsApp is external/manual.

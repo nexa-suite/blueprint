@@ -22,6 +22,7 @@ Strategic DDD is accepted for Nexa PRE-V1. It is product/domain authority, not a
 - [Ubiquitous Language](ubiquitous-language.md) — accepted terms and forbidden collapses.
 - [EventStorming baseline](eventstorming.md) and [Domain Stories](domain-stories.md) — process evidence and business sequence.
 - [Strategic Decision Register](strategic-decision-register.md) — accepted decisions and superseded proposals.
+- [Discovery input register](discovery-input-register.md) — historical inputs and evidence boundary; not a source of accepted TARGET semantics.
 
 ## Frozen boundary
 
