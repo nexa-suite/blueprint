@@ -28,6 +28,7 @@ output/
 .tmp/
 .runtime/
 .structurizr/
+.playwright-cli/
 *.log
 *.tmp
 *.temp
