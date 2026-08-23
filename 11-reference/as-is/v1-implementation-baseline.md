@@ -85,9 +85,9 @@ Evidence root: local-only checkout `10-repositories/active/website`.
 
 ## Cross-layer consistency findings
 
-- HECHO / historical clarification: `v1-readiness-baseline-2026-08-12.md:70` records 223/223 static/runtime OpenAPI parity at its historical audit date. Current verified baseline is 224 static paths, 224 runtime paths, with equal path sets.
-- HECHO / contradiction: API, Platform and Portal READMEs have `Bounded contexts` headings, while governance records Bounded Contexts as NOT STARTED. The headings are documentation evidence, not architecture decisions.
-- HECHO / contradiction: `10-repositories/repository-map.md` contains older commit/branch references that differ from current fetched Git state. Current Git reality is recorded above.
+- HECHO / historical clarification: `v1-readiness-baseline-2026-08-12.md:70` records 223/223 static/runtime OpenAPI parity at its historical audit date. Historical exact-develop validation recorded 224 static and runtime paths; current API `main` static OpenAPI contains 237 paths and runtime parity remains unverified.
+- HECHO / historical clarification: API, Platform and Portal READMEs had `Bounded contexts` headings while the pre-DDD governance snapshot recorded Bounded Contexts as NOT STARTED. Those headings were documentation evidence, not architecture decisions; accepted current TARGET is 11 frozen Bounded Contexts.
+- HECHO / historical clarification: the older repository-map snapshot used older commit/branch references; [current repository map](../../10-repositories/repository-map.md) records refs verified for the current AS-IS cut.
 - HECHO / contradiction: Platform and Portal READMEs describe a secured vertical slice and say broader workflows are not implemented, while current code and E2E inventories contain broader sales, warehouse, logistics, documents and buyer flows. This is documentation/code inconsistency, not a claim that all workflows are production-complete.
 - BLOQUEO: Platform and Portal authenticated browser E2E require environment credentials/fixtures. Without them, only public/no-credential cases ran; authenticated runtime behavior remains unverified.
 - BLOQUEO: Website GitHub Actions inspection returned no runs. Website CI health is not claimed.

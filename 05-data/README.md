@@ -17,7 +17,7 @@ AS-IS database evidence is BASELINED as evidence. PRE-V1 TARGET data ownership, 
 
 ## Expected artifacts
 
-Future conceptual business model, logical relational model, data ownership matrix, retention/classification decisions and physical PostgreSQL model after domain architecture matures.
+Future conceptual refinements, retention/classification decisions and physical PostgreSQL model remain after accepted domain architecture; data ownership is already baselined for PRE-V1.
 
 ## What must not live here
 
@@ -26,3 +26,7 @@ Physical TARGET schemas derived from current PostgreSQL tables, copied database 
 ## Related areas
 
 [Domain discovery](../02-domain/README.md), [Security](../06-security/README.md), [Architecture](../04-architecture/README.md), [Operations](../08-operations/README.md).
+
+## Historical evidence
+
+- [Data requirements evidence](data-requirements-evidence.md) — superseded discovery input, retained as reference only.

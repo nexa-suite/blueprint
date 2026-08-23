@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-12
+last-reviewed: 2026-08-23
 ---
 
 # ADR-0002: Global Nexa identity with Tenant-scoped Buyer relationships
@@ -31,7 +31,7 @@ Buyer authentication can select an authorized Tenant context without sharing ten
 
 ## What remains open
 
-IAM and data ownership details await Strategic DDD and Data Architecture.
+IAM and data ownership details are accepted in Strategic DDD and Data Architecture; implementation detail and verification remain construction work.
 
 ## Revisit trigger
 

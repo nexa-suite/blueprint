@@ -38,7 +38,7 @@ Recommended roles are templates or capability-oriented access constructs, not pr
 
 Keep these concepts distinct:
 
-`Nexa Identity != Workforce Membership != Buyer Profile/Relationship != Customer Account != Portal Access`
+`Human Identity != Workforce Membership != Buyer Relationship != Customer Account != Portal Access`
 
 - One human has one global Nexa identity.
 - Workforce membership is tenant-scoped.

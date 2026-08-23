@@ -10,6 +10,10 @@ last-reviewed: 2026-08-23
 
 This catalog is the actor/value contract for Nexa PRE-V1. Stories are business slices, not buttons, endpoints or technical tasks. `Story Points` intentionally remains `TBD — DELIVERY REFINEMENT` for every story.
 
+## Actor notation
+
+Story actors use V1 personas from [Primary personas](personas/primary-personas.md), accepted capability roles, or explicit system/external actors. `Catalog Manager` maps to an authorized Company Owner or Business Operations Manager with catalog capability; `Sales`, `Warehouse`, `Fulfillment`, `Dispatch`, `Finance` and `Credit & Receivables` operators map to corresponding V1 workforce responsibilities; `expiry worker`, `Payment/Reconciliation operator`, `Sales Commitment / Credit service` and `Payment provider` identify system or external actors, not new personas, Bounded Contexts or Human Identities. `authorized Buyer`, `internal workforce actor` and `Buyer through direct order` are contextual labels for the canonical B2B Buyer or authorized V1 workforce personas.
+
 ## Epic index
 
 | Epic | Name | Stories |
@@ -250,7 +254,7 @@ This catalog is the actor/value contract for Nexa PRE-V1. Stories are business s
 - **Preconditions:** Cart and active relationship.
 - **Acceptance Criteria:**
   - Given direct mode and sufficient current conditions, when checkout is confirmed, then the atomic SO decision is attempted.
-  - Given approval-required mode, when submitted, then a PR is created only with full required commitment and credit reservation.
+  - Given approval-required mode, when submitted, then a PR is created only with full required commitment and applicable credit reservation.
 - **Dependencies:** BC-03, BC-04, BC-05, BC-07.
 - **Out of Scope:** Draft SO persistence.
 - **Related Business Events:** DirectOrderRequested, PurchaseRequestSubmitted.
@@ -304,7 +308,7 @@ This catalog is the actor/value contract for Nexa PRE-V1. Stories are business s
 - **Business Rules:** First valid terminal transition wins; terminal PR never reopens; `now >= expiresAt` blocks conversion; worker is idempotent.
 - **Preconditions:** PR is active and within authority.
 - **Acceptance Criteria:**
-  - Given active PR and valid withdrawal/rejection, when transition commits, then PR becomes terminal and commitment/credit effects are released once.
+  - Given active PR and valid withdrawal/rejection, when transition commits, then PR becomes terminal and Commercial Inventory Commitment plus applicable credit effects are released once.
   - Given current time at or after `expiresAt`, when conversion is attempted before worker runs, then conversion fails and the expiry outcome is materialized safely.
   - Given duplicate worker delivery, when expiry runs again, then no duplicate release or event occurs.
 - **Dependencies:** BC-04, BC-05, BC-07, worker lease/fencing.
@@ -608,7 +612,7 @@ This catalog is the actor/value contract for Nexa PRE-V1. Stories are business s
 - **Business Value:** Recoverability across provider and database failure.
 - **Priority:** MUST
 - **Story Points:** TBD — DELIVERY REFINEMENT
-- **Business Rules:** record `UNALLOCATED / RECONCILIATION_REQUIRED`; attempt refund; retain Payment history; no physical fulfillment before Payment Confirmed.
+- **Business Rules:** for PREPAID, Payment Confirmed precedes Sales Order confirmation and physical fulfillment; record `UNALLOCATED / RECONCILIATION_REQUIRED` on failed order creation; attempt refund; retain Payment history.
 - **Preconditions:** Provider capture succeeded but SO confirmation failed.
 - **Acceptance Criteria:**
   - Given captured payment and failed order creation, when recovery starts, then unallocated payment and correlation are visible and refund is attempted without a second charge.

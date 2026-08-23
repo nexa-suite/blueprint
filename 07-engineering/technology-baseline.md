@@ -1,9 +1,9 @@
 ---
-status: reference
-maturity: HISTORICAL
+status: accepted
+maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-12
+last-reviewed: 2026-08-23
 ---
 
 # Technology baseline

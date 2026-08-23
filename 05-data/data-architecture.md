@@ -26,9 +26,11 @@ Shared PostgreSQL is the V1 topology. It is infrastructure, not a Bounded Contex
 | issued Business Documents, numbering, versions, storage metadata | Business Documents | authorized document reference/download capability |
 | Notification intent, attempts, delivery and retry state | Notifications | delivery outcome |
 | business timeline and trace facts | Business Traceability | authorized historical projection |
-| security/authorization audit | security technical authority with BC-01 scope | protected security evidence, never Buyer timeline |
+| security/authorization audit | security technical authority; BC-01 supplies tenant/access scope | protected security evidence, never Buyer timeline |
 
 ## Data rules
+
+Financial Adjustment business effect belongs to Credit & Receivables; an issued Financial Adjustment document belongs to Business Documents. The document record never becomes a second financial authority.
 
 - One owner writes source rows. Cross-owner references use stable IDs, versioned contracts or immutable snapshots; no direct repository/entity/table reach-through.
 - Every tenant-scoped row has an explicit scope path appropriate to its owner. Client-supplied Tenant IDs are never authorization.

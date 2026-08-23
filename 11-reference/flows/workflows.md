@@ -38,11 +38,17 @@ and creates a continuation obligation for the remaining quantity.
 ## 3. Payment and receivable flow
 
 ```text
-Buyer -> Payment Report -> Finance Review -> Approval -> Receivable Update
+Credit/net: SO Confirmed -> Receivable Posted -> Payment Report -> Payment Confirmed -> Payment Applied
+PREPAID:   Payment Report -> Payment Confirmed -> SO Confirmed -> physical fulfillment
+IMMEDIATE: SO Confirmed -> Payment Report -> Payment Confirmed -> Payment Applied
 ```
 
-Payment Reported is not Payment Confirmed. Credit calculation must avoid double
-counting when Credit Reserved becomes Outstanding Receivables.
+Payment Reported is not Payment Confirmed. Credit/net Receivable posts at Sales
+Order confirmation; the Credit Reservation is converted or released without
+double counting. PREPAID requires Payment Confirmed before Sales Order
+confirmation and physical fulfillment. A captured prepaid payment with failed
+Sales Order creation enters `UNALLOCATED / RECONCILIATION_REQUIRED`, with refund
+attempt and retained Payment history.
 
 ## 4. Durable business events
 

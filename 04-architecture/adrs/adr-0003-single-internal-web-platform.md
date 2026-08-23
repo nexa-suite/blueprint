@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: architecture
-last-reviewed: 2026-08-12
+last-reviewed: 2026-08-23
 ---
 
 # ADR-0003: Single Internal Web Platform
@@ -31,7 +31,7 @@ Authorization and capability design shape experiences inside one web application
 
 ## What remains open
 
-Detailed capability and domain boundaries await discovery.
+Detailed capability and domain boundaries are accepted in Strategic DDD; technical surface refinement remains construction work.
 
 ## Revisit trigger
 

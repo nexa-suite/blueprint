@@ -13,11 +13,11 @@ last-reviewed: 2026-08-23
 | Scenario | Owner / atomic boundary | Guard | Required outcome |
 |---|---|---|---|
 | Two Buyers request last unit | Inventory Availability + Sales Commitment, one DB transaction | conditional availability update/row lock; deterministic order | one succeeds; loser receives current conflict/shortage; no negative sellable quantity |
-| DIRECT_ORDER | Sales Commitment + Inventory + Credit | same ordered locks; commitment and required credit reservation all-or-nothing | SO confirmed with effects, or no SO/effects |
-| PR submit | Sales Commitment + Inventory + Credit | PR snapshot, commitment, credit reservation, idempotency result and outbox in one transaction | submitted PR complete or rollback; no partial commitment |
+| DIRECT_ORDER | Sales Commitment + Inventory Availability + Credit | same ordered locks; availability decision, Commercial Inventory Commitment and required Credit Reservation all-or-nothing; no lot selection or Physical Allocation | SO confirmed with effects, or no SO/effects |
+| PR submit | Sales Commitment + Inventory Availability + Credit | PR snapshot, Commercial Inventory Commitment, applicable Credit Reservation, idempotency result and outbox in one transaction; no lot selection or Physical Allocation | submitted PR complete or rollback; no partial commitment |
 | PR-to-SO conversion | Sales Commitment | version/CAS, expiry check and ownership transfer | no release/re-reserve gap; stale/expired conversion fails |
 | Expire vs Convert | Sales Commitment | terminal-state CAS plus `now >= expiresAt` check | first valid terminal transition wins; conversion cannot win after expiry |
-| PR withdrawal/rejection/expiry | Sales Commitment with Inventory/Credit effects | guarded active state and release ledger | commitment/inventory/credit release exactly once; durable fact/outbox |
+| PR withdrawal/rejection/expiry | Sales Commitment with Inventory Availability/Credit effects | guarded active state and release ledger | Commercial Inventory Commitment and applicable Credit Reservation release exactly once; durable fact/outbox |
 | Material PR change | Sales Commitment | revision/If-Match and consent evidence | stale change conflicts; prior snapshot immutable; material change revalidates |
 | SO cancellation vs Fulfillment | Sales Commitment + Fulfillment | state/quantity version and deterministic lock order | cancellation or execution wins explicitly; no silent quantity loss |
 | Deliver vs Cancel | Fulfillment & Delivery + Sales Commitment | Delivery/POD finalization guard and SO state guard | one authoritative outcome; correction/replacement explicit |

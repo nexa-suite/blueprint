@@ -6,7 +6,7 @@ Index accepted PRE-V1 architecture decisions, C4 L1/L2 and selective L3 TARGET v
 
 ## Authoritative content
 
-- [Pre-Strategic-DDD baseline](pre-ddd-baseline.md) — current architecture boundary and explicit non-decisions.
+- [Accepted architecture decisions](../00-governance/current-decisions.md) — accepted PRE-V1 architecture boundary and explicit production-gate separation.
 - [Initial architecture drivers](architecture-drivers/initial-drivers.md).
 - [ADR index](adrs/README.md) and accepted ADRs.
 - [Canonical C4 model](c4/README.md) — L1/L2 rationale, exact containers, exclusions and runway semantics.
@@ -23,6 +23,10 @@ Index accepted PRE-V1 architecture decisions, C4 L1/L2 and selective L3 TARGET v
 ## Current status
 
 C4 Level 1 and Level 2 are BASELINED. Selective C4 Level 3 TARGET components and Level 4 code views are BASELINED where they explain accepted ownership and invariant boundaries; they remain technical lenses, not Bounded Contexts. Application, data, security, integration and frontend construction targets are CLOSED for PRE-V1. Production cloud/deployment remains an OPEN-NON-BLOCKER Production Gate.
+
+## Historical context
+
+- [Pre-Strategic-DDD baseline](pre-ddd-baseline.md) — superseded discovery-era boundary and non-decisions, retained as historical evidence.
 
 ## Expected artifacts
 

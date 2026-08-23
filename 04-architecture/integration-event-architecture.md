@@ -10,6 +10,8 @@ last-reviewed: 2026-08-23
 
 Events are business facts, not commands, endpoints or a substitute for atomic consistency. No Published Integration Event exists without a known consumer.
 
+EventStorming and tactical DDD may name domain-event candidates for local modeling. A candidate absent from this matrix is Internal Domain Event or uncommitted design input, not a Published Integration Event; it gains a published contract only after owner, schema, known consumer, outbox and inbox behavior are accepted.
+
 ## Event classes
 
 | Class | Purpose | Persistence |
