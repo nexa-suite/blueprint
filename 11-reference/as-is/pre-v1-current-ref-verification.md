@@ -54,8 +54,8 @@ Design Lab file was modified.
 - Authenticated browser/E2E: **UNVERIFIED**.
 - Provider, cloud, backup/restore, RPO/RTO and SLO evidence: **OPEN production gate**.
 
-The canonical interpretation is: accepted PRE-V1 documentation is closed for
-construction planning; implementation convergence and production certification
-remain separate gates. See [current state](../../00-governance/current-state.md),
+The canonical interpretation is: construction authorization is passed for
+repository-specific planning and vertical slices; implementation convergence,
+runtime proof and production certification remain separate gates. See [current state](../../00-governance/current-state.md),
 [accepted decisions](../../00-governance/current-decisions.md) and the
 [historical implementation audit](../../04-architecture/as-is-implementation-audit.md).

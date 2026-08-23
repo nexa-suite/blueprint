@@ -53,7 +53,7 @@ flowchart LR
   OUT --> F[ Fulfillment and Delivery\nTARGET]
 ```
 
-The target distinction is `commitment != allocation != physical stock`. Existing reservation and FEFO behavior is preserved as evidence while accepted ownership and lifecycle language guide construction.
+The target distinction is `Commercial Commitment != Inventory Reservation/Warehouse Backing != Physical Allocation != physical stock`. `RES` represents Inventory-owned reservation backing: it may span eligible Warehouses, selects no Lot, and protects full demand before later Physical Allocation. Existing reservation and FEFO behavior is preserved as evidence while accepted ownership and lifecycle language guide construction.
 
 ## Payment provider and reconciliation path
 

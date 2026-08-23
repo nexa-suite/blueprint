@@ -26,7 +26,7 @@ Nexa is not reduced to order management: commercial commitment, physical truth, 
 | BC-02 | Customer & Buyer Relationships | Supporting | Customer Account and Buyer Relationship lifecycle per supplier Tenant |
 | BC-03 | Catalog & Commercial Policy | Supporting | Product/SKU offer, visibility and deterministic price/terms/promotion resolution |
 | BC-04 | Sales Commitment | Core | PR, Commercial Commitment, SO, commercial snapshots and replacement/cancellation history |
-| BC-05 | Inventory Availability | Core | usable physical stock, sellable availability, safety stock, FEFO and physical allocation authority |
+| BC-05 | Inventory Availability | Core | usable physical stock, sellable availability, safety stock, Inventory Reservation/Warehouse Backing, FEFO and Physical Allocation authority |
 | BC-06 | Fulfillment & Delivery | Core | execution, dispatch, delivery attempts, continuation, POD and operational cold-chain evidence |
 | BC-07 | Credit & Receivables | Supporting | Credit Reservation, Available Credit, Receivable and financial correction lifecycle |
 | BC-08 | Payments | Generic | Payment report/confirmation, provider lifecycle, refund and correction |
@@ -37,7 +37,7 @@ Nexa is not reduced to order management: commercial commitment, physical truth, 
 ## Acceptance rules
 
 - Notification and Business Traceability are separate strategic contexts. The former 10-context proposal is retained as `SUPERSEDED`, not silently rewritten.
-- `Commercial Commitment != Physical Allocation != Physical Stock`. Sales Commitment owns commercial demand and ownership transfer; Inventory Availability owns physical availability and allocation authority; Fulfillment & Delivery executes operational work.
+- `Commercial Commitment != Inventory Reservation/Warehouse Backing != Physical Allocation != Physical Stock`. Sales Commitment owns Warehouse-neutral commercial demand and ownership transfer; Inventory Availability owns physical availability, deterministic backing and allocation authority; Fulfillment & Delivery executes operational work.
 - `Bounded Context != Spring Modulith ApplicationModule != Java package != PostgreSQL schema != deployment unit`.
 - Context relationships use stable identifiers, snapshots and explicit contracts. No shared aggregate/entity ownership is implied.
 - Product and business semantics in [Current accepted decisions](../../00-governance/current-decisions.md) outrank historical discovery drafts.

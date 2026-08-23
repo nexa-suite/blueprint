@@ -18,7 +18,7 @@ Expiration must remain correct when a scheduler is late or unavailable.
 
 ## Decision
 
-Default PR expiry is 72 hours; Tenant policy is 1–7 integer days. Persist UTC absolute `expiresAt: Instant`. At `now >= expiresAt`, conversion fails. A worker materializes `EXPIRED`, releases commitment/inventory/credit atomically, writes trace/outbox evidence and is idempotent.
+Default PR expiry is 72 hours; Tenant policy is 1–7 integer days. Persist UTC absolute `expiresAt: Instant`. At `now >= expiresAt`, conversion fails. A worker materializes `EXPIRED`, releases Commercial Commitment, complete Inventory Reservation backing and applicable Credit Reservation atomically, writes trace/outbox evidence and is idempotent.
 
 ## Consequences
 

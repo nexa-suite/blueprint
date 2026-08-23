@@ -6,11 +6,11 @@ owner: architecture
 last-reviewed: 2026-08-12
 ---
 
-# Nexa V1 readiness baseline — 2026-08-12
+# Historical Nexa V1 readiness baseline — 2026-08-12
 
 ## Purpose
 
-Preserved reference record of the completed `NEXA — V1 Completion & Production Readiness Mega Audit`. This is verified AS-IS evidence against the accepted V1 baseline. It is not a TARGET architecture document and does not replace accepted Product or Architecture decisions.
+Preserved reference record of the completed `NEXA — V1 Completion & Production Readiness Mega Audit`. The embedded audit title is historical and does not assert current completion or production readiness. This is verified AS-IS evidence against the accepted V1 baseline. It is not a TARGET architecture document and does not replace accepted Product or Architecture decisions.
 
 Authority remains defined by [Source of truth](../../00-governance/source-of-truth.md) and [Current accepted decisions](../../00-governance/current-decisions.md).
 

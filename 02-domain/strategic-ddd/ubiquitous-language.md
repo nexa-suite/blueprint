@@ -26,10 +26,12 @@ These terms are canonical for PRE-V1. Context-local synonyms require an explicit
 | Promotion | one permitted transformation over resolved price in V1 | stacked discount or price authority |
 | Cart / Request Draft | buyer intent before authoritative submission | Purchase Request or inventory commitment |
 | Purchase Request | buyer commercial request subject to review | Sales Order, Supplier Purchase Order or Draft SO |
-| Commercial Commitment | persistent SKU + quantity demand commitment owned by PR/SO | Physical Allocation or Inventory Lot |
+| Commercial Commitment | persistent SKU + quantity demand commitment owned by PR/SO; Warehouse-neutral | Inventory Reservation, Warehouse backing, Physical Allocation or Inventory Lot |
 | Sales Order | confirmed immutable commercial obligation | Purchase Request or financial settlement |
 | Physical Stock | actual quantity in a Warehouse, including non-sellable states | Sellable Availability |
-| Sellable Availability | usable on-hand minus active commitments and Safety Stock | Physical Stock or Commercial Commitment |
+| Sellable Availability | usable on-hand minus active commitments and Safety Stock at business scope; authoritative by SKU + Warehouse | Physical Stock or Commercial Commitment |
+| Inventory Reservation | Inventory-owned protection of Commercial Commitment demand, distributed across eligible Warehouses without Lot selection | Commercial Commitment or Physical Allocation |
+| Warehouse Backing | deterministic SKU + Warehouse distribution of Inventory Reservation protection | Commercial Commitment ownership or Physical Allocation |
 | Safety Stock | protected warehouse policy quantity | commitment, allocation or unusable stock |
 | Inventory Lot | traceable physical stock unit in one Warehouse at a time | Manufacturer Batch or SKU |
 | Physical Allocation | selection/authority for Inventory Lot(s) against commitment | Commercial Commitment or fulfillment scan |
@@ -40,6 +42,9 @@ These terms are canonical for PRE-V1. Context-local synonyms require an explicit
 | Continuation Delivery | new Delivery for remaining quantity after partial delivery | retry of original attempt or backorder |
 | POD | immutable proof-of-delivery evidence | mutable delivery state |
 | Temperature Excursion | out-of-range observation requiring evaluation | automatic destruction or automatic quarantine |
+| ColdChainDisposition | authorized outcome for affected cold-chain quantity: `RELEASE`, `CONTINUE_HOLD`, `REJECT` or `WASTE` | automatic destruction or `RETURN_TO_SUPPLIER` synonym |
+| REJECT | outcome that quantity is not accepted for normal sellable/fulfillment use | automatic `RETURN_TO_SUPPLIER` |
+| RETURN_TO_SUPPLIER | possible physical action after an authorized rejected outcome | rejection outcome or automatic workflow |
 | HOLD | non-sellable pending disposition | Quarantine, Waste or Release |
 | Credit Reservation | credit amount reserved for active commercial demand | Outstanding Receivable |
 | Available Credit | Credit Limit - Credit Reservations - Outstanding Receivables | global Buyer balance or `exposure`/`used` |

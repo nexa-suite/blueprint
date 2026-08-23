@@ -15,7 +15,7 @@ These decisions close the PRE-V1 domain model. Technical realization remains sub
 | DDD-001 | Accept 11 Bounded Contexts | ACCEPTED / FROZEN | use catalog and ownership matrix as strategic authority |
 | DDD-002 | Split Notification from Business Traceability | ACCEPTED; old combined proposal SUPERSEDED | separate failure/retry semantics from durable history |
 | DDD-003 | Classify Core/Supporting/Generic | ACCEPTED / FROZEN | Core: Sales, Inventory, Fulfillment; Generic does not mean unimportant |
-| DDD-004 | Commercial Commitment is demand, Physical Allocation selects lots | ACCEPTED / FROZEN | no release/re-reserve gap during PR-to-SO transfer |
+| DDD-004 | Commercial Commitment is Warehouse-neutral demand; Inventory backs it across eligible Warehouses; Physical Allocation selects lots later | ACCEPTED / FROZEN | no release/re-reserve gap during PR-to-SO transfer; backing is not lot allocation |
 | DDD-005 | Submitted PR creates all-or-nothing commitment and credit reservation | ACCEPTED / FROZEN | synchronous atomic invariant boundary |
 | DDD-006 | PR state machine and expiry | ACCEPTED / FROZEN | 72-hour default, Tenant 1–7 integer days, absolute `expiresAt: Instant` |
 | DDD-007 | Sales Order is born CONFIRMED | ACCEPTED / FROZEN | no Draft SO; material changes use replacement/correction semantics |
@@ -43,7 +43,7 @@ The split is based on different language, invariants, ownership, consumers, life
 | `Credit Reserved -> Receivable` ambiguity | explicit transition without double count; Receivable at SO confirmation for credit/net |
 | Customer/Buyer multiplicity unresolved | one principal active Buyer Identity per Customer Account in V1 |
 | unresolved price precedence | Base Price -> Price List -> Customer Terms -> one Promotion |
-| Commercial Commitment treated as physical reservation | commitment is SKU + quantity; allocation selects lots later |
+| Commercial Commitment treated as physical reservation | commitment is Warehouse-neutral SKU + quantity; Inventory Reservation backing is Inventory-owned; allocation selects lots later |
 | Photo and signature always mandatory POD | policy-driven evidence; POD remains immutable |
 
 ## Change rule

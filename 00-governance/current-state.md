@@ -38,7 +38,7 @@ last-reviewed: 2026-08-23
 | Story Points | TBD — DELIVERY REFINEMENT |
 | Design System relationship | BASELINED; Design Lab remains visual authority |
 | Production vendor architecture | OPEN — PRODUCTION GATE |
-| PRE-V1 construction gate | OPEN |
+| PRE-V1 construction gate | PASSED — CONSTRUCTION AUTHORIZED |
 
 ## Evidence state
 
@@ -50,6 +50,7 @@ last-reviewed: 2026-08-23
 ## Open non-blockers
 
 Production provider, cloud and operational parameters remain open: cloud topology, managed PostgreSQL, object storage, email, observability, secret manager, RPO, RTO, backup retention, external SLA/SLO and responder organization. These do not block PRE-V1 documentation closure.
+- Construction authorization permits repository-specific target construction planning and vertical slices. It does not mean production readiness, runtime parity or implementation completion.
 
 ## Authority
 

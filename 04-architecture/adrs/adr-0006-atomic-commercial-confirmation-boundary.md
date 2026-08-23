@@ -14,15 +14,15 @@ Accepted for PRE-V1.
 
 ## Context
 
-PR submission and direct order require Commercial Commitment and, where applicable, Credit Reservation. A half-created commercial outcome would oversell or strand credit.
+PR submission and direct order require Commercial Commitment, complete Inventory Reservation backing and, where applicable, Credit Reservation. A half-created commercial outcome would oversell, leak protection or strand credit.
 
 ## Decision
 
-Commit authoritative validation, required inventory commitment and required credit reservation in one logical PostgreSQL transaction. Direct order confirms SO in that same decision. Published events announce the committed fact afterward.
+Commit authoritative validation, full deterministic Inventory Reservation backing, required Commercial Commitment and required Credit Reservation in one logical PostgreSQL transaction. Backing may span eligible Warehouses; Commercial Commitment remains Warehouse-neutral and no Lot is selected. Direct order confirms SO in that same decision. Published events announce the committed fact afterward.
 
 ## Consequences
 
-Strong consistency is required at the boundary. Provider calls stay outside unnecessarily long transactions; provider/local failure becomes reconciliation state.
+Strong consistency is required at the boundary. Accepted material PR changes use the same protected decision to replace or adjust affected commitment, Inventory Reservation backing and Credit Reservation; failed revalidation leaves prior authoritative state. Provider calls stay outside unnecessarily long transactions; provider/local failure becomes reconciliation state.
 
 ## Alternatives
 

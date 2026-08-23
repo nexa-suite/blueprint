@@ -18,11 +18,11 @@ Commercial demand, physical stock and lot selection have different language and 
 
 ## Decision
 
-Sales Commitment owns persistent Commercial Commitment and PR-to-SO ownership transfer. Inventory Availability owns physical availability and Physical Allocation authority. Fulfillment & Delivery executes allocation work. Commitment is SKU + quantity and selects no Warehouse/Lot.
+Sales Commitment owns persistent, Warehouse-neutral Commercial Commitment and PR-to-SO ownership transfer. Inventory Availability owns physical availability, Inventory Reservation backing, deterministic Warehouse sourcing and Physical Allocation authority. A single demand line may be backed by multiple eligible Warehouses. Fulfillment & Delivery executes allocation work. Commitment is SKU + quantity and selects no Warehouse/Lot.
 
 ## Consequences
 
-PR-to-SO conversion has no release/re-reserve gap. Shortage remains explicit and cannot silently delete commitment or substitute product.
+PR-to-SO conversion has no release/re-reserve gap. Full Inventory Reservation backing is required before authoritative acceptance; failed multi-Warehouse protection cannot leave partial backing. Shortage remains explicit and cannot silently delete commitment or substitute product.
 
 ## Alternatives
 

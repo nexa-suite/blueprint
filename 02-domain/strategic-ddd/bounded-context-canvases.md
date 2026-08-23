@@ -40,10 +40,10 @@ Compact canvases record language, authority, invariants and contracts. They do n
 
 ## BC-05 — Inventory Availability
 
-- **Language:** physical stock, Inventory Lot, Sellable Availability, Safety Stock, HOLD, QUARANTINE, FEFO, Physical Allocation.
-- **Owns:** physical truth, sellability and allocation authority by SKU + Warehouse.
-- **Invariants:** sellable = usable on-hand - active commitments - safety stock; in-transit is not sellable twice; no expired/quarantined allocation.
-- **Consumes/publishes:** Commercial Commitment demand; availability, allocation, movement and shortage facts.
+- **Language:** physical stock, Inventory Lot, Sellable Availability, Safety Stock, Inventory Reservation, Warehouse Backing, HOLD, QUARANTINE, FEFO, Physical Allocation, ColdChainDisposition.
+- **Owns:** physical truth, sellability, Inventory Reservation backing, deterministic Warehouse sourcing and allocation authority by SKU + Warehouse.
+- **Invariants:** sellable = usable on-hand - active commitments - safety stock at business scope; backing protects full demand across eligible Warehouses without double counting; in-transit is not sellable twice; no expired/quarantined allocation.
+- **Consumes/publishes:** Commercial Commitment demand; availability, backing, allocation, movement and shortage facts. Internal backing distribution does not require a new Published Integration Event.
 
 ## BC-06 — Fulfillment & Delivery
 

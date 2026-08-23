@@ -21,7 +21,7 @@ Nexa coordinates B2B commercial commitments against real inventory availability,
 | Tenant != Workspace | Tenant is isolation boundary; Workspace is V1 operational environment. |
 | Human Identity != Workforce Membership != Buyer Relationship != Customer Account | Identity and business relationships have separate authority and lifecycle. |
 | Cart/Draft != Purchase Request != Sales Order | Intent precedes submitted request; confirmed order is immutable commercial history. |
-| Commercial Commitment != Physical Allocation != Physical Stock | Demand protection, lot selection and actual quantity are different facts. |
+| Commercial Commitment != Inventory Reservation/Warehouse Backing != Physical Allocation != Physical Stock | Warehouse-neutral demand, deterministic warehouse protection, lot selection and actual quantity are different facts. |
 | Physical Stock != Sellable Availability | HOLD, quarantine, expiry, safety stock, commitments and transit constrain sellability. |
 | Payment != Receivable != Credit != Stripe | Payment lifecycle, formal debt, credit risk and provider adapter are separate. |
 | Business Document != SUNAT fiscal document | Commercial Invoice is a Nexa V1 document; fiscal integration is deferred. |

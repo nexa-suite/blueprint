@@ -37,7 +37,7 @@ The V1 TARGET has **11 frozen Bounded Contexts**. Existing Java packages, Spring
 | BC-02 | Customer & Buyer Relationships | Supporting | Customer Account, Buyer Relationship, contacts, addresses, lifecycle and supplier/customer relationship |
 | BC-03 | Catalog & Commercial Policy | Supporting | Product, SKU, visibility, Base Price, Price Lists, Customer Terms, Promotions and SKU cold-chain requirement |
 | BC-04 | Sales Commitment | Core | Purchase Request, Commercial Commitment, Sales Order, commercial snapshots and cancellation/replacement semantics |
-| BC-05 | Inventory Availability | Core | Physical stock, lots, sellable availability, safety stock, holds, movements, transfers, physical allocation authority and FEFO |
+| BC-05 | Inventory Availability | Core | Physical stock, lots, sellable availability, safety stock, Inventory Reservation/Warehouse Backing, holds, movements, transfers, Physical Allocation authority and FEFO |
 | BC-06 | Fulfillment & Delivery | Core | Fulfillment, allocation execution, picking, packing, staging, dispatch, delivery, attempts, continuation, POD and operational cold-chain evidence |
 | BC-07 | Credit & Receivables | Supporting | Credit Account, limit, reservation, available credit, receivable, balance and financial adjustments affecting obligation/exposure |
 | BC-08 | Payments | Generic | Payment, report, provider lifecycle, Stripe translation, confirmation/failure, refund and correction |
@@ -56,21 +56,23 @@ BC-07 owns the Financial Adjustment effect on obligation and exposure. BC-09 own
 - Direct order validates authoritatively and confirms Sales Order with Commercial Inventory Commitment and required Credit Reservation in one logical atomic commercial decision.
 - PR submission is all-or-nothing. A submitted PR has full required commitment, starts expiry and is visible to Sales.
 - Purchase Request states are `SUBMITTED`, `CHANGES_PROPOSED`, `CONVERTED`, `REJECTED`, `WITHDRAWN` and `EXPIRED`. No persisted `UNDER_REVIEW` state is introduced for a UI label.
-- Default PR expiry is 72 hours. Tenant policy may be 1–7 integer days. Store absolute UTC `expiresAt: Instant`; `now >= expiresAt` rejects conversion even before a worker materializes `EXPIRED`. Expiry atomically releases the Commercial Inventory Commitment and applicable Credit Reservation, with durable outbox evidence.
-- Commercial Inventory Commitment is persistent, stable by `CommitmentId`, owns SKU + quantity demand and selects no Warehouse/Lot. Ownership transfers PR to SO without release/re-reserve gap. Physical Allocation selects Inventory Lot(s) later.
+- Default PR expiry is 72 hours. Tenant policy may be 1–7 integer days. Store absolute UTC `expiresAt: Instant`; `now >= expiresAt` rejects conversion even before a worker materializes `EXPIRED`. Expiry atomically releases Commercial Inventory Commitment, Inventory Reservation backing and applicable Credit Reservation, with durable outbox evidence.
+- Commercial Inventory Commitment is persistent, stable by `CommitmentId`, owns SKU + quantity demand and selects no Warehouse/Lot. Inventory Availability protects that demand through deterministic Warehouse backing, which may span multiple eligible Warehouses. Ownership transfers PR to SO without release/re-reserve gap. Physical Allocation selects Inventory Lot(s) later.
+- Accepted material PR changes affecting SKU, quantity, authoritative price, inventory requirement or credit requirement require Buyer acceptance, authoritative revalidation and one atomic replacement/adjustment of affected Commercial Commitment, Inventory Reservation backing and applicable Credit Reservation. Failed requirements preserve prior authoritative state; no partial new state or leaked reservation.
 - Sales Order is born `CONFIRMED`. Commercial roll-up states are `CONFIRMED`, `IN_FULFILLMENT`, `PARTIALLY_FULFILLED`, `FULFILLED`, `PARTIALLY_DELIVERED`, `COMPLETED` and `CANCELLED`. Completion means no unresolved quantity, not financial settlement.
 - Price resolution is Base Price, applicable Price List, permitted Customer Terms, then at most one Promotion transformation. Submitted PR pricing is historical evidence; new attempts resolve current authoritative pricing.
-- Sellable Availability is usable on-hand minus active Commercial Commitments minus Safety Stock. HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT stock is not sellable. Primary availability authority is SKU + Warehouse.
+- Sellable Availability is usable on-hand minus active Commercial Commitments minus Safety Stock at business scope. Inventory Reservation backing distributes that protected demand across SKU + Warehouse authorities without double counting commitment and backing. HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT stock is not sellable.
+- Inventory Availability chooses Warehouse backing deterministically from eligible authoritative Sellable Availability. Prefer no split when one Warehouse satisfies demand; otherwise V1 may split across eligible Warehouses. Commercial Commitment remains Warehouse-neutral and backing is not Physical Allocation.
 - FEFO is default for expiry-tracked SKU. Override needs reason and never selects expired or quarantined stock. Warehouse Transfer states are `REQUESTED`, `IN_TRANSIT`, `RECEIVED`; in-transit stock is not sellable in both locations.
 - Fulfillment supports `PLANNED`, `ALLOCATED`, `PICKING`, `PICKED`, `PACKED`, `STAGED`, `READY_FOR_DISPATCH`, `HANDED_OVER`, `COMPLETED`, plus explicit shortage, hold and cancellation exceptions. Multiple Fulfillments per Sales Order are valid.
 - Delivery attempts belong to one Delivery. Failed attempts do not create a new Delivery. Operations decides exhaustion; no universal numeric attempt limit is accepted. Partial delivery closes the current Delivery and creates an idempotent Continuation Delivery for the remaining obligation.
 - POD is immutable evidence. Amendments/addenda never overwrite the original. Photo/signature is policy-driven, not universally mandatory.
-- Cold-chain is optional per Tenant/SKU. V1 captures temperature manually. Excursion places affected quantity on HOLD pending disposition; it does not automatically mean destruction. IoT automation is deferred.
+- Cold-chain is optional per Tenant/SKU. V1 captures temperature manually. Excursion places affected quantity on HOLD pending `ColdChainDisposition`; `REJECT` is an outcome, while `RETURN_TO_SUPPLIER` is a possible physical action after that outcome. It does not automatically mean destruction. IoT automation is deferred.
 
 ## Finance, documents, notifications and traceability
 
 - Available Credit = Credit Limit - Active Credit Reservations - Outstanding Receivable Balances.
-- Credit purchase reserves credit at PR submission, or during the same logical SO confirmation for direct order. Required inventory commitment and credit reservation are all-or-nothing.
+- Credit purchase reserves credit at PR submission, or during the same logical SO confirmation for direct order. Commercial Commitment, complete Inventory Reservation backing and applicable Credit Reservation are all-or-nothing.
 - For credit/net terms, Receivable posts at Sales Order confirmation. Delivery completion or invoice issuance is not a universal receivable trigger.
 - PREPAID requires Payment Confirmed before Sales Order confirmation and physical fulfillment. IMMEDIATE may confirm SO before payment; payment is immediately due. Exact prepaid timeout is OPEN-NON-BLOCKER policy.
 - Historical financial facts are never rewritten: original obligation + explicit Financial Adjustments - valid Payments/Refund effects = current net obligation. A correction does not erase Payment history.
@@ -80,7 +82,7 @@ BC-07 owns the Financial Adjustment effect on obligation and exposure. BC-09 own
 
 ## Transaction, concurrency, event and tenant semantics
 
-- Strong consistency is required for last-unit commitment, credit reservation, PR terminal transitions, PR-to-SO conversion, ownership transfer, cancellation/release, physical inventory mutation, Payment-to-Receivable application and tenant authorization/isolation decisions.
+- Strong consistency is required for last-unit and multi-Warehouse commitment protection, credit reservation, PR terminal transitions, PR-to-SO conversion, ownership transfer, accepted material-change replacement, cancellation/release, physical inventory mutation, Payment-to-Receivable application and tenant authorization/isolation decisions.
 - Use optimistic version/CAS for mutable objects; conditional updates or row locks for scarce resources; deterministic lock ordering; explicit stale-state outcomes; never silent last-write-wins.
 - Idempotency survives restart for PR submit, material-change acceptance, conversion, direct order, cancellation, inventory adjustment, transfers, fulfillment/POD finalization, payment initiation/reporting/webhooks/application, refund/correction and document issuance.
 - Separate internal Domain Events, Published Integration Events and Traceability/Audit facts. Publish only with known consumers. Atomic reservations happen synchronously before commit; events announce committed facts afterward.
@@ -91,7 +93,7 @@ BC-07 owns the Financial Adjustment effect on obligation and exposure. BC-09 own
 
 - C4 L1/L2 are baselined. Selective C4 L3 TARGET views are baselined where they explain strategic ownership, synchronous invariant boundaries and asynchronous propagation; they are technical views, not one-container-per-BC claims.
 - V1 remains a Spring Boot modular monolith over shared PostgreSQL with Object Storage behind application ports. Strategic BC, Spring Modulith module, Java package, PostgreSQL schema and deployment unit are different concepts.
-- Target architecture uses KEEP -> REFINE -> REWORK. REWRITE requires extraordinary evidence. No code refactor, schema migration or application repository mutation is authorized by Blueprint closure.
+- Target architecture uses KEEP -> REFINE -> REWORK. REWRITE requires extraordinary evidence. This Blueprint authorizes repository-specific construction planning and implementation under its TARGET; it does not mutate application repositories or authorize production deployment.
 - Production/provider decisions remain **OPEN-NON-BLOCKER / PRODUCTION GATE**: cloud, managed PostgreSQL, object storage, email, observability, secret manager, RPO/RTO, retention, SLA/SLO and responder organization. Staging, restore, rollback, migration, outage, rotation, incident, break-glass and failed-worker proof remain required later gates.
 
 ## Authority and evidence boundary

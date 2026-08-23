@@ -59,19 +59,19 @@ V1 includes Customer Accounts, contacts, Sales assignment, commercial history, n
 - Every sellable presentation owns its SKU. Product/SKU media may be independent where useful.
 - Brand and Category are Tenant-scoped.
 - SKU lifecycle, inventory availability and Buyer visibility are separate concerns. `ACTIVE + VISIBLE + OUT OF STOCK` is valid.
-- Conceptual sellable availability considers physical stock minus unavailable/HOLD quantities, safety stock and Commercial Commitments. Safety stock is not a Commercial Commitment. Physical Allocation of Inventory Lot(s) occurs later in Fulfillment. Buyer-facing availability must not expose unsafe raw stock.
+- Conceptual sellable availability considers physical stock minus unavailable/HOLD quantities, safety stock and Commercial Commitments. Inventory Availability protects one commercial demand line through deterministic backing across one or more eligible Warehouses; backing is not Physical Allocation. Safety stock is not a Commercial Commitment. Physical Allocation of Inventory Lot(s) occurs later in Fulfillment. Buyer-facing availability must not expose unsafe raw stock.
 - SKU identity is independent from price. Do not create SKU-per-customer-price.
 - V1 conceptual pricing precedence is Base Price, Price List, Customer Commercial Terms, then Promotion. Buyer does not manually select a Price List.
 - Sales cannot arbitrarily override authoritative prices. No quantity-tier pricing requirement is accepted for V1. Near-expiry inventory does not auto-discount by architecture fiat.
 
 ## Sales and order policy
 
-- Purchase Request is commercial intent. A PR Draft creates no commitment; PR Submitted creates the Commercial Inventory Commitment for each SKU and quantity. Withdrawal, rejection or expiry releases that commitment. When the PR becomes a Sales Order, the commitment continues into the confirmed commercial obligation.
+- Purchase Request is commercial intent. A PR Draft creates no commitment; PR Submitted creates the Commercial Inventory Commitment for each SKU and quantity plus complete Inventory Reservation backing. Withdrawal, rejection or expiry releases both protections. When the PR becomes a Sales Order, the commitment and its backing continue into the confirmed commercial obligation.
 - V1 Tenant policy supports `DIRECT_ORDER` and `APPROVAL_REQUIRED` conceptual modes. Approval flow is Buyer, Purchase Request, Sales review, Sales Order. Direct flow is Buyer, authoritative validation, confirmed Order/Sales Order.
 - Cart does not reserve inventory.
-- `DIRECT_ORDER` requires availability validation, successful Commercial Inventory Commitment and Sales Order confirmation as one accepted commercial outcome. If required availability cannot be committed, return a deterministic current/insufficient-availability result; do not create a partial order or backorder.
+- `DIRECT_ORDER` requires availability validation, successful full Inventory Reservation backing, Commercial Inventory Commitment and Sales Order confirmation as one accepted commercial outcome. One commercial line may use multiple eligible Warehouses; if required quantity cannot be fully protected, return a deterministic current/insufficient-availability result; do not create a partial order or backorder.
 - Backend revalidates authoritative sellable availability transactionally. V1 accepts no oversell/backorder behavior; competing buyers for the final unit require concurrency-correct conflict handling.
-- Sales may adjust a submitted Purchase Request before Sales Order creation, but the Buyer does not freely mutate submitted content. No universal system-enforced re-accept click is required after every Sales modification; changes requiring business consent preserve evidence. Material agreed modification resets the request validity window. Sales rejection requires a reason; Buyer withdrawal may omit a reason.
+- Sales may adjust a submitted Purchase Request before Sales Order creation, but the Buyer does not freely mutate submitted content. No universal system-enforced re-accept click is required after every Sales modification; changes requiring business consent preserve evidence. Material agreed modification resets the request validity window and atomically revalidates/replaces affected commitment, Inventory Reservation backing and Credit Reservation. If requirements fail, the prior authoritative state remains. Sales rejection requires a reason; Buyer withdrawal may omit a reason.
 - Purchase Request states are `SUBMITTED`, `CHANGES_PROPOSED`, `CONVERTED`, `REJECTED`, `WITHDRAWN` and `EXPIRED`. Default expiry is 72 hours; Tenant configuration is 1–7 integer days; store UTC absolute `expiresAt: Instant` and reject conversion at `now >= expiresAt` even before worker materialization.
 - Manual/assisted direct-order capture is valid without fabricating Buyer identity; it is not a persisted Draft Sales Order. Cart never reserves inventory, no automatic backorder is accepted, and competing final-unit claims resolve with one success and one availability conflict.
 - Substitution requires Buyer approval by default. Operational exceptions require escalation; Buyer-selected items are never silently replaced.
@@ -81,7 +81,7 @@ V1 includes Customer Accounts, contacts, Sales assignment, commercial history, n
 
 ## Inventory, warehouse and fulfillment
 
-V1 direction includes multiple Warehouses, operational Zones where useful, receiving (including partial receiving), basic traceable Warehouse transfers, manual inventory adjustments, Source Batch and physical Inventory Lot traceability, expiration, FEFO, Safety Stock, distinct HOLD/QUARANTINE states where justified, Commercial Commitments, sellable availability, picking, packing, staging and waste/merma.
+V1 direction includes multiple Warehouses, deterministic multi-Warehouse backing for commercial demand, operational Zones where useful, receiving (including partial receiving), basic traceable Warehouse transfers, manual inventory adjustments, Source Batch and physical Inventory Lot traceability, expiration, FEFO, Safety Stock, distinct HOLD/QUARANTINE states where justified, Commercial Commitments, sellable availability, picking, packing, staging and waste/merma.
 
 Fulfillment is broader than Picking: Allocate, Pick, Pack, Stage, Handover and Ready for Dispatch. No ownership or Bounded Context is assigned here.
 
@@ -94,7 +94,7 @@ Fulfillment is broader than Picking: Allocate, Pick, Pack, Stage, Handover and R
 - `Dispatch Blocked`, `Delivery Attempt Failed` and `Delivery Completed` remain distinct concepts.
 - Cold-chain specialization cuts across relevant V1 work: expiration, FEFO, storage constraints, distinct HOLD/QUARANTINE states, traceability, temperature incident awareness where justified and delivery evidence.
 - IoT automatic telemetry and laboratory/QMS depth are future. No ColdChain Bounded Context is created.
-- Manual temperature recording is V1. An out-of-range receiving temperature creates `HOLD` plus a pending `Temperature Excursion` evaluation; it does not automatically create `QUARANTINE`. Possible disposition is Release, continued Hold, Waste or Return to Supplier. IoT remains future.
+- Manual temperature recording is V1. An out-of-range receiving temperature creates `HOLD` plus a pending `Temperature Excursion` evaluation; it does not automatically create `QUARANTINE`. `ColdChainDisposition` may produce `RELEASE`, `CONTINUE_HOLD`, `REJECT` or `WASTE`; `RETURN_TO_SUPPLIER` is a possible physical action after `REJECT`. IoT remains future.
 
 ## Basic Finance, documents, notifications and dashboard
 
