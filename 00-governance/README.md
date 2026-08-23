@@ -15,7 +15,7 @@ Define documentation authority, accepted decisions, PRE-V1 closure status, matur
 
 ## Current status
 
-PRE-V1 BASELINED. Product & Business V1 is FROZEN / CLOSED. Strategic DDD and 11 Bounded Contexts are ACCEPTED / FROZEN. Technical architecture and selective C4 L3 are CLOSED for PRE-V1 construction; production/provider decisions remain an OPEN-NON-BLOCKER Production Gate.
+PRE-V1 BASELINED. Product & Business V1 is FROZEN / CLOSED. Strategic DDD and 11 Bounded Contexts are ACCEPTED / FROZEN. Technical architecture and selective C4 L3 are CLOSED; PRE-V1 Construction Gate is PASSED — CONSTRUCTION AUTHORIZED. Production/provider decisions remain an OPEN-NON-BLOCKER Production Gate.
 
 ## Expected artifacts
 

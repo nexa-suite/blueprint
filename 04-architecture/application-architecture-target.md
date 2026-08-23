@@ -60,4 +60,4 @@ The application layer owns transaction orchestration and idempotency. Domain lay
 
 ## Construction gate
 
-Before implementation ownership changes, verify aggregate/table ownership, API contracts, event matrix, authorization capabilities, migrations, idempotency, concurrency, observability, rollback and consumer tests. Use KEEP -> REFINE -> REWORK. No application repository mutation is part of Blueprint closure.
+Construction authorization is passed for repository-specific target planning and vertical slices. Before implementation ownership changes, verify aggregate/table ownership, API contracts, event matrix, authorization capabilities, migrations, idempotency, concurrency, observability, rollback and consumer tests. Use KEEP -> REFINE -> REWORK. No application repository mutation is part of Blueprint closure; this is not production readiness.

@@ -36,7 +36,7 @@ Sales
 Buyer
   may withdraw before Sales Order
 Sales Commitment
-  preserves revision/history and recalculates commitment when material content changes
+  preserves revision/history and requests atomic replacement/adjustment of commitment, Inventory Reservation backing and applicable credit when material content changes
 ```
 
 Accepted policy: Buyer does not freely mutate submitted PR; no universal system-enforced re-accept click follows every Sales modification; consent-required changes preserve evidence; Product substitution requires explicit Buyer acceptance; material agreed modification resets validity; Sales rejection requires reason; Buyer withdrawal may omit reason. Expiry is 72 hours by default, Tenant configurable 1–7 days, with absolute `expiresAt: Instant`.
@@ -48,15 +48,16 @@ Warehouse Operator
   receives quantity and records source Batch / Inventory Lot
   records required receiving temperature
 Inventory Availability
-  accepts, holds, returns or disposes lot after evaluation
+  accepts, holds, rejects or routes ColdChainDisposition after evaluation
   exposes sellable availability by SKU and Warehouse
+  chooses deterministic Warehouse backing for commercial demand, possibly across Warehouses
 Sales Commitment
-  consumes availability without selecting a physical lot
+  requests full SKU + quantity protection without selecting Warehouse/Lot
 Fulfillment
-  later selects one or more valid lots for allocation
+  later executes work against Inventory-owned Physical Allocation
 ```
 
-Authority notes: physical truth wins. Rejected receiving remains evidence. A temperature excursion starts as HOLD plus evaluation; it is not automatically Waste.
+Authority notes: physical truth wins. Rejected receiving remains evidence. A temperature excursion starts as HOLD plus `ColdChainDisposition`; `REJECT` does not automatically mean `RETURN_TO_SUPPLIER` or `WASTE`.
 
 ## Story 4 — Partial delivery creates continuation
 

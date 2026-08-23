@@ -22,9 +22,9 @@ last-reviewed: 2026-08-23
 10. V1 User Stories, Acceptance Criteria and frontend product/UI contracts — COMPLETE.
 11. ADR minimum set and Production Gate separation — BASELINED.
 
-## Construction gate
+## Construction gate — PASSED — CONSTRUCTION AUTHORIZED
 
-Implementation proceeds only through controlled vertical slices with current API/Platform/Portal refs, compatibility mapping, tenant isolation, runtime/OpenAPI, concurrency/idempotency, authenticated browser, accessibility and rollback evidence. Blueprint closure does not mutate application repositories.
+Repository-specific construction may begin through controlled vertical slices with current API/Platform/Portal refs, compatibility mapping, tenant isolation, runtime/OpenAPI, concurrency/idempotency, authenticated browser, accessibility and rollback evidence. This authorization does not claim implementation completion, runtime parity or production readiness; Blueprint closure does not mutate application repositories.
 
 Use KEEP -> REFINE -> REWORK. Do not delete legacy paths or duplicate contract owners without consumer mapping, migration, tests and rollback. REWRITE requires extraordinary evidence.
 

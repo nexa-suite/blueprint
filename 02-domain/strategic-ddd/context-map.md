@@ -16,8 +16,8 @@ Relationships describe authority and translation. They do not imply deployment, 
 | Customer & Buyer Relationships | Catalog & Commercial Policy | relationship policy supplier | active relationship and eligibility reference; no shared Customer entity |
 | Customer & Buyer Relationships | Sales Commitment | account/actor supplier | Customer Account, Buyer Relationship and principal Buyer identity reference |
 | Catalog & Commercial Policy | Sales Commitment | Published Language / offer supplier | resolved price, terms, promotion and SKU cold-chain snapshot |
-| Sales Commitment | Inventory Availability | demand contract | Commercial Commitment ID, SKU, quantity, active/released status; no lot selection |
-| Inventory Availability | Sales Commitment | availability decision supplier | atomic availability/commitment result; availability does not own SO |
+| Sales Commitment | Inventory Availability | demand contract | Commercial Commitment ID, SKU, quantity, active/released status; no Warehouse/Lot selection |
+| Inventory Availability | Sales Commitment | availability decision supplier | atomic full-protection result with Inventory Reservation/ Warehouse Backing references; availability does not own SO |
 | Sales Commitment | Credit & Receivables | credit demand contract | amount, terms, commitment reference and Credit Reservation intent |
 | Credit & Receivables | Sales Commitment | credit decision supplier | reservation accepted/rejected, Available Credit result and receivable status |
 | Sales Commitment | Fulfillment & Delivery | commercial obligation supplier | immutable confirmed SO snapshot and remaining quantities |
@@ -32,7 +32,7 @@ Relationships describe authority and translation. They do not imply deployment, 
 
 ## Atomic boundary
 
-PR submission and required Commercial Commitment/Credit Reservation are one logical PostgreSQL transaction. Direct order confirmation follows the same rule. Published events announce committed facts after commit; they do not create the atomic reservation later.
+PR submission and required Commercial Commitment, complete Inventory Reservation backing and applicable Credit Reservation are one logical PostgreSQL transaction. Direct order confirmation follows the same rule. Published events announce committed facts after commit; they do not create atomic protection later. Internal Warehouse backing distribution remains owned by Inventory Availability and does not create a new Published Integration Event.
 
 ## Context-map rules
 

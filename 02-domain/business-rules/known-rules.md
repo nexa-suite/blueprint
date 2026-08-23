@@ -28,27 +28,28 @@ Canonical V1 invariants. Ownership and lifecycle details are in [Strategic DDD](
 
 ## Purchase Request, commitment and Sales Order
 
-- Approval-required PR submission is all-or-nothing: required Commercial Commitment and Credit Reservation are established in one logical transaction when applicable.
+- Approval-required PR submission is all-or-nothing: Commercial Commitment, complete Inventory Reservation backing and applicable Credit Reservation are established in one logical transaction.
 - PR states: `SUBMITTED`, `CHANGES_PROPOSED`, `CONVERTED`, `REJECTED`, `WITHDRAWN`, `EXPIRED`. UI “Under review” is not a persisted state.
-- Submitted means validation succeeded, full commitment exists, expiry started and Sales can review. Buyer accepts material changes explicitly; Sales rejection has reason; Buyer can withdraw before conversion.
-- Default expiry is 72 hours. Tenant may configure 1–7 integer days. Store UTC absolute `expiresAt: Instant`; conversion fails at `now >= expiresAt` even before worker transition. Expiry releases Commercial Inventory Commitment and applicable Credit Reservation atomically and durably.
-- Commercial Commitment is persistent SKU + quantity demand with stable `CommitmentId`. PR-to-SO transfers ownership; no release/re-reserve gap. It selects no Warehouse/Lot.
+- Submitted means validation succeeded, full commitment and Inventory Reservation backing exist, expiry started and Sales can review. Buyer accepts material changes explicitly; Sales rejection has reason; Buyer can withdraw before conversion.
+- Default expiry is 72 hours. Tenant may configure 1–7 integer days. Store UTC absolute `expiresAt: Instant`; conversion fails at `now >= expiresAt` even before worker transition. Expiry releases Commercial Inventory Commitment, Inventory Reservation backing and applicable Credit Reservation atomically and durably.
+- Commercial Commitment is persistent SKU + quantity demand with stable `CommitmentId`. Inventory Availability owns deterministic Warehouse backing, potentially across multiple eligible Warehouses. PR-to-SO transfers ownership; no release/re-reserve gap. Commitment selects no Warehouse/Lot.
+- Accepted material PR change affecting SKU, quantity, authoritative price, inventory requirement or credit requirement requires Buyer consent, revalidation and one atomic replacement/adjustment of affected commitment, Inventory Reservation backing and applicable Credit Reservation. Failed requirements preserve prior authoritative state; no partial new state or leaked reservation.
 - Sales Order is born `CONFIRMED`; no Draft SO V1. Confirmed SO history is immutable. Material changes use explicit cancellation/replacement/correction semantics.
 
 ## Inventory, fulfillment and delivery
 
-- Sellable Availability = usable physical on-hand - active Commercial Commitments - Safety Stock.
+- Sellable Availability = usable physical on-hand - active Commercial Commitments - Safety Stock at business scope. Inventory Reservation backing distributes protected demand across SKU + Warehouse authorities without double counting.
 - HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are not sellable. Primary authority is SKU + Warehouse. Tenant-wide views are projections.
 - FEFO is default for expiry-tracked SKU. Override requires reason and never selects expired/quarantined stock.
 - Warehouse Transfer states: `REQUESTED`, `IN_TRANSIT`, `RECEIVED`. In-transit stock cannot be sellable at origin and destination simultaneously.
-- Physical Allocation selects Inventory Lot(s) under Inventory Availability authority. Fulfillment & Delivery executes the operational work; allocation cannot exceed commitment or usable stock.
+- Inventory Availability chooses deterministic Warehouse backing before Physical Allocation. Physical Allocation later selects Inventory Lot(s) under Inventory Availability authority; Fulfillment & Delivery executes operational work. Neither backing nor allocation can exceed commitment or usable stock.
 - Fulfillment states: `PLANNED`, `ALLOCATED`, `PICKING`, `PICKED`, `PACKED`, `STAGED`, `READY_FOR_DISPATCH`, `HANDED_OVER`, `COMPLETED`, plus explicit shortage/hold/cancel exceptions.
 - Delivery Attempt is part of one Delivery. Failed attempt does not create a new Delivery and has no universal numeric exhaustion limit. Partial delivery creates a Continuation Delivery for remaining obligation.
 - POD is immutable; amendment/addendum is linked. Photo/signature requirements are policy-driven, not universal.
 
 ## Cold-chain, credit, payments and finance
 
-- Cold-chain is optional per Tenant/SKU. V1 temperature capture is manual. Excursion places affected quantity on HOLD pending Release, CONTINUE_HOLD, REJECT or WASTE disposition; no automatic destruction.
+- Cold-chain is optional per Tenant/SKU. V1 temperature capture is manual. Excursion places affected quantity on HOLD pending `ColdChainDisposition`. `REJECT` means inventory is not accepted for normal sellable/fulfillment use; `RETURN_TO_SUPPLIER` is a possible physical action after that outcome. No automatic destruction.
 - Available Credit = Credit Limit - Active Credit Reservations - Outstanding Receivable Balances. Reservations and receivables must not double count.
 - Credit purchase reserves at PR submission; direct order reserves during same SO confirmation. Commitment and credit reservation are all-or-nothing.
 - Credit/net Receivable posts at Sales Order confirmation. Delivery or document issuance is not a universal trigger.

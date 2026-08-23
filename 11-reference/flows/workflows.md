@@ -16,24 +16,27 @@ proof.
 
 ```text
 Buyer -> Portal -> API -> Purchase Request -> Commercial Commitment
+      -> Inventory Reservation backing across eligible Warehouses
       -> Availability -> Credit -> Sales Order
 ```
 
 The Buyer draft builder stops before commitment; no Draft Sales Order is
-persisted. Submission creates the SKU + quantity commercial commitment.
-Availability and Credit are decision points; Sales Order conversion continues
-the commitment.
+persisted. Submission creates Warehouse-neutral SKU + quantity Commercial
+Commitment. Inventory Availability deterministically protects full demand,
+possibly across multiple eligible Warehouses. Availability and Credit are
+decision points; Sales Order conversion continues commitment and backing.
 
 ## 2. Warehouse and delivery flow
 
 ```text
-Sales Order -> Allocation -> Warehouse -> Picking -> Dispatch
-            -> Delivery -> Proof of Delivery (POD)
+Sales Order -> Warehouse Backing -> Fulfillment/Physical Allocation
+            -> Warehouse -> Picking -> Dispatch -> Delivery -> POD
 ```
 
-Allocation selects physical lots after commercial demand is known. Dispatch,
-Delivery and Route remain distinct. Partial delivery records the actual result
-and creates a continuation obligation for the remaining quantity.
+Warehouse Backing protects demand before lot selection and may span Warehouses.
+Physical Allocation later selects lots under Inventory Availability authority.
+Dispatch, Delivery and Route remain distinct. Partial delivery records the
+actual result and creates a continuation obligation for remaining quantity.
 
 ## 3. Payment and receivable flow
 
@@ -65,6 +68,6 @@ not the source of business truth.
 | Dimension | Status |
 | --- | --- |
 | Product invariants | ACCEPTED where linked to current decisions/rules. |
-| Domain ownership | ACCEPTED PRE-V1 target; implementation migration remains a construction gate. |
+| Domain ownership | ACCEPTED PRE-V1 target; construction authorized, implementation migration remains repository-specific evidence work. |
 | Technical handoffs | AS-IS evidence plus selective TARGET guidance. |
 | Authenticated browser proof | Not claimed by these diagrams. |

@@ -18,7 +18,7 @@ Inventory, credit, terminal lifecycles and delivery outcomes race under real ret
 
 ## Decision
 
-Use optimistic version/CAS for mutable objects, conditional updates or row locks for scarce resources, deterministic lock order, explicit stale outcomes and durable idempotency. Protect last unit, last credit, payment application, Expire-vs-Convert, Cancel-vs-Fulfillment and Deliver-vs-Cancel.
+Use optimistic version/CAS for mutable objects, conditional updates or row locks for scarce resources, deterministic lock order, explicit stale outcomes and durable idempotency. For multi-Warehouse backing, condition every affected SKU + Warehouse authority in deterministic order. Protect last unit, full multi-Warehouse demand, last credit, payment application, Expire-vs-Convert, Cancel-vs-Fulfillment and Deliver-vs-Cancel.
 
 ## Consequences
 

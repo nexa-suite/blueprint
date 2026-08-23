@@ -78,7 +78,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-01, persistence, idempotency.
 - **Out of Scope:** Multiple Workspaces per Tenant and Control Center.
 - **Related Business Events:** TenantActivated, WorkspaceAssociated.
-- **Related Blueprint Decisions:** Current accepted decisions; ADR tenant/workspace.
+- **Related Blueprint Decisions:** [ADR-0001](../04-architecture/adrs/adr-0001-tenant-workspace-v1.md) Tenant/Workspace; [ADR-0002](../04-architecture/adrs/adr-0002-global-identity-tenant-relationships.md) identity and Tenant relationships.
 
 #### US-003 — Govern workforce access
 
@@ -95,7 +95,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-01, RLS, Security Audit.
 - **Out of Scope:** Support impersonation without break-glass controls.
 - **Related Business Events:** WorkforceMembershipGranted, CapabilityChanged, MembershipSuspended.
-- **Related Blueprint Decisions:** Identity distinctions; fail-closed scope.
+- **Related Blueprint Decisions:** [ADR-0001](../04-architecture/adrs/adr-0001-tenant-workspace-v1.md) Tenant scope; [ADR-0017](../04-architecture/adrs/adr-0017-privileged-support-break-glass.md) break-glass boundary.
 
 ### EP03 — Customer Accounts
 
@@ -186,7 +186,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-03, Object Storage, security scanning.
 - **Out of Scope:** CDN/vendor selection and production storage policy.
 - **Related Business Events:** ProductMediaAssociated, MediaQuarantined.
-- **Related Blueprint Decisions:** Object Storage ADR; Production Gate.
+- **Related Blueprint Decisions:** [ADR-0005](../04-architecture/adrs/adr-0005-object-storage-for-binary-assets.md) Object Storage; Production Gate.
 
 ### EP06 — Pricing & Commercial Policy
 
@@ -241,7 +241,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-02, BC-03, BC-05, Portal.
 - **Out of Scope:** Automatic backorder or cart reservation.
 - **Related Business Events:** CartDraftCreated, CartItemChanged.
-- **Related Blueprint Decisions:** Cart != commitment.
+- **Related Blueprint Decisions:** [ADR-0007](../04-architecture/adrs/adr-0007-commercial-commitment-reservation-ownership.md) Cart/commitment/reservation separation.
 
 #### US-012 — Choose direct order or approval request
 
@@ -250,7 +250,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Business Value:** Supports Tenant-specific commercial operating models.
 - **Priority:** MUST
 - **Story Points:** TBD — DELIVERY REFINEMENT
-- **Business Rules:** Direct order and approval-required paths have authoritative validation; no partial order/backorder.
+- **Business Rules:** Direct order and approval-required paths have authoritative validation and complete Inventory Reservation backing; no partial order/backorder.
 - **Preconditions:** Cart and active relationship.
 - **Acceptance Criteria:**
   - Given direct mode and sufficient current conditions, when checkout is confirmed, then the atomic SO decision is attempted.
@@ -258,7 +258,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-03, BC-04, BC-05, BC-07.
 - **Out of Scope:** Draft SO persistence.
 - **Related Business Events:** DirectOrderRequested, PurchaseRequestSubmitted.
-- **Related Blueprint Decisions:** Atomic commercial confirmation.
+- **Related Blueprint Decisions:** [ADR-0006](../04-architecture/adrs/adr-0006-atomic-commercial-confirmation-boundary.md) atomic commercial confirmation; [ADR-0007](../04-architecture/adrs/adr-0007-commercial-commitment-reservation-ownership.md) commitment/reservation ownership.
 
 ### EP08 — Purchase Requests
 
@@ -269,16 +269,16 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Business Value:** Reliable commercial demand without physical lot selection.
 - **Priority:** MUST
 - **Story Points:** TBD — DELIVERY REFINEMENT
-- **Business Rules:** Submit creates Commercial Commitment and Credit Reservation when applicable in one logical transaction; expiry starts.
+- **Business Rules:** Submit creates Warehouse-neutral Commercial Commitment, complete Inventory Reservation backing and Credit Reservation when applicable in one logical transaction; expiry starts.
 - **Preconditions:** Authoritative price, active relationship, valid Cart and sufficient availability/credit.
 - **Acceptance Criteria:**
-  - Given all required validations pass, when submit is accepted, then PR is SUBMITTED with complete commitment, applicable credit reservation, `expiresAt` and traceability.
-  - Given insufficient availability or credit, when submit is attempted, then no partial commitment or reservation remains and rejection is visible.
+  - Given all required validations pass, when submit is accepted, then PR is SUBMITTED with complete commitment, complete deterministic Warehouse Backing, applicable credit reservation, `expiresAt` and traceability.
+  - Given insufficient availability or credit, when submit is attempted, then no partial commitment, Warehouse Backing or reservation remains and rejection is visible.
   - Given a repeated idempotency key after timeout, when retried, then the original outcome is returned without duplicate effects.
 - **Dependencies:** BC-02, BC-03, BC-04, BC-05, BC-07, outbox/inbox.
 - **Out of Scope:** Lot selection and automatic backorder.
 - **Related Business Events:** PurchaseRequestSubmitted, CommercialCommitmentEstablished, CreditReservationEstablished.
-- **Related Blueprint Decisions:** ADR atomic confirmation; expiry; idempotency.
+- **Related Blueprint Decisions:** [ADR-0006](../04-architecture/adrs/adr-0006-atomic-commercial-confirmation-boundary.md) atomic confirmation; [ADR-0007](../04-architecture/adrs/adr-0007-commercial-commitment-reservation-ownership.md) ownership; [ADR-0014](../04-architecture/adrs/adr-0014-time-driven-purchase-request-expiration.md) expiry; [ADR-0015](../04-architecture/adrs/adr-0015-business-idempotency-and-duplicate-suppression.md) idempotency.
 
 #### US-014 — Review and respond to material change
 
@@ -287,16 +287,17 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Business Value:** Controlled negotiation without silent mutation.
 - **Priority:** MUST
 - **Story Points:** TBD — DELIVERY REFINEMENT
-- **Business Rules:** PR can enter CHANGES_PROPOSED; Buyer does not freely mutate submitted content; material agreed change resets validity; substitution is never silent.
+- **Business Rules:** PR can enter CHANGES_PROPOSED; Buyer does not freely mutate submitted content; material agreed change resets validity; accepted material change requires Buyer acceptance, revalidation and atomic replacement/adjustment of affected commitment, complete Warehouse Backing and applicable credit; substitution is never silent.
 - **Preconditions:** PR is SUBMITTED and not terminal/expired.
 - **Acceptance Criteria:**
   - Given a material change, when Sales proposes it, then a revision and evidence are stored and Buyer sees the change.
-  - Given Buyer accepts, when dependencies are revalidated, then the accepted revision can continue; given rejection, then original/terminal policy is explicit and traceable.
+  - Given Buyer accepts, when dependencies are revalidated, then the accepted revision atomically replaces/adjusts affected commitment, Warehouse Backing and applicable credit before it can continue; on failure, prior authoritative state remains and no partial new state leaks.
+  - Given Buyer rejects the proposed change, when response commits, then no new commitment/backing/credit state is applied and original/terminal policy is explicit and traceable.
   - Given stale revision, when an actor responds, then CONFLICT / STALE_STATE is returned and no silent overwrite occurs.
 - **Dependencies:** BC-04, BC-03, BC-05, BC-07.
 - **Out of Scope:** Universal reconfirmation ceremony after every non-material change.
 - **Related Business Events:** PurchaseRequestChangesProposed, BuyerChangeAccepted, BuyerChangeRejected.
-- **Related Blueprint Decisions:** Concurrency; historical snapshots.
+- **Related Blueprint Decisions:** [ADR-0006](../04-architecture/adrs/adr-0006-atomic-commercial-confirmation-boundary.md) atomic replacement boundary; [ADR-0008](../04-architecture/adrs/adr-0008-concurrency-control-by-invariant.md) concurrency; [ADR-0009](../04-architecture/adrs/adr-0009-historical-facts-reversals-corrections.md) historical snapshots.
 
 #### US-015 — Withdraw, reject or expire a PR
 
@@ -308,13 +309,13 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Business Rules:** First valid terminal transition wins; terminal PR never reopens; `now >= expiresAt` blocks conversion; worker is idempotent.
 - **Preconditions:** PR is active and within authority.
 - **Acceptance Criteria:**
-  - Given active PR and valid withdrawal/rejection, when transition commits, then PR becomes terminal and Commercial Inventory Commitment plus applicable credit effects are released once.
+  - Given active PR and valid withdrawal/rejection, when transition commits, then PR becomes terminal and Commercial Inventory Commitment, complete Warehouse Backing and applicable credit effects are released once.
   - Given current time at or after `expiresAt`, when conversion is attempted before worker runs, then conversion fails and the expiry outcome is materialized safely.
   - Given duplicate worker delivery, when expiry runs again, then no duplicate release or event occurs.
 - **Dependencies:** BC-04, BC-05, BC-07, worker lease/fencing.
 - **Out of Scope:** Scheduler punctuality as a correctness requirement.
 - **Related Business Events:** PurchaseRequestWithdrawn, PurchaseRequestRejected, PurchaseRequestExpired.
-- **Related Blueprint Decisions:** ADR expiry; transaction semantics.
+- **Related Blueprint Decisions:** [ADR-0014](../04-architecture/adrs/adr-0014-time-driven-purchase-request-expiration.md) expiry; [ADR-0006](../04-architecture/adrs/adr-0006-atomic-commercial-confirmation-boundary.md) transaction boundary; [ADR-0015](../04-architecture/adrs/adr-0015-business-idempotency-and-duplicate-suppression.md) idempotency.
 
 ### EP09 — Sales Orders
 
@@ -325,7 +326,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Business Value:** Stable commercial truth for downstream operations.
 - **Priority:** MUST
 - **Story Points:** TBD — DELIVERY REFINEMENT
-- **Business Rules:** SO born CONFIRMED; commitment ownership transfers PR -> SO; direct order is atomic with required inventory/credit effects.
+- **Business Rules:** SO born CONFIRMED; commitment ownership transfers PR -> SO without release/re-reserve gap; direct order is atomic with complete inventory backing and required credit effects.
 - **Preconditions:** Valid direct order or eligible PR; no stale/expired state.
 - **Acceptance Criteria:**
   - Given eligible commercial intent, when confirmation commits, then SO is CONFIRMED with frozen price/terms/line snapshots and no release gap.
@@ -333,7 +334,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-03, BC-04, BC-05, BC-07.
 - **Out of Scope:** Draft SO and financial settlement claim.
 - **Related Business Events:** SalesOrderConfirmed, CommitmentOwnershipTransferred.
-- **Related Blueprint Decisions:** Atomic confirmation; immutable history.
+- **Related Blueprint Decisions:** [ADR-0006](../04-architecture/adrs/adr-0006-atomic-commercial-confirmation-boundary.md) atomic confirmation; [ADR-0007](../04-architecture/adrs/adr-0007-commercial-commitment-reservation-ownership.md) ownership; [ADR-0009](../04-architecture/adrs/adr-0009-historical-facts-reversals-corrections.md) immutable history.
 
 #### US-017 — Correct or cancel a confirmed SO
 
@@ -350,7 +351,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-04, BC-05, BC-07, BC-09, traceability.
 - **Out of Scope:** Silent edit and automatic erasure of payment history.
 - **Related Business Events:** SalesOrderCancelled, SalesOrderReplaced, FinancialAdjustmentIssued.
-- **Related Blueprint Decisions:** Historical facts and corrections.
+- **Related Blueprint Decisions:** [ADR-0009](../04-architecture/adrs/adr-0009-historical-facts-reversals-corrections.md) historical facts and corrections.
 
 ### EP10 — Inventory Availability
 
@@ -361,7 +362,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Business Value:** Prevents oversell and misleading availability.
 - **Priority:** MUST
 - **Story Points:** TBD — DELIVERY REFINEMENT
-- **Business Rules:** usable on-hand - commitments - Safety Stock; excluded states are not sellable; tenant-wide totals are projections.
+- **Business Rules:** usable on-hand - active commitments - Safety Stock; Inventory Reservation backing distributes demand deterministically across SKU+Warehouse without double counting; excluded states are not sellable; tenant-wide totals are projections.
 - **Preconditions:** Authorized relationship/context.
 - **Acceptance Criteria:**
   - Given physical stock with holds, expiry, transit or safety stock, when availability is calculated, then only sellable quantity is presented.
@@ -369,7 +370,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-05, BC-04, RLS.
 - **Out of Scope:** Automatic backorder.
 - **Related Business Events:** AvailabilityChanged, AvailabilityConflict.
-- **Related Blueprint Decisions:** Availability invariant; concurrency.
+- **Related Blueprint Decisions:** [ADR-0007](../04-architecture/adrs/adr-0007-commercial-commitment-reservation-ownership.md) availability ownership; [ADR-0008](../04-architecture/adrs/adr-0008-concurrency-control-by-invariant.md) concurrency.
 
 #### US-019 — Allocate physical lots under FEFO
 
@@ -378,7 +379,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Business Value:** Safe, traceable stock movement.
 - **Priority:** MUST
 - **Story Points:** TBD — DELIVERY REFINEMENT
-- **Business Rules:** Inventory Availability owns allocation authority; FEFO default; override requires reason; expired/quarantined lots cannot be selected.
+- **Business Rules:** Inventory Availability owns deterministic Warehouse Backing and later Physical Allocation authority; one SO line may span eligible Warehouses; FEFO default; override requires reason; expired/quarantined lots cannot be selected.
 - **Preconditions:** Confirmed SO/fulfillment and usable lots.
 - **Acceptance Criteria:**
   - Given multiple eligible lots, when allocation runs, then FEFO is selected unless authorized reasoned override exists.
@@ -386,7 +387,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-05, BC-06.
 - **Out of Scope:** Silent substitution.
 - **Related Business Events:** PhysicalAllocationCreated, FEFOOverrideRecorded, FulfillmentShortage.
-- **Related Blueprint Decisions:** Commitment vs allocation.
+- **Related Blueprint Decisions:** [ADR-0007](../04-architecture/adrs/adr-0007-commercial-commitment-reservation-ownership.md) commitment vs allocation; [ADR-0008](../04-architecture/adrs/adr-0008-concurrency-control-by-invariant.md) invariant protection.
 
 ### EP11 — Receiving & Warehouse
 
@@ -450,7 +451,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Business Value:** Honest resolution of physical constraints.
 - **Priority:** MUST
 - **Story Points:** TBD — DELIVERY REFINEMENT
-- **Business Rules:** detect, reallocate if possible, partially fulfill if possible, retain unresolved commercial remainder; Sales authority decides cancellation.
+- **Business Rules:** detect, reallocate across eligible Warehouses if possible, partially fulfill only after explicit physical shortage, retain unresolved commercial remainder; Sales authority decides cancellation.
 - **Preconditions:** Fulfillment allocation cannot satisfy committed quantity.
 - **Acceptance Criteria:**
   - Given a shortage, when reallocation is possible, then a new valid allocation is recorded with reason.
@@ -458,7 +459,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-04, BC-05, BC-06, traceability.
 - **Out of Scope:** Silent substitution or hidden deletion.
 - **Related Business Events:** FulfillmentShortage, AllocationReplanned, CommercialRemainderCreated.
-- **Related Blueprint Decisions:** Shortage semantics.
+- **Related Blueprint Decisions:** [ADR-0007](../04-architecture/adrs/adr-0007-commercial-commitment-reservation-ownership.md) backing/allocation ownership; [ADR-0008](../04-architecture/adrs/adr-0008-concurrency-control-by-invariant.md) invariant protection.
 
 ### EP13 — Dispatch & Delivery
 
@@ -522,7 +523,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Business Value:** Safe cold-chain operations with reasoned disposition.
 - **Priority:** MUST
 - **Story Points:** TBD — DELIVERY REFINEMENT
-- **Business Rules:** optional per Tenant/SKU; excursion -> HOLD; dispositions Release, Continue Hold, Reject or Waste; IoT deferred.
+- **Business Rules:** optional per Tenant/SKU; excursion -> HOLD; `ColdChainDisposition` is `RELEASE`, `CONTINUE_HOLD`, `REJECT` or `WASTE`; `REJECT` is not synonymous with automatic `RETURN_TO_SUPPLIER`; IoT deferred.
 - **Preconditions:** SKU/lot requires temperature policy or operator records an observation.
 - **Acceptance Criteria:**
   - Given out-of-range evidence, when recorded, then affected quantity is HOLD and unavailable for sellable availability.
@@ -530,7 +531,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-05, BC-06, traceability.
 - **Out of Scope:** IoT automation and laboratory/QMS.
 - **Related Business Events:** TemperatureRecorded, TemperatureExcursionDetected, TemperatureDispositioned.
-- **Related Blueprint Decisions:** Cold-chain optional capability.
+- **Related Blueprint Decisions:** Cold-chain optional capability; [ADR-0007](../04-architecture/adrs/adr-0007-commercial-commitment-reservation-ownership.md) Inventory ownership.
 
 ### EP15 — Credit
 
@@ -567,7 +568,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-04, BC-07, transaction/concurrency/idempotency.
 - **Out of Scope:** Global credit bureau or advanced underwriting.
 - **Related Business Events:** CreditReservationEstablished, CreditReservationReleased, ReceivablePosted.
-- **Related Blueprint Decisions:** Credit lifecycle; atomic boundary.
+- **Related Blueprint Decisions:** [ADR-0006](../04-architecture/adrs/adr-0006-atomic-commercial-confirmation-boundary.md) atomic boundary; [ADR-0008](../04-architecture/adrs/adr-0008-concurrency-control-by-invariant.md) credit concurrency.
 
 ### EP16 — Receivables & Payments
 
@@ -586,7 +587,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-04, BC-07, BC-09.
 - **Out of Scope:** SUNAT Credit Note and full accounting.
 - **Related Business Events:** ReceivablePosted, FinancialAdjustmentIssued.
-- **Related Blueprint Decisions:** Financial corrections.
+- **Related Blueprint Decisions:** [ADR-0009](../04-architecture/adrs/adr-0009-historical-facts-reversals-corrections.md) financial corrections.
 
 #### US-031 — Report and confirm a Payment
 
@@ -603,7 +604,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-08, BC-07, provider ACL, inbox/idempotency.
 - **Out of Scope:** Provider vendor selection beyond V1 Stripe direction.
 - **Related Business Events:** PaymentReported, PaymentConfirmed, PaymentRejected.
-- **Related Blueprint Decisions:** Payment separation; event contract.
+- **Related Blueprint Decisions:** [ADR-0012](../04-architecture/adrs/adr-0012-domain-and-published-event-contracts.md) event contract; [ADR-0009](../04-architecture/adrs/adr-0009-historical-facts-reversals-corrections.md) payment history.
 
 #### US-032 — Recover prepaid payment/order failure
 
@@ -620,7 +621,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-08, BC-04, provider ACL, outbox/inbox.
 - **Out of Scope:** Automatic promise of instant refund timing.
 - **Related Business Events:** PaymentUnallocated, RefundInitiated, RefundFailed, ReconciliationRequired.
-- **Related Blueprint Decisions:** Financial history; Production Gate.
+- **Related Blueprint Decisions:** [ADR-0009](../04-architecture/adrs/adr-0009-historical-facts-reversals-corrections.md) financial history; Production Gate.
 
 ### EP17 — Business Documents
 
@@ -639,7 +640,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-09, Object Storage, source contexts.
 - **Out of Scope:** SUNAT integration and destructive retention deletion.
 - **Related Business Events:** BusinessDocumentIssued, BusinessDocumentReplaced.
-- **Related Blueprint Decisions:** Business Documents.
+- **Related Blueprint Decisions:** [ADR-0005](../04-architecture/adrs/adr-0005-object-storage-for-binary-assets.md) binary evidence boundary; [ADR-0009](../04-architecture/adrs/adr-0009-historical-facts-reversals-corrections.md) immutable corrections.
 
 ### EP18 — Notifications
 
@@ -658,7 +659,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-10, outbox/inbox, Email Delivery Service.
 - **Out of Scope:** WhatsApp delivery provider and guaranteed external delivery.
 - **Related Business Events:** NotificationCandidateCreated, NotificationDelivered, NotificationDeliveryFailed.
-- **Related Blueprint Decisions:** Notifications vs Traceability.
+- **Related Blueprint Decisions:** [ADR-0012](../04-architecture/adrs/adr-0012-domain-and-published-event-contracts.md) event contract; [ADR-0011](../04-architecture/adrs/adr-0011-durable-business-traceability.md) Notifications vs Traceability.
 
 ### EP19 — Business Traceability
 
@@ -677,7 +678,7 @@ Story actors use V1 personas from [Primary personas](personas/primary-personas.m
 - **Dependencies:** BC-11, all source BCs, RLS.
 - **Out of Scope:** Security Audit viewer as a Buyer timeline.
 - **Related Business Events:** BusinessFactTraced, TimelineProjectionUpdated.
-- **Related Blueprint Decisions:** Durable traceability.
+- **Related Blueprint Decisions:** [ADR-0011](../04-architecture/adrs/adr-0011-durable-business-traceability.md) durable traceability.
 
 ### EP20 — Operational Visibility
 

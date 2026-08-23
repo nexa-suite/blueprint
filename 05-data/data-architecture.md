@@ -18,8 +18,8 @@ Shared PostgreSQL is the V1 topology. It is infrastructure, not a Bounded Contex
 | Customer Account and Buyer Relationship | Customer & Buyer Relationships | relationship status and eligible account reference |
 | Product, SKU, visibility, price lists, terms, promotions | Catalog & Commercial Policy | resolved offer and immutable snapshot |
 | Purchase Request, Commercial Commitment, Sales Order and revisions | Sales Commitment | status, line, snapshot and commitment reference |
-| physical stock, Inventory Lot, Sellable Availability, Safety Stock, HOLD/QUARANTINE | Inventory Availability | availability, movement, shortage and allocation contracts |
-| Physical Allocation authority | Inventory Availability | Fulfillment execution receives selected lot/quantity contract |
+| physical stock, Inventory Lot, Sellable Availability, Safety Stock, Inventory Reservation, Warehouse Backing, HOLD/QUARANTINE | Inventory Availability | availability, deterministic multi-Warehouse protection, movement, shortage and allocation contracts |
+| Physical Allocation authority | Inventory Availability | Fulfillment execution receives selected lot/quantity contract after Warehouse backing |
 | Fulfillment, Dispatch, Delivery, Attempt, Continuation and POD | Fulfillment & Delivery | progress/outcome/evidence projections |
 | Credit Limit, Credit Reservation, Available Credit, Receivable and Financial Adjustment | Credit & Receivables | credit decision and financial status |
 | Payment report/confirmation, provider event, refund and reconciliation | Payments | provider-neutral Payment facts |
@@ -36,8 +36,8 @@ Financial Adjustment business effect belongs to Credit & Receivables; an issued 
 - Every tenant-scoped row has an explicit scope path appropriate to its owner. Client-supplied Tenant IDs are never authorization.
 - RLS, application authorization, repository predicates and worker scope form defense in depth. Missing context fails closed. Use transaction-local PostgreSQL scope (`SET LOCAL`), never unsafe pooled session state.
 - Submitted PR and confirmed SO retain price, terms, line, delivery and commercial snapshots. Inventory facts retain lot, expiry, quantity, hold/disposition and allocation evidence. Payment and document facts retain provider/reference identity without secrets.
-- `Sellable Availability = usable physical on-hand - active Commercial Commitments - Safety Stock`. HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are excluded from usable sellable quantity.
-- Inventory Availability owns Physical Allocation authority; Fulfillment & Delivery owns execution. Allocation cannot exceed commitment or usable physical quantity.
+- `Sellable Availability = usable physical on-hand - active Commercial Commitments - Safety Stock` at business scope. Inventory Reservation backing distributes protected demand across SKU + Warehouse authorities without double counting. HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are excluded from usable sellable quantity.
+- Inventory Availability owns Inventory Reservation backing, deterministic Warehouse sourcing and Physical Allocation authority; Fulfillment & Delivery owns execution. One demand line may be backed by multiple eligible Warehouses. Physical Allocation cannot exceed committed/backed quantity or usable physical quantity.
 - Credit formula is `Credit Limit - Active Credit Reservations - Outstanding Receivable Balances`. Reservation-to-receivable transition is explicit and cannot double count.
 - Append-only traceability and issued documents preserve history. Retention/deletion/anonymization periods are Production/Legal Gate decisions; no destructive deletion is assumed.
 
