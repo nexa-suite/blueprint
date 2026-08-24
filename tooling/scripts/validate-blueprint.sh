@@ -18,6 +18,55 @@ paths = subprocess.check_output(
 files = [root / p for p in paths]
 failures = []
 warnings = []
+existing_paths = [p for p in paths if (root / p).exists()]
+
+required_roots = {"00-start-here", "01-shared", "02-web", "03-mobile", "04-delivery", "90-academic", "91-reference", "tooling"}
+missing_roots = sorted(name for name in required_roots if not (root / name).is_dir())
+if missing_roots:
+    failures.append(f"missing canonical roots: {missing_roots}")
+for stale_root in ("01-product", "02-domain", "03-system", "04-web", "05-mobile", "06-delivery", "07-engineering", "08-operations"):
+    if (root / stale_root).exists():
+        failures.append(f"stale conceptual root remains: {stale_root}")
+
+tracked_dirs = {str(Path(rel).parent) for rel in existing_paths if "/" in rel}
+for directory in sorted(tracked_dirs):
+    if directory.startswith((".git", "10-repositories", "11-reference")):
+        continue
+    if not any(rel.startswith(directory + "/") for rel in existing_paths):
+        failures.append(f"empty canonical directory: {directory}")
+
+for duplicate in (
+    "01-shared/domain/strategic-ddd-index.md",
+    "01-shared/domain/bounded-contexts/canonical-catalog.md",
+    "01-shared/domain/bounded-contexts/canonical-canvases.md",
+    "01-shared/architecture/c4/level-1-system-context.md",
+    "01-shared/architecture/c4/level-2-containers.md",
+    "01-shared/architecture/c4/structurizr/workspace.json",
+):
+    if (root / duplicate).exists():
+        failures.append(f"duplicate or generated canonical path remains: {duplicate}")
+
+expected_c4_files = [
+    "01-shared/architecture/c4/structurizr/workspace.dsl",
+    "01-shared/architecture/c4/structurizr/model/people.dsl",
+    "01-shared/architecture/c4/structurizr/model/systems.dsl",
+    "01-shared/architecture/c4/structurizr/model/containers.dsl",
+    "01-shared/architecture/c4/structurizr/model/components.dsl",
+    "01-shared/architecture/c4/structurizr/model/relationships.dsl",
+    "01-shared/architecture/c4/structurizr/l1/l1.dsl",
+    "01-shared/architecture/c4/structurizr/l2/l2.dsl",
+    "01-shared/architecture/c4/structurizr/l3/api.dsl",
+    "01-shared/architecture/c4/structurizr/l3/platform.dsl",
+    "01-shared/architecture/c4/structurizr/l3/portal.dsl",
+    "01-shared/architecture/c4/structurizr/l3/website.dsl",
+    "01-shared/architecture/c4/structurizr/l3/operations-mobile.dsl",
+    "01-shared/architecture/c4/structurizr/l3/buyer-mobile.dsl",
+    "01-shared/architecture/c4/structurizr/styles/styles.dsl",
+    "01-shared/architecture/c4/structurizr/generated/workspace.json",
+]
+for expected in expected_c4_files:
+    if not (root / expected).is_file():
+        failures.append(f"missing canonical C4 file: {expected}")
 
 for rel in paths:
     if not (root / rel).exists():
@@ -93,7 +142,7 @@ for rel in paths:
             if not candidate.exists() or (root not in candidate.parents and candidate != root):
                 failures.append(f"broken relative Markdown link {target!r}: {rel}")
 
-c4 = root / "03-system/c4/structurizr/workspace.json"
+c4 = root / "01-shared/architecture/c4/structurizr/generated/workspace.json"
 try:
     workspace = json.loads(c4.read_text(encoding="utf-8"))
     views = workspace["views"]
@@ -138,7 +187,7 @@ print("- links, metadata, publication boundary, secret heuristics and C4 workspa
 PY
 
 docker run --rm \
-  -v "$ROOT/03-system/c4/structurizr:/usr/local/structurizr:ro" \
+  -v "$ROOT/01-shared/architecture/c4/structurizr:/usr/local/structurizr:ro" \
   structurizr/structurizr:2026.06.28 validate \
   -workspace /usr/local/structurizr/workspace.dsl
 
@@ -149,7 +198,7 @@ GENERATED_DIR="$(mktemp -d)"
 # this ephemeral validation directory.
 chmod 777 "$GENERATED_DIR"
 docker run --rm \
-  -v "$ROOT/03-system/c4/structurizr:/usr/local/structurizr:ro" \
+  -v "$ROOT/01-shared/architecture/c4/structurizr:/usr/local/structurizr:ro" \
   -v "$GENERATED_DIR:/generated" \
   structurizr/structurizr:2026.06.28 export \
   -workspace /usr/local/structurizr/workspace.dsl \
@@ -158,4 +207,4 @@ docker run --rm \
 
 python3 tooling/scripts/compare-structurizr-semantic.py \
   "$GENERATED_DIR/workspace.json" \
-  "$ROOT/03-system/c4/structurizr/workspace.json"
+  "$ROOT/01-shared/architecture/c4/structurizr/generated/workspace.json"

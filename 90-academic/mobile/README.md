@@ -1,15 +1,8 @@
-# Academic Mobile projection
+# Academic Mobile Evidence
 
-Structure-only workspace. Mobile remains PROPOSED / DISCOVERY; no academic scaffold changes that status.
+Mobile research boundary for coursework. Status: `PROPOSED / RESEARCH
+VALIDATION PENDING`.
 
-- [Lean UX](lean-ux/README.md)
-- [Research](research/README.md)
-- [Needfinding](needfinding/README.md)
-- [Personas](personas/README.md)
-- [Impact Mapping](impact-mapping/README.md)
-- [Product Backlog](product-backlog/README.md)
-- [DDD evidence](ddd-evidence/README.md)
-- [UX/UI](ux-ui/README.md)
-- [SCM](scm/README.md)
-- [Sprints](sprints/README.md)
-- [Validation](validation/README.md)
+No Mobile interviews, personas, journeys, requirements or validation results are
+fabricated here. Class research may add evidence with provenance; current
+Mobile product remains in [03-mobile](../../03-mobile/README.md).

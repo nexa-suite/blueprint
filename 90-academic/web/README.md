@@ -1,15 +1,9 @@
-# Academic Web projection
+# Academic Web Evidence
 
-Structure-only workspace. Canonical truth remains in Product, Domain, System, Web and Delivery roots.
+Academic projection of Web discovery. Canonical current Web material lives in
+[Web UX discovery](../../02-web/ux/discovery/README.md); this root records
+mapping and provenance only.
 
-- [Lean UX](lean-ux/README.md)
-- [Research](research/README.md)
-- [Needfinding](needfinding/README.md)
-- [Personas](personas/README.md)
-- [Impact Mapping](impact-mapping/README.md)
-- [Product Backlog](product-backlog/README.md)
-- [DDD evidence](ddd-evidence/README.md)
-- [UX/UI](ux-ui/README.md)
-- [SCM](scm/README.md)
-- [Sprints](sprints/README.md)
-- [Validation](validation/README.md)
+- Source: [nexa-ecosystem-report](https://github.com/upc-pre-202610-1asi0730-12242-king/nexa-ecosystem-report)
+- Salvage audit: [91-reference/research](../../91-reference/research/lean-ux-salvage-audit.md)
+- Status: `HISTORICAL`; reuse `WEB-REUSABLE` only after current review.

@@ -1,23 +1,48 @@
-# Start here
+# Nexa Blueprint
 
-Human entry point for Nexa Blueprint. Read in this order when context is new:
+Nexa is a multi-tenant B2B SaaS platform for importers and distributors,
+especially cold-chain operations. Blueprint documents product intent, shared
+domain, surface projections and delivery evidence.
 
-1. [Source of truth](source-of-truth.md)
-2. [Current accepted decisions](current-decisions.md)
-3. [Current status](current-status.md)
-4. [Blueprint map](blueprint-map.md)
+## In three minutes
 
-## Choose by question
+- **Shared**: product, one domain, Design System, architecture, data, security and engineering.
+- **Web**: Website, Internal Platform and Buyer Portal.
+- **Mobile**: two proposed apps; research validation pending.
+- **DDD**: [01-shared/domain](../01-shared/domain/README.md).
+- **C4**: [01-shared/architecture/c4](../01-shared/architecture/c4/README.md).
+- **Design**: [01-shared/design](../01-shared/design/README.md), sourced from [Design Lab](https://github.com/nexa-suite/design-lab).
+- **Requirements**: [Web](../02-web/requirements/README.md) and [Mobile](../03-mobile/requirements/README.md).
+- **Academic evidence**: [90-academic](../90-academic/README.md); historical source in [91-reference](../91-reference/README.md).
 
-| Question | Area |
-| --- | --- |
-| What is Nexa and for whom? | [01-product](../01-product/README.md) |
-| How does the business/domain work? | [02-domain](../02-domain/README.md) |
-| How is Nexa technically built? | [03-system](../03-system/README.md) |
-| How are Website, Platform and Portal experienced? | [04-web](../04-web/README.md) |
-| What is planned for native/mobile? | [05-mobile](../05-mobile/README.md) |
-| What is implemented or open? | [06-delivery](../06-delivery/README.md) |
-| What supports academic delivery? | [90-academic](../90-academic/README.md) |
-| What is historical or evidentiary? | [91-reference](../91-reference/README.md) |
+## If you are...
 
-Repository map: [independent repositories](repository-map.md). Validation: `bash tooling/scripts/validate-blueprint.sh`.
+| Role | Start |
+|---|---|
+| Product student | [Shared product](../01-shared/product/README.md) and [Web UX discovery](../02-web/ux/discovery/README.md) |
+| Domain architect | [Strategic DDD](../01-shared/domain/strategic-ddd/README.md) and [11 BCs](../01-shared/domain/bounded-contexts/README.md) |
+| Frontend engineer | [Web](../02-web/README.md) and [shared Design](../01-shared/design/README.md) |
+| Backend engineer | [Shared domain](../01-shared/domain/README.md), [C4](../01-shared/architecture/c4/README.md) and [AS-IS](../04-delivery/as-is/README.md) |
+| Mobile engineer | [Mobile](../03-mobile/README.md), status proposed |
+| Professor/reviewer | [Academic](../90-academic/README.md), [status](status.md) and [repository map](repository-map.md) |
+
+## Repository tree
+
+```text
+00-start-here/  navigation and status
+01-shared/     cross-surface product, domain, design and architecture
+02-web/        Website, Platform and Buyer Portal
+03-mobile/     proposed Operations Mobile and Buyer Mobile
+04-delivery/   AS-IS, runtime, CI/CD and Production Gate
+90-academic/   isolated course projections
+91-reference/  historical, research and source material
+tooling/       validators and local tools
+```
+
+Status dimensions are separate: decision `ACCEPTED / PROPOSED / DEFERRED`;
+research `VALIDATED / PARTIALLY_VALIDATED / PENDING`; implementation
+`IMPLEMENTED / PARTIAL / PLANNED / FUTURE`; production `READY / OPEN`.
+
+Read [navigation](navigation.md), [status](status.md), [repository map](repository-map.md),
+[source of truth](../01-shared/engineering/governance/source-of-truth.md) and
+[current decisions](../01-shared/product/current-decisions.md) next.

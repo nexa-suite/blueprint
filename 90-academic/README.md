@@ -1,8 +1,9 @@
 # Academic
 
-Isolated projection layer for course deliverables and rubric evidence. It is not canonical Product, Domain, System or Delivery truth.
+Isolated projection for coursework and rubric evidence. It is not canonical
+Product, Domain, Architecture or Delivery truth.
 
-- [Web projection](web/README.md)
-- [Mobile projection](mobile/README.md)
+- [Web evidence](web/README.md)
+- [Mobile evidence](mobile/README.md)
 
-Only existing valid evidence may be moved here. No invented research, personas, requirements or validation is added by this refactor.
+Historical source and provenance live in [91-reference](../91-reference/README.md).
