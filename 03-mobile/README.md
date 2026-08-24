@@ -7,10 +7,10 @@ Decision status: `PROPOSED`. Research status: `PENDING`. Implementation:
 claimed.
 
 - [Product](product/README.md)
-- [Actors](actors/README.md)
+- [Actors](actors/README.md) — proposed projection of the [Shared actor catalog](../01-shared/product/actors.md)
 - [Segments](segments/README.md)
 - [Capabilities](capabilities/README.md)
-- [Requirements](requirements/README.md)
+- [Requirements](requirements/README.md) — proposed derivation boundary; no final stories
 - [UX and discovery](ux/README.md)
 - [Architecture](architecture/README.md)
 

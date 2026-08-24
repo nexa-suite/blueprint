@@ -6,11 +6,13 @@ owner: product
 last-reviewed: 2026-08-18
 ---
 
-# Primary personas
+# Web actor projection (compatibility)
 
-Personas identify actors and responsibilities only. They do not define Bounded Contexts or final authorization architecture.
+The canonical catalog is [Shared actors](../../01-shared/product/actors.md).
+This file preserves the former Web projection for existing links. It does not
+define a second actor list, Bounded Context or final authorization architecture.
 
-## V1
+## Historical Web projection
 
 - Prospective Customer Representative
 - Tenant Administrator
@@ -21,13 +23,7 @@ Personas identify actors and responsibilities only. They do not define Bounded C
 - Dispatch Coordinator
 - B2B Buyer
 
-Responsibilities are limited to those accepted in `00-start-here/current-decisions.md` and the C4 source.
+Responsibilities are limited to those accepted in [current decisions](../../01-shared/product/current-decisions.md) and the C4 source.
 
-## Runway
-
-- Delivery Driver
-
-## V2
-
-- Nexa Platform Administrator
-- Nexa Support Specialist
+Mobile and future actors are governed by the Shared catalog and their surface
+status documents.

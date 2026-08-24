@@ -35,6 +35,10 @@ for directory in sorted(tracked_dirs):
     if not any(rel.startswith(directory + "/") for rel in existing_paths):
         failures.append(f"empty canonical directory: {directory}")
 
+for directory in root.rglob("*"):
+    if directory.is_dir() and ".git" not in directory.parts and not any(directory.iterdir()):
+        failures.append(f"empty filesystem directory: {directory.relative_to(root)}")
+
 for duplicate in (
     "01-shared/domain/strategic-ddd-index.md",
     "01-shared/domain/bounded-contexts/canonical-catalog.md",
@@ -175,6 +179,37 @@ try:
         failures.append(f"unexpected V1 C4 containers: {sorted(v1)}")
 except Exception as exc:
     failures.append(f"workspace.json inspection failed: {exc}")
+
+bc_root = root / "01-shared/domain/bounded-contexts"
+bc_dirs = sorted(p.name for p in bc_root.iterdir() if p.is_dir() and p.name.startswith("BC-"))
+if len(bc_dirs) != 11:
+    failures.append(f"expected exactly 11 Bounded Context directories, found {len(bc_dirs)}")
+
+event_file = root / "01-shared/domain/events/published-events.md"
+published_events = re.findall(r"^\| `[^`]+\.v1` \|", event_file.read_text(encoding="utf-8"), re.MULTILINE)
+if len(published_events) != 14:
+    failures.append(f"expected 14 Published Integration Events, found {len(published_events)}")
+
+adr_count = len(list((root / "01-shared/architecture/decisions/adr").glob("adr-*.md")))
+if adr_count != 17:
+    failures.append(f"expected 17 ADRs, found {adr_count}")
+
+story_file = root / "02-web/requirements/user-stories/user-story-catalog.md"
+story_ids = re.findall(r"^#### (US-\d{3}) —", story_file.read_text(encoding="utf-8"), re.MULTILINE)
+expected_story_ids = [f"US-{i:03d}" for i in range(1, 38)]
+if story_ids != expected_story_ids:
+    failures.append(f"current Web story catalog is not the preserved US-001..US-037 set: {story_ids}")
+
+register_file = root / "02-web/requirements/current-story-baseline.md"
+register_ids = re.findall(r"^\| (US-\d{3}) \|", register_file.read_text(encoding="utf-8"), re.MULTILINE)
+if register_ids != expected_story_ids:
+    failures.append(f"Web story preservation register is incomplete: {register_ids}")
+
+mobile_requirements = "\n".join(
+    p.read_text(encoding="utf-8") for p in (root / "03-mobile/requirements").rglob("*.md")
+)
+if re.search(r"\bMOB-(?:EPIC|US)-\d+\b", mobile_requirements):
+    failures.append("Mobile requirements contain future IDs before research refinement")
 
 if failures:
     print("BLUEPRINT VALIDATION: FAIL")

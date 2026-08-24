@@ -6,4 +6,5 @@ mapping and provenance only.
 
 - Source: [nexa-ecosystem-report](https://github.com/upc-pre-202610-1asi0730-12242-king/nexa-ecosystem-report)
 - Salvage audit: [91-reference/research](../../91-reference/research/lean-ux-salvage-audit.md)
+- Evidence map: [pre-requirements evidence](evidence-map.md)
 - Status: `HISTORICAL`; reuse `WEB-REUSABLE` only after current review.

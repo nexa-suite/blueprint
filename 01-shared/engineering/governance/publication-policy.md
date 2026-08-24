@@ -34,7 +34,7 @@ The Blueprint publishes authored architecture and documentation only. This docum
 
 ## Excluded
 
-- Local application working trees under `10-repositories/active/` and `10-repositories/runway/`, `.git` metadata and application history.
+- Local application working trees outside this repository (`../api`, `../platform`, `../portal`, `../website`, `../mobile`), `.git` metadata and application history.
 - `.env*`, credentials, tokens, private keys, dumps, runtime volumes, caches, logs, temporary worktrees and machine-local state.
 - Commercial books, PDFs, EPUBs and other binaries without explicit redistribution rights.
 - Legacy assets marked `REVIEW_BEFORE_REPUBLICATION`, copied source trees and unsafe screenshots.

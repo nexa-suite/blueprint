@@ -1,4 +1,6 @@
-# Web Actors
+# Web actors
 
-[Web personas](personas.md) describe Web roles. Domain identity and access
-authority remain in [shared DDD](../../01-shared/domain/README.md).
+The canonical actor catalog is [Shared actors](../../01-shared/product/actors.md).
+Web projects it across Website, Internal Platform and Buyer Portal. The legacy
+[Web persona projection](personas.md) remains only as a compatibility pointer;
+it is not a second actor authority.

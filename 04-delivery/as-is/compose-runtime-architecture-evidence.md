@@ -12,13 +12,13 @@ last-reviewed: 2026-08-14
 
 Esta evidencia describe exactamente el Compose Modern local vigente, sin convertirlo en una arquitectura de producción:
 
-- Fuente: `10-repositories/active/api/ops/compose/modern.compose.yml`.
+- Fuente local: `../api/ops/compose/modern.compose.yml` (independent API checkout).
 - Proyecto Compose: `nexa-modern`.
 - SHA-256 observado: `6a3d3db77c0d32da822333a225624c848eeaae290b5e1a41728a7796102f7205`.
 - Validación: Docker Compose `v5.3.1`; `config --quiet` pasó con y sin `--profile observability`.
-- Los valores de `10-repositories/active/api/.env.local` no se registran aquí.
+- Los valores de `../api/.env.local` no se registran aquí.
 
-El archivo `10-repositories/active/api/ops/compose/compose.yml` también existe, pero representa el Compose dual Modern/Legacy con perfiles `modern` y `legacy`. Esta matriz no lo mezcla con el runtime Modern operado por `ops/compose/scripts/modern-up.sh`, `modern-down.sh` y `status.sh`. El README del repositorio API que todavía llama a `compose.yml` “canonical dual runtime” se clasifica aquí como documentación desactualizada respecto de la operación Modern actual; no se modifica como parte de esta tarea.
+El archivo `../api/ops/compose/compose.yml` también existe, pero representa el Compose dual Modern/Legacy con perfiles `modern` y `legacy`. Esta matriz no lo mezcla con el runtime Modern operado por `ops/compose/scripts/modern-up.sh`, `modern-down.sh` y `status.sh`. El README del repositorio API que todavía llama a `compose.yml` “canonical dual runtime” se clasifica aquí como documentación desactualizada respecto de la operación Modern actual; no se modifica como parte de esta tarea.
 
 Clasificación: AS-IS local. No es diseño TARGET, decisión de proveedor ni evidencia de despliegue productivo.
 
@@ -105,7 +105,7 @@ No es válido interpretar las imágenes locales, los named volumes, Mailpit, Wir
 
 ## 6. Validación reproducible y no mutante
 
-Ejecutado desde `10-repositories/active/api` sin imprimir secretos:
+Ejecutado desde el checkout independiente `../api` sin imprimir secretos:
 
 ```bash
 docker compose --env-file .env.local \

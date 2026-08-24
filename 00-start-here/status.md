@@ -10,7 +10,9 @@
 | ADRs | ACCEPTED; 17 preserved |
 | C4 | ACCEPTED; L1/L2 and selective L3; L4 outside Structurizr |
 | Web | ACCEPTED product definition; implementation evidence separate |
+| Web requirements | ACCEPTED baseline; 37 current stories; refinement PENDING |
 | Mobile | PROPOSED; research validation PENDING; two-app target |
+| Mobile requirements | PROPOSED; derivation and research PENDING |
 | Design System | ACCEPTED shared governance; Design Lab executable source |
 | Production | OPEN; Production Gate not closed |
 
