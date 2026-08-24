@@ -5,4 +5,4 @@ services:
     ports:
       - "9090:8080"
     volumes:
-      - ../../04-architecture/c4/structurizr:/usr/local/structurizr
+      - ../../03-system/c4/structurizr:/usr/local/structurizr

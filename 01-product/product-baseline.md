@@ -119,8 +119,8 @@ Deferred items include full Procurement, advanced CRM, advanced Finance, formal 
 
 ## Closure reconciliation
 
-This file remains the single Product / Business V1 authority. The Strategic DDD package in [02-domain/strategic-ddd](../02-domain/strategic-ddd/README.md) accepts business boundaries without changing frozen scope. Commitment existence, expiry, consent semantics, Credit formula, delivery continuation and payment/order failure handling are closed here.
+This file remains the single Product / Business V1 authority. The Strategic DDD package in [02-domain](../02-domain/README.md) accepts business boundaries without changing frozen scope. Commitment existence, expiry, consent semantics, Credit formula, delivery continuation and payment/order failure handling are closed here.
 
 ## Authority boundary
 
-See [Current accepted decisions](../00-governance/current-decisions.md), [V1 scope](scope/v1-scope.md), [Known domain rules](../02-domain/business-rules/known-rules.md) and [Unresolved decisions](unresolved-decisions.md). Product completeness remains distinct from AS-IS implementation evidence.
+See [Current accepted decisions](../00-start-here/current-decisions.md), [V1 scope](vision/v1-scope.md), [Known domain rules](../02-domain/business-rules.md) and [Unresolved decisions](rules/future-scope.md). Product completeness remains distinct from AS-IS implementation evidence.

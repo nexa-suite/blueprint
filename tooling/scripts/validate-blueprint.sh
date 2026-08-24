@@ -93,7 +93,7 @@ for rel in paths:
             if not candidate.exists() or (root not in candidate.parents and candidate != root):
                 failures.append(f"broken relative Markdown link {target!r}: {rel}")
 
-c4 = root / "04-architecture/c4/structurizr/workspace.json"
+c4 = root / "03-system/c4/structurizr/workspace.json"
 try:
     workspace = json.loads(c4.read_text(encoding="utf-8"))
     views = workspace["views"]
@@ -136,7 +136,7 @@ print("- links, metadata, publication boundary, secret heuristics and C4 workspa
 PY
 
 docker run --rm \
-  -v "$ROOT/04-architecture/c4/structurizr:/usr/local/structurizr:ro" \
+  -v "$ROOT/03-system/c4/structurizr:/usr/local/structurizr:ro" \
   structurizr/structurizr:2026.06.28 validate \
   -workspace /usr/local/structurizr/workspace.dsl
 
@@ -147,7 +147,7 @@ GENERATED_DIR="$(mktemp -d)"
 # this ephemeral validation directory.
 chmod 777 "$GENERATED_DIR"
 docker run --rm \
-  -v "$ROOT/04-architecture/c4/structurizr:/usr/local/structurizr:ro" \
+  -v "$ROOT/03-system/c4/structurizr:/usr/local/structurizr:ro" \
   -v "$GENERATED_DIR:/generated" \
   structurizr/structurizr:2026.06.28 export \
   -workspace /usr/local/structurizr/workspace.dsl \
@@ -156,4 +156,4 @@ docker run --rm \
 
 python3 tooling/scripts/compare-structurizr-semantic.py \
   "$GENERATED_DIR/workspace.json" \
-  "$ROOT/04-architecture/c4/structurizr/workspace.json"
+  "$ROOT/03-system/c4/structurizr/workspace.json"
