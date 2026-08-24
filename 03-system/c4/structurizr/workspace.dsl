@@ -1,18 +1,15 @@
-workspace "Nexa Suite" "Nexa C4 L1/L2 V1 baseline and Architecture Runway" {
+workspace "Nexa Suite" "Canonical Nexa C4 L1/L2 web baseline plus proposed Mobile projections" {
     !identifiers hierarchical
     model {
         !include model/people.dsl
-        !include model/nexa.dsl
-        !include model/external-systems.dsl
-        !include model/relationships-v1.dsl
-        !include model/relationships-runway.dsl
-        !include model/relationships-components.dsl
+        !include model/systems.dsl
+        !include model/containers.dsl
+        !include model/relationships.dsl
     }
-
     views {
-        !include views/v1.dsl
-        !include views/runway.dsl
-        !include views/components.dsl
+        !include levels/l1-system-context/views.dsl
+        !include levels/l2-containers/views.dsl
+        !include levels/l3-components/views.dsl
         !include styles/styles.dsl
     }
 }

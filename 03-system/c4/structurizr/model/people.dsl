@@ -1,13 +1,12 @@
-prospectiveCustomer = person "Prospective Customer Representative" "Evaluates Nexa and requests contact or a product demonstration"
-internalTenantWorkforce = person "Internal Tenant Workforce" "Grouped C4 actor for the shared internal surface: Tenant Administrator governs technical access; Company Owner governs company identity and workforce governance; Business Operations Manager supervises operations; Sales Representative manages commercial work; Warehouse Operator manages inventory; Dispatch Coordinator manages delivery execution"
-b2bBuyer = person "B2B Buyer" "Uses private Buyer experiences across authorized Tenant relationships; Buyer is not workforce membership"
-
-deliveryDriver = person "Delivery Driver" "Executes future delivery workflows" {
-    tags "Future"
-}
-nexaPlatformAdministrator = person "Nexa Platform Administrator" "Governs future platform-wide administration" {
-    tags "V2/Future"
-}
-nexaSupportSpecialist = person "Nexa Support Specialist" "Provides future Nexa support" {
-    tags "V2/Future"
+interestedCompany = person "Interested Company / Prospect" "Discovers Nexa and requests contact or a product demonstration"
+nexaCommercialStaff = person "Nexa Commercial & Onboarding Staff" "Handles assisted commercial intake and onboarding for a prospective Tenant"
+companyOwner = person "Company Owner" "Governs company identity and workforce governance within a Tenant"
+businessOperationsManager = person "Business Operations Manager" "Supervises authorized commercial and operational exceptions"
+tenantAdministrator = person "Tenant Administrator" "Governs technical access, memberships and capabilities within a Tenant"
+salesRepresentative = person "Sales Representative" "Manages customer relationships, offers and commercial work"
+warehouseOperator = person "Warehouse Operator" "Executes authorized receiving, inventory and warehouse workflows"
+dispatchCoordinator = person "Dispatch Coordinator" "Prepares dispatch, verifies handoff and coordinates delivery execution"
+b2bBuyer = person "B2B Buyer" "Uses authorized Buyer experiences for catalog, purchasing, delivery and documents"
+driverDeliveryOperator = person "Driver / Delivery Operator" "Executes assigned delivery attempts and captures delivery evidence" {
+    tags "PLANNED,PROPOSED"
 }
