@@ -10,25 +10,25 @@ last-reviewed: 2026-08-23
 
 Relationships describe authority and translation. They do not imply deployment, package dependency or shared database ownership.
 
-| Upstream | Downstream | Relationship | Contract / translation |
-|---|---|---|---|
-| Tenant & Access Governance | all tenant-scoped BCs | upstream authorization context | verified Tenant/Workspace scope, membership and capability decision; raw client Tenant IDs are never trusted |
-| Customer & Buyer Relationships | Catalog & Commercial Policy | relationship policy supplier | active relationship and eligibility reference; no shared Customer entity |
-| Customer & Buyer Relationships | Sales Commitment | account/actor supplier | Customer Account, Buyer Relationship and principal Buyer identity reference |
-| Catalog & Commercial Policy | Sales Commitment | Published Language / offer supplier | resolved price, terms, promotion and SKU cold-chain snapshot |
-| Sales Commitment | Inventory Availability | demand contract | Commercial Commitment ID, SKU, quantity, active/released status; no Warehouse/Lot selection |
-| Inventory Availability | Sales Commitment | availability decision supplier | atomic full-protection result with Inventory Reservation/ Warehouse Backing references; availability does not own SO |
-| Sales Commitment | Credit & Receivables | credit demand contract | amount, terms, commitment reference and Credit Reservation intent |
-| Credit & Receivables | Sales Commitment | credit decision supplier | reservation accepted/rejected, Available Credit result and receivable status |
-| Sales Commitment | Fulfillment & Delivery | commercial obligation supplier | immutable confirmed SO snapshot and remaining quantities |
-| Inventory Availability | Fulfillment & Delivery | physical truth supplier | usable lots/quantities and Physical Allocation authority; execution remains downstream |
-| Fulfillment & Delivery | Inventory Availability | physical mutation contract | pick/pack/dispatch movement, shortage and disposition facts; no silent substitution |
-| Fulfillment & Delivery | Business Documents | evidence supplier | Delivery/POD facts and document request; source history remains immutable |
-| Credit & Receivables | Payments | payment target supplier | Receivable/payment application contract; no provider terms in credit language |
-| Payments | Credit & Receivables | payment fact supplier | confirmed/rejected/refunded Payment fact with idempotent provider reference |
-| all source BCs | Notifications | published fact consumers | notification candidate with recipient, template, channel and correlation |
-| all source BCs | Business Traceability | published durable fact consumers | append-only business fact with actor, reason, evidence and source reference |
-| Notifications | Business Traceability | delivery evidence consumer | Notification delivery outcome only; never replaces source fact |
+| Upstream | Downstream | Relationship | Contract / translation | Interaction | Translation / ACL | Consistency |
+|---|---|---|---|---|---|---|
+| Tenant & Access Governance | all tenant-scoped BCs | upstream authorization context | verified Tenant/Workspace scope, membership and capability decision | synchronous query/decision | no translation; fail-closed ACL | immediate for authorization; projections may be stale but cannot grant |
+| Customer & Buyer Relationships | Catalog & Commercial Policy | relationship policy supplier | active relationship and eligibility reference | synchronous lookup | stable relationship ID; no shared Customer entity | current relationship required |
+| Customer & Buyer Relationships | Sales Commitment | account/actor supplier | Customer Account, Buyer Relationship and principal Buyer identity reference | synchronous command input | identity/reference translation | atomic with submit validation |
+| Catalog & Commercial Policy | Sales Commitment | Published Language / offer supplier | resolved price, terms, promotion and SKU cold-chain snapshot | synchronous resolution | commercial snapshot | snapshot immutable after acceptance |
+| Sales Commitment | Inventory Availability | demand contract | Commercial Commitment ID, SKU, quantity, active/released status | synchronous decision | stable IDs; no Warehouse/Lot selection | atomic protection |
+| Inventory Availability | Sales Commitment | availability decision supplier | full-protection result with Reservation/Warehouse Backing references | synchronous decision | availability contract | atomic with commitment |
+| Sales Commitment | Credit & Receivables | credit demand contract | amount, terms, commitment reference and reservation intent | synchronous decision | amount/terms snapshot | atomic when applicable |
+| Credit & Receivables | Sales Commitment | credit decision supplier | reservation accepted/rejected, Available Credit and receivable status | synchronous decision | credit result, no shared aggregate | atomic with commitment |
+| Sales Commitment | Fulfillment & Delivery | commercial obligation supplier | immutable confirmed SO snapshot and remaining quantities | published fact + projection | Sales Order contract | async after commit |
+| Inventory Availability | Fulfillment & Delivery | physical truth supplier | usable lots/quantities and Physical Allocation authority | published fact + command | lot/allocation contract | async announcement; source mutation explicit |
+| Fulfillment & Delivery | Inventory Availability | physical mutation contract | pick/pack/dispatch movement, shortage and disposition facts | synchronous mutation / async fact | movement/evidence references | source execution stays separate |
+| Fulfillment & Delivery | Business Documents | evidence supplier | Delivery/POD facts and document request | async event | immutable evidence snapshot | eventual after source commit |
+| Credit & Receivables | Payments | payment target supplier | Receivable/payment application contract | synchronous command input | provider-neutral payment reference | explicit reconciliation |
+| Payments | Credit & Receivables | payment fact supplier | confirmed/rejected/refunded Payment with idempotent provider reference | async published event | provider ACL translation | eventual, deduplicated |
+| all source BCs | Notifications | published fact consumers | candidate with recipient, template, channel and correlation | async event | notification candidate translation | at-least-once |
+| all source BCs | Business Traceability | published durable fact consumers | append-only fact with actor, reason, evidence and source reference | async event | traceability projection | eventual, replayable |
+| Notifications | Business Traceability | delivery evidence consumer | delivery outcome only; never replaces source fact | async event | delivery result translation | eventual |
 
 ## Atomic boundary
 
