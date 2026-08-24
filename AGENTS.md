@@ -1,8 +1,8 @@
 # Agent instructions
 
-- Read `00-governance/source-of-truth.md` first.
-- Read `00-governance/current-decisions.md` before architectural work.
-- Read `00-governance/publication-policy.md` before publication work.
+- Read `00-start-here/source-of-truth.md` first.
+- Read `00-start-here/current-decisions.md` before architectural work.
+- Read `00-start-here/governance/publication-policy.md` before publication work.
 - Keep AS-IS separate from TARGET.
 - Legacy is evidence only.
 - Do not derive Bounded Contexts from existing folder names.

@@ -25,4 +25,4 @@ Secrets, machine-specific credentials, runtime dumps, generated application arti
 
 ## Related areas
 
-[Architecture](../04-architecture/README.md), [Operations](../08-operations/README.md), [Publication policy](../00-governance/publication-policy.md).
+[Architecture](../03-system/README.md), [Operations](../06-delivery/README.md), [Publication policy](../00-start-here/governance/publication-policy.md).

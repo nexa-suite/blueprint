@@ -28,8 +28,8 @@ The Product headings in `01-product/` are not a Capability Map. Do not derive ca
 
 ## Discovery input boundary
 
-The current product baseline, personas, known rules, AS-IS behavior evidence and the [legacy evidence register](../11-reference/legacy-ecosystem-report/legacy-evidence-register.md) are inputs. Accepted outputs are maintained in [strategic-ddd](strategic-ddd/README.md); future discovery must preserve the source-of-truth hierarchy.
+The current product baseline, personas, known rules, AS-IS behavior evidence and the [legacy evidence register](../91-reference/historical/legacy-ecosystem-report/legacy-evidence-register.md) are inputs. Accepted outputs are maintained in [strategic-ddd](strategic-ddd-index.md); future discovery must preserve the source-of-truth hierarchy.
 
 ## Open evidence questions
 
-Use the [architecture readiness gaps](../11-reference/as-is/architecture-readiness-gaps.md) as the evidence register. Do not answer those questions by renaming current folders or schemas.
+Use the [architecture readiness gaps](../06-delivery/as-is/architecture-readiness-gaps.md) as the evidence register. Do not answer those questions by renaming current folders or schemas.
