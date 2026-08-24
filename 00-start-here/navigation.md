@@ -15,3 +15,9 @@ One conceptual home per concern:
 
 Web and Mobile do not own Bounded Contexts, Context Map, Ubiquitous Language
 or shared business state machines.
+
+For requirements, start with [Web's 37-story baseline](../02-web/requirements/current-story-baseline.md)
+or [Mobile's research status](../03-mobile/requirements/requirements-status.md).
+For capability derivation use [Shared actors](../01-shared/product/actors.md),
+[Shared capabilities](../01-shared/product/capability-map.md) and the
+[requirements standard](../01-shared/product/requirements-standard.md).

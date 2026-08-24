@@ -1,7 +1,7 @@
 # Agent instructions
 
 - Read `00-start-here/source-of-truth.md` first.
-- Read `00-start-here/current-decisions.md` before architectural work.
+- Read `01-shared/product/current-decisions.md` before architectural work.
 - Read `00-start-here/governance/publication-policy.md` before publication work.
 - Keep AS-IS separate from TARGET.
 - Legacy is evidence only.

@@ -1,40 +1,59 @@
 # Repository map
 
-This index describes independent repositories and their documentation boundary. Branch/SHA values below are immutable remote references verified on 2026-08-23; they are not claims about local checkout branches.
+Nexa is a coordinated set of independent Git repositories. This Blueprint
+documents boundaries; it does not contain application source or a monorepo
+checkout. Repository URLs are stable references. Branches, local SHAs and
+working-tree state belong to each repository's own audit.
 
-## Active V1 repositories
+## Canonical repositories
 
-| Repository | Responsibility | Technology | Remote baseline | Release evidence |
-|---|---|---|---|---|
-| [API](https://github.com/nexa-suite/api) | Business and integration authority for IAM, tenant scope, catalog, commercial, inventory, logistics, documents, payments and notifications | Spring Boot 4 / Java 25 target / PostgreSQL | `develop @ 440ac6c6988e0fbc0c512eea4055b75588bda74c` | `v0.8.0` reference in repository documentation |
-| [Platform](https://github.com/nexa-suite/platform) | Internal Tenant Web Platform for Company Owner, administration and operations | Angular 22 / TypeScript / Angular Material | `develop @ c642473aa0778ed4cea2a3910c8c3c51218688e7` | `v0.7.0` published baseline; development artifact is separate |
-| [Portal](https://github.com/nexa-suite/portal) | Buyer self-service portal for catalog, requests, orders and delivery visibility | Angular 22 / TypeScript / Angular Material | `develop @ b2d71173d60b97ee4f749526dc1b8d42bc2e0462` | `v0.7.0` published baseline; development artifact is separate |
-| [Website](https://github.com/nexa-suite/website) | Public product discovery and contact/demo entry point | Static HTML/CSS/vanilla JavaScript | `develop @ 2bfeb6a37b3b75099a0c91b8d3c811a9ee89cdf0` | `v1.0.0` published baseline; API-backed contact flow is separate develop evidence |
-
-## Design source repository
-
-| Repository | Responsibility | Technology | Baseline | Status |
-|---|---|---|---|---|
-| [Design Lab](https://github.com/nexa-suite/design-lab) | Executable visual source and design-system validation companion for frontend convergence | Design-system lab / frontend tooling | `main @ d27e158569211a3afec171b1c9606f06906fc99a` | Visual source; not application runtime or Product authority |
-
-## Runway repository
-
-| Repository | Responsibility | Technology | Remote baseline | Status |
-|---|---|---|---|---|
-| [Mobile](https://github.com/nexa-suite/mobile) | Future native clients and delivery-driver runway | Flutter/Dart repository foundation | `develop @ 4a94db73336f93b460b564bddb9fa0a100114e87` | RUNWAY; not V1 implementation |
-
-## Legacy references
-
-| Local reference | Role | Status |
+| Repository | Role | Status |
 |---|---|---|
-| `legacy/api-asp` | ASP.NET functional/history evidence | HISTORICAL; remote not established |
-| `legacy/platform-vue` | Vue internal-platform visual/flow evidence | HISTORICAL; remote not established |
-| `legacy/portal-vue` | Vue buyer-portal visual/flow evidence | HISTORICAL; remote not established |
+| [Blueprint](https://github.com/nexa-suite/blueprint) | Product, Domain, Design governance, C4, evidence and delivery documentation | Canonical documentation |
+| [Design Lab](https://github.com/nexa-suite/design-lab) | Executable Design System source and visual validation companion | Canonical implementation source for design |
+| [API](https://github.com/nexa-suite/api) | Business and integration authority | Application; read-only from Blueprint |
+| [Platform](https://github.com/nexa-suite/platform) | Internal Tenant Web Platform | Application; read-only from Blueprint |
+| [Portal](https://github.com/nexa-suite/portal) | Buyer Portal | Application; read-only from Blueprint |
+| [Website](https://github.com/nexa-suite/website) | Public acquisition and contact/demo entry point | Application; read-only from Blueprint |
+| [Mobile](https://github.com/nexa-suite/mobile) | Operations Mobile and Buyer Mobile runway | Application; read-only from Blueprint |
+| [Academic report](https://github.com/upc-pre-202610-1asi0730-12242-king/nexa-ecosystem-report) | Historical coursework and product research evidence | Reference; not authority |
 
-Legacy is evidence, not authority. Vue and ASP.NET material is not copied into the Blueprint repository as application source.
+## Authority order
 
-## Local workspace boundary
+1. Blueprint Product and accepted Domain decisions.
+2. Design Lab executable visual evidence for Design System consumption.
+3. API contracts and application repositories for AS-IS implementation evidence.
+4. Academic report and legacy repositories for dated research and migration
+   evidence only.
 
-The independent checkouts under `10-repositories/active/` and `10-repositories/runway/` are LOCAL WORKSPACE MATERIAL. They must not be moved, copied, rewritten, initialized as a monorepo, or committed into this Blueprint repository. The workspace root is the documentation repository; application checkouts remain independent repositories.
+Applications are not modified by Blueprint documentation work. Application
+repositories must be audited independently for branch, release and local
+working-tree state.
 
-Current local checkouts may preserve feature branches for engineering work. That does not change the documented remote `develop` baseline and does not authorize application-repository mutations from this documentation workspace.
+## Local checkout convention
+
+Preferred local layout is one direct checkout per repository under the local
+workspace, for example:
+
+```text
+nexa-suite/
+├── blueprint/
+├── design/
+├── api/
+├── platform/
+├── portal/
+├── website/
+├── mobile/
+└── legacy/
+```
+
+These are independent Git roots. Do not initialize a parent repository, nest
+`.git` metadata, copy application source into Blueprint, or treat an old
+`10-repositories/` path as canonical. Local legacy material stays evidence and
+must not silently enter Product, Domain or requirements truth.
+
+## Reference links
+
+- [Source of Truth](../01-shared/engineering/governance/source-of-truth.md)
+- [Shared Design source relationship](../01-shared/design/design-system/source-of-truth.md)
+- [Academic evidence map](../90-academic/web/evidence-map.md)

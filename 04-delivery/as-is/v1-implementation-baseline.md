@@ -42,7 +42,7 @@ All four origins were inspected before Blueprint publication. Application reposi
 
 ## API — observed implementation
 
-Evidence root: local-only checkout `10-repositories/active/api`.
+Evidence root: local-only independent checkout `../api`.
 
 - HECHO: Spring Boot 4.1.0 modular monolith, Java release 25 in `pom.xml`, executed locally with Java 26.0.1. The compiled main source set contains 906 Java files. Current implementation areas include `payments`, `bootstrap`, `sales`, `tenantmanagement`, `shared`, `iam`, `audit`, `catalogmanagement`, `warehouse`, `invoicing`, `logistics` and `notifications`. These are current implementation areas, not future Bounded Contexts.
 - HECHO: REST controllers cover IAM/security/public contact, tenant administration, catalog, sales/purchase requests/orders/client accounts, warehouse, logistics, documents, payments, notifications, audit and change feed. Static OpenAPI at `docs/openapi/openapi.json` contains 224 paths.
@@ -56,7 +56,7 @@ Evidence root: local-only checkout `10-repositories/active/api`.
 
 ## Platform — observed implementation
 
-Evidence root: local-only checkout `10-repositories/active/platform`.
+Evidence root: local-only independent checkout `../platform`.
 
 - HECHO: Angular 22 application with current implementation areas for shell/layout/routing/security, IAM, tenant management, catalog, sales, warehouse, logistics, documents, invoicing, audit, notifications, change feed and overview.
 - HECHO: `src/app/app.routes.ts` contains public authentication/onboarding routes and authenticated Platform routes for overview/executive overview, audit, sales dashboard/client accounts/manual orders/purchase requests/Sales Orders, catalog products/families/SKUs/taxonomy/pricing/promotions, warehouse/inventory/lots/movements/reservations/fulfillment readiness, logistics/dispatch/POD/incidents/analytics, documents and security/profile/session surfaces.
@@ -66,7 +66,7 @@ Evidence root: local-only checkout `10-repositories/active/platform`.
 
 ## Portal — observed implementation
 
-Evidence root: local-only checkout `10-repositories/active/portal`.
+Evidence root: local-only independent checkout `../portal`.
 
 - HECHO: Angular 22 buyer-facing application with current implementation areas for shell/security/layout, IAM, catalog, sales/buyer requests and orders, warehouse availability, logistics/delivery tracking, documents, invoicing/receivables, payments/Stripe, notifications, support, premium and shared UI.
 - HECHO: `src/app/app.routes.ts` contains authentication and Portal shell routes for home/profile/account/notifications/security, catalog, request builder, purchase requests/details, Sales Orders/details, documents, receivables/payment methods, deliveries/details, support/legal/premium and permission guards for catalog, buyer sales/orders, documents, payments, tracking and notifications.
@@ -76,7 +76,7 @@ Evidence root: local-only checkout `10-repositories/active/portal`.
 
 ## Website — observed implementation
 
-Evidence root: local-only checkout `10-repositories/active/website`.
+Evidence root: local-only independent checkout `../website`.
 
 - HECHO: Static HTML/CSS/vanilla JavaScript website, ES/EN, with pages for product, team, buyer portal, company, FAQ, platform, pricing, solutions and legal content. No `package.json` exists.
 - HECHO: The company contact/request-demo form is implemented in `assets/js/interactions.js` and targets `POST /api/v1/public/contact-requests` through a configurable API base. Form fields include contact, company, request type and message data. Static links target login and organization registration paths; those links alone are not runtime proof of an available WebApp service.

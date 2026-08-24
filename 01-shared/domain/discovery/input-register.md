@@ -14,7 +14,7 @@ This is the evidence register for Strategic DDD. Classification controls authori
 |---|---|---|---|
 | AUTHORITY | Final Product / Business V1 closure in the execution handoff | Frozen product intent, invariants, scope, deferrals and business sequence | Does not provide final Bounded Context acceptance or technical schemas |
 | AUTHORITY | [`Shared Product/product-baseline.md`](../../product/product-baseline.md) | Canonical Product positioning and V1 boundary | Must be reconciled when older detail conflicts with final closure |
-| AUTHORITY | [`00-start-here/current-decisions.md`](../../product/current-decisions.md) | Accepted governance, identity, tenancy and C4 decisions | Technical/domain detail remains separate |
+| AUTHORITY | [`01-shared/product/current-decisions.md`](../../product/current-decisions.md) | Accepted governance, identity, tenancy and C4 decisions | Technical/domain detail remains separate |
 | AS-IS | [`Delivery/as-is/architecture-implementation-audit.md`](../../../04-delivery/as-is/architecture-implementation-audit.md) | Current API, Platform, Portal, Website, runtime and test evidence | Describes implementation, not business ownership |
 | AS-IS | [`Delivery/as-is/business-behavior-evidence.md`](../../../04-delivery/as-is/business-behavior-evidence.md) | Observed flows, events and actors | Historical observations require current-code verification |
 | AS-IS | [`Delivery/as-is/current-terminology-evidence.md`](../../../04-delivery/as-is/current-terminology-evidence.md) | Terms and semantic collisions | Not final Ubiquitous Language |
