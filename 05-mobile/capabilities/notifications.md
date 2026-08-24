@@ -1,3 +1,6 @@
 # Notifications
 
-OPEN / DISCOVERY. Canonical V1 notification semantics remain in [02-domain](../../02-domain/README.md); this file does not add a Mobile channel or behavior.
+PROPOSED / RESEARCH VALIDATION PENDING. Push is a core Mobile projection for
+material PR changes, order/delivery/payment/document state, Driver assignment
+and critical operational exceptions. BC-10 Notifications remains authoritative;
+not every business event becomes push.

@@ -18,7 +18,7 @@ Este documento fija la semántica C4 L1/L2 de Nexa independiente de los límites
 
 - [Structurizr DSL](structurizr/workspace.dsl) es la fuente semántica.
 - [README de Structurizr](structurizr/README.md) documenta las vistas y su validación.
-- [Selective Level 4 code views](code-views.md) trace security, commitment, availability, payment and frontend seams.
+- [Level 4 code views](l4-code/README.md) use repository-derived or TARGET Mermaid views; they do not fake C4 Components or production classes.
 - [L3/L4 technical views](l3-l4-views.md) index the requested API, Platform and Portal responsibility lenses and canonical workflows.
 - `workspace.json` es representación generada; no debe editarse manualmente.
 
@@ -39,10 +39,13 @@ Las vistas L3 son selectivas TARGET PRE-V1, baselined donde explican ownership t
 - `Nexa-API-IntegrationReliability-ASIS`
 - `Nexa-Platform-Frontend-TARGET`
 - `Nexa-Portal-Frontend-TARGET`
+- `Nexa-Website-Frontend-ASIS`
+- `Nexa-Operations-Mobile-PROPOSED`
+- `Nexa-Buyer-Mobile-PROPOSED`
 
 No se crea una vista de componentes del Website: su implementación estática y frontera pública son simples y no agregan una decisión arquitectónica útil en este corte. No hay vista de deployment.
 
-## V1 System Context
+## L1 System Context
 
 El sistema primario es **Nexa**: una plataforma B2B SaaS multi-tenant que coordina operaciones comerciales, catálogo, relaciones con clientes, inventario, fulfillment, entrega y autoservicio Buyer para importadores y distribuidores, con soporte especializado para cadena de frío.
 
@@ -62,7 +65,7 @@ El L1 muestra únicamente Nexa y los sistemas externos V1:
 
 No muestra PostgreSQL, Angular, Spring Boot, Docker, Workspace, módulos Java, esquemas, RLS, colas, ClamAV o MinIO: todos pertenecen a niveles inferiores o a vistas de runtime.
 
-## V1 Container model
+## L2 Container model
 
 Un C4 Container es una aplicación ejecutable/desplegable o un almacén de datos dentro de Nexa. No equivale automáticamente a un Docker container.
 
@@ -70,12 +73,15 @@ La lista canónica V1 es exactamente:
 
 | C4 Container | Tecnología observada | Responsabilidad |
 |---|---|---|
-| Public Website | HTML/CSS/JavaScript estático servido por Nginx | Descubrimiento público, comunicación del producto, intake de Contact/Request Demo y entrada a experiencias autenticadas. |
-| Internal Web Platform | Angular 22 SPA servido por Nginx | Experiencia autenticada de la workforce interna del Tenant para administración, clientes, catálogo, operaciones comerciales y operaciones físicas. |
-| Buyer Portal | Angular 22 SPA servido por Nginx | Experiencia autenticada B2B Buyer por contexto de proveedor autorizado: catálogo, condiciones aplicables, disponibilidad vendible, crédito específico del Tenant, solicitudes/órdenes, entregas, documentos y pagos. |
-| Nexa Application API | Java 25, Spring Boot 4.1, Spring Modulith modular monolith | Autoridad de comportamiento de aplicación y dominio, seguridad, autorización, tenant enforcement, workflows, integraciones y orquestación de persistencia. |
-| PostgreSQL Database | PostgreSQL | Persistencia relacional autoritativa de datos transaccionales y de configuración actuales. En V1 es compartida y la separación es lógica, con mecanismos tenant/workspace y RLS observados. |
+| Nexa Website | HTML/CSS/JavaScript estático servido por Nginx | Descubrimiento público, intake y entrada. |
+| Nexa Platform | Angular 22 SPA servido por Nginx | Workforce interna y operaciones. |
+| Nexa Buyer Portal | Angular 22 SPA servido por Nginx | Autoservicio B2B por relación autorizada. |
+| Nexa API | Java 25, Spring Boot 4.1, Spring Modulith modular monolith | Autoridad de dominio, seguridad, workflows, integraciones y persistencia. |
+| PostgreSQL | PostgreSQL | Persistencia transaccional/configuración compartida y lógicamente aislada. |
 | Object Storage | Frontera S3-compatible; MinIO local | Bytes de documentos/media tenant-owned; la API conserva la autorización y metadatos asociados. |
+
+Planned L2 adds only `Nexa Operations Mobile` and `Nexa Buyer Mobile`, both
+`PLANNED / PROPOSED`; they are not current V1 implementation claims.
 
 ### Por qué las superficies están separadas
 
@@ -95,12 +101,14 @@ Payment, email y maps/geolocation aparecen como sistemas externos abstractos, no
 
 Las decisiones de proveedor, credenciales, SLA y deployment productivo siguen abiertas en [Unresolved product decisions](../../01-product/rules/future-scope.md).
 
-## Runway
+## Mobile projection
 
-Las vistas Runway incluyen elementos aceptados como futuros y los marcan como `Future` o `V2/Future`:
+Las vistas Runway incluyen las dos aplicaciones planificadas con tags
+`PLANNED,PROPOSED`. Driver / Delivery Operator is a planned actor. The full
+projection and BC mapping is in [Mobile domain projection](../../02-domain/context-map/mobile-projection.md).
 
-- Nexa Mobile.
-- Delivery Driver Experience.
+- Nexa Operations Mobile.
+- Nexa Buyer Mobile.
 - Nexa Control Center.
 - Google, Apple y LinkedIn como identity providers opcionales futuros.
 - IoT / Telemetry Integrations.

@@ -1,12 +1,6 @@
-paymentProvider = softwareSystem "Payment Provider" "External payment processing service" {
-    tags "External System"
-}
-emailDeliveryService = softwareSystem "Email Delivery Service" "External email delivery service" {
-    tags "External System"
-}
-mapsGeolocationProvider = softwareSystem "Maps & Geolocation Provider" "External maps and geolocation service" {
-    tags "External System"
-}
+paymentProvider = softwareSystem "Payment Provider" "Abstract external payment processing service; provider identity is an implementation decision"
+emailDeliveryService = softwareSystem "Email Delivery Service" "Abstract external email delivery service"
+mapsGeolocationProvider = softwareSystem "Maps & Geolocation Provider" "Abstract external maps and geolocation service"
 
 googleIdentityProvider = softwareSystem "Google Identity Provider" "Future optional identity provider; not a V1 production integration" {
     tags "External System,Future"

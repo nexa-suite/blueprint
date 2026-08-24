@@ -1,6 +1,7 @@
 # Mobile discovery
 
-Scaffolding only. Add real evidence as it becomes available; do not convert assumptions into product decisions.
+Research-validation workspace. Product definition is proposed; add real
+evidence as it becomes available and do not convert assumptions into findings.
 
 - [Assumptions](assumptions.md)
 - [Hypotheses](hypotheses.md)

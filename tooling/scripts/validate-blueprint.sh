@@ -109,16 +109,18 @@ try:
         "Nexa-API-CommercialInventory-TARGET", "Nexa-API-FulfillmentDelivery-TARGET",
         "Nexa-API-CreditPaymentDocuments-TARGET", "Nexa-API-IntegrationReliability-ASIS",
         "Nexa-Platform-Frontend-TARGET", "Nexa-Portal-Frontend-TARGET",
+        "Nexa-Website-Frontend-ASIS", "Nexa-Operations-Mobile-PROPOSED",
+        "Nexa-Buyer-Mobile-PROPOSED",
     ])
     if actual_views != expected_views:
         failures.append(f"unexpected C4 views: {actual_views}")
     if any(k.lower().startswith("deployment") for k in views):
         failures.append("C4 deployment views present")
     system = next(s for s in workspace["model"]["softwareSystems"] if s["name"] == "Nexa")
-    v1 = {c["name"] for c in system["containers"] if "Future" not in c.get("tags", "") and "V2/Future" not in c.get("tags", "")}
+    v1 = {c["name"] for c in system["containers"] if "Future" not in c.get("tags", "") and "V2/Future" not in c.get("tags", "") and "PLANNED" not in c.get("tags", "") and "PROPOSED" not in c.get("tags", "")}
     expected_containers = {
-        "Public Website", "Internal Web Platform", "Buyer Portal",
-        "Nexa Application API", "PostgreSQL Database", "Object Storage",
+        "Nexa Website", "Nexa Platform", "Nexa Buyer Portal",
+        "Nexa API", "PostgreSQL", "Object Storage",
     }
     if v1 != expected_containers:
         failures.append(f"unexpected V1 C4 containers: {sorted(v1)}")

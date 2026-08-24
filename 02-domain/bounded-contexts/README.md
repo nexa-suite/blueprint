@@ -22,4 +22,7 @@ The accepted set is exactly 11:
 10. Notifications
 11. Business Traceability
 
-Canonical detail remains in [catalog](canonical-catalog.md) and [canvases](canonical-canvases.md). No Web/Mobile context copy exists.
+Canonical detail remains in [catalog](canonical-catalog.md) and one [canvas per context](canonical-canvases.md). No Web/Mobile context copy exists.
+
+Tactical DDD in each canvas is a TARGET design aid. It does not claim that the
+current Spring modules, packages or schemas already match the strategic model.
