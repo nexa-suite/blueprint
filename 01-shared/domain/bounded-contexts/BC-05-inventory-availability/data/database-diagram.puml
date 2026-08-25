@@ -1,0 +1,171 @@
+@startuml
+title BC-05 Target Database Diagram
+left to right direction
+hide methods
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #0F172A
+}
+
+entity "warehouse" as t_warehouse {
+  * warehouse_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(160) <<required>>
+  * status : varchar(32) <<required>>
+  * timezone : varchar(80) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "inventory_lot" as t_inventory_lot {
+  * lot_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * lot_code : varchar(120) <<required>>
+    expires_at : timestamptz
+  * on_hand_quantity : numeric(19,6) <<required>>
+  * held_quantity : numeric(19,6) <<required>>
+  * status : varchar(32) <<required>>
+  * received_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "inventory_position" as t_inventory_position {
+  * position_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * on_hand_quantity : numeric(19,6) <<required>>
+  * reserved_quantity : numeric(19,6) <<required>>
+  * held_quantity : numeric(19,6) <<required>>
+  * version : integer <<required>>
+}
+
+entity "inventory_movement" as t_inventory_movement {
+  * movement_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+    lot_id : uuid <<FK>>
+  * sku_id : uuid <<required>>
+  * kind : varchar(32) <<required>>
+  * quantity : numeric(19,6) <<required>>
+    reference_type : varchar(80)
+    reference_id : uuid
+  * occurred_at : timestamptz <<required>>
+}
+
+entity "safety_stock_policy" as t_safety_stock_policy {
+  * policy_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * minimum_quantity : numeric(19,6) <<required>>
+  * valid_from : timestamptz <<required>>
+    valid_to : timestamptz
+}
+
+entity "inventory_backing" as t_inventory_backing {
+  * backing_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * commercial_commitment_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * requested_at : timestamptz <<required>>
+    completed_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "inventory_backing_line" as t_inventory_backing_line {
+  * line_id : uuid <<PK>>
+  * backing_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * requested_quantity : numeric(19,6) <<required>>
+  * backed_quantity : numeric(19,6) <<required>>
+}
+
+entity "physical_allocation" as t_physical_allocation {
+  * allocation_id : uuid <<PK>>
+  * backing_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * allocated_at : timestamptz <<required>>
+    released_at : timestamptz
+}
+
+entity "physical_allocation_line" as t_physical_allocation_line {
+  * line_id : uuid <<PK>>
+  * allocation_id : uuid <<FK, required>>
+  * lot_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * consumed_quantity : numeric(19,6) <<required>>
+}
+
+entity "inventory_adjustment" as t_inventory_adjustment {
+  * adjustment_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+    lot_id : uuid <<FK>>
+  * sku_id : uuid <<required>>
+  * quantity_delta : numeric(19,6) <<required>>
+  * reason : varchar(500) <<required>>
+  * status : varchar(32) <<required>>
+  * requested_by_identity_id : uuid <<required>>
+    approved_at : timestamptz
+    applied_at : timestamptz
+}
+
+entity "warehouse_transfer" as t_warehouse_transfer {
+  * transfer_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * source_warehouse_id : uuid <<FK, required>>
+  * destination_warehouse_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * requested_at : timestamptz <<required>>
+    in_transit_at : timestamptz
+    received_at : timestamptz
+}
+
+entity "warehouse_transfer_line" as t_warehouse_transfer_line {
+  * line_id : uuid <<PK>>
+  * transfer_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * received_quantity : numeric(19,6) <<required>>
+}
+
+entity "lot_disposition" as t_lot_disposition {
+  * disposition_id : uuid <<PK>>
+  * lot_id : uuid <<FK, required>>
+  * kind : varchar(32) <<required>>
+  * reason : varchar(500) <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+t_inventory_lot }o--|| t_warehouse : warehouse_id
+t_inventory_position }o--|| t_warehouse : warehouse_id
+t_inventory_movement }o--|| t_warehouse : warehouse_id
+t_inventory_movement }o--|| t_inventory_lot : lot_id
+t_safety_stock_policy }o--|| t_warehouse : warehouse_id
+t_inventory_backing_line }o--|| t_inventory_backing : backing_id
+t_physical_allocation }o--|| t_inventory_backing : backing_id
+t_physical_allocation_line }o--|| t_physical_allocation : allocation_id
+t_physical_allocation_line }o--|| t_inventory_lot : lot_id
+t_inventory_adjustment }o--|| t_warehouse : warehouse_id
+t_inventory_adjustment }o--|| t_inventory_lot : lot_id
+t_warehouse_transfer }o--|| t_warehouse : source_warehouse_id
+t_warehouse_transfer }o--|| t_warehouse : destination_warehouse_id
+t_warehouse_transfer_line }o--|| t_warehouse_transfer : transfer_id
+t_lot_disposition }o--|| t_inventory_lot : lot_id
+
+legend right
+TARGET / BC-05 logical relational ownership / SQL is the authority
+PK = primary key | FK = same-owner foreign key
+required = NOT NULL | cross-BC IDs are deliberately not FK
+This PlantUML file is a visual projection for review.
+endlegend
+@enduml

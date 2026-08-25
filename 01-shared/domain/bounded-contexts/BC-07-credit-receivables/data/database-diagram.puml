@@ -1,0 +1,99 @@
+@startuml
+title BC-07 Target Database Diagram
+left to right direction
+hide methods
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #0F172A
+}
+
+entity "credit_account" as t_credit_account {
+  * credit_account_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<required>>
+  * credit_limit : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * status : varchar(32) <<required>>
+    approved_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "credit_reservation" as t_credit_reservation {
+  * reservation_id : uuid <<PK>>
+  * credit_account_id : uuid <<FK, required>>
+  * commercial_commitment_id : uuid <<required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * status : varchar(32) <<required>>
+  * reserved_at : timestamptz <<required>>
+    released_at : timestamptz
+}
+
+entity "receivable" as t_receivable {
+  * receivable_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<required>>
+    sales_order_id : uuid
+    business_document_id : uuid
+  * original_amount : numeric(19,4) <<required>>
+  * outstanding_amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * due_at : timestamptz <<required>>
+  * status : varchar(32) <<required>>
+  * issued_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "receivable_application" as t_receivable_application {
+  * application_id : uuid <<PK>>
+  * receivable_id : uuid <<FK, required>>
+  * payment_id : uuid <<required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * applied_at : timestamptz <<required>>
+    reversed_at : timestamptz
+}
+
+entity "financial_adjustment" as t_financial_adjustment {
+  * adjustment_id : uuid <<PK>>
+  * receivable_id : uuid <<FK, required>>
+  * kind : varchar(32) <<required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * reason : varchar(500) <<required>>
+  * status : varchar(32) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+    posted_at : timestamptz
+}
+
+entity "financial_ledger_entry" as t_financial_ledger_entry {
+  * entry_id : uuid <<PK>>
+  * receivable_id : uuid <<FK, required>>
+    adjustment_id : uuid <<FK>>
+    application_id : uuid <<FK>>
+  * direction : varchar(16) <<required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * posted_at : timestamptz <<required>>
+}
+
+t_credit_reservation }o--|| t_credit_account : credit_account_id
+t_receivable_application }o--|| t_receivable : receivable_id
+t_financial_adjustment }o--|| t_receivable : receivable_id
+t_financial_ledger_entry }o--|| t_receivable : receivable_id
+t_financial_ledger_entry }o--|| t_financial_adjustment : adjustment_id
+t_financial_ledger_entry }o--|| t_receivable_application : application_id
+
+legend right
+TARGET / BC-07 logical relational ownership / SQL is the authority
+PK = primary key | FK = same-owner foreign key
+required = NOT NULL | cross-BC IDs are deliberately not FK
+This PlantUML file is a visual projection for review.
+endlegend
+@enduml

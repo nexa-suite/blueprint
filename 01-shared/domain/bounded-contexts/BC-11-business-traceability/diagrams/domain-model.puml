@@ -1,0 +1,67 @@
+@startuml BC11_BusinessTraceability
+title BC-11 Business Traceability — Tactical Domain Model (TARGET / V1)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class BusinessTraceabilityRecord <<Aggregate Root>> {
+  -traceabilityId: TraceabilityId
+  -tenantId: TenantId
+  -eventType: EventType
+  -aggregateType: AggregateType
+  -aggregateId: String
+  -occurredAt: Instant
+  +append(): void
+  +linkEvidence(reference: TraceabilityEvidenceReference): void
+}
+
+class TraceabilityEvidenceReference <<Entity>> {
+  -evidenceReferenceId: EvidenceReferenceId
+  -traceabilityId: TraceabilityId
+  -kind: EvidenceKind
+  -reference: String
+  +attach(): void
+  +verify(hash: Hash): boolean
+}
+
+class TraceabilityPolicy <<Domain Service>> {
+  +append(event: DomainEvent): BusinessTraceabilityRecord
+  +requiresEvidence(event: DomainEvent): boolean
+}
+
+class DomainEvent <<Value Object>> {
+  -eventId: EventId
+  -eventType: EventType
+  -aggregateId: String
+  -occurredAt: Instant
+  -actorId: String
+}
+
+class Hash <<Value Object>> {
+  -algorithm: String
+  -value: String
+}
+
+interface TraceabilityRepository <<Repository>> {
+  +append(record: BusinessTraceabilityRecord): void
+  +findByAggregate(aggregateId: String): List<BusinessTraceabilityRecord>
+}
+
+BusinessTraceabilityRecord "1" *-- "0..*" TraceabilityEvidenceReference : evidence
+BusinessTraceabilityRecord *-- DomainEvent : records
+TraceabilityEvidenceReference *-- Hash : integrity
+TraceabilityPolicy ..> TraceabilityRepository : appends
+TraceabilityPolicy --> DomainEvent : observes
+TraceabilityEvidenceReference --> ObjectStorageReference : stable evidence id
+
+enum EvidenceKind <<Enum>>
+enum AggregateType <<Enum>>
+
+legend right
+TARGET / V1 / tactical design aid
+Append-only business traceability; no rewrite/delete operation.
+Evidence references point to source records or Object Storage metadata.
+*-- composition | --> domain dependency | ..> port/use
+endlegend
+@enduml

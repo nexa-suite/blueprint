@@ -1,0 +1,156 @@
+@startuml BC04_SalesCommitment
+title BC-04 Sales Commitment — Tactical Domain Model (TARGET / V1)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class RequestDraft <<Aggregate Root>> {
+  -draftId: RequestDraftId
+  -tenantId: TenantId
+  -buyerRelationshipId: BuyerRelationshipId
+  -status: DraftStatus
+  +addLine(skuId: SkuId, quantity: Quantity): void
+  +removeLine(lineId: DraftLineId): void
+  +submit(): PurchaseRequest
+}
+
+class RequestDraftLine <<Entity>> {
+  -lineId: DraftLineId
+  -skuId: SkuId
+  -quantity: Quantity
+  +changeQuantity(quantity: Quantity): void
+}
+
+class PurchaseRequest <<Aggregate Root>> {
+  -purchaseRequestId: PurchaseRequestId
+  -buyerRelationshipId: BuyerRelationshipId
+  -revision: Revision
+  -status: PurchaseRequestStatus
+  +submit(): void
+  +proposeMaterialChange(change: MaterialChangeProposal): void
+  +acceptBuyerChange(proposalId: ProposalId): void
+  +reject(reason: RejectionReason): void
+}
+
+class PurchaseRequestLine <<Entity>> {
+  -lineId: PurchaseRequestLineId
+  -skuId: SkuId
+  -quantity: Quantity
+  -termsSnapshot: TermsSnapshot
+  +amend(snapshot: TermsSnapshot): void
+}
+
+class MaterialChangeProposal <<Entity>> {
+  -proposalId: ProposalId
+  -purchaseRequestId: PurchaseRequestId
+  -status: ProposalStatus
+  -proposedAt: Instant
+  +accept(): void
+  +reject(): void
+}
+
+class CommercialCommitment <<Aggregate Root>> {
+  -commitmentId: CommitmentId
+  -purchaseRequestId: PurchaseRequestId
+  -status: CommitmentStatus
+  -revision: Revision
+  +establish(): void
+  +cancel(reason: CancellationReason): void
+  +replace(): SalesOrder
+}
+
+class CommercialCommitmentLine <<Entity>> {
+  -lineId: CommitmentLineId
+  -skuId: SkuId
+  -quantity: Quantity
+  -unitPrice: Money
+  +adjust(quantity: Quantity, price: Money): void
+}
+
+class SalesOrder <<Aggregate Root>> {
+  -salesOrderId: SalesOrderId
+  -commitmentId: CommitmentId
+  -status: SalesOrderStatus
+  -revision: Revision
+  +confirm(): void
+  +cancel(reason: CancellationReason): void
+  +replace(): SalesOrder
+}
+
+class SalesOrderLine <<Entity>> {
+  -lineId: SalesOrderLineId
+  -skuId: SkuId
+  -quantity: Quantity
+  -unitPrice: Money
+  +recordFulfillment(quantity: Quantity): void
+}
+
+class CommitmentOwnerTransfer <<Entity>> {
+  -transferId: OwnerTransferId
+  -commitmentId: CommitmentId
+  -fromOwner: OwnerType
+  -toOwner: OwnerType
+  +transfer(): void
+}
+
+class SalesCommitmentAdjustment <<Entity>> {
+  -adjustmentId: AdjustmentId
+  -commitmentId: CommitmentId
+  -reason: AdjustmentReason
+  -delta: QuantityDelta
+  +apply(): void
+}
+
+class CommitmentAcceptancePolicy <<Domain Service>> {
+  +canCommit(request: PurchaseRequest, backing: BackingDecision, credit: CreditDecision): boolean
+  +requiresBuyerAcceptance(proposal: MaterialChangeProposal): boolean
+}
+
+class TermsSnapshot <<Value Object>> {
+  -unitPrice: Money
+  -currency: CurrencyCode
+  -creditDays: Integer
+  -capturedAt: Instant
+}
+
+interface PurchaseRequestRepository <<Repository>> {
+  +findById(id: PurchaseRequestId): PurchaseRequest
+  +save(request: PurchaseRequest): void
+}
+
+interface CommitmentRepository <<Repository>> {
+  +save(commitment: CommercialCommitment): void
+}
+
+enum DraftStatus <<Enum>>
+enum PurchaseRequestStatus <<Enum>>
+enum CommitmentStatus <<Enum>>
+enum SalesOrderStatus <<Enum>>
+enum ProposalStatus <<Enum>>
+enum OwnerType <<Enum>>
+
+RequestDraft "1" *-- "0..*" RequestDraftLine : lines
+PurchaseRequest "1" *-- "1..*" PurchaseRequestLine : lines
+PurchaseRequest "1" *-- "0..*" MaterialChangeProposal : changes
+CommercialCommitment "1" *-- "1..*" CommercialCommitmentLine : lines
+SalesOrder "1" *-- "1..*" SalesOrderLine : lines
+CommercialCommitment "1" *-- "0..*" CommitmentOwnerTransfer : ownership
+CommercialCommitment "1" *-- "0..*" SalesCommitmentAdjustment : adjustments
+PurchaseRequest --> BuyerRelationship : stable relationship id
+PurchaseRequestLine --> Sku : stable SKU id
+CommercialCommitment --> InventoryBacking : decision id
+CommercialCommitment --> CreditReservation : decision id
+CommercialCommitment "1" --> "0..1" SalesOrder : transfers ownership
+CommitmentAcceptancePolicy ..> PurchaseRequestRepository : loads
+CommitmentAcceptancePolicy ..> CommitmentRepository : coordinates
+PurchaseRequestLine *-- TermsSnapshot : freezes terms
+CommercialCommitmentLine *-- TermsSnapshot : preserves terms
+
+legend right
+TARGET / V1 / tactical design aid
+PR -> Commitment -> SO ownership transfer has no release/re-reserve gap.
+BC-05 backing and BC-07 credit are stable decision references, not compositions.
+*-- composition | --> domain dependency | ..> port/use
+endlegend
+@enduml

@@ -1,0 +1,112 @@
+@startuml BC08_Payments
+title BC-08 Payments — Tactical Domain Model (TARGET / V1)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class Payment <<Aggregate Root>> {
+  -paymentId: PaymentId
+  -customerAccountId: CustomerAccountId
+  -amount: Money
+  -status: PaymentStatus
+  +initiate(): void
+  +confirm(): void
+  +fail(reason: FailureReason): void
+  +cancel(reason: CancellationReason): void
+}
+
+class PaymentAttempt <<Entity>> {
+  -attemptId: PaymentAttemptId
+  -paymentId: PaymentId
+  -provider: ProviderCode
+  -status: AttemptStatus
+  +start(): void
+  +recordResult(result: ProviderResult): void
+}
+
+class PaymentProviderEvent <<Entity>> {
+  -eventId: ProviderEventId
+  -paymentId: PaymentId
+  -providerEventId: String
+  -payloadHash: Hash
+  -occurredAt: Instant
+  +record(): void
+}
+
+class PaymentRefund <<Entity>> {
+  -refundId: PaymentRefundId
+  -paymentId: PaymentId
+  -amount: Money
+  -status: RefundStatus
+  +request(): void
+  +complete(): void
+}
+
+class PaymentCorrection <<Entity>> {
+  -correctionId: PaymentCorrectionId
+  -paymentId: PaymentId
+  -reason: String
+  -amount: Money
+  +approve(): void
+  +post(): void
+}
+
+class PaymentReconciliationCase <<Aggregate Root>> {
+  -caseId: ReconciliationCaseId
+  -paymentId: PaymentId
+  -status: ReconciliationStatus
+  +open(reason: ReconciliationReason): void
+  +resolve(): void
+}
+
+class PaymentPolicy <<Domain Service>> {
+  +canConfirm(payment: Payment, provider: ProviderResult): boolean
+  +canRefund(payment: Payment, amount: Money): boolean
+}
+
+class Money <<Value Object>> {
+  -amount: Decimal
+  -currency: CurrencyCode
+}
+
+class ProviderResult <<Value Object>> {
+  -providerReference: String
+  -approved: Boolean
+  -receivedAt: Instant
+}
+
+interface PaymentRepository <<Repository>> {
+  +findById(id: PaymentId): Payment
+  +save(payment: Payment): void
+}
+
+interface PaymentProviderPort <<Port>> {
+  +authorize(payment: Payment): ProviderResult
+  +refund(payment: Payment, amount: Money): ProviderResult
+}
+
+enum PaymentStatus <<Enum>>
+enum AttemptStatus <<Enum>>
+enum RefundStatus <<Enum>>
+enum ReconciliationStatus <<Enum>>
+
+Payment "1" *-- "1..*" PaymentAttempt : attempts
+Payment "1" *-- "0..*" PaymentProviderEvent : provider facts
+Payment "1" *-- "0..*" PaymentRefund : refunds
+Payment "1" *-- "0..*" PaymentCorrection : corrections
+Payment "1" o-- "0..*" PaymentReconciliationCase : cases
+Payment *-- Money : amount
+PaymentAttempt *-- ProviderResult : result
+Payment --> CommercialCommitment : stable commitment id
+Payment --> Receivable : stable receivable id
+PaymentPolicy ..> PaymentRepository : loads
+PaymentPolicy ..> PaymentProviderPort : requests provider action
+
+legend right
+TARGET / V1 / tactical design aid
+Provider events are immutable evidence; reconciliation handles mismatch.
+Payment success is server-authoritative; Mobile offline state is never proof.
+*-- composition | --> domain dependency | ..> port/use
+endlegend
+@enduml
