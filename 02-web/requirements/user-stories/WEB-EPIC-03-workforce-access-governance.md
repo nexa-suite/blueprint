@@ -31,9 +31,9 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 ### User Story
 
-As a Authorized User,
+As an Authorized User,
 I want to sign in to Nexa,
-so that I can perform authorized work in the correct business context.
+so that I can enter Nexa with the identity and access context that govern my work.
 
 ### Current Scope
 
@@ -59,9 +59,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized User,
+As an Authorized User,
 I want to recover account access,
-so that I can perform authorized work in the correct business context.
+so that I can regain authorized work without creating a second identity.
 
 ### Current Scope
 
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a User with multiple relationships,
 I want to select an active business context,
-so that I can perform authorized work in the correct business context.
+so that each action is evaluated against the intended Tenant and Workspace.
 
 ### Current Scope
 
@@ -115,9 +115,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Company Owner / Tenant Administrator,
+As a Company Owner or Tenant Administrator,
 I want to invite a workforce member,
-so that I can perform authorized work in the correct business context.
+so that the invited person can join with an explicit Tenant role and capability set.
 
 ### Current Scope
 
@@ -143,9 +143,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Invited Workforce Member,
+As an Invited Workforce Member,
 I want to accept a Workforce Membership,
-so that I can perform authorized work in the correct business context.
+so that my Workforce Membership becomes active only after I accept the Tenant's invitation.
 
 ### Current Scope
 
@@ -171,9 +171,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Company Owner / Tenant Administrator,
+As a Company Owner or Tenant Administrator,
 I want to assign roles and capabilities,
-so that I can perform authorized work in the correct business context.
+so that access matches the responsibilities I assign and can be reviewed later.
 
 ### Current Scope
 
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Company Owner,
 I want to create and maintain custom roles,
-so that I can perform authorized work in the correct business context.
+so that recurring responsibilities can be granted without over-privileging individual members.
 
 ### Current Scope
 
@@ -229,7 +229,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Tenant Administrator,
 I want to suspend or revoke a Workforce Membership,
-so that I can perform authorized work in the correct business context.
+so that suspended or revoked members cannot continue using Tenant capabilities.
 
 ### Current Scope
 
@@ -257,7 +257,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Company Owner,
 I want to transfer company ownership,
-so that I can perform authorized work in the correct business context.
+so that the company retains accountable control when ownership changes.
 
 ### Current Scope
 

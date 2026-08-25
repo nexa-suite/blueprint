@@ -11,10 +11,10 @@ last-reviewed: 2026-08-24
 | Epic | Name | Stories | Surface | Primary Bounded Context | Canonical file |
 |---|---|---|---|---|---|
 | WEB-EPIC-01 | Website, Acquisition & Interest | WEB-US-001..006 | Website | BC-01 — Tenant & Access Governance | [Epic](user-stories/WEB-EPIC-01-website-acquisition-interest.md) |
-| WEB-EPIC-02 | Tenant Onboarding & Lifecycle | WEB-US-007..015 | Platform; Website onboarding | BC-01 — Tenant & Access Governance | [Epic](user-stories/WEB-EPIC-02-tenant-onboarding-lifecycle.md) |
+| WEB-EPIC-02 | Tenant Onboarding & Lifecycle | WEB-US-007..015 | Platform; Website | BC-01 — Tenant & Access Governance | [Epic](user-stories/WEB-EPIC-02-tenant-onboarding-lifecycle.md) |
 | WEB-EPIC-03 | Workforce & Access Governance | WEB-US-016..024 | Platform | BC-01 — Tenant & Access Governance | [Epic](user-stories/WEB-EPIC-03-workforce-access-governance.md) |
 | WEB-EPIC-04 | Customer & Buyer Relationships | WEB-US-025..032 | Platform; Buyer Portal | BC-02 — Customer & Buyer Relationships | [Epic](user-stories/WEB-EPIC-04-customer-buyer-relationships.md) |
-| WEB-EPIC-05 | Catalog & Commercial Policy | WEB-US-033..042 | Platform; Buyer Portal | BC-03 — Catalog & Commercial Policy | [Epic](user-stories/WEB-EPIC-05-catalog-commercial-policy.md) |
+| WEB-EPIC-05 | Catalog & Commercial Policy | WEB-US-033..042 | Platform | BC-03 — Catalog & Commercial Policy | [Epic](user-stories/WEB-EPIC-05-catalog-commercial-policy.md) |
 | WEB-EPIC-06 | Buyer Shopping & Request Draft | WEB-US-043..049 | Buyer Portal | BC-03 — Catalog & Commercial Policy; BC-04 — Sales Commitment | [Epic](user-stories/WEB-EPIC-06-buyer-shopping-request-draft.md) |
 | WEB-EPIC-07 | Purchase Request | WEB-US-050..060 | Buyer Portal; Platform | BC-04 — Sales Commitment | [Epic](user-stories/WEB-EPIC-07-purchase-request.md) |
 | WEB-EPIC-08 | Sales Orders & Offline Sales | WEB-US-061..069 | Platform; Buyer Portal | BC-04 — Sales Commitment | [Epic](user-stories/WEB-EPIC-08-sales-orders-offline-sales.md) |

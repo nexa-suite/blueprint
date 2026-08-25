@@ -21,7 +21,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Title | Review Business Traceability |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Workforce Actor |
 | Epic | WEB-EPIC-15 — Traceability & Operational Visibility |
 | Priority | MUST |
@@ -31,9 +31,9 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 ### User Story
 
-As a Authorized Workforce Actor,
+As an Authorized Workforce Actor,
 I want to review Business Traceability,
-so that I can understand and act on authorized operational facts.
+so that I can investigate who changed a business fact, when and why.
 
 ### Current Scope
 
@@ -49,7 +49,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review a reduced timeline of their own business operations |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-15 — Traceability & Operational Visibility |
 | Priority | MUST |
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to review a reduced timeline of their own business operations,
-so that I can understand and act on authorized operational facts.
+so that I can follow my own commercial and Delivery history without seeing another Tenant's facts.
 
 ### Current Scope
 
@@ -77,7 +77,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review the overall operational picture |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-15 — Traceability & Operational Visibility |
 | Priority | SHOULD |
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to review the overall operational picture,
-so that I can understand and act on authorized operational facts.
+so that I can prioritize coordinated action across commercial and operational work.
 
 ### Current Scope
 
@@ -105,7 +105,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Identify critical operational exceptions |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-15 — Traceability & Operational Visibility |
 | Priority | MUST |
@@ -117,7 +117,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to identify critical operational exceptions,
-so that I can understand and act on authorized operational facts.
+so that I can intervene before an exception becomes an untraceable service failure.
 
 ### Current Scope
 
@@ -133,7 +133,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Navigate from an operational exception to the responsible business process |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-15 — Traceability & Operational Visibility |
 | Priority | MUST |
@@ -145,7 +145,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to navigate from an operational exception to the responsible business process,
-so that I can understand and act on authorized operational facts.
+so that I can reach the owning process with context instead of interpreting an isolated alert.
 
 ### Current Scope
 
@@ -161,7 +161,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Search and filter operational information |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Workforce Actor |
 | Epic | WEB-EPIC-15 — Traceability & Operational Visibility |
 | Priority | SHOULD |
@@ -171,9 +171,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Workforce Actor,
+As an Authorized Workforce Actor,
 I want to search and filter operational information,
-so that I can understand and act on authorized operational facts.
+so that I can isolate relevant business facts without losing Tenant and authorization boundaries.
 
 ### Current Scope
 
@@ -189,7 +189,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review authorized Security Audit evidence |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Privileged Actor |
 | Epic | WEB-EPIC-15 — Traceability & Operational Visibility |
 | Priority | MUST |
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Privileged Actor,
 I want to review authorized Security Audit evidence,
-so that I can understand and act on authorized operational facts.
+so that authorized security review can detect access or control-plane events without confusing them with Business Traceability.
 
 ### Current Scope
 

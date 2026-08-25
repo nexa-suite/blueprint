@@ -33,7 +33,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 As a Warehouse Operator,
 I want to plan Fulfillment work,
-so that I can prepare committed quantities for dispatch.
+so that committed quantities have an accountable preparation plan before picking begins.
 
 ### Current Scope
 
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to perform Picking,
-so that I can prepare committed quantities for dispatch.
+so that prepared quantities match the Physical Allocation and expose shortages before dispatch.
 
 ### Current Scope
 
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to record Picking discrepancy,
-so that I can prepare committed quantities for dispatch.
+so that missing or incorrect quantities can be resolved without silently changing the commitment.
 
 ### Current Scope
 
@@ -117,7 +117,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to confirm Packing,
-so that I can prepare committed quantities for dispatch.
+so that packed goods preserve the selected quantities and handling evidence for handoff.
 
 ### Current Scope
 
@@ -145,7 +145,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to record Staging,
-so that I can prepare committed quantities for dispatch.
+so that ready goods have a known staging location and remain distinguishable from unprepared stock.
 
 ### Current Scope
 
@@ -173,7 +173,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to mark Fulfillment Ready for Dispatch,
-so that I can prepare committed quantities for dispatch.
+so that Dispatch can accept only Fulfillment work that meets readiness conditions.
 
 ### Current Scope
 
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to hand responsibility to Dispatch,
-so that I can prepare committed quantities for dispatch.
+so that responsibility and evidence transfer from Warehouse to Dispatch at a defined boundary.
 
 ### Current Scope
 
@@ -227,9 +227,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Warehouse Operator / Business Operations Manager,
+As a Warehouse Operator or a Business Operations Manager,
 I want to resolve Fulfillment shortage and operational exceptions,
-so that I can prepare committed quantities for dispatch.
+so that shortages and exceptions receive an explicit resolution path before customer Delivery.
 
 ### Current Scope
 

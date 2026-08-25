@@ -21,7 +21,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Title | Configure Credit Limit |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -33,7 +33,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 As a Business Operations Manager,
 I want to configure Credit Limit,
-so that I can maintain authoritative financial visibility.
+so that credit exposure is bounded before eligible commitments consume capacity.
 
 ### Current Scope
 
@@ -49,8 +49,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review Customer credit exposure |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Sales / Business Operations Manager |
+| Surface | Platform |
+| Actor | Sales Representative / Business Operations Manager |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
 | Owning Bounded Context | BC-07 — Credit & Receivables |
@@ -59,9 +59,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Sales / Business Operations Manager,
+As a Sales Representative or Business Operations Manager,
 I want to review Customer credit exposure,
-so that I can maintain authoritative financial visibility.
+so that commercial decisions reflect the Customer's current limit, reservations and Receivables.
 
 ### Current Scope
 
@@ -77,7 +77,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review supplier-specific credit position |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to review supplier-specific credit position,
-so that I can maintain authoritative financial visibility.
+so that I can understand what I can purchase from this supplier under current terms.
 
 ### Current Scope
 
@@ -105,8 +105,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Receive credit validation during a commercial operation |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Customer Buyer / Sales Representative |
+| Surface | Buyer Portal |
+| Actor | Customer Buyer |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
 | Owning Bounded Context | BC-07 — Credit & Receivables |
@@ -115,9 +115,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Customer Buyer / Sales Representative,
+As a Customer Buyer,
 I want to receive credit validation during a commercial operation,
-so that I can maintain authoritative financial visibility.
+so that I can adjust demand before an invalid credit decision becomes a commitment.
 
 ### Current Scope
 
@@ -133,7 +133,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review Receivables |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Financial Actor |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -143,9 +143,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Financial Actor,
+As an Authorized Financial Actor,
 I want to review Receivables,
-so that I can maintain authoritative financial visibility.
+so that outstanding obligations and their balances can be reviewed without altering source facts.
 
 ### Current Scope
 
@@ -161,7 +161,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Record a Financial Adjustment |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Financial Actor |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -171,9 +171,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Financial Actor,
+As an Authorized Financial Actor,
 I want to record a Financial Adjustment,
-so that I can maintain authoritative financial visibility.
+so that a correction changes current exposure through an explicit fact while preserving the original obligation history.
 
 ### Current Scope
 
@@ -189,7 +189,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Report an external payment |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to report an external payment,
-so that I can maintain authoritative financial visibility.
+so that the supplier can match the reported external payment to the right obligation for review.
 
 ### Current Scope
 
@@ -217,7 +217,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Confirm or reject a reported payment |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Payment Actor |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -227,9 +227,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Payment Actor,
+As an Authorized Payment Actor,
 I want to confirm or reject a reported payment,
-so that I can maintain authoritative financial visibility.
+so that only an authorized confirmation changes Payment state and financial application.
 
 ### Current Scope
 
@@ -245,7 +245,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Initiate an online payment |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -257,7 +257,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to initiate an online payment,
-so that I can maintain authoritative financial visibility.
+so that I can pay through an eligible provider without exposing the order to duplicate charging.
 
 ### Current Scope
 
@@ -273,7 +273,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Handle pending, failed and retryable payment states without duplicate charge |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -285,7 +285,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to handle pending, failed and retryable payment states without duplicate charge,
-so that I can maintain authoritative financial visibility.
+so that I can distinguish a pending or failed attempt from a confirmed Payment before retrying.
 
 ### Current Scope
 
@@ -301,7 +301,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Record refund or payment correction |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Financial Actor |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -311,9 +311,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Financial Actor,
+As an Authorized Financial Actor,
 I want to record refund or payment correction,
-so that I can maintain authoritative financial visibility.
+so that refunds or corrections preserve Payment history and update the financial outcome explicitly.
 
 ### Current Scope
 
@@ -329,7 +329,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review Payment history |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
@@ -341,7 +341,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to review Payment history,
-so that I can maintain authoritative financial visibility.
+so that I can reconcile payments against my supplier obligations.
 
 ### Current Scope
 
