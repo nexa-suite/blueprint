@@ -1,29 +1,30 @@
 ---
 status: accepted
-maturity: BASELINED
+maturity: FROZEN
 scope: v1
 owner: product
 last-reviewed: 2026-08-24
 ---
 
-# Web requirements governance
+# Web Requirements Governance
 
-Web is `ACCEPTED PRODUCT / PRE-REQUIREMENTS REFINEMENT PENDING`. The current
-37-story catalog is preserved as baseline. It is not implementation proof and
-not a final release backlog.
+Web functional requirements are CONFIRMED / V1 at catalog level. This wave
+freezes story identity, business outcome, surface, actor, priority, capability
+family and owning Bounded Context. It does not complete story refinement.
 
-Future refinement may map each baseline story to capability, actor goal,
-surface, process, rule, state, event, UX evidence and implementation evidence.
-It may classify `KEEP / REFINE / SPLIT / MERGE / REWRITE / SUPERSEDE / DROP`.
-Do not silently delete or overwrite the baseline. No final Web Epics,
-namespaced future IDs or Story Points are created in this wave.
+Later refinement adds Preconditions, Business Rules, complete Acceptance
+Criteria, Event references, Dependencies, Out of Scope, Story Points and
+academic traceability. No final Acceptance Criteria, Story Points or Sprints
+are fabricated here.
 
-Website remains acquisition/contact/onboarding initiation. Platform serves
-authorized workforce. Buyer Portal serves the current supplier Buyer
-Relationship. These are surface projections over one shared domain.
+Website remains acquisition, contact and onboarding initiation. Platform serves
+authorized workforce. Buyer Portal serves an authorized Buyer Relationship.
+These are surface projections over one shared domain and do not create Web
+Bounded Contexts.
 
-Use [the shared authoring standard](../../01-shared/product/requirements-standard.md).
-Acceptance criteria must preserve tenant scope, authorization, lifecycle,
-state conflict, concurrency, failure/retry and durable result where relevant.
-Implementation details, endpoints, database fields and visual controls are not
-stories.
+Product Backlog ordering follows business value. Implementation dependency
+order is a separate delivery concern. Authentication and security remain
+critical technical obligations but are not automatically Product priority one.
+
+Use [the shared authoring standard](../../01-shared/product/requirements-standard.md)
+and [the Product Generalization Rule](../../01-shared/product/requirements-standard.md#product-generalization-rule).

@@ -1,12 +1,28 @@
-# Mobile requirements
+---
+status: planned
+maturity: FROZEN
+scope: runway
+owner: product
+last-reviewed: 2026-08-24
+---
 
-Mobile requirements are an empty-backlog-ready derivation boundary, not a
-final backlog.
+# Mobile Requirements
 
-- [Status](requirements-status.md) — `PROPOSED / RESEARCH VALIDATION PENDING`.
-- [Derivation sources](derivation-sources.md) — shared capabilities, actors and research inputs.
-- [Traceability model](traceability-model.md) — future Mobile mapping contract.
+Mobile catalog is frozen as a proposed research boundary:
 
-No final Mobile Epics, User Stories, Story Points, interviews, personas or
-validated outcomes are created here. Do not promote Web or academic stories
-into Mobile truth without class research and current domain review.
+- 7 Mobile Epics.
+- 49 functional User Stories.
+- Status: PROPOSED / RESEARCH VALIDATION PENDING.
+- Refinement: CATALOG FROZEN — ACCEPTANCE CRITERIA PENDING.
+
+Canonical reading order:
+
+1. [Requirements status](requirements-status.md)
+2. [Epic index](epics/README.md)
+3. [Coverage](coverage.md)
+4. [Derivation sources](derivation-sources.md)
+5. [Traceability model](traceability-model.md)
+
+Mobile stories do not create a Mobile, Driver, Dashboard or Barcode Bounded
+Context. They project the shared Product and 11 accepted Bounded Contexts.
+Web historical interviews are not Mobile validation.
