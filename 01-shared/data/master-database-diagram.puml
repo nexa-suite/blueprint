@@ -335,12 +335,14 @@ entity "commercial_commitment" as t_commercial_commitment {
   * commitment_id : uuid <<PK>>
   * tenant_id : uuid <<required>>
   * workspace_id : uuid <<required>>
-  * purchase_request_id : uuid <<FK, required>>
+  * origin_type : varchar(32) <<required>>
+    purchase_request_id : uuid <<FK>>
   * buyer_relationship_id : uuid <<required>>
   * status : varchar(32) <<required>>
   * committed_at : timestamptz <<required>>
     cancelled_at : timestamptz
   * revision : integer <<required>>
+    OR : value
 }
 
 entity "commercial_commitment_line" as t_commercial_commitment_line {

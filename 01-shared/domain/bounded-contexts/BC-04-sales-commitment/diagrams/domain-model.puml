@@ -52,10 +52,12 @@ class MaterialChangeProposal <<Entity>> {
 
 class CommercialCommitment <<Aggregate Root>> {
   -commitmentId: CommitmentId
-  -purchaseRequestId: PurchaseRequestId
+  -originType: CommitmentOriginType
+  -purchaseRequestId: PurchaseRequestId?
   -status: CommitmentStatus
   -revision: Revision
-  +establish(): void
+  +establishFromPurchaseRequest(): void
+  +establishDirect(): void
   +cancel(reason: CancellationReason): void
   +replace(): SalesOrder
 }
@@ -129,6 +131,7 @@ enum CommitmentStatus <<Enum>>
 enum SalesOrderStatus <<Enum>>
 enum ProposalStatus <<Enum>>
 enum OwnerType <<Enum>>
+enum CommitmentOriginType <<Enum>>
 
 RequestDraft "1" *-- "0..*" RequestDraftLine : lines
 PurchaseRequest "1" *-- "1..*" PurchaseRequestLine : lines
@@ -142,6 +145,7 @@ PurchaseRequestLine --> Sku : stable SKU id
 CommercialCommitment --> InventoryBacking : decision id
 CommercialCommitment --> CreditReservation : decision id
 CommercialCommitment "1" --> "0..1" SalesOrder : transfers ownership
+CommercialCommitment "1" --> "0..1" PurchaseRequest : approval-required origin
 CommitmentAcceptancePolicy ..> PurchaseRequestRepository : loads
 CommitmentAcceptancePolicy ..> CommitmentRepository : coordinates
 PurchaseRequestLine *-- TermsSnapshot : freezes terms
@@ -150,6 +154,8 @@ CommercialCommitmentLine *-- TermsSnapshot : preserves terms
 legend right
 TARGET / V1 / tactical design aid
 PR -> Commitment -> SO ownership transfer has no release/re-reserve gap.
+Direct Order -> Commitment(origin=DIRECT_ORDER) -> SO uses the same boundary;
+no synthetic PurchaseRequest and no polymorphic FK.
 BC-05 backing and BC-07 credit are stable decision references, not compositions.
 *-- composition | --> domain dependency | ..> port/use
 endlegend

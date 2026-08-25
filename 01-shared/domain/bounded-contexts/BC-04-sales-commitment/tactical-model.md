@@ -24,8 +24,8 @@ surfaces may capture or retry them. API remains commercial authority.
 |---|---|---|
 | `RequestDraft` | editable buyer intent; no commitment or reservation | Customer/Buyer/SKU IDs |
 | `PurchaseRequest` | submitted all-or-nothing commercial intent with expiry and immutable snapshots | CustomerAccount, BuyerRelationship, SKU IDs |
-| `CommercialCommitment` | persistent warehouse-neutral SKU demand; ownership transfers PR to SO | SKU ID; backing is BC-05 |
-| `SalesOrder` | confirmed commercial roll-up and lifecycle; no draft SO V1 | Customer/Buyer IDs, PR ID |
+| `CommercialCommitment` | persistent warehouse-neutral SKU demand; originates from approval-required PR or Direct Order; ownership transfers commitment to SO | SKU ID; optional PurchaseRequest ID; backing is BC-05 |
+| `SalesOrder` | confirmed commercial roll-up and lifecycle; no draft SO V1 | Customer/Buyer IDs, Commitment ID; optional PR origin is resolved through Commitment |
 
 Lines compose into their root. Commitment references do not compose Inventory
 Backing or Physical Allocation. `MaterialChangeProposal` and adjustment facts
@@ -40,12 +40,13 @@ preserve history without mutating submitted snapshots.
 | `PurchaseRequest` | Aggregate Root | request ID, scope, status, expiresAt, commercial snapshot, version | `submit()`, `proposeMaterialChange()`, `acceptMaterialChange()`, `withdraw()`, `reject()`, `expire()`, `convert()` | composes RequestLine; accepted state machine |
 | `PurchaseRequestLine` | Entity | SKU ID, quantity, price snapshot, terms snapshot | `replaceCommercialSnapshot()` | owned by PR; immutable after submit except replacement revision |
 | `MaterialChangeProposal` | Entity / fact | revision, change set, buyer consent, validation status | `accept()`, `reject()`, `expire()` | owned by PR history; TARGET |
-| `CommercialCommitment` | Aggregate Root | commitment ID, owner type/id, status, expiry, version | `establish()`, `transferOwnership()`, `release()`, `adjust()` | warehouse-neutral; BC-05 references ID |
+| `CommercialCommitment` | Aggregate Root | commitment ID, origin type, optional purchase request ID, owner type/id, status, expiry, version | `establishFromPurchaseRequest()`, `establishDirect()`, `transferOwnership()`, `release()`, `adjust()` | warehouse-neutral; BC-05 references ID; direct origin has no PR |
 | `CommercialCommitmentLine` | Entity | SKU ID, quantity, unit price, snapshot | `adjustQuantity()` | owned by Commitment |
-| `SalesOrder` | Aggregate Root | order ID, source PR, status, confirmedAt, version | `confirm()`, `markInFulfillment()`, `recordFulfillment()`, `complete()`, `cancel()` | composes SO lines; confirmed born state |
+| `SalesOrder` | Aggregate Root | order ID, commitment ID, status, confirmedAt, version | `confirm()`, `markInFulfillment()`, `recordFulfillment()`, `complete()`, `cancel()` | composes SO lines; optional PR origin is resolved through Commitment; direct order is confirmed without PR |
 | `SalesOrderLine` | Entity | SKU ID, committed/fulfilled quantity, price snapshot | `recordFulfilledQuantity()`, `cancelRemainder()` | owned by SO |
 | `CommercialTermsSnapshot` | Value Object | price, terms, currency, delivery facts | `isEquivalentTo()` | immutable PR/SO evidence |
 | `Quantity` / `Expiration` | Value Objects | positive amount / absolute Instant | `subtract()`, `hasExpired(now)` | protects quantity and expiry |
+| `CommitmentOriginType` | Enum | `PURCHASE_REQUEST` or `DIRECT_ORDER` | none | discriminator; only the PR origin carries a PurchaseRequest FK |
 | `PurchaseRequestState` / `SalesOrderState` | Enum | accepted lifecycle values | none | no `UNDER_REVIEW` persisted |
 | `SalesCommitmentPolicy` | Domain Service | none | `validateSubmission()`, `validateConversion()` | coordinates policy without owning roots |
 | `PurchaseRequestRepository` / `SalesOrderRepository` | Repository interfaces | none | `save()`, `byId()` | roots only |
@@ -58,7 +59,7 @@ preserve history without mutating submitted snapshots.
 | `SubmitPurchaseRequestHandler` | PR submission | locks required resources in deterministic order; creates commitment, backing and credit reservation atomically |
 | `AcceptMaterialChangeHandler` | accepted revision | buyer consent, authoritative price/inventory/credit revalidation and atomic replacement |
 | `ConvertPurchaseRequestHandler` | PR to SO | CAS plus `now >= expiresAt` guard; transfers commitment ownership without release gap |
-| `ConfirmDirectOrderHandler` | direct SO | authoritative validation and same logical commitment/credit boundary |
+| `ConfirmDirectOrderHandler` | direct SO | authoritative validation, establishes a `DIRECT_ORDER` commitment and the same logical inventory/credit boundary; never fabricates a PR |
 | `TerminatePurchaseRequestHandler` | withdraw/reject/expire | terminal CAS, release ledger and outbox exactly once |
 | `RecordSalesOrderFulfillmentHandler` | commercial roll-up | consumes fulfillment facts; never chooses lots |
 
@@ -89,11 +90,19 @@ preserve history without mutating submitted snapshots.
 - PR submission is all-or-nothing: committed demand, complete Inventory
   Reservation backing and applicable Credit Reservation are established before
   commit.
+- A Commitment has exactly one origin: `PURCHASE_REQUEST` requires a real
+  PurchaseRequest reference; `DIRECT_ORDER` has no PurchaseRequest reference.
+  The resulting confirmed SalesOrder is the direct-order persisted outcome.
+- Direct Order performs authoritative validation, Commitment establishment,
+  complete Inventory Reservation backing, applicable Credit Reservation and
+  SalesOrder confirmation in one logical decision.
 - `SUBMITTED`, `CHANGES_PROPOSED`, `CONVERTED`, `REJECTED`, `WITHDRAWN` and
   `EXPIRED` are the only persisted PR states.
 - Default expiry is 72 hours; conversion fails at `now >= expiresAt` even if a
   worker has not written `EXPIRED`.
-- PR to SO transfers commitment ownership; no release/re-reserve gap.
+- PR to SO transfers commitment ownership; no release/re-reserve gap. Direct
+  Order starts with the same Commitment/backing/credit boundary and has no PR
+  ownership transfer step.
 - SO is born `CONFIRMED`; completion means no unresolved quantity, not payment.
 - Material change requires Buyer acceptance and authoritative revalidation.
 

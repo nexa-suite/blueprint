@@ -40,6 +40,13 @@ Physical Allocation. BC-06 stores `sales_order_id` and
 `physical_allocation_id`, but owns execution and Delivery. BC-07 stores
 `payment_id` on financial application records without owning Payment.
 
+BC-04 `commercial_commitment.origin_type` is either `PURCHASE_REQUEST` or
+`DIRECT_ORDER`. Only the approval-required origin carries the nullable
+`purchase_request_id` FK, constrained to be present for that origin and absent
+for Direct Order. Direct Order persists its confirmed `sales_order` through the
+same Commitment boundary; no polymorphic FK or synthetic Purchase Request is
+needed.
+
 ## Shared relational rules
 
 - Tenant-owned tables carry `tenant_id NOT NULL`; Workspace-owned tables carry
