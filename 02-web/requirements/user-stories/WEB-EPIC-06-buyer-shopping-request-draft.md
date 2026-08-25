@@ -33,7 +33,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 As a Customer Buyer,
 I want to browse and search available SKUs,
-so that I can prepare a commercial intention without creating a commitment.
+so that I can find eligible offerings without requesting each option from Sales.
 
 ### Current Scope
 
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to review SKU details, price and commercial availability,
-so that I can prepare a commercial intention without creating a commitment.
+so that I can decide what to request using current price and Sellable Availability information.
 
 ### Current Scope
 
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to build a purchase request draft,
-so that I can prepare a commercial intention without creating a commitment.
+so that I can assemble a request while keeping it outside commitment until submission.
 
 ### Current Scope
 
@@ -117,7 +117,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to change quantities or remove items from a draft,
-so that I can prepare a commercial intention without creating a commitment.
+so that I can correct the requested quantity before any Purchase Request is submitted.
 
 ### Current Scope
 
@@ -145,7 +145,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to resume a saved draft,
-so that I can prepare a commercial intention without creating a commitment.
+so that I can continue preparing demand after leaving the Portal.
 
 ### Current Scope
 
@@ -173,7 +173,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to provide Delivery and Payment Terms information,
-so that I can prepare a commercial intention without creating a commitment.
+so that the eventual request includes the Delivery and Payment Terms needed for validation.
 
 ### Current Scope
 
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to review the complete commercial intention before submission,
-so that I can prepare a commercial intention without creating a commitment.
+so that I can detect omissions or unexpected terms before creating a Purchase Request.
 
 ### Current Scope
 

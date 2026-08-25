@@ -33,7 +33,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 As a Prospective Company Representative,
 I want to understand Nexa's value proposition,
-so that I can decide whether Nexa fits the company’s B2B operation.
+so that I can judge whether it addresses the company's order-to-delivery coordination needs.
 
 ### Current Scope
 
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Prospective Company Representative,
 I want to explore Nexa capabilities and use cases,
-so that I can decide whether Nexa fits the company’s B2B operation.
+so that I can compare the workflows Nexa could support with the company's current operation.
 
 ### Current Scope
 
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Visitor,
 I want to review service trust, privacy and terms information,
-so that I can decide whether Nexa fits the company’s B2B operation.
+so that I can assess the conditions for sharing company information with Nexa.
 
 ### Current Scope
 
@@ -117,7 +117,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Prospective Company Representative,
 I want to contact Nexa or request a demonstration,
-so that I can decide whether Nexa fits the company’s B2B operation.
+so that I can obtain guidance about fit before starting an onboarding request.
 
 ### Current Scope
 
@@ -145,7 +145,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Prospective Company Representative,
 I want to start a company onboarding request,
-so that I can decide whether Nexa fits the company’s B2B operation.
+so that I can provide the information Nexa needs to evaluate the company.
 
 ### Current Scope
 
@@ -173,7 +173,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Prospective Company Representative,
 I want to resume an incomplete onboarding request,
-so that I can decide whether Nexa fits the company’s B2B operation.
+so that I can continue onboarding without re-entering information already provided.
 
 ### Current Scope
 

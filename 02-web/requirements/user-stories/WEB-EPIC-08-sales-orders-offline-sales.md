@@ -21,7 +21,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Title | Confirm a DIRECT_ORDER |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-08 — Sales Orders & Offline Sales |
 | Priority | MUST |
@@ -33,7 +33,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 As a Customer Buyer,
 I want to confirm a DIRECT_ORDER,
-so that I can manage a confirmed commercial obligation without losing traceability.
+so that my eligible order is confirmed only after availability, policy and credit requirements are satisfied.
 
 ### Current Scope
 
@@ -49,7 +49,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Capture an order received through phone, WhatsApp or another external channel |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-08 — Sales Orders & Offline Sales |
 | Priority | MUST |
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to capture an order received through phone, WhatsApp or another external channel,
-so that I can manage a confirmed commercial obligation without losing traceability.
+so that externally received demand enters Nexa without impersonating the Buyer or remaining outside the operational source of truth.
 
 ### Current Scope
 
@@ -77,7 +77,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review a Sales Order |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-08 — Sales Orders & Offline Sales |
 | Priority | MUST |
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to review a Sales Order,
-so that I can manage a confirmed commercial obligation without losing traceability.
+so that I can verify the agreed commercial snapshot and current order status.
 
 ### Current Scope
 
@@ -105,7 +105,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Manage Sales Order commercial follow-up |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-08 — Sales Orders & Offline Sales |
 | Priority | MUST |
@@ -117,7 +117,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to manage Sales Order commercial follow-up,
-so that I can manage a confirmed commercial obligation without losing traceability.
+so that customer commitments, exceptions and next actions remain visible to the commercial team.
 
 ### Current Scope
 
@@ -133,7 +133,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Cancel an eligible Sales Order |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Commercial Actor |
 | Epic | WEB-EPIC-08 — Sales Orders & Offline Sales |
 | Priority | MUST |
@@ -143,9 +143,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Commercial Actor,
+As an Authorized Commercial Actor,
 I want to cancel an eligible Sales Order,
-so that I can manage a confirmed commercial obligation without losing traceability.
+so that the cancellation releases only effects that are still eligible to change.
 
 ### Current Scope
 
@@ -161,7 +161,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Cancel only the unresolved Sales Order remainder |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Commercial Actor |
 | Epic | WEB-EPIC-08 — Sales Orders & Offline Sales |
 | Priority | MUST |
@@ -171,9 +171,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Commercial Actor,
+As an Authorized Commercial Actor,
 I want to cancel only the unresolved Sales Order remainder,
-so that I can manage a confirmed commercial obligation without losing traceability.
+so that delivered or otherwise resolved quantities remain true while only the unresolved remainder is cancelled.
 
 ### Current Scope
 
@@ -189,7 +189,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Replace or amend a materially changed commercial obligation |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Commercial Actor |
 | Epic | WEB-EPIC-08 — Sales Orders & Offline Sales |
 | Priority | MUST |
@@ -199,9 +199,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Commercial Actor,
+As an Authorized Commercial Actor,
 I want to replace or amend a materially changed commercial obligation,
-so that I can manage a confirmed commercial obligation without losing traceability.
+so that an agreed material change replaces affected commitment facts without erasing the original history.
 
 ### Current Scope
 
@@ -217,7 +217,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review aggregate Sales Order fulfillment progress |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-08 — Sales Orders & Offline Sales |
 | Priority | SHOULD |
@@ -229,7 +229,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to review aggregate Sales Order fulfillment progress,
-so that I can manage a confirmed commercial obligation without losing traceability.
+so that I can identify unresolved quantities and coordinate fulfillment follow-up with operations.
 
 ### Current Scope
 
@@ -245,7 +245,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Complete a Sales Order when all committed quantities are resolved |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-08 — Sales Orders & Offline Sales |
 | Priority | MUST |
@@ -257,7 +257,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to complete a Sales Order when all committed quantities are resolved,
-so that I can manage a confirmed commercial obligation without losing traceability.
+so that the order closes only when no committed quantity remains unresolved.
 
 ### Current Scope
 

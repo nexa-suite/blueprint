@@ -21,7 +21,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Title | Review a company onboarding request |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Website onboarding where appropriate |
+| Surface | Platform |
 | Actor | Nexa Commercial & Onboarding Staff |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
@@ -31,9 +31,9 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 ### User Story
 
-As a Nexa Commercial & Onboarding Staff,
+As a member of the Nexa Commercial & Onboarding Staff,
 I want to review a company onboarding request,
-so that I can establish an authorized and isolated operating tenant.
+so that I can decide whether the company is eligible for an isolated Tenant.
 
 ### Current Scope
 
@@ -49,7 +49,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Authorize or reject a company |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Website onboarding where appropriate |
+| Surface | Platform |
 | Actor | Nexa Commercial & Onboarding Staff |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
@@ -59,9 +59,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Nexa Commercial & Onboarding Staff,
+As a member of the Nexa Commercial & Onboarding Staff,
 I want to authorize or reject a company,
-so that I can establish an authorized and isolated operating tenant.
+so that I can record an auditable authorization decision for the company.
 
 ### Current Scope
 
@@ -77,7 +77,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Complete required company information |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Website onboarding where appropriate |
+| Surface | Website |
 | Actor | Company Owner |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Company Owner,
 I want to complete required company information,
-so that I can establish an authorized and isolated operating tenant.
+so that Nexa can provision the Tenant with complete authoritative company information.
 
 ### Current Scope
 
@@ -105,8 +105,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Establish the initial Company Owner |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Website onboarding where appropriate |
-| Actor | Nexa Commercial & Onboarding Staff / future Company Owner |
+| Surface | Platform |
+| Actor | Nexa Commercial & Onboarding Staff / Company Owner |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
 | Owning Bounded Context | BC-01 — Tenant & Access Governance |
@@ -115,9 +115,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Nexa Commercial & Onboarding Staff / future Company Owner,
+As a member of the Nexa Commercial & Onboarding Staff or a Company Owner,
 I want to establish the initial Company Owner,
-so that I can establish an authorized and isolated operating tenant.
+so that the Tenant starts with an accountable owner for business decisions.
 
 ### Current Scope
 
@@ -133,7 +133,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Configure the initial operational Workspace |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Website onboarding where appropriate |
+| Surface | Website |
 | Actor | Company Owner |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
@@ -145,7 +145,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Company Owner,
 I want to configure the initial operational Workspace,
-so that I can establish an authorized and isolated operating tenant.
+so that daily operations have a defined Workspace within the Tenant.
 
 ### Current Scope
 
@@ -161,7 +161,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review company configuration before activation |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Website onboarding where appropriate |
+| Surface | Website |
 | Actor | Company Owner |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
@@ -173,7 +173,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Company Owner,
 I want to review company configuration before activation,
-so that I can establish an authorized and isolated operating tenant.
+so that I can correct incomplete setup before the Tenant becomes operational.
 
 ### Current Scope
 
@@ -189,7 +189,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Bring the Tenant to operational state |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Website onboarding where appropriate |
+| Surface | Platform |
 | Actor | Nexa Commercial & Onboarding Staff / Company Owner |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
@@ -199,9 +199,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Nexa Commercial & Onboarding Staff / Company Owner,
+As a member of the Nexa Commercial & Onboarding Staff or a Company Owner,
 I want to bring the Tenant to operational state,
-so that I can establish an authorized and isolated operating tenant.
+so that authorized users can work in a Tenant whose setup and access boundary are active.
 
 ### Current Scope
 
@@ -217,8 +217,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Suspend or reactivate a Tenant |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Website onboarding where appropriate |
-| Actor | Authorized Nexa Staff |
+| Surface | Platform |
+| Actor | Nexa Commercial & Onboarding Staff |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
 | Owning Bounded Context | BC-01 — Tenant & Access Governance |
@@ -227,9 +227,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Nexa Staff,
+As a member of the Nexa Commercial & Onboarding Staff,
 I want to suspend or reactivate a Tenant,
-so that I can establish an authorized and isolated operating tenant.
+so that access follows the Tenant's current lifecycle state.
 
 ### Current Scope
 
@@ -245,8 +245,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Export information and close a Tenant in a governed manner |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Website onboarding where appropriate |
-| Actor | Company Owner / Authorized Nexa Staff |
+| Surface | Platform |
+| Actor | Company Owner / Nexa Commercial & Onboarding Staff |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
 | Owning Bounded Context | BC-01 — Tenant & Access Governance |
@@ -255,9 +255,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Company Owner / Authorized Nexa Staff,
+As a Company Owner or a member of the Nexa Commercial & Onboarding Staff,
 I want to export information and close a Tenant in a governed manner,
-so that I can establish an authorized and isolated operating tenant.
+so that closure preserves governed data export and prevents further Tenant activity.
 
 ### Current Scope
 

@@ -21,8 +21,8 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Title | Create a Product |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Workforce Actor |
+| Surface | Platform |
+| Actor | Sales Representative |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | MUST |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
@@ -31,9 +31,9 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 ### User Story
 
-As a Authorized Workforce Actor,
+As a Sales Representative,
 I want to create a Product,
-so that I can offer products under governed commercial policy.
+so that the catalog can represent products offered by this Tenant.
 
 ### Current Scope
 
@@ -49,8 +49,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Create a SKU |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Workforce Actor |
+| Surface | Platform |
+| Actor | Sales Representative |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | MUST |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
@@ -59,9 +59,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Workforce Actor,
+As a Sales Representative,
 I want to create a SKU,
-so that I can offer products under governed commercial policy.
+so that Buyers can select a sellable unit with unambiguous packaging and identity.
 
 ### Current Scope
 
@@ -77,8 +77,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Maintain Product and SKU information |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Workforce Actor |
+| Surface | Platform |
+| Actor | Sales Representative |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | MUST |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
@@ -87,9 +87,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Workforce Actor,
+As a Sales Representative,
 I want to maintain Product and SKU information,
-so that I can offer products under governed commercial policy.
+so that Buyers and operations rely on current product and SKU attributes.
 
 ### Current Scope
 
@@ -105,8 +105,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Manage SKU lifecycle and Buyer visibility |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Workforce Actor |
+| Surface | Platform |
+| Actor | Sales Representative |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | MUST |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
@@ -115,9 +115,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Workforce Actor,
+As a Sales Representative,
 I want to manage SKU lifecycle and Buyer visibility,
-so that I can offer products under governed commercial policy.
+so that Buyers see only active offerings permitted by Tenant policy.
 
 ### Current Scope
 
@@ -133,8 +133,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Manage catalog media |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Workforce Actor |
+| Surface | Platform |
+| Actor | Sales Representative |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | SHOULD |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
@@ -143,9 +143,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Workforce Actor,
+As a Sales Representative,
 I want to manage catalog media,
-so that I can offer products under governed commercial policy.
+so that Buyers can recognize relevant offerings without requiring separate informal media.
 
 ### Current Scope
 
@@ -161,8 +161,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Configure SKU cold-chain requirements |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Workforce Actor |
+| Surface | Platform |
+| Actor | Sales Representative |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | MUST |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
@@ -171,9 +171,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Workforce Actor,
+As a Sales Representative,
 I want to configure SKU cold-chain requirements,
-so that I can offer products under governed commercial policy.
+so that fulfillment and Delivery apply the right cold-chain handling to the SKU.
 
 ### Current Scope
 
@@ -189,7 +189,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Configure Base Price |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | MUST |
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to configure Base Price,
-so that I can offer products under governed commercial policy.
+so that each commercial attempt starts from an authoritative base price.
 
 ### Current Scope
 
@@ -217,7 +217,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Manage Price Lists |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | MUST |
@@ -229,7 +229,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to manage Price Lists,
-so that I can offer products under governed commercial policy.
+so that eligible Customers receive consistent price-list resolution.
 
 ### Current Scope
 
@@ -245,7 +245,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Manage Customer Terms |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | MUST |
@@ -257,7 +257,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to manage Customer Terms,
-so that I can offer products under governed commercial policy.
+so that negotiated payment and delivery terms are applied consistently to eligible Customers.
 
 ### Current Scope
 
@@ -273,7 +273,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Manage Promotions |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-05 — Catalog & Commercial Policy |
 | Priority | SHOULD |
@@ -285,7 +285,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to manage Promotions,
-so that I can offer products under governed commercial policy.
+so that approved promotions change the resolved offer without bypassing commercial policy.
 
 ### Current Scope
 

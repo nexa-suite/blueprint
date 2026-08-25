@@ -22,7 +22,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Status | CONFIRMED / V1 |
 | Product | Web |
 | Surface | Platform |
-| Actor | Sales / Warehouse Actor |
+| Actor | Sales Representative / Warehouse Operator |
 | Epic | WEB-EPIC-09 — Inventory & Warehouse |
 | Priority | MUST |
 | Owning Bounded Context | BC-05 — Inventory Availability |
@@ -31,9 +31,9 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 ### User Story
 
-As a Sales / Warehouse Actor,
+As a Sales Representative or a Warehouse Operator,
 I want to review authoritative Sellable Availability,
-so that I can protect reliable availability and warehouse evidence.
+so that both commercial and warehouse decisions use the same current availability authority.
 
 ### Current Scope
 
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to record inventory receiving,
-so that I can protect reliable availability and warehouse evidence.
+so that physical stock enters the Tenant's inventory with an accountable source event.
 
 ### Current Scope
 
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to record Lot, expiry and traceability information,
-so that I can protect reliable availability and warehouse evidence.
+so that FEFO, recall investigation and Delivery evidence can identify the affected Lot.
 
 ### Current Scope
 
@@ -117,7 +117,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to review inventory and Lots by SKU and Warehouse,
-so that I can protect reliable availability and warehouse evidence.
+so that I can reconcile physical stock, expiry risk and sellable quantity by Warehouse.
 
 ### Current Scope
 
@@ -134,7 +134,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Status | CONFIRMED / V1 |
 | Product | Web |
 | Surface | Platform |
-| Actor | Business Operations Manager / authorized Warehouse actor |
+| Actor | Business Operations Manager / Warehouse Operator |
 | Epic | WEB-EPIC-09 — Inventory & Warehouse |
 | Priority | MUST |
 | Owning Bounded Context | BC-05 — Inventory Availability |
@@ -143,9 +143,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Business Operations Manager / authorized Warehouse actor,
+As a Business Operations Manager or a Warehouse Operator,
 I want to configure Safety Stock,
-so that I can protect reliable availability and warehouse evidence.
+so that Safety Stock protects the Tenant's operating buffer without being mistaken for a reservation.
 
 ### Current Scope
 
@@ -162,7 +162,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Status | CONFIRMED / V1 |
 | Product | Web |
 | Surface | Platform |
-| Actor | Authorized Warehouse Operator |
+| Actor | Warehouse Operator |
 | Epic | WEB-EPIC-09 — Inventory & Warehouse |
 | Priority | MUST |
 | Owning Bounded Context | BC-05 — Inventory Availability |
@@ -171,9 +171,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Warehouse Operator,
+As a Warehouse Operator,
 I want to record an Inventory Adjustment,
-so that I can protect reliable availability and warehouse evidence.
+so that the stock balance and reason for the correction remain reviewable.
 
 ### Current Scope
 
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to place, maintain or release inventory under HOLD,
-so that I can protect reliable availability and warehouse evidence.
+so that affected stock cannot be sold until an authorized disposition releases or excludes it.
 
 ### Current Scope
 
@@ -229,7 +229,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to request a Warehouse Transfer,
-so that I can protect reliable availability and warehouse evidence.
+so that stock can move between Warehouses without losing quantity, location or state history.
 
 ### Current Scope
 
@@ -257,7 +257,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to confirm Warehouse Transfer dispatch,
-so that I can protect reliable availability and warehouse evidence.
+so that the source Warehouse no longer presents transferred stock as locally available.
 
 ### Current Scope
 
@@ -285,7 +285,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to confirm Warehouse Transfer receipt,
-so that I can protect reliable availability and warehouse evidence.
+so that the destination Warehouse records received stock before it becomes available there.
 
 ### Current Scope
 
@@ -313,7 +313,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Warehouse Operator,
 I want to perform Physical Allocation using FEFO,
-so that I can protect reliable availability and warehouse evidence.
+so that allocated Lots follow FEFO while never selecting expired or quarantined stock.
 
 ### Current Scope
 
@@ -330,7 +330,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Status | CONFIRMED / V1 |
 | Product | Web |
 | Surface | Platform |
-| Actor | Authorized Warehouse Operator |
+| Actor | Warehouse Operator |
 | Epic | WEB-EPIC-09 — Inventory & Warehouse |
 | Priority | MUST |
 | Owning Bounded Context | BC-05 — Inventory Availability |
@@ -339,9 +339,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Warehouse Operator,
+As a Warehouse Operator,
 I want to reallocate inventory or justify an allocation override,
-so that I can protect reliable availability and warehouse evidence.
+so that an exception is explicit and the allocation decision remains auditable.
 
 ### Current Scope
 

@@ -35,7 +35,7 @@ This epic records a proposed Mobile product projection. It does not claim valida
 
 As a Customer Buyer,
 I want to browse the supplier catalog,
-so that I can reorder with current supplier information and explicit commercial state.
+so that I can find offerings from an authorized supplier without using an unrelated marketplace.
 
 ### Current Scope
 
@@ -65,7 +65,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to review SKU, price and availability,
-so that I can reorder with current supplier information and explicit commercial state.
+so that I can choose quantities using current supplier price and availability information.
 
 ### Current Scope
 
@@ -95,7 +95,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to build and edit a purchase,
-so that I can reorder with current supplier information and explicit commercial state.
+so that I can prepare a draft without creating a Commercial Commitment prematurely.
 
 ### Current Scope
 
@@ -125,7 +125,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to repeat a previous purchase,
-so that I can reorder with current supplier information and explicit commercial state.
+so that repeat demand starts from prior items while still allowing current price and availability validation.
 
 ### Current Scope
 
@@ -155,7 +155,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to submit a PR or confirm a Direct Order,
-so that I can reorder with current supplier information and explicit commercial state.
+so that the chosen order path applies the same authoritative rules as the Buyer Portal.
 
 ### Current Scope
 
@@ -185,7 +185,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to respond to proposed material changes,
-so that I can reorder with current supplier information and explicit commercial state.
+so that only the changes I accept can replace the proposed commercial terms.
 
 ### Current Scope
 
@@ -215,7 +215,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to track Purchase Requests and Sales Orders,
-so that I can reorder with current supplier information and explicit commercial state.
+so that I can distinguish a Purchase Request's review lifecycle from a confirmed Sales Order.
 
 ### Current Scope
 
@@ -245,7 +245,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to review Credit and Receivables and make a Payment,
-so that I can reorder with current supplier information and explicit commercial state.
+so that I can understand exposure and complete an eligible Payment without leaving the supplier context.
 
 ### Current Scope
 

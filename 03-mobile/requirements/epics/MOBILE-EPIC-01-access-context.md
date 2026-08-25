@@ -35,7 +35,7 @@ This epic records a proposed Mobile product projection. It does not claim valida
 
 As a Mobile User,
 I want to authenticate on Mobile,
-so that I can work from the correct authorized business context.
+so that I can prove my identity before the app exposes Tenant or Buyer data.
 
 ### Current Scope
 
@@ -65,7 +65,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Mobile User,
 I want to select an active business context,
-so that I can work from the correct authorized business context.
+so that each action uses the Tenant, Workspace or Buyer Relationship I intend.
 
 ### Current Scope
 
@@ -95,7 +95,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Mobile User,
 I want to access role-appropriate mobile work and navigation,
-so that I can work from the correct authorized business context.
+so that the app exposes only work allowed by my active role and relationship.
 
 ### Current Scope
 

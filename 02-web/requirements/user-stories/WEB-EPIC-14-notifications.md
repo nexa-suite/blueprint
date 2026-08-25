@@ -31,9 +31,9 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 ### User Story
 
-As a Authorized User,
+As an Authorized User,
 I want to receive in-app notifications,
-so that I can keep authorized users informed without changing business state.
+so that I can act on relevant business changes from the product without changing the source state.
 
 ### Current Scope
 
@@ -59,9 +59,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized User,
+As an Authorized User,
 I want to receive transactional email notifications,
-so that I can keep authorized users informed without changing business state.
+so that time-sensitive business information reaches the intended recipient beyond an active session.
 
 ### Current Scope
 
@@ -87,9 +87,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized User,
+As an Authorized User,
 I want to manage optional informational notification preferences,
-so that I can keep authorized users informed without changing business state.
+so that I can control optional information without suppressing required transactional notices.
 
 ### Current Scope
 
@@ -115,9 +115,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized User,
+As an Authorized User,
 I want to review and manage the Notification Center,
-so that I can keep authorized users informed without changing business state.
+so that I can find, acknowledge or manage delivered notifications without altering the underlying business event.
 
 ### Current Scope
 

@@ -21,7 +21,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Title | Plan a Delivery |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
@@ -33,7 +33,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 As a Dispatch Coordinator,
 I want to plan a Delivery,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that the Delivery represents an actionable portion of a Fulfillment.
 
 ### Current Scope
 
@@ -49,7 +49,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Schedule a Delivery |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Dispatch Coordinator,
 I want to schedule a Delivery,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that the Customer and operations can plan against an agreed Delivery window.
 
 ### Current Scope
 
@@ -77,7 +77,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Assign a Driver |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Dispatch Coordinator,
 I want to assign a Driver,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that one accountable Driver can execute the Delivery with the required context.
 
 ### Current Scope
 
@@ -105,7 +105,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Reschedule a Delivery |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
@@ -117,7 +117,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Dispatch Coordinator,
 I want to reschedule a Delivery,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that the new plan is visible without losing the Delivery's prior scheduling history.
 
 ### Current Scope
 
@@ -133,7 +133,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Confirm Dispatch handoff |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
@@ -145,7 +145,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Dispatch Coordinator,
 I want to confirm Dispatch handoff,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that the handoff confirms which goods and evidence left Warehouse control.
 
 ### Current Scope
 
@@ -161,8 +161,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Record a Delivery Attempt |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Dispatch / Delivery Actor |
+| Surface | Platform |
+| Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
@@ -171,9 +171,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Dispatch / Delivery Actor,
+As a Dispatch Coordinator,
 I want to record a Delivery Attempt,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that each Attempt records who acted, when and against which Delivery.
 
 ### Current Scope
 
@@ -189,7 +189,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Handle a failed Delivery Attempt |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Dispatch Coordinator,
 I want to handle a failed Delivery Attempt,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that a failed Attempt remains attached to the same Delivery and an authorized next action is visible.
 
 ### Current Scope
 
@@ -217,8 +217,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Record a Partial Delivery |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Dispatch / Delivery Actor |
+| Surface | Platform |
+| Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
@@ -227,9 +227,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Dispatch / Delivery Actor,
+As a Dispatch Coordinator,
 I want to record a Partial Delivery,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that delivered, rejected and remaining quantities remain factually separated.
 
 ### Current Scope
 
@@ -245,7 +245,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Create a Continuation Delivery |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
@@ -257,7 +257,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Dispatch Coordinator,
 I want to create a Continuation Delivery,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that remaining obligation has a traceable Delivery path without duplicating the completed portion.
 
 ### Current Scope
 
@@ -273,8 +273,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Record Proof of Delivery |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Delivery Actor |
+| Surface | Platform |
+| Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
@@ -283,9 +283,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Delivery Actor,
+As a Dispatch Coordinator,
 I want to record Proof of Delivery,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that the Delivery has immutable evidence of the accepted handoff outcome.
 
 ### Current Scope
 
@@ -301,8 +301,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Correct POD using an addendum without overwriting historical evidence |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Actor |
+| Surface | Platform |
+| Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
@@ -311,9 +311,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Actor,
+As a Dispatch Coordinator,
 I want to correct POD using an addendum without overwriting historical evidence,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that a correction adds context without overwriting the original POD evidence.
 
 ### Current Scope
 
@@ -329,7 +329,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Track an active Delivery on Web |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
@@ -341,7 +341,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to track an active Delivery on Web,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that I can prepare to receive the shipment and react to changes before arrival.
 
 ### Current Scope
 
@@ -357,8 +357,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Record temperature evidence |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Warehouse / Dispatch Actor |
+| Surface | Platform |
+| Actor | Warehouse Operator / Dispatch Coordinator |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | SHOULD |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
@@ -367,9 +367,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Warehouse / Dispatch Actor,
+As a Warehouse Operator / Dispatch Coordinator,
 I want to record temperature evidence,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that temperature-sensitive handling decisions use recorded evidence rather than memory.
 
 ### Current Scope
 
@@ -385,8 +385,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Resolve a Temperature Excursion and disposition |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Operational Actor |
+| Surface | Platform |
+| Actor | Business Operations Manager |
 | Epic | WEB-EPIC-11 — Dispatch, Delivery & Cold Chain |
 | Priority | MUST |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
@@ -395,9 +395,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Operational Actor,
+As a Business Operations Manager,
 I want to resolve a Temperature Excursion and disposition,
-so that I can deliver temperature-sensitive goods with visible and defensible evidence.
+so that affected quantity is placed on HOLD or released through an explicit disposition without hiding the Excursion.
 
 ### Current Scope
 

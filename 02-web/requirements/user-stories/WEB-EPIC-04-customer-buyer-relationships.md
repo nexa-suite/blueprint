@@ -21,7 +21,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Title | Create a Customer Account |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-04 — Customer & Buyer Relationships |
 | Priority | MUST |
@@ -33,7 +33,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 As a Sales Representative,
 I want to create a Customer Account,
-so that I can maintain an authorized supplier-customer relationship.
+so that sales can transact against a known Customer Account rather than duplicate customer records.
 
 ### Current Scope
 
@@ -49,7 +49,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Maintain Customer Account information |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-04 — Customer & Buyer Relationships |
 | Priority | MUST |
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to maintain Customer Account information,
-so that I can maintain an authorized supplier-customer relationship.
+so that current legal and operational customer data is available for relationship decisions.
 
 ### Current Scope
 
@@ -77,7 +77,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Manage Customer contacts and addresses |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-04 — Customer & Buyer Relationships |
 | Priority | MUST |
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to manage Customer contacts and addresses,
-so that I can maintain an authorized supplier-customer relationship.
+so that orders and Deliveries use the right contacts and destinations.
 
 ### Current Scope
 
@@ -105,7 +105,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Initiate a Buyer Relationship |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-04 — Customer & Buyer Relationships |
 | Priority | MUST |
@@ -117,7 +117,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to initiate a Buyer Relationship,
-so that I can maintain an authorized supplier-customer relationship.
+so that the Customer can be invited into an explicitly authorized Buyer Relationship.
 
 ### Current Scope
 
@@ -133,7 +133,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Approve a Buyer Relationship |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-04 — Customer & Buyer Relationships |
 | Priority | MUST |
@@ -145,7 +145,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to approve a Buyer Relationship,
-so that I can maintain an authorized supplier-customer relationship.
+so that only approved Buyer Relationships can access the Tenant's commercial experience.
 
 ### Current Scope
 
@@ -161,7 +161,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Suspend or revoke a Buyer Relationship |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-04 — Customer & Buyer Relationships |
 | Priority | MUST |
@@ -173,7 +173,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to suspend or revoke a Buyer Relationship,
-so that I can maintain an authorized supplier-customer relationship.
+so that suspended or revoked Buyers lose access while history remains attributable.
 
 ### Current Scope
 
@@ -189,7 +189,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Transfer the principal Buyer for a Customer Account |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Business Operations Manager |
 | Epic | WEB-EPIC-04 — Customer & Buyer Relationships |
 | Priority | MUST |
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Business Operations Manager,
 I want to transfer the principal Buyer for a Customer Account,
-so that I can maintain an authorized supplier-customer relationship.
+so that the Customer Account has one accountable principal Buyer for Portal decisions.
 
 ### Current Scope
 
@@ -217,7 +217,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Switch between authorized supplier relationships |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-04 — Customer & Buyer Relationships |
 | Priority | MUST |
@@ -229,7 +229,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to switch between authorized supplier relationships,
-so that I can maintain an authorized supplier-customer relationship.
+so that I can place requests with the supplier relationship I intend to use.
 
 ### Current Scope
 

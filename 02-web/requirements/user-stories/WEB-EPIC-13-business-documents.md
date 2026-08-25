@@ -21,7 +21,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Title | Issue a Sales Order Document |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-13 — Business Documents |
 | Priority | MUST |
@@ -33,7 +33,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 As a Sales Representative,
 I want to issue a Sales Order Document,
-so that I can issue and access immutable business evidence.
+so that the confirmed Sales Order has immutable commercial evidence for downstream use.
 
 ### Current Scope
 
@@ -49,7 +49,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Issue a Delivery Note |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Dispatch Coordinator |
 | Epic | WEB-EPIC-13 — Business Documents |
 | Priority | MUST |
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Dispatch Coordinator,
 I want to issue a Delivery Note,
-so that I can issue and access immutable business evidence.
+so that the recipient and operations can verify what was handed over.
 
 ### Current Scope
 
@@ -77,8 +77,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Issue a Commercial Invoice |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
-| Actor | Authorized Commercial Actor |
+| Surface | Platform |
+| Actor | Sales Representative |
 | Epic | WEB-EPIC-13 — Business Documents |
 | Priority | MUST |
 | Owning Bounded Context | BC-09 — Business Documents |
@@ -87,9 +87,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Commercial Actor,
+As a Sales Representative,
 I want to issue a Commercial Invoice,
-so that I can issue and access immutable business evidence.
+so that the invoice reflects the authoritative commercial snapshot at issuance.
 
 ### Current Scope
 
@@ -105,7 +105,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Issue a Payment Receipt |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Financial Actor |
 | Epic | WEB-EPIC-13 — Business Documents |
 | Priority | MUST |
@@ -115,9 +115,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Financial Actor,
+As an Authorized Financial Actor,
 I want to issue a Payment Receipt,
-so that I can issue and access immutable business evidence.
+so that the receipt proves which Payment fact was issued to the Buyer.
 
 ### Current Scope
 
@@ -133,7 +133,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Issue a Financial Adjustment |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Financial Actor |
 | Epic | WEB-EPIC-13 — Business Documents |
 | Priority | MUST |
@@ -143,9 +143,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Financial Actor,
+As an Authorized Financial Actor,
 I want to issue a Financial Adjustment,
-so that I can issue and access immutable business evidence.
+so that the adjustment document records the correction without rewriting the underlying obligation.
 
 ### Current Scope
 
@@ -161,7 +161,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Access authorized Business Documents |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-13 — Business Documents |
 | Priority | MUST |
@@ -173,7 +173,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to access authorized Business Documents,
-so that I can issue and access immutable business evidence.
+so that I can verify the commercial, Delivery or Payment facts relevant to my supplier relationship.
 
 ### Current Scope
 
@@ -189,7 +189,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Correct or replace an issued Business Document while preserving the original |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Platform; Buyer Portal |
+| Surface | Platform |
 | Actor | Authorized Actor |
 | Epic | WEB-EPIC-13 — Business Documents |
 | Priority | MUST |
@@ -199,9 +199,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a Authorized Actor,
+As an Authorized Actor,
 I want to correct or replace an issued Business Document while preserving the original,
-so that I can issue and access immutable business evidence.
+so that the original issued document remains verifiable alongside its linked correction or replacement.
 
 ### Current Scope
 

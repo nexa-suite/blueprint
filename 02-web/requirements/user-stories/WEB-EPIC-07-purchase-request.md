@@ -21,7 +21,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Title | Submit a Purchase Request |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -33,7 +33,7 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 
 As a Customer Buyer,
 I want to submit a Purchase Request,
-so that I can move a valid commercial intention through review and confirmation.
+so that Nexa can authoritatively validate the request and establish required commitment before review.
 
 ### Current Scope
 
@@ -49,7 +49,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Resolve insufficient Sellable Availability |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -61,7 +61,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to resolve insufficient Sellable Availability,
-so that I can move a valid commercial intention through review and confirmation.
+so that I can adjust demand or choose an alternative when the requested quantity cannot be protected.
 
 ### Current Scope
 
@@ -77,7 +77,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Resolve insufficient Available Credit |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -89,7 +89,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to resolve insufficient Available Credit,
-so that I can move a valid commercial intention through review and confirmation.
+so that I can resolve credit exposure before waiting for a request that cannot be confirmed.
 
 ### Current Scope
 
@@ -105,7 +105,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Track Purchase Request status |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -117,7 +117,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to track Purchase Request status,
-so that I can move a valid commercial intention through review and confirmation.
+so that I can respond within the request lifecycle and know whether it can proceed.
 
 ### Current Scope
 
@@ -133,7 +133,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review a submitted Purchase Request |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -145,7 +145,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to review a submitted Purchase Request,
-so that I can move a valid commercial intention through review and confirmation.
+so that I can decide whether the requested commercial terms can proceed under Tenant policy.
 
 ### Current Scope
 
@@ -161,7 +161,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Propose material Purchase Request changes |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -173,7 +173,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to propose material Purchase Request changes,
-so that I can move a valid commercial intention through review and confirmation.
+so that the Buyer can evaluate a changed request without losing the original intent.
 
 ### Current Scope
 
@@ -189,7 +189,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Accept or reject proposed material changes |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -201,7 +201,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to accept or reject proposed material changes,
-so that I can move a valid commercial intention through review and confirmation.
+so that only the Buyer's accepted material terms become authoritative.
 
 ### Current Scope
 
@@ -217,7 +217,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Withdraw an active Purchase Request |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Buyer Portal |
 | Actor | Customer Buyer |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -229,7 +229,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Customer Buyer,
 I want to withdraw an active Purchase Request,
-so that I can move a valid commercial intention through review and confirmation.
+so that I can stop an unwanted request and release its active commercial protections.
 
 ### Current Scope
 
@@ -245,7 +245,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Reject a Purchase Request |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -257,7 +257,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to reject a Purchase Request,
-so that I can move a valid commercial intention through review and confirmation.
+so that the Buyer receives a reasoned terminal outcome and protected demand is released.
 
 ### Current Scope
 
@@ -273,8 +273,8 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Expire an overdue Purchase Request |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
-| Actor | System / Customer Buyer |
+| Surface | Buyer Portal |
+| Actor | Customer Buyer |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
 | Owning Bounded Context | BC-04 — Sales Commitment |
@@ -283,9 +283,9 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 ### User Story
 
-As a System / Customer Buyer,
-I want to expire an overdue Purchase Request,
-so that I can move a valid commercial intention through review and confirmation.
+As a Customer Buyer,
+I want an overdue Purchase Request to expire,
+so that overdue demand stops holding commitment and credit while I see a terminal state.
 
 ### Current Scope
 
@@ -301,7 +301,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Convert an accepted Purchase Request into a Sales Order |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Buyer Portal; Platform |
+| Surface | Platform |
 | Actor | Sales Representative |
 | Epic | WEB-EPIC-07 — Purchase Request |
 | Priority | MUST |
@@ -313,7 +313,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 
 As a Sales Representative,
 I want to convert an accepted Purchase Request into a Sales Order,
-so that I can move a valid commercial intention through review and confirmation.
+so that the accepted request becomes a confirmed Sales Order without a release-and-re-reserve gap.
 
 ### Current Scope
 

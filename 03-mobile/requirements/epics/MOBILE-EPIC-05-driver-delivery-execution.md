@@ -35,7 +35,7 @@ This epic records a proposed Mobile product projection. It does not claim valida
 
 As a Driver,
 I want to review assigned Deliveries,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that I can see the route and requirements for the Deliveries assigned to me.
 
 ### Current Scope
 
@@ -65,7 +65,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Driver,
 I want to accept and start a Delivery,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that the active Delivery has a clear execution state before I travel.
 
 ### Current Scope
 
@@ -95,7 +95,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Driver,
 I want to navigate to the delivery destination,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that I can reach the intended destination using the Delivery context and current address.
 
 ### Current Scope
 
@@ -125,7 +125,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Driver,
 I want to share location during an active Delivery,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that the Buyer and Dispatch can see progress without relying on informal updates.
 
 ### Current Scope
 
@@ -155,7 +155,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Driver,
 I want to contact the Buyer in Delivery context,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that I can coordinate an exception with the Buyer while keeping it tied to the Delivery.
 
 ### Current Scope
 
@@ -185,7 +185,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Driver,
 I want to record a Delivery Attempt,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that each Delivery Attempt records the actual outcome and reason at the point of execution.
 
 ### Current Scope
 
@@ -215,7 +215,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Driver,
 I want to record partial delivery or rejection,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that accepted, rejected and remaining quantities remain distinct for the next decision.
 
 ### Current Scope
 
@@ -245,7 +245,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Driver,
 I want to capture POD using photo/signature where required,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that the Buyer can verify receipt from immutable evidence appropriate to the Delivery policy.
 
 ### Current Scope
 
@@ -275,7 +275,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Driver,
 I want to generate a Delivery verification QR,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that the receiving Buyer can securely identify and confirm the active Delivery Attempt.
 
 ### Current Scope
 
@@ -305,7 +305,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Driver,
 I want to safely finalize a Delivery despite temporary connectivity loss,
-so that I can complete assigned Deliveries and record defensible outcomes.
+so that a temporary offline event does not create duplicate or unverifiable Delivery facts when connectivity returns.
 
 ### Current Scope
 
