@@ -200,6 +200,8 @@ web_requirements = "\n".join(
 )
 web_story_ids = re.findall(r"^## (WEB-US-\d{3}) —", web_requirements, re.MULTILINE)
 expected_web_story_ids = [f"WEB-US-{i:03d}" for i in range(1, 134)]
+if len(web_story_ids) != len(set(web_story_ids)):
+    failures.append("Web catalog contains duplicated User Story IDs")
 if sorted(web_story_ids, key=lambda item: int(item[-3:])) != expected_web_story_ids:
     failures.append(f"Web catalog is not the contiguous WEB-US-001..WEB-US-133 set: {web_story_ids}")
 
@@ -213,6 +215,8 @@ mobile_requirements = "\n".join(
 )
 mobile_story_ids = re.findall(r"^## (MOB-US-\d{3}) —", mobile_requirements, re.MULTILINE)
 expected_mobile_story_ids = [f"MOB-US-{i:03d}" for i in range(1, 50)]
+if len(mobile_story_ids) != len(set(mobile_story_ids)):
+    failures.append("Mobile catalog contains duplicated User Story IDs")
 if sorted(mobile_story_ids, key=lambda item: int(item[-3:])) != expected_mobile_story_ids:
     failures.append(f"Mobile catalog is not the contiguous MOB-US-001..MOB-US-049 set: {mobile_story_ids}")
 
@@ -220,6 +224,75 @@ mobile_epic_ids = re.findall(r"^# (MOBILE-EPIC-\d{2}) —", mobile_requirements,
 expected_mobile_epic_ids = [f"MOBILE-EPIC-{i:02d}" for i in range(1, 8)]
 if sorted(mobile_epic_ids, key=lambda item: int(item[-2:])) != expected_mobile_epic_ids:
     failures.append(f"Mobile catalog is not the contiguous 7-Epic set: {mobile_epic_ids}")
+
+def validate_story_blocks(label, text, prefix, mobile=False):
+    blocks = list(re.finditer(
+        rf"^## ({prefix}-\d{{3}}) — .*?(?=^## {prefix}-|\Z)",
+        text,
+        re.MULTILINE | re.DOTALL,
+    ))
+    required_fields = (
+        "ID", "Status", "Product", "Surface", "Actor", "Epic",
+        "Priority", "Title", "Owning Bounded Context",
+    )
+    internal_only_actors = {
+        "Nexa Commercial & Onboarding Staff",
+        "Company Owner",
+        "Business Operations Manager",
+        "Tenant Administrator",
+        "Sales Representative",
+        "Warehouse Operator",
+        "Dispatch Coordinator",
+        "Authorized Workforce Actor",
+        "Authorized Commercial Actor",
+        "Authorized Financial Actor",
+        "Authorized Payment Actor",
+        "Authorized Actor",
+        "Privileged Actor",
+    }
+    for match in blocks:
+        story_id, block = match.group(1), match.group(0)
+        for field in required_fields:
+            field_match = re.search(
+                rf"^\| {re.escape(field)} \|\s*(.*?)\s*\|$",
+                block,
+                re.MULTILINE,
+            )
+            if not field_match or not field_match.group(1).strip():
+                failures.append(f"{label} {story_id} missing required field: {field}")
+
+        statement = re.search(
+            r"^### User Story\s*\n\s*"
+            r"As (?:a|an) .+?,\s*\n"
+            r"I want .+?,\s*\n"
+            r"so that .+?\s*$",
+            block,
+            re.MULTILINE,
+        )
+        if not statement:
+            failures.append(f"{label} {story_id} missing complete User Story statement")
+        if re.search(r"^As a Authorized\b", block, re.MULTILINE):
+            failures.append(f"{label} {story_id} has invalid grammatical prefix: As a Authorized")
+
+        surface_match = re.search(r"^\| Surface \|\s*(.*?)\s*\|$", block, re.MULTILINE)
+        actor_match = re.search(r"^\| Actor \|\s*(.*?)\s*\|$", block, re.MULTILINE)
+        if surface_match and actor_match:
+            surface = surface_match.group(1).strip()
+            actor = actor_match.group(1).strip()
+            if (
+                not mobile
+                and "Buyer Portal" in surface
+                and actor in internal_only_actors
+            ):
+                failures.append(
+                    f"{label} {story_id} assigns Buyer Portal to internal-only actor: {actor}"
+                )
+
+        if mobile and "PROPOSED / RESEARCH VALIDATION PENDING" not in block:
+            failures.append(f"Mobile story lacks proposed research status: {story_id}")
+
+validate_story_blocks("Web", web_requirements, "WEB")
+validate_story_blocks("Mobile", mobile_requirements, "MOB", mobile=True)
 
 for story_match in re.finditer(
     r"^## (MOB-US-\d{3}) — .*?(?=^## MOB-US-|\Z)",

@@ -60,6 +60,17 @@ so that [business value].
 Stories express a business slice. Do not write button, CRUD, endpoint,
 database-table, component or implementation stories as product requirements.
 
+### Actor qualification
+
+Use the canonical actors from [the shared actor catalog](actors.md) whenever
+the responsible product actor is identifiable. `Authorized User`, `User with
+multiple relationships`, `Invited Workforce Member`, `Mobile User`, and
+capability-qualified forms such as `Authorized Commercial Actor` or `Authorized
+Financial Actor` describe an access, lifecycle or capability boundary; they do
+not create new organizational roles. Later refinement binds these descriptors
+to the applicable canonical actor and capability under Tenant policy. No
+Finance actor is implied.
+
 ## Functional User Stories
 
 The later Acceptance Criteria must:
