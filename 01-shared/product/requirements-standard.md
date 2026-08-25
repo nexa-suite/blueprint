@@ -1,48 +1,144 @@
 ---
 status: accepted
-maturity: BASELINED
+maturity: FROZEN
 scope: cross-cutting
 owner: product
 last-reviewed: 2026-08-24
 ---
 
-# Requirements authoring standard
+# Requirements Authoring Standard
 
-This standard prepares future refinement. It does not create a final Web or
-Mobile backlog and does not reopen Product, Domain or C4 decisions.
+This standard governs the frozen catalog and prepares later requirements
+refinement. It does not reopen accepted Product, Domain or C4 decisions.
 
-## Required fields
+## Product Generalization Rule
 
-Every future story records: `ID`, `Epic`, `Surface`, `Actor`, `Segment`,
-`Capability`, `Primary BC`, `Supporting BCs`, `Priority`, `V1 status`,
-`Research status`, `Story Points`, `User Story`, `Business Value`,
-`Preconditions`, `Business Rules`, `Acceptance Criteria`, `Dependencies`,
-`Out of Scope`, `Related Events`, `Related State`, and `Sources`.
+Nexa requirements describe capabilities of the Nexa product for its target
+market, not bespoke workflows of the ICISA Reference Tenant.
 
-Use the wording: **As a [actor], I want [business outcome], so that [value].**
+ICISA may provide domain evidence, examples, acceptance scenarios and reference
+configuration.
+
+A behavior becomes canonical Nexa Product scope only when it expresses a
+reusable capability, invariant or policy applicable to the defined target
+market.
+
+Tenant-specific variations must be represented through configuration,
+commercial policy, authorization or explicitly scoped extensions rather than
+hard-coded ICISA semantics.
+
+## Catalog freeze contract
+
+Functional catalog status for this wave:
+
+| Category | Count | Status |
+|---|---:|---|
+| Web functional User Stories | 133 | CONFIRMED / V1 |
+| Mobile functional User Stories | 49 | PROPOSED / RESEARCH VALIDATION PENDING |
+| Technical Stories | 20 | SHARED / DELIVERY |
+| Spike Stories | 6 | RESEARCH / ENABLER |
+| Total requirement items | 208 | FROZEN CATALOG |
+
+The freeze records identity and product-level scope. It does not invent final
+Acceptance Criteria, Story Points, Sprints, Personas, interviews, statistics,
+Mobile validation results or academic traceability.
+
+## Required functional story fields
+
+Every functional story records:
+
+ID, Status, Product, Surface, Actor, Epic, Priority, Title, concise User Story
+statement, owning Bounded Context, capability or family when obvious and
+current refinement status.
+
+Use the wording:
+
+As a [actor],
+I want [goal],
+so that [business value].
+
 Stories express a business slice. Do not write button, CRUD, endpoint,
 database-table, component or implementation stories as product requirements.
 
-## Acceptance criteria
+## Functional User Stories
 
-Use Given/When/Then. Include only relevant cases, but cover the applicable
-happy path, alternative or rejection, authorization, state conflict,
-concurrency, failure/retry and durable result. Criteria must be observable and
-must not invent an API contract.
+The later Acceptance Criteria must:
 
-## Refinement and identifiers
+- contain multiple scenarios where behavior warrants it;
+- be testable and use Given / When / Then;
+- be in present tense;
+- avoid UI implementation details;
+- represent observable behavior;
+- distinguish happy path, business rejection and relevant exception;
+- avoid arbitrary minimum scenario counts.
 
-Story Points use Fibonacci `1, 2, 3, 5, 8, 13` only after refinement. `13`
-requires a review for splitting or a documented reason. Current Web stories
-remain `TBD — DELIVERY REFINEMENT`.
+Guideline:
 
-Future namespaces are reserved: `WEB-EPIC-*`, `WEB-US-*`, `MOB-EPIC-*`,
-`MOB-US-*`, plus explicit technical/spike namespaces. Do not generate future
-IDs in this preservation wave. Historical IDs remain historical and map only
-through the [baseline migration mechanism](../../91-reference/legacy/legacy-ecosystem-report/historical-user-story-catalog.md).
+- Simple story: 2-3 Acceptance Criteria normally.
+- Normal story: 3-5 Acceptance Criteria normally.
+- Lifecycle or business-critical story: 4-6 Acceptance Criteria normally.
+- Concurrency, finance or high-risk story: 5-8 when behavior genuinely
+  requires them.
 
-## Status dimensions
+Never pad Acceptance Criteria merely to hit a count.
 
-Keep dimensions separate: decision `ACCEPTED / PROPOSED / DEFERRED`; research
-`VALIDATED / PARTIALLY_VALIDATED / PENDING`; implementation `IMPLEMENTED /
-PARTIAL / PLANNED / FUTURE`; production `READY / OPEN`.
+## Technical Stories
+
+Actor: Developer.
+
+Use Technical Stories only for capabilities without direct end-user
+interaction, such as REST APIs, transactional correctness, security/isolation,
+infrastructure, integrations, local storage and background reliability.
+
+## Spike Stories
+
+Each Spike records:
+
+- uncertainty or question;
+- investigation goal;
+- expected evidence;
+- completion criteria;
+- output or recommendation.
+
+A Spike does not pretend to deliver normal production functionality.
+
+## Acceptance Criteria and refinement
+
+Later refinement adds Preconditions, Business Rules, complete Acceptance
+Criteria, Event references, Dependencies, Out of Scope, Story Points and
+academic traceability. Acceptance Criteria must preserve tenant scope,
+authorization, lifecycle, state conflict, concurrency, failure/retry and
+durable result where relevant. Do not invent API contracts.
+
+## Story Points
+
+Story Points are not assigned in the catalog freeze. Later refinement may use
+1, 2, 3, 5 or 8. If a story appears larger than 8, consider splitting by
+user or business outcome.
+
+## Priority and status
+
+Product Backlog ordering follows business value. Product priority is not
+implementation dependency order. Technical prerequisites do not automatically
+become Product priority one.
+
+Keep dimensions separate:
+
+- decision: ACCEPTED / PROPOSED / DEFERRED;
+- research: VALIDATED / PARTIALLY_VALIDATED / PENDING;
+- implementation: IMPLEMENTED / PARTIAL / PLANNED / FUTURE;
+- production: READY / OPEN.
+
+## Canonical context references
+
+Stories point to the existing:
+
+- [11 Bounded Contexts](../domain/bounded-contexts/README.md);
+- [Context Map](../domain/strategic-ddd/context-map.md);
+- [Ubiquitous Language](../domain/ubiquitous-language/README.md);
+- [Business Rules](../domain/business-rules/README.md);
+- [State Machines](../domain/state-machines/README.md);
+- [Published Events](../domain/events/published-events.md);
+- [C4](../architecture/c4/README.md);
+- [ADRs](../architecture/decisions/README.md);
+- [Shared Design foundations](../design/README.md).
