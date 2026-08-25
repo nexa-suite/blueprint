@@ -15,7 +15,7 @@ class Warehouse <<Aggregate Root>> {
   +assignZone(zone: StorageZone): void
 }
 
-class InventoryLot <<Entity>> {
+class InventoryLot <<Aggregate Root>> {
   -lotId: InventoryLotId
   -warehouseId: WarehouseId
   -skuId: SkuId
