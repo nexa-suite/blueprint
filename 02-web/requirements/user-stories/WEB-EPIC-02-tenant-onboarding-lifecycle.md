@@ -77,7 +77,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Complete required company information |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Website |
+| Surface | Platform |
 | Actor | Company Owner |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
@@ -133,7 +133,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Configure the initial operational Workspace |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Website |
+| Surface | Platform |
 | Actor | Company Owner |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
@@ -161,7 +161,7 @@ No final Acceptance Criteria, Story Points, Sprints or academic traceability are
 | Title | Review company configuration before activation |
 | Status | CONFIRMED / V1 |
 | Product | Web |
-| Surface | Website |
+| Surface | Platform |
 | Actor | Company Owner |
 | Epic | WEB-EPIC-02 — Tenant Onboarding & Lifecycle |
 | Priority | MUST |
