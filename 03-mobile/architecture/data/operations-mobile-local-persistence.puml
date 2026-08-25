@@ -1,0 +1,70 @@
+@startuml OperationsMobileLocalPersistence
+title Operations Mobile — Local Logical Persistence (PROPOSED / RESEARCH VALIDATION PENDING)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class LocalWorkItem <<Aggregate Root>> {
+  -localWorkItemId: LocalWorkItemId
+  -remoteReference: String
+  -kind: WorkItemKind
+  -state: LocalWorkItemState
+  +saveDraft(): void
+  +queueUpload(): void
+  +markUploaded(serverReference: String): void
+  +markRejected(reason: String): void
+}
+
+class LocalCapture <<Entity>> {
+  -captureId: LocalCaptureId
+  -localWorkItemId: LocalWorkItemId
+  -captureKind: CaptureKind
+  -contentReference: String
+  -contentHash: String
+  +stage(): void
+  +markTransferred(): void
+}
+
+class UploadQueueItem <<Entity>> {
+  -queueItemId: QueueItemId
+  -localWorkItemId: LocalWorkItemId
+  -attemptCount: Integer
+  -state: QueueState
+  +enqueue(): void
+  +retry(): void
+  +complete(): void
+}
+
+class SyncMetadata <<Entity>> {
+  -syncId: SyncMetadataId
+  -remoteReference: String
+  -lastServerVersion: String
+  -lastSyncedAt: Instant
+  +recordServerVersion(version: String): void
+}
+
+class LocalStorageBoundary <<Domain Service>> {
+  +persistDraft(item: LocalWorkItem): void
+  +loadPendingUploads(): List<UploadQueueItem>
+  +purgeAfterServerConfirmation(item: LocalWorkItem): void
+}
+
+LocalWorkItem "1" *-- "0..*" LocalCapture : captures
+LocalWorkItem "1" *-- "0..*" UploadQueueItem : outbox
+LocalWorkItem "1" o-- "0..1" SyncMetadata : sync marker
+LocalStorageBoundary --> LocalWorkItem : local only
+
+enum WorkItemKind <<Enum>>
+enum LocalWorkItemState <<Enum>>
+enum CaptureKind <<Enum>>
+enum QueueState <<Enum>>
+
+legend right
+PROPOSED / RESEARCH VALIDATION PENDING
+Technology: NOT SELECTED. Logical records only; no framework commitment.
+LOCAL / NON-AUTHORITATIVE. Server/API is authority for inventory, order,
+payment, authorization, POD success and traceability.
+Offline capture is retryable intent, never business confirmation.
+endlegend
+@enduml
