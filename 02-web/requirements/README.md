@@ -1,15 +1,29 @@
-# Web requirements
+---
+status: accepted
+maturity: FROZEN
+scope: v1
+owner: product
+last-reviewed: 2026-08-24
+---
 
-Web requirements are the current pre-refinement baseline for Website, Internal
-Web Platform and Buyer Portal. Product and Domain remain authoritative.
+# Web Requirements
 
-- [Current story baseline](current-story-baseline.md) — exact register of all 37 current stories.
-- [Detailed current story contracts](user-stories/user-story-catalog.md) — preserved source catalog; no new IDs.
-- [Requirements governance](requirements-governance.md) — refinement boundary and status language.
-- [Derivation source map](derivation-sources.md) — capability/actor/domain/research inputs.
-- [Traceability model](traceability-model.md) — future story mapping contract.
-- [UX discovery](../ux/discovery/README.md) — provenance and research boundary.
+The Web catalog is frozen for this wave:
 
-Status: `ACCEPTED PRODUCT / PRE-REQUIREMENTS REFINEMENT PENDING`.
-This wave performs no final user-story derivation, no Story Points assignment
-and no final Epic catalog.
+- 15 Web Epics.
+- 133 functional User Stories.
+- Status: CONFIRMED / V1.
+- Refinement: CATALOG FROZEN — ACCEPTANCE CRITERIA PENDING.
+
+Canonical reading order:
+
+1. [Catalog index](user-stories/user-story-catalog.md)
+2. [Epic files](user-stories/README.md)
+3. [Coverage](coverage.md)
+4. [Requirements governance](requirements-governance.md)
+5. [Traceability model](traceability-model.md)
+6. [Derivation sources](derivation-sources.md)
+
+Web surfaces remain Website, Internal Web Platform and Buyer Portal over one
+shared Product and domain. The old 37-story pre-freeze register is superseded,
+not silently counted with this catalog.

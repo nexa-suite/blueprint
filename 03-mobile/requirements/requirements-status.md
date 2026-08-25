@@ -1,34 +1,27 @@
 ---
 status: planned
-maturity: DISCOVERY
+maturity: FROZEN
 scope: runway
 owner: product
 last-reviewed: 2026-08-24
 ---
 
-# Mobile requirements status
+# Mobile Requirements Status
 
 | Dimension | Status | Meaning |
 |---|---|---|
-| Decision | PROPOSED | two-app target is retained |
-| Research | PENDING | class research has not validated actors, needs or journeys |
-| Implementation | PLANNED | no Mobile V1 delivery claim |
-| Production | OPEN | Production Gate remains open |
+| Decision | PROPOSED | Two-app target is retained. |
+| Catalog | FROZEN | 7 Epics and 49 proposed stories are registered. |
+| Research | PROPOSED / RESEARCH VALIDATION PENDING | No Mobile validation is claimed. |
+| Implementation | PLANNED | No Mobile V1 delivery claim. |
+| Production | OPEN | Production Gate remains open. |
 
-## Target projections
+Operations Mobile primarily serves BOM, Sales, Warehouse, Dispatch and Driver
+work. Buyer Mobile primarily serves Customer Buyer work. Both reuse the shared
+Nexa domain, Product model, 11 Bounded Contexts and design foundations.
 
-Operations Mobile covers Sales, Warehouse, Dispatch and Driver delivery work.
-Buyer Mobile covers Customer Buyer work and is a mobile-primary candidate.
-Mobile-specific discovery may consider offline, push, camera/scanning, QR,
-location, mobile navigation and mobile journeys. These are research questions,
-not accepted implementation contracts.
+Mobile discovery must later validate actors, needs, journeys, offline behavior,
+push priority, camera/scanning, QR, location, evidence capture, mobile IA and
+recovery from failed sync. None is promoted to validated fact by this catalog.
 
-Preserve these boundaries during research:
-
-- QR is ephemeral evidence; backend validates Delivery, Attempt, Customer
-  Account, Buyer Relationship, expiry and replay.
-- Driver-offered and Buyer-accepted discrepancy are separate facts.
-- Driver location is active-delivery-only; no permanent employee tracking.
-- Communication is contextual contact, not a full chat product.
-- POD evidence is immutable; selective offline must be explicit and idempotent.
-- Push is a candidate core channel; IoT telemetry remains future.
+The catalog is a Product projection, not a Mobile architecture redesign.

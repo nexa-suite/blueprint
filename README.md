@@ -6,10 +6,11 @@ Canonical documentation for Nexa Product, Domain, System, Web, Mobile runway, de
 
 - [00-start-here](00-start-here/README.md) — orientation, authority and current status.
 - [Shared product](01-shared/product/README.md) — what Nexa is and for whom.
+- [Problem Foundation](01-shared/product/vision/problem.md) — current baseline and historical provenance.
 - [Shared domain](01-shared/domain/README.md) — one business domain and 11 accepted Bounded Contexts.
 - [Shared architecture](01-shared/architecture/README.md) — C4, technical architecture, data, security and reliability.
-- [Web](02-web/README.md) — Website, Platform and Portal experience contracts.
-- [Mobile](03-mobile/README.md) — proposed/discovery-only native surface.
+- [Web](02-web/README.md) — Website, Platform and Portal experience contracts; 133 confirmed stories.
+- [Mobile](03-mobile/README.md) — proposed/discovery-only native surface; 49 stories pending research validation.
 - [Delivery](04-delivery/README.md) — AS-IS, runtime, quality and production gates.
 - [90-academic](90-academic/README.md) — isolated academic projections.
 - [91-reference](91-reference/README.md) — historical, legacy, audit and external evidence.

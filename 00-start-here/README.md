@@ -9,10 +9,11 @@ domain, surface projections and delivery evidence.
 - **Shared**: product, one domain, Design System, architecture, data, security and engineering.
 - **Web**: Website, Internal Platform and Buyer Portal.
 - **Mobile**: two proposed apps; research validation pending.
+- **Problem**: [current Problem Foundation](../01-shared/product/vision/problem.md), with historical Web provenance.
 - **DDD**: [01-shared/domain](../01-shared/domain/README.md).
 - **C4**: [01-shared/architecture/c4](../01-shared/architecture/c4/README.md).
 - **Design**: [01-shared/design](../01-shared/design/README.md), sourced from [Design Lab](https://github.com/nexa-suite/design-lab).
-- **Requirements**: [Web](../02-web/requirements/README.md) and [Mobile](../03-mobile/requirements/README.md).
+- **Requirements**: [Web](../02-web/requirements/README.md) with 15 Epics / 133 confirmed stories; [Mobile](../03-mobile/requirements/README.md) with 7 Epics / 49 proposed stories; [shared delivery](../01-shared/product/requirements/README.md) with 20 Technical Stories / 6 Spikes.
 - **Actors and capabilities**: [Shared actors](../01-shared/product/actors.md) and [Shared capability model](../01-shared/product/capability-map.md).
 - **Academic evidence**: [90-academic](../90-academic/README.md); historical source in [91-reference](../91-reference/README.md).
 

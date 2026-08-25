@@ -1,28 +1,25 @@
 ---
 status: accepted
-maturity: BASELINED
+maturity: FROZEN
 scope: v1
 owner: product
 last-reviewed: 2026-08-24
 ---
 
-# Web requirements traceability model
+# Web Requirements Traceability Model
 
-Future story traceability is directional and evidence-first:
+The frozen direction is:
 
-`Story -> Epic namespace -> Surface -> Actor/segment -> Capability -> Primary
-BC -> supporting BCs -> Process/state -> Business rule -> Event -> UX/research
-evidence -> implementation evidence -> validation result`.
+Story -> Epic namespace -> Surface -> Actor -> Capability/family -> Priority ->
+Owning Bounded Context -> Process/state -> Business rule -> Event ->
+UX/research evidence -> implementation evidence -> validation result.
 
-The [derivation source map](derivation-sources.md) is the index. A refined story
-must link to the exact capability row, actor entry, domain rule/state/event,
-research artifact and implementation evidence. If research is historical, mark
-its provenance and current interpretation.
+The [derivation source map](derivation-sources.md) is the index. Each refined
+story must link to exact capability, actor, domain rule/state/event, research
+artifact and implementation evidence. Historical research must retain
+provenance and current interpretation.
 
-Current `US-001` through `US-037` remain baseline IDs. Historical academic IDs
-remain under `90-academic`/`91-reference`. Future refinement may add a mapping:
-
-`baselineStoryId -> classification -> supersededBy -> future current story ID`.
-
-No future current IDs are generated here. A mapping without a target ID means
-the story is still `REFINE`, `SPLIT`, `MERGE`, `REWRITE` or `DROP` pending review.
+The current namespaced catalog is WEB-US-001 through WEB-US-133. The former
+US-001 through US-037 register is superseded historical context. No silent
+one-to-one mapping is implied; future review may classify stories as KEEP,
+REFINE, SPLIT, MERGE, SUPERSEDE or DROP and record explicit mapping.

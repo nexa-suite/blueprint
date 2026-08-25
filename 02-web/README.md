@@ -7,7 +7,7 @@ one shared domain and API authority.
 - [Actors](actors/README.md) — projection of the [Shared actor catalog](../01-shared/product/actors.md)
 - [Segments](segments/README.md)
 - [Capabilities](capabilities/README.md)
-- [Requirements](requirements/README.md) — 37-story pre-refinement baseline
+- [Requirements](requirements/README.md) — 15 Epics and 133 CONFIRMED / V1 stories
 - [UX](ux/README.md)
 - [Architecture](architecture/README.md)
 
