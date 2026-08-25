@@ -1,0 +1,38 @@
+---
+status: draft
+maturity: DRAFT
+scope: v1
+owner: data
+last-reviewed: 2026-08-25
+---
+
+# BC × Product/Data Participation Matrix
+
+The Nexa API is the server-side Domain authority. Website, Platform, Buyer
+Portal and both proposed Mobile applications consume contracts or projections;
+they do not own Aggregate state. `LOCAL CACHE / OFFLINE PARTICIPANT` means
+device state only, never authoritative business truth.
+
+| BC | Website | Platform | Buyer Portal | API | Operations Mobile | Buyer Mobile |
+|---|---|---|---|---|---|---|
+| BC-01 Tenant & Access Governance | APPLICATION / INTERFACE CONSUMER | APPLICATION / INTERFACE CONSUMER | APPLICATION / INTERFACE CONSUMER | DOMAIN AUTHORITY | PROPOSED PARTICIPANT | PROPOSED PARTICIPANT |
+| BC-02 Customer & Buyer Relationships | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | APPLICATION / INTERFACE CONSUMER | DOMAIN AUTHORITY | PROPOSED READ CONSUMER | PROPOSED READ CONSUMER |
+| BC-03 Catalog & Commercial Policy | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | PROPOSED READ CACHE | PROPOSED READ CACHE |
+| BC-04 Sales Commitment | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | APPLICATION / INTERFACE CONSUMER | DOMAIN AUTHORITY | PROPOSED PARTICIPANT | PROPOSED PARTICIPANT |
+| BC-05 Inventory Availability | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | LOCAL CACHE / OFFLINE PARTICIPANT | READ PROJECTION CONSUMER |
+| BC-06 Fulfillment & Delivery | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | PROPOSED PARTICIPANT | READ PROJECTION CONSUMER |
+| BC-07 Credit & Receivables | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | PROPOSED READ CONSUMER | READ PROJECTION CONSUMER |
+| BC-08 Payments | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | APPLICATION / INTERFACE CONSUMER | DOMAIN AUTHORITY | PROPOSED READ CONSUMER | PROPOSED PARTICIPANT |
+| BC-09 Business Documents | NOT PARTICIPATING | READ PROJECTION CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | PROPOSED EVIDENCE CONSUMER | PROPOSED READ CACHE |
+| BC-10 Notifications | NOT PARTICIPATING | READ PROJECTION CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | PROPOSED LOCAL DELIVERY PARTICIPANT | PROPOSED LOCAL DELIVERY PARTICIPANT |
+| BC-11 Business Traceability | NOT PARTICIPATING | READ PROJECTION CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | PROPOSED READ CACHE | PROPOSED READ CACHE |
+
+## Database interpretation
+
+- Website, Platform and Buyer Portal have no local authoritative business
+  database. Browser/session/cache state is not a second Nexa database.
+- Operations Mobile and Buyer Mobile have separate logical local persistence
+  designs under `03-mobile/architecture/data/`; these are PROPOSED and
+  technology-neutral.
+- PostgreSQL remains one shared V1 topology. Per-BC SQL files are ownership
+  lenses, not eleven physical PostgreSQL servers or schema-per-BC mandates.
