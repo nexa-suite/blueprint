@@ -194,22 +194,80 @@ adr_count = len(list((root / "01-shared/architecture/decisions/adr").glob("adr-*
 if adr_count != 17:
     failures.append(f"expected 17 ADRs, found {adr_count}")
 
-story_file = root / "02-web/requirements/user-stories/user-story-catalog.md"
-story_ids = re.findall(r"^#### (US-\d{3}) —", story_file.read_text(encoding="utf-8"), re.MULTILINE)
-expected_story_ids = [f"US-{i:03d}" for i in range(1, 38)]
-if story_ids != expected_story_ids:
-    failures.append(f"current Web story catalog is not the preserved US-001..US-037 set: {story_ids}")
+web_requirements = "\n".join(
+    p.read_text(encoding="utf-8")
+    for p in (root / "02-web/requirements/user-stories").glob("*.md")
+)
+web_story_ids = re.findall(r"^## (WEB-US-\d{3}) —", web_requirements, re.MULTILINE)
+expected_web_story_ids = [f"WEB-US-{i:03d}" for i in range(1, 134)]
+if sorted(web_story_ids, key=lambda item: int(item[-3:])) != expected_web_story_ids:
+    failures.append(f"Web catalog is not the contiguous WEB-US-001..WEB-US-133 set: {web_story_ids}")
 
-register_file = root / "02-web/requirements/current-story-baseline.md"
-register_ids = re.findall(r"^\| (US-\d{3}) \|", register_file.read_text(encoding="utf-8"), re.MULTILINE)
-if register_ids != expected_story_ids:
-    failures.append(f"Web story preservation register is incomplete: {register_ids}")
+web_epic_ids = re.findall(r"^# (WEB-EPIC-\d{2}) —", web_requirements, re.MULTILINE)
+expected_web_epic_ids = [f"WEB-EPIC-{i:02d}" for i in range(1, 16)]
+if sorted(web_epic_ids, key=lambda item: int(item[-2:])) != expected_web_epic_ids:
+    failures.append(f"Web catalog is not the contiguous 15-Epic set: {web_epic_ids}")
 
 mobile_requirements = "\n".join(
     p.read_text(encoding="utf-8") for p in (root / "03-mobile/requirements").rglob("*.md")
 )
-if re.search(r"\bMOB-(?:EPIC|US)-\d+\b", mobile_requirements):
-    failures.append("Mobile requirements contain future IDs before research refinement")
+mobile_story_ids = re.findall(r"^## (MOB-US-\d{3}) —", mobile_requirements, re.MULTILINE)
+expected_mobile_story_ids = [f"MOB-US-{i:03d}" for i in range(1, 50)]
+if sorted(mobile_story_ids, key=lambda item: int(item[-3:])) != expected_mobile_story_ids:
+    failures.append(f"Mobile catalog is not the contiguous MOB-US-001..MOB-US-049 set: {mobile_story_ids}")
+
+mobile_epic_ids = re.findall(r"^# (MOBILE-EPIC-\d{2}) —", mobile_requirements, re.MULTILINE)
+expected_mobile_epic_ids = [f"MOBILE-EPIC-{i:02d}" for i in range(1, 8)]
+if sorted(mobile_epic_ids, key=lambda item: int(item[-2:])) != expected_mobile_epic_ids:
+    failures.append(f"Mobile catalog is not the contiguous 7-Epic set: {mobile_epic_ids}")
+
+for story_match in re.finditer(
+    r"^## (MOB-US-\d{3}) — .*?(?=^## MOB-US-|\Z)",
+    mobile_requirements,
+    re.MULTILINE | re.DOTALL,
+):
+    if "PROPOSED / RESEARCH VALIDATION PENDING" not in story_match.group(0):
+        failures.append(f"Mobile story lacks proposed research status: {story_match.group(1)}")
+
+technical_text = (root / "01-shared/product/requirements/technical-stories.md").read_text(encoding="utf-8")
+technical_ids = re.findall(r"^## (TS-\d{3}) —", technical_text, re.MULTILINE)
+expected_technical_ids = [f"TS-{i:03d}" for i in range(1, 21)]
+if technical_ids != expected_technical_ids:
+    failures.append(f"Technical catalog is not the contiguous TS-001..TS-020 set: {technical_ids}")
+
+spike_text = (root / "01-shared/product/requirements/spike-stories.md").read_text(encoding="utf-8")
+spike_ids = re.findall(r"^## (SPIKE-\d{3}) —", spike_text, re.MULTILINE)
+expected_spike_ids = [f"SPIKE-{i:03d}" for i in range(1, 7)]
+if spike_ids != expected_spike_ids:
+    failures.append(f"Spike catalog is not the contiguous SPIKE-001..SPIKE-006 set: {spike_ids}")
+
+total_items = len(web_story_ids) + len(mobile_story_ids) + len(technical_ids) + len(spike_ids)
+if total_items != 208:
+    failures.append(f"expected 208 total requirement items, found {total_items}")
+
+accepted_contexts = {
+    "BC-01 — Tenant & Access Governance",
+    "BC-02 — Customer & Buyer Relationships",
+    "BC-03 — Catalog & Commercial Policy",
+    "BC-04 — Sales Commitment",
+    "BC-05 — Inventory Availability",
+    "BC-06 — Fulfillment & Delivery",
+    "BC-07 — Credit & Receivables",
+    "BC-08 — Payments",
+    "BC-09 — Business Documents",
+    "BC-10 — Notifications",
+    "BC-11 — Business Traceability",
+}
+context_values = re.findall(
+    r"^\| (?:Owning Bounded Context|Relevant Bounded Contexts) \| (.+?) \|$",
+    web_requirements + "\n" + mobile_requirements,
+    re.MULTILINE,
+)
+for value in context_values:
+    for context in value.split(";"):
+        context = context.strip()
+        if context not in accepted_contexts:
+            failures.append(f"requirement references non-canonical Bounded Context: {context}")
 
 if failures:
     print("BLUEPRINT VALIDATION: FAIL")
