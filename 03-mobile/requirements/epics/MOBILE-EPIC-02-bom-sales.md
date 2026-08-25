@@ -35,7 +35,7 @@ This epic records a proposed Mobile product projection. It does not claim valida
 
 As a Business Operations Manager,
 I want to review the operational overview on Mobile,
-so that I can prepare commercial work with shared Product rules.
+so that I can prioritize work using current operational facts from the relevant Tenant.
 
 ### Current Scope
 
@@ -65,7 +65,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Business Operations Manager,
 I want to review critical operational exceptions,
-so that I can prepare commercial work with shared Product rules.
+so that I can address blocked work before it delays a Customer or Delivery.
 
 ### Current Scope
 
@@ -95,7 +95,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Sales Representative,
 I want to search Customer Accounts,
-so that I can prepare commercial work with shared Product rules.
+so that I can open the right Customer record without duplicating relationship data.
 
 ### Current Scope
 
@@ -125,7 +125,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Sales Representative,
 I want to review catalog, pricing and availability,
-so that I can prepare commercial work with shared Product rules.
+so that I can quote or prepare demand from current commercial and availability information.
 
 ### Current Scope
 
@@ -155,7 +155,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Sales Representative,
 I want to prepare a commercial operation for a Customer,
-so that I can prepare commercial work with shared Product rules.
+so that I can assemble the Customer's intended operation before choosing its authoritative order path.
 
 ### Current Scope
 
@@ -185,7 +185,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Sales Representative,
 I want to capture a Purchase Request or Direct Order on Mobile,
-so that I can prepare commercial work with shared Product rules.
+so that field demand enters the same Purchase Request or Sales Order rules as Web.
 
 ### Current Scope
 
@@ -215,7 +215,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Sales Representative,
 I want to review Orders, Credit and Customer history,
-so that I can prepare commercial work with shared Product rules.
+so that I can follow Customer-specific orders and credit context while away from the Platform.
 
 ### Current Scope
 

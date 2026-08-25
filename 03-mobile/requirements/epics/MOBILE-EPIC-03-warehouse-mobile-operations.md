@@ -35,7 +35,7 @@ This epic records a proposed Mobile product projection. It does not claim valida
 
 As a Warehouse Operator,
 I want to identify a SKU using the device camera and code scanning,
-so that I can execute inventory work with less re-entry and stronger traceability.
+so that I can identify the intended SKU quickly at the point of warehouse work.
 
 ### Current Scope
 
@@ -65,7 +65,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Warehouse Operator,
 I want to identify a SKU manually when scanning is unavailable,
-so that I can execute inventory work with less re-entry and stronger traceability.
+so that inventory work can continue when a code is damaged, missing or unreadable.
 
 ### Current Scope
 
@@ -95,7 +95,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Warehouse Operator,
 I want to record incoming inventory,
-so that I can execute inventory work with less re-entry and stronger traceability.
+so that received quantity becomes visible against the correct inbound operation.
 
 ### Current Scope
 
@@ -125,7 +125,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Warehouse Operator,
 I want to record Lot, expiry and quantity,
-so that I can execute inventory work with less re-entry and stronger traceability.
+so that the Lot, its expiry and quantity support traceable sellability and FEFO decisions.
 
 ### Current Scope
 
@@ -155,7 +155,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Warehouse Operator,
 I want to review stock and Lots,
-so that I can execute inventory work with less re-entry and stronger traceability.
+so that I can compare physical stock, expiry and location before moving or allocating it.
 
 ### Current Scope
 
@@ -185,7 +185,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Warehouse Operator,
 I want to confirm Picking using scanning,
-so that I can execute inventory work with less re-entry and stronger traceability.
+so that each picked unit is checked against its Physical Allocation before Fulfillment advances.
 
 ### Current Scope
 
@@ -215,7 +215,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Warehouse Operator,
 I want to record discrepancy or inventory adjustment,
-so that I can execute inventory work with less re-entry and stronger traceability.
+so that discrepancies are recorded as explicit inventory facts instead of silent corrections.
 
 ### Current Scope
 
@@ -245,7 +245,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Warehouse Operator,
 I want to execute transfer or inventory-count operations,
-so that I can execute inventory work with less re-entry and stronger traceability.
+so that transfers and counts change stock through the governed Inventory Availability process.
 
 ### Current Scope
 
@@ -275,7 +275,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Warehouse Operator,
 I want to record temperature and evidence,
-so that I can execute inventory work with less re-entry and stronger traceability.
+so that cold-chain evidence is available when receiving or handling affected stock.
 
 ### Current Scope
 

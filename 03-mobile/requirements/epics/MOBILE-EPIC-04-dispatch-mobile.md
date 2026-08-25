@@ -35,7 +35,7 @@ This epic records a proposed Mobile product projection. It does not claim valida
 
 As a Dispatch Coordinator,
 I want to review Deliveries ready for Dispatch,
-so that I can hand over goods with explicit operational evidence.
+so that I can select only Deliveries that meet readiness conditions for handoff.
 
 ### Current Scope
 
@@ -65,7 +65,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Dispatch Coordinator,
 I want to assign a Driver,
-so that I can hand over goods with explicit operational evidence.
+so that each ready Delivery has one accountable Driver and an auditable assignment.
 
 ### Current Scope
 
@@ -95,7 +95,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Dispatch Coordinator,
 I want to verify outgoing goods,
-so that I can hand over goods with explicit operational evidence.
+so that the goods leaving the Warehouse match the Delivery being dispatched.
 
 ### Current Scope
 
@@ -125,7 +125,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Dispatch Coordinator,
 I want to capture photographic handoff evidence,
-so that I can hand over goods with explicit operational evidence.
+so that the handoff retains visual evidence of the goods and their condition.
 
 ### Current Scope
 
@@ -155,7 +155,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Dispatch Coordinator,
 I want to generate or register a handoff identifier,
-so that I can hand over goods with explicit operational evidence.
+so that the recipient and operations can identify the exact handoff later.
 
 ### Current Scope
 
@@ -185,7 +185,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Dispatch Coordinator,
 I want to confirm Delivery dispatch,
-so that I can hand over goods with explicit operational evidence.
+so that the Delivery enters execution only after Dispatch records its handoff decision.
 
 ### Current Scope
 

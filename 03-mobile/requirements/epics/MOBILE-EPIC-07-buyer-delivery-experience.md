@@ -35,7 +35,7 @@ This epic records a proposed Mobile product projection. It does not claim valida
 
 As a Customer Buyer,
 I want to receive Delivery push notifications,
-so that I can know delivery status and confirm or report receipt outcomes.
+so that I can react to a Delivery change before the receiving window is missed.
 
 ### Current Scope
 
@@ -65,7 +65,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to track an active Driver on a map,
-so that I can know delivery status and confirm or report receipt outcomes.
+so that I can estimate arrival using the active Delivery information shared by operations.
 
 ### Current Scope
 
@@ -95,7 +95,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to contact the Driver,
-so that I can know delivery status and confirm or report receipt outcomes.
+so that I can resolve arrival questions through the authorized Delivery channel.
 
 ### Current Scope
 
@@ -125,7 +125,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to scan the Driver-generated Delivery QR,
-so that I can know delivery status and confirm or report receipt outcomes.
+so that I can associate the Driver's handoff with the Delivery I am receiving.
 
 ### Current Scope
 
@@ -155,7 +155,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to confirm correct receipt,
-so that I can know delivery status and confirm or report receipt outcomes.
+so that the supplier receives an explicit receipt outcome tied to the Delivery evidence.
 
 ### Current Scope
 
@@ -185,7 +185,7 @@ No final Acceptance Criteria, Story Points, Sprints, personas or Mobile validati
 
 As a Customer Buyer,
 I want to report discrepancy or rejection during receipt,
-so that I can know delivery status and confirm or report receipt outcomes.
+so that a discrepancy or rejection triggers an attributable operational follow-up.
 
 ### Current Scope
 
