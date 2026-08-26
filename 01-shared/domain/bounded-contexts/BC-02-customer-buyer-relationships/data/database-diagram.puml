@@ -1,0 +1,84 @@
+@startuml
+title BC-02 Target Database Diagram
+left to right direction
+hide methods
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #0F172A
+}
+
+entity "customer_account" as t_customer_account {
+  * customer_account_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * legal_name : varchar(200) <<required>>
+    tax_identifier : varchar(80)
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "customer_contact" as t_customer_contact {
+  * contact_id : uuid <<PK>>
+  * customer_account_id : uuid <<FK, required>>
+  * human_identity_id : uuid <<required>>
+  * role : varchar(32) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "customer_address" as t_customer_address {
+  * address_id : uuid <<PK>>
+  * customer_account_id : uuid <<FK, required>>
+  * kind : varchar(32) <<required>>
+  * line1 : varchar(240) <<required>>
+    line2 : varchar(240)
+    district_code : varchar(32)
+    province_code : varchar(32)
+    department_code : varchar(32)
+    postal_code : varchar(32)
+    recipient_name : varchar(200)
+  * is_default : boolean <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "buyer_relationship" as t_buyer_relationship {
+  * relationship_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<FK, required>>
+  * human_identity_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * requested_at : timestamptz <<required>>
+    approved_at : timestamptz
+    revoked_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "buyer_relationship_history" as t_buyer_relationship_history {
+  * history_id : uuid <<PK>>
+  * relationship_id : uuid <<FK, required>>
+    from_status : varchar(32)
+  * to_status : varchar(32) <<required>>
+    reason : varchar(500)
+    changed_by_identity_id : uuid
+  * changed_at : timestamptz <<required>>
+}
+
+t_customer_contact }o--|| t_customer_account : customer_account_id
+t_customer_address }o--|| t_customer_account : customer_account_id
+t_buyer_relationship }o--|| t_customer_account : customer_account_id
+t_buyer_relationship_history }o--|| t_buyer_relationship : relationship_id
+
+legend right
+TARGET / BC-02 logical relational ownership / SQL is the authority
+PK = primary key | FK = same-owner foreign key
+required = NOT NULL | cross-BC IDs are deliberately not FK
+This PlantUML file is a visual projection for review.
+endlegend
+@enduml

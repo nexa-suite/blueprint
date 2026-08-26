@@ -1,0 +1,147 @@
+@startuml
+title BC-04 Target Database Diagram
+left to right direction
+hide methods
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #0F172A
+}
+
+entity "request_draft" as t_request_draft {
+  * draft_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * buyer_relationship_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+    expires_at : timestamptz
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "request_draft_line" as t_request_draft_line {
+  * line_id : uuid <<PK>>
+  * draft_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+    notes : varchar(500)
+}
+
+entity "purchase_request" as t_purchase_request {
+  * purchase_request_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * buyer_relationship_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * submitted_at : timestamptz <<required>>
+  * expires_at : timestamptz <<required>>
+  * revision : integer <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "purchase_request_line" as t_purchase_request_line {
+  * line_id : uuid <<PK>>
+  * purchase_request_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * requested_quantity : numeric(19,6) <<required>>
+    accepted_quantity : numeric(19,6)
+  * price_snapshot : jsonb <<required>>
+  * terms_snapshot : jsonb <<required>>
+}
+
+entity "material_change_proposal" as t_material_change_proposal {
+  * proposal_id : uuid <<PK>>
+  * purchase_request_id : uuid <<FK, required>>
+  * proposed_by_identity_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * change_snapshot : jsonb <<required>>
+  * proposed_at : timestamptz <<required>>
+    decided_at : timestamptz
+}
+
+entity "commercial_commitment" as t_commercial_commitment {
+  * commitment_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * origin_type : varchar(32) <<required>>
+    purchase_request_id : uuid <<FK>>
+  * buyer_relationship_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * committed_at : timestamptz <<required>>
+    cancelled_at : timestamptz
+  * revision : integer <<required>>
+    OR : value
+}
+
+entity "commercial_commitment_line" as t_commercial_commitment_line {
+  * line_id : uuid <<PK>>
+  * commitment_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * unit_price : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * terms_snapshot : jsonb <<required>>
+}
+
+entity "sales_order" as t_sales_order {
+  * sales_order_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * commitment_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * confirmed_at : timestamptz <<required>>
+    cancelled_at : timestamptz
+  * revision : integer <<required>>
+}
+
+entity "sales_order_line" as t_sales_order_line {
+  * line_id : uuid <<PK>>
+  * sales_order_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * unit_price : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * fulfillment_quantity : numeric(19,6) <<required>>
+}
+
+entity "commitment_owner_transfer" as t_commitment_owner_transfer {
+  * transfer_id : uuid <<PK>>
+  * commitment_id : uuid <<FK, required>>
+  * from_owner : varchar(32) <<required>>
+  * to_owner : varchar(32) <<required>>
+  * transferred_at : timestamptz <<required>>
+  * reason : varchar(500) <<required>>
+}
+
+entity "sales_commitment_adjustment" as t_sales_commitment_adjustment {
+  * adjustment_id : uuid <<PK>>
+  * commitment_id : uuid <<FK, required>>
+  * reason : varchar(500) <<required>>
+  * quantity_delta : numeric(19,6) <<required>>
+  * amount_delta : numeric(19,4) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+t_request_draft_line }o--|| t_request_draft : draft_id
+t_purchase_request_line }o--|| t_purchase_request : purchase_request_id
+t_material_change_proposal }o--|| t_purchase_request : purchase_request_id
+t_commercial_commitment }o--|| t_purchase_request : purchase_request_id
+t_commercial_commitment_line }o--|| t_commercial_commitment : commitment_id
+t_sales_order }o--|| t_commercial_commitment : commitment_id
+t_sales_order_line }o--|| t_sales_order : sales_order_id
+t_commitment_owner_transfer }o--|| t_commercial_commitment : commitment_id
+t_sales_commitment_adjustment }o--|| t_commercial_commitment : commitment_id
+
+legend right
+TARGET / BC-04 logical relational ownership / SQL is the authority
+PK = primary key | FK = same-owner foreign key
+required = NOT NULL | cross-BC IDs are deliberately not FK
+This PlantUML file is a visual projection for review.
+endlegend
+@enduml

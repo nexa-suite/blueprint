@@ -132,3 +132,11 @@ Estos elementos no están presentes en las vistas V1 ni deben describirse como i
 La respuesta defendible es: **Nexa es el producto; las superficies web son experiencias separadas; el API modular monolith es la autoridad; PostgreSQL y Object Storage son almacenes C4; los providers son dependencias externas abstractas; el runtime local se mapea aparte; Workspace y módulos no se convierten en containers por nombre**.
 
 La semántica de identidad global, membership workforce, Buyer relationship, propagación de contexto y RLS se detalla separadamente en [Multi-tenant context propagation](../../security/multi-tenancy/context-propagation.md). La organización lógica se detalla en [Logical system layering](../layering/logical-system-layering.md).
+
+## Tactical component coverage
+
+[Component-level rubric coverage](component-rubric-coverage.md) maps all eleven
+Bounded Contexts to existing Structurizr component views. These are logical
+seams inside accepted containers, not one container per context. Versioned
+visual exports under [exports](exports/README.md) are review evidence; the DSL
+remains the semantic source.

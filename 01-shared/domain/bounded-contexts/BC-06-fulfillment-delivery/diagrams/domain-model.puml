@@ -1,0 +1,173 @@
+@startuml BC06_FulfillmentDelivery
+title BC-06 Fulfillment & Delivery — Tactical Domain Model (TARGET / V1)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class Fulfillment <<Aggregate Root>> {
+  -fulfillmentId: FulfillmentId
+  -salesOrderId: SalesOrderId
+  -status: FulfillmentStatus
+  +start(): void
+  +complete(): void
+  +cancel(reason: CancellationReason): void
+}
+
+class FulfillmentLine <<Entity>> {
+  -lineId: FulfillmentLineId
+  -fulfillmentId: FulfillmentId
+  -skuId: SkuId
+  -plannedQuantity: Quantity
+  +recordPicked(quantity: Quantity): void
+}
+
+class PickingResult <<Entity>> {
+  -pickingResultId: PickingResultId
+  -fulfillmentId: FulfillmentId
+  -status: PickingStatus
+  -completedAt: Instant
+  +confirm(): void
+  +flagDiscrepancy(): void
+}
+
+class PickingDiscrepancy <<Entity>> {
+  -discrepancyId: PickingDiscrepancyId
+  -pickingResultId: PickingResultId
+  -kind: DiscrepancyKind
+  -quantity: Quantity
+  +resolve(): void
+}
+
+class Delivery <<Aggregate Root>> {
+  -deliveryId: DeliveryId
+  -fulfillmentId: FulfillmentId
+  -status: DeliveryStatus
+  -destinationSnapshot: DestinationSnapshot
+  +dispatch(): void
+  +attempt(): DeliveryAttempt
+  +complete(): void
+  +openContinuation(): ContinuationDelivery
+}
+
+class DeliveryAssignment <<Entity>> {
+  -assignmentId: DeliveryAssignmentId
+  -deliveryId: DeliveryId
+  -operatorId: OperatorId
+  -vehicleReference: String
+  +assign(): void
+  +unassign(): void
+}
+
+class DeliveryAttempt <<Entity>> {
+  -attemptId: DeliveryAttemptId
+  -deliveryId: DeliveryId
+  -attemptNumber: Integer
+  -outcome: AttemptOutcome
+  +recordOutcome(outcome: AttemptOutcome): void
+}
+
+class DeliveryAttemptLine <<Entity>> {
+  -lineId: DeliveryAttemptLineId
+  -attemptId: DeliveryAttemptId
+  -skuId: SkuId
+  -quantity: Quantity
+  +record(): void
+}
+
+class DeliveryQuantityOutcome <<Entity>> {
+  -outcomeId: DeliveryQuantityOutcomeId
+  -attemptId: DeliveryAttemptId
+  -fulfilledQuantity: Quantity
+  -shortQuantity: Quantity
+  +record(): void
+}
+
+class ProofOfDelivery <<Aggregate Root>> {
+  -podId: ProofOfDeliveryId
+  -deliveryId: DeliveryId
+  -status: PodStatus
+  -capturedAt: Instant
+  +capture(): void
+  +seal(): void
+}
+
+class ProofOfDeliveryAddendum <<Entity>> {
+  -addendumId: PodAddendumId
+  -podId: ProofOfDeliveryId
+  -reason: String
+  +append(): void
+}
+
+class TemperatureEvidence <<Entity>> {
+  -evidenceId: TemperatureEvidenceId
+  -deliveryId: DeliveryId
+  -capturedAt: Instant
+  -temperatureCelsius: Decimal
+  +record(): void
+}
+
+class TemperatureExcursion <<Entity>> {
+  -excursionId: TemperatureExcursionId
+  -deliveryId: DeliveryId
+  -status: ExcursionStatus
+  +placeOnHold(): void
+  +disposition(): void
+}
+
+class ContinuationDelivery <<Entity>> {
+  -continuationId: ContinuationDeliveryId
+  -parentDeliveryId: DeliveryId
+  -status: ContinuationStatus
+  +open(): void
+  +close(): void
+}
+
+class DeliveryExecutionPolicy <<Domain Service>> {
+  +canComplete(delivery: Delivery, pod: ProofOfDelivery): boolean
+  +requiresContinuation(outcome: DeliveryQuantityOutcome): boolean
+}
+
+class DestinationSnapshot <<Value Object>> {
+  -recipientName: String
+  -addressLine: String
+  -districtCode: String
+}
+
+interface DeliveryRepository <<Repository>> {
+  +findById(id: DeliveryId): Delivery
+  +save(delivery: Delivery): void
+}
+
+enum FulfillmentStatus <<Enum>>
+enum DeliveryStatus <<Enum>>
+enum AttemptOutcome <<Enum>>
+enum PodStatus <<Enum>>
+enum ExcursionStatus <<Enum>>
+enum ContinuationStatus <<Enum>>
+
+Fulfillment "1" *-- "1..*" FulfillmentLine : lines
+Fulfillment "1" *-- "0..1" PickingResult : picking
+PickingResult "1" *-- "0..*" PickingDiscrepancy : exceptions
+Delivery "1" *-- "0..*" DeliveryAssignment : assignments
+Delivery "1" *-- "1..*" DeliveryAttempt : attempts
+DeliveryAttempt "1" *-- "0..*" DeliveryAttemptLine : delivered lines
+DeliveryAttempt "1" *-- "0..*" DeliveryQuantityOutcome : outcomes
+Delivery "1" *-- "0..1" ProofOfDelivery : immutable POD
+ProofOfDelivery "1" *-- "0..*" ProofOfDeliveryAddendum : append only
+Delivery "1" *-- "0..*" TemperatureEvidence : evidence
+Delivery "1" *-- "0..*" TemperatureExcursion : excursions
+Delivery "1" *-- "0..*" ContinuationDelivery : continuations
+Fulfillment --> SalesOrder : stable order id
+FulfillmentLine --> PhysicalAllocation : stable allocation id
+DeliveryExecutionPolicy ..> DeliveryRepository : loads
+DeliveryExecutionPolicy --> ProofOfDelivery : verifies
+Delivery *-- DestinationSnapshot : freezes destination
+
+legend right
+TARGET / V1 / tactical design aid
+POD is immutable; corrections are addenda. Temperature excursion may HOLD.
+Partial delivery opens ContinuationDelivery; it does not rewrite history.
+*-- composition | --> domain dependency | ..> port/use
+endlegend
+@enduml

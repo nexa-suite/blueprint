@@ -1,0 +1,103 @@
+@startuml BC10_Notifications
+title BC-10 Notifications — Tactical Domain Model (TARGET / V1)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class NotificationTemplate <<Aggregate Root>> {
+  -templateId: NotificationTemplateId
+  -tenantId: TenantId
+  -eventType: EventType
+  -channel: NotificationChannel
+  -version: Integer
+  +publish(): void
+  +retire(): void
+}
+
+class Notification <<Aggregate Root>> {
+  -notificationId: NotificationId
+  -tenantId: TenantId
+  -eventId: EventId
+  -status: NotificationStatus
+  +schedule(): void
+  +cancel(): void
+  +markDelivered(): void
+}
+
+class NotificationRecipient <<Entity>> {
+  -recipientId: NotificationRecipientId
+  -notificationId: NotificationId
+  -address: RecipientAddress
+  -status: RecipientStatus
+  +accept(): void
+  +suppress(reason: SuppressionReason): void
+}
+
+class NotificationPreference <<Entity>> {
+  -preferenceId: NotificationPreferenceId
+  -tenantId: TenantId
+  -recipientKey: RecipientKey
+  -channel: NotificationChannel
+  -enabled: Boolean
+  +enable(): void
+  +disable(): void
+}
+
+class NotificationAttempt <<Entity>> {
+  -attemptId: NotificationAttemptId
+  -notificationId: NotificationId
+  -channel: NotificationChannel
+  -status: AttemptStatus
+  -attemptedAt: Instant
+  +recordSuccess(): void
+  +recordFailure(reason: FailureReason): void
+}
+
+class NotificationPolicy <<Domain Service>> {
+  +selectRecipients(event: DomainEvent, preferences: List<NotificationPreference>): List<RecipientAddress>
+  +shouldDeliver(notification: Notification): boolean
+}
+
+class RecipientAddress <<Value Object>> {
+  -value: String
+  -kind: AddressKind
+}
+
+class DomainEvent <<Value Object>> {
+  -eventId: EventId
+  -eventType: EventType
+  -occurredAt: Instant
+}
+
+interface NotificationRepository <<Repository>> {
+  +findById(id: NotificationId): Notification
+  +save(notification: Notification): void
+}
+
+interface DeliveryChannelPort <<Port>> {
+  +send(recipient: RecipientAddress, content: MessageContent): DeliveryResult
+}
+
+enum NotificationChannel <<Enum>>
+enum NotificationStatus <<Enum>>
+enum AttemptStatus <<Enum>>
+enum RecipientStatus <<Enum>>
+
+NotificationTemplate "1" o-- "0..*" Notification : renders
+Notification "1" *-- "1..*" NotificationRecipient : recipients
+Notification "1" *-- "0..*" NotificationAttempt : attempts
+NotificationRecipient *-- RecipientAddress : destination
+Notification --> DomainEvent : reacts to
+NotificationPreference --> RecipientAddress : configures
+NotificationPolicy ..> NotificationRepository : loads
+NotificationPolicy ..> DeliveryChannelPort : dispatches
+NotificationPolicy --> NotificationPreference : applies
+
+legend right
+TARGET / V1 / tactical design aid
+Notification is delivery state, not business truth; source event remains authoritative.
+Preferences and recipients are tenant-scoped; retries are explicit attempts.
+*-- composition | --> domain dependency | ..> port/use
+endlegend
+@enduml

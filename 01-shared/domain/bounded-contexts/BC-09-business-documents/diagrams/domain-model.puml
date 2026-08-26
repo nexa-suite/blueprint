@@ -1,0 +1,107 @@
+@startuml BC09_BusinessDocuments
+title BC-09 Business Documents — Tactical Domain Model (TARGET / V1)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class DocumentNumberSeries <<Aggregate Root>> {
+  -seriesId: DocumentNumberSeriesId
+  -tenantId: TenantId
+  -documentType: DocumentType
+  -nextNumber: Long
+  +reserveNumber(): DocumentNumber
+}
+
+class BusinessDocument <<Aggregate Root>> {
+  -documentId: BusinessDocumentId
+  -tenantId: TenantId
+  -documentType: DocumentType
+  -status: DocumentStatus
+  -issuedAt: Instant
+  +issue(): void
+  +void(reason: VoidReason): void
+  +supersede(revisionId: DocumentRevisionId): void
+}
+
+class DocumentSnapshotLine <<Entity>> {
+  -lineId: DocumentSnapshotLineId
+  -documentId: BusinessDocumentId
+  -skuCode: String
+  -description: String
+  -quantity: Decimal
+  -unitPrice: Money
+  +capture(): void
+}
+
+class DocumentRevision <<Entity>> {
+  -revisionId: DocumentRevisionId
+  -documentId: BusinessDocumentId
+  -revisionNumber: Integer
+  -snapshotHash: Hash
+  +seal(): void
+}
+
+class ObjectStorageReference <<Entity>> {
+  -objectReferenceId: ObjectStorageReferenceId
+  -documentId: BusinessDocumentId
+  -objectKey: ObjectKey
+  -contentHash: Hash
+  -contentType: String
+  +attach(): void
+  +verify(): boolean
+}
+
+class DocumentGenerationRequest <<Entity>> {
+  -generationRequestId: DocumentGenerationRequestId
+  -documentId: BusinessDocumentId
+  -status: GenerationStatus
+  +queue(): void
+  +complete(objectReference: ObjectStorageReference): void
+  +fail(reason: FailureReason): void
+}
+
+class DocumentIssuancePolicy <<Domain Service>> {
+  +canIssue(document: BusinessDocument): boolean
+  +nextNumber(series: DocumentNumberSeries): DocumentNumber
+}
+
+class Money <<Value Object>> {
+  -amount: Decimal
+  -currency: CurrencyCode
+}
+
+interface BusinessDocumentRepository <<Repository>> {
+  +findById(id: BusinessDocumentId): BusinessDocument
+  +save(document: BusinessDocument): void
+}
+
+interface ObjectStoragePort <<Port>> {
+  +put(contentHash: Hash, contentType: String): ObjectStorageReference
+  +read(objectKey: ObjectKey): BinaryReference
+}
+
+enum DocumentType <<Enum>>
+enum DocumentStatus <<Enum>>
+enum GenerationStatus <<Enum>>
+
+DocumentNumberSeries "1" o-- "0..*" BusinessDocument : numbers
+BusinessDocument "1" *-- "1..*" DocumentSnapshotLine : immutable snapshot
+BusinessDocument "1" *-- "1..*" DocumentRevision : revisions
+BusinessDocument "1" *-- "0..*" ObjectStorageReference : artifacts
+BusinessDocument "1" *-- "0..*" DocumentGenerationRequest : generation
+DocumentSnapshotLine *-- Money : price snapshot
+DocumentGenerationRequest --> ObjectStorageReference : produces
+BusinessDocument --> SalesOrder : stable order id
+BusinessDocument --> Payment : stable payment id
+BusinessDocument --> Receivable : stable receivable id
+DocumentIssuancePolicy ..> BusinessDocumentRepository : persists
+DocumentIssuancePolicy ..> ObjectStoragePort : stores bytes
+
+legend right
+TARGET / V1 / tactical design aid
+Issued documents and snapshots are immutable; corrections create revisions.
+Object Storage holds bytes; PostgreSQL holds metadata and hashes only.
+*-- composition | --> domain dependency | ..> port/use
+endlegend
+@enduml

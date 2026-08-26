@@ -1,0 +1,130 @@
+@startuml BC01_TenantAccessGovernance
+title BC-01 Tenant & Access Governance — Tactical Domain Model (TARGET / V1)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class Tenant <<Aggregate Root>> {
+  -tenantId: TenantId
+  -legalName: LegalName
+  -status: TenantStatus
+  +registerCompany(): void
+  +suspend(reason: SuspensionReason): void
+  +changeSettings(settings: TenantSettings): void
+}
+
+class Workspace <<Aggregate Root>> {
+  -workspaceId: WorkspaceId
+  -tenantId: TenantId
+  -name: WorkspaceName
+  -status: WorkspaceStatus
+  +createForTenant(): void
+  +activate(): void
+  +deactivate(): void
+}
+
+class HumanIdentity <<Aggregate Root>> {
+  -humanIdentityId: HumanIdentityId
+  -email: EmailAddress
+  -status: IdentityStatus
+  +verify(): void
+  +disable(reason: DisableReason): void
+}
+
+class CompanyOnboardingRequest <<Aggregate Root>> {
+  -requestId: OnboardingRequestId
+  -tenantId: TenantId
+  -status: OnboardingStatus
+  +submit(): void
+  +approve(): void
+  +reject(reason: RejectionReason): void
+}
+
+class WorkforceMembership <<Aggregate Root>> {
+  -membershipId: MembershipId
+  -workspaceId: WorkspaceId
+  -humanIdentityId: HumanIdentityId
+  -status: MembershipStatus
+  +invite(): void
+  +activate(): void
+  +revoke(reason: RevokeReason): void
+  +can(capability: CapabilityCode): boolean
+}
+
+class RoleDefinition <<Entity>> {
+  -roleId: RoleId
+  -code: RoleCode
+  -name: RoleName
+  +rename(name: RoleName): void
+  +retire(): void
+}
+
+class CapabilityDefinition <<Entity>> {
+  -capabilityId: CapabilityId
+  -code: CapabilityCode
+  -name: CapabilityName
+  +describe(name: CapabilityName): void
+}
+
+class MembershipRole <<Entity>> {
+  -assignmentId: MembershipRoleId
+  -membershipId: MembershipId
+  -roleId: RoleId
+  +assign(): void
+  +remove(): void
+}
+
+class RoleCapability <<Entity>> {
+  -roleCapabilityId: RoleCapabilityId
+  -roleId: RoleId
+  -capabilityId: CapabilityId
+  +grant(): void
+  +revoke(): void
+}
+
+class MembershipCapabilityOverride <<Entity>> {
+  -overrideId: OverrideId
+  -membershipId: MembershipId
+  -capabilityId: CapabilityId
+  -effect: CapabilityEffect
+  +allow(): void
+  +deny(): void
+}
+
+interface MembershipRepository <<Repository>> {
+  +findById(id: MembershipId): WorkforceMembership
+  +save(membership: WorkforceMembership): void
+}
+
+class AccessPolicy <<Domain Service>> {
+  +authorize(membership: WorkforceMembership, capability: CapabilityCode): boolean
+}
+
+enum TenantStatus <<Enum>>
+enum WorkspaceStatus <<Enum>>
+enum IdentityStatus <<Enum>>
+enum MembershipStatus <<Enum>>
+enum CapabilityEffect <<Enum>>
+
+Tenant "1" *-- "1" Workspace : owns
+Tenant "1" o-- "0..*" CompanyOnboardingRequest : receives
+Workspace "1" o-- "0..*" WorkforceMembership : scopes
+HumanIdentity "1" o-- "0..*" WorkforceMembership : participates
+WorkforceMembership "1" *-- "0..*" MembershipRole : has
+WorkforceMembership "1" *-- "0..*" MembershipCapabilityOverride : overrides
+RoleDefinition "1" o-- "0..*" MembershipRole : assigned
+RoleDefinition "1" *-- "0..*" RoleCapability : grants
+CapabilityDefinition "1" o-- "0..*" RoleCapability : target
+CapabilityDefinition "1" o-- "0..*" MembershipCapabilityOverride : target
+MembershipRepository ..> WorkforceMembership : persists
+AccessPolicy ..> MembershipRepository : loads
+AccessPolicy --> CapabilityDefinition : evaluates
+
+legend right
+TARGET / V1 / tactical design aid
+Aggregate Roots own local consistency boundaries.
+Cross-BC IDs are values; no cross-BC composition.
+*-- composition | --> domain dependency | ..> port/use
+endlegend
+@enduml

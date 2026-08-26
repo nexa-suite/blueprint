@@ -374,3 +374,5 @@ docker run --rm \
 python3 tooling/scripts/compare-structurizr-semantic.py \
   "$GENERATED_DIR/workspace.json" \
   "$ROOT/01-shared/architecture/c4/structurizr/generated/workspace.json"
+
+bash tooling/scripts/validate-tactical-data-model.sh

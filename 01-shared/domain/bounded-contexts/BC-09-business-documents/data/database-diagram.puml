@@ -1,0 +1,92 @@
+@startuml
+title BC-09 Target Database Diagram
+left to right direction
+hide methods
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #0F172A
+}
+
+entity "document_number_series" as t_document_number_series {
+  * series_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * document_type : varchar(32) <<required>>
+  * series_code : varchar(32) <<required>>
+  * next_number : bigint <<required>>
+  * version : integer <<required>>
+}
+
+entity "business_document" as t_business_document {
+  * document_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * series_id : uuid <<FK, required>>
+  * document_type : varchar(32) <<required>>
+  * document_number : varchar(80) <<required>>
+    sales_order_id : uuid
+    payment_id : uuid
+    receivable_id : uuid
+  * status : varchar(32) <<required>>
+    issued_at : timestamptz
+    voided_at : timestamptz
+}
+
+entity "document_snapshot_line" as t_document_snapshot_line {
+  * line_id : uuid <<PK>>
+  * document_id : uuid <<FK, required>>
+    sku_id : uuid
+    sku_code : varchar(80)
+  * description : varchar(500) <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * unit_price : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * line_total : numeric(19,4) <<required>>
+}
+
+entity "document_revision" as t_document_revision {
+  * revision_id : uuid <<PK>>
+  * document_id : uuid <<FK, required>>
+  * revision_number : integer <<required>>
+  * snapshot_hash : varchar(128) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "object_storage_reference" as t_object_storage_reference {
+  * object_reference_id : uuid <<PK>>
+  * document_id : uuid <<FK, required>>
+  * object_key : varchar(500) <<required>>
+  * content_type : varchar(160) <<required>>
+  * content_length : bigint <<required>>
+  * content_hash : varchar(128) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "document_generation_request" as t_document_generation_request {
+  * generation_request_id : uuid <<PK>>
+  * document_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * requested_at : timestamptz <<required>>
+    completed_at : timestamptz
+    failure_reason : varchar(500)
+    object_reference_id : uuid <<FK>>
+}
+
+t_business_document }o--|| t_document_number_series : series_id
+t_document_snapshot_line }o--|| t_business_document : document_id
+t_document_revision }o--|| t_business_document : document_id
+t_object_storage_reference }o--|| t_business_document : document_id
+t_document_generation_request }o--|| t_business_document : document_id
+t_document_generation_request }o--|| t_object_storage_reference : object_reference_id
+
+legend right
+TARGET / BC-09 logical relational ownership / SQL is the authority
+PK = primary key | FK = same-owner foreign key
+required = NOT NULL | cross-BC IDs are deliberately not FK
+This PlantUML file is a visual projection for review.
+endlegend
+@enduml
