@@ -26,11 +26,19 @@ if academic_source in paths or (root / academic_source).exists():
 if any(path.endswith("mobile-applications-final-rubric.pdf") for path in paths):
     failures.append("academic rubric PDF must not be tracked")
 try:
-    if subprocess.run(
+    origin_main = subprocess.run(
+        ["git", "rev-parse", "--verify", "origin/main"],
+        cwd=root,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    if origin_main.returncode == 0 and subprocess.run(
         ["git", "diff", "--quiet", "origin/main...HEAD", "--", "AGENTS.md"],
         cwd=root,
     ).returncode != 0:
         failures.append("AGENTS.md has a committed PR diff; owner-local guidance must remain uncommitted")
+    elif origin_main.returncode != 0:
+        warnings.append("origin/main is unavailable in this checkout; committed AGENTS.md diff check skipped")
 except Exception as exc:
     failures.append(f"could not verify committed AGENTS.md diff: {exc}")
 
@@ -456,6 +464,8 @@ if failures:
 print("BLUEPRINT VALIDATION: PASS")
 print(f"- candidate files inspected: {len(paths)}")
 print("- links, metadata, publication boundary, secret heuristics and C4 workspace: PASS")
+for warning in warnings:
+    print(f"- WARNING: {warning}")
 PY
 
 bash tooling/scripts/validate-academic-mobile.sh
