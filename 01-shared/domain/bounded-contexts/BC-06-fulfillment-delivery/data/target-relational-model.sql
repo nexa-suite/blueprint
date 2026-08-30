@@ -94,6 +94,45 @@ CREATE TABLE delivery_quantity_outcome (
     UNIQUE (attempt_id, sku_id)
 );
 
+CREATE TABLE delivery_handoff_token (
+    delivery_handoff_token_id uuid PRIMARY KEY,
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    delivery_id uuid NOT NULL REFERENCES delivery (delivery_id),
+    delivery_attempt_id uuid NOT NULL REFERENCES delivery_attempt (attempt_id),
+    customer_account_id uuid NOT NULL,
+    token_hash char(64) NOT NULL,
+    issued_at timestamptz NOT NULL,
+    expires_at timestamptz NOT NULL,
+    issuer_operator_id uuid NOT NULL,
+    status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','REPLACED','EXPIRED','CONSUMED')),
+    idempotency_key varchar(160) NOT NULL,
+    created_at timestamptz NOT NULL,
+    UNIQUE (issuer_operator_id, idempotency_key),
+    CHECK (expires_at > issued_at),
+    CHECK (token_hash ~ '^[0-9a-f]{64}$')
+);
+
+CREATE TABLE buyer_receipt_fact (
+    buyer_receipt_fact_id uuid PRIMARY KEY,
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    delivery_id uuid NOT NULL REFERENCES delivery (delivery_id),
+    delivery_attempt_id uuid NOT NULL REFERENCES delivery_attempt (attempt_id),
+    customer_account_id uuid NOT NULL,
+    buyer_membership_id uuid NOT NULL,
+    handoff_token_id uuid NOT NULL REFERENCES delivery_handoff_token (delivery_handoff_token_id),
+    decision varchar(32) NOT NULL CHECK (decision IN ('ACCEPTED','DISPUTED')),
+    driver_delivered_quantity numeric(19,6) NOT NULL CHECK (driver_delivered_quantity >= 0),
+    accepted_quantity numeric(19,6) NOT NULL CHECK (accepted_quantity >= 0),
+    reason varchar(2000),
+    occurred_at timestamptz NOT NULL,
+    idempotency_key varchar(160) NOT NULL,
+    UNIQUE (delivery_id, delivery_attempt_id),
+    UNIQUE (buyer_membership_id, idempotency_key),
+    CHECK (accepted_quantity <= driver_delivered_quantity)
+);
+
 CREATE TABLE proof_of_delivery (
     pod_id uuid PRIMARY KEY,
     delivery_id uuid NOT NULL REFERENCES delivery (delivery_id),
@@ -146,4 +185,9 @@ CREATE TABLE continuation_delivery (
 CREATE INDEX ix_fulfillment_scope_status ON fulfillment (tenant_id, workspace_id, status);
 CREATE INDEX ix_delivery_scope_status ON delivery (tenant_id, workspace_id, status);
 CREATE INDEX ix_delivery_attempt_delivery ON delivery_attempt (delivery_id, attempt_number);
+CREATE UNIQUE INDEX uq_delivery_handoff_token_active
+    ON delivery_handoff_token (delivery_id, delivery_attempt_id)
+    WHERE status = 'ACTIVE';
+CREATE INDEX ix_delivery_handoff_token_lookup ON delivery_handoff_token (delivery_id, status, expires_at);
+CREATE INDEX ix_buyer_receipt_delivery ON buyer_receipt_fact (delivery_id, occurred_at);
 CREATE INDEX ix_temperature_evidence_delivery_time ON temperature_evidence (delivery_id, captured_at);

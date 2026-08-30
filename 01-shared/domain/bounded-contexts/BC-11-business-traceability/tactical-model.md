@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-11 Business Traceability — Tactical Model
@@ -15,8 +15,8 @@ Audit remains distinct technical evidence.
 ## Purpose and product participation
 
 Own append-only business trace facts and evidence references while source
-contexts retain authority. Platform, Portal and proposed Mobile surfaces read
-authorized timelines; API remains traceability authority.
+contexts retain authority. Platform, Portal and OWNER-ACCEPTED Mobile
+projections read authorized timelines; API remains traceability authority.
 
 ## Aggregate boundaries
 
@@ -85,3 +85,13 @@ AS-IS evidence at API main: `audit.event`, audit viewer service/adapter and
 integration outbox/change feed. Classification: append/query evidence **KEEP**,
 explicit business-vs-security split **REFINE**, complete cross-context timeline
 projection and replay **PARTIAL / NOT IMPLEMENTED**.
+
+## Mobile v0.17 reconciliation
+
+BC-11 records significant identifier overrides, handoff issuance/resolution,
+Buyer receipt/discrepancy, push delivery attempts and Mobile evidence as safe
+append-only references. These are traceability facts, not new domain aggregates
+or Published Integration Events. Source BCs retain lifecycle authority;
+traceability projection failure is replayable and does not roll back the source
+commit. API v0.17.0 adds evidence hardening, while full cross-context timeline
+projection remains partial.

@@ -61,6 +61,14 @@ worktrees/
 11-reference/library/
 11-reference/bibliography/**/*.pdf
 11-reference/bibliography/**/*.epub
-11-reference/legacy-ecosystem-report/assets/
+91-reference/legacy/legacy-ecosystem-report/assets/
 *.pdf
 *.epub
+
+# Academic source and rubric input are local-only; derived Markdown remains
+# publishable under 90-academic.
+90-academic/rubrics/
+90-academic/rubrics/**
+90-academic/**/*enunciado*.md
+90-academic/**/*rubric*.pdf
+90-academic/**/*course-source*.md

@@ -1,4 +1,4 @@
-systemContext nexa "Nexa-SystemContext-V1" "Nexa current web system context" {
+systemContext nexa "Nexa-SystemContext-ASIS" "Nexa evidenced AS-IS system context; Mobile client not present" {
     include interestedCompany
     include nexaCommercialStaff
     include companyOwner
@@ -15,7 +15,25 @@ systemContext nexa "Nexa-SystemContext-V1" "Nexa current web system context" {
     autolayout lr
 }
 
-systemContext nexa "Nexa-SystemContext-Runway" "Nexa system context with proposed Mobile projection" {
+systemContext nexa "Nexa-SystemContext-V1-TARGET" "Nexa V1 TARGET system context with owner-accepted Mobile planning projections" {
+    include interestedCompany
+    include nexaCommercialStaff
+    include companyOwner
+    include businessOperationsManager
+    include tenantAdministrator
+    include salesRepresentative
+    include warehouseOperator
+    include dispatchCoordinator
+    include b2bBuyer
+    include driverDeliveryOperator
+    include nexa
+    include paymentProvider
+    include emailDeliveryService
+    include mapsGeolocationProvider
+    autolayout lr
+}
+
+systemContext nexa "Nexa-SystemContext-Future-Runway" "Nexa future runway with explicitly deferred external integrations" {
     include interestedCompany
     include nexaCommercialStaff
     include companyOwner

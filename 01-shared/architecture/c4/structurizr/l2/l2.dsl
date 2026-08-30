@@ -1,4 +1,4 @@
-container nexa "Nexa-Containers-V1" "Nexa current web containers" {
+container nexa "Nexa-Containers-ASIS" "Nexa evidenced AS-IS containers; Mobile client not present" {
     include interestedCompany
     include nexaCommercialStaff
     include companyOwner
@@ -20,7 +20,7 @@ container nexa "Nexa-Containers-V1" "Nexa current web containers" {
     autolayout lr
 }
 
-container nexa "Nexa-Containers-Runway" "Nexa containers with proposed Mobile projection" {
+container nexa "Nexa-Containers-V1-TARGET" "Nexa V1 TARGET containers with owner-accepted Mobile planning projections" {
     include interestedCompany
     include nexaCommercialStaff
     include companyOwner
@@ -42,9 +42,5 @@ container nexa "Nexa-Containers-Runway" "Nexa containers with proposed Mobile pr
     include paymentProvider
     include emailDeliveryService
     include mapsGeolocationProvider
-    include googleIdentityProvider
-    include appleIdentityProvider
-    include linkedinIdentityProvider
-    include iotTelemetryProvider
     autolayout lr
 }

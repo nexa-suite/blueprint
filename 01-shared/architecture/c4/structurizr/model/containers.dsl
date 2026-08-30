@@ -38,17 +38,17 @@ buyerPortal = container "Nexa Buyer Portal" "Authenticated B2B Buyer experience 
 postgresqlDatabase = container "PostgreSQL" "Authoritative relational persistence for current Nexa transactional and configuration data" "PostgreSQL"
 objectStorage = container "Object Storage" "Tenant-owned documents, media and evidence through an S3-compatible boundary" "S3-compatible Object Storage"
 
-operationsMobile = container "Nexa Operations Mobile" "PLANNED / PROPOSED mobile projection for Sales, Warehouse, Dispatch, BOM and Driver capabilities" "Mobile client — framework not selected" {
-    tags "PLANNED,PROPOSED"
+operationsMobile = container "Nexa Operations Mobile" "TARGET V1 planning projection for Warehouse, Dispatch and Driver delivery work; client NOT STARTED" "Mobile client — framework not selected" {
+    tags "TARGET V1,PLANNED,PROPOSED"
     operationsMobileAuth = component "Authentication and Active Context" "Secure session, tenant/workspace context and capability-driven entry" "PROPOSED mobile component"
-    operationsMobileWork = component "Field and Physical Workflows" "Proposed Sales, Warehouse, Dispatch and Delivery workflows" "PROPOSED mobile component"
-    operationsMobileSync = component "Selective Offline and Sync" "Queued/idempotent operational work with explicit conflict and retry states" "PROPOSED mobile component"
-    operationsMobileEvidence = component "Scan, Location and Evidence Boundary" "Camera/scanning abstraction, active-delivery location and evidence upload" "PROPOSED integration component"
+    operationsMobileWork = component "Warehouse, Dispatch and Driver Work" "V1 product identification, receiving, FEFO/picking, dispatch handoff and Driver Delivery execution" "PROPOSED mobile component"
+    operationsMobileSync = component "Connectivity and Evidence Recovery" "V1 safe cache, harmless drafts, temporary evidence staging and retry/conflict states; no generic offline authority" "PROPOSED mobile component"
+    operationsMobileEvidence = component "Physical Capture and Handoff" "V1 package/label input, temperature/POD evidence and bounded handoff code; no stored location" "PROPOSED integration component"
 }
-buyerMobile = container "Nexa Buyer Mobile" "PLANNED / PROPOSED mobile-primary Buyer projection while Buyer Portal remains feature-complete" "Mobile client — framework not selected" {
-    tags "PLANNED,PROPOSED"
-    buyerMobileAuth = component "Buyer Authentication and Relationship Context" "Buyer identity, active supplier relationship and authorized context" "PROPOSED mobile component"
-    buyerMobileCommerce = component "Buyer Commerce and Delivery Experience" "Catalog, draft, purchase, order, delivery, payment and document projections" "PROPOSED mobile component"
-    buyerMobileSync = component "Buyer Draft and Notification Sync" "Safe recent state, push projections and explicit online authority" "PROPOSED mobile component"
+buyerMobile = container "Nexa Buyer Mobile" "TARGET V1 planning projection for critical Delivery updates, handoff, receipt and discrepancy; client NOT STARTED" "Mobile client — framework not selected" {
+    tags "TARGET V1,PLANNED,PROPOSED"
+    buyerMobileAuth = component "Buyer Authentication and Relationship Context" "Buyer identity, active supplier relationship and authorized Delivery context" "PROPOSED mobile component"
+    buyerMobileCommerce = component "Handoff and Receipt Work" "V1 handoff verification, actual quantity receipt and discrepancy reporting" "PROPOSED mobile component"
+    buyerMobileSync = component "Critical Delivery Updates" "V1 relevant Delivery updates, freshness and refresh; no notification-driven mutation" "PROPOSED mobile component"
 }
 }

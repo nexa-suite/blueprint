@@ -1,26 +1,27 @@
 ---
-status: planned
-maturity: DISCOVERY
+status: accepted
+maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-24
+last-reviewed: 2026-08-29
 ---
 
 # Mobile Requirements Derivation Sources
 
-This map indexes inputs for the proposed Mobile catalog. It does not claim
-Mobile research validation and does not derive a new Bounded Context.
+Derivation follows `Product Goal → Actor → Goal → CAP → BC → App → Epic →
+Story → AC → UX/technical evidence`. Product direction is accepted for
+planning; research validation is still pending.
 
-| Mobile area | Actor / segment | Shared capability and BC input | Research input | Status |
+| Area | Actor/app | Shared source | Live/backend evidence | Research state |
 |---|---|---|---|---|
-| Access and context | Mobile User | active context and capability navigation; BC-01 | Mobile research | PENDING |
-| Operations: sales | Sales Representative / field operations | Customer Account, Buyer Relationship, catalog, pricing, availability, drafts and PR/order; BC-02/03/04/05/07 | class interviews and task observation | PENDING |
-| Operations: warehouse | Warehouse Operator | scan abstraction, receiving, lot/expiry, inventory, picking and evidence; BC-05/06/11 | field workflow research | PENDING |
-| Operations: dispatch | Dispatch Coordinator | ready delivery, assignment, handoff and evidence; BC-06/11 | dispatch workflow research | PENDING |
-| Operations: driver | Driver | assigned delivery, attempt, active location, POD and evidence; BC-06/09/11 | driver interviews and delivery observation | PENDING |
-| Buyer Mobile | Customer Buyer | catalog, order, PR/SO, credit, payment, documents, push, progress and discrepancy; BC-02/03/04/06/07/08/09/10/11 | buyer research during class | PENDING |
+| Identity/context | Mobile User; both apps | CAP-02; BC-01 | API identity/context baseline | PENDING |
+| Field sales | Sales Representative; Operations | CAP-03..06; BC-02/03/04/05/07 | API v0.17.0 contracts; no client | PENDING |
+| Warehouse | Warehouse Operator; Operations | CAP-04/07/08/10/15; BC-03/05/06/11 | SKU/lot/FEFO/pick foundation | PENDING |
+| Dispatch/Driver | Dispatch Coordinator/Driver; Operations | CAP-09/10/13/15; BC-06/09/11 | handoff/outcome/evidence foundation; location partial | PENDING |
+| Buyer commerce | Customer Buyer; Buyer | CAP-03..07/11/12/13; BC-02/03/04/05/07/08/09 | commitment/finance/document foundation | PENDING |
+| Buyer handoff | Customer Buyer; Buyer | CAP-09/15; BC-02/06/11 | ephemeral token, receipt/discrepancy foundation | PENDING |
+| Notifications/sync | Mobile User; both apps | CAP-14; BC-10 plus technical contracts | subscription/retry/dead-letter foundation | PENDING |
 
-Cross-cutting research questions: selective offline, push priority, EAN/UPC/QR
-and future GS1 abstraction, camera permissions, location consent, mobile IA,
-temperature/evidence capture and recovery from failed sync. No result is
-asserted until evidence is recorded in [Mobile discovery](../ux/discovery/README.md).
+Historical Web/academic wording is source evidence, not Mobile research. Open
+questions cover offline, push provider, camera/GS1/QR, location/privacy,
+temperature/evidence, accessibility and recovery.

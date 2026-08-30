@@ -15,7 +15,7 @@ class Warehouse <<Aggregate Root>> {
   +assignZone(zone: StorageZone): void
 }
 
-class InventoryLot <<Aggregate Root>> {
+class InventoryLot <<Entity>> {
   -lotId: InventoryLotId
   -warehouseId: WarehouseId
   -skuId: SkuId
@@ -103,7 +103,7 @@ class WarehouseTransfer <<Aggregate Root>> {
   -destinationWarehouseId: WarehouseId
   -status: TransferStatus
   +request(): void
-  +moveInTransit(): void
+  +dispatch(): void
   +receive(): void
 }
 

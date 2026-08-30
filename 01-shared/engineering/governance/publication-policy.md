@@ -24,13 +24,12 @@ The Blueprint publishes authored architecture and documentation only. This docum
 | `00-start-here` | INCLUDE | Authority, decisions, maturity and publication controls |
 | `01-shared` | INCLUDE | Shared product, DDD, Design System, architecture, data, security and engineering |
 | `02-web` | INCLUDE | Web surface, requirement, journey and quality contracts |
-| `03-mobile` | RUNWAY | Proposed/discovery-only native surface; no invented requirements |
+| `03-mobile` | RUNWAY | Owner-accepted Operations Mobile and Buyer Mobile planning projections; research and client implementation remain open |
 | `04-delivery` | INCLUDE | AS-IS, runtime, CI/CD, quality and production-gate evidence |
 | `90-academic` | ISOLATED | Coursework projections and provenance only |
 | `91-reference` | SAFE EVIDENCE ONLY | Historical, research and source material |
-| `90-academic` | ISOLATED | Non-authoritative academic mapping |
-| `91-reference` | SAFE EVIDENCE ONLY | Historical, legacy, audit and external evidence |
-| `tooling`, `AGENTS.md`, `README.md` | INCLUDE | Safe reproducible repository guidance |
+| `tooling`, `README.md` | INCLUDE | Safe reproducible repository guidance |
+| `AGENTS.md` | LOCAL ONLY IN THIS WAVE | Working-agent instructions; never publish without explicit owner authorization |
 
 ## Excluded
 

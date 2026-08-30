@@ -1,35 +1,24 @@
 ---
-status: planned
-maturity: DISCOVERY
+status: accepted
+maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-23
+last-reviewed: 2026-08-29
 ---
 
 # Mobile capability projection
 
-Canonical business capabilities live in the [Shared capability model](../../01-shared/product/capability-map.md).
-Mobile projects them into Operations Mobile and Buyer Mobile only after research.
+Mobile projects [the shared CAP-01..CAP-16 model](../../01-shared/product/capability-map.md)
+into two applications. Product direction is `OWNER-ACCEPTED`; research and
+client implementation remain pending. The release projection is 28 V1, 35 V2,
+9 V3 and 1 V4/Future functional stories.
 
-Operations focus: customer/catalog/commercial work; receiving, inventory,
-fulfillment, dispatch, delivery evidence and operational exceptions.
-Buyer focus: catalog, order/PR/SO, credit, payment, documents, push, progress
-and discrepancy handling.
+| App | V1 capability projection | Explicit boundary |
+|---|---|---|
+| Operations Mobile | CAP-02/07/08/09/10/15; warehouse, dispatch and Driver execution | API owns business truth; safe cache/draft/evidence staging only; no Mobile/Scanner/QR/Device BC |
+| Buyer Mobile | CAP-02/09/14/15; critical Delivery update, handoff, receipt and discrepancy | Buyer Relationship/API owns authority; no offline receipt or commitment confirmation |
 
-## Research scope, not commitment
-
-| Projection | Candidate capability areas |
-|---|---|
-| Operations Mobile — Sales | customer lookup, Buyer Relationship, catalog/SKU, pricing, availability, drafts, PR/order capture and credit context |
-| Operations Mobile — Warehouse | EAN/UPC/QR scanning abstraction, future GS1 consideration, receiving, lot/expiry/quantity, inventory, picking, transfer, evidence and selective offline |
-| Operations Mobile — Dispatch | ready deliveries, assignment, Dispatch Handoff, delivery evidence and push exceptions |
-| Operations Mobile — Driver | assigned delivery, active-delivery location, attempt, POD, temperature evidence, selective offline and push |
-| Buyer Mobile | catalog, order/PR/SO, reorder, credit, payment, documents, push, live progress, contextual contact, QR receipt and discrepancy handling |
-
-QR remains ephemeral and backend-validated against Delivery, Attempt, Customer
-Account, Buyer Relationship, expiry and replay. Driver-offered and Buyer-accepted
-discrepancy are distinct. No permanent location tracking, full chat, IoT V1 or
-fabricated Mobile research is authorized.
-
-Status: `PROPOSED / RESEARCH VALIDATION PENDING`. No Mobile BCs and no final
-Mobile story catalog are created.
+API v0.17.0 supports selected identifier, FEFO, handoff, receipt/discrepancy
+and critical-update foundations. Advanced analytics, continuous tracking,
+IoT, rich chat, advanced GS1 and transfers/counts are deferred or Future; see
+the [feature-family audit](../requirements/roadmap-coverage.md).

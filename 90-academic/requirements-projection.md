@@ -42,9 +42,14 @@ The projection supports later mapping for:
 Evidence boundary:
 
 - Historical Web discovery may be reused only with source provenance and
-  current Blueprint review. See [Academic Web Evidence](web/README.md) and
+  current Blueprint review. See [Academic Web Evidence](web-applications/README.md) and
   [historical source](../91-reference/legacy/legacy-ecosystem-report/README.md).
 - Mobile remains PROPOSED / RESEARCH VALIDATION PENDING. Web interviews and
   personas are not silently promoted as Mobile validation.
 - No interview evidence, persona, statistic, Story Point, acceptance criterion
   or academic result is fabricated by this projection.
+
+The detailed UPC projection is isolated in
+[course-1acc0238](mobile/course-1acc0238/README.md). It joins every Mobile V1
+story to the canonical Product story by ID and records academic-only priority,
+Story Points, Sprint, milestone and evidence status.

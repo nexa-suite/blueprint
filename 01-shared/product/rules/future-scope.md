@@ -32,6 +32,6 @@ None currently blocking Product V1.
 
 ## D. Future Product questions
 
-Plans/entitlements, multi-workspace, multi-user Buyer organizations, full Procurement, advanced CRM/Finance, Mobile, Driver, IoT and deeper fiscal/QMS workflows remain V2+/future.
+Plans/entitlements, multi-workspace, multi-user Buyer organizations, full Procurement, advanced CRM/Finance, IoT and deeper fiscal/QMS workflows remain V2+/future. Mobile product direction is OWNER-ACCEPTED as two application projections, with research, client implementation and production acceptance still runway; unaccepted mobile expansions remain V2+/future.
 
 Do not promote open detail to Product uncertainty or implement it from this register alone.

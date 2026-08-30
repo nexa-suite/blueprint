@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-09 Business Documents — Tactical Model
@@ -95,3 +95,12 @@ AS-IS evidence at API main: `invoicing` classes and
 `business_documents` V42, V52, V58, V81. Classification: document metadata,
 rendering and storage references **KEEP/REFINE**, immutable revision semantics
 **REFINE**, fiscal integration **OUT OF SCOPE / NOT IMPLEMENTED**.
+
+## Mobile v0.17 reconciliation
+
+Mobile evidence is represented as an `EvidenceReference`/`MobileEvidenceReference`
+application value: object key/reference, content hash, media kind, capturedAt,
+subject and authorization metadata. It is not a Mobile-owned aggregate and does
+not move Business Document authority to the client. API v0.17.0 hardens
+evidence references for handoff/receipt flows; issued documents remain
+immutable and private Object Storage bytes remain behind API authorization.

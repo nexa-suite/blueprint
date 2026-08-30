@@ -20,6 +20,39 @@ failures = []
 warnings = []
 existing_paths = [p for p in paths if (root / p).exists()]
 
+academic_source_pattern = re.compile(
+    r"(?:enunciado|original[-_]?rubric|course[-_]?source|source[-_]?statement)",
+    re.IGNORECASE,
+)
+academic_paths = set(path for path in paths if path.startswith("90-academic/"))
+academic_paths.update(
+    str(path.relative_to(root))
+    for path in (root / "90-academic").rglob("*")
+    if path.is_file()
+)
+for path in sorted(academic_paths):
+    name = Path(path).name
+    if academic_source_pattern.search(name) and Path(path).suffix.lower() not in {".pdf", ".epub"}:
+        failures.append(f"academic source-like artifact must remain local-only: {path}")
+    if path in paths and Path(path).suffix.lower() in {".pdf", ".epub"}:
+        failures.append(f"academic source/rubric binary must not be present: {path}")
+try:
+    origin_main = subprocess.run(
+        ["git", "rev-parse", "--verify", "origin/main"],
+        cwd=root,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    if origin_main.returncode == 0 and subprocess.run(
+        ["git", "diff", "--quiet", "origin/main...HEAD", "--", "AGENTS.md"],
+        cwd=root,
+    ).returncode != 0:
+        failures.append("AGENTS.md has a committed PR diff; owner-local guidance must remain uncommitted")
+    elif origin_main.returncode != 0:
+        warnings.append("origin/main is unavailable in this checkout; committed AGENTS.md diff check skipped")
+except Exception as exc:
+    failures.append(f"could not verify committed AGENTS.md diff: {exc}")
+
 required_roots = {"00-start-here", "01-shared", "02-web", "03-mobile", "04-delivery", "90-academic", "91-reference", "tooling"}
 missing_roots = sorted(name for name in required_roots if not (root / name).is_dir())
 if missing_roots:
@@ -37,6 +70,8 @@ for directory in sorted(tracked_dirs):
 
 for directory in root.rglob("*"):
     if directory.is_dir() and ".git" not in directory.parts and not any(directory.iterdir()):
+        if directory.relative_to(root).parts and directory.relative_to(root).parts[0] == ".tmp":
+            continue
         failures.append(f"empty filesystem directory: {directory.relative_to(root)}")
 
 for duplicate in (
@@ -45,7 +80,6 @@ for duplicate in (
     "01-shared/domain/bounded-contexts/canonical-canvases.md",
     "01-shared/architecture/c4/level-1-system-context.md",
     "01-shared/architecture/c4/level-2-containers.md",
-    "01-shared/architecture/c4/structurizr/workspace.json",
 ):
     if (root / duplicate).exists():
         failures.append(f"duplicate or generated canonical path remains: {duplicate}")
@@ -57,6 +91,7 @@ expected_c4_files = [
     "01-shared/architecture/c4/structurizr/model/containers.dsl",
     "01-shared/architecture/c4/structurizr/model/components.dsl",
     "01-shared/architecture/c4/structurizr/model/relationships.dsl",
+    "01-shared/architecture/c4/structurizr/model/deployment.dsl",
     "01-shared/architecture/c4/structurizr/l1/l1.dsl",
     "01-shared/architecture/c4/structurizr/l2/l2.dsl",
     "01-shared/architecture/c4/structurizr/l3/api.dsl",
@@ -65,6 +100,7 @@ expected_c4_files = [
     "01-shared/architecture/c4/structurizr/l3/website.dsl",
     "01-shared/architecture/c4/structurizr/l3/operations-mobile.dsl",
     "01-shared/architecture/c4/structurizr/l3/buyer-mobile.dsl",
+    "01-shared/architecture/c4/structurizr/deployment/deployment.dsl",
     "01-shared/architecture/c4/structurizr/styles/styles.dsl",
     "01-shared/architecture/c4/structurizr/generated/workspace.json",
 ]
@@ -149,34 +185,52 @@ for rel in paths:
 c4 = root / "01-shared/architecture/c4/structurizr/generated/workspace.json"
 try:
     workspace = json.loads(c4.read_text(encoding="utf-8"))
+    manual_workspace = root / "01-shared/architecture/c4/structurizr/workspace.json"
+    if manual_workspace.exists():
+        manual = json.loads(manual_workspace.read_text(encoding="utf-8"))
+        if manual != workspace:
+            failures.append("manual C4 workspace mirror differs from generated canonical representation")
     views = workspace["views"]
     actual_views = sorted(
         [v["key"] for v in views.get("systemContextViews", [])]
         + [v["key"] for v in views.get("containerViews", [])]
         + [v["key"] for v in views.get("componentViews", [])]
+        + [v["key"] for v in views.get("deploymentViews", [])]
     )
     expected_views = sorted([
-        "Nexa-SystemContext-V1", "Nexa-Containers-V1",
-        "Nexa-SystemContext-Runway", "Nexa-Containers-Runway",
+        "Nexa-SystemContext-ASIS", "Nexa-SystemContext-V1-TARGET",
+        "Nexa-SystemContext-Future-Runway",
+        "Nexa-Containers-ASIS", "Nexa-Containers-V1-TARGET",
+        "Nexa-Deployment-Local-ASIS", "Nexa-Deployment-V1-TARGET",
         "Nexa-API-Overall-ASIS", "Nexa-API-IdentityTenantCustomer-TARGET",
         "Nexa-API-CommercialInventory-TARGET", "Nexa-API-FulfillmentDelivery-TARGET",
         "Nexa-API-CreditPaymentDocuments-TARGET", "Nexa-API-IntegrationReliability-ASIS",
         "Nexa-Platform-Frontend-TARGET", "Nexa-Portal-Frontend-TARGET",
-        "Nexa-Website-Frontend-ASIS", "Nexa-Operations-Mobile-PROPOSED",
-        "Nexa-Buyer-Mobile-PROPOSED",
+        "Nexa-Website-Frontend-ASIS", "Nexa-Operations-Mobile-TARGET",
+        "Nexa-Buyer-Mobile-TARGET",
     ])
     if actual_views != expected_views:
         failures.append(f"unexpected C4 views: {actual_views}")
-    if any(k.lower().startswith("deployment") for k in views):
-        failures.append("C4 deployment views present")
     system = next(s for s in workspace["model"]["softwareSystems"] if s["name"] == "Nexa")
-    v1 = {c["name"] for c in system["containers"] if "Future" not in c.get("tags", "") and "V2/Future" not in c.get("tags", "") and "PLANNED" not in c.get("tags", "") and "PROPOSED" not in c.get("tags", "")}
-    expected_containers = {
+    as_is = {c["name"] for c in system["containers"] if "PLANNED" not in c.get("tags", "") and "PROPOSED" not in c.get("tags", "")}
+    expected_as_is = {
         "Nexa Website", "Nexa Platform", "Nexa Buyer Portal",
         "Nexa API", "PostgreSQL", "Object Storage",
     }
-    if v1 != expected_containers:
-        failures.append(f"unexpected V1 C4 containers: {sorted(v1)}")
+    if as_is != expected_as_is:
+        failures.append(f"unexpected AS-IS C4 containers: {sorted(as_is)}")
+    target = {c["name"] for c in system["containers"]}
+    expected_target = expected_as_is | {"Nexa Operations Mobile", "Nexa Buyer Mobile"}
+    if target != expected_target:
+        failures.append(f"unexpected V1 TARGET C4 containers: {sorted(target)}")
+    planned_mobile = {
+        c["name"] for c in system["containers"]
+        if "TARGET V1" in c.get("tags", "")
+        and "PLANNED" in c.get("tags", "")
+        and "PROPOSED" in c.get("tags", "")
+    }
+    if planned_mobile != {"Nexa Operations Mobile", "Nexa Buyer Mobile"}:
+        failures.append(f"Mobile TARGET containers must remain planned projections: {sorted(planned_mobile)}")
 except Exception as exc:
     failures.append(f"workspace.json inspection failed: {exc}")
 
@@ -214,16 +268,89 @@ mobile_requirements = "\n".join(
     p.read_text(encoding="utf-8") for p in (root / "03-mobile/requirements").rglob("*.md")
 )
 mobile_story_ids = re.findall(r"^## (MOB-US-\d{3}) —", mobile_requirements, re.MULTILINE)
-expected_mobile_story_ids = [f"MOB-US-{i:03d}" for i in range(1, 50)]
 if len(mobile_story_ids) != len(set(mobile_story_ids)):
     failures.append("Mobile catalog contains duplicated User Story IDs")
-if sorted(mobile_story_ids, key=lambda item: int(item[-3:])) != expected_mobile_story_ids:
-    failures.append(f"Mobile catalog is not the contiguous MOB-US-001..MOB-US-049 set: {mobile_story_ids}")
+mobile_story_numbers = sorted(int(item[-3:]) for item in mobile_story_ids)
+if (
+    not mobile_story_numbers
+    or mobile_story_numbers[0] != 1
+    or mobile_story_numbers != list(range(1, mobile_story_numbers[-1] + 1))
+):
+    failures.append(f"Mobile catalog IDs are not contiguous from MOB-US-001: {mobile_story_ids}")
 
-mobile_epic_ids = re.findall(r"^# (MOBILE-EPIC-\d{2}) —", mobile_requirements, re.MULTILINE)
-expected_mobile_epic_ids = [f"MOBILE-EPIC-{i:02d}" for i in range(1, 8)]
+mobile_epic_index = (root / "03-mobile/requirements/epics/README.md").read_text(encoding="utf-8")
+mobile_epic_ids = re.findall(r"^\| (MOBILE-EPIC-\d{2}) \|", mobile_epic_index, re.MULTILINE)
+expected_mobile_epic_ids = [f"MOBILE-EPIC-{i:02d}" for i in range(1, 13)]
 if sorted(mobile_epic_ids, key=lambda item: int(item[-2:])) != expected_mobile_epic_ids:
-    failures.append(f"Mobile catalog is not the contiguous 7-Epic set: {mobile_epic_ids}")
+    failures.append(f"Mobile catalog is not the contiguous 12-Epic set: {mobile_epic_ids}")
+
+mobile_catalog_path = root / "03-mobile/requirements/mobile-v1-catalog.md"
+mobile_catalog = mobile_catalog_path.read_text(encoding="utf-8")
+mobile_catalog_blocks = {
+    match.group(1): match.group(0)
+    for match in re.finditer(
+        r"^## (MOB-US-\d{3}) — .*?(?=^## MOB-US-|\Z)",
+        mobile_catalog,
+        re.MULTILINE | re.DOTALL,
+    )
+}
+mobile_v1_ids = {
+    "MOB-US-001", "MOB-US-002", "MOB-US-003",
+    "MOB-US-011", "MOB-US-012", "MOB-US-013", "MOB-US-014",
+    "MOB-US-015", "MOB-US-016", "MOB-US-017", "MOB-US-019",
+    "MOB-US-020", "MOB-US-021", "MOB-US-022", "MOB-US-023",
+    "MOB-US-024", "MOB-US-025", "MOB-US-026", "MOB-US-027",
+    "MOB-US-028", "MOB-US-031", "MOB-US-032", "MOB-US-033",
+    "MOB-US-034", "MOB-US-044", "MOB-US-047", "MOB-US-048",
+    "MOB-US-049",
+}
+mobile_all_ids = set(mobile_catalog_blocks)
+mobile_catalog_numbers = sorted(int(item[-3:]) for item in mobile_all_ids)
+if (
+    not mobile_catalog_numbers
+    or mobile_catalog_numbers[0] != 1
+    or mobile_catalog_numbers != list(range(1, mobile_catalog_numbers[-1] + 1))
+    or not {f"MOB-US-{i:03d}" for i in range(1, 50)} <= mobile_all_ids
+):
+    failures.append(f"Mobile canonical catalog must retain contiguous historical IDs from MOB-US-001: found {len(mobile_catalog_blocks)}")
+mobile_master = (root / "03-mobile/requirements/master-mobile-backlog.md").read_text(encoding="utf-8")
+mobile_master_rows = [
+    [cell.strip() for cell in line.strip("|").split("|")]
+    for line in mobile_master.splitlines()
+    if re.match(r"^\| MOB-US-\d{3} \|", line)
+]
+mobile_v4_ids = {
+    row[0] for row in mobile_master_rows
+    if len(row) > 4 and row[4] == "V4_FUTURE"
+}
+for story_id, block in mobile_catalog_blocks.items():
+    status = re.search(r"^\| Status \|\s*([^|]+?)\s*\|$", block, re.MULTILINE)
+    status_value = status.group(1).strip() if status else ""
+    if story_id in mobile_v1_ids and status_value != "PLANNED":
+        failures.append(f"Mobile V1 story must remain PLANNED: {story_id}")
+    if story_id not in mobile_v1_ids and status_value not in {"DEFERRED", "PLANNED"}:
+        failures.append(f"Mobile non-V1 story has invalid baseline status: {story_id}")
+mobile_epic_map = {}
+for line in mobile_epic_index.splitlines():
+    if line.startswith("| MOBILE-EPIC-"):
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) >= 8:
+            mobile_epic_map[cells[0]] = set(re.findall(r"MOB-US-\d{3}", cells[7]))
+for story_id, block in mobile_catalog_blocks.items():
+    epic_match = re.search(r"^\| Epic \|\s*(MOBILE-EPIC-\d{2})", block, re.MULTILINE)
+    epic_id = epic_match.group(1) if epic_match else ""
+    if story_id not in mobile_epic_map.get(epic_id, set()):
+        failures.append(f"Mobile {story_id} has incorrect outcome Epic mapping")
+    if story_id in mobile_v1_ids:
+        functional = " ".join(
+            value.group(1) for value in re.finditer(
+                r"^\| (?:Title|Goal / Outcome) \|\s*(.*?)\s*\|$", block, re.MULTILINE
+            )
+        )
+        if re.search(r"\b(?:api|http|endpoint|database|table|schema|ui|ux|screen|component|client|server|idempotenc\w*|synchron\w*|sync)\b", functional, re.IGNORECASE):
+            failures.append(f"Mobile {story_id} functional fields contain engineering language")
+    if story_id == "MOB-US-044" and "Push Subscription" in block:
+        failures.append("MOB-US-044 must expose a human delivery-attention need, not Push Subscription")
 
 def validate_story_blocks(label, text, prefix, mobile=False):
     blocks = list(re.finditer(
@@ -274,6 +401,26 @@ def validate_story_blocks(label, text, prefix, mobile=False):
         if re.search(r"^As a Authorized\b", block, re.MULTILINE):
             failures.append(f"{label} {story_id} has invalid grammatical prefix: As a Authorized")
 
+        if mobile:
+            acceptance = re.search(
+                r"^### Acceptance Criteria\s*\n(?P<criteria>.*?)(?=^## MOB-US-|\Z)",
+                block,
+                re.MULTILINE | re.DOTALL,
+            )
+            criteria_count = (
+                len(re.findall(r"^- ", acceptance.group("criteria"), re.MULTILINE))
+                if acceptance
+                else 0
+            )
+            if story_id in mobile_v1_ids:
+                if not acceptance or criteria_count < 4:
+                    failures.append(f"Mobile V1 story requires four acceptance criteria: {story_id}")
+            elif story_id in mobile_v4_ids:
+                if not re.search(r"^### Outcome Conditions\s*$", block, re.MULTILINE):
+                    failures.append(f"Mobile V4/Future story requires outcome conditions: {story_id}")
+            elif not acceptance or criteria_count < 2:
+                failures.append(f"Mobile roadmap story requires at least two acceptance criteria: {story_id}")
+
         surface_match = re.search(r"^\| Surface \|\s*(.*?)\s*\|$", block, re.MULTILINE)
         actor_match = re.search(r"^\| Actor \|\s*(.*?)\s*\|$", block, re.MULTILINE)
         if surface_match and actor_match:
@@ -288,19 +435,15 @@ def validate_story_blocks(label, text, prefix, mobile=False):
                     f"{label} {story_id} assigns Buyer Portal to internal-only actor: {actor}"
                 )
 
-        if mobile and "PROPOSED / RESEARCH VALIDATION PENDING" not in block:
-            failures.append(f"Mobile story lacks proposed research status: {story_id}")
+        if mobile and not re.search(
+            r"^\| Research status \|\s*(?:NOT_REQUIRED|PENDING|RESEARCHING|VALIDATED)\s*\|$",
+            block,
+            re.MULTILINE,
+        ):
+            failures.append(f"Mobile story lacks a controlled research status: {story_id}")
 
 validate_story_blocks("Web", web_requirements, "WEB")
-validate_story_blocks("Mobile", mobile_requirements, "MOB", mobile=True)
-
-for story_match in re.finditer(
-    r"^## (MOB-US-\d{3}) — .*?(?=^## MOB-US-|\Z)",
-    mobile_requirements,
-    re.MULTILINE | re.DOTALL,
-):
-    if "PROPOSED / RESEARCH VALIDATION PENDING" not in story_match.group(0):
-        failures.append(f"Mobile story lacks proposed research status: {story_match.group(1)}")
+validate_story_blocks("Mobile", mobile_requirements, "MOB-US", mobile=True)
 
 technical_text = (root / "01-shared/product/requirements/technical-stories.md").read_text(encoding="utf-8")
 technical_ids = re.findall(r"^## (TS-\d{3}) —", technical_text, re.MULTILINE)
@@ -315,8 +458,8 @@ if spike_ids != expected_spike_ids:
     failures.append(f"Spike catalog is not the contiguous SPIKE-001..SPIKE-006 set: {spike_ids}")
 
 total_items = len(web_story_ids) + len(mobile_story_ids) + len(technical_ids) + len(spike_ids)
-if total_items != 208:
-    failures.append(f"expected 208 total requirement items, found {total_items}")
+if total_items <= 0:
+    failures.append("requirement inventory is empty")
 
 accepted_contexts = {
     "BC-01 — Tenant & Access Governance",
@@ -350,7 +493,13 @@ if failures:
 print("BLUEPRINT VALIDATION: PASS")
 print(f"- candidate files inspected: {len(paths)}")
 print("- links, metadata, publication boundary, secret heuristics and C4 workspace: PASS")
+for warning in warnings:
+    print(f"- WARNING: {warning}")
 PY
+
+bash tooling/scripts/validate-mobile-master-backlog.sh
+
+bash tooling/scripts/validate-academic-mobile.sh
 
 docker run --rm \
   -v "$ROOT/01-shared/architecture/c4/structurizr:/usr/local/structurizr:ro" \

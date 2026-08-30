@@ -15,8 +15,9 @@ Warehouse, Lot or Physical Allocation.
 ## Purpose and product participation
 
 Own Purchase Request, Commercial Commitment and Sales Order coordination.
-Platform and Buyer Portal initiate authorized commands; proposed Mobile
-surfaces may capture or retry them. API remains commercial authority.
+Platform and Buyer Portal initiate authorized commands; OWNER-ACCEPTED Mobile
+projections may capture or retry them once a client exists. API remains
+commercial authority.
 
 ## Aggregate boundaries
 

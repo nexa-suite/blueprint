@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-05 target relational model
@@ -16,7 +16,7 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 | Warehouse | `warehouse`, `safety_stock_policy` | scoped code; policy validity; warehouse FK |
 | Lot and position | `inventory_lot`, `inventory_position`, `inventory_movement`, `lot_disposition` | lot/warehouse FKs; non-negative stock; movement append-only |
 | Backing | `inventory_backing`, `inventory_backing_line` | commitment is external stable ID; line FK and quantity bounds |
-| Physical allocation | `physical_allocation`, `physical_allocation_line` | backing/lot FKs; allocation quantity bounds |
+| Physical allocation | `physical_allocation`, `physical_allocation_line` | backing/lot FKs; allocation quantity bounds; scan-to-allocation validation |
 | Transfer | `warehouse_transfer`, `warehouse_transfer_line` | source/destination warehouse FKs; no self-transfer |
 | Adjustment | `inventory_adjustment` | warehouse/lot FKs; approval/application lifecycle |
 
@@ -28,3 +28,7 @@ support Sellable Availability; lot expiry supports FEFO. AS-IS anchors are all
 evaluation and transfer tables. Warehouse Transfer states are exactly
 `REQUESTED`, `IN_TRANSIT` and `RECEIVED`; lot status distinguishes
 `QUARANTINE`, `DAMAGED`, `WASTE` and `IN_TRANSIT` from sellable stock.
+The v0.17 scan contract validates the resolved SKU/lot against an existing
+Physical Allocation Line, applies FEFO ordering, rejects stale or over-pick
+attempts and permits only policy-controlled overrides with actor and reason.
+Scanning is an application interaction, not a new domain aggregate.

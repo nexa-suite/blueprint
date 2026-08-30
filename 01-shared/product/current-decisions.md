@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-08-23
+last-reviewed: 2026-08-29
 ---
 
 # Current accepted decisions
@@ -12,12 +12,27 @@ This document is the accepted Product, business and PRE-V1 architecture input. I
 
 ## Product and business closure
 
-- Nexa V1 is a fast, role-focused B2B multi-tenant SaaS platform for importers and distributors, particularly cold-chain businesses.
+- Nexa V1 is a fast, role-focused B2B multi-tenant SaaS platform for importers, distributors and wholesalers, particularly cold-chain businesses.
 - Product and Business V1 is **FROZEN / CLOSED**. This closure does not claim V1 implementation complete.
 - Fresh Nexa, Generic Tenant and ICISA Reference Tenant use the same product and release line. ICISA is explanatory evidence, never a required seed.
 - Tenant is the maximum business/data isolation boundary. V1 uses `Tenant 1:1 Workspace`; Workspace is the Tenant's operational environment, not a C4 Container.
 - Public Website handles acquisition and onboarding initiation only. Internal Web Platform serves workforce operations. Buyer Portal serves an authorized Buyer relationship for the current supplier Tenant.
-- Mobile, IoT automation, SUNAT fiscal integration, multi-currency, full returns/RMA, Control Center, Support, Plans, Subscriptions, Entitlements and Feature tiers are deferred or runway items, not implemented V1 claims.
+- Mobile product direction is OWNER-ACCEPTED for a two-app projection. The
+  canonical master backlog has 73 functional stories (28 V1, 35 V2, 9 V3 and
+  1 V4/Future); the Mobile client, research validation and production
+  acceptance remain open. IoT automation, SUNAT fiscal integration,
+  multi-currency, full returns/RMA, Control Center, Support, Plans,
+  Subscriptions, Entitlements and Feature tiers are deferred or runway items,
+  not implemented V1 claims.
+
+The UPC course projection is isolated under `90-academic/mobile/course-1acc0238/`.
+Its requirements, milestones, technology constraints, evidence obligations and
+rubric statuses are academic planning evidence; they do not alter Product,
+Domain, C4 or production authority. The owner delivery goal is an Android-native
+Mobile foundation and representative core flow within approximately four weeks;
+this is a delivery target, not an implementation claim. Native Android/Kotlin
+and cross-platform Flutter/Dart or Kotlin Multiplatform remain evaluated
+options, not a silently selected Mobile architecture.
 
 ## Identity, relationship and governance language
 
@@ -26,6 +41,24 @@ This document is the accepted Product, business and PRE-V1 architecture input. I
 - A Customer Account may exist without Portal identity. V1 allows one principal active Buyer Identity per Customer Account; multi-user Buyer organizations are future scope.
 - Buyer Relationship states are `PENDING / INVITED`, `ACTIVE`, `SUSPENDED` and `REVOKED`.
 - V1 has one Company Owner, zero or more Business Operations Managers and one Internal Web Platform. Tenant Administrator governs technical access; Company Owner governs company identity, sensitive organization data and workforce roles; Business Operations Manager governs cross-functional operations.
+
+## Mobile rebaseline
+
+Operations Mobile and Buyer Mobile are the two accepted-for-planning product
+projections over the shared domain. They do not add a Bounded Context, C4
+Container, deployment unit, framework or alternate authority. The canonical
+story registry retains 49 historical IDs and adds 24 independent outcomes.
+The master release projection is 28 V1, 35 V2, 9 V3 and 1 V4/Future; the
+Mobile client and Product Acceptance remain open.
+
+API v0.17.0 is backend candidate evidence for SKU/GTIN/lot resolution,
+FEFO/picking validation, bounded handoff tokens, immutable Buyer
+receipt/discrepancy facts and provider-neutral push subscription reliability.
+It does not prove a Mobile client, generic offline synchronization, continuous
+tracking, advanced transfer/receiving, GS1, provider credentials or Product
+Acceptance. Offline queues may preserve safe drafts/evidence only; payment,
+credit, PR/SO, authorization, inventory and Delivery-finalization success stay
+server-authoritative.
 
 ## Accepted Strategic DDD
 

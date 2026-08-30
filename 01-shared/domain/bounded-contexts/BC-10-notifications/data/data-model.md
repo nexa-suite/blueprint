@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-10 target relational model
@@ -17,15 +17,23 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 | `notification` | `notification_id`; template FK | event ID external; delivery state/version |
 | `notification_recipient` | `recipient_id`; notification FK | recipient pair unique; address/status checks |
 | `notification_preference` | `preference_id` | scoped recipient/event/channel unique |
+| `push_subscription` | `push_subscription_id` | installation-scoped provider-token hash and lifecycle |
 | `notification_attempt` | `attempt_id`; notification/recipient FK | retry attempt history |
 
 SQL defines tenant/workspace scope, PK/FK, NOT NULL, channel/status checks,
 uniques and queue/retry indexes. RLS is required by deployment. Template
 content is a versioned JSON snapshot; it does not own business truth.
 
-V1 channels are exactly `IN_APP` and `EMAIL`; push/device delivery remains
-a later Mobile foundation and is not represented as a current Notification
-channel here.
+V1 business notification channels remain exactly `IN_APP` and `EMAIL`.
+`push_subscription` is the provider-neutral Mobile delivery foundation and
+does not make provider tokens or devices business authority. Delivery retry,
+claim fencing, invalid-token disablement and dead-letter handling remain
+application/technical reliability behavior.
+
+Compatibility caveat: the API v0.17.0 AS-IS migration currently constrains its
+push surface values to `PLATFORM` and `PORTAL`. The target projection names
+`OPERATIONS_MOBILE` and `BUYER_MOBILE` are Product-facing design values; their
+API/client mapping remains PARTIAL / OPEN until Mobile client construction.
 
 Event IDs and recipient identity keys are stable references. Delivery failure
 does not rewrite the source event. AS-IS anchors: `notifications.inbox_item`

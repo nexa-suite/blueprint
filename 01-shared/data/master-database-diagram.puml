@@ -190,6 +190,7 @@ entity "sku" as t_sku {
   * product_id : uuid <<FK, required>>
   * code : varchar(80) <<required>>
   * name : varchar(200) <<required>>
+    gtin : varchar(14)
   * unit_of_measure : varchar(32) <<required>>
   * temperature_band : varchar(64) <<required>>
   * status : varchar(32) <<required>>
@@ -620,6 +621,39 @@ entity "delivery_quantity_outcome" as t_delivery_quantity_outcome {
     reason : varchar(500)
 }
 
+entity "delivery_handoff_token" as t_delivery_handoff_token {
+  * delivery_handoff_token_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * delivery_id : uuid <<FK, required>>
+  * delivery_attempt_id : uuid <<FK, required>>
+  * customer_account_id : uuid <<required>>
+  * token_hash : char(64) <<required>>
+  * issued_at : timestamptz <<required>>
+  * expires_at : timestamptz <<required>>
+  * issuer_operator_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * idempotency_key : varchar(160) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "buyer_receipt_fact" as t_buyer_receipt_fact {
+  * buyer_receipt_fact_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * delivery_id : uuid <<FK, required>>
+  * delivery_attempt_id : uuid <<FK, required>>
+  * customer_account_id : uuid <<required>>
+  * buyer_membership_id : uuid <<required>>
+  * handoff_token_id : uuid <<FK, required>>
+  * decision : varchar(32) <<required>>
+  * driver_delivered_quantity : numeric(19,6) <<required>>
+  * accepted_quantity : numeric(19,6) <<required>>
+    reason : varchar(2000)
+  * occurred_at : timestamptz <<required>>
+  * idempotency_key : varchar(160) <<required>>
+}
+
 entity "proof_of_delivery" as t_proof_of_delivery {
   * pod_id : uuid <<PK>>
   * delivery_id : uuid <<FK, required>>
@@ -921,6 +955,22 @@ entity "notification_preference" as t_notification_preference {
   * updated_at : timestamptz <<required>>
 }
 
+entity "push_subscription" as t_push_subscription {
+  * push_subscription_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * recipient_key : varchar(240) <<required>>
+  * surface : varchar(32) <<required>>
+  * installation_id : varchar(160) <<required>>
+  * platform : varchar(16) <<required>>
+  * provider_token_hash : char(64) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * last_seen_at : timestamptz <<required>>
+  * version : bigint <<required>>
+}
+
 entity "notification_attempt" as t_notification_attempt {
   * attempt_id : uuid <<PK>>
   * notification_id : uuid <<FK, required>>
@@ -1095,6 +1145,11 @@ t_delivery_attempt }o--|| t_delivery : delivery_id
 t_delivery_attempt_line }o--|| t_delivery_attempt : attempt_id
 t_delivery_attempt_line }o--|| t_fulfillment_line : fulfillment_line_id
 t_delivery_quantity_outcome }o--|| t_delivery_attempt : attempt_id
+t_delivery_handoff_token }o--|| t_delivery : delivery_id
+t_delivery_handoff_token }o--|| t_delivery_attempt : delivery_attempt_id
+t_buyer_receipt_fact }o--|| t_delivery : delivery_id
+t_buyer_receipt_fact }o--|| t_delivery_attempt : delivery_attempt_id
+t_buyer_receipt_fact }o--|| t_delivery_handoff_token : handoff_token_id
 t_proof_of_delivery }o--|| t_delivery : delivery_id
 t_proof_of_delivery_addendum }o--|| t_proof_of_delivery : pod_id
 t_temperature_evidence }o--|| t_delivery : delivery_id

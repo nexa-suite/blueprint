@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: v1
 owner: product
-last-reviewed: 2026-08-18
+last-reviewed: 2026-08-29
 ---
 
 # V1 scope
@@ -96,6 +96,6 @@ Tenant customization is limited to Nexa-supported configuration/policies and lig
 - SUNAT integration.
 - Multi-user customer business accounts.
 - Plans, subscriptions, entitlements, feature tiers, Control Center and Support.
-- Mobile, Delivery Driver application, IoT/automatic telemetry, deep QMS and complex carrier integrations.
+- Native Mobile and Delivery Driver client implementation, IoT/automatic telemetry, deep QMS and complex carrier integrations remain outside the current V1 runtime baseline. Operations Mobile and Buyer Mobile are OWNER-ACCEPTED planning projections with 28 V1 candidate stories; research, client construction and production acceptance remain open. The Mobile Surface Scope Amendment / Rebaseline changes only Mobile surface exposure, story refinement, Epic composition and academic planning; it does not change Product core semantics, strategic BC ownership, invariants or Published Integration Events.
 
 Architecture Runway is documented separately. This file does not create formal capabilities, subdomains, Bounded Contexts, Context Maps or C4 L3.

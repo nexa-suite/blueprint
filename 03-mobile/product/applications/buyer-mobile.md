@@ -1,22 +1,20 @@
-# Nexa Buyer Mobile — proposed
+# Nexa Buyer Mobile
 
-Buyer Mobile is Mobile-primary while Buyer Portal Web remains feature-complete.
+Product direction: `OWNER-ACCEPTED`. Research: `PENDING`. Client:
+`NOT_STARTED`. Backend: `PARTIAL`, with selected contracts in
+API v0.17.0.
 
-## Proposed capability set
+## Projection
 
-Catalog, Product/SKU search, price, Sellable Availability, Cart/Request Draft,
-checkout, Purchase Request, Direct Order where allowed, reorder, history,
-material change accept/reject, Sales Order state, push, live Delivery map,
-controlled Driver contact, Delivery QR scan, reception confirmation,
-discrepancy reporting, credit, receivables, Payments, payment evidence and
-Business Documents.
+Customer Buyer receives critical Delivery updates, bounded handoff
+verification, receipt and discrepancy work in V1. Catalog, price/availability,
+drafts, commitments, material changes, history, finance, payments, documents,
+reorder, maps and contact remain V2+ or Portal work.
 
-Driver and Buyer outcomes are separate facts. If Driver reports 10 offered and
-Buyer accepts 8, the result is 8 accepted plus 2 disputed/rejected and an
-operations resolution; neither history is overwritten.
+## Boundary
 
-Minimum proposed POD evidence remains Delivery Attempt ID, recipient identity
-evidence, timestamp, geolocation, delivered/rejected quantities and reasons,
-photographic evidence, actor and evidence references. Buyer QR is preferred,
-not universally mandatory because the recipient may not be the authenticated
-Buyer.
+Buyer Portal remains feature-complete while Mobile is researched. Buyer
+Relationship authorization remains authoritative. A Buyer receipt is a
+separate immutable fact from Driver outcome and POD. Handoff-code verification
+does not equal acceptance. Full returns/RMA, rich dispute handling, permanent
+tracking and uncontrolled Driver contact are deferred.

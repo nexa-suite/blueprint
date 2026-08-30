@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-06 Fulfillment & Delivery — Tactical Model
@@ -15,8 +15,9 @@ creates an idempotent Continuation Delivery.
 ## Purpose and product participation
 
 Own fulfillment execution, dispatch, delivery attempts, continuation and
-immutable operational evidence. Platform and proposed Operations Mobile
-execute work; Portal and Buyer Mobile consume authorized projections.
+immutable operational evidence. Platform and OWNER-ACCEPTED Operations Mobile
+projections execute work; Portal and Buyer Mobile consume authorized
+projections.
 
 ## Aggregate boundaries
 
@@ -70,7 +71,7 @@ and is never a new Delivery aggregate.
 | `LogisticsController` | dispatch/delivery operations boundary | AS-IS; KEEP/REFINE |
 | `ProofOfDeliveryController` | POD/evidence boundary | AS-IS; KEEP |
 | `FulfillmentController` | Platform warehouse execution boundary | TARGET coherent seam; current routes are evidence |
-| `DeliveryTrackingConsumer` | Portal/Mobile read projection | AS-IS Portal facade plus proposed Mobile consumer |
+| `DeliveryTrackingConsumer` | Portal/Mobile planning read projection | AS-IS Portal facade plus OWNER-ACCEPTED Mobile consumer projection |
 
 ## Infrastructure Layer dictionary
 
@@ -105,3 +106,14 @@ classes, V18–V20, V56, V74, V77, V79 and V81. Classification: dispatch/POD/
 temperature persistence **KEEP/REFINE**, failed-attempt/continuation semantics
 **KEEP structurally**, full Fulfillment aggregate and atomic partial closure
 **PARTIAL / NOT IMPLEMENTED**.
+
+## Mobile v0.17 reconciliation
+
+`DeliveryHandoffToken` is a bounded, hashed/expiring, one-time application
+security fact owned by the Delivery workflow. It references Delivery, Attempt,
+Customer Account and Buyer Relationship; it is not a QR or Scanner aggregate.
+`BuyerReceiptFact` and `BuyerDiscrepancyFact` are immutable Delivery outcome
+facts. Buyer acceptance does not overwrite Driver Attempt/POD history, and QR
+resolution alone is not acceptance. API v0.17.0 provides the handoff token and
+receipt/discrepancy contract in additive V93–V100 migrations. Location remains
+a bounded future/partial contract, not permanent tracking.

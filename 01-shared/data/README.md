@@ -17,7 +17,10 @@ AS-IS database evidence is BASELINED as evidence. PRE-V1 TARGET data ownership, 
 
 ## Expected artifacts
 
-Future conceptual refinements, retention/classification decisions and physical PostgreSQL model remain after accepted domain architecture; data ownership is already baselined for PRE-V1.
+This tactical wave supplies an import-ready logical TARGET model and explicit
+AS-IS mapping. Physical PostgreSQL schema evolution, retention/classification
+decisions and production rollout remain later gates; data ownership is already
+baselined for PRE-V1.
 
 ## Tactical data-model wave
 
@@ -45,3 +48,23 @@ Physical TARGET schemas derived from current PostgreSQL tables, copied database 
 ## Historical evidence
 
 - [Data requirements evidence](data-requirements-evidence.md) — superseded discovery input, retained as reference only.
+
+## Tactical data-model wave
+
+This section is canonical construction evidence for UPC Tactical-Level DDD and
+database-design coverage. It models one shared PostgreSQL topology through
+eleven logical ownership lenses; it does not create eleven databases or
+schema-per-Bounded-Context.
+
+- [Nexa Target PostgreSQL Master Data Model](master-data-model.md)
+- [Target relational model SQL](master-target-relational-model.sql)
+- [Master database-diagram source and import handoff](master-database-diagram-source.md)
+- [AS-IS schema reconstruction evidence](as-is-reconstruction.md)
+- [AS-IS to TARGET data mapping](as-is-to-target-mapping.md)
+- [Product/data participation matrix](product-data-participation.md)
+- [Requirement-to-persistence traceability](tactical-traceability-matrix.md)
+
+Per-Bounded-Context SQL and data dictionaries live with each canonical context
+under [bounded contexts](../domain/bounded-contexts/README.md). Mobile local
+records remain under [Mobile projection data](../../03-mobile/architecture/data/README.md)
+and never enter the PostgreSQL target SQL.

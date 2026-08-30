@@ -25,3 +25,13 @@ last-reviewed: 2026-08-23
 ## Tactical DDD target
 
 Aggregate Roots: PurchaseRequest, CommercialCommitment, SalesOrder. Entities: CommitmentLine, MaterialChange, CommercialSnapshot. Value Objects: CommitmentId, SkuQuantity, TermsSnapshot, OrderRevision. Domain Services: CommitmentAcceptancePolicy, MaterialChangePolicy. Repositories: PurchaseRequestRepository, SalesOrderRepository. Lifecycle: draft → submitted → commitment → confirmed/cancelled/replaced.
+
+## Tactical wave artifacts
+
+- [Tactical model](tactical-model.md)
+- [Domain UML source](diagrams/domain-model.puml)
+- [Rendered UML SVG](diagrams/BC04_SalesCommitment.svg)
+- [Rendered UML PNG](diagrams/BC04_SalesCommitment.png)
+- [Target data model](data/data-model.md)
+- [Target SQL](data/target-relational-model.sql)
+- [Database ERD SVG](data/database-diagram.svg) · [PNG](data/database-diagram.png)

@@ -21,17 +21,22 @@ Este documento fija la semántica C4 L1/L2 de Nexa independiente de los límites
 - [Level 4 code views](l4/README.md) use repository-derived or TARGET Mermaid views; they do not fake C4 Components or production classes.
 - [L3/L4 technical views](l4/technical-lenses.md) index the requested API, Platform and Portal responsibility lenses and canonical workflows.
 - `structurizr/generated/workspace.json` es representación generada; no debe editarse manualmente.
+- `structurizr/workspace.json` es el espejo manual cargado para revisión académica; debe ser byte/semánticamente igual a la representación generada y no una segunda fuente.
 
-Source authority: `structurizr/workspace.dsl` and its included files. Level
-files are direct and unique: `structurizr/l1/l1.dsl`, `structurizr/l2/l2.dsl`
-and `structurizr/l3/*.dsl`.
+Source authority: `structurizr/workspace.dsl` and its included files. Level and
+deployment files are direct and unique: `structurizr/l1/l1.dsl`,
+`structurizr/l2/l2.dsl`, `structurizr/l3/*.dsl`,
+`structurizr/model/deployment.dsl` and `structurizr/deployment/deployment.dsl`.
 
 Vistas canónicas:
 
-- `Nexa-SystemContext-V1`
-- `Nexa-Containers-V1`
-- `Nexa-SystemContext-Runway`
-- `Nexa-Containers-Runway`
+- `Nexa-SystemContext-ASIS`
+- `Nexa-SystemContext-V1-TARGET`
+- `Nexa-SystemContext-Future-Runway`
+- `Nexa-Containers-ASIS`
+- `Nexa-Containers-V1-TARGET`
+- `Nexa-Deployment-Local-ASIS`
+- `Nexa-Deployment-V1-TARGET`
 
 Las vistas L3 son selectivas TARGET PRE-V1, baselined donde explican ownership técnico e invariantes útiles:
 
@@ -44,22 +49,29 @@ Las vistas L3 son selectivas TARGET PRE-V1, baselined donde explican ownership t
 - `Nexa-Platform-Frontend-TARGET`
 - `Nexa-Portal-Frontend-TARGET`
 - `Nexa-Website-Frontend-ASIS`
-- `Nexa-Operations-Mobile-PROPOSED`
-- `Nexa-Buyer-Mobile-PROPOSED`
+- `Nexa-Operations-Mobile-TARGET`
+- `Nexa-Buyer-Mobile-TARGET`
 
-No se crea una vista de componentes del Website: su implementación estática y frontera pública son simples y no agregan una decisión arquitectónica útil en este corte. No hay vista de deployment.
+No se crea una vista de componentes del Website: su implementación estática y frontera pública son simples y no agregan una decisión arquitectónica útil en este corte. Las vistas de deployment se mantienen separadas del modelo de containers.
 
 ## L1 System Context
 
-El sistema primario es **Nexa**: una plataforma B2B SaaS multi-tenant que coordina operaciones comerciales, catálogo, relaciones con clientes, inventario, fulfillment, entrega y autoservicio Buyer para importadores y distribuidores, con soporte especializado para cadena de frío.
+El sistema primario es **Nexa**: una plataforma B2B SaaS multi-tenant que coordina operaciones comerciales, catálogo, relaciones con clientes, inventario, fulfillment, entrega y autoservicio Buyer para importadores, distribuidores y mayoristas, con soporte especializado para cadena de frío.
 
-El L1 usa tres actores legibles:
+El L1 representa individualmente los actores aceptados:
 
-| Actor C4 | Responsabilidades conservadas | Motivo de agrupación |
-|---|---|---|
-| Prospective Customer Representative | Descubrimiento, contacto y solicitud de demo | Actor externo con flujo público propio. |
-| Internal Tenant Workforce | Tenant Administrator, Company Owner, Business Operations Manager, Sales Representative, Warehouse Operator y Dispatch Coordinator | Comparten la aplicación interna; las diferencias de responsabilidad quedan explícitas en la descripción y en la documentación de personas. Separarlos en L1 haría ilegible el límite del sistema sin aportar una relación externa distinta. |
-| B2B Buyer | Catálogo privado, compra, visibilidad de pedidos y autoservicio | No es workforce membership y puede mantener relaciones comerciales autorizadas con más de un Tenant. |
+| Actor C4 | Responsabilidad conservada |
+|---|---|
+| Interested Company / Prospect | Descubrimiento, contacto y solicitud de demo |
+| Nexa Commercial & Onboarding Staff | Intake comercial asistido y onboarding |
+| Company Owner | Gobierno de compañía y workforce |
+| Business Operations Manager | Supervisión autorizada de operaciones y excepciones |
+| Tenant Administrator | Gobierno técnico de acceso y capabilities |
+| Sales Representative | Relaciones de clientes y trabajo comercial |
+| Warehouse Operator | Receiving, inventario y trabajo físico autorizado |
+| Dispatch Coordinator | Preparación de despacho y coordinación de entrega |
+| Driver / Delivery Operator | Intentos de entrega y evidencia; TARGET en Mobile |
+| Customer Buyer | Catálogo, compra, entrega y documentos por relación autorizada |
 
 El L1 muestra únicamente Nexa y los sistemas externos V1:
 
@@ -73,7 +85,7 @@ No muestra PostgreSQL, Angular, Spring Boot, Docker, Workspace, módulos Java, e
 
 Un C4 Container es una aplicación ejecutable/desplegable o un almacén de datos dentro de Nexa. No equivale automáticamente a un Docker container.
 
-La lista canónica V1 es exactamente:
+La lista canónica AS-IS es exactamente:
 
 | C4 Container | Tecnología observada | Responsabilidad |
 |---|---|---|
@@ -84,8 +96,10 @@ La lista canónica V1 es exactamente:
 | PostgreSQL | PostgreSQL | Persistencia transaccional/configuración compartida y lógicamente aislada. |
 | Object Storage | Frontera S3-compatible; MinIO local | Bytes de documentos/media tenant-owned; la API conserva la autorización y metadatos asociados. |
 
-Planned L2 adds only `Nexa Operations Mobile` and `Nexa Buyer Mobile`, both
-`PLANNED / PROPOSED`; they are not current V1 implementation claims.
+The V1 TARGET L2 adds only `Nexa Operations Mobile` and `Nexa Buyer Mobile`,
+both `TARGET V1 / PLANNED / PROPOSED`; they are owner-accepted planning
+projections, not current client implementation claims. Thus AS-IS has six
+containers and V1 TARGET has eight.
 
 ### Por qué las superficies están separadas
 
@@ -107,23 +121,25 @@ Las decisiones de proveedor, credenciales, SLA y deployment productivo siguen ab
 
 ## Mobile projection
 
-Las vistas Runway incluyen las dos aplicaciones planificadas con tags
-`PLANNED,PROPOSED`. Driver / Delivery Operator is a planned actor. The full
+La vista V1 TARGET incluye las dos aplicaciones planificadas con tags
+`TARGET V1,PLANNED,PROPOSED`. Driver / Delivery Operator is a TARGET actor. The full
 projection and BC mapping is in [Mobile domain projection](../../domain/strategic-ddd/mobile-projection.md).
 
 - Nexa Operations Mobile.
 - Nexa Buyer Mobile.
-- Nexa Control Center.
-- Google, Apple y LinkedIn como identity providers opcionales futuros.
-- IoT / Telemetry Integrations.
 
-Estos elementos no están presentes en las vistas V1 ni deben describirse como implementados V1. No se introduce microservicio alguno.
+Future/Runway keeps Google, Apple, LinkedIn and IoT / Telemetry as explicitly
+deferred external systems only; no future container is invented here.
+
+Los elementos Future/Runway no están presentes en AS-IS ni en V1 TARGET y no
+deben describirse como implementados V1. Las dos apps Mobile sí aparecen en
+V1 TARGET como proyecciones planificadas. No se introduce microservicio alguno.
 
 ## Exclusiones deliberadas
 
 - **Workspace** es un concepto operativo/domain de la relación Tenant 1:1 V1, no un proceso desplegable ni un C4 Container independiente.
 - Los módulos Java (`catalogmanagement`, `sales`, `warehouse`, `logistics`, etc.) son evidencia de organización de implementación. No son Bounded Contexts ni containers C4.
-- ClamAV, Mailpit, Stripe mock, OTEL Collector y Jaeger son infraestructura/adapters locales; se documentan en la [evidencia de runtime](../../../04-delivery/as-is/compose-runtime-architecture-evidence.md), no en el L1 ni en la lista primaria L2.
+- ClamAV, Mailpit, Stripe mock, OTEL Collector y Jaeger son infraestructura/adapters locales; se documentan en la [evidencia de runtime](../../../04-delivery/as-is/compose-runtime-architecture-evidence.md) y en la vista `Nexa-Deployment-Local-ASIS`, no en el L1 ni en la lista primaria L2.
 - Docker Compose es runtime local AS-IS, no Cloud Deployment Architecture.
 - C4 L3/L4 aquí son vistas técnicas derivadas de `Capability Mapping -> EventStorming -> Domain Storytelling -> Strategic DDD` aceptado; no convierten nombres de paquetes en Bounded Contexts ni autorizan refactor.
 
@@ -133,10 +149,10 @@ La respuesta defendible es: **Nexa es el producto; las superficies web son exper
 
 La semántica de identidad global, membership workforce, Buyer relationship, propagación de contexto y RLS se detalla separadamente en [Multi-tenant context propagation](../../security/multi-tenancy/context-propagation.md). La organización lógica se detalla en [Logical system layering](../layering/logical-system-layering.md).
 
-## Tactical component coverage
+## Tactical rubric coverage
 
 [Component-level rubric coverage](component-rubric-coverage.md) maps all eleven
-Bounded Contexts to existing Structurizr component views. These are logical
-seams inside accepted containers, not one container per context. Versioned
-visual exports under [exports](exports/README.md) are review evidence; the DSL
-remains the semantic source.
+Bounded Contexts to existing Structurizr component views. Reuse is deliberate:
+the views are logical seams inside accepted containers, not one container per
+context. Versioned SVG exports under [exports](exports/README.md) are review
+artifacts; the Structurizr DSL remains semantic source.

@@ -55,6 +55,22 @@ entity "notification_preference" as t_notification_preference {
   * updated_at : timestamptz <<required>>
 }
 
+entity "push_subscription" as t_push_subscription {
+  * push_subscription_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * recipient_key : varchar(240) <<required>>
+  * surface : varchar(32) <<required>>
+  * installation_id : varchar(160) <<required>>
+  * platform : varchar(16) <<required>>
+  * provider_token_hash : char(64) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * last_seen_at : timestamptz <<required>>
+  * version : bigint <<required>>
+}
+
 entity "notification_attempt" as t_notification_attempt {
   * attempt_id : uuid <<PK>>
   * notification_id : uuid <<FK, required>>

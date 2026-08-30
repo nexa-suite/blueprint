@@ -25,3 +25,13 @@ last-reviewed: 2026-08-23
 ## Tactical DDD target
 
 Aggregate Roots: Fulfillment, Delivery. Entities: Package, DispatchHandoff, DeliveryAttempt, POD, DeliveryDiscrepancy. Value Objects: DeliveryId, HandoffId, AttemptId, EvidenceRef, GeoPoint, DeliveryQuantity. Domain Services: PartialDeliveryPolicy, DeliveryLocationPrivacyPolicy. Repositories: FulfillmentRepository, DeliveryRepository. Lifecycle: planned → picked → packed → staged → ready → handed over → dispatched → attempted → completed/failed with continuation.
+
+## Tactical wave artifacts
+
+- [Tactical model](tactical-model.md)
+- [Domain UML source](diagrams/domain-model.puml)
+- [Rendered UML SVG](diagrams/BC06_FulfillmentDelivery.svg)
+- [Rendered UML PNG](diagrams/BC06_FulfillmentDelivery.png)
+- [Target data model](data/data-model.md)
+- [Target SQL](data/target-relational-model.sql)
+- [Database ERD SVG](data/database-diagram.svg) · [PNG](data/database-diagram.png)

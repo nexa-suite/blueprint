@@ -3,15 +3,14 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # AS-IS to TARGET persistence mapping
 
 ## Evidence boundary
 
-AS-IS was reconstructed from the API `origin/develop` at
-`a19c6bfb4229549f91597f69c09aa6955517dfda`, using migration chain V1–V86 in
+AS-IS was reconstructed from the API `origin/main` migration chain V1–V86 in
 an ephemeral PostgreSQL 18.4 instance. Result: 12 database schemas, 129 base
 tables, one view, 1,448 columns, 400 indexes and 56 RLS policies. No production
 database was inspected. This is evidence, not permission to rename or migrate
@@ -162,6 +161,27 @@ snapshot/aggregate; `TECHNICAL` belongs to shared reliability/security;
   changed by this wave. Physical placement and rollout remain later gates.
 - Cross-BC links in the target SQL are stable IDs/snapshots. Same-owner FKs are
   the only referential constraints in per-BC models.
+
+## Current v0.17.0 delta — AS-IS evidence
+
+The published API v0.17.0 adds additive V93–V100 implementation evidence. It
+does not rewrite the historical V1–V86 inventory above or silently change the
+TARGET ownership model.
+
+| Current object / behavior | Classification | TARGET owner / interpretation |
+|---|---|---|
+| `sellable_sku.gtin` and V97 resolution index | KEEP/REFINE | BC-03 SKU physical identifier query; no Scanner/QR table or BC. |
+| `inventory_lot.batch_number` and V97 index | KEEP/REFINE | BC-05 lot resolution input; no new scan aggregate. |
+| `picking_result_line.physical_allocation_line_id`, lot/warehouse binding and V98 split uniqueness | REFINE | BC-05 allocation authority consumed by BC-06 pick execution; append-only evidence. |
+| `logistics.delivery_handoff_token` V93/V95 | REFINE | BC-06 bounded hashed/expiring one-time handoff fact; Buyer Relationship authorization from BC-02. |
+| `logistics.buyer_receipt_fact` V93/V95 | REFINE | BC-06 immutable Buyer accepted/disputed outcome; Driver/POD history remains separate. |
+| `notifications.push_subscription` V94/V95/V99 | REFINE | BC-10 Push Subscription domain-facing record; token is hashed and scoped. |
+| `notifications.push_delivery_attempt` and V100 claim fencing | TECHNICAL | Shared notification delivery reliability; no Mobile/Device aggregate. |
+| V93–V100 RLS/FK/idempotency/retry hardening | TECHNICAL | Shared tenant/security/reliability controls; runtime proof remains a gate. |
+
+No Flyway migration was added to Blueprint or application repositories by this
+documentation wave. Target SQL now projects the accepted BC-03/05/06/10
+concepts; application migration authority remains API.
 
 See [master data model](master-data-model.md), [tactical traceability](tactical-traceability-matrix.md)
 and [C4 coverage](../architecture/c4/component-rubric-coverage.md).

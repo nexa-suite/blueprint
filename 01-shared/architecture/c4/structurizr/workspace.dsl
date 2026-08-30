@@ -1,4 +1,4 @@
-workspace "Nexa Suite" "Canonical Nexa C4 L1/L2 web baseline plus proposed Mobile projections" {
+workspace "Nexa Suite" "Canonical shared Nexa C4 system model with AS-IS and V1 TARGET projections" {
     !identifiers hierarchical
     model {
         !include model/people.dsl
@@ -6,6 +6,7 @@ workspace "Nexa Suite" "Canonical Nexa C4 L1/L2 web baseline plus proposed Mobil
         !include model/containers.dsl
         !include model/components.dsl
         !include model/relationships.dsl
+        !include model/deployment.dsl
     }
     views {
         !include l1/l1.dsl
@@ -16,6 +17,7 @@ workspace "Nexa Suite" "Canonical Nexa C4 L1/L2 web baseline plus proposed Mobil
         !include l3/website.dsl
         !include l3/operations-mobile.dsl
         !include l3/buyer-mobile.dsl
+        !include deployment/deployment.dsl
         !include styles/styles.dsl
     }
 }

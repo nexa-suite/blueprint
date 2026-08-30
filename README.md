@@ -1,6 +1,6 @@
 # Nexa Blueprint
 
-Canonical documentation for Nexa Product, Domain, System, Web, Mobile runway, delivery evidence, academic projections and historical reference.
+Canonical documentation for Nexa Product, Domain, System, Web, accepted Mobile projections, delivery evidence, academic projections and historical reference.
 
 ## Start here
 
@@ -10,7 +10,7 @@ Canonical documentation for Nexa Product, Domain, System, Web, Mobile runway, de
 - [Shared domain](01-shared/domain/README.md) — one business domain and 11 accepted Bounded Contexts.
 - [Shared architecture](01-shared/architecture/README.md) — C4, technical architecture, data, security and reliability.
 - [Web](02-web/README.md) — Website, Platform and Portal experience contracts; 133 confirmed stories.
-- [Mobile](03-mobile/README.md) — proposed/discovery-only native surface; 49 stories pending research validation.
+- [Mobile](03-mobile/README.md) — two owner-accepted planning projections; 73-story master backlog (28 V1, 35 V2, 9 V3, 1 V4/Future), research/client validation pending.
 - [Delivery](04-delivery/README.md) — AS-IS, runtime, quality and production gates.
 - [90-academic](90-academic/README.md) — isolated academic projections.
 - [91-reference](91-reference/README.md) — historical, legacy, audit and external evidence.

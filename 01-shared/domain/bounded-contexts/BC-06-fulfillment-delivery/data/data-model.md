@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-06 target relational model
@@ -14,7 +14,7 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 | Aggregate/group | Tables | Integrity |
 |---|---|---|
 | Fulfillment | `fulfillment`, `fulfillment_line`, `picking_result`, `picking_discrepancy` | local FKs; pick/discrepancy quantities bounded |
-| Delivery | `delivery`, `delivery_assignment`, `delivery_attempt`, `delivery_attempt_line`, `delivery_quantity_outcome` | attempt number unique; partial outcomes preserved |
+| Delivery | `delivery`, `delivery_assignment`, `delivery_attempt`, `delivery_attempt_line`, `delivery_quantity_outcome`, `delivery_handoff_token`, `buyer_receipt_fact` | attempt number unique; partial outcomes preserved; handoff/Buyer facts immutable |
 | POD | `proof_of_delivery`, `proof_of_delivery_addendum` | one POD/delivery; addendum append-only |
 | Temperature | `temperature_evidence`, `temperature_excursion` | evidence/exception FKs; HOLD/disposition lifecycle |
 | Continuation | `continuation_delivery` | parent delivery FK; remaining snapshot immutable |
@@ -32,4 +32,7 @@ Fulfillment status preserves the accepted progression `PLANNED`,
 `sales_order_id`, `physical_allocation_id`, SKU and operator IDs are stable
 non-owning references. POD success, temperature disposition and completion are
 server-authoritative. AS-IS anchors: logistics dispatch, attempts, POD,
-temperature and continuation tables; tracking view is a projection only.
+temperature and continuation tables; tracking view is a projection only. v0.17
+adds a bounded hashed one-time Delivery Handoff Token and immutable Buyer
+receipt/discrepancy facts. Buyer acceptance never overwrites Driver
+Attempt/POD history; QR validation is not acceptance.

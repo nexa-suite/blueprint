@@ -7,7 +7,7 @@ One conceptual home per concern:
 | 00-start-here | Where begin? | Navigation, status and governance pointers. |
 | 01-shared | What crosses surfaces? | Product, DDD, Design System, architecture, data, security and engineering. |
 | 02-web | How does Web work? | Website, Platform and Buyer Portal projections. |
-| 03-mobile | What is Mobile? | Two proposed apps; catalog frozen for research validation. |
+| 03-mobile | What is Mobile? | Two owner-accepted-for-planning apps; catalog baselined, research/client validation pending. |
 | 04-delivery | What exists and what remains open? | AS-IS, runtime, quality and Production Gate. |
 | 90-academic | What supports coursework? | Isolated projections; not Product authority. |
 | 91-reference | What is historical? | Legacy, research and source material. |
@@ -22,6 +22,9 @@ Requirements entry points:
 - [Shared catalog index](../01-shared/product/requirements/README.md)
 - [Web requirements](../02-web/requirements/README.md)
 - [Mobile requirements](../03-mobile/requirements/README.md)
+- [Mobile V1 catalog](../03-mobile/requirements/mobile-v1-catalog.md)
+- [Functional contracts](../01-shared/product/functional-contracts/README.md)
+- [Live compatibility baseline](../04-delivery/compatibility-baseline-2026-08-29.md)
 - [Technical Stories](../01-shared/product/requirements/technical-stories.md)
 - [Spike Stories](../01-shared/product/requirements/spike-stories.md)
 

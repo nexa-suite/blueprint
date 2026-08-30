@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: cross-cutting
 owner: product
-last-reviewed: 2026-08-24
+last-reviewed: 2026-08-29
 ---
 
 # Requirements Authoring Standard
@@ -34,14 +34,20 @@ Functional catalog status for this wave:
 | Category | Count | Status |
 |---|---:|---|
 | Web functional User Stories | 133 | CONFIRMED / V1 |
-| Mobile functional User Stories | 49 | PROPOSED / RESEARCH VALIDATION PENDING |
+| Mobile functional User Stories | 73 | 28 V1; 35 V2; 9 V3; 1 V4/Future; lifecycle and research tracked separately |
 | Technical Stories | 20 | SHARED / DELIVERY |
 | Spike Stories | 6 | RESEARCH / ENABLER |
-| Total requirement items | 208 | FROZEN CATALOG |
+| Total requirement items | 232 | BASELINED CATALOG; acceptance gates open |
 
-The freeze records identity and product-level scope. It does not invent final
-Acceptance Criteria, Story Points, Sprints, Personas, interviews, statistics,
-Mobile validation results or academic traceability.
+The catalog records identity, target product scope and story-level AC. The
+Mobile master backlog at
+`03-mobile/requirements/master-mobile-backlog.md` owns release and lifecycle
+fields for all 73 functional stories. The academic projection at
+`90-academic/mobile/course-1acc0238/requirements-projection.md` adds the
+course-only join fields for the 28-row Product Backlog ordering, Story Points,
+Sprints, milestones and evidence. Those fields are projections, not Product
+Acceptance or implementation claims. Personas, interviews, statistics, Mobile
+validation and client implementation remain separate dimensions.
 
 ## Required functional story fields
 
@@ -50,6 +56,12 @@ Every functional story records:
 ID, Status, Product, Surface, Actor, Epic, Priority, Title, concise User Story
 statement, owning Bounded Context, capability or family when obvious and
 current refinement status.
+
+The Mobile catalog additionally records App, shared capability, secondary BCs,
+research status, offline/idempotency expectation, authorization, device/evidence
+implication, dependencies and release classification. The master backlog also
+records Backend Support, Client Status, Sprint Planned, Sprint Implemented,
+Implemented In, Verified In and Product Accepted In using controlled values.
 
 Use the wording:
 
@@ -117,7 +129,7 @@ A Spike does not pretend to deliver normal production functionality.
 
 Later refinement adds Preconditions, Business Rules, complete Acceptance
 Criteria, Event references, Dependencies, Out of Scope, Story Points and
-academic traceability. Acceptance Criteria must preserve tenant scope,
+academic traceability. The academic projection must preserve tenant scope,
 authorization, lifecycle, state conflict, concurrency, failure/retry and
 durable result where relevant. Do not invent API contracts.
 

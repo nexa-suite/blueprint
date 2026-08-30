@@ -1,70 +1,69 @@
 @startuml OperationsMobileLocalPersistence
-title Operations Mobile — Local Logical Persistence (PROPOSED / RESEARCH VALIDATION PENDING)
+title Operations Mobile — V1 Local Assistance (PROPOSED / RESEARCH VALIDATION PENDING)
 hide circle
 skinparam classAttributeIconSize 0
 skinparam shadowing false
 skinparam linetype ortho
 
-class LocalWorkItem <<Aggregate Root>> {
+class LocalWorkItem <<Entity>> {
   -localWorkItemId: LocalWorkItemId
   -remoteReference: String
   -kind: WorkItemKind
   -state: LocalWorkItemState
-  +saveDraft(): void
-  +queueUpload(): void
-  +markUploaded(serverReference: String): void
-  +markRejected(reason: String): void
+  +saveHarmlessDraft(): void
+  +markPending(): void
+  +recordRetry(): void
 }
 
-class LocalCapture <<Entity>> {
-  -captureId: LocalCaptureId
-  -localWorkItemId: LocalWorkItemId
-  -captureKind: CaptureKind
-  -contentReference: String
-  -contentHash: String
-  +stage(): void
-  +markTransferred(): void
-}
-
-class UploadQueueItem <<Entity>> {
-  -queueItemId: QueueItemId
-  -localWorkItemId: LocalWorkItemId
-  -attemptCount: Integer
-  -state: QueueState
-  +enqueue(): void
-  +retry(): void
-  +complete(): void
-}
-
-class SyncMetadata <<Entity>> {
-  -syncId: SyncMetadataId
+class LocalEvidenceStaging <<Entity>> {
+  -evidenceId: EvidenceId
   -remoteReference: String
-  -lastServerVersion: String
-  -lastSyncedAt: Instant
-  +recordServerVersion(version: String): void
+  -contentHash: String
+  -state: EvidenceState
+  +stage(): void
+  +retry(): void
+}
+
+class RetryMetadata <<Value Object>> {
+  -operationId: OperationId
+  -attempts: Integer
+  -lastKnownVersion: String
+  -state: RetryState
+  +recordAttempt(): void
+  +markConflict(): void
+}
+
+class FreshnessMetadata <<Value Object>> {
+  -scope: String
+  -sourceVersion: String
+  -lastCheckedAt: Instant
+  -staleAt: Instant
+  +markStale(): void
 }
 
 class LocalStorageBoundary <<Domain Service>> {
-  +persistDraft(item: LocalWorkItem): void
-  +loadPendingUploads(): List<UploadQueueItem>
-  +purgeAfterServerConfirmation(item: LocalWorkItem): void
+  +persistHarmlessDraft(item: LocalWorkItem): void
+  +stageEvidence(item: LocalEvidenceStaging): void
+  +recordRetry(metadata: RetryMetadata): void
+  +purgeAfterConfirmation(reference: String): void
 }
 
-LocalWorkItem "1" *-- "0..*" LocalCapture : captures
-LocalWorkItem "1" *-- "0..*" UploadQueueItem : outbox
-LocalWorkItem "1" o-- "0..1" SyncMetadata : sync marker
-LocalStorageBoundary --> LocalWorkItem : local only
+LocalWorkItem "1" *-- "0..*" LocalEvidenceStaging : temporary evidence
+LocalWorkItem "1" o-- "0..1" RetryMetadata : retry only
+LocalWorkItem "1" o-- "0..1" FreshnessMetadata : advisory freshness
+LocalStorageBoundary --> LocalWorkItem : local/non-authoritative
 
 enum WorkItemKind <<Enum>>
 enum LocalWorkItemState <<Enum>>
-enum CaptureKind <<Enum>>
-enum QueueState <<Enum>>
+enum EvidenceState <<Enum>>
+enum RetryState <<Enum>>
 
 legend right
 PROPOSED / RESEARCH VALIDATION PENDING
 Technology: NOT SELECTED. Logical records only; no framework commitment.
-LOCAL / NON-AUTHORITATIVE. Server/API is authority for inventory, order,
-payment, authorization, POD success and traceability.
-Offline capture is retryable intent, never business confirmation.
+LOCAL / NON-AUTHORITATIVE. Nexa remains authority for inventory, allocation,
+pick, dispatch, Delivery, payment, authorization, POD and traceability.
+V1 is online-first. Drafts, safe reads, temporary evidence and retry metadata
+may survive interruption; no generic sync cursor or background sync engine.
 endlegend
 @enduml

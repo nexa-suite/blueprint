@@ -20,13 +20,15 @@ CREATE TABLE sku (
     product_id uuid NOT NULL REFERENCES product (product_id),
     code varchar(80) NOT NULL,
     name varchar(200) NOT NULL,
+    gtin varchar(14),
     unit_of_measure varchar(32) NOT NULL,
     temperature_band varchar(64) NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('DRAFT','ACTIVE','RETIRED')),
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
-    UNIQUE (product_id, code)
+    UNIQUE (product_id, code),
+    CHECK (gtin IS NULL OR gtin ~ '^[0-9]{8,14}$')
 );
 
 CREATE TABLE catalog_media (
@@ -118,6 +120,7 @@ CREATE TABLE promotion_sku (
 );
 
 CREATE INDEX ix_sku_product_status ON sku (product_id, status);
+CREATE INDEX ix_sku_gtin_resolution ON sku (gtin, sku_id) WHERE status = 'ACTIVE';
 CREATE INDEX ix_price_list_item_sku ON price_list_item (sku_id);
 CREATE INDEX ix_base_price_sku_validity ON base_price (sku_id, valid_from, valid_to);
 CREATE INDEX ix_promotion_scope_status ON promotion (tenant_id, status, starts_at, ends_at);

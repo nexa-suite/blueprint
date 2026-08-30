@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-11 target relational model
@@ -23,5 +23,8 @@ immutable event snapshot; it is not a replacement for aggregate tables.
 
 Aggregate IDs, actors, object references and source events are stable
 non-owning IDs. No update/delete domain operation exists for records or
-evidence. AS-IS anchors: `audit.event` and trace-oriented integration/change
-events; see [AS-IS reconstruction](../../../../data/as-is-reconstruction.md).
+evidence. v0.17 may trace identifier overrides, handoff resolution, Buyer
+receipt/discrepancy, push delivery and Mobile evidence as append-only facts;
+source BCs retain authority and no new Published Integration Event is implied.
+AS-IS anchors: `audit.event` and trace-oriented integration/change events; see
+[AS-IS reconstruction](../../../../data/as-is-reconstruction.md).

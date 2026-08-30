@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-10 Notifications — Tactical Model
@@ -89,3 +89,14 @@ AS-IS evidence at API main: `notifications` application/service/controller,
 `notifications.inbox_item`, tenant notification preference and V36/V44/V59.
 Classification: in-app inbox/preferences **KEEP**, durable intent/attempt
 separation **REFINE**, full email retry worker **PARTIAL / NOT IMPLEMENTED**.
+
+## Mobile v0.17 reconciliation
+
+`PushSubscription` is a BC-10-owned recipient/device delivery record with
+provider-token hash, installation identity, platform/surface, lifecycle and
+version. Subscription registration, rotation, disable/unregister and push
+delivery attempts are application/technical reliability behavior, not a Device
+or Mobile aggregate. Retry, claim fencing, invalid-token handling and
+dead-letter state preserve at-least-once delivery without mutating source
+business state. API v0.17.0 provides the provider-neutral foundation in
+V94–V100; native provider/config/credential operations remain open.

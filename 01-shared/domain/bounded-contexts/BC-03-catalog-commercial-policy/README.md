@@ -25,3 +25,13 @@ last-reviewed: 2026-08-23
 ## Tactical DDD target
 
 Aggregate Roots: Product, SellableOffer. Entities: SKU, PriceListEntry, CustomerTerm, PromotionRule. Value Objects: SkuId, Money, Currency, Visibility, CommercialSnapshot. Domain Services: OfferResolutionPolicy, PromotionStackingPolicy. Repositories: ProductRepository, OfferRepository. Lifecycle: draft → published → retired; snapshots are immutable at commitment boundary.
+
+## Tactical wave artifacts
+
+- [Tactical model](tactical-model.md)
+- [Domain UML source](diagrams/domain-model.puml)
+- [Rendered UML SVG](diagrams/BC03_CatalogCommercialPolicy.svg)
+- [Rendered UML PNG](diagrams/BC03_CatalogCommercialPolicy.png)
+- [Target data model](data/data-model.md)
+- [Target SQL](data/target-relational-model.sql)
+- [Database ERD SVG](data/database-diagram.svg) · [PNG](data/database-diagram.png)

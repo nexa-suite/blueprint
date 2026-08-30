@@ -6,7 +6,7 @@ tenantAdministrator = person "Tenant Administrator" "Governs technical access, m
 salesRepresentative = person "Sales Representative" "Manages customer relationships, offers and commercial work"
 warehouseOperator = person "Warehouse Operator" "Executes authorized receiving, inventory and warehouse workflows"
 dispatchCoordinator = person "Dispatch Coordinator" "Prepares dispatch, verifies handoff and coordinates delivery execution"
-b2bBuyer = person "B2B Buyer" "Uses authorized Buyer experiences for catalog, purchasing, delivery and documents"
+b2bBuyer = person "Customer Buyer" "Uses authorized Buyer experiences for catalog, purchasing, delivery and documents"
 driverDeliveryOperator = person "Driver / Delivery Operator" "Executes assigned delivery attempts and captures delivery evidence" {
-    tags "PLANNED,PROPOSED"
+    tags "TARGET V1,PLANNED,PROPOSED"
 }

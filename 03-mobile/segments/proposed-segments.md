@@ -1,13 +1,11 @@
-# Proposed Mobile segments
+# Mobile segments
 
-Status: **PROPOSED — RESEARCH VALIDATION PENDING**.
+Product direction is `OWNER-ACCEPTED`; segment validation is `PENDING`.
 
-| ID | Segment | Primary actors | Research boundary |
-|---|---|---|---|
-| MOB-SEG-01 | Field & Warehouse Operations | Sales Representative, Warehouse Operator, Dispatch Coordinator | field lookup, physical work, handoff and evidence |
-| MOB-SEG-02 | Delivery Workforce | Driver / Delivery Operator | assigned delivery, attempt, POD, discrepancy and selective offline |
-| MOB-SEG-03 | B2B Buyers | B2B Buyer | frequent catalog, ordering, delivery, payment and document actions |
+| ID | Segment | Primary actors | Product projection | Research boundary |
+|---|---|---|---|---|
+| MOB-SEG-01 | Field & Warehouse Operations | Sales Representative; Warehouse Operator; Dispatch Coordinator | assisted commercial, physical inventory, handoff and evidence | field observation/interviews pending |
+| MOB-SEG-02 | Delivery Workforce | Driver / Delivery Operator | assigned Delivery, Attempt, POD, handoff and selective evidence recovery | delivery observation/privacy research pending |
+| MOB-SEG-03 | B2B Buyers | Customer Buyer | catalog, commitment, delivery receipt/discrepancy, finance and documents | buyer research pending |
 
-Business Operations Manager is a cross-functional secondary Mobile actor.
-Company Owner, Tenant Administrator and Nexa Commercial & Onboarding Staff are
-Web-first and future/non-core for Mobile.
+These are Product segments, not Bounded Contexts or deployment units.

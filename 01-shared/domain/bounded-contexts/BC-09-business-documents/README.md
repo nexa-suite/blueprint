@@ -25,3 +25,13 @@ last-reviewed: 2026-08-23
 ## Tactical DDD target
 
 Aggregate Root: BusinessDocument. Entities: DocumentLineSnapshot, ReplacementLink, EvidenceReference. Value Objects: DocumentId, DocumentNumber, DocumentType, IssuedSnapshot. Domain Services: DocumentNumberingPolicy, DocumentIssuePolicy. Repositories: BusinessDocumentRepository. Lifecycle: requested → issued → available → replaced/linked without mutation.
+
+## Tactical wave artifacts
+
+- [Tactical model](tactical-model.md)
+- [Domain UML source](diagrams/domain-model.puml)
+- [Rendered UML SVG](diagrams/BC09_BusinessDocuments.svg)
+- [Rendered UML PNG](diagrams/BC09_BusinessDocuments.png)
+- [Target data model](data/data-model.md)
+- [Target SQL](data/target-relational-model.sql)
+- [Database ERD SVG](data/database-diagram.svg) · [PNG](data/database-diagram.png)

@@ -12,6 +12,11 @@ Events are business facts, not commands, endpoints or a substitute for atomic co
 
 EventStorming and tactical DDD may name domain-event candidates for local modeling. A candidate absent from this matrix is Internal Domain Event or uncommitted design input, not a Published Integration Event; it gains a published contract only after owner, schema, known consumer, outbox and inbox behavior are accepted.
 
+The API v0.17.0 Mobile-readiness additions (identifier resolution, scan/FEFO
+validation, handoff, Buyer receipt/discrepancy and push subscription facts) do
+not add published event types in this cut. They remain internal/application or
+traceability facts unless a later owner-approved event contract says otherwise.
+
 ## Event classes
 
 | Class | Purpose | Persistence |

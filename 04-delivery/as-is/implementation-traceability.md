@@ -25,7 +25,7 @@ ref cut is [recorded separately](pre-v1-current-ref-verification.md).
 | Business traceability | API, Platform, Portal | [Business ownership](../../01-shared/domain/ownership/business-ownership-matrix.md), [Traceability ADR](../../01-shared/architecture/decisions/adr/adr-0011-durable-business-traceability.md) | AS-IS evidence; BC-11 target accepted |
 | Public discovery and demo intake | Website | [Repository map](../../00-start-here/repository-map.md), [Product scope](../../01-shared/product/vision/v1-scope.md) | AS-IS public boundary |
 | Visual language and UX flows | Design Lab, Platform, Portal, Website | [Design convergence](../../01-shared/design/design-system/web-evidence/design-lab-contract.md), [Design adoption](../../01-shared/design/design-system/web-evidence/05-engineering/design-adoption.md) | Visual source/candidate guidance |
-| Mobile and driver workflows | Mobile | [Runway](../../01-shared/engineering/construction/current-wave.md) | FUTURE; not V1 implementation |
+| Mobile and driver workflows | Mobile | [Mobile master backlog](../../03-mobile/requirements/master-mobile-backlog.md) | Product direction OWNER-ACCEPTED; 73 functional stories (28 V1, 35 V2, 9 V3, 1 V4/Future); API PARTIAL; client NOT_STARTED; no V1 runtime claim |
 
 ## Evidence rules
 

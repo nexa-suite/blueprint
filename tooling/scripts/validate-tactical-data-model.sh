@@ -26,11 +26,11 @@ expected = {
     "BC-03": ["product", "sku", "catalog_media", "price_list", "price_list_item", "base_price", "customer_terms", "promotion", "promotion_sku"],
     "BC-04": ["request_draft", "request_draft_line", "purchase_request", "purchase_request_line", "material_change_proposal", "commercial_commitment", "commercial_commitment_line", "sales_order", "sales_order_line", "commitment_owner_transfer", "sales_commitment_adjustment"],
     "BC-05": ["warehouse", "inventory_lot", "inventory_position", "inventory_movement", "safety_stock_policy", "inventory_backing", "inventory_backing_line", "physical_allocation", "physical_allocation_line", "inventory_adjustment", "warehouse_transfer", "warehouse_transfer_line", "lot_disposition"],
-    "BC-06": ["fulfillment", "fulfillment_line", "picking_result", "picking_discrepancy", "delivery", "delivery_assignment", "delivery_attempt", "delivery_attempt_line", "delivery_quantity_outcome", "proof_of_delivery", "proof_of_delivery_addendum", "temperature_evidence", "temperature_excursion", "continuation_delivery"],
+    "BC-06": ["fulfillment", "fulfillment_line", "picking_result", "picking_discrepancy", "delivery", "delivery_assignment", "delivery_attempt", "delivery_attempt_line", "delivery_quantity_outcome", "delivery_handoff_token", "buyer_receipt_fact", "proof_of_delivery", "proof_of_delivery_addendum", "temperature_evidence", "temperature_excursion", "continuation_delivery"],
     "BC-07": ["credit_account", "credit_reservation", "receivable", "receivable_application", "financial_adjustment", "financial_ledger_entry"],
     "BC-08": ["payment", "payment_attempt", "payment_provider_event", "payment_refund", "payment_correction", "payment_reconciliation_case"],
     "BC-09": ["document_number_series", "business_document", "document_snapshot_line", "document_revision", "object_storage_reference", "document_generation_request"],
-    "BC-10": ["notification_template", "notification", "notification_recipient", "notification_preference", "notification_attempt"],
+    "BC-10": ["notification_template", "notification", "notification_recipient", "notification_preference", "push_subscription", "notification_attempt"],
     "BC-11": ["business_traceability_record", "traceability_evidence_reference"],
 }
 shared = ["outbox_event", "inbox_deduplication", "idempotency_record", "worker_lease", "security_audit_event"]
@@ -191,7 +191,7 @@ if academic.is_file() and len(re.findall(r"(?m)^\|\s*BC-\d{2}\b", academic.read_
     failures.append("academic Web tactical projection must have exactly 11 BC rows")
 
 c4_exports = root / "01-shared/architecture/c4/exports"
-for level, expected_count in (("l1", 2), ("l2", 2), ("l3", 11)):
+for level, expected_count in (("l1", 3), ("l2", 2), ("l3", 11), ("deployment", 2)):
     svgs = sorted((c4_exports / level).glob("*.svg"))
     if len(svgs) != expected_count:
         failures.append(f"C4 {level} exports expected {expected_count} SVG, found {len(svgs)}")
@@ -207,9 +207,9 @@ if failures:
 
 print("TACTICAL DATA MODEL: PASS")
 print(f"- bounded contexts: {len(bc_dirs)}")
-print(f"- target tables: {len(all_target) + len(shared)} (87 BC + 5 shared)")
+print(f"- target tables: {len(all_target) + len(shared)} (90 BC + 5 shared)")
 print("- primary PlantUML: 11 BC + 2 Mobile; rendered SVG + PNG present")
 print("- matrices: requirements, C4 and academic coverage present")
-print("- C4 exports: 15 SVG + 15 PNG")
+print("- C4 exports: 18 SVG + 18 PNG (including 2 deployment views)")
 print("- database ERD projections: 11 BC + 1 master; SVG + PNG present")
 PY

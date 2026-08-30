@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # Master database-diagram source and academic handoff
@@ -34,8 +34,9 @@ contexts.
 1. Add note: `TARGET / shared PostgreSQL / logical BC ownership; not eleven databases.`
 2. Mark every `tenant_id` and `workspace_id` scope column.
 3. Mark PK, FK, required and unique columns from SQL.
-4. Add notes for immutable documents, POD/addenda, traceability, Object Storage
-   references, RLS expectation and Mobile-local separation.
+4. Add notes for immutable documents, POD/addenda, handoff/Buyer receipt facts,
+   push subscription lifecycle, traceability, Object Storage references, RLS
+   expectation and Mobile-local separation.
 5. Export one Master diagram and one readable diagram per BC in the
    instructor-approved format. Do not export credentials, sessions or dumps.
 

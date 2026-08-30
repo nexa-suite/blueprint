@@ -10,14 +10,14 @@ last-reviewed: 2026-08-25
 
 ## Evidence boundary
 
-This is a point-in-time reconstruction of API `origin/develop` at
-`a19c6bfb4229549f91597f69c09aa6955517dfda`. It is AS-IS evidence only. It does
+This is a point-in-time reconstruction of API `origin/main` at
+`45a7cade79f04a1f51df7af88d11c07bc4040058`. It is AS-IS evidence only. It does
 not redefine accepted TARGET Bounded Contexts and does not authorize a Flyway
 migration.
 
 | Evidence | Result |
 |---|---|
-| API source | `nexa-suite/api` `origin/develop` `a19c6bfb4229549f91597f69c09aa6955517dfda` |
+| API source | `nexa-suite/api` `origin/main` `45a7cade79f04a1f51df7af88d11c07bc4040058` |
 | Runtime database image | `postgres:18.4-alpine`, from `ops/compose/modern.compose.yml` |
 | Migration chain | V1 through V86, applied in numeric order; latest source migration `V86__create_organization_onboarding_drafts.sql` |
 | Reconstruction method | Ephemeral PostgreSQL container; each migration executed in one transaction |
