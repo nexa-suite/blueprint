@@ -17,9 +17,9 @@ completed coursework or accepted Product scope.
 | 3–5 needfinding interviews per segment | Interviews | RESEARCH_PENDING | Record participants, timing, video, summaries and analysis; do not fabricate | AV1 |
 | Personas, tasks, journeys, empathy maps | Needfinding | RESEARCH_PENDING | UXPressia artifacts and source links | AV1 |
 | Competitor analysis and SWOT | Chapter II | OWNER_INPUT_REQUIRED | Select at least three defensible competitors and cite sources | AV1 |
-| User Stories and Gherkin AC | Requirements | READY | 28 V1 rows visibly join actor, goal, description and 4 Gherkin scenarios; Product Acceptance pending | AV1 |
+| User Stories and Gherkin AC | Requirements | READY | 28 current-course V1 rows visibly join actor, goal, description and 4 Gherkin scenarios; the Product master backlog remains broader and future-facing | AV1 |
 | Business Goals and Impact Mapping | Impact Mapping | STRUCTURE_READY | Proposed SMART goals and actor-impact-deliverable links; metrics remain proposed | AV1 |
-| Product Backlog | Requirements | READY | Business-value order, points and Sprint assignments in requirements projection; Epic fields in epic projection; Website Landing Page dependency in Sprint 1 | AV1 |
+| Product Backlog | Requirements | READY | Current-course V1 order, points and Sprint assignments remain in requirements projection; Product V1–V4/Future lifecycle is indexed separately; Website Landing Page dependency remains in Sprint 1 | AV1 |
 | Strategic DDD | Chapter II | READY | 11 accepted BCs, EventStorming, Context Map and canvases in shared Blueprint | AV1 |
 | C4 Context / Container / Deployment | Architecture | VERIFIED WITH CAVEAT | Shared C4 model has AS-IS and TARGET views; provider-neutral Deployment; rendering gate remains | AV1 |
 | Tactical DDD class diagrams | Chapter II | STRUCTURE_READY | Shared per-BC domain projections; academic mapping is linked, not duplicated | AV1 |

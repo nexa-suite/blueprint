@@ -18,7 +18,7 @@ invented; the source provides week numbers, not calendar dates.
 | Report structure, versioning, collaboration, Student Outcome | STRUCTURE_READY | UPDATE_REQUIRED | UPDATE_REQUIRED | FINAL_UPDATE | Structure mapped; participants and report repo evidence pending | Team |
 | Chapter I: startup, solution, segments, Lean UX | STRUCTURE_READY | REFINE | REFINE | FINAL | Research and source-backed content pending | Product/Research |
 | Needfinding interviews, analysis and personas | RESEARCH_PENDING | REFINE | VALIDATION_PENDING | FINAL | 3–5 interviews per segment required; none claimed | Research |
-| User Stories, Impact Mapping and Product Backlog | READY | REFINE | REFINE | FINAL | 28 Mobile V1 projection rows; Product Acceptance pending | Product |
+| User Stories, Impact Mapping and Product Backlog | READY | REFINE | REFINE | FINAL | 28 Mobile V1 course rows; broader 73-story Product master backlog is linked but not dumped into the course submission; Product Acceptance pending | Product |
 | Strategic DDD and 11 BC baseline | READY | PRESERVE | PRESERVE | FINAL | Shared Blueprint evidence exists | Architecture/Domain |
 | C4 Context, Container, Component and Deployment | VERIFIED WITH CAVEAT | REFINE | REFINE | FINAL | AS-IS/TARGET/Deployment source added; render/evidence pending | Architecture |
 | Tactical domain/database diagrams | STRUCTURE_READY | REFINE | REFINE | FINAL | Shared SQL/UML projections available | Domain/Data |

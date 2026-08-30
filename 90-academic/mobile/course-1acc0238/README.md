@@ -19,7 +19,9 @@ academic authority into Nexa Product, Domain or Architecture.
 - `01-shared` owns accepted Product, Domain, Architecture and delivery rules.
 - `03-mobile` owns the Mobile Product projection and canonical story behavior.
 - `90-academic/mobile/course-1acc0238` owns course mapping, backlog projection,
-  milestone readiness and evidence status.
+  milestone readiness and evidence status. The course projection intentionally
+  remains V1-only; the Product runway is indexed in the [Master Mobile Product
+  Backlog](../../../03-mobile/requirements/master-mobile-backlog.md).
 - `91-reference` owns historical and external evidence.
 - The external course statement is an input constraint only; its source file is
   local-only and is not a publishable Blueprint artifact.

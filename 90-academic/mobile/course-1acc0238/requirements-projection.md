@@ -11,6 +11,8 @@ last-reviewed: 2026-08-30
 > GENERATED ACADEMIC PROJECTION — DO NOT EDIT DIRECTLY
 
 Canonical source: [Mobile V1 catalog](../../../03-mobile/requirements/mobile-v1-catalog.md).
+Product runway source (not part of this course backlog): [Master Mobile Product
+Backlog](../../../03-mobile/requirements/master-mobile-backlog.md).
 This projection preserves only the 28 Mobile V1 stories selected by the Product
 Surface Scope Amendment / Rebaseline. Every row repeats the functional story
 description and Gherkin scenarios so the academic artifact is readable without
@@ -20,8 +22,10 @@ invented.
 
 ## Scope and course constraints
 
-- Historical Mobile inventory: 49 retained IDs; 28 V1; 21 V2/deferred.
-- V1 Epics: five. V2+ Epics: two. The Epic model is outcome-based.
+- Historical Mobile inventory: 49 retained IDs; final Product registry: 73;
+  this course projection remains exactly 28 V1 rows.
+- Academic V1 Epics: five. Product runway: twelve Epics across V1–V4/Future.
+  The Epic model is outcome-based.
 - V1 is online-first. Local persistence may support safe reads, harmless drafts,
   temporary evidence and retry metadata; it is not business authority.
 - The academic native constraint is Android/Kotlin. A cross-platform option

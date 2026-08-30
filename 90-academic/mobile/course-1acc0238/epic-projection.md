@@ -10,9 +10,12 @@ last-reviewed: 2026-08-30
 
 > GENERATED ACADEMIC PROJECTION — DO NOT EDIT DIRECTLY
 
-This projection maps the seven current outcome-based Epics to the canonical
-Mobile catalog. It preserves five V1 Epics and two V2+ Epics; it does not
-create a Mobile Bounded Context or claim client implementation.
+This projection maps the seven academic compatibility Epics to the canonical
+Mobile catalog. It preserves five V1 Epics and two V2+ projections; it does not
+duplicate the full twelve-Epic Product runway. The complete Product Epic index
+is [here](../../../03-mobile/requirements/epics/README.md), and future stories
+remain outside the academic course backlog. No Mobile Bounded Context or
+client implementation is claimed.
 
 ## Dependency note
 
