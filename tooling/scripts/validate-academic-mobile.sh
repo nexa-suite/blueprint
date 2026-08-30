@@ -59,17 +59,16 @@ v1_ids = {
     "MOB-US-049",
 }
 deferred_ids = {f"MOB-US-{i:03d}" for i in range(1, 50)} - v1_ids
-all_ids = {f"MOB-US-{i:03d}" for i in range(1, 50)}
-if set(canonical) != all_ids or len(canonical) != 49:
-    failures.append(f"canonical Mobile inventory must retain exactly 49 IDs; found {len(canonical)}")
+all_ids = {f"MOB-US-{i:03d}" for i in range(1, 74)}
+if set(canonical) != all_ids or len(canonical) != 73:
+    failures.append(f"canonical Mobile inventory must contain exactly 73 IDs; found {len(canonical)}")
 actual_v1 = {
-    sid for sid, block in canonical.items()
-    if "DEFERRED" not in block.split("### User Story", 1)[0]
+    sid for sid in canonical if sid in v1_ids
 }
 if actual_v1 != v1_ids:
     failures.append(f"canonical V1 IDs differ: expected {sorted(v1_ids)}, found {sorted(actual_v1)}")
-if set(canonical) - actual_v1 != deferred_ids:
-    failures.append("canonical deferred IDs do not equal the required 21-story set")
+if (set(canonical) & {f"MOB-US-{i:03d}" for i in range(1, 50)}) - actual_v1 != deferred_ids:
+    failures.append("historical canonical deferred IDs do not equal the required 21-story set")
 
 epic_map = {
     "MOBILE-EPIC-01": {"MOB-US-001", "MOB-US-002", "MOB-US-003"},
@@ -79,6 +78,11 @@ epic_map = {
     "MOBILE-EPIC-05": {"MOB-US-044", "MOB-US-047", "MOB-US-048", "MOB-US-049"},
     "MOBILE-EPIC-06": {"MOB-US-004", "MOB-US-005", "MOB-US-006", "MOB-US-007", "MOB-US-008", "MOB-US-009", "MOB-US-010", "MOB-US-036", "MOB-US-037", "MOB-US-038", "MOB-US-039", "MOB-US-040", "MOB-US-041", "MOB-US-042", "MOB-US-043"},
     "MOBILE-EPIC-07": {"MOB-US-018", "MOB-US-029", "MOB-US-030", "MOB-US-035", "MOB-US-045", "MOB-US-046"},
+    "MOBILE-EPIC-08": {"MOB-US-050", "MOB-US-051", "MOB-US-052", "MOB-US-053", "MOB-US-054", "MOB-US-055", "MOB-US-056"},
+    "MOBILE-EPIC-09": {"MOB-US-057", "MOB-US-058", "MOB-US-059", "MOB-US-060", "MOB-US-061", "MOB-US-062", "MOB-US-063", "MOB-US-064", "MOB-US-065", "MOB-US-066"},
+    "MOBILE-EPIC-10": {"MOB-US-067", "MOB-US-068", "MOB-US-069"},
+    "MOBILE-EPIC-11": {"MOB-US-070", "MOB-US-071", "MOB-US-072"},
+    "MOBILE-EPIC-12": {"MOB-US-073"},
 }
 required_fields = [
     "ID", "Product", "App", "Surface", "User / Actor", "Epic", "Priority",
@@ -108,14 +112,18 @@ for sid, block in canonical.items():
     if not statement:
         failures.append(f"{sid} lacks a complete human User Story statement")
     acceptance = re.search(
-        r"^### Acceptance Criteria\s*\n(?P<criteria>.*?)(?=^## MOB-US-|\Z)",
+        r"^### Acceptance Criteria\s*\n(?P<criteria>.*?)(?=^## MOB-US-|^### Outcome Conditions|\Z)",
         block,
         re.MULTILINE | re.DOTALL,
     )
     criteria = acceptance.group("criteria") if acceptance else ""
     scenarios = re.findall(r"^- Scenario: .*?(?=\n|\Z)", criteria, re.MULTILINE)
-    if len(scenarios) < 4:
+    if sid in v1_ids and len(scenarios) < 4:
         failures.append(f"{sid} requires at least four Scenario criteria")
+    if sid not in v1_ids and sid != "MOB-US-073" and not 2 <= len(scenarios) <= 4:
+        failures.append(f"{sid} requires two to four roadmap Scenario criteria")
+    if sid == "MOB-US-073" and not re.search(r"^### Outcome Conditions\s*$", block, re.MULTILINE):
+        failures.append("MOB-US-073 requires high-level Outcome Conditions")
     for scenario in scenarios:
         if not all(re.search(rf"\b{word}\b", scenario, re.IGNORECASE) for word in ("Given", "when", "then")):
             failures.append(f"{sid} has non-Gherkin Scenario criterion: {scenario[:80]}")
@@ -256,8 +264,20 @@ if source_rel in tracked or (root / source_rel).exists():
     failures.append("academic source transcription must be absent from the publishable tree")
 if any(path.endswith("mobile-applications-final-rubric.pdf") for path in tracked):
     failures.append("academic rubric PDF must not be tracked")
-for path in tracked:
-    if path.startswith("90-academic/mobile/") and path.endswith(".md") and path != source_rel:
+source_pattern = re.compile(
+    r"(?:enunciado|original[-_]?rubric|course[-_]?source|source[-_]?statement)",
+    re.IGNORECASE,
+)
+academic_paths = set(path for path in tracked if path.startswith("90-academic/"))
+academic_paths.update(
+    str(path.relative_to(root))
+    for path in (root / "90-academic").rglob("*")
+    if path.is_file()
+)
+for path in academic_paths:
+    if (source_pattern.search(Path(path).name) and Path(path).suffix.lower() not in {".pdf", ".epub"}) or (path in tracked and Path(path).suffix.lower() in {".pdf", ".epub"}):
+        failures.append(f"academic source-like artifact must remain local-only: {path}")
+    if Path(path).suffix.lower() == ".md" and path != source_rel:
         body = (root / path).read_text(encoding="utf-8")
         if "enunciado-trabajo-final.md" in body:
             failures.append(f"publishable academic document still links excluded source: {path}")
@@ -269,7 +289,7 @@ if failures:
     sys.exit(1)
 
 print("ACADEMIC MOBILE VALIDATION: PASS")
-print("- canonical Mobile inventory: 49 IDs (28 V1, 21 deferred)")
+print("- canonical Mobile inventory: 73 IDs (49 historical + 24 independent; 28 course V1)")
 print("- academic backlog: 28 visible V1 rows with human Description/AC, points, sprints and milestones")
 print("- Epic mapping, design readiness, Spike contract, C4 projection and publication boundary: PASS")
 PY

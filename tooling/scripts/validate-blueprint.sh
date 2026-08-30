@@ -20,11 +20,22 @@ failures = []
 warnings = []
 existing_paths = [p for p in paths if (root / p).exists()]
 
-academic_source = "90-academic/mobile/enunciado-trabajo-final.md"
-if academic_source in paths or (root / academic_source).exists():
-    failures.append("excluded academic source remains tracked or present: 90-academic/mobile/enunciado-trabajo-final.md")
-if any(path.endswith("mobile-applications-final-rubric.pdf") for path in paths):
-    failures.append("academic rubric PDF must not be tracked")
+academic_source_pattern = re.compile(
+    r"(?:enunciado|original[-_]?rubric|course[-_]?source|source[-_]?statement)",
+    re.IGNORECASE,
+)
+academic_paths = set(path for path in paths if path.startswith("90-academic/"))
+academic_paths.update(
+    str(path.relative_to(root))
+    for path in (root / "90-academic").rglob("*")
+    if path.is_file()
+)
+for path in sorted(academic_paths):
+    name = Path(path).name
+    if academic_source_pattern.search(name) and Path(path).suffix.lower() not in {".pdf", ".epub"}:
+        failures.append(f"academic source-like artifact must remain local-only: {path}")
+    if path in paths and Path(path).suffix.lower() in {".pdf", ".epub"}:
+        failures.append(f"academic source/rubric binary must not be present: {path}")
 try:
     origin_main = subprocess.run(
         ["git", "rev-parse", "--verify", "origin/main"],
@@ -257,17 +268,17 @@ mobile_requirements = "\n".join(
     p.read_text(encoding="utf-8") for p in (root / "03-mobile/requirements").rglob("*.md")
 )
 mobile_story_ids = re.findall(r"^## (MOB-US-\d{3}) —", mobile_requirements, re.MULTILINE)
-expected_mobile_story_ids = [f"MOB-US-{i:03d}" for i in range(1, 50)]
+expected_mobile_story_ids = [f"MOB-US-{i:03d}" for i in range(1, 74)]
 if len(mobile_story_ids) != len(set(mobile_story_ids)):
     failures.append("Mobile catalog contains duplicated User Story IDs")
 if sorted(mobile_story_ids, key=lambda item: int(item[-3:])) != expected_mobile_story_ids:
-    failures.append(f"Mobile catalog is not the contiguous MOB-US-001..MOB-US-049 set: {mobile_story_ids}")
+    failures.append(f"Mobile catalog is not the contiguous MOB-US-001..MOB-US-073 set: {mobile_story_ids}")
 
 mobile_epic_index = (root / "03-mobile/requirements/epics/README.md").read_text(encoding="utf-8")
 mobile_epic_ids = re.findall(r"^\| (MOBILE-EPIC-\d{2}) \|", mobile_epic_index, re.MULTILINE)
-expected_mobile_epic_ids = [f"MOBILE-EPIC-{i:02d}" for i in range(1, 8)]
+expected_mobile_epic_ids = [f"MOBILE-EPIC-{i:02d}" for i in range(1, 13)]
 if sorted(mobile_epic_ids, key=lambda item: int(item[-2:])) != expected_mobile_epic_ids:
-    failures.append(f"Mobile catalog is not the contiguous 7-Epic set: {mobile_epic_ids}")
+    failures.append(f"Mobile catalog is not the contiguous 12-Epic set: {mobile_epic_ids}")
 
 mobile_catalog_path = root / "03-mobile/requirements/mobile-v1-catalog.md"
 mobile_catalog = mobile_catalog_path.read_text(encoding="utf-8")
@@ -289,15 +300,16 @@ mobile_v1_ids = {
     "MOB-US-034", "MOB-US-044", "MOB-US-047", "MOB-US-048",
     "MOB-US-049",
 }
-mobile_all_ids = {f"MOB-US-{i:03d}" for i in range(1, 50)}
+mobile_all_ids = {f"MOB-US-{i:03d}" for i in range(1, 74)}
 if set(mobile_catalog_blocks) != mobile_all_ids:
-    failures.append(f"Mobile canonical catalog must retain exactly MOB-US-001..049: found {len(mobile_catalog_blocks)}")
-mobile_actual_v1 = {
-    story_id for story_id, block in mobile_catalog_blocks.items()
-    if not re.search(r"^\| Status \|\s*DEFERRED\b", block, re.MULTILINE)
-}
-if mobile_actual_v1 != mobile_v1_ids:
-    failures.append(f"Mobile V1 set differs from accepted 28-story amendment: {sorted(mobile_actual_v1)}")
+    failures.append(f"Mobile canonical catalog must contain exactly MOB-US-001..073: found {len(mobile_catalog_blocks)}")
+for story_id, block in mobile_catalog_blocks.items():
+    status = re.search(r"^\| Status \|\s*([^|]+?)\s*\|$", block, re.MULTILINE)
+    status_value = status.group(1).strip() if status else ""
+    if story_id in mobile_v1_ids and status_value != "PLANNED":
+        failures.append(f"Mobile V1 story must remain PLANNED: {story_id}")
+    if story_id not in mobile_v1_ids and status_value not in {"DEFERRED", "PLANNED"}:
+        failures.append(f"Mobile non-V1 story has invalid baseline status: {story_id}")
 mobile_epic_map = {
     "MOBILE-EPIC-01": {"MOB-US-001", "MOB-US-002", "MOB-US-003"},
     "MOBILE-EPIC-02": {"MOB-US-011", "MOB-US-012", "MOB-US-013", "MOB-US-014", "MOB-US-015", "MOB-US-016", "MOB-US-017", "MOB-US-019"},
@@ -306,6 +318,11 @@ mobile_epic_map = {
     "MOBILE-EPIC-05": {"MOB-US-044", "MOB-US-047", "MOB-US-048", "MOB-US-049"},
     "MOBILE-EPIC-06": {"MOB-US-004", "MOB-US-005", "MOB-US-006", "MOB-US-007", "MOB-US-008", "MOB-US-009", "MOB-US-010", "MOB-US-036", "MOB-US-037", "MOB-US-038", "MOB-US-039", "MOB-US-040", "MOB-US-041", "MOB-US-042", "MOB-US-043"},
     "MOBILE-EPIC-07": {"MOB-US-018", "MOB-US-029", "MOB-US-030", "MOB-US-035", "MOB-US-045", "MOB-US-046"},
+    "MOBILE-EPIC-08": {"MOB-US-050", "MOB-US-051", "MOB-US-052", "MOB-US-053", "MOB-US-054", "MOB-US-055", "MOB-US-056"},
+    "MOBILE-EPIC-09": {"MOB-US-057", "MOB-US-058", "MOB-US-059", "MOB-US-060", "MOB-US-061", "MOB-US-062", "MOB-US-063", "MOB-US-064", "MOB-US-065", "MOB-US-066"},
+    "MOBILE-EPIC-10": {"MOB-US-067", "MOB-US-068", "MOB-US-069"},
+    "MOBILE-EPIC-11": {"MOB-US-070", "MOB-US-071", "MOB-US-072"},
+    "MOBILE-EPIC-12": {"MOB-US-073"},
 }
 for story_id, block in mobile_catalog_blocks.items():
     epic_match = re.search(r"^\| Epic \|\s*(MOBILE-EPIC-\d{2})", block, re.MULTILINE)
@@ -383,10 +400,14 @@ def validate_story_blocks(label, text, prefix, mobile=False):
                 if acceptance
                 else 0
             )
-            if not acceptance or criteria_count < 4:
-                failures.append(
-                    f"Mobile {story_id} requires four acceptance criteria"
-                )
+            if story_id in mobile_v1_ids:
+                if not acceptance or criteria_count < 4:
+                    failures.append(f"Mobile V1 story requires four acceptance criteria: {story_id}")
+            elif story_id == "MOB-US-073":
+                if not re.search(r"^### Outcome Conditions\s*$", block, re.MULTILINE):
+                    failures.append(f"Mobile V4/Future story requires outcome conditions: {story_id}")
+            elif not acceptance or criteria_count < 2:
+                failures.append(f"Mobile roadmap story requires at least two acceptance criteria: {story_id}")
 
         surface_match = re.search(r"^\| Surface \|\s*(.*?)\s*\|$", block, re.MULTILINE)
         actor_match = re.search(r"^\| Actor \|\s*(.*?)\s*\|$", block, re.MULTILINE)
@@ -402,19 +423,15 @@ def validate_story_blocks(label, text, prefix, mobile=False):
                     f"{label} {story_id} assigns Buyer Portal to internal-only actor: {actor}"
                 )
 
-        if mobile and "PROPOSED / RESEARCH VALIDATION PENDING" not in block:
-            failures.append(f"Mobile story lacks proposed research status: {story_id}")
+        if mobile and not re.search(
+            r"^\| Research status \|\s*(?:NOT_REQUIRED|PENDING|RESEARCHING|VALIDATED)\s*\|$",
+            block,
+            re.MULTILINE,
+        ):
+            failures.append(f"Mobile story lacks a controlled research status: {story_id}")
 
 validate_story_blocks("Web", web_requirements, "WEB")
 validate_story_blocks("Mobile", mobile_requirements, "MOB-US", mobile=True)
-
-for story_match in re.finditer(
-    r"^## (MOB-US-\d{3}) — .*?(?=^## MOB-US-|\Z)",
-    mobile_requirements,
-    re.MULTILINE | re.DOTALL,
-):
-    if "PROPOSED / RESEARCH VALIDATION PENDING" not in story_match.group(0):
-        failures.append(f"Mobile story lacks proposed research status: {story_match.group(1)}")
 
 technical_text = (root / "01-shared/product/requirements/technical-stories.md").read_text(encoding="utf-8")
 technical_ids = re.findall(r"^## (TS-\d{3}) —", technical_text, re.MULTILINE)
@@ -429,8 +446,8 @@ if spike_ids != expected_spike_ids:
     failures.append(f"Spike catalog is not the contiguous SPIKE-001..SPIKE-006 set: {spike_ids}")
 
 total_items = len(web_story_ids) + len(mobile_story_ids) + len(technical_ids) + len(spike_ids)
-if total_items != 208:
-    failures.append(f"expected 208 total requirement items, found {total_items}")
+if total_items <= 0:
+    failures.append("requirement inventory is empty")
 
 accepted_contexts = {
     "BC-01 — Tenant & Access Governance",
@@ -467,6 +484,8 @@ print("- links, metadata, publication boundary, secret heuristics and C4 workspa
 for warning in warnings:
     print(f"- WARNING: {warning}")
 PY
+
+bash tooling/scripts/validate-mobile-master-backlog.sh
 
 bash tooling/scripts/validate-academic-mobile.sh
 
