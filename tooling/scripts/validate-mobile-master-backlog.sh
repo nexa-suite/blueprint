@@ -168,7 +168,19 @@ for line in master.splitlines():
 master_by_id = {row[0]: row for row in master_rows if row}
 if len(master_rows) != len(master_by_id) or set(master_by_id) != all_ids:
     failures.append(f"master lifecycle table must contain each of 73 IDs exactly once; found {len(master_rows)}")
-expected_columns = 20
+expected_headers = [
+    "ID", "Title", "Actor", "Epic", "Target Release", "Priority",
+    "Story Points", "Sprint Planned", "Status", "Primary BC", "Secondary BCs",
+    "Capability", "Backend Support", "Research Status", "Client Status",
+    "Introduced In", "Sprint Implemented", "Implemented In", "Verified In",
+    "Product Accepted In", "Description", "Mobile App", "Mobile Justification",
+    "Dependencies",
+]
+header_line = next((line for line in master.splitlines() if line.startswith("| ID |")), "")
+header_cells = [cell.strip() for cell in header_line.strip("|").split("|")] if header_line else []
+if header_cells != expected_headers:
+    failures.append("master lifecycle table headers do not expose the complete canonical field set")
+expected_columns = len(expected_headers)
 v1_s1 = {
     "MOB-US-001", "MOB-US-002", "MOB-US-003", "MOB-US-011", "MOB-US-012",
     "MOB-US-013", "MOB-US-014", "MOB-US-015", "MOB-US-016", "MOB-US-017", "MOB-US-019",
@@ -183,6 +195,8 @@ for row in master_rows:
         failures.append(f"{row[0] if row else 'unknown'} lifecycle row must have {expected_columns} columns, found {len(row)}")
         continue
     story_id = row[0]
+    if any(not row[index] for index in range(20, expected_columns)):
+        failures.append(f"{story_id} missing lifecycle projection field")
     target, status, backend, research, client = row[4], row[8], row[12], row[13], row[14]
     if target not in release_ids:
         failures.append(f"{story_id} has uncontrolled Target Release: {target}")
@@ -214,7 +228,7 @@ for row in master_rows:
     else:
         if status != "PLANNED" or row[6] != "UNESTIMATED" or row[7] != "UNASSIGNED":
             failures.append("MOB-US-073 V4/Future lifecycle is falsely ready")
-    if row[16:] != ["NOT_IMPLEMENTED", "NOT_IMPLEMENTED", "NOT_VERIFIED", "NOT_ACCEPTED"]:
+    if row[16:20] != ["NOT_IMPLEMENTED", "NOT_IMPLEMENTED", "NOT_VERIFIED", "NOT_ACCEPTED"]:
         failures.append(f"{story_id} claims implementation, verification or Product Acceptance without evidence")
     if story_id in catalog_blocks:
         title_match = re.search(r"^## " + re.escape(story_id) + r" — (.*?)$", catalog_blocks[story_id], re.MULTILINE)
