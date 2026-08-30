@@ -13,6 +13,9 @@ Status: SHARED / DELIVERY.
 
 Technical Stories describe delivery capabilities without direct end-user interaction. They do not create Bounded Contexts, assign final implementation repositories where ownership is cross-product, or add Acceptance Criteria and Story Points in this freeze.
 
+The Mobile-specific reconciliation and current API evidence are summarized in
+[Mobile technical reconciliation](../../../03-mobile/requirements/mobile-technical-reconciliation.md).
+
 ## TS-001 — Provide tenant-safe REST contracts for Identity and active business context
 
 | Field | Value |

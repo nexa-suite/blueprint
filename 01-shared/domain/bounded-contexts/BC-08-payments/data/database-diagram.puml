@@ -1,0 +1,95 @@
+@startuml
+title BC-08 Target Database Diagram
+left to right direction
+hide methods
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #0F172A
+}
+
+entity "payment" as t_payment {
+  * payment_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<required>>
+    commercial_commitment_id : uuid
+    receivable_id : uuid
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * method : varchar(32) <<required>>
+  * status : varchar(32) <<required>>
+  * initiated_at : timestamptz <<required>>
+    confirmed_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "payment_attempt" as t_payment_attempt {
+  * attempt_id : uuid <<PK>>
+  * payment_id : uuid <<FK, required>>
+  * provider_code : varchar(80) <<required>>
+    provider_reference : varchar(200)
+  * status : varchar(32) <<required>>
+  * attempted_at : timestamptz <<required>>
+    completed_at : timestamptz
+}
+
+entity "payment_provider_event" as t_payment_provider_event {
+  * event_id : uuid <<PK>>
+    payment_id : uuid <<FK>>
+  * provider_code : varchar(80) <<required>>
+  * provider_event_id : varchar(240) <<required>>
+  * event_type : varchar(120) <<required>>
+  * payload : jsonb <<required>>
+  * payload_hash : varchar(128) <<required>>
+  * received_at : timestamptz <<required>>
+}
+
+entity "payment_refund" as t_payment_refund {
+  * refund_id : uuid <<PK>>
+  * payment_id : uuid <<FK, required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * status : varchar(32) <<required>>
+  * reason : varchar(500) <<required>>
+  * requested_at : timestamptz <<required>>
+    completed_at : timestamptz
+}
+
+entity "payment_correction" as t_payment_correction {
+  * correction_id : uuid <<PK>>
+  * payment_id : uuid <<FK, required>>
+  * amount_delta : numeric(19,4) <<required>>
+  * reason : varchar(500) <<required>>
+  * status : varchar(32) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+    posted_at : timestamptz
+}
+
+entity "payment_reconciliation_case" as t_payment_reconciliation_case {
+  * case_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * payment_id : uuid <<FK, required>>
+  * reason : varchar(500) <<required>>
+  * status : varchar(32) <<required>>
+  * opened_at : timestamptz <<required>>
+    resolved_at : timestamptz
+}
+
+t_payment_attempt }o--|| t_payment : payment_id
+t_payment_provider_event }o--|| t_payment : payment_id
+t_payment_refund }o--|| t_payment : payment_id
+t_payment_correction }o--|| t_payment : payment_id
+t_payment_reconciliation_case }o--|| t_payment : payment_id
+
+legend right
+TARGET / BC-08 logical relational ownership / SQL is the authority
+PK = primary key | FK = same-owner foreign key
+required = NOT NULL | cross-BC IDs are deliberately not FK
+This PlantUML file is a visual projection for review.
+endlegend
+@enduml

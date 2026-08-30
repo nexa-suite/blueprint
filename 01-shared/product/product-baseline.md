@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: v1
 owner: product
-last-reviewed: 2026-08-19
+last-reviewed: 2026-08-29
 ---
 
 # Product & Business V1 baseline
@@ -14,7 +14,7 @@ Product / Business V1 status: **FROZEN / CLOSED**. No major Product V1 decision 
 
 ## Positioning
 
-Nexa is a generic multi-tenant B2B SaaS platform with ERP/CRM orientation for importers and distributors, with strong cold-chain support. It is not exclusively a cold-chain product and is not a generic ecommerce product. One product, codebase and release line serves every Tenant.
+Nexa is a generic multi-tenant B2B SaaS platform with ERP/CRM orientation for importers, distributors and wholesalers, with strong cold-chain support. It is not exclusively a cold-chain product and is not a generic ecommerce product. One product, codebase and release line serves every Tenant.
 
 ## Generic tenancy and provisioning
 
@@ -115,7 +115,7 @@ A capability presented as V1 must close coherently end-to-end. If it cannot be d
 
 ## V2 and future
 
-Deferred items include full Procurement, advanced CRM, advanced Finance, formal order amendments where not required, backorders, advanced BI/data warehouse, SUNAT integration, Control Center, advanced warehouse optimization, predictive inventory, multi-user customer accounts, plans/subscriptions/entitlements, Mobile, Driver application, IoT/automatic telemetry, deep QMS workflows and complex carrier integrations.
+Deferred items include full Procurement, advanced CRM, advanced Finance, formal order amendments where not required, backorders, advanced BI/data warehouse, SUNAT integration, Control Center, advanced warehouse optimization, predictive inventory, multi-user customer accounts, plans/subscriptions/entitlements, IoT/automatic telemetry, deep QMS workflows and complex carrier integrations. Operations Mobile and Buyer Mobile are OWNER-ACCEPTED product projections with 42 V1 candidate stories, but their research, native client, provider/device decisions and production acceptance remain runway; unaccepted Mobile expansions, including continuous tracking, rich chat and reorder/BOM/transfer expansions, remain V2/Future.
 
 ## Closure reconciliation
 

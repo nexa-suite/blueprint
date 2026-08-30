@@ -25,3 +25,13 @@ last-reviewed: 2026-08-23
 ## Tactical DDD target
 
 Aggregate Roots: InventoryPosition, InventoryReservation, PhysicalAllocation. Entities: InventoryLot, WarehouseBacking, StockMovement, Count. Value Objects: SkuId, WarehouseId, LotId, Quantity, ExpiryDate, Disposition. Domain Services: SellableAvailabilityPolicy, FEFOAllocationPolicy. Repositories: InventoryLotRepository, ReservationRepository, AllocationRepository. Lifecycle: received → sellable/hold/quarantine/expired; reservation → backed → allocated/released.
+
+## Tactical wave artifacts
+
+- [Tactical model](tactical-model.md)
+- [Domain UML source](diagrams/domain-model.puml)
+- [Rendered UML SVG](diagrams/BC05_InventoryAvailability.svg)
+- [Rendered UML PNG](diagrams/BC05_InventoryAvailability.png)
+- [Target data model](data/data-model.md)
+- [Target SQL](data/target-relational-model.sql)
+- [Database ERD SVG](data/database-diagram.svg) · [PNG](data/database-diagram.png)

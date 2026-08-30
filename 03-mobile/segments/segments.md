@@ -8,4 +8,6 @@ last-reviewed: 2026-08-23
 
 # Mobile segments
 
-Status: **PROPOSED / RESEARCH VALIDATION PENDING**. No Mobile segment is validated or accepted by this refactor. See [Mobile actors](../actors/README.md).
+Product direction: **OWNER-ACCEPTED for planning**. Segment research remains
+**PROPOSED / RESEARCH VALIDATION PENDING**; no participant evidence is claimed.
+See [Mobile actors](../actors/README.md) and [segments](proposed-segments.md).

@@ -25,3 +25,13 @@ last-reviewed: 2026-08-23
 ## Tactical DDD target
 
 Aggregate Root: Notification. Entities: NotificationAttempt, Recipient, ChannelPreference. Value Objects: NotificationId, TemplateKey, Channel, DeliveryStatus. Domain Services: ChannelSelectionPolicy, RetryPolicy. Repositories: NotificationRepository. Lifecycle: candidate → queued → attempted → delivered/retryable-failed/terminal-failed.
+
+## Tactical wave artifacts
+
+- [Tactical model](tactical-model.md)
+- [Domain UML source](diagrams/domain-model.puml)
+- [Rendered UML SVG](diagrams/BC10_Notifications.svg)
+- [Rendered UML PNG](diagrams/BC10_Notifications.png)
+- [Target data model](data/data-model.md)
+- [Target SQL](data/target-relational-model.sql)
+- [Database ERD SVG](data/database-diagram.svg) · [PNG](data/database-diagram.png)

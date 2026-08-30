@@ -38,4 +38,4 @@ Classification reflects differentiation, policy density and business risk. `Gene
 
 ## Deferred classification
 
-Mobile, IoT automation, full Procurement, advanced Finance/accounting, SUNAT, advanced BI, plans/subscriptions/entitlements, Control Center and Support remain runway/future and are not V1 subdomains.
+Mobile is an accepted product projection over the 11 contexts, not a subdomain or Bounded Context; its research, native client and production acceptance remain runway. IoT automation, full Procurement, advanced Finance/accounting, SUNAT, advanced BI, plans/subscriptions/entitlements, Control Center and Support remain runway/future and are not V1 subdomains.

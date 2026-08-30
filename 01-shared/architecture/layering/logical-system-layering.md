@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-14
+last-reviewed: 2026-08-29
 ---
 
 # Logical system layering
@@ -18,7 +18,7 @@ Esta es una vista lógica separada del modelo C4. Describe responsabilidades y d
 
 ```mermaid
 flowchart TB
-    EX["Experience / Interaction\nPublic Website · Internal Web Platform · Buyer Portal · Mobile Future"]
+    EX["Experience / Interaction\nPublic Website · Internal Web Platform · Buyer Portal · Mobile projections"]
     AI["Application Interfaces\nHTTPS/JSON · SSE · auth/session entry points"]
     AU["Application Use Cases\norchestration · authorization decisions · transactions · idempotency"]
     DM["Domain Model\nbehavior · policies · invariants · domain concepts"]
@@ -41,7 +41,7 @@ flowchart TB
 
 | Layer | Nexa-specific responsibility | Current evidence | Boundary |
 |---|---|---|---|
-| Experience / Interaction | Presents public discovery, internal Tenant workflows, Buyer self-service and future mobile surfaces. | Website static HTML/CSS/JS; Platform and Portal Angular 22 routes, guards, facades, API clients and Nginx proxy. | Does not become authority for tenant isolation, pricing, inventory or order invariants. |
+| Experience / Interaction | Presents public discovery, internal Tenant workflows, Buyer self-service and accepted-but-not-yet-implemented Mobile projections. | Website static HTML/CSS/JS; Platform and Portal Angular 22 routes, guards, facades, API clients and Nginx proxy; Mobile direction is documented separately. | Does not become authority for tenant isolation, pricing, inventory or order invariants. |
 | Application Interfaces | Translates HTTP/SSE/session transport into application requests and responses. | API controllers under `presentation`, request/response models, error handler, change-feed stream; frontend HTTP clients and interceptors. | Transport concerns stay outside domain behavior. |
 | Application Use Cases | Coordinates a user/system action, checks access, controls transaction/idempotency boundaries where observed and invokes ports. | API `application/port`, `application/service`, `CurrentAccessContext`, transactional services/proxies and outbox handoffs. | Not a final ownership map; current services may still cross implementation areas. |
 | Domain Model | Holds behavior, policies, value objects, state transitions and invariants where the current implementation has modeled them. | API domain packages, FEFO policy, Sales Order and dispatch models, architecture tests excluding framework dependencies from inspected domain code. | Existing domain classes are evidence, not final Aggregates or Bounded Contexts. |
@@ -54,7 +54,7 @@ flowchart TB
 - **Public Website** is an interaction surface for anonymous discovery and structured contact/demo intake. It may call the public API endpoint, but it does not carry an authenticated Tenant context for public browsing.
 - **Internal Web Platform** is the authenticated surface for the grouped Tenant workforce. Its role differences are authorization and workflow differences inside one surface, not separate C4 containers or contexts.
 - **Buyer Portal** is a separate authenticated surface because Buyer navigation, commercial self-service, tracking and account relationship behavior differ from internal workforce operations.
-- **Mobile** is shown only as a runway interaction surface. It is not part of current V1 runtime evidence.
+- **Mobile** is shown as an accepted product projection and implementation-runway interaction surface. It is not part of current V1 runtime evidence.
 
 ## Business logic placement without premature DDD
 

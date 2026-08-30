@@ -23,7 +23,8 @@ This is the evidence register for Strategic DDD. Classification controls authori
 | ACCEPTED | Capability, process, subdomain and context records in this package | PRE-V1 Strategic DDD model | May evolve only through explicit decision replacement |
 | HOTSPOT | Commitment ownership/integration, partial delivery implementation, credit transformation and payment failure | Places where inconsistent models create business loss | Requires Process EventStorming and transaction design; Product semantics are already closed |
 | HOTSPOT | Tenant / Workspace / Identity / Buyer relationships | Isolation, privacy and authorization consequences | Requires Business Architect and Security review |
-| DEFERRED | Mobile, IoT, advanced Procurement, advanced Finance, plans and subscriptions | Future runway | Not a V1 context or construction dependency |
+| ACCEPTED / RUNWAY | Operations Mobile and Buyer Mobile product projection | Two applications over the accepted contexts; research, client and production acceptance remain open | Not a new context, subdomain or current V1 runtime claim |
+| DEFERRED | IoT, advanced Procurement, advanced Finance, plans and subscriptions | Future runway | Not a V1 context or construction dependency |
 | DEFERRED | Final visual Design System | Parallel active workstream | Technical frontend contracts must stay design-neutral |
 
 ## Reconciliation rule

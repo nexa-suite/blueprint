@@ -1,12 +1,16 @@
 # Mobile actors
 
-The canonical actor catalog is [Shared actors](../../01-shared/product/actors.md).
-Mobile is a surface projection with status `PROPOSED / RESEARCH VALIDATION
-PENDING`.
+The [shared actor catalog](../../01-shared/product/actors.md) is authoritative.
+Mobile adds no domain actors; it projects existing actors into two surfaces.
 
-| Mobile app | Actors | Status |
+| Application | Projected actors | Authority |
 |---|---|---|
-| Operations Mobile | Business Operations Manager, Sales Representative, Warehouse Operator, Dispatch Coordinator, Driver / Delivery Operator | Proposed; class research pending |
-| Buyer Mobile | Customer Buyer | Proposed; class research pending; mobile-primary candidate |
+| Operations Mobile | Business Operations Manager; Sales Representative; Warehouse Operator; Dispatch Coordinator; Driver / Delivery Operator | BC-01 access plus owning BC command/query policy |
+| Buyer Mobile | Customer Buyer | BC-01 access plus BC-02 Buyer Relationship policy |
 
-No Mobile actor is validated or accepted by this wave. See [Mobile discovery](../ux/discovery/README.md).
+Status: product direction `OWNER-ACCEPTED`; research
+`PROPOSED / RESEARCH VALIDATION PENDING`; client `NOT STARTED`.
+
+Driver is a delivery-work actor, not a new Driver BC. Finance is a capability
+responsibility, not a new Finance actor/context. Mobile role visibility never
+replaces server-side authorization.

@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: cross-cutting
 owner: product
-last-reviewed: 2026-08-24
+last-reviewed: 2026-08-29
 ---
 
 # Requirements Authoring Standard
@@ -34,14 +34,15 @@ Functional catalog status for this wave:
 | Category | Count | Status |
 |---|---:|---|
 | Web functional User Stories | 133 | CONFIRMED / V1 |
-| Mobile functional User Stories | 49 | PROPOSED / RESEARCH VALIDATION PENDING |
+| Mobile functional User Stories | 49 | 42 V1 candidates; 7 V2/deferred; PROPOSED / RESEARCH VALIDATION PENDING |
 | Technical Stories | 20 | SHARED / DELIVERY |
 | Spike Stories | 6 | RESEARCH / ENABLER |
-| Total requirement items | 208 | FROZEN CATALOG |
+| Total requirement items | 208 | BASELINED CATALOG; acceptance gates open |
 
-The freeze records identity and product-level scope. It does not invent final
-Acceptance Criteria, Story Points, Sprints, Personas, interviews, statistics,
-Mobile validation results or academic traceability.
+The catalog records identity, target product scope and story-level AC. It does
+not claim Product Acceptance, Story Points, Sprints, Personas, interviews,
+statistics, Mobile validation or implementation. Mobile direction, research,
+backend support and client status remain separate dimensions.
 
 ## Required functional story fields
 
@@ -50,6 +51,10 @@ Every functional story records:
 ID, Status, Product, Surface, Actor, Epic, Priority, Title, concise User Story
 statement, owning Bounded Context, capability or family when obvious and
 current refinement status.
+
+The Mobile catalog additionally records App, shared capability, secondary BCs,
+research status, offline/idempotency expectation, authorization, device/evidence
+implication, dependencies and V1/V2 classification.
 
 Use the wording:
 

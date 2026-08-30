@@ -42,7 +42,7 @@ The projection supports later mapping for:
 Evidence boundary:
 
 - Historical Web discovery may be reused only with source provenance and
-  current Blueprint review. See [Academic Web Evidence](web/README.md) and
+  current Blueprint review. See [Academic Web Evidence](web-applications/README.md) and
   [historical source](../91-reference/legacy/legacy-ecosystem-report/README.md).
 - Mobile remains PROPOSED / RESEARCH VALIDATION PENDING. Web interviews and
   personas are not silently promoted as Mobile validation.

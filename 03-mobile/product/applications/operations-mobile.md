@@ -1,25 +1,21 @@
-# Nexa Operations Mobile — proposed
+# Nexa Operations Mobile
 
-## Actors
+Product direction: `OWNER-ACCEPTED`. Research: `PROPOSED / RESEARCH VALIDATION
+PENDING`. Client: `NOT STARTED`. Backend: `PARTIAL`, with selected contracts in
+API v0.17.0.
 
-Core: Business Operations Manager, Sales Representative, Warehouse Operator,
-Dispatch Coordinator, Driver / Delivery Operator. Company Owner, Tenant
-Administrator and Nexa Commercial & Onboarding Staff remain Web-first.
+## Projection
 
-## Proposed capability set
+Sales Representative receives Customer/Buyer Relationship, catalog, price,
+availability, draft and PR work. Warehouse Operator receives identifier/lot,
+receiving, FEFO, picking, discrepancy and temperature evidence work. Dispatch
+Coordinator receives readiness, assignment, outgoing verification, handoff and
+dispatch work. Driver / Delivery Operator receives assigned Delivery, Attempt,
+POD, Buyer handoff and selective evidence queue work.
 
-- Sales: customer lookup, Buyer Relationship, catalog/SKU, pricing/terms,
-  Sellable Availability, history, draft, Purchase Request/order capture,
-  submission, relevant credit visibility and push.
-- Warehouse: SKU lookup; receiving; lot/expiry/quantity; inventory lookup;
-  picking; transfer receiving; cycle/count; evidence; authorized mutations.
-  `SCAN-TO-INVENTORY` interprets only encoded EAN/UPC/QR/future GS1 data and
-  asks for missing lot/expiry information.
-- Dispatch: Fulfillment Ready verification, Driver assignment, mandatory
-  Dispatch Handoff, photographic evidence and stable handoff identifier.
-- Driver: assigned delivery, route/maps, active location, attempt, partial/
-  rejected/failed outcome, incidents, evidence, recipient acknowledgement,
-  QR/signature/POD, selective offline/sync, push and manual temperature evidence.
+## Boundary
 
-Dispatch Handoff is not POD. Full in-app realtime chat and permanent tracking
-are future/out of scope.
+The app never owns Product/SKU, inventory, commitment, payment, Delivery or
+traceability truth. Camera/scanner, maps, push and secure storage are device or
+provider integrations. QR is ephemeral. Location is bounded to an active
+Delivery; permanent tracking and full chat are deferred.

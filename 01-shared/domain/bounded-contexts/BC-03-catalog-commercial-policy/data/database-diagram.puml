@@ -1,0 +1,134 @@
+@startuml
+title BC-03 Target Database Diagram
+left to right direction
+hide methods
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #0F172A
+}
+
+entity "product" as t_product {
+  * product_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(200) <<required>>
+    description : text
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "sku" as t_sku {
+  * sku_id : uuid <<PK>>
+  * product_id : uuid <<FK, required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(200) <<required>>
+  * unit_of_measure : varchar(32) <<required>>
+    gtin : varchar(14)
+  * temperature_band : varchar(64) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "catalog_media" as t_catalog_media {
+  * media_id : uuid <<PK>>
+  * product_id : uuid <<FK, required>>
+  * object_key : varchar(500) <<required>>
+  * media_kind : varchar(32) <<required>>
+    content_hash : varchar(128)
+  * sort_order : integer <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "price_list" as t_price_list {
+  * price_list_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(160) <<required>>
+  * currency : char(3) <<required>>
+  * status : varchar(32) <<required>>
+    valid_from : timestamptz
+    valid_to : timestamptz
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "price_list_item" as t_price_list_item {
+  * item_id : uuid <<PK>>
+  * price_list_id : uuid <<FK, required>>
+  * sku_id : uuid <<FK, required>>
+  * unit_price : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+    valid_from : timestamptz
+    valid_to : timestamptz
+}
+
+entity "base_price" as t_base_price {
+  * base_price_id : uuid <<PK>>
+  * sku_id : uuid <<FK, required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * valid_from : timestamptz <<required>>
+    valid_to : timestamptz
+  * created_at : timestamptz <<required>>
+}
+
+entity "customer_terms" as t_customer_terms {
+  * terms_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<required>>
+    price_list_id : uuid <<FK>>
+  * credit_days : integer <<required>>
+  * currency : char(3) <<required>>
+  * valid_from : timestamptz <<required>>
+    valid_to : timestamptz
+  * created_at : timestamptz <<required>>
+}
+
+entity "promotion" as t_promotion {
+  * promotion_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(160) <<required>>
+  * status : varchar(32) <<required>>
+  * starts_at : timestamptz <<required>>
+  * ends_at : timestamptz <<required>>
+  * max_stackable : boolean <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "promotion_sku" as t_promotion_sku {
+  * promotion_sku_id : uuid <<PK>>
+  * promotion_id : uuid <<FK, required>>
+  * sku_id : uuid <<FK, required>>
+  * discount_kind : varchar(32) <<required>>
+  * discount_value : numeric(19,4) <<required>>
+}
+
+t_sku }o--|| t_product : product_id
+t_catalog_media }o--|| t_product : product_id
+t_price_list_item }o--|| t_price_list : price_list_id
+t_price_list_item }o--|| t_sku : sku_id
+t_base_price }o--|| t_sku : sku_id
+t_customer_terms }o--|| t_price_list : price_list_id
+t_promotion_sku }o--|| t_promotion : promotion_id
+t_promotion_sku }o--|| t_sku : sku_id
+
+legend right
+TARGET / BC-03 logical relational ownership / SQL is the authority
+PK = primary key | FK = same-owner foreign key
+required = NOT NULL | cross-BC IDs are deliberately not FK
+This PlantUML file is a visual projection for review.
+endlegend
+@enduml

@@ -1,28 +1,29 @@
 ---
-status: planned
-maturity: FROZEN
+status: accepted
+maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-24
+last-reviewed: 2026-08-29
 ---
 
 # Mobile Requirements
 
-Mobile catalog is frozen as a proposed research boundary:
-
-- 7 Mobile Epics.
-- 49 functional User Stories.
-- Status: PROPOSED / RESEARCH VALIDATION PENDING.
-- Refinement: CATALOG FROZEN — ACCEPTANCE CRITERIA PENDING.
+The canonical catalog retains 49 historical story IDs: 42 V1 candidates and 7
+explicit V2/deferred candidates. Product direction is `OWNER-ACCEPTED`; every
+story remains `PROPOSED / RESEARCH VALIDATION PENDING`; backend support is
+partial; the client is not started.
 
 Canonical reading order:
 
 1. [Requirements status](requirements-status.md)
-2. [Epic index](epics/README.md)
-3. [Coverage](coverage.md)
-4. [Derivation sources](derivation-sources.md)
-5. [Traceability model](traceability-model.md)
+2. [Canonical V1 catalog](mobile-v1-catalog.md)
+3. [Reconciliation matrix](reconciliation.md)
+4. [Epic pointers](epics/README.md)
+5. [Coverage](coverage.md)
+6. [Derivation sources](derivation-sources.md)
+7. [Traceability model](traceability-model.md)
+8. [Technical reconciliation](mobile-technical-reconciliation.md)
+9. [Spike reconciliation](mobile-spike-reconciliation.md)
 
-Mobile stories do not create a Mobile, Driver, Dashboard or Barcode Bounded
-Context. They project the shared Product and 11 accepted Bounded Contexts.
-Web historical interviews are not Mobile validation.
+Stories project shared capabilities and eleven accepted Bounded Contexts. They
+do not create Mobile, Driver, Dashboard, Barcode, QR or Device contexts.

@@ -1,9 +1,9 @@
-# Planned Mobile applications
+# Mobile applications
 
-| Application | Primary segment | Status | Shared authority |
-|---|---|---|---|
-| [Nexa Operations Mobile](operations-mobile.md) | MOB-SEG-01 and MOB-SEG-02 | PROPOSED / research pending | Existing BC-01..BC-11 |
-| [Nexa Buyer Mobile](buyer-mobile.md) | MOB-SEG-03 | PROPOSED / research pending | Existing BC-01..BC-11 |
+| Application | Primary actors/segment | Product direction | Research | Client/backend state |
+|---|---|---|---|---|
+| [Nexa Operations Mobile](operations-mobile.md) | Workforce: Sales, Warehouse, Dispatch, Driver | OWNER-ACCEPTED | PROPOSED / RESEARCH VALIDATION PENDING | client NOT STARTED; API PARTIAL |
+| [Nexa Buyer Mobile](buyer-mobile.md) | Customer Buyer | OWNER-ACCEPTED | PROPOSED / RESEARCH VALIDATION PENDING | client NOT STARTED; API PARTIAL |
 
-No application row below creates a Mobile Bounded Context or selects a
-framework. Capabilities are mapped in [Mobile requirements traceability](../../requirements/traceability-model.md).
+Neither row creates a Mobile Bounded Context, selects a framework or owns
+business truth. Both use [the shared role/surface model](../../../01-shared/product/surface-role-matrix.md).

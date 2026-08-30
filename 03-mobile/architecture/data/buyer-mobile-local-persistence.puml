@@ -1,0 +1,76 @@
+@startuml BuyerMobileLocalPersistence
+title Buyer Mobile — Local Logical Persistence (PROPOSED / RESEARCH VALIDATION PENDING)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class BuyerDraft <<Aggregate Root>> {
+  -localDraftId: LocalDraftId
+  -remoteDraftReference: String
+  -buyerRelationshipReference: String
+  -state: DraftState
+  +addLine(skuReference: String, quantity: Decimal): void
+  +saveLocally(): void
+  +submitWhenOnline(): void
+}
+
+class BuyerDraftLine <<Entity>> {
+  -lineId: LocalDraftLineId
+  -skuReference: String
+  -displaySnapshot: String
+  -quantity: Decimal
+  +changeQuantity(quantity: Decimal): void
+}
+
+class BuyerReadModelCache <<Entity>> {
+  -cacheId: CacheId
+  -resourceType: String
+  -remoteReference: String
+  -serverVersion: String
+  -expiresAt: Instant
+  +refresh(): void
+  +expire(): void
+}
+
+class UploadQueueItem <<Entity>> {
+  -queueItemId: QueueItemId
+  -localDraftId: LocalDraftId
+  -idempotencyKey: String
+  -state: QueueState
+  +enqueue(): void
+  +retry(): void
+  +markServerAccepted(): void
+}
+
+class SyncMetadata <<Entity>> {
+  -syncId: SyncMetadataId
+  -resourceType: String
+  -remoteReference: String
+  -lastServerVersion: String
+  +recordVersion(version: String): void
+}
+
+class LocalStorageBoundary <<Domain Service>> {
+  +persistDraft(draft: BuyerDraft): void
+  +readCache(resourceType: String, reference: String): BuyerReadModelCache
+  +queueSubmission(item: UploadQueueItem): void
+}
+
+BuyerDraft "1" *-- "0..*" BuyerDraftLine : lines
+BuyerDraft "1" *-- "0..*" UploadQueueItem : submissions
+BuyerDraft "1" o-- "0..1" SyncMetadata : server cursor
+LocalStorageBoundary o-- "0..*" BuyerReadModelCache : cached views
+LocalStorageBoundary --> BuyerDraft : local only
+
+enum DraftState <<Enum>>
+enum QueueState <<Enum>>
+
+legend right
+PROPOSED / RESEARCH VALIDATION PENDING
+Technology: NOT SELECTED. Logical records only; no framework commitment.
+LOCAL / NON-AUTHORITATIVE. Cached catalog/availability/order views may be stale.
+Offline submission is a queued intent; only the API confirms authorization,
+price, inventory, commitment, payment and final order state.
+endlegend
+@enduml

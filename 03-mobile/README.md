@@ -1,17 +1,19 @@
 # Mobile
 
-Two proposed projections: **Operations Mobile** and **Buyer Mobile**.
-
-Decision status: PROPOSED. Research status: PENDING. Implementation:
-PLANNED. The 49-story catalog is a proposed research boundary, not validated
-Mobile evidence. No Mobile Bounded Contexts exist.
+Mobile has two product projections: **Nexa Operations Mobile** and **Nexa Buyer
+Mobile**. Product direction is `OWNER-ACCEPTED`; research remains
+`PROPOSED / RESEARCH VALIDATION PENDING`; the client is `NOT STARTED`; API
+support is `PARTIAL` and is evidenced by [the live compatibility baseline](../04-delivery/compatibility-baseline-2026-08-29.md).
 
 - [Product](product/README.md)
-- [Actors](actors/README.md) — proposed projection of the [Shared actor catalog](../01-shared/product/actors.md)
+- [Status](product/status.md)
+- [Actors](actors/README.md) — projection of the [shared actor catalog](../01-shared/product/actors.md)
 - [Segments](segments/README.md)
 - [Capabilities](capabilities/README.md)
-- [Requirements](requirements/README.md) — 7 Epics and 49 proposed stories
+- [Requirements](requirements/README.md) — 7 Epics, 49 retained stories, 42 V1 candidates and 7 V2/deferred
 - [UX and discovery](ux/README.md)
 - [Architecture](architecture/README.md)
 
-Mobile consumes [shared domain](../01-shared/domain/README.md), [shared Design](../01-shared/design/README.md) and [shared C4](../01-shared/architecture/c4/README.md). No Mobile BCs.
+Mobile consumes the shared [Product](../01-shared/product/README.md), [Domain](../01-shared/domain/README.md),
+[Design](../01-shared/design/README.md) and [C4](../01-shared/architecture/c4/README.md).
+No Mobile, Scanner, QR, Device, Cold Chain or Analytics Bounded Context exists.

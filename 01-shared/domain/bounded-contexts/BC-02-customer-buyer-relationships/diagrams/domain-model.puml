@@ -1,0 +1,102 @@
+@startuml BC02_CustomerBuyerRelationships
+title BC-02 Customer & Buyer Relationships — Tactical Domain Model (TARGET / V1)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class CustomerAccount <<Aggregate Root>> {
+  -customerAccountId: CustomerAccountId
+  -tenantId: TenantId
+  -legalName: LegalName
+  -status: CustomerStatus
+  +open(): void
+  +suspend(reason: SuspensionReason): void
+  +changeLegalName(name: LegalName): void
+}
+
+class CustomerContact <<Entity>> {
+  -contactId: CustomerContactId
+  -customerAccountId: CustomerAccountId
+  -humanIdentityId: HumanIdentityId
+  -role: ContactRole
+  +designateAsBuyer(): void
+  +remove(): void
+}
+
+class CustomerAddress <<Entity>> {
+  -addressId: CustomerAddressId
+  -customerAccountId: CustomerAccountId
+  -kind: AddressKind
+  -snapshot: AddressSnapshot
+  +replace(snapshot: AddressSnapshot): void
+  +retire(): void
+}
+
+class BuyerRelationship <<Aggregate Root>> {
+  -relationshipId: BuyerRelationshipId
+  -tenantId: TenantId
+  -customerAccountId: CustomerAccountId
+  -humanIdentityId: HumanIdentityId
+  -status: RelationshipStatus
+  +request(): void
+  +approve(): void
+  +suspend(reason: SuspensionReason): void
+  +authorizeOrder(): boolean
+}
+
+class BuyerRelationshipHistory <<Entity>> {
+  -historyId: RelationshipHistoryId
+  -relationshipId: BuyerRelationshipId
+  -fromStatus: RelationshipStatus
+  -toStatus: RelationshipStatus
+  -changedAt: Instant
+  +recordTransition(): void
+}
+
+class AddressSnapshot <<Value Object>> {
+  -line1: String
+  -districtCode: String
+  -provinceCode: String
+  -postalCode: String
+}
+
+class RelationshipPolicy <<Domain Service>> {
+  +canPurchase(relationship: BuyerRelationship): boolean
+  +canRepresent(contact: CustomerContact): boolean
+}
+
+interface CustomerAccountRepository <<Repository>> {
+  +findById(id: CustomerAccountId): CustomerAccount
+  +save(account: CustomerAccount): void
+}
+
+interface BuyerRelationshipRepository <<Repository>> {
+  +findById(id: BuyerRelationshipId): BuyerRelationship
+  +save(relationship: BuyerRelationship): void
+}
+
+enum CustomerStatus <<Enum>>
+enum RelationshipStatus <<Enum>>
+enum ContactRole <<Enum>>
+enum AddressKind <<Enum>>
+
+CustomerAccount "1" *-- "0..*" CustomerContact : contacts
+CustomerAccount "1" *-- "0..*" CustomerAddress : addresses
+CustomerAccount "1" o-- "0..*" BuyerRelationship : represented by
+BuyerRelationship "1" *-- "0..*" BuyerRelationshipHistory : history
+CustomerContact --> HumanIdentity : stable identity id
+BuyerRelationship --> HumanIdentity : stable identity id
+CustomerAddress *-- AddressSnapshot : captures
+RelationshipPolicy ..> BuyerRelationshipRepository : loads
+RelationshipPolicy --> CustomerContact : evaluates
+CustomerAccountRepository ..> CustomerAccount : persists
+BuyerRelationshipRepository ..> BuyerRelationship : persists
+
+legend right
+TARGET / V1 / tactical design aid
+Customer account owns commercial relationship data.
+HumanIdentity belongs to BC-01; reference is non-owning.
+*-- composition | --> domain dependency | ..> port/use
+endlegend
+@enduml

@@ -21,6 +21,7 @@ Este documento fija la semántica C4 L1/L2 de Nexa independiente de los límites
 - [Level 4 code views](l4/README.md) use repository-derived or TARGET Mermaid views; they do not fake C4 Components or production classes.
 - [L3/L4 technical views](l4/technical-lenses.md) index the requested API, Platform and Portal responsibility lenses and canonical workflows.
 - `structurizr/generated/workspace.json` es representación generada; no debe editarse manualmente.
+- `structurizr/workspace.json` es el espejo manual cargado para revisión académica; debe ser byte/semánticamente igual a la representación generada y no una segunda fuente.
 
 Source authority: `structurizr/workspace.dsl` and its included files. Level
 files are direct and unique: `structurizr/l1/l1.dsl`, `structurizr/l2/l2.dsl`
@@ -51,7 +52,7 @@ No se crea una vista de componentes del Website: su implementación estática y 
 
 ## L1 System Context
 
-El sistema primario es **Nexa**: una plataforma B2B SaaS multi-tenant que coordina operaciones comerciales, catálogo, relaciones con clientes, inventario, fulfillment, entrega y autoservicio Buyer para importadores y distribuidores, con soporte especializado para cadena de frío.
+El sistema primario es **Nexa**: una plataforma B2B SaaS multi-tenant que coordina operaciones comerciales, catálogo, relaciones con clientes, inventario, fulfillment, entrega y autoservicio Buyer para importadores, distribuidores y mayoristas, con soporte especializado para cadena de frío.
 
 El L1 usa tres actores legibles:
 
@@ -132,3 +133,11 @@ Estos elementos no están presentes en las vistas V1 ni deben describirse como i
 La respuesta defendible es: **Nexa es el producto; las superficies web son experiencias separadas; el API modular monolith es la autoridad; PostgreSQL y Object Storage son almacenes C4; los providers son dependencias externas abstractas; el runtime local se mapea aparte; Workspace y módulos no se convierten en containers por nombre**.
 
 La semántica de identidad global, membership workforce, Buyer relationship, propagación de contexto y RLS se detalla separadamente en [Multi-tenant context propagation](../../security/multi-tenancy/context-propagation.md). La organización lógica se detalla en [Logical system layering](../layering/logical-system-layering.md).
+
+## Tactical rubric coverage
+
+[Component-level rubric coverage](component-rubric-coverage.md) maps all eleven
+Bounded Contexts to existing Structurizr component views. Reuse is deliberate:
+the views are logical seams inside accepted containers, not one container per
+context. Versioned SVG exports under [exports](exports/README.md) are review
+artifacts; the Structurizr DSL remains semantic source.

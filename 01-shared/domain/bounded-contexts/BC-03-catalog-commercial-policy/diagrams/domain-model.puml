@@ -1,0 +1,147 @@
+@startuml BC03_CatalogCommercialPolicy
+title BC-03 Catalog & Commercial Policy — Tactical Domain Model (TARGET / V1)
+hide circle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class Product <<Aggregate Root>> {
+  -productId: ProductId
+  -tenantId: TenantId
+  -name: ProductName
+  -status: ProductStatus
+  +create(): void
+  +rename(name: ProductName): void
+  +publish(): void
+  +retire(): void
+}
+
+class Sku <<Entity>> {
+  -skuId: SkuId
+  -productId: ProductId
+  -code: SkuCode
+  -temperatureBand: TemperatureBand
+  -status: SkuStatus
+  +activate(): void
+  +deactivate(): void
+  +changePresentation(presentation: SkuPresentation): void
+}
+
+class CatalogMedia <<Entity>> {
+  -mediaId: CatalogMediaId
+  -productId: ProductId
+  -objectKey: ObjectKey
+  -kind: MediaKind
+  +attach(): void
+  +detach(): void
+}
+
+class PriceList <<Aggregate Root>> {
+  -priceListId: PriceListId
+  -tenantId: TenantId
+  -name: PriceListName
+  -status: PriceListStatus
+  +activate(): void
+  +deactivate(): void
+}
+
+class PriceListItem <<Entity>> {
+  -itemId: PriceListItemId
+  -priceListId: PriceListId
+  -skuId: SkuId
+  -unitPrice: Money
+  +changePrice(price: Money): void
+}
+
+class BasePrice <<Entity>> {
+  -basePriceId: BasePriceId
+  -skuId: SkuId
+  -amount: Money
+  -validFrom: Instant
+  +replace(amount: Money): void
+}
+
+class CustomerTerms <<Entity>> {
+  -termsId: CustomerTermsId
+  -customerAccountId: CustomerAccountId
+  -priceListId: PriceListId
+  -creditDays: Integer
+  +amend(creditDays: Integer): void
+}
+
+class Promotion <<Aggregate Root>> {
+  -promotionId: PromotionId
+  -tenantId: TenantId
+  -name: String
+  -validity: TimeWindow
+  -status: PromotionStatus
+  +schedule(): void
+  +activate(): void
+  +expire(): void
+}
+
+class PromotionSku <<Entity>> {
+  -promotionSkuId: PromotionSkuId
+  -promotionId: PromotionId
+  -skuId: SkuId
+  -discount: Discount
+  +include(): void
+  +exclude(): void
+}
+
+class CommercialPolicy <<Domain Service>> {
+  +resolvePrice(skuId: SkuId, customerId: CustomerAccountId, at: Instant): ResolvedPrice
+  +validateSellable(sku: Sku): boolean
+}
+
+class ResolvedPrice <<Value Object>> {
+  -unitPrice: Money
+  -source: PriceSource
+  -promotionId: PromotionId
+}
+
+class Money <<Value Object>> {
+  -amount: Decimal
+  -currency: CurrencyCode
+}
+
+class TimeWindow <<Value Object>> {
+  -startsAt: Instant
+  -endsAt: Instant
+}
+
+interface SkuRepository <<Repository>> {
+  +findById(id: SkuId): Sku
+}
+
+interface PricePolicyRepository <<Repository>> {
+  +findActiveFor(skuId: SkuId, customerId: CustomerAccountId, at: Instant): ResolvedPrice
+}
+
+enum ProductStatus <<Enum>>
+enum SkuStatus <<Enum>>
+enum PriceListStatus <<Enum>>
+enum PromotionStatus <<Enum>>
+enum PriceSource <<Enum>>
+
+Product "1" *-- "1..*" Sku : variants
+Product "1" *-- "0..*" CatalogMedia : media
+PriceList "1" *-- "0..*" PriceListItem : prices
+Promotion "1" *-- "0..*" PromotionSku : scope
+Sku "1" o-- "0..*" PriceListItem : listed
+Sku "1" o-- "0..*" BasePrice : base history
+Sku "1" o-- "0..*" PromotionSku : discounted
+CustomerTerms --> PriceList : applies list
+CommercialPolicy ..> PricePolicyRepository : resolves
+CommercialPolicy ..> SkuRepository : validates
+CommercialPolicy --> ResolvedPrice : returns
+ResolvedPrice *-- Money : amount
+Promotion *-- TimeWindow : validity
+
+legend right
+TARGET / V1 / tactical design aid
+Price precedence: Base Price -> Price List -> Customer Terms -> max one Promotion.
+CustomerAccountId is a non-owning BC-02 reference.
+*-- composition | --> domain dependency | ..> port/use
+endlegend
+@enduml

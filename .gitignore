@@ -61,6 +61,10 @@ worktrees/
 11-reference/library/
 11-reference/bibliography/**/*.pdf
 11-reference/bibliography/**/*.epub
-11-reference/legacy-ecosystem-report/assets/
+91-reference/legacy/legacy-ecosystem-report/assets/
 *.pdf
 *.epub
+
+# Academic rubric PDFs are intentional published evidence.
+!90-academic/rubrics/
+!90-academic/rubrics/**

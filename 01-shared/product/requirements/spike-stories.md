@@ -13,6 +13,9 @@ Status: RESEARCH / ENABLER.
 
 Spikes record uncertainty and expected evidence. They do not pretend to deliver normal production functionality and do not close the research or architecture questions in this wave.
 
+The Mobile-specific reconciliation and disposition of these six spikes are in
+[Mobile spike reconciliation](../../../03-mobile/requirements/mobile-spike-reconciliation.md).
+
 ## SPIKE-001 — Select the autonomous-learning feature and external technology
 
 | Field | Value |

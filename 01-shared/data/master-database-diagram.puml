@@ -1,0 +1,1161 @@
+@startuml
+title Nexa Target Master Database Diagram
+left to right direction
+hide methods
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #0F172A
+}
+
+entity "tenant" as t_tenant {
+  * tenant_id : uuid <<PK>>
+  * legal_name : varchar(200) <<required>>
+  * slug : varchar(100) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "workspace" as t_workspace {
+  * workspace_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * name : varchar(160) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "human_identity" as t_human_identity {
+  * human_identity_id : uuid <<PK>>
+  * email : varchar(320) <<required>>
+  * normalized_email : varchar(320) <<required>>
+    display_name : varchar(200)
+  * status : varchar(32) <<required>>
+    verified_at : timestamptz
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "company_onboarding_request" as t_company_onboarding_request {
+  * request_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * requested_by_identity_id : uuid <<FK, required>>
+  * legal_name : varchar(200) <<required>>
+    registration_number : varchar(80)
+  * status : varchar(32) <<required>>
+    rejection_reason : varchar(500)
+    submitted_at : timestamptz
+    decided_at : timestamptz
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "workforce_membership" as t_workforce_membership {
+  * membership_id : uuid <<PK>>
+  * workspace_id : uuid <<FK, required>>
+  * human_identity_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+    invited_at : timestamptz
+    activated_at : timestamptz
+    revoked_at : timestamptz
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "role_definition" as t_role_definition {
+  * role_id : uuid <<PK>>
+  * workspace_id : uuid <<FK, required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(160) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "capability_definition" as t_capability_definition {
+  * capability_id : uuid <<PK>>
+  * code : varchar(120) <<required>>
+  * name : varchar(200) <<required>>
+    description : varchar(500)
+  * created_at : timestamptz <<required>>
+}
+
+entity "membership_role" as t_membership_role {
+  * assignment_id : uuid <<PK>>
+  * membership_id : uuid <<FK, required>>
+  * role_id : uuid <<FK, required>>
+  * assigned_at : timestamptz <<required>>
+    removed_at : timestamptz
+}
+
+entity "role_capability" as t_role_capability {
+  * role_capability_id : uuid <<PK>>
+  * role_id : uuid <<FK, required>>
+  * capability_id : uuid <<FK, required>>
+  * granted_at : timestamptz <<required>>
+}
+
+entity "membership_capability_override" as t_membership_capability_override {
+  * override_id : uuid <<PK>>
+  * membership_id : uuid <<FK, required>>
+  * capability_id : uuid <<FK, required>>
+  * effect : varchar(16) <<required>>
+  * reason : varchar(500) <<required>>
+    expires_at : timestamptz
+  * created_at : timestamptz <<required>>
+}
+
+entity "customer_account" as t_customer_account {
+  * customer_account_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * legal_name : varchar(200) <<required>>
+    tax_identifier : varchar(80)
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "customer_contact" as t_customer_contact {
+  * contact_id : uuid <<PK>>
+  * customer_account_id : uuid <<FK, required>>
+  * human_identity_id : uuid <<required>>
+  * role : varchar(32) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "customer_address" as t_customer_address {
+  * address_id : uuid <<PK>>
+  * customer_account_id : uuid <<FK, required>>
+  * kind : varchar(32) <<required>>
+  * line1 : varchar(240) <<required>>
+    line2 : varchar(240)
+    district_code : varchar(32)
+    province_code : varchar(32)
+    department_code : varchar(32)
+    postal_code : varchar(32)
+    recipient_name : varchar(200)
+  * is_default : boolean <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "buyer_relationship" as t_buyer_relationship {
+  * relationship_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<FK, required>>
+  * human_identity_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * requested_at : timestamptz <<required>>
+    approved_at : timestamptz
+    revoked_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "buyer_relationship_history" as t_buyer_relationship_history {
+  * history_id : uuid <<PK>>
+  * relationship_id : uuid <<FK, required>>
+    from_status : varchar(32)
+  * to_status : varchar(32) <<required>>
+    reason : varchar(500)
+    changed_by_identity_id : uuid
+  * changed_at : timestamptz <<required>>
+}
+
+entity "product" as t_product {
+  * product_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(200) <<required>>
+    description : text
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "sku" as t_sku {
+  * sku_id : uuid <<PK>>
+  * product_id : uuid <<FK, required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(200) <<required>>
+  * unit_of_measure : varchar(32) <<required>>
+    gtin : varchar(14)
+  * temperature_band : varchar(64) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "catalog_media" as t_catalog_media {
+  * media_id : uuid <<PK>>
+  * product_id : uuid <<FK, required>>
+  * object_key : varchar(500) <<required>>
+  * media_kind : varchar(32) <<required>>
+    content_hash : varchar(128)
+  * sort_order : integer <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "price_list" as t_price_list {
+  * price_list_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(160) <<required>>
+  * currency : char(3) <<required>>
+  * status : varchar(32) <<required>>
+    valid_from : timestamptz
+    valid_to : timestamptz
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "price_list_item" as t_price_list_item {
+  * item_id : uuid <<PK>>
+  * price_list_id : uuid <<FK, required>>
+  * sku_id : uuid <<FK, required>>
+  * unit_price : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+    valid_from : timestamptz
+    valid_to : timestamptz
+}
+
+entity "base_price" as t_base_price {
+  * base_price_id : uuid <<PK>>
+  * sku_id : uuid <<FK, required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * valid_from : timestamptz <<required>>
+    valid_to : timestamptz
+  * created_at : timestamptz <<required>>
+}
+
+entity "customer_terms" as t_customer_terms {
+  * terms_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<required>>
+    price_list_id : uuid <<FK>>
+  * credit_days : integer <<required>>
+  * currency : char(3) <<required>>
+  * valid_from : timestamptz <<required>>
+    valid_to : timestamptz
+  * created_at : timestamptz <<required>>
+}
+
+entity "promotion" as t_promotion {
+  * promotion_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(160) <<required>>
+  * status : varchar(32) <<required>>
+  * starts_at : timestamptz <<required>>
+  * ends_at : timestamptz <<required>>
+  * max_stackable : boolean <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "promotion_sku" as t_promotion_sku {
+  * promotion_sku_id : uuid <<PK>>
+  * promotion_id : uuid <<FK, required>>
+  * sku_id : uuid <<FK, required>>
+  * discount_kind : varchar(32) <<required>>
+  * discount_value : numeric(19,4) <<required>>
+}
+
+entity "request_draft" as t_request_draft {
+  * draft_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * buyer_relationship_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+    expires_at : timestamptz
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "request_draft_line" as t_request_draft_line {
+  * line_id : uuid <<PK>>
+  * draft_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+    notes : varchar(500)
+}
+
+entity "purchase_request" as t_purchase_request {
+  * purchase_request_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * buyer_relationship_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * submitted_at : timestamptz <<required>>
+  * expires_at : timestamptz <<required>>
+  * revision : integer <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "purchase_request_line" as t_purchase_request_line {
+  * line_id : uuid <<PK>>
+  * purchase_request_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * requested_quantity : numeric(19,6) <<required>>
+    accepted_quantity : numeric(19,6)
+  * price_snapshot : jsonb <<required>>
+  * terms_snapshot : jsonb <<required>>
+}
+
+entity "material_change_proposal" as t_material_change_proposal {
+  * proposal_id : uuid <<PK>>
+  * purchase_request_id : uuid <<FK, required>>
+  * proposed_by_identity_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * change_snapshot : jsonb <<required>>
+  * proposed_at : timestamptz <<required>>
+    decided_at : timestamptz
+}
+
+entity "commercial_commitment" as t_commercial_commitment {
+  * commitment_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * purchase_request_id : uuid <<FK, required>>
+  * buyer_relationship_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * committed_at : timestamptz <<required>>
+    cancelled_at : timestamptz
+  * revision : integer <<required>>
+}
+
+entity "commercial_commitment_line" as t_commercial_commitment_line {
+  * line_id : uuid <<PK>>
+  * commitment_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * unit_price : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * terms_snapshot : jsonb <<required>>
+}
+
+entity "sales_order" as t_sales_order {
+  * sales_order_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * commitment_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * confirmed_at : timestamptz <<required>>
+    cancelled_at : timestamptz
+  * revision : integer <<required>>
+}
+
+entity "sales_order_line" as t_sales_order_line {
+  * line_id : uuid <<PK>>
+  * sales_order_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * unit_price : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * fulfillment_quantity : numeric(19,6) <<required>>
+}
+
+entity "commitment_owner_transfer" as t_commitment_owner_transfer {
+  * transfer_id : uuid <<PK>>
+  * commitment_id : uuid <<FK, required>>
+  * from_owner : varchar(32) <<required>>
+  * to_owner : varchar(32) <<required>>
+  * transferred_at : timestamptz <<required>>
+  * reason : varchar(500) <<required>>
+}
+
+entity "sales_commitment_adjustment" as t_sales_commitment_adjustment {
+  * adjustment_id : uuid <<PK>>
+  * commitment_id : uuid <<FK, required>>
+  * reason : varchar(500) <<required>>
+  * quantity_delta : numeric(19,6) <<required>>
+  * amount_delta : numeric(19,4) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "warehouse" as t_warehouse {
+  * warehouse_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * code : varchar(80) <<required>>
+  * name : varchar(160) <<required>>
+  * status : varchar(32) <<required>>
+  * timezone : varchar(80) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "inventory_lot" as t_inventory_lot {
+  * lot_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * lot_code : varchar(120) <<required>>
+    expires_at : timestamptz
+  * on_hand_quantity : numeric(19,6) <<required>>
+  * held_quantity : numeric(19,6) <<required>>
+  * status : varchar(32) <<required>>
+  * received_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "inventory_position" as t_inventory_position {
+  * position_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * on_hand_quantity : numeric(19,6) <<required>>
+  * reserved_quantity : numeric(19,6) <<required>>
+  * held_quantity : numeric(19,6) <<required>>
+  * version : integer <<required>>
+}
+
+entity "inventory_movement" as t_inventory_movement {
+  * movement_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+    lot_id : uuid <<FK>>
+  * sku_id : uuid <<required>>
+  * kind : varchar(32) <<required>>
+  * quantity : numeric(19,6) <<required>>
+    reference_type : varchar(80)
+    reference_id : uuid
+  * occurred_at : timestamptz <<required>>
+}
+
+entity "safety_stock_policy" as t_safety_stock_policy {
+  * policy_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * minimum_quantity : numeric(19,6) <<required>>
+  * valid_from : timestamptz <<required>>
+    valid_to : timestamptz
+}
+
+entity "inventory_backing" as t_inventory_backing {
+  * backing_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * commercial_commitment_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * requested_at : timestamptz <<required>>
+    completed_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "inventory_backing_line" as t_inventory_backing_line {
+  * line_id : uuid <<PK>>
+  * backing_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * requested_quantity : numeric(19,6) <<required>>
+  * backed_quantity : numeric(19,6) <<required>>
+}
+
+entity "physical_allocation" as t_physical_allocation {
+  * allocation_id : uuid <<PK>>
+  * backing_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * allocated_at : timestamptz <<required>>
+    released_at : timestamptz
+}
+
+entity "physical_allocation_line" as t_physical_allocation_line {
+  * line_id : uuid <<PK>>
+  * allocation_id : uuid <<FK, required>>
+  * lot_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * consumed_quantity : numeric(19,6) <<required>>
+}
+
+entity "inventory_adjustment" as t_inventory_adjustment {
+  * adjustment_id : uuid <<PK>>
+  * warehouse_id : uuid <<FK, required>>
+    lot_id : uuid <<FK>>
+  * sku_id : uuid <<required>>
+  * quantity_delta : numeric(19,6) <<required>>
+  * reason : varchar(500) <<required>>
+  * status : varchar(32) <<required>>
+  * requested_by_identity_id : uuid <<required>>
+    approved_at : timestamptz
+    applied_at : timestamptz
+}
+
+entity "warehouse_transfer" as t_warehouse_transfer {
+  * transfer_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * source_warehouse_id : uuid <<FK, required>>
+  * destination_warehouse_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * requested_at : timestamptz <<required>>
+    dispatched_at : timestamptz
+    received_at : timestamptz
+}
+
+entity "warehouse_transfer_line" as t_warehouse_transfer_line {
+  * line_id : uuid <<PK>>
+  * transfer_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * received_quantity : numeric(19,6) <<required>>
+}
+
+entity "lot_disposition" as t_lot_disposition {
+  * disposition_id : uuid <<PK>>
+  * lot_id : uuid <<FK, required>>
+  * kind : varchar(32) <<required>>
+  * reason : varchar(500) <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "fulfillment" as t_fulfillment {
+  * fulfillment_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * sales_order_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * planned_at : timestamptz <<required>>
+    started_at : timestamptz
+    completed_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "fulfillment_line" as t_fulfillment_line {
+  * line_id : uuid <<PK>>
+  * fulfillment_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * physical_allocation_id : uuid <<required>>
+  * planned_quantity : numeric(19,6) <<required>>
+  * picked_quantity : numeric(19,6) <<required>>
+}
+
+entity "picking_result" as t_picking_result {
+  * picking_result_id : uuid <<PK>>
+  * fulfillment_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * picker_identity_id : uuid <<required>>
+  * started_at : timestamptz <<required>>
+    completed_at : timestamptz
+}
+
+entity "picking_discrepancy" as t_picking_discrepancy {
+  * discrepancy_id : uuid <<PK>>
+  * picking_result_id : uuid <<FK, required>>
+  * fulfillment_line_id : uuid <<FK, required>>
+  * kind : varchar(32) <<required>>
+  * quantity : numeric(19,6) <<required>>
+    resolution : varchar(500)
+    resolved_at : timestamptz
+}
+
+entity "delivery" as t_delivery {
+  * delivery_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * fulfillment_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * destination_snapshot : jsonb <<required>>
+    scheduled_at : timestamptz
+    dispatched_at : timestamptz
+    delivered_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "delivery_assignment" as t_delivery_assignment {
+  * assignment_id : uuid <<PK>>
+  * delivery_id : uuid <<FK, required>>
+  * operator_id : uuid <<required>>
+    vehicle_reference : varchar(120)
+  * assigned_at : timestamptz <<required>>
+    unassigned_at : timestamptz
+}
+
+entity "delivery_attempt" as t_delivery_attempt {
+  * attempt_id : uuid <<PK>>
+  * delivery_id : uuid <<FK, required>>
+  * attempt_number : integer <<required>>
+  * outcome : varchar(32) <<required>>
+  * attempted_at : timestamptz <<required>>
+    notes : varchar(1000)
+}
+
+entity "delivery_attempt_line" as t_delivery_attempt_line {
+  * line_id : uuid <<PK>>
+  * attempt_id : uuid <<FK, required>>
+  * fulfillment_line_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * attempted_quantity : numeric(19,6) <<required>>
+  * received_quantity : numeric(19,6) <<required>>
+}
+
+entity "delivery_quantity_outcome" as t_delivery_quantity_outcome {
+  * outcome_id : uuid <<PK>>
+  * attempt_id : uuid <<FK, required>>
+  * sku_id : uuid <<required>>
+  * fulfilled_quantity : numeric(19,6) <<required>>
+  * short_quantity : numeric(19,6) <<required>>
+    reason : varchar(500)
+}
+
+entity "delivery_handoff_token" as t_delivery_handoff_token {
+  * delivery_handoff_token_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * delivery_id : uuid <<FK, required>>
+  * delivery_attempt_id : uuid <<FK, required>>
+  * customer_account_id : uuid <<required>>
+  * token_hash : char(64) <<required>>
+  * issued_at : timestamptz <<required>>
+  * expires_at : timestamptz <<required>>
+  * issuer_operator_id : uuid <<required>>
+  * status : varchar(32) <<required>>
+  * idempotency_key : varchar(160) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "buyer_receipt_fact" as t_buyer_receipt_fact {
+  * buyer_receipt_fact_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * delivery_id : uuid <<FK, required>>
+  * delivery_attempt_id : uuid <<FK, required>>
+  * customer_account_id : uuid <<required>>
+  * buyer_membership_id : uuid <<required>>
+  * handoff_token_id : uuid <<FK, required>>
+  * decision : varchar(32) <<required>>
+  * driver_delivered_quantity : numeric(19,6) <<required>>
+  * accepted_quantity : numeric(19,6) <<required>>
+    reason : varchar(2000)
+  * occurred_at : timestamptz <<required>>
+  * idempotency_key : varchar(160) <<required>>
+}
+
+entity "proof_of_delivery" as t_proof_of_delivery {
+  * pod_id : uuid <<PK>>
+  * delivery_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+    recipient_name : varchar(200)
+    signature_object_key : varchar(500)
+  * captured_at : timestamptz <<required>>
+    sealed_at : timestamptz
+}
+
+entity "proof_of_delivery_addendum" as t_proof_of_delivery_addendum {
+  * addendum_id : uuid <<PK>>
+  * pod_id : uuid <<FK, required>>
+  * reason : varchar(500) <<required>>
+    evidence_object_key : varchar(500)
+  * appended_by_identity_id : uuid <<required>>
+  * appended_at : timestamptz <<required>>
+}
+
+entity "temperature_evidence" as t_temperature_evidence {
+  * evidence_id : uuid <<PK>>
+  * delivery_id : uuid <<FK, required>>
+  * captured_at : timestamptz <<required>>
+  * temperature_celsius : numeric(8,3) <<required>>
+  * source : varchar(80) <<required>>
+    evidence_metadata : jsonb
+}
+
+entity "temperature_excursion" as t_temperature_excursion {
+  * excursion_id : uuid <<PK>>
+  * delivery_id : uuid <<FK, required>>
+    evidence_id : uuid <<FK>>
+  * status : varchar(32) <<required>>
+  * reason : varchar(500) <<required>>
+  * opened_at : timestamptz <<required>>
+    closed_at : timestamptz
+}
+
+entity "continuation_delivery" as t_continuation_delivery {
+  * continuation_id : uuid <<PK>>
+  * parent_delivery_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * remaining_snapshot : jsonb <<required>>
+  * opened_at : timestamptz <<required>>
+    closed_at : timestamptz
+}
+
+entity "credit_account" as t_credit_account {
+  * credit_account_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<required>>
+  * credit_limit : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * status : varchar(32) <<required>>
+    approved_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "credit_reservation" as t_credit_reservation {
+  * reservation_id : uuid <<PK>>
+  * credit_account_id : uuid <<FK, required>>
+  * commercial_commitment_id : uuid <<required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * status : varchar(32) <<required>>
+  * reserved_at : timestamptz <<required>>
+    released_at : timestamptz
+}
+
+entity "receivable" as t_receivable {
+  * receivable_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<required>>
+    sales_order_id : uuid
+    business_document_id : uuid
+  * original_amount : numeric(19,4) <<required>>
+  * outstanding_amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * due_at : timestamptz <<required>>
+  * status : varchar(32) <<required>>
+  * issued_at : timestamptz <<required>>
+  * version : integer <<required>>
+}
+
+entity "receivable_application" as t_receivable_application {
+  * application_id : uuid <<PK>>
+  * receivable_id : uuid <<FK, required>>
+  * payment_id : uuid <<required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * applied_at : timestamptz <<required>>
+    reversed_at : timestamptz
+}
+
+entity "financial_adjustment" as t_financial_adjustment {
+  * adjustment_id : uuid <<PK>>
+  * receivable_id : uuid <<FK, required>>
+  * kind : varchar(32) <<required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * reason : varchar(500) <<required>>
+  * status : varchar(32) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+    posted_at : timestamptz
+}
+
+entity "financial_ledger_entry" as t_financial_ledger_entry {
+  * entry_id : uuid <<PK>>
+  * receivable_id : uuid <<FK, required>>
+    adjustment_id : uuid <<FK>>
+    application_id : uuid <<FK>>
+  * direction : varchar(16) <<required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * posted_at : timestamptz <<required>>
+}
+
+entity "payment" as t_payment {
+  * payment_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * customer_account_id : uuid <<required>>
+    commercial_commitment_id : uuid
+    receivable_id : uuid
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * method : varchar(32) <<required>>
+  * status : varchar(32) <<required>>
+  * initiated_at : timestamptz <<required>>
+    confirmed_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "payment_attempt" as t_payment_attempt {
+  * attempt_id : uuid <<PK>>
+  * payment_id : uuid <<FK, required>>
+  * provider_code : varchar(80) <<required>>
+    provider_reference : varchar(200)
+  * status : varchar(32) <<required>>
+  * attempted_at : timestamptz <<required>>
+    completed_at : timestamptz
+}
+
+entity "payment_provider_event" as t_payment_provider_event {
+  * event_id : uuid <<PK>>
+    payment_id : uuid <<FK>>
+  * provider_code : varchar(80) <<required>>
+  * provider_event_id : varchar(240) <<required>>
+  * event_type : varchar(120) <<required>>
+  * payload : jsonb <<required>>
+  * payload_hash : varchar(128) <<required>>
+  * received_at : timestamptz <<required>>
+}
+
+entity "payment_refund" as t_payment_refund {
+  * refund_id : uuid <<PK>>
+  * payment_id : uuid <<FK, required>>
+  * amount : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * status : varchar(32) <<required>>
+  * reason : varchar(500) <<required>>
+  * requested_at : timestamptz <<required>>
+    completed_at : timestamptz
+}
+
+entity "payment_correction" as t_payment_correction {
+  * correction_id : uuid <<PK>>
+  * payment_id : uuid <<FK, required>>
+  * amount_delta : numeric(19,4) <<required>>
+  * reason : varchar(500) <<required>>
+  * status : varchar(32) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+    posted_at : timestamptz
+}
+
+entity "payment_reconciliation_case" as t_payment_reconciliation_case {
+  * case_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * payment_id : uuid <<FK, required>>
+  * reason : varchar(500) <<required>>
+  * status : varchar(32) <<required>>
+  * opened_at : timestamptz <<required>>
+    resolved_at : timestamptz
+}
+
+entity "document_number_series" as t_document_number_series {
+  * series_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * document_type : varchar(32) <<required>>
+  * series_code : varchar(32) <<required>>
+  * next_number : bigint <<required>>
+  * version : integer <<required>>
+}
+
+entity "business_document" as t_business_document {
+  * document_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * series_id : uuid <<FK, required>>
+  * document_type : varchar(32) <<required>>
+  * document_number : varchar(80) <<required>>
+    sales_order_id : uuid
+    payment_id : uuid
+    receivable_id : uuid
+  * status : varchar(32) <<required>>
+    issued_at : timestamptz
+    voided_at : timestamptz
+}
+
+entity "document_snapshot_line" as t_document_snapshot_line {
+  * line_id : uuid <<PK>>
+  * document_id : uuid <<FK, required>>
+    sku_id : uuid
+    sku_code : varchar(80)
+  * description : varchar(500) <<required>>
+  * quantity : numeric(19,6) <<required>>
+  * unit_price : numeric(19,4) <<required>>
+  * currency : char(3) <<required>>
+  * line_total : numeric(19,4) <<required>>
+}
+
+entity "document_revision" as t_document_revision {
+  * revision_id : uuid <<PK>>
+  * document_id : uuid <<FK, required>>
+  * revision_number : integer <<required>>
+  * snapshot_hash : varchar(128) <<required>>
+  * created_by_identity_id : uuid <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "object_storage_reference" as t_object_storage_reference {
+  * object_reference_id : uuid <<PK>>
+  * document_id : uuid <<FK, required>>
+  * object_key : varchar(500) <<required>>
+  * content_type : varchar(160) <<required>>
+  * content_length : bigint <<required>>
+  * content_hash : varchar(128) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "document_generation_request" as t_document_generation_request {
+  * generation_request_id : uuid <<PK>>
+  * document_id : uuid <<FK, required>>
+  * status : varchar(32) <<required>>
+  * requested_at : timestamptz <<required>>
+    completed_at : timestamptz
+    failure_reason : varchar(500)
+    object_reference_id : uuid <<FK>>
+}
+
+entity "notification_template" as t_notification_template {
+  * template_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * event_type : varchar(160) <<required>>
+  * channel : varchar(32) <<required>>
+  * version : integer <<required>>
+  * content_snapshot : jsonb <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "notification" as t_notification {
+  * notification_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+    template_id : uuid <<FK>>
+  * event_id : uuid <<required>>
+  * event_type : varchar(160) <<required>>
+  * status : varchar(32) <<required>>
+  * scheduled_at : timestamptz <<required>>
+    delivered_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "notification_recipient" as t_notification_recipient {
+  * recipient_id : uuid <<PK>>
+  * notification_id : uuid <<FK, required>>
+  * recipient_key : varchar(240) <<required>>
+  * channel_address : varchar(320) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "notification_preference" as t_notification_preference {
+  * preference_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * recipient_key : varchar(240) <<required>>
+  * event_type : varchar(160) <<required>>
+  * channel : varchar(32) <<required>>
+  * enabled : boolean <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "push_subscription" as t_push_subscription {
+  * push_subscription_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * recipient_key : varchar(240) <<required>>
+  * surface : varchar(32) <<required>>
+  * installation_id : varchar(160) <<required>>
+  * platform : varchar(16) <<required>>
+  * provider_token_hash : char(64) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * last_seen_at : timestamptz <<required>>
+  * version : bigint <<required>>
+}
+
+entity "notification_attempt" as t_notification_attempt {
+  * attempt_id : uuid <<PK>>
+  * notification_id : uuid <<FK, required>>
+  * recipient_id : uuid <<FK, required>>
+  * channel : varchar(32) <<required>>
+  * status : varchar(32) <<required>>
+    provider_reference : varchar(240)
+    failure_reason : varchar(500)
+  * attempted_at : timestamptz <<required>>
+}
+
+entity "business_traceability_record" as t_business_traceability_record {
+  * traceability_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+    workspace_id : uuid
+  * event_id : uuid <<required>>
+  * event_type : varchar(160) <<required>>
+  * aggregate_type : varchar(120) <<required>>
+  * aggregate_id : uuid <<required>>
+    actor_id : uuid
+  * payload : jsonb <<required>>
+  * occurred_at : timestamptz <<required>>
+  * recorded_at : timestamptz <<required>>
+  * payload_hash : varchar(128) <<required>>
+}
+
+entity "traceability_evidence_reference" as t_traceability_evidence_reference {
+  * evidence_reference_id : uuid <<PK>>
+  * traceability_id : uuid <<FK, required>>
+  * evidence_kind : varchar(32) <<required>>
+  * source_reference : varchar(500) <<required>>
+    content_hash : varchar(128)
+  * created_at : timestamptz <<required>>
+}
+
+entity "outbox_event" as t_outbox_event {
+  * outbox_event_id : uuid <<PK>>
+    tenant_id : uuid
+    workspace_id : uuid
+  * event_type : varchar(160) <<required>>
+  * aggregate_type : varchar(120) <<required>>
+  * aggregate_id : uuid <<required>>
+  * payload : jsonb <<required>>
+  * occurred_at : timestamptz <<required>>
+    published_at : timestamptz
+  * attempt_count : integer <<required>>
+}
+
+entity "inbox_deduplication" as t_inbox_deduplication {
+  * inbox_id : uuid <<PK>>
+  * consumer_name : varchar(160) <<required>>
+  * message_id : uuid <<required>>
+  * received_at : timestamptz <<required>>
+    processed_at : timestamptz
+  * status : varchar(32) <<required>>
+}
+
+entity "idempotency_record" as t_idempotency_record {
+  * idempotency_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+    workspace_id : uuid
+  * operation_name : varchar(160) <<required>>
+  * idempotency_key : varchar(240) <<required>>
+  * request_hash : varchar(128) <<required>>
+    response_status : integer
+    response_snapshot : jsonb
+  * created_at : timestamptz <<required>>
+    completed_at : timestamptz
+}
+
+entity "worker_lease" as t_worker_lease {
+  * lease_id : uuid <<PK>>
+  * worker_name : varchar(160) <<required>>
+  * lease_token : varchar(240) <<required>>
+  * acquired_at : timestamptz <<required>>
+  * expires_at : timestamptz <<required>>
+}
+
+entity "security_audit_event" as t_security_audit_event {
+  * security_audit_event_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+    workspace_id : uuid
+    actor_id : uuid
+  * action : varchar(160) <<required>>
+    resource_type : varchar(120)
+    resource_id : uuid
+  * outcome : varchar(32) <<required>>
+    metadata : jsonb
+  * occurred_at : timestamptz <<required>>
+}
+
+t_workspace }o--|| t_tenant : tenant_id
+t_company_onboarding_request }o--|| t_tenant : tenant_id
+t_company_onboarding_request }o--|| t_human_identity : requested_by_identity_id
+t_workforce_membership }o--|| t_workspace : workspace_id
+t_workforce_membership }o--|| t_human_identity : human_identity_id
+t_role_definition }o--|| t_workspace : workspace_id
+t_membership_role }o--|| t_workforce_membership : membership_id
+t_membership_role }o--|| t_role_definition : role_id
+t_role_capability }o--|| t_role_definition : role_id
+t_role_capability }o--|| t_capability_definition : capability_id
+t_membership_capability_override }o--|| t_workforce_membership : membership_id
+t_membership_capability_override }o--|| t_capability_definition : capability_id
+t_customer_contact }o--|| t_customer_account : customer_account_id
+t_customer_address }o--|| t_customer_account : customer_account_id
+t_buyer_relationship }o--|| t_customer_account : customer_account_id
+t_buyer_relationship_history }o--|| t_buyer_relationship : relationship_id
+t_sku }o--|| t_product : product_id
+t_catalog_media }o--|| t_product : product_id
+t_price_list_item }o--|| t_price_list : price_list_id
+t_price_list_item }o--|| t_sku : sku_id
+t_base_price }o--|| t_sku : sku_id
+t_customer_terms }o--|| t_price_list : price_list_id
+t_promotion_sku }o--|| t_promotion : promotion_id
+t_promotion_sku }o--|| t_sku : sku_id
+t_request_draft_line }o--|| t_request_draft : draft_id
+t_purchase_request_line }o--|| t_purchase_request : purchase_request_id
+t_material_change_proposal }o--|| t_purchase_request : purchase_request_id
+t_commercial_commitment }o--|| t_purchase_request : purchase_request_id
+t_commercial_commitment_line }o--|| t_commercial_commitment : commitment_id
+t_sales_order }o--|| t_commercial_commitment : commitment_id
+t_sales_order_line }o--|| t_sales_order : sales_order_id
+t_commitment_owner_transfer }o--|| t_commercial_commitment : commitment_id
+t_sales_commitment_adjustment }o--|| t_commercial_commitment : commitment_id
+t_inventory_lot }o--|| t_warehouse : warehouse_id
+t_inventory_position }o--|| t_warehouse : warehouse_id
+t_inventory_movement }o--|| t_warehouse : warehouse_id
+t_inventory_movement }o--|| t_inventory_lot : lot_id
+t_safety_stock_policy }o--|| t_warehouse : warehouse_id
+t_inventory_backing_line }o--|| t_inventory_backing : backing_id
+t_physical_allocation }o--|| t_inventory_backing : backing_id
+t_physical_allocation_line }o--|| t_physical_allocation : allocation_id
+t_physical_allocation_line }o--|| t_inventory_lot : lot_id
+t_inventory_adjustment }o--|| t_warehouse : warehouse_id
+t_inventory_adjustment }o--|| t_inventory_lot : lot_id
+t_warehouse_transfer }o--|| t_warehouse : source_warehouse_id
+t_warehouse_transfer }o--|| t_warehouse : destination_warehouse_id
+t_warehouse_transfer_line }o--|| t_warehouse_transfer : transfer_id
+t_lot_disposition }o--|| t_inventory_lot : lot_id
+t_fulfillment_line }o--|| t_fulfillment : fulfillment_id
+t_picking_result }o--|| t_fulfillment : fulfillment_id
+t_picking_discrepancy }o--|| t_picking_result : picking_result_id
+t_picking_discrepancy }o--|| t_fulfillment_line : fulfillment_line_id
+t_delivery }o--|| t_fulfillment : fulfillment_id
+t_delivery_assignment }o--|| t_delivery : delivery_id
+t_delivery_attempt }o--|| t_delivery : delivery_id
+t_delivery_attempt_line }o--|| t_delivery_attempt : attempt_id
+t_delivery_attempt_line }o--|| t_fulfillment_line : fulfillment_line_id
+t_delivery_quantity_outcome }o--|| t_delivery_attempt : attempt_id
+t_delivery_handoff_token }o--|| t_delivery : delivery_id
+t_delivery_handoff_token }o--|| t_delivery_attempt : delivery_attempt_id
+t_buyer_receipt_fact }o--|| t_delivery : delivery_id
+t_buyer_receipt_fact }o--|| t_delivery_attempt : delivery_attempt_id
+t_buyer_receipt_fact }o--|| t_delivery_handoff_token : handoff_token_id
+t_proof_of_delivery }o--|| t_delivery : delivery_id
+t_proof_of_delivery_addendum }o--|| t_proof_of_delivery : pod_id
+t_temperature_evidence }o--|| t_delivery : delivery_id
+t_temperature_excursion }o--|| t_delivery : delivery_id
+t_temperature_excursion }o--|| t_temperature_evidence : evidence_id
+t_continuation_delivery }o--|| t_delivery : parent_delivery_id
+t_credit_reservation }o--|| t_credit_account : credit_account_id
+t_receivable_application }o--|| t_receivable : receivable_id
+t_financial_adjustment }o--|| t_receivable : receivable_id
+t_financial_ledger_entry }o--|| t_receivable : receivable_id
+t_financial_ledger_entry }o--|| t_financial_adjustment : adjustment_id
+t_financial_ledger_entry }o--|| t_receivable_application : application_id
+t_payment_attempt }o--|| t_payment : payment_id
+t_payment_provider_event }o--|| t_payment : payment_id
+t_payment_refund }o--|| t_payment : payment_id
+t_payment_correction }o--|| t_payment : payment_id
+t_payment_reconciliation_case }o--|| t_payment : payment_id
+t_business_document }o--|| t_document_number_series : series_id
+t_document_snapshot_line }o--|| t_business_document : document_id
+t_document_revision }o--|| t_business_document : document_id
+t_object_storage_reference }o--|| t_business_document : document_id
+t_document_generation_request }o--|| t_business_document : document_id
+t_document_generation_request }o--|| t_object_storage_reference : object_reference_id
+t_notification }o--|| t_notification_template : template_id
+t_notification_recipient }o--|| t_notification : notification_id
+t_notification_attempt }o--|| t_notification : notification_id
+t_notification_attempt }o--|| t_notification_recipient : recipient_id
+t_traceability_evidence_reference }o--|| t_business_traceability_record : traceability_id
+
+legend right
+TARGET / shared PostgreSQL / 11 BC + Shared Technical / SQL is the authority
+PK = primary key | FK = same-owner foreign key
+required = NOT NULL | cross-BC IDs are deliberately not FK
+This PlantUML file is a visual projection for review.
+endlegend
+@enduml

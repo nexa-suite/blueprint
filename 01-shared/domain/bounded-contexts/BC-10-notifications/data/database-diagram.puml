@@ -1,0 +1,96 @@
+@startuml
+title BC-10 Target Database Diagram
+left to right direction
+hide methods
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  FontColor #0F172A
+}
+
+entity "notification_template" as t_notification_template {
+  * template_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * event_type : varchar(160) <<required>>
+  * channel : varchar(32) <<required>>
+  * version : integer <<required>>
+  * content_snapshot : jsonb <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "notification" as t_notification {
+  * notification_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+    template_id : uuid <<FK>>
+  * event_id : uuid <<required>>
+  * event_type : varchar(160) <<required>>
+  * status : varchar(32) <<required>>
+  * scheduled_at : timestamptz <<required>>
+    delivered_at : timestamptz
+  * version : integer <<required>>
+}
+
+entity "notification_recipient" as t_notification_recipient {
+  * recipient_id : uuid <<PK>>
+  * notification_id : uuid <<FK, required>>
+  * recipient_key : varchar(240) <<required>>
+  * channel_address : varchar(320) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+}
+
+entity "notification_preference" as t_notification_preference {
+  * preference_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * recipient_key : varchar(240) <<required>>
+  * event_type : varchar(160) <<required>>
+  * channel : varchar(32) <<required>>
+  * enabled : boolean <<required>>
+  * updated_at : timestamptz <<required>>
+}
+
+entity "push_subscription" as t_push_subscription {
+  * push_subscription_id : uuid <<PK>>
+  * tenant_id : uuid <<required>>
+  * workspace_id : uuid <<required>>
+  * recipient_key : varchar(240) <<required>>
+  * surface : varchar(32) <<required>>
+  * installation_id : varchar(160) <<required>>
+  * platform : varchar(16) <<required>>
+  * provider_token_hash : char(64) <<required>>
+  * status : varchar(32) <<required>>
+  * created_at : timestamptz <<required>>
+  * updated_at : timestamptz <<required>>
+  * last_seen_at : timestamptz <<required>>
+  * version : bigint <<required>>
+}
+
+entity "notification_attempt" as t_notification_attempt {
+  * attempt_id : uuid <<PK>>
+  * notification_id : uuid <<FK, required>>
+  * recipient_id : uuid <<FK, required>>
+  * channel : varchar(32) <<required>>
+  * status : varchar(32) <<required>>
+    provider_reference : varchar(240)
+    failure_reason : varchar(500)
+  * attempted_at : timestamptz <<required>>
+}
+
+t_notification }o--|| t_notification_template : template_id
+t_notification_recipient }o--|| t_notification : notification_id
+t_notification_attempt }o--|| t_notification : notification_id
+t_notification_attempt }o--|| t_notification_recipient : recipient_id
+
+legend right
+TARGET / BC-10 logical relational ownership / SQL is the authority
+PK = primary key | FK = same-owner foreign key
+required = NOT NULL | cross-BC IDs are deliberately not FK
+This PlantUML file is a visual projection for review.
+endlegend
+@enduml

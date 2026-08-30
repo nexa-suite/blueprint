@@ -1,22 +1,22 @@
 ---
-status: planned
-maturity: FROZEN
+status: accepted
+maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-24
+last-reviewed: 2026-08-29
 ---
 
 # Mobile Requirements Coverage
 
-| Epic | Name | Stories | App | Actor | Relevant Bounded Contexts | Research status | Canonical file |
-|---|---|---|---|---|---|---|---|
-| MOBILE-EPIC-01 | Access & Context | MOB-US-001..003 | Operations Mobile; Buyer Mobile | Mobile User | BC-01 — Tenant & Access Governance | PROPOSED / RESEARCH VALIDATION PENDING | [Epic](epics/MOBILE-EPIC-01-access-context.md) |
-| MOBILE-EPIC-02 | BOM & Sales | MOB-US-004..010 | Operations Mobile | Business Operations Manager; Sales Representative | BC-02; BC-03; BC-04; BC-05; BC-07; BC-11 | PROPOSED / RESEARCH VALIDATION PENDING | [Epic](epics/MOBILE-EPIC-02-bom-sales.md) |
-| MOBILE-EPIC-03 | Warehouse Mobile Operations | MOB-US-011..019 | Operations Mobile | Warehouse Operator | BC-03; BC-05; BC-06; BC-11 | PROPOSED / RESEARCH VALIDATION PENDING | [Epic](epics/MOBILE-EPIC-03-warehouse-mobile-operations.md) |
-| MOBILE-EPIC-04 | Dispatch Mobile | MOB-US-020..025 | Operations Mobile | Dispatch Coordinator | BC-01; BC-05; BC-06; BC-09; BC-10; BC-11 | PROPOSED / RESEARCH VALIDATION PENDING | [Epic](epics/MOBILE-EPIC-04-dispatch-mobile.md) |
-| MOBILE-EPIC-05 | Driver / Delivery Execution | MOB-US-026..035 | Operations Mobile | Driver | BC-01; BC-02; BC-06; BC-09; BC-11 | PROPOSED / RESEARCH VALIDATION PENDING | [Epic](epics/MOBILE-EPIC-05-driver-delivery-execution.md) |
-| MOBILE-EPIC-06 | Buyer Mobile Commerce | MOB-US-036..043 | Buyer Mobile | Customer Buyer | BC-02; BC-03; BC-04; BC-05; BC-07; BC-08; BC-11 | PROPOSED / RESEARCH VALIDATION PENDING | [Epic](epics/MOBILE-EPIC-06-buyer-mobile-commerce.md) |
-| MOBILE-EPIC-07 | Buyer Delivery Experience | MOB-US-044..049 | Buyer Mobile | Customer Buyer | BC-02; BC-06; BC-10; BC-11 | PROPOSED / RESEARCH VALIDATION PENDING | [Epic](epics/MOBILE-EPIC-07-buyer-delivery-experience.md) |
+| Epic | Name | Stories | App | Primary actors | V1/V2 | Canonical source |
+|---|---|---|---|---|---|---|
+| MOBILE-EPIC-01 | Identity, Context & Device Foundation | MOB-US-001..003 | Operations; Buyer | Mobile User | 3 V1 | [catalog](mobile-v1-catalog.md) |
+| MOBILE-EPIC-02 | Field Sales & Commercial Access | MOB-US-004..010 | Operations | BOM; Sales | 5 V1, 2 V2 | [catalog](mobile-v1-catalog.md) |
+| MOBILE-EPIC-03 | Warehouse Scan, Receiving & Physical Inventory Execution | MOB-US-011..019 | Operations | Warehouse | 8 V1, 1 V2 | [catalog](mobile-v1-catalog.md) |
+| MOBILE-EPIC-04 | Dispatch & Driver Delivery Execution | MOB-US-020..025 | Operations | Dispatch | 6 V1 | [catalog](mobile-v1-catalog.md) |
+| MOBILE-EPIC-05 | Buyer Delivery Handoff & Discrepancy Resolution | MOB-US-026..035 | Operations | Driver | 9 V1, 1 V2 | [catalog](mobile-v1-catalog.md) |
+| MOBILE-EPIC-06 | Buyer Commerce, Credit, Payments & Documents | MOB-US-036..043 | Buyer | Customer Buyer | 7 V1, 1 V2 | [catalog](mobile-v1-catalog.md) |
+| MOBILE-EPIC-07 | Notifications, Offline Safety & Synchronization | MOB-US-044..049 | Buyer; Operations | Mobile User; Buyer | 4 V1, 2 V2 | [catalog](mobile-v1-catalog.md) |
 
-Coverage maps proposed Mobile projections to shared Bounded Contexts. It does
-not create Mobile or Driver contexts and does not claim research validation.
+Totals: **49 retained stories; 42 V1 candidates; 7 V2/deferred**. Research,
+client implementation and Product Acceptance remain separate dimensions.

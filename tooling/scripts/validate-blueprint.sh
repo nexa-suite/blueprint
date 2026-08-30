@@ -37,6 +37,8 @@ for directory in sorted(tracked_dirs):
 
 for directory in root.rglob("*"):
     if directory.is_dir() and ".git" not in directory.parts and not any(directory.iterdir()):
+        if directory.relative_to(root).parts and directory.relative_to(root).parts[0] == ".tmp":
+            continue
         failures.append(f"empty filesystem directory: {directory.relative_to(root)}")
 
 for duplicate in (
@@ -45,7 +47,6 @@ for duplicate in (
     "01-shared/domain/bounded-contexts/canonical-canvases.md",
     "01-shared/architecture/c4/level-1-system-context.md",
     "01-shared/architecture/c4/level-2-containers.md",
-    "01-shared/architecture/c4/structurizr/workspace.json",
 ):
     if (root / duplicate).exists():
         failures.append(f"duplicate or generated canonical path remains: {duplicate}")
@@ -149,6 +150,11 @@ for rel in paths:
 c4 = root / "01-shared/architecture/c4/structurizr/generated/workspace.json"
 try:
     workspace = json.loads(c4.read_text(encoding="utf-8"))
+    manual_workspace = root / "01-shared/architecture/c4/structurizr/workspace.json"
+    if manual_workspace.exists():
+        manual = json.loads(manual_workspace.read_text(encoding="utf-8"))
+        if manual != workspace:
+            failures.append("manual C4 workspace mirror differs from generated canonical representation")
     views = workspace["views"]
     actual_views = sorted(
         [v["key"] for v in views.get("systemContextViews", [])]
@@ -274,6 +280,22 @@ def validate_story_blocks(label, text, prefix, mobile=False):
         if re.search(r"^As a Authorized\b", block, re.MULTILINE):
             failures.append(f"{label} {story_id} has invalid grammatical prefix: As a Authorized")
 
+        if mobile:
+            acceptance = re.search(
+                r"^### Acceptance Criteria\s*\n(?P<criteria>.*?)(?=^## MOB-US-|\Z)",
+                block,
+                re.MULTILINE | re.DOTALL,
+            )
+            criteria_count = (
+                len(re.findall(r"^- ", acceptance.group("criteria"), re.MULTILINE))
+                if acceptance
+                else 0
+            )
+            if not acceptance or criteria_count < 4:
+                failures.append(
+                    f"Mobile {story_id} requires four acceptance criteria"
+                )
+
         surface_match = re.search(r"^\| Surface \|\s*(.*?)\s*\|$", block, re.MULTILINE)
         actor_match = re.search(r"^\| Actor \|\s*(.*?)\s*\|$", block, re.MULTILINE)
         if surface_match and actor_match:
@@ -292,7 +314,7 @@ def validate_story_blocks(label, text, prefix, mobile=False):
             failures.append(f"Mobile story lacks proposed research status: {story_id}")
 
 validate_story_blocks("Web", web_requirements, "WEB")
-validate_story_blocks("Mobile", mobile_requirements, "MOB", mobile=True)
+validate_story_blocks("Mobile", mobile_requirements, "MOB-US", mobile=True)
 
 for story_match in re.finditer(
     r"^## (MOB-US-\d{3}) — .*?(?=^## MOB-US-|\Z)",
@@ -374,3 +396,5 @@ docker run --rm \
 python3 tooling/scripts/compare-structurizr-semantic.py \
   "$GENERATED_DIR/workspace.json" \
   "$ROOT/01-shared/architecture/c4/structurizr/generated/workspace.json"
+
+bash tooling/scripts/validate-tactical-data-model.sh
