@@ -30,6 +30,11 @@ does not make provider tokens or devices business authority. Delivery retry,
 claim fencing, invalid-token disablement and dead-letter handling remain
 application/technical reliability behavior.
 
+Compatibility caveat: the API v0.17.0 AS-IS migration currently constrains its
+push surface values to `PLATFORM` and `PORTAL`. The target projection names
+`OPERATIONS_MOBILE` and `BUYER_MOBILE` are Product-facing design values; their
+API/client mapping remains PARTIAL / OPEN until Mobile client construction.
+
 Event IDs and recipient identity keys are stable references. Delivery failure
 does not rewrite the source event. AS-IS anchors: `notifications.inbox_item`
 and `tenant_management.notification_preference`.

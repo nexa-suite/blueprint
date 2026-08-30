@@ -34,6 +34,10 @@ tag targets unless a local branch is explicitly named.
   tracking/ETA/geofencing, advanced receiving/transfers/GS1, RFID/Bluetooth/
   printers/IoT, rich chat/campaigns, full disputes/returns/RMA and production
   provider/credential/SLO/RPO/RTO evidence.
+- API V94's verified `push_subscription.surface` constraint is currently
+  `PLATFORM`/`PORTAL`; mapping that backend foundation to the OWNER-ACCEPTED
+  Operations Mobile and Buyer Mobile projections is therefore PARTIAL / OPEN,
+  not proof of native Mobile push compatibility.
 - The release note reports the API verification command and 482-test result;
   this Blueprint records it as release evidence and will not re-run it from the
   Blueprint repository.
