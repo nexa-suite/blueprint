@@ -29,7 +29,7 @@ stories and remain outside the Mobile Epic count.
 - **Purpose / Outcome:** Let a person return to Nexa, select the intended context and use only work permitted by the active role.
 - **Actors:** Mobile User
 - **Apps:** Operations Mobile; Buyer Mobile
-- **Capabilities:** CAP-01 Tenant, workspace and access governance; CAP-02 Role and capability authorization
+- **Capabilities:** CAP-02 Workforce access and governance
 - **Bounded Contexts:** BC-01 Tenant & Access Governance; BC-02 Customer & Buyer Relationships
 - **Business Goal / Impact:** Safe, scoped access before operational or Buyer work.
 - **V1 Stories:** MOB-US-001, MOB-US-002, MOB-US-003
@@ -97,7 +97,7 @@ stories and remain outside the Mobile Epic count.
 - **Purpose / Outcome:** Help the Buyer notice a critical Delivery change, verify the handoff, confirm actual quantities and report a discrepancy without erasing facts.
 - **Actors:** Customer Buyer
 - **Apps:** Buyer Mobile
-- **Capabilities:** CAP-09 Fulfillment, dispatch and delivery; CAP-14 Critical business notifications; CAP-15 Business traceability
+- **Capabilities:** CAP-09 Fulfillment, dispatch and delivery; CAP-14 Notifications; CAP-15 Business traceability
 - **Bounded Contexts:** BC-02 Customer & Buyer Relationships; BC-06 Fulfillment & Delivery; BC-10 Notifications; BC-11 Business Traceability
 - **Business Goal / Impact:** Give the Buyer a narrow, truthful delivery handoff and receipt path.
 - **V1 Stories:** MOB-US-044, MOB-US-047, MOB-US-048, MOB-US-049

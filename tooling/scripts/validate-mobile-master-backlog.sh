@@ -15,6 +15,7 @@ import sys
 root = Path(os.environ["ROOT_DIR"])
 catalog_path = root / "03-mobile/requirements/mobile-v1-catalog.md"
 master_path = root / "03-mobile/requirements/master-mobile-backlog.md"
+capability_path = root / "01-shared/product/capability-map.md"
 epic_path = root / "03-mobile/requirements/epics/README.md"
 roadmap_path = root / "03-mobile/requirements/release-roadmap.md"
 sprint_path = root / "03-mobile/requirements/sprint-plan.md"
@@ -32,22 +33,18 @@ v1_ids = {
     "MOB-US-034", "MOB-US-044", "MOB-US-047", "MOB-US-048",
     "MOB-US-049",
 }
-all_ids = {f"MOB-US-{i:03d}" for i in range(1, 74)}
-v2_ids = {
-    f"MOB-US-{i:03d}" for i in (
-        4, 5, 6, 7, 8, 9, 10, 18, 30, 35, 36, 37, 38, 39, 40, 41,
-        42, 43, 46, 50, 51, 52, 53, 57, 58, 61, 62, 63, 64, 65, 67,
-        68, 69, 70, 71,
-    )
-}
-v3_ids = {
-    f"MOB-US-{i:03d}" for i in (29, 45, 54, 55, 56, 59, 60, 66, 72)
-}
-v4_ids = {"MOB-US-073"}
-release_ids = {"V1": v1_ids, "V2": v2_ids, "V3": v3_ids, "V4_FUTURE": v4_ids}
+historical_ids = {f"MOB-US-{i:03d}" for i in range(1, 50)}
+release_values = {"V1", "V2", "V3", "V4_FUTURE"}
+all_ids: set[str] = set()
+release_ids: dict[str, set[str]] = {release: set() for release in release_values}
 
 accepted_bc_ids = {f"BC-{i:02d}" for i in range(1, 12)}
 accepted_cap_ids = {f"CAP-{i:02d}" for i in range(1, 17)}
+capability_map = {}
+for line in capability_path.read_text(encoding="utf-8").splitlines():
+    match = re.match(r"^\| (CAP-\d{2}) \| (.*?) \|", line)
+    if match:
+        capability_map[match.group(1)] = match.group(2).strip()
 status_values = {
     "PLANNED", "READY", "IN_PROGRESS", "IMPLEMENTED", "VERIFIED",
     "PRODUCT_ACCEPTED", "DEFERRED", "SUPERSEDED", "RETIRED",
@@ -81,8 +78,30 @@ catalog_ids = [match.group(1) for match in catalog_matches]
 catalog_blocks = {match.group(1): match.group(0) for match in catalog_matches}
 if len(catalog_ids) != len(set(catalog_ids)):
     failures.append("canonical catalog contains duplicate story headings")
-if set(catalog_ids) != all_ids:
-    failures.append(f"canonical catalog must contain exactly MOB-US-001..073; found {len(catalog_ids)}")
+all_ids = set(catalog_ids)
+catalog_numbers = sorted(int(story_id[-3:]) for story_id in catalog_ids)
+if not catalog_numbers or catalog_numbers[0] != 1 or catalog_numbers != list(range(1, catalog_numbers[-1] + 1)):
+    failures.append("canonical catalog story IDs must start at MOB-US-001 and remain contiguous")
+if not historical_ids <= all_ids:
+    failures.append("canonical catalog must retain historical MOB-US-001..049")
+
+master = master_path.read_text(encoding="utf-8")
+master_rows = []
+for line in master.splitlines():
+    if re.match(r"^\| MOB-US-\d{3} \|", line):
+        master_rows.append([cell.strip() for cell in line.strip("|").split("|")])
+master_by_id = {row[0]: row for row in master_rows if row}
+master_target_by_id = {row[0]: row[4] for row in master_rows if len(row) > 4}
+release_ids = {
+    release: {story_id for story_id, target in master_target_by_id.items() if target == release}
+    for release in release_values
+}
+v2_ids = release_ids["V2"]
+v3_ids = release_ids["V3"]
+if len(master_rows) != len(master_by_id) or set(master_by_id) != all_ids:
+    failures.append(f"master lifecycle table must match canonical catalog IDs exactly; found {len(master_rows)}")
+if release_ids["V1"] != v1_ids:
+    failures.append("V1 must remain the exact frozen 28-story set")
 
 for story_id, block in catalog_blocks.items():
     required = (
@@ -123,9 +142,14 @@ for story_id, block in catalog_blocks.items():
     owning_bc = re.search(r"\bBC-\d{2}\b", field(block, "Owning Bounded Context"))
     if not owning_bc or owning_bc.group(0) not in accepted_bc_ids:
         failures.append(f"{story_id} maps to a non-canonical owning BC")
-    capability_ids = set(re.findall(r"\bCAP-\d{2}\b", field(block, "Shared Capability")))
+    capability_value = field(block, "Shared Capability")
+    capability_pairs = re.findall(r"(CAP-\d{2})\s+—\s+([^;|]+)", capability_value)
+    capability_ids = {capability_id for capability_id, _ in capability_pairs}
     if not capability_ids or not capability_ids <= accepted_cap_ids:
         failures.append(f"{story_id} maps to a non-canonical capability")
+    for capability_id, capability_name in capability_pairs:
+        if capability_name.strip() != capability_map.get(capability_id):
+            failures.append(f"{story_id} capability name diverges from canonical map: {capability_id}")
 
     acceptance = re.search(
         r"^### Acceptance Criteria\s*\n(?P<body>.*?)(?=^## MOB-US-|^### Outcome Conditions|\Z)",
@@ -139,12 +163,7 @@ for story_id, block in catalog_blocks.items():
         re.MULTILINE | re.DOTALL,
     )
     outcome_conditions = re.findall(r"^- .+?$", condition_match.group("body"), re.MULTILINE) if condition_match else []
-    target = (
-        "V1" if story_id in v1_ids else
-        "V2" if story_id in v2_ids else
-        "V3" if story_id in v3_ids else
-        "V4_FUTURE"
-    )
+    target = master_target_by_id.get(story_id, "")
     limits = {"V1": (3, 6), "V2": (2, 4), "V3": (1, 3)}
     if target in limits:
         low, high = limits[target]
@@ -153,21 +172,15 @@ for story_id, block in catalog_blocks.items():
         for scenario in scenarios:
             if not all(re.search(rf"\b{word}\b", scenario, re.IGNORECASE) for word in ("Given", "when", "then")):
                 failures.append(f"{story_id} has a non-Gherkin scenario")
-    elif not outcome_conditions:
+    elif target == "V4_FUTURE" and not outcome_conditions:
         failures.append(f"{story_id} V4/Future requires high-level Outcome Conditions")
-    if story_id == "MOB-US-073" and field(block, "Status") in {"READY", "IMPLEMENTED", "VERIFIED", "PRODUCT_ACCEPTED"}:
-        failures.append("MOB-US-073 cannot claim delivery readiness or implementation")
+    elif target not in release_values:
+        failures.append(f"{story_id} has no valid Target Release in master lifecycle index")
+    if target == "V4_FUTURE" and field(block, "Status") in {"READY", "IMPLEMENTED", "VERIFIED", "PRODUCT_ACCEPTED"}:
+        failures.append(f"{story_id} cannot claim V4/Future delivery readiness or implementation")
     if story_id == "MOB-US-044" and "Push Subscription" in block:
         failures.append("MOB-US-044 exposes technical Push Subscription language")
 
-master = master_path.read_text(encoding="utf-8")
-master_rows = []
-for line in master.splitlines():
-    if re.match(r"^\| MOB-US-\d{3} \|", line):
-        master_rows.append([cell.strip() for cell in line.strip("|").split("|")])
-master_by_id = {row[0]: row for row in master_rows if row}
-if len(master_rows) != len(master_by_id) or set(master_by_id) != all_ids:
-    failures.append(f"master lifecycle table must contain each of 73 IDs exactly once; found {len(master_rows)}")
 expected_headers = [
     "ID", "Title", "Actor", "Epic", "Target Release", "Priority",
     "Story Points", "Sprint Planned", "Status", "Primary BC", "Secondary BCs",
@@ -227,7 +240,7 @@ for row in master_rows:
             failures.append(f"{story_id} roadmap lifecycle is not coherent")
     else:
         if status != "PLANNED" or row[6] != "UNESTIMATED" or row[7] != "UNASSIGNED":
-            failures.append("MOB-US-073 V4/Future lifecycle is falsely ready")
+            failures.append(f"{story_id} V4/Future lifecycle is falsely ready")
     if row[16:20] != ["NOT_IMPLEMENTED", "NOT_IMPLEMENTED", "NOT_VERIFIED", "NOT_ACCEPTED"]:
         failures.append(f"{story_id} claims implementation, verification or Product Acceptance without evidence")
     if story_id in catalog_blocks:
@@ -247,8 +260,8 @@ for row in master_rows:
             failures.append(f"{story_id} capability diverges between catalog and master lifecycle index")
 
 counts = Counter(row[4] for row in master_rows if len(row) >= expected_columns)
-if counts != Counter({"V1": 28, "V2": 35, "V3": 9, "V4_FUTURE": 1}):
-    failures.append(f"release counts differ from baseline: {dict(counts)}")
+if set(counts) != release_values or sum(counts.values()) != len(all_ids):
+    failures.append(f"release distribution does not cover canonical IDs: {dict(counts)}")
 
 epic_text = epic_path.read_text(encoding="utf-8")
 epic_map: dict[str, set[str]] = {}
@@ -305,13 +318,13 @@ for sprint_name, points in (("S1", 37), ("S2", 46), ("S3", 16)):
 reconciliation = reconciliation_path.read_text(encoding="utf-8")
 historical_matrix = reconciliation.split("## New independent story inventory", 1)[0]
 historical_rows = [line for line in historical_matrix.splitlines() if re.match(r"^\| MOB-US-\d{3} \|", line)]
-historical_ids = [re.match(r"^\| (MOB-US-\d{3}) \|", line).group(1) for line in historical_rows]
-if set(historical_ids) != {f"MOB-US-{i:03d}" for i in range(1, 50)} or len(historical_ids) != 49:
+historical_matrix_ids = [re.match(r"^\| (MOB-US-\d{3}) \|", line).group(1) for line in historical_rows]
+if set(historical_matrix_ids) != historical_ids or len(historical_matrix_ids) != len(historical_ids):
     failures.append("reconciliation must cover historical MOB-US-001..049 exactly once")
 new_section = reconciliation.split("## New independent story inventory", 1)[1] if "## New independent story inventory" in reconciliation else ""
 new_ids = [match.group(1) for match in re.finditer(r"^\| (MOB-US-\d{3}) \|", new_section, re.MULTILINE)]
-if set(new_ids) != {f"MOB-US-{i:03d}" for i in range(50, 74)} or len(new_ids) != 24:
-    failures.append("reconciliation must explain every new MOB-US-050..073 exactly once")
+if set(new_ids) != all_ids - historical_ids or len(new_ids) != len(all_ids - historical_ids):
+    failures.append("reconciliation must explain every non-historical canonical story exactly once")
 
 if readiness_path.is_file():
     readiness_ids = set(re.findall(r"^\|\s*(MOB-US-\d{3})\s*\|", readiness_path.read_text(encoding="utf-8"), re.MULTILINE))
@@ -336,7 +349,9 @@ if failures:
     sys.exit(1)
 
 print("MOBILE MASTER BACKLOG VALIDATION: PASS")
-print("- canonical functional stories: 73 (49 historical + 24 independent)")
-print("- release distribution: V1 28 / V2 35 / V3 9 / V4_FUTURE 1")
+new_count = len(all_ids - historical_ids)
+counts_text = ", ".join(f"{release} {counts.get(release, 0)}" for release in ("V1", "V2", "V3", "V4_FUTURE"))
+print(f"- canonical functional stories: {len(all_ids)} ({len(all_ids & historical_ids)} historical + {new_count} independent)")
+print(f"- release distribution: {counts_text}")
 print("- Epic membership, lifecycle fields, AC maturity, reconciliation and publication boundary: PASS")
 PY

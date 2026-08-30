@@ -80,7 +80,7 @@ invented.
 - **Title:** Continue authorized work safely after returning to Nexa
 - **Owning Bounded Context:** BC-01 — Tenant & Access Governance
 - **Secondary Bounded Contexts:** BC-01 — Tenant & Access Governance
-- **Shared Capability:** CAP-01 — Tenant, workspace and access governance
+- **Shared Capability:** CAP-02 — Workforce access and governance
 - **Business Goal / Impact:** I can resume my work without exposing protected information.
 - **Research status:** PROPOSED / RESEARCH VALIDATION PENDING
 - **Scope:** V1 candidate; Product Acceptance pending
@@ -112,7 +112,7 @@ invented.
 - **Title:** Work in the intended company and business context
 - **Owning Bounded Context:** BC-01 — Tenant & Access Governance
 - **Secondary Bounded Contexts:** BC-01 — Tenant & Access Governance
-- **Shared Capability:** CAP-01 — Tenant, workspace and access governance
+- **Shared Capability:** CAP-02 — Workforce access and governance
 - **Business Goal / Impact:** every task concerns the company and relationship I mean to serve.
 - **Research status:** PROPOSED / RESEARCH VALIDATION PENDING
 - **Scope:** V1 candidate; Product Acceptance pending
@@ -144,7 +144,7 @@ invented.
 - **Title:** See only work permitted for the person's role
 - **Owning Bounded Context:** BC-01 — Tenant & Access Governance
 - **Secondary Bounded Contexts:** BC-01 — Tenant & Access Governance
-- **Shared Capability:** CAP-02 — Role and capability authorization
+- **Shared Capability:** CAP-02 — Workforce access and governance
 - **Business Goal / Impact:** I do not attempt work that my role or relationship does not allow.
 - **Research status:** PROPOSED / RESEARCH VALIDATION PENDING
 - **Scope:** V1 candidate; Product Acceptance pending
@@ -848,7 +848,7 @@ invented.
 - **Title:** Know when a delivery needs attention
 - **Owning Bounded Context:** BC-10 — Notifications
 - **Secondary Bounded Contexts:** BC-06 — Fulfillment & Delivery; BC-02 — Customer & Buyer Relationships
-- **Shared Capability:** CAP-14 — Critical business notifications
+- **Shared Capability:** CAP-14 — Notifications
 - **Business Goal / Impact:** I can respond to a relevant delivery change in time.
 - **Research status:** PROPOSED / RESEARCH VALIDATION PENDING
 - **Scope:** V1 candidate; Product Acceptance pending

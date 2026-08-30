@@ -15,8 +15,8 @@ client implementation remain pending. The release projection is 28 V1, 35 V2,
 
 | App | V1 capability projection | Explicit boundary |
 |---|---|---|
-| Operations Mobile | CAP-01/02/07/08/09/10/15; warehouse, dispatch and Driver execution | API owns business truth; safe cache/draft/evidence staging only; no Mobile/Scanner/QR/Device BC |
-| Buyer Mobile | CAP-01/02/09/14/15; critical Delivery update, handoff, receipt and discrepancy | Buyer Relationship/API owns authority; no offline receipt or commitment confirmation |
+| Operations Mobile | CAP-02/07/08/09/10/15; warehouse, dispatch and Driver execution | API owns business truth; safe cache/draft/evidence staging only; no Mobile/Scanner/QR/Device BC |
+| Buyer Mobile | CAP-02/09/14/15; critical Delivery update, handoff, receipt and discrepancy | Buyer Relationship/API owns authority; no offline receipt or commitment confirmation |
 
 API v0.17.0 supports selected identifier, FEFO, handoff, receipt/discrepancy
 and critical-update foundations. Advanced analytics, continuous tracking,

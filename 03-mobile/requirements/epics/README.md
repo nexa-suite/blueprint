@@ -15,7 +15,7 @@ Bounded Context or deployment unit.
 
 | Epic ID | Title | Primary Actors | Product Outcome | Primary Capabilities | Primary BCs | Target Releases | Story IDs | Status |
 |---|---|---|---|---|---|---|---|---|
-| MOBILE-EPIC-01 | Safe Access & Work Context | Mobile User | Return to the right permitted work in the right company context. | CAP-01, CAP-02 | BC-01, BC-02 | V1 | MOB-US-001, MOB-US-002, MOB-US-003 | BASELINED |
+| MOBILE-EPIC-01 | Safe Access & Work Context | Mobile User | Return to the right permitted work in the right company context. | CAP-02 | BC-01, BC-02 | V1 | MOB-US-001, MOB-US-002, MOB-US-003 | BASELINED |
 | MOBILE-EPIC-02 | Warehouse Receiving, Identification & Picking | Warehouse Operator | Receive, identify and pick stock with safe lot and condition facts. | CAP-07, CAP-08, CAP-10, CAP-15 | BC-03, BC-05, BC-06, BC-11 | V1 | MOB-US-011, MOB-US-012, MOB-US-013, MOB-US-014, MOB-US-015, MOB-US-016, MOB-US-017, MOB-US-019 | BASELINED |
 | MOBILE-EPIC-03 | Dispatch Preparation & Handoff | Dispatch Coordinator | Prepare and release a delivery with clear goods and responsibility evidence. | CAP-09, CAP-15 | BC-05, BC-06, BC-09, BC-11 | V1 | MOB-US-020, MOB-US-021, MOB-US-022, MOB-US-023, MOB-US-024, MOB-US-025 | BASELINED |
 | MOBILE-EPIC-04 | Driver Delivery Execution & Proof | Driver or Delivery Operator | Execute an assigned delivery and preserve outcome and proof. | CAP-09, CAP-15 | BC-01, BC-06, BC-09, BC-11 | V1 | MOB-US-026, MOB-US-027, MOB-US-028, MOB-US-031, MOB-US-032, MOB-US-033, MOB-US-034 | BASELINED |

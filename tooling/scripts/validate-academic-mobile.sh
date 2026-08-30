@@ -59,9 +59,27 @@ v1_ids = {
     "MOB-US-049",
 }
 deferred_ids = {f"MOB-US-{i:03d}" for i in range(1, 50)} - v1_ids
-all_ids = {f"MOB-US-{i:03d}" for i in range(1, 74)}
-if set(canonical) != all_ids or len(canonical) != 73:
-    failures.append(f"canonical Mobile inventory must contain exactly 73 IDs; found {len(canonical)}")
+all_ids = set(canonical)
+canonical_numbers = sorted(int(sid[-3:]) for sid in all_ids)
+historical_ids = {f"MOB-US-{i:03d}" for i in range(1, 50)}
+if (
+    not canonical_numbers
+    or canonical_numbers[0] != 1
+    or canonical_numbers != list(range(1, canonical_numbers[-1] + 1))
+    or not historical_ids <= all_ids
+):
+    failures.append(f"canonical Mobile inventory must retain contiguous historical IDs from MOB-US-001; found {len(canonical)}")
+master = (root / "03-mobile/requirements/master-mobile-backlog.md").read_text(encoding="utf-8")
+master_rows = {}
+for line in master.splitlines():
+    if re.match(r"^\| MOB-US-\d{3} \|", line):
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if cells:
+            master_rows[cells[0]] = cells
+future_ids = {
+    sid for sid, cells in master_rows.items()
+    if len(cells) > 4 and cells[4] == "V4_FUTURE"
+}
 actual_v1 = {
     sid for sid in canonical if sid in v1_ids
 }
@@ -70,20 +88,13 @@ if actual_v1 != v1_ids:
 if (set(canonical) & {f"MOB-US-{i:03d}" for i in range(1, 50)}) - actual_v1 != deferred_ids:
     failures.append("historical canonical deferred IDs do not equal the required 21-story set")
 
-epic_map = {
-    "MOBILE-EPIC-01": {"MOB-US-001", "MOB-US-002", "MOB-US-003"},
-    "MOBILE-EPIC-02": {"MOB-US-011", "MOB-US-012", "MOB-US-013", "MOB-US-014", "MOB-US-015", "MOB-US-016", "MOB-US-017", "MOB-US-019"},
-    "MOBILE-EPIC-03": {"MOB-US-020", "MOB-US-021", "MOB-US-022", "MOB-US-023", "MOB-US-024", "MOB-US-025"},
-    "MOBILE-EPIC-04": {"MOB-US-026", "MOB-US-027", "MOB-US-028", "MOB-US-031", "MOB-US-032", "MOB-US-033", "MOB-US-034"},
-    "MOBILE-EPIC-05": {"MOB-US-044", "MOB-US-047", "MOB-US-048", "MOB-US-049"},
-    "MOBILE-EPIC-06": {"MOB-US-004", "MOB-US-005", "MOB-US-006", "MOB-US-007", "MOB-US-008", "MOB-US-009", "MOB-US-010", "MOB-US-036", "MOB-US-037", "MOB-US-038", "MOB-US-039", "MOB-US-040", "MOB-US-041", "MOB-US-042", "MOB-US-043"},
-    "MOBILE-EPIC-07": {"MOB-US-018", "MOB-US-029", "MOB-US-030", "MOB-US-035", "MOB-US-045", "MOB-US-046"},
-    "MOBILE-EPIC-08": {"MOB-US-050", "MOB-US-051", "MOB-US-052", "MOB-US-053", "MOB-US-054", "MOB-US-055", "MOB-US-056"},
-    "MOBILE-EPIC-09": {"MOB-US-057", "MOB-US-058", "MOB-US-059", "MOB-US-060", "MOB-US-061", "MOB-US-062", "MOB-US-063", "MOB-US-064", "MOB-US-065", "MOB-US-066"},
-    "MOBILE-EPIC-10": {"MOB-US-067", "MOB-US-068", "MOB-US-069"},
-    "MOBILE-EPIC-11": {"MOB-US-070", "MOB-US-071", "MOB-US-072"},
-    "MOBILE-EPIC-12": {"MOB-US-073"},
-}
+epic_index = (root / "03-mobile/requirements/epics/README.md").read_text(encoding="utf-8")
+epic_map = {}
+for line in epic_index.splitlines():
+    if line.startswith("| MOBILE-EPIC-"):
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) >= 8:
+            epic_map[cells[0]] = set(re.findall(r"MOB-US-\d{3}", cells[7]))
 required_fields = [
     "ID", "Product", "App", "Surface", "User / Actor", "Epic", "Priority",
     "Title", "Owning Bounded Context", "Secondary Bounded Contexts",
@@ -120,10 +131,10 @@ for sid, block in canonical.items():
     scenarios = re.findall(r"^- Scenario: .*?(?=\n|\Z)", criteria, re.MULTILINE)
     if sid in v1_ids and len(scenarios) < 4:
         failures.append(f"{sid} requires at least four Scenario criteria")
-    if sid not in v1_ids and sid != "MOB-US-073" and not 2 <= len(scenarios) <= 4:
+    if sid not in v1_ids and sid not in future_ids and not 2 <= len(scenarios) <= 4:
         failures.append(f"{sid} requires two to four roadmap Scenario criteria")
-    if sid == "MOB-US-073" and not re.search(r"^### Outcome Conditions\s*$", block, re.MULTILINE):
-        failures.append("MOB-US-073 requires high-level Outcome Conditions")
+    if sid in future_ids and not re.search(r"^### Outcome Conditions\s*$", block, re.MULTILINE):
+        failures.append(f"{sid} requires high-level Outcome Conditions")
     for scenario in scenarios:
         if not all(re.search(rf"\b{word}\b", scenario, re.IGNORECASE) for word in ("Given", "when", "then")):
             failures.append(f"{sid} has non-Gherkin Scenario criterion: {scenario[:80]}")

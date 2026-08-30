@@ -268,11 +268,15 @@ mobile_requirements = "\n".join(
     p.read_text(encoding="utf-8") for p in (root / "03-mobile/requirements").rglob("*.md")
 )
 mobile_story_ids = re.findall(r"^## (MOB-US-\d{3}) —", mobile_requirements, re.MULTILINE)
-expected_mobile_story_ids = [f"MOB-US-{i:03d}" for i in range(1, 74)]
 if len(mobile_story_ids) != len(set(mobile_story_ids)):
     failures.append("Mobile catalog contains duplicated User Story IDs")
-if sorted(mobile_story_ids, key=lambda item: int(item[-3:])) != expected_mobile_story_ids:
-    failures.append(f"Mobile catalog is not the contiguous MOB-US-001..MOB-US-073 set: {mobile_story_ids}")
+mobile_story_numbers = sorted(int(item[-3:]) for item in mobile_story_ids)
+if (
+    not mobile_story_numbers
+    or mobile_story_numbers[0] != 1
+    or mobile_story_numbers != list(range(1, mobile_story_numbers[-1] + 1))
+):
+    failures.append(f"Mobile catalog IDs are not contiguous from MOB-US-001: {mobile_story_ids}")
 
 mobile_epic_index = (root / "03-mobile/requirements/epics/README.md").read_text(encoding="utf-8")
 mobile_epic_ids = re.findall(r"^\| (MOBILE-EPIC-\d{2}) \|", mobile_epic_index, re.MULTILINE)
@@ -300,9 +304,25 @@ mobile_v1_ids = {
     "MOB-US-034", "MOB-US-044", "MOB-US-047", "MOB-US-048",
     "MOB-US-049",
 }
-mobile_all_ids = {f"MOB-US-{i:03d}" for i in range(1, 74)}
-if set(mobile_catalog_blocks) != mobile_all_ids:
-    failures.append(f"Mobile canonical catalog must contain exactly MOB-US-001..073: found {len(mobile_catalog_blocks)}")
+mobile_all_ids = set(mobile_catalog_blocks)
+mobile_catalog_numbers = sorted(int(item[-3:]) for item in mobile_all_ids)
+if (
+    not mobile_catalog_numbers
+    or mobile_catalog_numbers[0] != 1
+    or mobile_catalog_numbers != list(range(1, mobile_catalog_numbers[-1] + 1))
+    or not {f"MOB-US-{i:03d}" for i in range(1, 50)} <= mobile_all_ids
+):
+    failures.append(f"Mobile canonical catalog must retain contiguous historical IDs from MOB-US-001: found {len(mobile_catalog_blocks)}")
+mobile_master = (root / "03-mobile/requirements/master-mobile-backlog.md").read_text(encoding="utf-8")
+mobile_master_rows = [
+    [cell.strip() for cell in line.strip("|").split("|")]
+    for line in mobile_master.splitlines()
+    if re.match(r"^\| MOB-US-\d{3} \|", line)
+]
+mobile_v4_ids = {
+    row[0] for row in mobile_master_rows
+    if len(row) > 4 and row[4] == "V4_FUTURE"
+}
 for story_id, block in mobile_catalog_blocks.items():
     status = re.search(r"^\| Status \|\s*([^|]+?)\s*\|$", block, re.MULTILINE)
     status_value = status.group(1).strip() if status else ""
@@ -310,20 +330,12 @@ for story_id, block in mobile_catalog_blocks.items():
         failures.append(f"Mobile V1 story must remain PLANNED: {story_id}")
     if story_id not in mobile_v1_ids and status_value not in {"DEFERRED", "PLANNED"}:
         failures.append(f"Mobile non-V1 story has invalid baseline status: {story_id}")
-mobile_epic_map = {
-    "MOBILE-EPIC-01": {"MOB-US-001", "MOB-US-002", "MOB-US-003"},
-    "MOBILE-EPIC-02": {"MOB-US-011", "MOB-US-012", "MOB-US-013", "MOB-US-014", "MOB-US-015", "MOB-US-016", "MOB-US-017", "MOB-US-019"},
-    "MOBILE-EPIC-03": {"MOB-US-020", "MOB-US-021", "MOB-US-022", "MOB-US-023", "MOB-US-024", "MOB-US-025"},
-    "MOBILE-EPIC-04": {"MOB-US-026", "MOB-US-027", "MOB-US-028", "MOB-US-031", "MOB-US-032", "MOB-US-033", "MOB-US-034"},
-    "MOBILE-EPIC-05": {"MOB-US-044", "MOB-US-047", "MOB-US-048", "MOB-US-049"},
-    "MOBILE-EPIC-06": {"MOB-US-004", "MOB-US-005", "MOB-US-006", "MOB-US-007", "MOB-US-008", "MOB-US-009", "MOB-US-010", "MOB-US-036", "MOB-US-037", "MOB-US-038", "MOB-US-039", "MOB-US-040", "MOB-US-041", "MOB-US-042", "MOB-US-043"},
-    "MOBILE-EPIC-07": {"MOB-US-018", "MOB-US-029", "MOB-US-030", "MOB-US-035", "MOB-US-045", "MOB-US-046"},
-    "MOBILE-EPIC-08": {"MOB-US-050", "MOB-US-051", "MOB-US-052", "MOB-US-053", "MOB-US-054", "MOB-US-055", "MOB-US-056"},
-    "MOBILE-EPIC-09": {"MOB-US-057", "MOB-US-058", "MOB-US-059", "MOB-US-060", "MOB-US-061", "MOB-US-062", "MOB-US-063", "MOB-US-064", "MOB-US-065", "MOB-US-066"},
-    "MOBILE-EPIC-10": {"MOB-US-067", "MOB-US-068", "MOB-US-069"},
-    "MOBILE-EPIC-11": {"MOB-US-070", "MOB-US-071", "MOB-US-072"},
-    "MOBILE-EPIC-12": {"MOB-US-073"},
-}
+mobile_epic_map = {}
+for line in mobile_epic_index.splitlines():
+    if line.startswith("| MOBILE-EPIC-"):
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) >= 8:
+            mobile_epic_map[cells[0]] = set(re.findall(r"MOB-US-\d{3}", cells[7]))
 for story_id, block in mobile_catalog_blocks.items():
     epic_match = re.search(r"^\| Epic \|\s*(MOBILE-EPIC-\d{2})", block, re.MULTILINE)
     epic_id = epic_match.group(1) if epic_match else ""
@@ -403,7 +415,7 @@ def validate_story_blocks(label, text, prefix, mobile=False):
             if story_id in mobile_v1_ids:
                 if not acceptance or criteria_count < 4:
                     failures.append(f"Mobile V1 story requires four acceptance criteria: {story_id}")
-            elif story_id == "MOB-US-073":
+            elif story_id in mobile_v4_ids:
                 if not re.search(r"^### Outcome Conditions\s*$", block, re.MULTILINE):
                     failures.append(f"Mobile V4/Future story requires outcome conditions: {story_id}")
             elif not acceptance or criteria_count < 2:

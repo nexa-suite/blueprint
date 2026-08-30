@@ -62,7 +62,7 @@ refinement-ready, V3 is roadmap-ready and V4/Future remains hypothesis-level.
 | Title | Continue authorized work safely after returning to Nexa |
 | Owning Bounded Context | BC-01 — Tenant & Access Governance |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance |
-| Shared Capability | CAP-01 — Tenant, workspace and access governance |
+| Shared Capability | CAP-02 — Workforce access and governance |
 | Goal / Outcome | Return to permitted work without exposing protected information after identity is checked. |
 | Research status | PENDING |
 | Connectivity and authority | Connected confirmation is required; local session material is not authority. |
@@ -94,7 +94,7 @@ so that I can resume my work without exposing protected information.
 | Title | Work in the intended company and business context |
 | Owning Bounded Context | BC-01 — Tenant & Access Governance |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships |
-| Shared Capability | CAP-01 — Tenant, workspace and access governance |
+| Shared Capability | CAP-02 — Workforce access and governance |
 | Goal / Outcome | Make the selected Tenant, Workspace or Buyer Relationship explicit before work begins. |
 | Research status | PENDING |
 | Connectivity and authority | Context confirmation is connected and fresh; previous-scope data cannot cross a switch. |
@@ -126,7 +126,7 @@ so that every task concerns the company and relationship I mean to serve.
 | Title | See only work permitted for the person's role |
 | Owning Bounded Context | BC-01 — Tenant & Access Governance |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance |
-| Shared Capability | CAP-02 — Role and capability authorization |
+| Shared Capability | CAP-02 — Workforce access and governance |
 | Goal / Outcome | Expose only work allowed by the person's active role, membership and relationship. |
 | Research status | PENDING |
 | Connectivity and authority | Permission information is advisory until Nexa confirms the action. |
@@ -222,7 +222,7 @@ so that I can address blocked work before it delays a customer or delivery.
 | Title | Find a customer and buyer relationship |
 | Owning Bounded Context | BC-02 — Customer & Buyer Relationships |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-02 — Customer & Buyer Relationships |
-| Shared Capability | CAP-03 — Customer accounts and Buyer relationships |
+| Shared Capability | CAP-03 — Customer accounts and buyer relationships |
 | Goal / Outcome | Open the correct permitted customer relationship for future commercial work. |
 | Research status | PENDING |
 | Connectivity and authority | Deferred; customer data remains governed by relationship and Tenant scope. |
@@ -1499,7 +1499,7 @@ so that I can follow a payment without claiming confirmation myself.
 | Title | Know when a delivery needs attention |
 | Owning Bounded Context | BC-10 — Notifications |
 | Relevant Bounded Contexts | BC-06 — Fulfillment & Delivery; BC-02 — Customer & Buyer Relationships |
-| Shared Capability | CAP-14 — Critical business notifications |
+| Shared Capability | CAP-14 — Notifications |
 | Goal / Outcome | Help the buyer notice a relevant Delivery change without changing Delivery truth. |
 | Research status | PENDING |
 | Connectivity and authority | Critical updates are provider-neutral; the buyer can refresh the Delivery facts. |
@@ -2544,7 +2544,7 @@ so that the supplier can review the reported difference with its context.
 | Title | Work with a customer through an authorized field visit |
 | Owning Bounded Context | BC-02 — Customer & Buyer Relationships |
 | Relevant Bounded Contexts | BC-06 — Fulfillment & Delivery |
-| Shared Capability | CAP-03 — Customer accounts and Buyer relationships |
+| Shared Capability | CAP-03 — Customer accounts and buyer relationships |
 | Goal / Outcome | Prepare and record an authorized customer visit with the relationship context and permitted follow-up visible. |
 | Research status | PENDING |
 | Connectivity and authority | Contact, location and navigation are mechanisms within an authorized relationship; no continuous location history is implied. |
