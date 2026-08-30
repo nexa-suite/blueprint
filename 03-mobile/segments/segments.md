@@ -9,5 +9,6 @@ last-reviewed: 2026-08-23
 # Mobile segments
 
 Product direction: **OWNER-ACCEPTED for planning**. Segment research remains
-**PROPOSED / RESEARCH VALIDATION PENDING**; no participant evidence is claimed.
+**PENDING**; no participant evidence is claimed. Release coverage is indexed
+in the Mobile master backlog.
 See [Mobile actors](../actors/README.md) and [segments](proposed-segments.md).

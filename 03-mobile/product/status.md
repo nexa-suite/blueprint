@@ -11,8 +11,8 @@ last-reviewed: 2026-08-29
 | Dimension | Status | Evidence / meaning |
 |---|---|---|
 | Product direction | OWNER-ACCEPTED | Two-app projection is accepted for planning; it does not claim research or implementation. |
-| Product research | PROPOSED / RESEARCH VALIDATION PENDING | No participant-backed Mobile need, persona or journey is promoted here. |
-| Requirements | BASELINED | 49 retained IDs; 28 V1 candidates; 21 V2/deferred; complete catalog AC is still pending Product Acceptance. |
+| Product research | PENDING | No participant-backed Mobile need, persona or journey is promoted here. |
+| Requirements | BASELINED | 73 functional IDs: 28 V1, 35 V2, 9 V3 and 1 V4/Future; complete story acceptance and Product Acceptance remain open. |
 | Backend support | PARTIAL | API v0.17.0 provides selected contracts; exclusions and operational gaps remain explicit. |
 | Mobile client | NOT STARTED | Mobile repository v0.1.1 is documentation-only; no framework/client build exists. |
 | Design | PROPOSED / research pending | Design Lab is executable Design System evidence, not Mobile client proof. |

@@ -10,5 +10,6 @@ last-reviewed: 2026-08-29
 
 The historical name was Field Sales & Commercial Access. The current canonical
 Epic is [Commercial & Operational Mobile Convenience](../mobile-v1-catalog.md)
-and its historical IDs MOB-US-004..010 remain V2/deferred. The migration
-evidence is in [the reconciliation matrix](../reconciliation.md).
+and its historical IDs MOB-US-004..010 remain in V2. New commercial,
+financial and field-visit outcomes are indexed in the Master Mobile Product
+Backlog. The migration evidence is in [the reconciliation matrix](../reconciliation.md).

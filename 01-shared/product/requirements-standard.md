@@ -34,18 +34,20 @@ Functional catalog status for this wave:
 | Category | Count | Status |
 |---|---:|---|
 | Web functional User Stories | 133 | CONFIRMED / V1 |
-| Mobile functional User Stories | 49 | 28 V1 candidates; 21 V2/deferred; PROPOSED / RESEARCH VALIDATION PENDING |
+| Mobile functional User Stories | 73 | 28 V1; 35 V2; 9 V3; 1 V4/Future; lifecycle and research tracked separately |
 | Technical Stories | 20 | SHARED / DELIVERY |
 | Spike Stories | 6 | RESEARCH / ENABLER |
-| Total requirement items | 208 | BASELINED CATALOG; acceptance gates open |
+| Total requirement items | 232 | BASELINED CATALOG; acceptance gates open |
 
 The catalog records identity, target product scope and story-level AC. The
-academic projection at
+Mobile master backlog at
+`03-mobile/requirements/master-mobile-backlog.md` owns release and lifecycle
+fields for all 73 functional stories. The academic projection at
 `90-academic/mobile/course-1acc0238/requirements-projection.md` adds the
-course-only join fields for Product Backlog ordering, Story Points, Sprints,
-milestones and evidence. Those fields are projections, not Product Acceptance
-or implementation claims. Personas, interviews, statistics, Mobile validation
-and client implementation remain separate dimensions.
+course-only join fields for the 28-row Product Backlog ordering, Story Points,
+Sprints, milestones and evidence. Those fields are projections, not Product
+Acceptance or implementation claims. Personas, interviews, statistics, Mobile
+validation and client implementation remain separate dimensions.
 
 ## Required functional story fields
 
@@ -57,7 +59,9 @@ current refinement status.
 
 The Mobile catalog additionally records App, shared capability, secondary BCs,
 research status, offline/idempotency expectation, authorization, device/evidence
-implication, dependencies and V1/V2 classification.
+implication, dependencies and release classification. The master backlog also
+records Backend Support, Client Status, Sprint Planned, Sprint Implemented,
+Implemented In, Verified In and Product Accepted In using controlled values.
 
 Use the wording:
 

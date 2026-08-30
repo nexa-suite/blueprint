@@ -1,7 +1,7 @@
 # Nexa Operations Mobile
 
-Product direction: `OWNER-ACCEPTED`. Research: `PROPOSED / RESEARCH VALIDATION
-PENDING`. Client: `NOT STARTED`. Backend: `PARTIAL`, with selected contracts in
+Product direction: `OWNER-ACCEPTED`. Research: `PENDING`. Client:
+`NOT_STARTED`. Backend: `PARTIAL`, with selected contracts in
 API v0.17.0.
 
 ## Projection
@@ -10,8 +10,8 @@ Warehouse Operator receives product identification, lot/receiving, FEFO,
 picking, discrepancy and temperature evidence work. Dispatch Coordinator
 receives readiness, assignment, outgoing verification, handoff and dispatch
 work. Driver / Delivery Operator receives assigned Delivery, Attempt, external
-navigation, outcome, POD and bounded handoff-code work. Field Sales work is
-deferred from Mobile V1.
+navigation, outcome, POD and bounded handoff-code work. V2/V3 adds explicit
+recovery and coordination outcomes; Field Sales work remains outside V1.
 
 ## Boundary
 

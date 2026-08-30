@@ -22,3 +22,20 @@ is fabricated by API v0.17.0 and no framework is selected here.
 
 Spike completion requires evidence, owner decision and links to the affected
 story/technical contract. A spike cannot create a Bounded Context.
+
+## Master backlog linkage
+
+The six existing Spikes remain sufficient for the expanded runway:
+
+- SPIKE-002 covers the unresolved client strategy for all future stories; no
+  Android, Flutter, Kotlin Multiplatform or SwiftUI choice is implied.
+- SPIKE-003 covers the identity mechanisms used by MOB-US-011, 012, 034, 047
+  and 055; no Scanner or hardware Bounded Context is created.
+- SPIKE-004 covers safe local staging and conflict handling for MOB-US-035 and
+  066; offline state never becomes authoritative truth.
+- SPIKE-005 covers MOB-US-044, 061, 062, 067 and 068 notification delivery,
+  deep links and consent lifecycle.
+- SPIKE-006 covers MOB-US-029, 045, 059, 060, 072 and 073 where provider,
+  location, carrier or automation decisions remain open.
+- SPIKE-001 remains the separate autonomous-learning investigation and does
+  not create a Mobile story or Product capability.

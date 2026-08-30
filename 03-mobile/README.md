@@ -1,16 +1,16 @@
 # Mobile
 
 Mobile has two product projections: **Nexa Operations Mobile** and **Nexa Buyer
-Mobile**. Product direction is `OWNER-ACCEPTED`; research remains
-`PROPOSED / RESEARCH VALIDATION PENDING`; the client is `NOT STARTED`; API
-support is `PARTIAL` and is evidenced by [the live compatibility baseline](../04-delivery/compatibility-baseline-2026-08-29.md).
+Mobile**. Product direction is `OWNER-ACCEPTED`; research is `PENDING`; the
+client is `NOT_STARTED`; API support is `PARTIAL` and is evidenced by [the live
+compatibility baseline](../04-delivery/compatibility-baseline-2026-08-29.md).
 
 - [Product](product/README.md)
 - [Status](product/status.md)
 - [Actors](actors/README.md) — projection of the [shared actor catalog](../01-shared/product/actors.md)
 - [Segments](segments/README.md)
 - [Capabilities](capabilities/README.md)
-- [Requirements](requirements/README.md) — 7 Epics, 49 retained stories, 28 V1 candidates and 21 V2/deferred
+- [Requirements](requirements/README.md) — master backlog of 73 stories: 28 V1, 35 V2, 9 V3 and 1 V4/Future
 - [UX and discovery](ux/README.md)
 - [Architecture](architecture/README.md)
 

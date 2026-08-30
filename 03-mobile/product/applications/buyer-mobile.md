@@ -1,7 +1,7 @@
 # Nexa Buyer Mobile
 
-Product direction: `OWNER-ACCEPTED`. Research: `PROPOSED / RESEARCH VALIDATION
-PENDING`. Client: `NOT STARTED`. Backend: `PARTIAL`, with selected contracts in
+Product direction: `OWNER-ACCEPTED`. Research: `PENDING`. Client:
+`NOT_STARTED`. Backend: `PARTIAL`, with selected contracts in
 API v0.17.0.
 
 ## Projection

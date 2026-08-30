@@ -14,7 +14,7 @@ domain, surface projections and delivery evidence.
 - **DDD**: [01-shared/domain](../01-shared/domain/README.md).
 - **C4**: [01-shared/architecture/c4](../01-shared/architecture/c4/README.md).
 - **Design**: [01-shared/design](../01-shared/design/README.md), sourced from [Design Lab](https://github.com/nexa-suite/design-lab).
-- **Requirements**: [Web](../02-web/requirements/README.md) with 15 Epics / 133 confirmed stories; [Mobile](../03-mobile/requirements/README.md) with 7 outcome-based Epics / 49 retained stories (28 V1, 21 V2+/deferred); [shared delivery](../01-shared/product/requirements/README.md) with 20 Technical Stories / 6 Spikes.
+- **Requirements**: [Web](../02-web/requirements/README.md) with 15 Epics / 133 confirmed stories; [Mobile](../03-mobile/requirements/README.md) with 12 outcome-based Epics / 73-story master backlog (28 V1, 35 V2, 9 V3, 1 V4/Future); [shared delivery](../01-shared/product/requirements/README.md) with 20 Technical Stories / 6 Spikes.
 - **Actors and capabilities**: [Shared actors](../01-shared/product/actors.md), [Shared capability model](../01-shared/product/capability-map.md), [role matrix](../01-shared/product/role-capability-matrix.md) and [surface matrix](../01-shared/product/surface-role-matrix.md).
 - **Academic evidence**: [90-academic](../90-academic/README.md); historical source in [91-reference](../91-reference/README.md).
 

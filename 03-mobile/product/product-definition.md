@@ -27,7 +27,10 @@ reuses the shared Product language and eleven accepted Bounded Contexts.
 Identity/context foundation, product identification, receiving/lot/FEFO/pick,
 dispatch/handoff, Driver attempts/proof, and narrow Buyer
 handoff/receipt/discrepancy/critical-update work are represented in the
-28-story V1 catalog. The remaining 21 historical stories stay deferred.
+28-story V1 catalog. The remaining historical stories are distributed across
+V2, V3 and V4/Future in the [Master Mobile Product
+Backlog](../requirements/master-mobile-backlog.md); future projections do not
+expand the academic course scope.
 
 The API v0.17.0 backend is a partial contract baseline, not a completed Mobile
 client. Research must still validate actors, workflows, app boundary, mobile

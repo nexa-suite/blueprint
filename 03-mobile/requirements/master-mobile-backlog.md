@@ -1,0 +1,138 @@
+---
+status: accepted
+maturity: BASELINED
+scope: runway
+owner: product
+last-reviewed: 2026-08-30
+---
+
+# Master Mobile Product Backlog
+
+**Canonical lifecycle projection — story bodies live in
+[mobile-v1-catalog.md](mobile-v1-catalog.md).** This registry owns the
+release, priority, delivery and acceptance dimensions for every Mobile
+functional story. It intentionally does not clone user stories or acceptance
+criteria.
+
+## Release baseline
+
+| Target release | Stories | Status posture | Readiness |
+|---|---:|---|---|
+| V1 | 28 | PLANNED | Implementation-ready after Product, research and design gates |
+| V2 | 35 | DEFERRED | Refinement-ready; discovery and contract closure required |
+| V3 | 9 | DEFERRED | Roadmap-ready; outcomes and evidence need further shaping |
+| V4_FUTURE | 1 | PLANNED | Hypothesis only; no delivery commitment |
+| **Total** | **73** |  |  |
+
+V1 is frozen to the accepted 28-story scope. V2, V3 and V4/Future are
+forward-looking product projections, not implementation claims. The academic
+projection remains a V1/course projection and is intentionally not expanded
+with future releases.
+
+## Lifecycle semantics
+
+`Status` describes product lifecycle. `Backend Support`, `Client Status` and
+`Research Status` are independent evidence dimensions. `Sprint Planned` is a
+planning projection; `Sprint Implemented`, `Implemented In`, `Verified In` and
+`Product Accepted In` remain explicit null states until evidence exists.
+
+| Dimension | Controlled values |
+|---|---|
+| Status | PLANNED, READY, IN_PROGRESS, IMPLEMENTED, VERIFIED, PRODUCT_ACCEPTED, DEFERRED, SUPERSEDED, RETIRED |
+| Backend Support | SUPPORTED, PARTIAL, OPEN, NOT_REQUIRED |
+| Client Status | NOT_STARTED, IN_PROGRESS, IMPLEMENTED, VERIFIED |
+| Research Status | NOT_REQUIRED, PENDING, RESEARCHING, VALIDATED |
+| Null state | NOT_IMPLEMENTED, NOT_VERIFIED, NOT_ACCEPTED, UNASSIGNED |
+
+No story in this registry is `IMPLEMENTED`, `VERIFIED` or
+`PRODUCT_ACCEPTED`. `DEFERRED` means the outcome remains in the canonical
+backlog but is not a current delivery commitment.
+
+## Complete functional story inventory
+
+The catalog is the authoritative body for each ID below. This table is the
+single lifecycle index used by release and sprint projections.
+
+| ID | Title | Actor | Epic | Target Release | Priority | Story Points | Sprint Planned | Status | Primary BC | Secondary BCs | Capability | Backend Support | Research Status | Client Status | Introduced In | Sprint Implemented | Implemented In | Verified In | Product Accepted In |
+|---|---|---|---|---|---|---:|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| MOB-US-001 | Continue authorized work safely after returning to Nexa | Mobile User | MOBILE-EPIC-01 | V1 | P1 | 2 | S1 | PLANNED | BC-01 | BC-01 | CAP-01 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-002 | Work in the intended company and business context | Mobile User | MOBILE-EPIC-01 | V1 | P1 | 3 | S1 | PLANNED | BC-01 | BC-02 | CAP-01 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-003 | See only work permitted for the person's role | Mobile User | MOBILE-EPIC-01 | V1 | P1 | 3 | S1 | PLANNED | BC-01 | BC-01 | CAP-02 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-004 | Review operational work at a glance | Business Operations Manager | MOBILE-EPIC-06 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-11 | BC-01, BC-11 | CAP-16 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-005 | Notice critical operational exceptions | Business Operations Manager | MOBILE-EPIC-06 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-11 | BC-01, BC-11 | CAP-16 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-006 | Find a customer and buyer relationship | Sales Representative | MOBILE-EPIC-06 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-02 | BC-01, BC-02 | CAP-03 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-007 | Review products, prices and availability | Sales Representative | MOBILE-EPIC-06 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-03 | BC-02, BC-05 | CAP-04 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-008 | Prepare a customer request | Sales Representative | MOBILE-EPIC-06 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-04 | BC-02, BC-03 | CAP-05 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-009 | Submit a purchase request from field work | Sales Representative | MOBILE-EPIC-06 | V2 | P2 | 8 | UNASSIGNED | DEFERRED | BC-04 | BC-02, BC-03, BC-05, BC-07 | CAP-06 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-010 | Follow customer commitments and credit | Sales Representative | MOBILE-EPIC-06 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-04 | BC-02, BC-07, BC-11 | CAP-06 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-011 | Identify a product from a package or label code | Warehouse Operator | MOBILE-EPIC-02 | V1 | P1 | 3 | S1 | PLANNED | BC-03 | BC-01, BC-03 | CAP-08 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-012 | Find a product manually when scanning is unavailable | Warehouse Operator | MOBILE-EPIC-02 | V1 | P1 | 2 | S1 | PLANNED | BC-03 | BC-01, BC-03 | CAP-08 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-013 | Record stock that has just arrived | Warehouse Operator | MOBILE-EPIC-02 | V1 | P1 | 5 | S1 | PLANNED | BC-05 | BC-03, BC-05, BC-11 | CAP-08 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-014 | Record the actual lot, expiry and quantity | Warehouse Operator | MOBILE-EPIC-02 | V1 | P1 | 3 | S1 | PLANNED | BC-05 | BC-03, BC-05, BC-11 | CAP-08 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-015 | Check current lot and stock condition before physical work | Warehouse Operator | MOBILE-EPIC-02 | V1 | P1 | 3 | S1 | PLANNED | BC-05 | BC-03, BC-05 | CAP-07 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-016 | Pick the correct lot and quantity for prepared work | Warehouse Operator | MOBILE-EPIC-02 | V1 | P1 | 5 | S1 | PLANNED | BC-05 | BC-03, BC-05, BC-06 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-017 | Report a physical discrepancy or authorized stock disposition | Warehouse Operator | MOBILE-EPIC-02 | V1 | P1 | 5 | S1 | PLANNED | BC-05 | BC-06, BC-11 | CAP-08 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-018 | Move stock between warehouse locations | Warehouse Operator | MOBILE-EPIC-07 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-05 | BC-05, BC-11 | CAP-08 | OPEN | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-019 | Record temperature evidence for relevant stock | Warehouse Operator | MOBILE-EPIC-02 | V1 | P1 | 3 | S1 | PLANNED | BC-06 | BC-05, BC-11 | CAP-10 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-020 | See deliveries ready for dispatch preparation | Dispatch Coordinator | MOBILE-EPIC-03 | V1 | P1 | 3 | S2 | PLANNED | BC-06 | BC-05, BC-06 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-021 | Assign a driver to a ready delivery | Dispatch Coordinator | MOBILE-EPIC-03 | V1 | P1 | 3 | S2 | PLANNED | BC-06 | BC-01, BC-06 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-022 | Check outgoing goods against the prepared delivery | Dispatch Coordinator | MOBILE-EPIC-03 | V1 | P1 | 5 | S2 | PLANNED | BC-06 | BC-05, BC-06 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-023 | Preserve warehouse-to-driver handoff evidence | Dispatch Coordinator | MOBILE-EPIC-03 | V1 | P1 | 3 | S2 | PLANNED | BC-06 | BC-09, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-024 | Reliably identify a dispatch handoff | Dispatch Coordinator | MOBILE-EPIC-03 | V1 | P1 | 2 | S2 | PLANNED | BC-06 | BC-02, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-025 | Confirm goods left warehouse control | Dispatch Coordinator | MOBILE-EPIC-03 | V1 | P1 | 5 | S2 | PLANNED | BC-06 | BC-05, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-026 | See deliveries assigned to the driver | Driver or Delivery Operator | MOBILE-EPIC-04 | V1 | P1 | 2 | S2 | PLANNED | BC-06 | BC-01, BC-06 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-027 | Begin an assigned delivery | Driver or Delivery Operator | MOBILE-EPIC-04 | V1 | P1 | 3 | S2 | PLANNED | BC-06 | BC-01, BC-06 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-028 | Open directions to the authorized delivery destination | Driver or Delivery Operator | MOBILE-EPIC-04 | V1 | P1 | 2 | S2 | PLANNED | BC-06 | BC-02, BC-06 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-029 | Share a delivery location during an active delivery | Driver or Delivery Operator | MOBILE-EPIC-07 | V3 | P2 | UNESTIMATED | UNASSIGNED | DEFERRED | BC-06 | BC-02, BC-11 | CAP-09 | OPEN | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-030 | Contact the buyer during delivery | Driver or Delivery Operator | MOBILE-EPIC-07 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-06 | BC-02, BC-10 | CAP-09 | OPEN | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-031 | Record the delivery attempt outcome | Driver or Delivery Operator | MOBILE-EPIC-04 | V1 | P1 | 5 | S2 | PLANNED | BC-06 | BC-01, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-032 | Record a partial or rejected delivery and what remains | Driver or Delivery Operator | MOBILE-EPIC-04 | V1 | P1 | 5 | S2 | PLANNED | BC-06 | BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-033 | Preserve proof of delivery | Driver or Delivery Operator | MOBILE-EPIC-04 | V1 | P1 | 5 | S2 | PLANNED | BC-06 | BC-09, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-034 | Present a bounded delivery handoff code | Driver or Delivery Operator | MOBILE-EPIC-04 | V1 | P1 | 3 | S2 | PLANNED | BC-06 | BC-02, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-035 | Continue delivery evidence after connection loss | Driver or Delivery Operator | MOBILE-EPIC-07 | V2 | P2 | 8 | UNASSIGNED | DEFERRED | BC-06 | BC-11 | CAP-09 | OPEN | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-036 | Browse supplier products | Customer Buyer | MOBILE-EPIC-06 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-03 | BC-02 | CAP-04 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-037 | Review product price and availability | Customer Buyer | MOBILE-EPIC-06 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-03 | BC-02, BC-05 | CAP-04 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-038 | Prepare a purchase request | Customer Buyer | MOBILE-EPIC-06 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-04 | BC-02, BC-03 | CAP-05 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-039 | Repeat a previous purchase | Customer Buyer | MOBILE-EPIC-06 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-04 | BC-02, BC-03 | CAP-05 | OPEN | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-040 | Submit a request or place a direct order | Customer Buyer | MOBILE-EPIC-06 | V2 | P2 | 8 | UNASSIGNED | DEFERRED | BC-04 | BC-02, BC-03, BC-05, BC-07 | CAP-06 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-041 | Respond to a material change | Customer Buyer | MOBILE-EPIC-06 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-04 | BC-02, BC-07 | CAP-06 | OPEN | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-042 | Follow requests and orders | Customer Buyer | MOBILE-EPIC-06 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-04 | BC-09, BC-11 | CAP-13 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-043 | Review credit and payment status | Customer Buyer | MOBILE-EPIC-06 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-07 | BC-08, BC-11 | CAP-11 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-044 | Know when a delivery needs attention | Customer Buyer | MOBILE-EPIC-05 | V1 | P1 | 3 | S3 | PLANNED | BC-10 | BC-06, BC-02 | CAP-14 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-045 | See an active driver on a map | Customer Buyer | MOBILE-EPIC-07 | V3 | P2 | UNESTIMATED | UNASSIGNED | DEFERRED | BC-06 | BC-02, BC-11 | CAP-09 | OPEN | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-046 | Contact the driver | Customer Buyer | MOBILE-EPIC-07 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-06 | BC-02, BC-10 | CAP-09 | OPEN | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-047 | Verify a delivery through the handoff code | Customer Buyer | MOBILE-EPIC-05 | V1 | P1 | 3 | S3 | PLANNED | BC-06 | BC-02, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-048 | Confirm the quantities actually received | Customer Buyer | MOBILE-EPIC-05 | V1 | P1 | 5 | S3 | PLANNED | BC-06 | BC-02, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-049 | Report a discrepancy without erasing the facts | Customer Buyer | MOBILE-EPIC-05 | V1 | P1 | 5 | S3 | PLANNED | BC-06 | BC-02, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | HISTORICAL BASELINE | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-050 | Handle an inbound receiving discrepancy with evidence | Warehouse Operator | MOBILE-EPIC-08 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-05 | BC-03, BC-11 | CAP-08 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-051 | Place stock on hold or quarantine and resolve it | Warehouse Operator | MOBILE-EPIC-08 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-05 | BC-06, BC-11 | CAP-10 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-052 | Confirm destination receipt for an internal warehouse transfer | Warehouse Operator | MOBILE-EPIC-08 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-05 | BC-11 | CAP-08 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-053 | Perform a cycle count and request a stock correction | Warehouse Operator | MOBILE-EPIC-08 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-05 | BC-11 | CAP-08 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-054 | Apply a reasoned lot substitution when FEFO cannot fulfill work | Warehouse Operator | MOBILE-EPIC-08 | V3 | P2 | UNESTIMATED | UNASSIGNED | DEFERRED | BC-05 | BC-03, BC-06 | CAP-07 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-055 | Use richer product, package and storage identity information | Warehouse Operator | MOBILE-EPIC-08 | V3 | P2 | UNESTIMATED | UNASSIGNED | DEFERRED | BC-03 | BC-05 | CAP-08 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-056 | Prepare a batch warehouse operation | Warehouse Operator | MOBILE-EPIC-08 | V3 | P2 | UNESTIMATED | UNASSIGNED | DEFERRED | BC-05 | BC-06 | CAP-08 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-057 | Resolve a dispatch discrepancy before handoff | Dispatch Coordinator | MOBILE-EPIC-09 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-06 | BC-05, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-058 | Reassign a driver or reschedule dispatch safely | Dispatch Coordinator | MOBILE-EPIC-09 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-06 | BC-01 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-059 | Prepare grouped and multi-stop delivery loads | Dispatch Coordinator | MOBILE-EPIC-09 | V3 | P2 | UNESTIMATED | UNASSIGNED | DEFERRED | BC-06 | BC-02 | CAP-09 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-060 | Complete a carrier handoff with traceable responsibility | Dispatch Coordinator | MOBILE-EPIC-09 | V3 | P2 | UNESTIMATED | UNASSIGNED | DEFERRED | BC-06 | BC-09, BC-11 | CAP-09 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-061 | Record temperature evidence at dispatch | Dispatch Coordinator | MOBILE-EPIC-09 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-06 | BC-05, BC-11 | CAP-10 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-062 | Signal arrival for an active delivery | Driver or Delivery Operator | MOBILE-EPIC-09 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-06 | BC-10, BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-063 | Follow delivery instructions and authorized contact details | Driver or Delivery Operator | MOBILE-EPIC-09 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-06 | BC-02 | CAP-09 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-064 | Request a delivery reschedule from the field | Customer Buyer | MOBILE-EPIC-09 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-06 | BC-02, BC-10 | CAP-09 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-065 | Record a richer delivery incident | Driver or Delivery Operator | MOBILE-EPIC-09 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-06 | BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-066 | Recover an active delivery through selective offline operation | Driver or Delivery Operator | MOBILE-EPIC-09 | V3 | P2 | UNESTIMATED | UNASSIGNED | DEFERRED | BC-06 | BC-11 | CAP-09 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-067 | Provide delivery instructions and an alternate receipt contact | Customer Buyer | MOBILE-EPIC-10 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-06 | BC-02 | CAP-09 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-068 | Review the delivery timeline and acknowledge completion | Customer Buyer | MOBILE-EPIC-10 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-06 | BC-11 | CAP-09 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-069 | Attach evidence to a delivery discrepancy | Customer Buyer | MOBILE-EPIC-10 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-06 | BC-11 | CAP-15 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-070 | View business documents linked to a request or order | Customer Buyer or Sales Representative | MOBILE-EPIC-11 | V2 | P2 | 3 | UNASSIGNED | DEFERRED | BC-09 | BC-04, BC-02 | CAP-13 | PARTIAL | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-071 | Report payment evidence and see its review outcome | Customer Buyer | MOBILE-EPIC-11 | V2 | P2 | 5 | UNASSIGNED | DEFERRED | BC-08 | BC-07, BC-11 | CAP-12 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-072 | Work with a customer through an authorized field visit | Sales Representative | MOBILE-EPIC-11 | V3 | P2 | UNESTIMATED | UNASSIGNED | DEFERRED | BC-02 | BC-06 | CAP-03 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+| MOB-US-073 | Use advanced warehouse automation evidence in controlled work | Warehouse Operator | MOBILE-EPIC-12 | V4_FUTURE | P3 | UNESTIMATED | UNASSIGNED | PLANNED | BC-05 | BC-06, BC-11 | CAP-08 | OPEN | PENDING | NOT_STARTED | PR-22 master backlog expansion | NOT_IMPLEMENTED | NOT_IMPLEMENTED | NOT_VERIFIED | NOT_ACCEPTED |
+
+## Authority and projection rule
+
+When a story body, release projection or implementation artifact disagrees,
+the Product decision order is: accepted Product/Domain/Architecture decision,
+then this lifecycle index for release state, then the canonical story body,
+then verified implementation evidence. No projection can promote a story to
+implementation or Product Acceptance by itself.

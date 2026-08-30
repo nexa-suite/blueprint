@@ -10,7 +10,8 @@ last-reviewed: 2026-08-29
 
 Mobile projects [the shared CAP-01..CAP-16 model](../../01-shared/product/capability-map.md)
 into two applications. Product direction is `OWNER-ACCEPTED`; research and
-client implementation remain pending.
+client implementation remain pending. The release projection is 28 V1, 35 V2,
+9 V3 and 1 V4/Future functional stories.
 
 | App | V1 capability projection | Explicit boundary |
 |---|---|---|
@@ -19,4 +20,5 @@ client implementation remain pending.
 
 API v0.17.0 supports selected identifier, FEFO, handoff, receipt/discrepancy
 and critical-update foundations. Advanced analytics, continuous tracking,
-IoT, rich chat, advanced GS1 and transfers/counts are deferred or Future.
+IoT, rich chat, advanced GS1 and transfers/counts are deferred or Future; see
+the [feature-family audit](../requirements/roadmap-coverage.md).

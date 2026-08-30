@@ -1,7 +1,6 @@
 # Mobile segments
 
-Product direction is `OWNER-ACCEPTED`; segment validation is
-`PROPOSED / RESEARCH VALIDATION PENDING`.
+Product direction is `OWNER-ACCEPTED`; segment validation is `PENDING`.
 
 | ID | Segment | Primary actors | Product projection | Research boundary |
 |---|---|---|---|---|

@@ -17,7 +17,13 @@ This document is the accepted Product, business and PRE-V1 architecture input. I
 - Fresh Nexa, Generic Tenant and ICISA Reference Tenant use the same product and release line. ICISA is explanatory evidence, never a required seed.
 - Tenant is the maximum business/data isolation boundary. V1 uses `Tenant 1:1 Workspace`; Workspace is the Tenant's operational environment, not a C4 Container.
 - Public Website handles acquisition and onboarding initiation only. Internal Web Platform serves workforce operations. Buyer Portal serves an authorized Buyer relationship for the current supplier Tenant.
-- Mobile product direction is OWNER-ACCEPTED for a two-app projection, while the Mobile client, research validation and production acceptance remain open; IoT automation, SUNAT fiscal integration, multi-currency, full returns/RMA, Control Center, Support, Plans, Subscriptions, Entitlements and Feature tiers are deferred or runway items, not implemented V1 claims.
+- Mobile product direction is OWNER-ACCEPTED for a two-app projection. The
+  canonical master backlog has 73 functional stories (28 V1, 35 V2, 9 V3 and
+  1 V4/Future); the Mobile client, research validation and production
+  acceptance remain open. IoT automation, SUNAT fiscal integration,
+  multi-currency, full returns/RMA, Control Center, Support, Plans,
+  Subscriptions, Entitlements and Feature tiers are deferred or runway items,
+  not implemented V1 claims.
 
 The UPC course projection is isolated under `90-academic/mobile/course-1acc0238/`.
 Its requirements, milestones, technology constraints, evidence obligations and
@@ -41,8 +47,9 @@ options, not a silently selected Mobile architecture.
 Operations Mobile and Buyer Mobile are the two accepted-for-planning product
 projections over the shared domain. They do not add a Bounded Context, C4
 Container, deployment unit, framework or alternate authority. The canonical
-story inventory retains 49 IDs: 28 V1 candidates and 21 V2/deferred candidates;
-all remain `PROPOSED / RESEARCH VALIDATION PENDING`.
+story registry retains 49 historical IDs and adds 24 independent outcomes.
+The master release projection is 28 V1, 35 V2, 9 V3 and 1 V4/Future; the
+Mobile client and Product Acceptance remain open.
 
 API v0.17.0 is backend candidate evidence for SKU/GTIN/lot resolution,
 FEFO/picking validation, bounded handoff tokens, immutable Buyer

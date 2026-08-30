@@ -26,6 +26,6 @@ does not create one class per User Story.
 | BC-10 | notifications; WEB-EPIC-14 | MOBILE-EPIC-04, 07 | Notification, PushSubscription | `notification`, `notification_attempt`, `notification_preference`, `push_subscription` | `Nexa-API-FulfillmentDelivery-TARGET`; frontend views | Platform, Portal, API, both Mobile |
 | BC-11 | traceability/visibility; WEB-EPIC-15 | MOBILE-EPIC-02..07 | BusinessTraceabilityRecord | `business_traceability_record`, `traceability_evidence_reference` | `Nexa-API-FulfillmentDelivery-TARGET`; API overall | Platform, Portal, API, both Mobile projections |
 
-Requirement counts remain canonical: Web 15 Epics / 133 stories; Mobile 7
-Epics / 49 retained stories (28 V1, 21 V2/deferred); Technical 20; Spikes 6;
-total 208.
+Requirement counts remain canonical: Web 15 Epics / 133 stories; Mobile 12
+Epics / 73 functional stories (28 V1, 35 V2, 9 V3, 1 V4/Future); Technical 20;
+Spikes 6; total 232.

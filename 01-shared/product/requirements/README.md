@@ -22,15 +22,16 @@ Catalog freeze for this wave:
 | Category | Count | Status |
 |---|---:|---|
 | Web functional User Stories | 133 | CONFIRMED / V1 |
-| Mobile functional User Stories | 49 | 28 V1 candidates; 21 V2/deferred; PROPOSED / RESEARCH VALIDATION PENDING |
+| Mobile functional User Stories | 73 | 28 V1; 35 V2; 9 V3; 1 V4/Future; lifecycle tracked in Mobile master backlog |
 | Technical Stories | 20 | SHARED / DELIVERY |
 | Spike Stories | 6 | RESEARCH / ENABLER |
-| Total requirement items | 208 | BASELINED CATALOG; acceptance gates open |
+| Total requirement items | 232 | BASELINED CATALOG; acceptance gates open |
 
 Technical and Spike entries do not create Bounded Contexts or application
 repositories. They point to shared contracts, delivery concerns and explicit
 research questions.
 
 The canonical Mobile behavior and acceptance-criteria projection is in
-[Mobile V1 catalog](../../../03-mobile/requirements/mobile-v1-catalog.md); its
+[Mobile story registry](../../../03-mobile/requirements/mobile-v1-catalog.md);
+release and lifecycle fields are in the [Mobile master backlog](../../../03-mobile/requirements/master-mobile-backlog.md);
 historical continuity is in the [reconciliation matrix](../../../03-mobile/requirements/reconciliation.md).
