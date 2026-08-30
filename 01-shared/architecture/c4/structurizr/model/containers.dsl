@@ -38,15 +38,15 @@ buyerPortal = container "Nexa Buyer Portal" "Authenticated B2B Buyer experience 
 postgresqlDatabase = container "PostgreSQL" "Authoritative relational persistence for current Nexa transactional and configuration data" "PostgreSQL"
 objectStorage = container "Object Storage" "Tenant-owned documents, media and evidence through an S3-compatible boundary" "S3-compatible Object Storage"
 
-operationsMobile = container "Nexa Operations Mobile" "PLANNED / PROPOSED mobile projection for Sales, Warehouse, Dispatch, BOM and Driver capabilities" "Mobile client — framework not selected" {
-    tags "PLANNED,PROPOSED"
+operationsMobile = container "Nexa Operations Mobile" "TARGET planning projection for Sales, Warehouse, Dispatch, BOM and Driver capabilities; client NOT STARTED" "Mobile client — framework not selected" {
+    tags "TARGET V1,PLANNED,PROPOSED"
     operationsMobileAuth = component "Authentication and Active Context" "Secure session, tenant/workspace context and capability-driven entry" "PROPOSED mobile component"
     operationsMobileWork = component "Field and Physical Workflows" "Proposed Sales, Warehouse, Dispatch and Delivery workflows" "PROPOSED mobile component"
     operationsMobileSync = component "Selective Offline and Sync" "Queued/idempotent operational work with explicit conflict and retry states" "PROPOSED mobile component"
     operationsMobileEvidence = component "Scan, Location and Evidence Boundary" "Camera/scanning abstraction, active-delivery location and evidence upload" "PROPOSED integration component"
 }
-buyerMobile = container "Nexa Buyer Mobile" "PLANNED / PROPOSED mobile-primary Buyer projection while Buyer Portal remains feature-complete" "Mobile client — framework not selected" {
-    tags "PLANNED,PROPOSED"
+buyerMobile = container "Nexa Buyer Mobile" "TARGET planning projection for Buyer commerce, delivery and documents; client NOT STARTED" "Mobile client — framework not selected" {
+    tags "TARGET V1,PLANNED,PROPOSED"
     buyerMobileAuth = component "Buyer Authentication and Relationship Context" "Buyer identity, active supplier relationship and authorized context" "PROPOSED mobile component"
     buyerMobileCommerce = component "Buyer Commerce and Delivery Experience" "Catalog, draft, purchase, order, delivery, payment and document projections" "PROPOSED mobile component"
     buyerMobileSync = component "Buyer Draft and Notification Sync" "Safe recent state, push projections and explicit online authority" "PROPOSED mobile component"

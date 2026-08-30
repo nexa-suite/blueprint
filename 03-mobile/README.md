@@ -14,6 +14,11 @@ support is `PARTIAL` and is evidenced by [the live compatibility baseline](../04
 - [UX and discovery](ux/README.md)
 - [Architecture](architecture/README.md)
 
+UPC academic projection:
+[1ACC0238 course runway](../90-academic/mobile/course-1acc0238/README.md).
+It maps the current Product catalog into the official AV1/TB1/AV2/TB2 rubric
+without promoting academic evidence to Product authority.
+
 Mobile consumes the shared [Product](../01-shared/product/README.md), [Domain](../01-shared/domain/README.md),
 [Design](../01-shared/design/README.md) and [C4](../01-shared/architecture/c4/README.md).
 No Mobile, Scanner, QR, Device, Cold Chain or Analytics Bounded Context exists.

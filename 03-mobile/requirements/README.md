@@ -13,6 +13,10 @@ explicit V2/deferred candidates. Product direction is `OWNER-ACCEPTED`; every
 story remains `PROPOSED / RESEARCH VALIDATION PENDING`; backend support is
 partial; the client is not started.
 
+The complete academic field projection, business-value backlog ordering,
+Story Points, Sprint assignment, milestone mapping and evidence links live in
+the isolated [UPC 1ACC0238 requirements projection](../../90-academic/mobile/course-1acc0238/requirements-projection.md).
+
 Canonical reading order:
 
 1. [Requirements status](requirements-status.md)

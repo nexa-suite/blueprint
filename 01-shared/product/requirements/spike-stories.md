@@ -16,6 +16,24 @@ Spikes record uncertainty and expected evidence. They do not pretend to deliver 
 The Mobile-specific reconciliation and disposition of these six spikes are in
 [Mobile spike reconciliation](../../../03-mobile/requirements/mobile-spike-reconciliation.md).
 
+## Evidence contract
+
+Each Spike is a timeboxed investigation, not a disguised implementation story.
+The following register makes the required academic fields explicit while
+keeping the shared Spike source authoritative: Context, Question, Investigation
+Goal, Alternatives, Evidence Required, Acceptance Criteria, Expected Output,
+Decision Produced and Timebox. The timeboxes are recommendations for planning;
+no investigation result is claimed.
+
+| Spike | Context | Question | Investigation Goal | Alternatives | Evidence Required | Acceptance Criteria | Expected Output | Decision Produced | Timebox |
+|---|---|---|---|---|---|---|---|---|---|
+| SPIKE-001 | Course autonomous-learning constraint; Nexa relevance and privacy | Which learning feature and external technology can satisfy the course without inventing product authority? | Compare relevance, data/privacy, feasibility and demonstrability. | Rule-based assistance; local/on-device model; external service; defer if no safe fit. | Candidate matrix, source references, privacy/data boundary, feasibility PoC or explicit insufficiency. | One recommendation or an evidence-backed open decision; no production feature claim. | Evidence pack and recommendation. | OPEN until evidence and Owner/course acceptance exist. | RECOMMENDED 8-16h |
+| SPIKE-002 | Course requires native Android/Kotlin plus a cross-platform option; two Mobile projections | How should Native, Flutter/Dart and/or KMP be distributed across the apps? | Evaluate workflow/device fit, security, selective offline, shared code and delivery cost. | Native Android/Kotlin; Flutter/Dart; Kotlin Multiplatform; mixed allocation. | Decision matrix, build/PoC evidence, app-to-framework mapping, constraints. | Recommendation records trade-offs and does not silently choose a framework. | Framework/app allocation recommendation. | OPEN; Owner acceptance required. | RECOMMENDED 8-16h |
+| SPIKE-003 | Warehouse/Delivery physical identifiers and ephemeral handoff token | Which barcode/QR/GS1 identifiers and scan fallback are safe? | Evaluate camera capability, formats, ambiguity, permissions, offline boundary and server validation. | Camera scanner; external scanning library; manual identifier entry; defer unsupported formats. | Standards/technology comparison, representative scan evidence, fallback and security notes. | Identifier scope, validation boundary and unresolved questions are explicit. | Scan evidence pack and recommendation. | OPEN; no Barcode/QR BC created. | RECOMMENDED 8-16h |
+| SPIKE-004 | Course local-storage constraint; Nexa integrity and tenant isolation | What may be local and how should retry, conflict, encryption and sync work? | Define selective offline-safe reads/drafts/queues without fake authoritative success. | Online-only; secure cache; local draft; idempotent queue for selected evidence. | Data-classification matrix, conflict/retry scenarios, sync sequence and feasibility evidence. | Safe offline boundary and connectivity-required workflows are explicit. | Storage/sync recommendation and sequence. | OPEN; Product/Architecture acceptance required. | RECOMMENDED 8-16h |
+| SPIKE-005 | Critical notification and deep-link requirement | Which events merit push and how do expiry, tenant scope and stale links recover? | Evaluate channel policy, permission lifecycle, privacy, retry and source-state ownership. | Provider-neutral push; email fallback; in-app refresh; no push for low-criticality facts. | Event-to-notification matrix, threat cases, provider options and delivery/recovery evidence. | Push classes, safety rules and open provider decisions are documented. | Notification/deep-link evidence pack. | OPEN; notification delivery never becomes source authority. | RECOMMENDED 8-16h |
+| SPIKE-006 | Delivery navigation/location value versus privacy, battery and provider risk | What minimum active-Delivery location capability is useful and safe? | Evaluate navigation, active-only sharing, consent, retention, battery, connectivity and fallback. | External navigation only; active-Delivery location; manual location; defer live location. | Privacy/threat notes, battery/connection observations, map options and fallback flow. | Minimum boundary, exclusions and fallback are explicit; permanent tracking is excluded. | Location evidence pack and recommendation. | OPEN; Product/privacy/Architecture acceptance required. | RECOMMENDED 8-16h |
+
 ## SPIKE-001 — Select the autonomous-learning feature and external technology
 
 | Field | Value |

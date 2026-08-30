@@ -26,6 +26,7 @@ the semantic source and `structurizr/workspace.json` is the reviewed mirror.
 - `l1/`: system context views.
 - `l2/`: container views.
 - `l3/`: selected technical/component views.
+- `deployment/`: Local AS-IS and provider-neutral V1 TARGET deployment views.
 
 Regenerate after a deliberate DSL change from:
 

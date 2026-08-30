@@ -48,3 +48,8 @@ Evidence boundary:
   personas are not silently promoted as Mobile validation.
 - No interview evidence, persona, statistic, Story Point, acceptance criterion
   or academic result is fabricated by this projection.
+
+The detailed UPC projection is isolated in
+[course-1acc0238](mobile/course-1acc0238/README.md). It joins every Mobile V1
+story to the canonical Product story by ID and records academic-only priority,
+Story Points, Sprint, milestone and evidence status.

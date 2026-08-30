@@ -39,10 +39,13 @@ Functional catalog status for this wave:
 | Spike Stories | 6 | RESEARCH / ENABLER |
 | Total requirement items | 208 | BASELINED CATALOG; acceptance gates open |
 
-The catalog records identity, target product scope and story-level AC. It does
-not claim Product Acceptance, Story Points, Sprints, Personas, interviews,
-statistics, Mobile validation or implementation. Mobile direction, research,
-backend support and client status remain separate dimensions.
+The catalog records identity, target product scope and story-level AC. The
+academic projection at
+`90-academic/mobile/course-1acc0238/requirements-projection.md` adds the
+course-only join fields for Product Backlog ordering, Story Points, Sprints,
+milestones and evidence. Those fields are projections, not Product Acceptance
+or implementation claims. Personas, interviews, statistics, Mobile validation
+and client implementation remain separate dimensions.
 
 ## Required functional story fields
 
@@ -122,7 +125,7 @@ A Spike does not pretend to deliver normal production functionality.
 
 Later refinement adds Preconditions, Business Rules, complete Acceptance
 Criteria, Event references, Dependencies, Out of Scope, Story Points and
-academic traceability. Acceptance Criteria must preserve tenant scope,
+academic traceability. The academic projection must preserve tenant scope,
 authorization, lifecycle, state conflict, concurrency, failure/retry and
 durable result where relevant. Do not invent API contracts.
 

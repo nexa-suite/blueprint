@@ -19,6 +19,15 @@ This document is the accepted Product, business and PRE-V1 architecture input. I
 - Public Website handles acquisition and onboarding initiation only. Internal Web Platform serves workforce operations. Buyer Portal serves an authorized Buyer relationship for the current supplier Tenant.
 - Mobile product direction is OWNER-ACCEPTED for a two-app projection, while the Mobile client, research validation and production acceptance remain open; IoT automation, SUNAT fiscal integration, multi-currency, full returns/RMA, Control Center, Support, Plans, Subscriptions, Entitlements and Feature tiers are deferred or runway items, not implemented V1 claims.
 
+The UPC course projection is isolated under `90-academic/mobile/course-1acc0238/`.
+Its requirements, milestones, technology constraints, evidence obligations and
+rubric statuses are academic planning evidence; they do not alter Product,
+Domain, C4 or production authority. The owner delivery goal is an Android-native
+Mobile foundation and representative core flow within approximately four weeks;
+this is a delivery target, not an implementation claim. Native Android/Kotlin
+and cross-platform Flutter/Dart or Kotlin Multiplatform remain evaluated
+options, not a silently selected Mobile architecture.
+
 ## Identity, relationship and governance language
 
 - Human Identity, Workforce Membership, Buyer Relationship and Customer Account are distinct concepts.

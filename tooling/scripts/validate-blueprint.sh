@@ -58,6 +58,7 @@ expected_c4_files = [
     "01-shared/architecture/c4/structurizr/model/containers.dsl",
     "01-shared/architecture/c4/structurizr/model/components.dsl",
     "01-shared/architecture/c4/structurizr/model/relationships.dsl",
+    "01-shared/architecture/c4/structurizr/model/deployment.dsl",
     "01-shared/architecture/c4/structurizr/l1/l1.dsl",
     "01-shared/architecture/c4/structurizr/l2/l2.dsl",
     "01-shared/architecture/c4/structurizr/l3/api.dsl",
@@ -66,6 +67,7 @@ expected_c4_files = [
     "01-shared/architecture/c4/structurizr/l3/website.dsl",
     "01-shared/architecture/c4/structurizr/l3/operations-mobile.dsl",
     "01-shared/architecture/c4/structurizr/l3/buyer-mobile.dsl",
+    "01-shared/architecture/c4/structurizr/deployment/deployment.dsl",
     "01-shared/architecture/c4/structurizr/styles/styles.dsl",
     "01-shared/architecture/c4/structurizr/generated/workspace.json",
 ]
@@ -160,29 +162,42 @@ try:
         [v["key"] for v in views.get("systemContextViews", [])]
         + [v["key"] for v in views.get("containerViews", [])]
         + [v["key"] for v in views.get("componentViews", [])]
+        + [v["key"] for v in views.get("deploymentViews", [])]
     )
     expected_views = sorted([
-        "Nexa-SystemContext-V1", "Nexa-Containers-V1",
-        "Nexa-SystemContext-Runway", "Nexa-Containers-Runway",
+        "Nexa-SystemContext-ASIS", "Nexa-SystemContext-V1-TARGET",
+        "Nexa-SystemContext-Future-Runway",
+        "Nexa-Containers-ASIS", "Nexa-Containers-V1-TARGET",
+        "Nexa-Deployment-Local-ASIS", "Nexa-Deployment-V1-TARGET",
         "Nexa-API-Overall-ASIS", "Nexa-API-IdentityTenantCustomer-TARGET",
         "Nexa-API-CommercialInventory-TARGET", "Nexa-API-FulfillmentDelivery-TARGET",
         "Nexa-API-CreditPaymentDocuments-TARGET", "Nexa-API-IntegrationReliability-ASIS",
         "Nexa-Platform-Frontend-TARGET", "Nexa-Portal-Frontend-TARGET",
-        "Nexa-Website-Frontend-ASIS", "Nexa-Operations-Mobile-PROPOSED",
-        "Nexa-Buyer-Mobile-PROPOSED",
+        "Nexa-Website-Frontend-ASIS", "Nexa-Operations-Mobile-TARGET",
+        "Nexa-Buyer-Mobile-TARGET",
     ])
     if actual_views != expected_views:
         failures.append(f"unexpected C4 views: {actual_views}")
-    if any(k.lower().startswith("deployment") for k in views):
-        failures.append("C4 deployment views present")
     system = next(s for s in workspace["model"]["softwareSystems"] if s["name"] == "Nexa")
-    v1 = {c["name"] for c in system["containers"] if "Future" not in c.get("tags", "") and "V2/Future" not in c.get("tags", "") and "PLANNED" not in c.get("tags", "") and "PROPOSED" not in c.get("tags", "")}
-    expected_containers = {
+    as_is = {c["name"] for c in system["containers"] if "PLANNED" not in c.get("tags", "") and "PROPOSED" not in c.get("tags", "")}
+    expected_as_is = {
         "Nexa Website", "Nexa Platform", "Nexa Buyer Portal",
         "Nexa API", "PostgreSQL", "Object Storage",
     }
-    if v1 != expected_containers:
-        failures.append(f"unexpected V1 C4 containers: {sorted(v1)}")
+    if as_is != expected_as_is:
+        failures.append(f"unexpected AS-IS C4 containers: {sorted(as_is)}")
+    target = {c["name"] for c in system["containers"]}
+    expected_target = expected_as_is | {"Nexa Operations Mobile", "Nexa Buyer Mobile"}
+    if target != expected_target:
+        failures.append(f"unexpected V1 TARGET C4 containers: {sorted(target)}")
+    planned_mobile = {
+        c["name"] for c in system["containers"]
+        if "TARGET V1" in c.get("tags", "")
+        and "PLANNED" in c.get("tags", "")
+        and "PROPOSED" in c.get("tags", "")
+    }
+    if planned_mobile != {"Nexa Operations Mobile", "Nexa Buyer Mobile"}:
+        failures.append(f"Mobile TARGET containers must remain planned projections: {sorted(planned_mobile)}")
 except Exception as exc:
     failures.append(f"workspace.json inspection failed: {exc}")
 
@@ -373,6 +388,8 @@ print("BLUEPRINT VALIDATION: PASS")
 print(f"- candidate files inspected: {len(paths)}")
 print("- links, metadata, publication boundary, secret heuristics and C4 workspace: PASS")
 PY
+
+bash tooling/scripts/validate-academic-mobile.sh
 
 docker run --rm \
   -v "$ROOT/01-shared/architecture/c4/structurizr:/usr/local/structurizr:ro" \

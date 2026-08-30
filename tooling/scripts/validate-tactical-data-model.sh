@@ -191,7 +191,7 @@ if academic.is_file() and len(re.findall(r"(?m)^\|\s*BC-\d{2}\b", academic.read_
     failures.append("academic Web tactical projection must have exactly 11 BC rows")
 
 c4_exports = root / "01-shared/architecture/c4/exports"
-for level, expected_count in (("l1", 2), ("l2", 2), ("l3", 11)):
+for level, expected_count in (("l1", 3), ("l2", 2), ("l3", 11), ("deployment", 2)):
     svgs = sorted((c4_exports / level).glob("*.svg"))
     if len(svgs) != expected_count:
         failures.append(f"C4 {level} exports expected {expected_count} SVG, found {len(svgs)}")
@@ -210,6 +210,6 @@ print(f"- bounded contexts: {len(bc_dirs)}")
 print(f"- target tables: {len(all_target) + len(shared)} (90 BC + 5 shared)")
 print("- primary PlantUML: 11 BC + 2 Mobile; rendered SVG + PNG present")
 print("- matrices: requirements, C4 and academic coverage present")
-print("- C4 exports: 15 SVG + 15 PNG")
+print("- C4 exports: 18 SVG + 18 PNG (including 2 deployment views)")
 print("- database ERD projections: 11 BC + 1 master; SVG + PNG present")
 PY

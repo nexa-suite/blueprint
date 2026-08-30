@@ -160,7 +160,7 @@ El enfoque se basa en [Domain-Driven Design][ddd-book] y [GitFlow][gitflow-guide
 
 ### Inserción de Imágenes
 ```markdown
-![Texto alternativo descriptivo (a11y)](../../architecture/c4/exports/l1/Nexa-SystemContext-V1.png)
+![Texto alternativo descriptivo (a11y)](../../architecture/c4/exports/l1/Nexa-SystemContext-ASIS.png)
 ```
 
 ---

@@ -1,4 +1,4 @@
-component nexa.buyerMobile "Nexa-Buyer-Mobile-PROPOSED" "Proposed Buyer Mobile projection; not implemented or research-validated" {
+component nexa.buyerMobile "Nexa-Buyer-Mobile-TARGET" "V1 TARGET Buyer Mobile planning projection; client not implemented or research-validated" {
     include nexa.buyerMobile.buyerMobileAuth
     include nexa.buyerMobile.buyerMobileCommerce
     include nexa.buyerMobile.buyerMobileSync
