@@ -8,10 +8,10 @@ last-reviewed: 2026-08-29
 
 # Mobile Requirements
 
-The canonical catalog retains 49 historical story IDs: 42 V1 candidates and 7
-explicit V2/deferred candidates. Product direction is `OWNER-ACCEPTED`; every
-story remains `PROPOSED / RESEARCH VALIDATION PENDING`; backend support is
-partial; the client is not started.
+The canonical catalog retains 49 historical story IDs: exactly 28 V1 candidates
+and 21 explicit V2/deferred candidates. Product direction is
+`OWNER-ACCEPTED`; every story remains `PROPOSED / RESEARCH VALIDATION
+PENDING`; backend support is partial; the client is not started.
 
 The complete academic field projection, business-value backlog ordering,
 Story Points, Sprint assignment, milestone mapping and evidence links live in
@@ -28,6 +28,7 @@ Canonical reading order:
 7. [Traceability model](traceability-model.md)
 8. [Technical reconciliation](mobile-technical-reconciliation.md)
 9. [Spike reconciliation](mobile-spike-reconciliation.md)
+10. [Story-to-design readiness](story-to-design-readiness.md)
 
 Stories project shared capabilities and eleven accepted Bounded Contexts. They
 do not create Mobile, Driver, Dashboard, Barcode, QR or Device contexts.

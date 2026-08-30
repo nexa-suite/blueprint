@@ -13,7 +13,7 @@
 | Web | ACCEPTED product definition; 133-story catalog frozen |
 | Web requirements | CONFIRMED / V1; 15 Epics; 133 stories; Product Acceptance separate |
 | Mobile | OWNER-ACCEPTED direction; two apps; research/client validation pending |
-| Mobile requirements | BASELINED catalog; 7 Epics; 49 retained stories; 42 V1 / 7 V2-deferred; research pending |
+| Mobile requirements | BASELINED catalog; 7 outcome-based Epics; 49 retained stories; 28 V1 / 21 V2+-deferred; research pending |
 | Shared technical stories | SHARED / DELIVERY; 20 stories |
 | Spike stories | RESEARCH / ENABLER; 6 stories |
 | Total requirement items | 208; catalog baselined; acceptance gates open |

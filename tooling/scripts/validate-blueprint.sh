@@ -20,6 +20,20 @@ failures = []
 warnings = []
 existing_paths = [p for p in paths if (root / p).exists()]
 
+academic_source = "90-academic/mobile/enunciado-trabajo-final.md"
+if academic_source in paths or (root / academic_source).exists():
+    failures.append("excluded academic source remains tracked or present: 90-academic/mobile/enunciado-trabajo-final.md")
+if any(path.endswith("mobile-applications-final-rubric.pdf") for path in paths):
+    failures.append("academic rubric PDF must not be tracked")
+try:
+    if subprocess.run(
+        ["git", "diff", "--quiet", "origin/main...HEAD", "--", "AGENTS.md"],
+        cwd=root,
+    ).returncode != 0:
+        failures.append("AGENTS.md has a committed PR diff; owner-local guidance must remain uncommitted")
+except Exception as exc:
+    failures.append(f"could not verify committed AGENTS.md diff: {exc}")
+
 required_roots = {"00-start-here", "01-shared", "02-web", "03-mobile", "04-delivery", "90-academic", "91-reference", "tooling"}
 missing_roots = sorted(name for name in required_roots if not (root / name).is_dir())
 if missing_roots:
@@ -241,10 +255,65 @@ if len(mobile_story_ids) != len(set(mobile_story_ids)):
 if sorted(mobile_story_ids, key=lambda item: int(item[-3:])) != expected_mobile_story_ids:
     failures.append(f"Mobile catalog is not the contiguous MOB-US-001..MOB-US-049 set: {mobile_story_ids}")
 
-mobile_epic_ids = re.findall(r"^# (MOBILE-EPIC-\d{2}) —", mobile_requirements, re.MULTILINE)
+mobile_epic_index = (root / "03-mobile/requirements/epics/README.md").read_text(encoding="utf-8")
+mobile_epic_ids = re.findall(r"^\| (MOBILE-EPIC-\d{2}) \|", mobile_epic_index, re.MULTILINE)
 expected_mobile_epic_ids = [f"MOBILE-EPIC-{i:02d}" for i in range(1, 8)]
 if sorted(mobile_epic_ids, key=lambda item: int(item[-2:])) != expected_mobile_epic_ids:
     failures.append(f"Mobile catalog is not the contiguous 7-Epic set: {mobile_epic_ids}")
+
+mobile_catalog_path = root / "03-mobile/requirements/mobile-v1-catalog.md"
+mobile_catalog = mobile_catalog_path.read_text(encoding="utf-8")
+mobile_catalog_blocks = {
+    match.group(1): match.group(0)
+    for match in re.finditer(
+        r"^## (MOB-US-\d{3}) — .*?(?=^## MOB-US-|\Z)",
+        mobile_catalog,
+        re.MULTILINE | re.DOTALL,
+    )
+}
+mobile_v1_ids = {
+    "MOB-US-001", "MOB-US-002", "MOB-US-003",
+    "MOB-US-011", "MOB-US-012", "MOB-US-013", "MOB-US-014",
+    "MOB-US-015", "MOB-US-016", "MOB-US-017", "MOB-US-019",
+    "MOB-US-020", "MOB-US-021", "MOB-US-022", "MOB-US-023",
+    "MOB-US-024", "MOB-US-025", "MOB-US-026", "MOB-US-027",
+    "MOB-US-028", "MOB-US-031", "MOB-US-032", "MOB-US-033",
+    "MOB-US-034", "MOB-US-044", "MOB-US-047", "MOB-US-048",
+    "MOB-US-049",
+}
+mobile_all_ids = {f"MOB-US-{i:03d}" for i in range(1, 50)}
+if set(mobile_catalog_blocks) != mobile_all_ids:
+    failures.append(f"Mobile canonical catalog must retain exactly MOB-US-001..049: found {len(mobile_catalog_blocks)}")
+mobile_actual_v1 = {
+    story_id for story_id, block in mobile_catalog_blocks.items()
+    if not re.search(r"^\| Status \|\s*DEFERRED\b", block, re.MULTILINE)
+}
+if mobile_actual_v1 != mobile_v1_ids:
+    failures.append(f"Mobile V1 set differs from accepted 28-story amendment: {sorted(mobile_actual_v1)}")
+mobile_epic_map = {
+    "MOBILE-EPIC-01": {"MOB-US-001", "MOB-US-002", "MOB-US-003"},
+    "MOBILE-EPIC-02": {"MOB-US-011", "MOB-US-012", "MOB-US-013", "MOB-US-014", "MOB-US-015", "MOB-US-016", "MOB-US-017", "MOB-US-019"},
+    "MOBILE-EPIC-03": {"MOB-US-020", "MOB-US-021", "MOB-US-022", "MOB-US-023", "MOB-US-024", "MOB-US-025"},
+    "MOBILE-EPIC-04": {"MOB-US-026", "MOB-US-027", "MOB-US-028", "MOB-US-031", "MOB-US-032", "MOB-US-033", "MOB-US-034"},
+    "MOBILE-EPIC-05": {"MOB-US-044", "MOB-US-047", "MOB-US-048", "MOB-US-049"},
+    "MOBILE-EPIC-06": {"MOB-US-004", "MOB-US-005", "MOB-US-006", "MOB-US-007", "MOB-US-008", "MOB-US-009", "MOB-US-010", "MOB-US-036", "MOB-US-037", "MOB-US-038", "MOB-US-039", "MOB-US-040", "MOB-US-041", "MOB-US-042", "MOB-US-043"},
+    "MOBILE-EPIC-07": {"MOB-US-018", "MOB-US-029", "MOB-US-030", "MOB-US-035", "MOB-US-045", "MOB-US-046"},
+}
+for story_id, block in mobile_catalog_blocks.items():
+    epic_match = re.search(r"^\| Epic \|\s*(MOBILE-EPIC-\d{2})", block, re.MULTILINE)
+    epic_id = epic_match.group(1) if epic_match else ""
+    if story_id not in mobile_epic_map.get(epic_id, set()):
+        failures.append(f"Mobile {story_id} has incorrect outcome Epic mapping")
+    if story_id in mobile_v1_ids:
+        functional = " ".join(
+            value.group(1) for value in re.finditer(
+                r"^\| (?:Title|Goal / Outcome) \|\s*(.*?)\s*\|$", block, re.MULTILINE
+            )
+        )
+        if re.search(r"\b(?:api|http|endpoint|database|table|schema|ui|ux|screen|component|client|server|idempotenc\w*|synchron\w*|sync)\b", functional, re.IGNORECASE):
+            failures.append(f"Mobile {story_id} functional fields contain engineering language")
+    if story_id == "MOB-US-044" and "Push Subscription" in block:
+        failures.append("MOB-US-044 must expose a human delivery-attention need, not Push Subscription")
 
 def validate_story_blocks(label, text, prefix, mobile=False):
     blocks = list(re.finditer(

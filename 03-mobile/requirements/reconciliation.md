@@ -3,84 +3,84 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-29
+last-reviewed: 2026-08-30
 ---
 
 # Mobile requirements reconciliation
 
-The former seven epic files were a 49-story proposal with acceptance criteria
-explicitly pending. This reconciliation preserves every ID and title as a
-traceable input, moves authority to [the V1 catalog](mobile-v1-catalog.md), and
-does not silently delete history. The old filenames remain compatibility
-pointer documents so there is one canonical story source.
+This matrix preserves all 49 historical IDs and titles while making the
+Mobile Surface Scope Amendment / Rebaseline explicit. The amendment changes
+surface exposure, story refinement, Epic composition and academic planning
+only. It does not change the eleven accepted Bounded Contexts, Core Domain,
+invariants, finance semantics or the fourteen Published Integration Events.
 
 ## Count and disposition
 
 | Measure | Before | After | Interpretation |
 |---|---:|---:|---|
-| Mobile story IDs | 49 | 49 | All historical IDs retained; no unnecessary NEW IDs. |
-| V1 candidates | 49 proposed | 42 | Refined with complete AC and explicit backend/client caveats. |
-| V2/deferred | 0 explicit | 7 | BOM/exception overview, transfer/count, Driver contact, reorder, active map and Buyer-Driver contact are deferred. |
-| Epics | 7 | 7 | Names re-aligned to the Product/App chain; IDs retained. |
-| Acceptance criteria | pending | cataloged | AC is still subject to research/Product Acceptance; it is not a product acceptance result. |
+| Mobile story IDs | 49 | 49 | Every historical ID remains recoverable. |
+| V1 candidates | 42 | 28 | V1 is narrowed to access, warehouse, dispatch, Driver delivery proof and narrow Buyer handoff/receipt/update work. |
+| V2/deferred | 7 | 21 | Field Sales, broad Buyer commerce, generic offline sync, stored location, maps, contact and advanced warehouse work are deferred. |
+| Epics | 7 | 7 | Epic IDs remain; membership is re-composed by human/business outcome. |
+| V1 functional acceptance criteria | pending | cataloged | Four Gherkin-style scenarios are present per V1 story; Product Acceptance remains open. |
 
 ## Migration matrix
 
-| Historical ID | Historical title | Disposition | Current ID/title | Reason / source |
-|---|---|---|---|---|
-| MOB-US-001 | Authenticate on Mobile | REFINE | MOB-US-001 Restore an authenticated Mobile session | Adds revocation, secure storage and offline failure behavior; BC-01/API auth. |
-| MOB-US-002 | Select an active business context | REFINE | MOB-US-002 Resolve an active business context | Separates Tenant/Workspace and Buyer Relationship scope; BC-01/02. |
-| MOB-US-003 | Access role-appropriate mobile work and navigation | REFINE | MOB-US-003 Render capability-authorized Mobile work | Makes UI non-authoritative and capability version explicit; BC-01. |
-| MOB-US-004 | Review the operational overview on Mobile | DEFER | MOB-US-004 Review operational visibility | No accepted BOM Mobile read contract in API v0.17.0; CAP-16 gate. |
-| MOB-US-005 | Review critical operational exceptions | DEFER | MOB-US-005 Review critical operational exceptions | Requires accepted exception taxonomy/read projection; CAP-16 gate. |
-| MOB-US-006 | Search Customer Accounts | REFINE | MOB-US-006 Find a Customer Account and Buyer Relationship | Relationship authorization made explicit; BC-02. |
-| MOB-US-007 | Review catalog, pricing and availability | REFINE | MOB-US-007 Review catalog, price and Sellable Availability | Distinguishes commercial authority from availability projection; BC-03/05. |
-| MOB-US-008 | Prepare a commercial operation for a Customer | REFINE | MOB-US-008 Prepare assisted commercial intent in a Request Draft | Draft is not PR/SO/reservation; BC-04. |
-| MOB-US-009 | Capture a Purchase Request or Direct Order on Mobile | REFINE | MOB-US-009 Submit a Purchase Request from field workflow | Field Sales story is PR-specific; Direct Order remains explicit in Buyer story 040. |
-| MOB-US-010 | Review Orders, Credit and Customer history | REFINE | MOB-US-010 Review PR/SO and contextual Customer credit | Separates query projections from credit authority; BC-02/04/07/11. |
-| MOB-US-011 | Identify a SKU using the device camera and code scanning | REFINE | MOB-US-011 Resolve a SKU by physical identifier | Camera is an input abstraction; API v0.17.0 resolution authority is BC-03. |
-| MOB-US-012 | Identify a SKU manually when scanning is unavailable | REFINE | MOB-US-012 Resolve a known SKU manually | Manual input is not identifier proof or inventory authority. |
-| MOB-US-013 | Record incoming inventory | REFINE | MOB-US-013 Record an inbound inventory receipt | Adds lot/quantity, scope, idempotency and no-offline-success rules; BC-05. |
-| MOB-US-014 | Record Lot, expiry and quantity | REFINE | MOB-US-014 Capture received Lot, expiry and quantity | Makes UTC expiry and duplicate receipt behavior explicit. |
-| MOB-US-015 | Review stock and Lots | REFINE | MOB-US-015 Review physical and sellable stock/Lots | Separates physical/sellable/disposition states. |
-| MOB-US-016 | Confirm Picking using scanning | REFINE | MOB-US-016 Validate FEFO scan and execute an allocated pick | Aligns with API v0.17.0 FEFO/over-pick/override contract; BC-05 owns authority. |
-| MOB-US-017 | Record discrepancy or inventory adjustment | REFINE | MOB-US-017 Record a picking discrepancy or authorized inventory disposition | Distinguishes discrepancy from privileged correction and preserves facts. |
-| MOB-US-018 | Execute transfer or inventory-count operations | DEFER | MOB-US-018 Execute transfer or inventory-count operations | API v0.17.0 explicitly excludes advanced transfer/count; no V1 authority. |
-| MOB-US-019 | Record temperature and evidence | REFINE | MOB-US-019 Record receiving or warehouse temperature evidence | Manual V1 evidence; IoT/continuous telemetry remains Future. |
-| MOB-US-020 | Review Deliveries ready for Dispatch | REFINE | MOB-US-020 Review Fulfillment-ready Deliveries | Readiness, allocation and evidence gates made explicit. |
-| MOB-US-021 | Assign a Driver | REFINE | MOB-US-021 Assign a Driver | Adds assignment eligibility/version/idempotency. |
-| MOB-US-022 | Verify outgoing goods | REFINE | MOB-US-022 Verify outgoing goods against allocation | Makes allocation binding and stale mismatch rejection explicit. |
-| MOB-US-023 | Capture photographic handoff evidence | REFINE | MOB-US-023 Record dispatch handoff evidence | Handoff evidence, Object Storage metadata and no-POD confusion. |
-| MOB-US-024 | Generate or register a handoff identifier | REFINE | MOB-US-024 Record a stable Dispatch Handoff identifier | Separates stable dispatch reference from ephemeral Buyer token/QR. |
-| MOB-US-025 | Confirm Delivery dispatch | REFINE | MOB-US-025 Confirm Delivery dispatch after handoff | Requires complete upstream evidence and atomic lifecycle transition. |
-| MOB-US-026 | Review assigned Deliveries | REFINE | MOB-US-026 View assigned Deliveries | Assignment filtering and stale cache safety. |
-| MOB-US-027 | Accept and start a Delivery | REFINE | MOB-US-027 Start a Delivery Attempt | Uses canonical Attempt lifecycle; no implicit acceptance. |
-| MOB-US-028 | Navigate to the delivery destination | REFINE | MOB-US-028 Launch external navigation from Delivery context | Maps are external; navigation cannot mutate Delivery state. |
-| MOB-US-029 | Share location during an active Delivery | REFINE | MOB-US-029 Capture location only within an active Delivery | Bounded active lifecycle replaces permanent/continuous tracking; API support NOT IMPLEMENTED. |
-| MOB-US-030 | Contact the Buyer in Delivery context | DEFER | MOB-US-030 Contact the Buyer from Delivery context | Provider/consent/personal contact excluded from API v0.17.0. |
-| MOB-US-031 | Record a Delivery Attempt | REFINE | MOB-US-031 Record a Delivery Attempt outcome | Makes outcome and retry semantics explicit. |
-| MOB-US-032 | Record partial delivery or rejection | REFINE | MOB-US-032 Record partial or rejected Delivery and continuation | Preserves delivered/rejected/remaining facts and one continuation. |
-| MOB-US-033 | Capture POD using photo/signature where required | REFINE | MOB-US-033 Capture policy-driven POD evidence | Evidence policy, Object Storage and immutable POD clarified. |
-| MOB-US-034 | Generate a Delivery verification QR | REFINE | MOB-US-034 Issue or present an ephemeral Buyer Delivery Handoff QR | Aligns with API v0.17.0 bounded one-time token; QR != acceptance. |
-| MOB-US-035 | Safely finalize a Delivery despite temporary connectivity loss | REFINE | MOB-US-035 Queue and synchronize critical Driver evidence safely | Removes fake offline finalization; selective evidence queue only. |
-| MOB-US-036 | Browse the supplier catalog | REFINE | MOB-US-036 Browse the supplier catalog | Buyer Relationship and stale cache constraints added. |
-| MOB-US-037 | Review SKU, price and availability | REFINE | MOB-US-037 Review authoritative SKU price and Sellable Availability | Separates BC-03 price from BC-05 availability. |
-| MOB-US-038 | Build and edit a purchase | REFINE | MOB-US-038 Maintain a Request Draft | Draft boundary and no-reservation semantics added. |
-| MOB-US-039 | Repeat a previous purchase | DEFER | MOB-US-039 Reorder a previous purchase | Advanced Buyer quick actions excluded from API v0.17.0. |
-| MOB-US-040 | Submit a PR or confirm a Direct Order | REFINE | MOB-US-040 Submit a PR or place a Direct Order under policy | Explicit two branches; Direct Order is not fake PR. |
-| MOB-US-041 | Respond to proposed material changes | REFINE | MOB-US-041 Respond to a material change | Versioned accept/reject and unchanged original on rejection. |
-| MOB-US-042 | Track Purchase Requests and Sales Orders | REFINE | MOB-US-042 Review PR/SO status, history and Business Documents | Adds immutable documents and traceability projections. |
-| MOB-US-043 | Review Credit and Receivables and make a Payment | REFINE | MOB-US-043 Review Credit/Receivables and report allowed Payment evidence | Payment Reported != Payment Confirmed; no offline confirmation. |
-| MOB-US-044 | Receive Delivery push notifications | REFINE | MOB-US-044 Register/refresh a Push Subscription and receive critical notifications | Aligns with API v0.17.0 subscription lifecycle; provider remains deferred. |
-| MOB-US-045 | Track an active Driver on a map | SUPERSEDE + DEFER | MOB-US-029 bounded location for V1; MOB-US-045 retained as V2 | V1 replaces continuous map tracking with bounded active-delivery location. |
-| MOB-US-046 | Contact the Driver | DEFER | MOB-US-046 Contact the Driver | Provider/consent/chat not established; no V1 contact channel. |
-| MOB-US-047 | Scan the Driver-generated Delivery QR | REFINE | MOB-US-047 Scan and resolve a Delivery Handoff QR | Adds one-time/TTL/relationship authorization; QR != receipt. |
-| MOB-US-048 | Confirm correct receipt | REFINE | MOB-US-048 Review handoff and confirm received quantities | Buyer Receipt Fact is separate from Driver outcome/POD. |
-| MOB-US-049 | Report discrepancy or rejection during receipt | REFINE | MOB-US-049 Report Buyer discrepancy and preserve receipt fact | Immutable discrepancy/reason/evidence; no hidden returns/RMA. |
+| Historical ID | Historical title | Disposition | Current title | Current Epic | Scope and reason |
+|---|---|---|---|---|---|
+| MOB-US-001 | Authenticate on Mobile | REFINE | Continue authorized work safely after returning to Nexa | MOBILE-EPIC-01 | V1; safe return to authorized work, not a framework claim. |
+| MOB-US-002 | Select an active business context | REFINE | Work in the intended company and business context | MOBILE-EPIC-01 | V1; Tenant, Workspace and Buyer Relationship remain distinct. |
+| MOB-US-003 | Access role-appropriate mobile work and navigation | REFINE | See only work permitted for the person's role | MOBILE-EPIC-01 | V1; server-side authorization remains authoritative. |
+| MOB-US-004 | Review the operational overview on Mobile | DEFER | Review operational work at a glance | MOBILE-EPIC-06 | V2+; accepted operational projection and freshness rules are not closed. |
+| MOB-US-005 | Review critical operational exceptions | DEFER | Notice critical operational exceptions | MOBILE-EPIC-06 | V2+; exception taxonomy and response ownership remain open. |
+| MOB-US-006 | Search Customer Accounts | DEFER | Find a customer and buyer relationship | MOBILE-EPIC-06 | V2+; field commercial access is removed from V1. |
+| MOB-US-007 | Review catalog, pricing and availability | DEFER | Review products, prices and availability | MOBILE-EPIC-06 | V2+; broad commercial convenience is not the V1 slice. |
+| MOB-US-008 | Prepare a commercial operation for a Customer | DEFER | Prepare a customer request | MOBILE-EPIC-06 | V2+; drafts remain distinct from commitments. |
+| MOB-US-009 | Capture a Purchase Request or Direct Order on Mobile | DEFER | Submit a purchase request from field work | MOBILE-EPIC-06 | V2+; no Platform-on-phone parity in V1. |
+| MOB-US-010 | Review Orders, Credit and Customer history | DEFER | Follow customer commitments and credit | MOBILE-EPIC-06 | V2+; broad commercial and finance visibility deferred. |
+| MOB-US-011 | Identify a SKU using the device camera and code scanning | REFINE | Identify a product from a package or label code | MOBILE-EPIC-02 | V1; code camera plus safe fallback, with product identity authoritative in Catalog. |
+| MOB-US-012 | Identify a SKU manually when scanning is unavailable | REFINE | Find a product manually when scanning is unavailable | MOBILE-EPIC-02 | V1; manual fallback does not guess or create stock truth. |
+| MOB-US-013 | Record incoming inventory | REFINE | Record stock that has just arrived | MOBILE-EPIC-02 | V1; lot, quantity, authorization and connected confirmation required. |
+| MOB-US-014 | Record Lot, expiry and quantity | REFINE | Record the actual lot, expiry and quantity | MOBILE-EPIC-02 | V1; actual physical facts support FEFO and availability. |
+| MOB-US-015 | Review stock and Lots | REFINE | Check current lot and stock condition before physical work | MOBILE-EPIC-02 | V1; physical, sellable, held and quarantined states stay distinct. |
+| MOB-US-016 | Confirm Picking using scanning | REFINE | Pick the correct lot and quantity for prepared work | MOBILE-EPIC-02 | V1; FEFO, allocation binding and no over-pick. |
+| MOB-US-017 | Record discrepancy or inventory adjustment | REFINE | Report a physical discrepancy or authorized stock disposition | MOBILE-EPIC-02 | V1; discrepancy and authorized disposition preserve corrective evidence. |
+| MOB-US-018 | Execute transfer or inventory-count operations | DEFER | Move stock or perform a count | MOBILE-EPIC-07 | V2+; transfer/count rules and concurrency evidence remain open. |
+| MOB-US-019 | Record temperature and evidence | REFINE | Record temperature evidence for relevant stock | MOBILE-EPIC-02 | V1; manual attributable evidence, not IoT or continuous telemetry. |
+| MOB-US-020 | Review Deliveries ready for Dispatch | REFINE | See deliveries ready for dispatch preparation | MOBILE-EPIC-03 | V1; readiness gates precede handoff. |
+| MOB-US-021 | Assign a Driver | REFINE | Assign a driver to a ready delivery | MOBILE-EPIC-03 | V1; eligibility, current state and safe retry apply. |
+| MOB-US-022 | Verify outgoing goods | REFINE | Check outgoing goods against the prepared delivery | MOBILE-EPIC-03 | V1; lot and quantity must match physical allocation. |
+| MOB-US-023 | Capture photographic handoff evidence | REFINE | Preserve warehouse-to-driver handoff evidence | MOBILE-EPIC-03 | V1; evidence is distinct from POD and may be staged temporarily. |
+| MOB-US-024 | Generate or register a handoff identifier | REFINE | Reliably identify a dispatch handoff | MOBILE-EPIC-03 | V1; dispatch identity is distinct from Buyer acceptance. |
+| MOB-US-025 | Confirm Delivery dispatch | REFINE | Confirm goods left warehouse control | MOBILE-EPIC-03 | V1; final dispatch gate requires current upstream facts. |
+| MOB-US-026 | Review assigned Deliveries | REFINE | See deliveries assigned to the driver | MOBILE-EPIC-04 | V1; assigned Delivery read and freshness. |
+| MOB-US-027 | Accept and start a Delivery | REFINE | Begin an assigned delivery | MOBILE-EPIC-04 | V1; starts an Attempt, not implicit acceptance or location tracking. |
+| MOB-US-028 | Navigate to the delivery destination | REFINE | Open directions to the authorized delivery destination | MOBILE-EPIC-04 | V1; external navigation handoff only. |
+| MOB-US-029 | Share location during an active Delivery | DEFER | Share a delivery location during an active delivery | MOBILE-EPIC-07 | V2+; stored, periodic, background and live location are deferred. |
+| MOB-US-030 | Contact the Buyer in Delivery context | DEFER | Contact the buyer during delivery | MOBILE-EPIC-07 | V2+; provider, consent and audit channel are not accepted. |
+| MOB-US-031 | Record a Delivery Attempt | REFINE | Record the delivery attempt outcome | MOBILE-EPIC-04 | V1; Driver outcome is separate from Buyer receipt. |
+| MOB-US-032 | Record partial delivery or rejection | REFINE | Record a partial or rejected delivery and what remains | MOBILE-EPIC-04 | V1; delivered, rejected, remaining and continuation facts stay distinct. |
+| MOB-US-033 | Capture POD using photo/signature where required | REFINE | Preserve proof of delivery | MOBILE-EPIC-04 | V1; policy-driven immutable proof, not false completion. |
+| MOB-US-034 | Generate a Delivery verification QR | REFINE | Present a bounded delivery handoff code | MOBILE-EPIC-04 | V1; code identifies handoff and is not acceptance. |
+| MOB-US-035 | Safely finalize a Delivery despite temporary connectivity loss | DEFER | Continue delivery evidence after connection loss | MOBILE-EPIC-07 | V2+; generic offline evidence queue/sync is deferred. |
+| MOB-US-036 | Browse the supplier catalog | DEFER | Browse supplier products | MOBILE-EPIC-06 | V2+; Buyer catalog convenience remains in Portal/V2. |
+| MOB-US-037 | Review SKU, price and availability | DEFER | Review product price and availability | MOBILE-EPIC-06 | V2+; broad Buyer commerce is not V1. |
+| MOB-US-038 | Build and edit a purchase | DEFER | Prepare a purchase request | MOBILE-EPIC-06 | V2+; local draft never becomes a commitment. |
+| MOB-US-039 | Repeat a previous purchase | DEFER | Repeat a previous purchase | MOBILE-EPIC-06 | V2+; current revalidation and reorder policy remain open. |
+| MOB-US-040 | Submit a PR or confirm a Direct Order | DEFER | Submit a request or place a direct order | MOBILE-EPIC-06 | V2+; PR and Direct Order remain distinct paths. |
+| MOB-US-041 | Respond to proposed material changes | DEFER | Respond to a material change | MOBILE-EPIC-06 | V2+; versioned commitment response remains deferred. |
+| MOB-US-042 | Track Purchase Requests and Sales Orders | DEFER | Follow requests, orders and documents | MOBILE-EPIC-06 | V2+; broad history/document convenience remains deferred. |
+| MOB-US-043 | Review Credit and Receivables and make a Payment | DEFER | Review credit and report payment evidence | MOBILE-EPIC-06 | V2+; Payment Reported remains distinct from Payment Confirmed. |
+| MOB-US-044 | Receive Delivery push notifications | REFINE | Know when a delivery needs attention | MOBILE-EPIC-05 | V1; human outcome is critical Delivery awareness; subscription lifecycle is technical. |
+| MOB-US-045 | Track an active Driver on a map | SUPERSEDE + DEFER | See an active driver on a map | MOBILE-EPIC-07 | V2+; V1 uses MOB-US-028 external navigation only. |
+| MOB-US-046 | Contact the Driver | DEFER | Contact the driver | MOBILE-EPIC-07 | V2+; provider, consent and audit channel remain open. |
+| MOB-US-047 | Scan the Driver-generated Delivery QR | REFINE | Verify a delivery through the handoff code | MOBILE-EPIC-05 | V1; verification is not receipt, POD, payment or completion. |
+| MOB-US-048 | Confirm correct receipt | REFINE | Confirm the quantities actually received | MOBILE-EPIC-05 | V1; Buyer receipt is a separate immutable fact. |
+| MOB-US-049 | Report discrepancy or rejection during receipt | REFINE | Report a discrepancy without erasing the facts | MOBILE-EPIC-05 | V1; discrepancy preserves receipt, Driver and evidence history. |
 
-## History handling
+## Historical handling
 
-The original 2026-08-24 epic inventory is represented above exactly enough to
-recover ID, title, status and semantic disposition. Its former AC-pending
-state is superseded by the cataloged AC blocks; no story is silently promoted
-to `PRODUCT ACCEPTED` or `IMPLEMENTED`.
+The seven former Epic filenames remain compatibility pointers. Historical
+numeric grouping is evidence only; the current canonical catalog and Epic
+index are authoritative for scope. No story is promoted to PRODUCT ACCEPTED,
+IMPLEMENTED or production-ready by this rebaseline.

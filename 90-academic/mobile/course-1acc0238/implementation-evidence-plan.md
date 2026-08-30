@@ -16,7 +16,7 @@ AS-IS; no Mobile client completion is claimed.
 | Phase | Target evidence | Current state |
 |---|---|---|
 | Android foundation | Kotlin project, build, architecture, auth/session, context, API client | IMPLEMENTATION_PENDING |
-| Local persistence | secure session/context/preferences/read cache/safe draft boundary | IMPLEMENTATION_PENDING; framework open |
+| Local persistence | secure session/context/freshness, safe read cache, harmless draft, temporary evidence and retry boundary | IMPLEMENTATION_PENDING; framework open |
 | Device resource | camera barcode/QR/evidence proof with permission and fallback | IMPLEMENTATION_PENDING |
 | REST integration | real Nexa API request, Problem Details, retry, stale/conflict state | API AS-IS PARTIAL; client pending |
 | Core physical flow | Warehouse receiving or FEFO/pick on device | IMPLEMENTATION_PENDING |

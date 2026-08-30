@@ -115,7 +115,7 @@ A capability presented as V1 must close coherently end-to-end. If it cannot be d
 
 ## V2 and future
 
-Deferred items include full Procurement, advanced CRM, advanced Finance, formal order amendments where not required, backorders, advanced BI/data warehouse, SUNAT integration, Control Center, advanced warehouse optimization, predictive inventory, multi-user customer accounts, plans/subscriptions/entitlements, IoT/automatic telemetry, deep QMS workflows and complex carrier integrations. Operations Mobile and Buyer Mobile are OWNER-ACCEPTED product projections with 42 V1 candidate stories, but their research, native client, provider/device decisions and production acceptance remain runway; unaccepted Mobile expansions, including continuous tracking, rich chat and reorder/BOM/transfer expansions, remain V2/Future.
+Deferred items include full Procurement, advanced CRM, advanced Finance, formal order amendments where not required, backorders, advanced BI/data warehouse, SUNAT integration, Control Center, advanced warehouse optimization, predictive inventory, multi-user customer accounts, plans/subscriptions/entitlements, IoT/automatic telemetry, deep QMS workflows and complex carrier integrations. Operations Mobile and Buyer Mobile are OWNER-ACCEPTED product projections with 28 V1 candidate stories, but their research, native client, provider/device decisions and production acceptance remain runway; unaccepted Mobile expansions, including field sales, broad Buyer commerce, stored/continuous tracking, rich chat and reorder/BOM/transfer expansions, remain V2/Future.
 
 ## Closure reconciliation
 

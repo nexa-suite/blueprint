@@ -1,6 +1,8 @@
 # Offline
 
-PROPOSED / RESEARCH VALIDATION PENDING. Selective offline is required for Driver
-Delivery execution and Warehouse core workflows; drafts/preparation are
-candidate support. Payments, security-sensitive confirmation and QR verification
-must remain online-authoritative or use explicit idempotent queue semantics.
+PROPOSED / RESEARCH VALIDATION PENDING. Mobile V1 is online-first. Safe read
+cache, harmless draft preservation, temporary evidence staging and retry
+metadata may support Driver and Warehouse work. Generic offline mutation
+authority, background synchronization, automatic reconciliation and offline
+success for inventory, allocation, dispatch, Delivery, receipt, payment,
+credit, PR or SO remain V2+.

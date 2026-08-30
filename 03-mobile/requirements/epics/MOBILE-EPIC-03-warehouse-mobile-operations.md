@@ -6,9 +6,9 @@ owner: product
 last-reviewed: 2026-08-29
 ---
 
-# Epic pointer — Warehouse Scan, Receiving & Physical Inventory Execution
+# Historical pointer — Warehouse Receiving, Identification & Picking
 
 The canonical epic and stories are maintained in [the Mobile V1 product
-catalog](../mobile-v1-catalog.md). Historical IDs MOB-US-011..019 are retained
-and reconciled in [the migration matrix](../reconciliation.md); advanced
-transfer/count remains V2/deferred.
+catalog](../mobile-v1-catalog.md). Current V1 membership is MOB-US-011..017
+and MOB-US-019; MOB-US-018 is V2/deferred. The historical name remains
+traceable in [the migration matrix](../reconciliation.md).

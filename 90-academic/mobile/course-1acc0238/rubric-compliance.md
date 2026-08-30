@@ -17,7 +17,7 @@ completed coursework or accepted Product scope.
 | 3–5 needfinding interviews per segment | Interviews | RESEARCH_PENDING | Record participants, timing, video, summaries and analysis; do not fabricate | AV1 |
 | Personas, tasks, journeys, empathy maps | Needfinding | RESEARCH_PENDING | UXPressia artifacts and source links | AV1 |
 | Competitor analysis and SWOT | Chapter II | OWNER_INPUT_REQUIRED | Select at least three defensible competitors and cite sources | AV1 |
-| User Stories and Gherkin AC | Requirements | READY | 42 V1 rows join canonical stories with 4+ AC; Product Acceptance pending | AV1 |
+| User Stories and Gherkin AC | Requirements | READY | 28 V1 rows visibly join actor, goal, description and 4 Gherkin scenarios; Product Acceptance pending | AV1 |
 | Business Goals and Impact Mapping | Impact Mapping | STRUCTURE_READY | Proposed SMART goals and actor-impact-deliverable links; metrics remain proposed | AV1 |
 | Product Backlog | Requirements | READY | Business-value order, points and Sprint assignments in requirements projection; Epic fields in epic projection; Website Landing Page dependency in Sprint 1 | AV1 |
 | Strategic DDD | Chapter II | READY | 11 accepted BCs, EventStorming, Context Map and canvases in shared Blueprint | AV1 |
@@ -25,7 +25,7 @@ completed coursework or accepted Product scope.
 | Tactical DDD class diagrams | Chapter II | STRUCTURE_READY | Shared per-BC domain projections; academic mapping is linked, not duplicated | AV1 |
 | Database design diagrams | Chapter II | VERIFIED WITH CAVEAT | SQL-authoritative 11-BC and master ERD projections | AV1 |
 | Wireframes, wireflows, mock-ups, user flows, prototype | Chapter III | RESEARCH_PENDING | Figma/LucidChart/Overflow evidence plan; no fake screenshots | TB1 |
-| Local storage | Mobile constraint | TARGET DEFINED | Secure session/context, preferences, read cache and safe draft only | TB1 |
+| Local storage | Mobile constraint | TARGET DEFINED | Secure session/context, freshness, safe read cache, harmless draft, temporary evidence and retry metadata only | TB1 |
 | Internal RESTful service | Mobile constraint | VERIFIED WITH CAVEAT | Nexa API v0.17.0 supports selected contracts; Mobile client absent | TB1 |
 | Internal device resource | Mobile constraint | IMPLEMENTATION_PENDING | Camera proof for barcode/QR/evidence on physical Android device | TB1 |
 | Third-party service | Mobile constraint | OWNER_INPUT_REQUIRED | Select Maps, Push or Payment candidate and record PoC evidence | TB1 |
@@ -44,7 +44,7 @@ completed coursework or accepted Product scope.
 
 ## Evidence rules
 
-- Academic source remains preserved at [the official transcription](../enunciado-trabajo-final.md).
+- The external academic source is not a publishable Blueprint artifact; only derived constraints are retained here.
 - Current Product decisions remain in [Current Decisions](../../../01-shared/product/current-decisions.md).
 - No external interview, citation, UX artifact, device run or video is inferred from repository structure.
 - Course technology constraints do not select a Mobile framework or create a new Bounded Context.

@@ -5,7 +5,6 @@ Product, Domain, Architecture or Delivery truth.
 
 - [Requirements projection](requirements-projection.md)
 - [Web evidence](web-applications/README.md)
-- [Mobile assignment evidence](mobile/enunciado-trabajo-final.md)
 - [UPC 1ACC0238 Mobile course runway](mobile/course-1acc0238/README.md)
 - [Tactical DDD Web projection](tactical-ddd/web.md)
 - [Tactical DDD Mobile projection](tactical-ddd/mobile.md)

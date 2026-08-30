@@ -34,7 +34,7 @@ Functional catalog status for this wave:
 | Category | Count | Status |
 |---|---:|---|
 | Web functional User Stories | 133 | CONFIRMED / V1 |
-| Mobile functional User Stories | 49 | 42 V1 candidates; 7 V2/deferred; PROPOSED / RESEARCH VALIDATION PENDING |
+| Mobile functional User Stories | 49 | 28 V1 candidates; 21 V2/deferred; PROPOSED / RESEARCH VALIDATION PENDING |
 | Technical Stories | 20 | SHARED / DELIVERY |
 | Spike Stories | 6 | RESEARCH / ENABLER |
 | Total requirement items | 208 | BASELINED CATALOG; acceptance gates open |

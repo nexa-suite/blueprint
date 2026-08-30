@@ -13,23 +13,25 @@ last-reviewed: 2026-08-29
 The Product owner accepts two projections for planning, subject to research and
 later Product Acceptance:
 
-- **Nexa Operations Mobile:** Sales, Warehouse, Dispatch and Driver work.
-- **Nexa Buyer Mobile:** Customer Buyer catalog, commitment, delivery handoff,
-  finance visibility and documents; Buyer Portal remains feature-complete.
+- **Nexa Operations Mobile:** Warehouse receiving/picking, dispatch handoff and
+  Driver delivery execution/proof.
+- **Nexa Buyer Mobile:** Critical Delivery updates, handoff verification,
+  Buyer receipt and discrepancy reporting; Buyer Portal remains
+  feature-complete for broader commerce.
 
 Mobile is not a new product domain, deployment unit or Bounded Context. It
 reuses the shared Product language and eleven accepted Bounded Contexts.
 
 ## V1 direction
 
-Identity/context foundation, field sales, SKU/lot/receiving/FEFO/pick,
-dispatch, Driver attempts/evidence, Buyer handoff/receipt/discrepancy,
-Buyer commerce/credit/payment/document visibility, push subscription and safe
-selective evidence synchronization are represented in the catalog.
+Identity/context foundation, product identification, receiving/lot/FEFO/pick,
+dispatch/handoff, Driver attempts/proof, and narrow Buyer
+handoff/receipt/discrepancy/critical-update work are represented in the
+28-story V1 catalog. The remaining 21 historical stories stay deferred.
 
 The API v0.17.0 backend is a partial contract baseline, not a completed Mobile
 client. Research must still validate actors, workflows, app boundary, mobile
-IA, device permissions, accessibility, offline recovery and priority.
+IA, device permissions, accessibility, connectivity recovery and priority.
 
 ## Non-negotiable product rules
 
@@ -38,8 +40,9 @@ IA, device permissions, accessibility, offline recovery and priority.
 - Payment Reported != Payment Confirmed. Buyer receipt, Driver outcome and POD
   are separate facts.
 - QR resolves an ephemeral handoff; it does not equal acceptance.
-- Offline may cache, draft or queue selected evidence, never fake payment,
-  credit, PR, SO, inventory or Delivery-finalization success.
+- V1 is online-first. Offline may cache, preserve a harmless draft or stage
+  temporary evidence, never fake payment, credit, PR, SO, inventory or
+  Delivery-finalization success.
 - Continuous tracking, ETA, route optimization, advanced GS1/transfer/count,
   IoT, chat, rich notification campaigns and returns/RMA remain V2/Future or
   outside the current contract.

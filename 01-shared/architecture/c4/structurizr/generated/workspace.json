@@ -12,7 +12,7 @@
           "id" : "144",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.18f28997-e318-47d6-a44b-fa0857c57d16"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.ed093f72-a73a-4ea9-98b3-0cb07d6db48a"
           },
           "relationships" : [ {
             "description" : "Submits validated contact/demo intake",
@@ -29,7 +29,7 @@
           "id" : "145",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.049ff3e6-764a-464c-86a7-7d4f28fb24b3"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.f0f2082f-8e66-4deb-80a0-a5ef13610939"
           },
           "relationships" : [ {
             "description" : "Uses authoritative API contracts",
@@ -46,7 +46,7 @@
           "id" : "146",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.f842da3f-4e16-4fa6-83bb-6f9ed21e8217"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.6e440d70-8561-4ce3-b147-66554997fdad"
           },
           "relationships" : [ {
             "description" : "Uses authoritative Buyer contracts",
@@ -63,7 +63,7 @@
           "id" : "147",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.32850f16-6681-40d8-8549-3a94322f80b5"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.b7f769ff-07dd-43dc-af67-8e2a021f3228"
           },
           "relationships" : [ {
             "description" : "Reads and writes scoped transactional state",
@@ -87,7 +87,7 @@
           "id" : "151",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.2fb4af9a-f1c1-4bcc-9083-2cc18dc1919a"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.ee0a5041-9280-49e5-92c0-16ec426da23f"
           },
           "tags" : "Container Instance"
         }, {
@@ -96,7 +96,7 @@
           "id" : "153",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.1c57eb6d-c910-43bf-b237-577949536dd2"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.2befcb8b-0c92-44e4-b8b6-09dcd1fcf16e"
           },
           "tags" : "Container Instance"
         } ],
@@ -107,7 +107,7 @@
           "id" : "155",
           "name" : "Mailpit",
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.347d3175-285b-4d64-b063-ea615e76b813"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.0e58dac1-0f0e-4c22-8603-998f8246b494"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local SMTP sink"
@@ -116,7 +116,7 @@
           "id" : "156",
           "name" : "ClamAV",
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.e5d4ff4b-0617-4cae-bba3-c50cfa37340e"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.80de3559-d8f9-4088-b19a-b288dfc7b561"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local malware scanner"
@@ -125,7 +125,7 @@
           "id" : "157",
           "name" : "OpenTelemetry Collector",
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.fa442711-4619-4b28-9ce4-2a32162a72ea"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.8328549b-cf94-493e-a45e-e2da7a5ddf98"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local telemetry collector"
@@ -134,7 +134,7 @@
           "id" : "158",
           "name" : "Jaeger",
           "properties" : {
-            "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d.af22c4e1-4abf-4080-960d-a917e363636f"
+            "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e.82634652-41ca-4f3b-97d5-bc955894d26d"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local trace viewer"
@@ -142,7 +142,7 @@
         "instances" : "1",
         "name" : "Docker Compose Runtime",
         "properties" : {
-          "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75.984ef20f-2f89-4bb1-8bd7-325fdf6e4b2d"
+          "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454.89192fe5-39fd-4d3c-b650-53669534070e"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Docker Compose"
@@ -152,7 +152,7 @@
       "instances" : "1",
       "name" : "Developer Machine",
       "properties" : {
-        "structurizr.dsl.identifier" : "67ff0686-01f9-4d24-b609-3862492ae795.07d42395-5374-42f2-822e-8f69bde7db75"
+        "structurizr.dsl.identifier" : "fef2ec7e-ec19-4a28-9aa1-e5cba176bbae.a8c38c55-ad2b-4c32-94f5-63c1f6065454"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "macOS workstation"
@@ -163,7 +163,7 @@
         "id" : "160",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.71672387-200d-4ba0-ac27-aac6a5f0f4a9.a4dd99f6-d69c-4706-b43e-aace6ffd14a9"
+          "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.9ec29264-97e8-4fb9-83d1-1596ad9e79b0.3b396e10-875c-4e84-9997-0193d23cdeea"
         },
         "relationships" : [ {
           "description" : "Uses resilient mobile API contracts",
@@ -180,7 +180,7 @@
         "id" : "161",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.71672387-200d-4ba0-ac27-aac6a5f0f4a9.315d6c1a-e3aa-4f2e-a60d-63189f27e6d9"
+          "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.9ec29264-97e8-4fb9-83d1-1596ad9e79b0.88712d56-86a5-4cc1-af32-698daab08598"
         },
         "relationships" : [ {
           "description" : "Uses resilient Buyer API contracts",
@@ -197,7 +197,7 @@
       "instances" : "1",
       "name" : "Android Physical Device",
       "properties" : {
-        "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.71672387-200d-4ba0-ac27-aac6a5f0f4a9"
+        "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.9ec29264-97e8-4fb9-83d1-1596ad9e79b0"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "Android device"
@@ -209,7 +209,7 @@
           "id" : "164",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.6fe272f2-8dcb-4e04-89d3-783332edd6da.7198c7c1-6b23-40db-9469-51d34124edf6"
+            "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.2c42c36b-2486-408a-b55b-443a9bfc2a3f.ca849ecb-deda-4702-bc72-27610915f462"
           },
           "relationships" : [ {
             "description" : "Submits validated contact/demo intake",
@@ -226,7 +226,7 @@
           "id" : "165",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.6fe272f2-8dcb-4e04-89d3-783332edd6da.3183158e-5894-4da6-8e4a-f01a61682c9c"
+            "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.2c42c36b-2486-408a-b55b-443a9bfc2a3f.29f83cc9-742b-4ad1-921e-6f79e4955f75"
           },
           "relationships" : [ {
             "description" : "Uses authoritative API contracts",
@@ -243,7 +243,7 @@
           "id" : "166",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.6fe272f2-8dcb-4e04-89d3-783332edd6da.1a7a6127-9001-4528-a579-feea640a3fc7"
+            "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.2c42c36b-2486-408a-b55b-443a9bfc2a3f.d86b5787-d22f-4441-b8a3-c4828be8b741"
           },
           "relationships" : [ {
             "description" : "Uses authoritative Buyer contracts",
@@ -260,7 +260,7 @@
         "instances" : "1",
         "name" : "Static Web Hosting / CDN",
         "properties" : {
-          "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.6fe272f2-8dcb-4e04-89d3-783332edd6da"
+          "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.2c42c36b-2486-408a-b55b-443a9bfc2a3f"
         },
         "tags" : "Element,Deployment Node"
       }, {
@@ -270,7 +270,7 @@
           "id" : "168",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.eeeefa40-2097-44b1-9907-a38072d33206.53695ec1-8e08-4f11-8138-2bc9214df36a"
+            "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.de301bf8-22d3-4647-8ccb-b2b1a76d54ab.74ddb63e-bdca-4af1-99bd-c13561d2c2f8"
           },
           "relationships" : [ {
             "description" : "Reads and writes scoped transactional state",
@@ -315,7 +315,7 @@
         "instances" : "1",
         "name" : "API Compute",
         "properties" : {
-          "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.eeeefa40-2097-44b1-9907-a38072d33206"
+          "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.de301bf8-22d3-4647-8ccb-b2b1a76d54ab"
         },
         "tags" : "Element,Deployment Node"
       }, {
@@ -325,7 +325,7 @@
           "id" : "175",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.4e16c9b1-8841-4d96-bf6f-4511cd62616d.9d6f71bf-4abd-4a52-ae31-7af9b42256ed"
+            "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.3e7ad95b-3eed-4379-9896-03fbe23e6c92.b08d27d7-9443-4d47-bda4-fbf8eda4576d"
           },
           "tags" : "Container Instance"
         } ],
@@ -334,7 +334,7 @@
         "instances" : "1",
         "name" : "Managed PostgreSQL",
         "properties" : {
-          "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.4e16c9b1-8841-4d96-bf6f-4511cd62616d"
+          "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.3e7ad95b-3eed-4379-9896-03fbe23e6c92"
         },
         "tags" : "Element,Deployment Node"
       }, {
@@ -344,7 +344,7 @@
           "id" : "178",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.b69f91cc-acb1-46da-bf02-91d9e5aec4ad.cb18bfc3-1ddc-4049-9258-37e34088c2cd"
+            "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.65831904-2893-4018-a8a8-0d6b47c9e9f5.8c0f940a-096e-4bfa-b183-e582a8818cf9"
           },
           "tags" : "Container Instance"
         } ],
@@ -353,7 +353,7 @@
         "instances" : "1",
         "name" : "Object Storage",
         "properties" : {
-          "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5.b69f91cc-acb1-46da-bf02-91d9e5aec4ad"
+          "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d.65831904-2893-4018-a8a8-0d6b47c9e9f5"
         },
         "tags" : "Element,Deployment Node"
       } ],
@@ -362,7 +362,7 @@
       "instances" : "1",
       "name" : "Provider-neutral Hosting",
       "properties" : {
-        "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.1dcbc394-3d87-4496-8a01-c0e9e8af31b5"
+        "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.6eb3e4eb-5829-447d-b190-9a0620f3a91d"
       },
       "tags" : "Element,Deployment Node"
     }, {
@@ -371,14 +371,14 @@
       "instances" : "1",
       "name" : "External Provider Boundary",
       "properties" : {
-        "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.b681d6ce-aa2d-43e3-8eab-a0ef72020f93"
+        "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.752119bd-5486-4283-bee0-d911b02785b5"
       },
       "softwareSystemInstances" : [ {
         "environment" : "V1 TARGET",
         "id" : "181",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.b681d6ce-aa2d-43e3-8eab-a0ef72020f93.c5958652-11eb-4beb-8e98-cfe623c16483"
+          "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.752119bd-5486-4283-bee0-d911b02785b5.395d66fb-51f5-44ab-9379-fd4b188da6a5"
         },
         "softwareSystemId" : "11",
         "tags" : "Software System Instance"
@@ -387,7 +387,7 @@
         "id" : "183",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.b681d6ce-aa2d-43e3-8eab-a0ef72020f93.59ebf197-7846-495c-a5c2-646c1d2fe075"
+          "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.752119bd-5486-4283-bee0-d911b02785b5.2ce67807-c563-4457-8d70-eaf33a592bc7"
         },
         "softwareSystemId" : "12",
         "tags" : "Software System Instance"
@@ -396,7 +396,7 @@
         "id" : "185",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "e7ce6ce0-edca-4d04-9625-6b6e70918558.b681d6ce-aa2d-43e3-8eab-a0ef72020f93.d75229ee-28b6-4660-8c6d-4210dda16aad"
+          "structurizr.dsl.identifier" : "40dfbb2e-0ef7-4cbd-b894-a5b35becbe35.752119bd-5486-4283-bee0-d911b02785b5.bf24412f-c735-4be0-95e5-f8f79c88e536"
         },
         "softwareSystemId" : "13",
         "tags" : "Software System Instance"
@@ -1373,10 +1373,10 @@
           "tags" : "Element,Component",
           "technology" : "PROPOSED mobile component"
         }, {
-          "description" : "Proposed Sales, Warehouse, Dispatch and Delivery workflows",
+          "description" : "V1 product identification, receiving, FEFO/picking, dispatch handoff and Driver Delivery execution",
           "documentation" : { },
           "id" : "53",
-          "name" : "Field and Physical Workflows",
+          "name" : "Warehouse, Dispatch and Driver Work",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsMobileWork"
           },
@@ -1396,10 +1396,10 @@
           "tags" : "Element,Component",
           "technology" : "PROPOSED mobile component"
         }, {
-          "description" : "Queued/idempotent operational work with explicit conflict and retry states",
+          "description" : "V1 safe cache, harmless drafts, temporary evidence staging and retry/conflict states; no generic offline authority",
           "documentation" : { },
           "id" : "54",
-          "name" : "Selective Offline and Sync",
+          "name" : "Connectivity and Evidence Recovery",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsMobileSync"
           },
@@ -1413,10 +1413,10 @@
           "tags" : "Element,Component",
           "technology" : "PROPOSED mobile component"
         }, {
-          "description" : "Camera/scanning abstraction, active-delivery location and evidence upload",
+          "description" : "V1 package/label input, temperature/POD evidence and bounded handoff code; no stored location",
           "documentation" : { },
           "id" : "55",
-          "name" : "Scan, Location and Evidence Boundary",
+          "name" : "Physical Capture and Handoff",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsMobileEvidence"
           },
@@ -1430,7 +1430,7 @@
           "tags" : "Element,Component",
           "technology" : "PROPOSED integration component"
         } ],
-        "description" : "TARGET planning projection for Sales, Warehouse, Dispatch, BOM and Driver capabilities; client NOT STARTED",
+        "description" : "TARGET V1 planning projection for Warehouse, Dispatch and Driver delivery work; client NOT STARTED",
         "documentation" : { },
         "id" : "51",
         "name" : "Nexa Operations Mobile",
@@ -1449,7 +1449,7 @@
         "technology" : "Mobile client — framework not selected"
       }, {
         "components" : [ {
-          "description" : "Buyer identity, active supplier relationship and authorized context",
+          "description" : "Buyer identity, active supplier relationship and authorized Delivery context",
           "documentation" : { },
           "id" : "57",
           "name" : "Buyer Authentication and Relationship Context",
@@ -1466,10 +1466,10 @@
           "tags" : "Element,Component",
           "technology" : "PROPOSED mobile component"
         }, {
-          "description" : "Catalog, draft, purchase, order, delivery, payment and document projections",
+          "description" : "V1 handoff verification, actual quantity receipt and discrepancy reporting",
           "documentation" : { },
           "id" : "58",
-          "name" : "Buyer Commerce and Delivery Experience",
+          "name" : "Handoff and Receipt Work",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerMobileCommerce"
           },
@@ -1483,10 +1483,10 @@
           "tags" : "Element,Component",
           "technology" : "PROPOSED mobile component"
         }, {
-          "description" : "Safe recent state, push projections and explicit online authority",
+          "description" : "V1 relevant Delivery updates, freshness and refresh; no notification-driven mutation",
           "documentation" : { },
           "id" : "59",
-          "name" : "Buyer Draft and Notification Sync",
+          "name" : "Critical Delivery Updates",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerMobileSync"
           },
@@ -1500,7 +1500,7 @@
           "tags" : "Element,Component",
           "technology" : "PROPOSED mobile component"
         } ],
-        "description" : "TARGET planning projection for Buyer commerce, delivery and documents; client NOT STARTED",
+        "description" : "TARGET V1 planning projection for critical Delivery updates, handoff, receipt and discrepancy; client NOT STARTED",
         "documentation" : { },
         "id" : "56",
         "name" : "Nexa Buyer Mobile",
@@ -1552,9 +1552,9 @@
   },
   "name" : "Nexa Suite",
   "properties" : {
-    "structurizr.inspection.error" : "77",
     "structurizr.inspection.info" : "0",
     "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.error" : "77",
     "structurizr.inspection.warning" : "0"
   },
   "views" : {
@@ -2057,7 +2057,7 @@
         "vertices" : true
       },
       "containerId" : "51",
-      "description" : "V1 TARGET Operations Mobile planning projection; client not implemented or research-validated",
+      "description" : "V1 TARGET Operations Mobile planning projection for Warehouse, Dispatch and Driver work; client not implemented or research-validated",
       "elements" : [ {
         "id" : "22",
         "x" : 0,
@@ -2099,7 +2099,7 @@
         "vertices" : true
       },
       "containerId" : "56",
-      "description" : "V1 TARGET Buyer Mobile planning projection; client not implemented or research-validated",
+      "description" : "V1 TARGET Buyer Mobile planning projection for Delivery updates, handoff, receipt and discrepancy; client not implemented or research-validated",
       "elements" : [ {
         "id" : "22",
         "x" : 0,

@@ -66,7 +66,7 @@ Orden de consulta recomendado:
 7. [Ubiquitous Language](../../01-shared/domain/ubiquitous-language/glossary.md)
 8. [Integration and Event Architecture](../../01-shared/architecture/integrations/README.md)
 9. [Canonical Bounded Context canvases](../../01-shared/domain/bounded-contexts/README.md)
-10. [Final Project statement](enunciado-trabajo-final.md), únicamente para la estructura académica
+10. External course constraint input, kept local-only and not stored in the publishable Blueprint tree
 
 La comprobación de existencia de una guía equivalente no encontró otra guía
 canónica de estos diez pasos en el árbol consultado. Este archivo es, por

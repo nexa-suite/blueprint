@@ -14,9 +14,9 @@ client implementation remain pending.
 
 | App | V1 capability projection | Explicit boundary |
 |---|---|---|
-| Operations Mobile | CAP-02/03/04/05/06/07/08/09/10/13/14/15; field sales, warehouse, dispatch and Driver execution | API owns business truth; selective evidence queue only; no Mobile/Scanner/QR/Device BC |
-| Buyer Mobile | CAP-02/03/04/05/06/09/11/12/13/14/15; catalog, commitment, handoff/receipt/discrepancy and finance | Buyer Relationship/API owns authority; no offline payment/commitment confirmation |
+| Operations Mobile | CAP-01/02/07/08/09/10/15; warehouse, dispatch and Driver execution | API owns business truth; safe cache/draft/evidence staging only; no Mobile/Scanner/QR/Device BC |
+| Buyer Mobile | CAP-01/02/09/14/15; critical Delivery update, handoff, receipt and discrepancy | Buyer Relationship/API owns authority; no offline receipt or commitment confirmation |
 
 API v0.17.0 supports selected identifier, FEFO, handoff, receipt/discrepancy
-and push-subscription foundations. Advanced analytics, continuous tracking,
+and critical-update foundations. Advanced analytics, continuous tracking,
 IoT, rich chat, advanced GS1 and transfers/counts are deferred or Future.

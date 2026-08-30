@@ -6,9 +6,9 @@ owner: product
 last-reviewed: 2026-08-29
 ---
 
-# Epic pointer — Notifications, Offline Safety & Synchronization
+# Historical pointer — Advanced Field Mobility & Offline Operations
 
-The canonical epic and stories are maintained in [the Mobile V1 product
-catalog](../mobile-v1-catalog.md). Historical IDs MOB-US-044..049 are retained
-and reconciled in [the migration matrix](../reconciliation.md); map tracking
-and Buyer-Driver contact remain V2/deferred.
+The historical name was Notifications, Offline Safety & Synchronization. The
+current canonical Epic is [Advanced Field Mobility & Offline Operations](../mobile-v1-catalog.md)
+with V2/deferred membership MOB-US-018, 029, 030, 035, 045 and 046. The
+current V1 handoff and Buyer stories are mapped in the canonical catalog.

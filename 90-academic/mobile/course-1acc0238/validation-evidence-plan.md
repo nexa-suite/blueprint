@@ -28,7 +28,7 @@ Readiness are independent.
 | Warehouse receipt/pick | camera/manual fallback, SKU/lot resolution, FEFO, stale allocation, duplicate retry, network failure, truthful result |
 | Driver Delivery | assignment, Attempt lifecycle, POD policy, handoff evidence, QR expiry/replay rejection, safe retry |
 | Buyer handoff | relationship authorization, one-time/TTL token, quantity confirmation, immutable receipt and discrepancy separation |
-| Commercial intent | Draft no reservation, PR/Direct Order distinction, idempotency, credit/inventory conflict, server authority |
+| Deferred commercial intent | Draft no reservation, PR/Direct Order distinction, idempotency, credit/inventory conflict, server authority; V2+ only |
 | Push | subscription lifecycle, tenant-safe routing, invalid token/retry, deep-link reauthorization; no source-state mutation |
 
 ## Physical-device gate

@@ -15,7 +15,7 @@ research is pending.
 
 | Segment | Actors | Required research | Current state |
 |---|---|---|---|
-| Field & Warehouse Operations | Sales Representative; Warehouse Operator; Dispatch Coordinator | 3–5 needfinding interviews; workflows, device, channel, pain and task evidence | RESEARCH_PENDING |
+| Field & Warehouse Operations | Sales Representative (V2+); Warehouse Operator; Dispatch Coordinator | 3–5 needfinding interviews; V1 warehouse/dispatch tasks plus deferred field-sales questions | RESEARCH_PENDING |
 | Delivery Workforce | Driver / Delivery Operator | 3–5 needfinding interviews/observations; privacy, battery, connectivity and evidence | RESEARCH_PENDING |
 | B2B Buyers | Customer Buyer | 3–5 needfinding interviews; catalog, commitment, receipt, discrepancy and finance needs | RESEARCH_PENDING |
 
@@ -31,7 +31,7 @@ placeholders until supplied by the team.
    Buyer Handoff QR.
 3. Customer Buyer resolves the handoff, confirms quantities and preserves an
    immutable discrepancy fact.
-4. Sales Representative prepares and submits authorized commercial intent.
+4. Deferred commercial work is researched separately; it is not part of the Mobile V1 task flow.
 
 Each goal requires the following chain:
 

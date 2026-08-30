@@ -1,4 +1,4 @@
-component nexa.operationsMobile "Nexa-Operations-Mobile-TARGET" "V1 TARGET Operations Mobile planning projection; client not implemented or research-validated" {
+component nexa.operationsMobile "Nexa-Operations-Mobile-TARGET" "V1 TARGET Operations Mobile planning projection for Warehouse, Dispatch and Driver work; client not implemented or research-validated" {
     include nexa.operationsMobile.operationsMobileAuth
     include nexa.operationsMobile.operationsMobileWork
     include nexa.operationsMobile.operationsMobileSync

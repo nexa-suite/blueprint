@@ -10,7 +10,7 @@ support is `PARTIAL` and is evidenced by [the live compatibility baseline](../04
 - [Actors](actors/README.md) — projection of the [shared actor catalog](../01-shared/product/actors.md)
 - [Segments](segments/README.md)
 - [Capabilities](capabilities/README.md)
-- [Requirements](requirements/README.md) — 7 Epics, 49 retained stories, 42 V1 candidates and 7 V2/deferred
+- [Requirements](requirements/README.md) — 7 Epics, 49 retained stories, 28 V1 candidates and 21 V2/deferred
 - [UX and discovery](ux/README.md)
 - [Architecture](architecture/README.md)
 

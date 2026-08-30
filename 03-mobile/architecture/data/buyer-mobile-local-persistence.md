@@ -11,40 +11,38 @@ last-reviewed: 2026-08-29
 **Decision:** PROPOSED / RESEARCH VALIDATION PENDING
 **Technology:** NOT SELECTED
 **Authority:** LOCAL / NON-AUTHORITATIVE
-**Offline scope:** safe reading and non-critical draft preparation.
+**Offline scope:** online-first V1 safe reading, harmless receipt/discrepancy
+drafts and notification state.
 
 ## Logical records
 
-| Record | State kind | Minimum fields | Sync rule |
+| Record | State kind | Minimum fields | V1 rule |
 |---|---|---|---|
 | `BuyerSessionReference` | secure reference | `sessionId`, identity reference, expiry, revocation marker | No password, raw token, card data or provider secret in local business records |
 | `ActiveBuyerRelationshipReference` | context | tenant, workspace, customer account, relationship ID/status, fetchedAt | Revalidate server-side before protected reads or writes |
-| `RecentCatalogProjection` | cache | SKU, presentation, media ref, cold-chain indicator, server version | Refreshable; product/SKU authority stays BC-03/API |
-| `PriceAvailabilityProjection` | cache | SKU, price/terms snapshot, safe availability, currency, freshness/expiry | Stale data cannot authorize a commitment |
-| `RequestDraft` | draft | local draft ID, lines, delivery reference, client version, updatedAt | Local draft; server PR only after authoritative validation |
-| `PendingSafeDraftOperation` | outbox / pending operation | operation ID, draft ID, payload, idempotency key, state | Queueing is not order confirmation; server controls state |
-| `RecentPurchaseRequestProjection` | cache | PR ID, status, expiry, totals, version | Read-only projection; refresh handles missed events |
-| `RecentSalesOrderProjection` | cache | SO ID, lifecycle, committed/fulfilled quantities, version | Never mutate local copy into authoritative state |
-| `RecentDeliveryProjection` | cache | delivery ID, window, state, safe tracking/evidence refs, freshness | No local delivery completion or POD success |
+| `RecentDeliveryProjection` | cache | delivery ID, window, state, safe handoff/evidence refs, freshness | Read-only projection; no local delivery completion or POD success |
 | `HandoffContextProjection` | cache/session | delivery, attempt, relationship, token state and expiry | Refresh/resolve through API; QR resolution is not acceptance |
 | `BuyerReceiptDraft` | draft | offered/accepted quantities, decision, reason, evidence refs, idempotency key | Queue only; API creates immutable receipt/discrepancy fact |
-| `PushSubscriptionReference` | device reference | installation, platform, lifecycle/version | No raw provider token; registration/disable is BC-10 authority |
-| `NotificationDeepLinkState` | local navigation | notification/event ID, target reference, consumedAt | Opens authorized API projection; stale links fail safely |
-| `SyncCursor` | sync metadata | relationship scope, server cursor/version, lastSyncAt | Gap detection triggers replay or full refresh |
-| `ConflictRetryMetadata` | sync metadata | operation ID, attempts, retryAt, conflict code, serverVersion | Explicit retry/review; no last-write-wins |
+| `NotificationState` | local notification state | notification reference, target reference, receivedAt, consumedAt | Opens an authorized Delivery projection; stale links fail safely |
+| `FreshnessMetadata` | freshness metadata | relationship scope, source version, lastCheckedAt, staleAt | Advisory; refresh is required before receipt |
+| `ConflictRetryMetadata` | retry metadata | operation ID, attempts, retryAt, conflict code, lastKnownVersion | Explicit retry/review; no last-write-wins |
 
 ## Forbidden offline success
 
 Payment success, credit decision, security/authorization mutation, Purchase
-Request submission, Sales Order confirmation and Buyer receipt are never marked successful
-offline. A draft can remain local; only API can create or confirm server facts.
+Request submission, Sales Order confirmation and Buyer receipt are never marked
+successful offline. A harmless draft can remain local; only Nexa can create or
+confirm business facts. There is no generic V1 sync cursor or background sync
+engine.
 Payment credentials and unrestricted sensitive identity data remain outside this
 model.
 
 ## Academic boundary
 
 This model reuses BC-01, BC-02, BC-03, BC-04, BC-06, BC-07, BC-08, BC-09,
-BC-10 and BC-11 Domain Models through shared API. It does not create a Buyer
-Mobile Bounded Context or authoritative database.
+BC-10 and BC-11 Domain Models through shared contracts. V1 local records are
+limited to recent Delivery/handoff reads, harmless receipt/discrepancy drafts,
+freshness and notification state. It does not create a Buyer Mobile Bounded
+Context or authoritative database.
 
 Diagram: [Buyer Mobile local persistence](buyer-mobile-local-persistence.puml).

@@ -6,9 +6,9 @@ owner: product
 last-reviewed: 2026-08-29
 ---
 
-# Epic pointer — Field Sales & Commercial Access
+# Historical pointer — Commercial & Operational Mobile Convenience
 
-The canonical epic and stories are maintained in [the Mobile V1 product
-catalog](../mobile-v1-catalog.md). Historical IDs MOB-US-004..010 are retained
-and reconciled in [the migration matrix](../reconciliation.md); BOM overview
-and exception visibility remain explicit V2/deferred candidates.
+The historical name was Field Sales & Commercial Access. The current canonical
+Epic is [Commercial & Operational Mobile Convenience](../mobile-v1-catalog.md)
+and its historical IDs MOB-US-004..010 remain V2/deferred. The migration
+evidence is in [the reconciliation matrix](../reconciliation.md).

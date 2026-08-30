@@ -29,12 +29,12 @@ framework.
 | TS-012 | Durable Business Traceability and Security Audit foundations | MOB-US-014, 017, 019, 023, 029, 033..035, 047..049 | KEEP; BC-11 remains distinct from security audit. |
 | TS-013 | Web service i18n and canonical error contracts | all Mobile API consumers | KEEP; shared API error/Problem Details authority. |
 | TS-014 | Web i18n and a11y/ARIA support | Mobile UX equivalent remains open | KEEP for Web; Mobile accessibility is client acceptance work. |
-| TS-015 | Mobile local storage capability | MOB-US-001..003, 008, 035, 038 | REFINE; secure local non-authoritative model, framework open. |
-| TS-016 | Mobile camera-based Barcode/QR identification | MOB-US-011, 034, 047 | REFINE; camera is optional adapter, QR is ephemeral, no Scanner BC. |
-| TS-017 | Maps and geolocation capabilities | MOB-US-028..029, 045 | REFINE; bounded location V1 candidate, map/live tracking V2/deferred. |
-| TS-018 | Mobile Push Notifications | MOB-US-044 | REFINE; provider-neutral subscription/retry foundation, provider open. |
-| TS-019 | Resilient Mobile synchronization and retry | MOB-US-009, 013..014, 016..017, 019, 023, 027, 031..035, 040..043, 049 | REFINE; selective queue only, no fake offline success. |
-| TS-020 | Protect Mobile sessions and locally stored sensitive data | MOB-US-001..003, 035, 043..044 | KEEP; device implementation and threat evidence open. |
+| TS-015 | Mobile local storage capability | MOB-US-001..003, 013..017, 019, 023, 033..034, 044, 047..049 | REFINE; V1 safe cache, harmless draft, temporary evidence and retry metadata only; framework open. |
+| TS-016 | Mobile camera-based Barcode/QR identification | MOB-US-011..012, 034, 047 | REFINE; camera is optional input, manual fallback is required, no Scanner BC. |
+| TS-017 | Maps and geolocation capabilities | MOB-US-028, 029, 045 | REFINE; V1 external navigation only; stored/background/live location is V2/Future. |
+| TS-018 | Mobile Push Notifications | MOB-US-044 | REFINE; critical Delivery updates and secure subscription lifecycle; provider open. |
+| TS-019 | Resilient Mobile synchronization and retry | V1 command stories plus MOB-US-035 | REFINE; V1 retry, unknown-result and duplicate safety; generic synchronization is V2+. |
+| TS-020 | Protect Mobile sessions and locally stored sensitive data | MOB-US-001..003, 044, 047..049 | KEEP; device implementation and threat evidence open. |
 
 All 20 technical IDs remain counted in the global catalog. Implementation
 status is separate from Product Acceptance and Mobile client status.

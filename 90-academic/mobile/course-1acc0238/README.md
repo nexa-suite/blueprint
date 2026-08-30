@@ -9,10 +9,10 @@ last-reviewed: 2026-08-30
 # UPC 1ACC0238 Mobile course runway
 
 Isolated academic projection for **Aplicaciones para Dispositivos Móviles**,
-period `202620`, NRC `4949`, team `nexa-team`. The official source is
-[Enunciado del Trabajo Final V4.0](../enunciado-trabajo-final.md). This folder
-turns that rubric into an actionable evidence plan without copying its
-authority into Nexa Product, Domain or Architecture.
+period `202620`, NRC `4949`, team `nexa-team`. This folder contains only
+derived planning and evidence maps; the external course source is intentionally
+not stored in the publishable Blueprint tree. These documents do not copy
+academic authority into Nexa Product, Domain or Architecture.
 
 ## Authority boundary
 
@@ -21,8 +21,8 @@ authority into Nexa Product, Domain or Architecture.
 - `90-academic/mobile/course-1acc0238` owns course mapping, backlog projection,
   milestone readiness and evidence status.
 - `91-reference` owns historical and external evidence.
-- `enunciado-trabajo-final.md` is the academic constraint source, not Product
-  authority.
+- The external course statement is an input constraint only; its source file is
+  local-only and is not a publishable Blueprint artifact.
 
 No interview, persona, statistic, paper, provider credential, deployment,
 physical-device run, video or Product Acceptance result is claimed without
@@ -34,12 +34,13 @@ implemented or accepted.
 1. [Rubric compliance](rubric-compliance.md)
 2. [Requirements and backlog projection](requirements-projection.md)
 3. [Epic projection](epic-projection.md)
-4. [Milestone plan](milestone-plan.md)
-5. [Architecture projection](architecture-projection.md)
-6. [UX evidence plan](ux-evidence-plan.md)
-7. [Implementation evidence plan](implementation-evidence-plan.md)
-8. [Validation evidence plan](validation-evidence-plan.md)
-9. [Bibliography evidence plan](bibliography-evidence-plan.md)
+4. [Story-to-design readiness](../../../03-mobile/requirements/story-to-design-readiness.md)
+5. [Milestone plan](milestone-plan.md)
+6. [Architecture projection](architecture-projection.md)
+7. [UX evidence plan](ux-evidence-plan.md)
+8. [Implementation evidence plan](implementation-evidence-plan.md)
+9. [Validation evidence plan](validation-evidence-plan.md)
+10. [Bibliography evidence plan](bibliography-evidence-plan.md)
 
 ## Official course configuration
 

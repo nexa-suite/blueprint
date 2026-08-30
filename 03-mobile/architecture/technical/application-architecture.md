@@ -7,4 +7,5 @@ spike evidence and explicit technical acceptance.
 
 Required properties: feature-oriented boundaries, explicit API contracts,
 secure session/context handling, accessible loading/empty/error/stale/conflict
-states, no client-owned business rules and no hidden offline success.
+states, no client-owned business rules, online-first commands and no hidden
+offline success.

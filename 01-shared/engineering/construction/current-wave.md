@@ -10,7 +10,7 @@ last-reviewed: 2026-08-18
 
 | Item | Status | Reason | Dependency | Non-V1 classification | Trigger for deeper architecture |
 |---|---|---|---|---|---|
-| Nexa Mobile (Operations + Buyer) | OWNER-ACCEPTED / RUNWAY | Two-app product direction is accepted; research, client and production acceptance remain open | Product research, API contracts, UX and security review | 42 V1 candidates; 7 V2/deferred; no client implementation claim | Accepted mobile scope, workflow evidence and Product Acceptance |
+| Nexa Mobile (Operations + Buyer) | OWNER-ACCEPTED / RUNWAY | Two-app product direction is accepted; research, client and production acceptance remain open | Product research, API contracts, UX and security review | 28 V1 candidates; 21 V2/deferred; no client implementation claim | Accepted mobile scope, workflow evidence and Product Acceptance |
 | Buyer Mobile delivery communication | V1 CANDIDATE / RUNWAY | Bounded handoff, receipt and discrepancy workflows are cataloged; chat/contact expansion remains deferred | Buyer delivery research, UX, API and security review | Cataloged V1 candidate; rich communication is V2/deferred | Validated Buyer handoff and communication policy |
 | Operations Mobile Driver execution | V1 CANDIDATE / RUNWAY | Delivery execution and POD projection is cataloged; client implementation is not started | Dispatch/Delivery research, offline/security evidence | Cataloged V1 candidate; continuous tracking/map/contact expansion is V2/deferred | Validated Driver journeys and delivery policy |
 | Nexa Control Center | FUTURE/V2 | Platform administration, support and plans are deferred | Product strategy, tenancy and commercial governance | V2/future | Accepted platform-administration scope |

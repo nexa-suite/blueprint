@@ -41,7 +41,7 @@ options, not a silently selected Mobile architecture.
 Operations Mobile and Buyer Mobile are the two accepted-for-planning product
 projections over the shared domain. They do not add a Bounded Context, C4
 Container, deployment unit, framework or alternate authority. The canonical
-story inventory retains 49 IDs: 42 V1 candidates and 7 V2/deferred candidates;
+story inventory retains 49 IDs: 28 V1 candidates and 21 V2/deferred candidates;
 all remain `PROPOSED / RESEARCH VALIDATION PENDING`.
 
 API v0.17.0 is backend candidate evidence for SKU/GTIN/lot resolution,

@@ -1,76 +1,75 @@
 @startuml BuyerMobileLocalPersistence
-title Buyer Mobile — Local Logical Persistence (PROPOSED / RESEARCH VALIDATION PENDING)
+title Buyer Mobile — V1 Local Assistance (PROPOSED / RESEARCH VALIDATION PENDING)
 hide circle
 skinparam classAttributeIconSize 0
 skinparam shadowing false
 skinparam linetype ortho
 
-class BuyerDraft <<Aggregate Root>> {
+class BuyerReceiptDraft <<Entity>> {
   -localDraftId: LocalDraftId
-  -remoteDraftReference: String
+  -deliveryReference: String
   -buyerRelationshipReference: String
   -state: DraftState
-  +addLine(skuReference: String, quantity: Decimal): void
-  +saveLocally(): void
-  +submitWhenOnline(): void
+  +saveHarmlessDraft(): void
+  +markPending(): void
+  +recordRetry(): void
 }
 
-class BuyerDraftLine <<Entity>> {
+class BuyerReceiptDraftLine <<Entity>> {
   -lineId: LocalDraftLineId
-  -skuReference: String
-  -displaySnapshot: String
+  -productReference: String
   -quantity: Decimal
   +changeQuantity(quantity: Decimal): void
 }
 
-class BuyerReadModelCache <<Entity>> {
+class DeliveryReadCache <<Entity>> {
   -cacheId: CacheId
-  -resourceType: String
-  -remoteReference: String
-  -serverVersion: String
-  -expiresAt: Instant
+  -deliveryReference: String
+  -sourceVersion: String
+  -freshness: FreshnessState
   +refresh(): void
-  +expire(): void
+  +markStale(): void
 }
 
-class UploadQueueItem <<Entity>> {
-  -queueItemId: QueueItemId
-  -localDraftId: LocalDraftId
-  -idempotencyKey: String
-  -state: QueueState
-  +enqueue(): void
-  +retry(): void
-  +markServerAccepted(): void
+class NotificationState <<Value Object>> {
+  -notificationReference: String
+  -targetReference: String
+  -receivedAt: Instant
+  -consumedAt: Instant
+  +markConsumed(): void
 }
 
-class SyncMetadata <<Entity>> {
-  -syncId: SyncMetadataId
-  -resourceType: String
-  -remoteReference: String
-  -lastServerVersion: String
-  +recordVersion(version: String): void
+class RetryMetadata <<Value Object>> {
+  -operationId: OperationId
+  -attempts: Integer
+  -lastKnownVersion: String
+  -state: RetryState
+  +recordAttempt(): void
+  +markConflict(): void
 }
 
 class LocalStorageBoundary <<Domain Service>> {
-  +persistDraft(draft: BuyerDraft): void
-  +readCache(resourceType: String, reference: String): BuyerReadModelCache
-  +queueSubmission(item: UploadQueueItem): void
+  +persistHarmlessDraft(draft: BuyerReceiptDraft): void
+  +readDelivery(reference: String): DeliveryReadCache
+  +recordRetry(metadata: RetryMetadata): void
 }
 
-BuyerDraft "1" *-- "0..*" BuyerDraftLine : lines
-BuyerDraft "1" *-- "0..*" UploadQueueItem : submissions
-BuyerDraft "1" o-- "0..1" SyncMetadata : server cursor
-LocalStorageBoundary o-- "0..*" BuyerReadModelCache : cached views
-LocalStorageBoundary --> BuyerDraft : local only
+BuyerReceiptDraft "1" *-- "0..*" BuyerReceiptDraftLine : quantities
+BuyerReceiptDraft "1" o-- "0..1" RetryMetadata : retry only
+LocalStorageBoundary o-- "0..*" DeliveryReadCache : recent read
+LocalStorageBoundary o-- "0..*" NotificationState : local state
+LocalStorageBoundary --> BuyerReceiptDraft : local/non-authoritative
 
 enum DraftState <<Enum>>
-enum QueueState <<Enum>>
+enum FreshnessState <<Enum>>
+enum RetryState <<Enum>>
 
 legend right
 PROPOSED / RESEARCH VALIDATION PENDING
 Technology: NOT SELECTED. Logical records only; no framework commitment.
-LOCAL / NON-AUTHORITATIVE. Cached catalog/availability/order views may be stale.
-Offline submission is a queued intent; only the API confirms authorization,
-price, inventory, commitment, payment and final order state.
+LOCAL / NON-AUTHORITATIVE. Nexa remains authority for Delivery, receipt,
+payment, authorization, commitment and traceability.
+V1 keeps recent Delivery/handoff reads, harmless receipt/discrepancy drafts,
+freshness and notification state. No generic sync engine; no offline receipt.
 endlegend
 @enduml

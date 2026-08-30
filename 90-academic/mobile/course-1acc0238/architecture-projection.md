@@ -18,7 +18,7 @@ context.
 |---|---|---|---|
 | Context Diagram | `01-shared/architecture/c4/structurizr/workspace.dsl` | `Nexa-SystemContext-ASIS`, `Nexa-SystemContext-V1-TARGET` | TARGET source ready; rendered evidence pending |
 | Container Diagram | same shared workspace | `Nexa-Containers-ASIS`, `Nexa-Containers-V1-TARGET` | TARGET source ready; rendered evidence pending |
-| Component Diagrams | shared model and component coverage matrix | API, Platform, Portal, Website where useful, Operations Mobile and Buyer Mobile target views | Coverage mapped; no duplicate components |
+| Component Diagrams | shared model and component coverage matrix | API, Platform, Portal, Website where useful, plus narrow Operations Mobile and Buyer Mobile V1 target views | Coverage mapped; no duplicate components |
 | Deployment Diagram | shared workspace deployment model | `Nexa-Deployment-Local-ASIS`, `Nexa-Deployment-V1-TARGET` | Provider-neutral target; local rendering pending |
 | Future/runway | shared workspace | genuinely deferred IoT, future identity/provider and V2/V3 concepts | No V1 implementation claim |
 
@@ -38,7 +38,7 @@ logical BC ownership.
 
 The target is provider-neutral:
 
-- Android physical device for Operations Mobile and Buyer Mobile.
+- Android physical device for representative Operations Mobile and Buyer Mobile flows.
 - Static Web Hosting/CDN for Website, Platform and Buyer Portal.
 - API Compute for the Nexa API.
 - Managed PostgreSQL.
