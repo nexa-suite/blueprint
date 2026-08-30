@@ -190,8 +190,8 @@ entity "sku" as t_sku {
   * product_id : uuid <<FK, required>>
   * code : varchar(80) <<required>>
   * name : varchar(200) <<required>>
-  * unit_of_measure : varchar(32) <<required>>
     gtin : varchar(14)
+  * unit_of_measure : varchar(32) <<required>>
   * temperature_band : varchar(64) <<required>>
   * status : varchar(32) <<required>>
   * created_at : timestamptz <<required>>
@@ -336,12 +336,14 @@ entity "commercial_commitment" as t_commercial_commitment {
   * commitment_id : uuid <<PK>>
   * tenant_id : uuid <<required>>
   * workspace_id : uuid <<required>>
-  * purchase_request_id : uuid <<FK, required>>
+  * origin_type : varchar(32) <<required>>
+    purchase_request_id : uuid <<FK>>
   * buyer_relationship_id : uuid <<required>>
   * status : varchar(32) <<required>>
   * committed_at : timestamptz <<required>>
     cancelled_at : timestamptz
   * revision : integer <<required>>
+    OR : value
 }
 
 entity "commercial_commitment_line" as t_commercial_commitment_line {
@@ -508,7 +510,7 @@ entity "warehouse_transfer" as t_warehouse_transfer {
   * destination_warehouse_id : uuid <<FK, required>>
   * status : varchar(32) <<required>>
   * requested_at : timestamptz <<required>>
-    dispatched_at : timestamptz
+    in_transit_at : timestamptz
     received_at : timestamptz
 }
 
@@ -1015,14 +1017,25 @@ entity "outbox_event" as t_outbox_event {
   * occurred_at : timestamptz <<required>>
     published_at : timestamptz
   * attempt_count : integer <<required>>
+    next_attempt_at : timestamptz
+    last_error : varchar(500)
+    dead_lettered_at : timestamptz
 }
 
 entity "inbox_deduplication" as t_inbox_deduplication {
   * inbox_id : uuid <<PK>>
   * consumer_name : varchar(160) <<required>>
   * message_id : uuid <<required>>
+    tenant_id : uuid
+    workspace_id : uuid
   * received_at : timestamptz <<required>>
     processed_at : timestamptz
+    next_attempt_at : timestamptz
+    lease_until : timestamptz
+    claim_token : varchar(240)
+  * attempt_count : integer <<required>>
+    last_error : varchar(500)
+    dead_lettered_at : timestamptz
   * status : varchar(32) <<required>>
 }
 
@@ -1030,21 +1043,35 @@ entity "idempotency_record" as t_idempotency_record {
   * idempotency_id : uuid <<PK>>
   * tenant_id : uuid <<required>>
     workspace_id : uuid
+    actor_id : uuid
+  * scope_key : varchar(240) <<required>>
   * operation_name : varchar(160) <<required>>
   * idempotency_key : varchar(240) <<required>>
   * request_hash : varchar(128) <<required>>
+  * state : varchar(32) <<required>>
     response_status : integer
     response_snapshot : jsonb
+    failure_code : varchar(160)
   * created_at : timestamptz <<required>>
     completed_at : timestamptz
+  * expires_at : timestamptz <<required>>
 }
 
 entity "worker_lease" as t_worker_lease {
   * lease_id : uuid <<PK>>
   * worker_name : varchar(160) <<required>>
+  * queue_name : varchar(160) <<required>>
+  * item_id : uuid <<required>>
+    tenant_id : uuid
+    workspace_id : uuid
   * lease_token : varchar(240) <<required>>
+  * fencing_version : bigint <<required>>
+  * status : varchar(32) <<required>>
   * acquired_at : timestamptz <<required>>
   * expires_at : timestamptz <<required>>
+  * attempt_count : integer <<required>>
+    next_attempt_at : timestamptz
+    last_error : varchar(500)
 }
 
 entity "security_audit_event" as t_security_audit_event {

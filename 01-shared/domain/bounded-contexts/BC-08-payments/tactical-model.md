@@ -1,6 +1,6 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
 last-reviewed: 2026-08-25
@@ -11,6 +11,12 @@ last-reviewed: 2026-08-25
 **State:** TARGET generic context. Payment is provider-neutral business truth;
 provider callbacks are at-least-once technical inputs. Payment is not Credit,
 Receivable or Stripe.
+
+## Purpose and product participation
+
+Own payment facts, provider translation, confirmation, refunds and
+reconciliation. Platform and Buyer Portal initiate authorized flows; proposed
+Buyer Mobile may retry with durable client identity. API remains authority.
 
 ## Aggregate boundaries
 

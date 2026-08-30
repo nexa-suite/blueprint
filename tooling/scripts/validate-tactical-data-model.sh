@@ -38,6 +38,19 @@ shared = ["outbox_event", "inbox_deduplication", "idempotency_record", "worker_l
 def sql_tables(path: Path) -> list[str]:
     return re.findall(r"(?im)^\s*CREATE\s+TABLE\s+([a-z][a-z0-9_]*)\s*\(", path.read_text())
 
+def frontmatter(path: Path) -> dict[str, str]:
+    match = re.match(r"\A---\n(.*?)\n---(?:\n|\Z)", path.read_text(), re.DOTALL)
+    if not match:
+        return {}
+    return dict(re.findall(r"(?m)^([A-Za-z][A-Za-z0-9_-]*):\s*(.+?)\s*$", match.group(1)))
+
+def require_lifecycle(path: Path) -> None:
+    metadata = frontmatter(path)
+    if metadata.get("status") != "accepted":
+        failures.append(f"{path.relative_to(root)} frontmatter status must be 'accepted'")
+    if metadata.get("maturity") != "BASELINED":
+        failures.append(f"{path.relative_to(root)} frontmatter maturity must be 'BASELINED'")
+
 all_target: list[str] = []
 for bc in bc_dirs:
     code = bc.name[:5]
@@ -54,7 +67,8 @@ for bc in bc_dirs:
         continue
     if tactical.is_file():
         text = tactical.read_text()
-        for marker in ("status: draft", "maturity: DRAFT", "scope: v1", "Aggregate boundaries", "AS-IS", "TARGET"):
+        require_lifecycle(tactical)
+        for marker in ("scope: v1", "Aggregate boundaries", "AS-IS", "TARGET"):
             if marker not in text:
                 failures.append(f"{tactical.relative_to(root)} missing {marker!r}")
     if diagram.is_file():
@@ -72,6 +86,7 @@ for bc in bc_dirs:
             failures.append(f"missing rendered UML PNG beside {diagram.relative_to(root)}")
     if data_doc.is_file():
         text = data_doc.read_text()
+        require_lifecycle(data_doc)
         upper = text.upper()
         for marker in ("TARGET", "RLS", "PK", "FK", "NOT NULL", "UNIQUE", "CHECK", "AS-IS"):
             if marker not in upper:
@@ -98,6 +113,29 @@ for bc in bc_dirs:
 
 if len(all_target) != len(set(all_target)):
     failures.append("duplicate target table name across BC SQL lenses")
+
+classification = root / "01-shared/data/target-isolation-classification.md"
+if not classification.is_file():
+    failures.append(f"missing {classification.relative_to(root)}")
+else:
+    classification_text = classification.read_text()
+    for table in all_target + shared:
+        if not re.search(rf"(?<![a-z0-9_]){re.escape(table)}(?![a-z0-9_])", classification_text):
+            failures.append(f"RLS classification missing table: {table}")
+
+target_documents = [
+    root / "01-shared/data/as-is-to-target-mapping.md",
+    root / "01-shared/data/master-data-model.md",
+    root / "01-shared/data/master-database-diagram-source.md",
+    root / "01-shared/data/product-data-participation.md",
+    root / "01-shared/data/tactical-traceability-matrix.md",
+    root / "01-shared/data/target-isolation-classification.md",
+]
+for path in target_documents:
+    if not path.is_file():
+        continue
+    text = path.read_text()
+    require_lifecycle(path)
 
 master = root / "01-shared/data/master-target-relational-model.sql"
 if not master.is_file():

@@ -6,7 +6,7 @@ CREATE TABLE fulfillment (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     sales_order_id uuid NOT NULL,
-    status varchar(32) NOT NULL CHECK (status IN ('PLANNED','PICKING','READY','DISPATCHED','COMPLETED','CANCELLED')),
+    status varchar(32) NOT NULL CHECK (status IN ('PLANNED','ALLOCATED','PICKING','PICKED','PACKED','STAGED','READY_FOR_DISPATCH','HANDED_OVER','COMPLETED','SHORTAGE','HOLD','CANCELLED')),
     planned_at timestamptz NOT NULL,
     started_at timestamptz,
     completed_at timestamptz,
@@ -108,7 +108,6 @@ CREATE TABLE delivery_handoff_token (
     status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','REPLACED','EXPIRED','CONSUMED')),
     idempotency_key varchar(160) NOT NULL,
     created_at timestamptz NOT NULL,
-    UNIQUE (delivery_id, delivery_attempt_id),
     UNIQUE (issuer_operator_id, idempotency_key),
     CHECK (expires_at > issued_at),
     CHECK (token_hash ~ '^[0-9a-f]{64}$')
@@ -129,10 +128,9 @@ CREATE TABLE buyer_receipt_fact (
     reason varchar(2000),
     occurred_at timestamptz NOT NULL,
     idempotency_key varchar(160) NOT NULL,
-    UNIQUE (delivery_attempt_id),
+    UNIQUE (delivery_id, delivery_attempt_id),
     UNIQUE (buyer_membership_id, idempotency_key),
-    CHECK (accepted_quantity <= driver_delivered_quantity),
-    CHECK (decision = 'ACCEPTED' OR (reason IS NOT NULL AND length(btrim(reason)) > 0))
+    CHECK (accepted_quantity <= driver_delivered_quantity)
 );
 
 CREATE TABLE proof_of_delivery (
@@ -187,6 +185,9 @@ CREATE TABLE continuation_delivery (
 CREATE INDEX ix_fulfillment_scope_status ON fulfillment (tenant_id, workspace_id, status);
 CREATE INDEX ix_delivery_scope_status ON delivery (tenant_id, workspace_id, status);
 CREATE INDEX ix_delivery_attempt_delivery ON delivery_attempt (delivery_id, attempt_number);
-CREATE INDEX ix_delivery_handoff_token_lookup ON delivery_handoff_token (tenant_id, workspace_id, token_hash);
-CREATE INDEX ix_buyer_receipt_delivery ON buyer_receipt_fact (tenant_id, workspace_id, delivery_id, occurred_at);
+CREATE UNIQUE INDEX uq_delivery_handoff_token_active
+    ON delivery_handoff_token (delivery_id, delivery_attempt_id)
+    WHERE status = 'ACTIVE';
+CREATE INDEX ix_delivery_handoff_token_lookup ON delivery_handoff_token (delivery_id, status, expires_at);
+CREATE INDEX ix_buyer_receipt_delivery ON buyer_receipt_fact (delivery_id, occurred_at);
 CREATE INDEX ix_temperature_evidence_delivery_time ON temperature_evidence (delivery_id, captured_at);

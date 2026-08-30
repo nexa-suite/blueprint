@@ -213,8 +213,8 @@ CREATE TABLE sku (
     product_id uuid NOT NULL REFERENCES product (product_id),
     code varchar(80) NOT NULL,
     name varchar(200) NOT NULL,
-    unit_of_measure varchar(32) NOT NULL,
     gtin varchar(14),
+    unit_of_measure varchar(32) NOT NULL,
     temperature_band varchar(64) NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('DRAFT','ACTIVE','RETIRED')),
     created_at timestamptz NOT NULL,
@@ -348,7 +348,7 @@ CREATE TABLE purchase_request (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     buyer_relationship_id uuid NOT NULL,
-    status varchar(32) NOT NULL CHECK (status IN ('SUBMITTED','UNDER_REVIEW','CHANGES_PROPOSED','REJECTED','COMMITTED','EXPIRED','CANCELLED')),
+    status varchar(32) NOT NULL CHECK (status IN ('SUBMITTED','CHANGES_PROPOSED','CONVERTED','REJECTED','WITHDRAWN','EXPIRED')),
     submitted_at timestamptz NOT NULL,
     expires_at timestamptz NOT NULL,
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),
@@ -382,12 +382,19 @@ CREATE TABLE commercial_commitment (
     commitment_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    purchase_request_id uuid NOT NULL REFERENCES purchase_request (purchase_request_id),
+    -- Origin discriminator avoids a polymorphic source FK. DIRECT_ORDER is
+    -- represented by the confirmed SalesOrder created in the same decision.
+    origin_type varchar(32) NOT NULL CHECK (origin_type IN ('PURCHASE_REQUEST','DIRECT_ORDER')),
+    purchase_request_id uuid REFERENCES purchase_request (purchase_request_id),
     buyer_relationship_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('ESTABLISHED','CONFIRMED','CANCELLED','REPLACED')),
     committed_at timestamptz NOT NULL,
     cancelled_at timestamptz,
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),
+    CHECK (
+        (origin_type = 'PURCHASE_REQUEST' AND purchase_request_id IS NOT NULL)
+        OR (origin_type = 'DIRECT_ORDER' AND purchase_request_id IS NULL)
+    ),
     UNIQUE (purchase_request_id)
 );
 
@@ -407,7 +414,7 @@ CREATE TABLE sales_order (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     commitment_id uuid NOT NULL REFERENCES commercial_commitment (commitment_id),
-    status varchar(32) NOT NULL CHECK (status IN ('CONFIRMED','CANCELLED','REPLACED')),
+    status varchar(32) NOT NULL CHECK (status IN ('CONFIRMED','IN_FULFILLMENT','PARTIALLY_FULFILLED','FULFILLED','PARTIALLY_DELIVERED','COMPLETED','CANCELLED')),
     confirmed_at timestamptz NOT NULL,
     cancelled_at timestamptz,
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),
@@ -474,7 +481,7 @@ CREATE TABLE inventory_lot (
     expires_at timestamptz,
     on_hand_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (on_hand_quantity >= 0),
     held_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (held_quantity >= 0),
-    status varchar(32) NOT NULL CHECK (status IN ('AVAILABLE','HOLD','EXPIRED','DISPOSED')),
+    status varchar(32) NOT NULL CHECK (status IN ('AVAILABLE','HOLD','QUARANTINE','DAMAGED','WASTE','EXPIRED','IN_TRANSIT')),
     received_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (warehouse_id, lot_code)
@@ -574,9 +581,9 @@ CREATE TABLE warehouse_transfer (
     workspace_id uuid NOT NULL,
     source_warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
     destination_warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
-    status varchar(32) NOT NULL CHECK (status IN ('REQUESTED','DISPATCHED','RECEIVED','CANCELLED')),
+    status varchar(32) NOT NULL CHECK (status IN ('REQUESTED','IN_TRANSIT','RECEIVED')),
     requested_at timestamptz NOT NULL,
-    dispatched_at timestamptz,
+    in_transit_at timestamptz,
     received_at timestamptz,
     CHECK (source_warehouse_id <> destination_warehouse_id)
 );
@@ -614,7 +621,7 @@ CREATE TABLE fulfillment (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     sales_order_id uuid NOT NULL,
-    status varchar(32) NOT NULL CHECK (status IN ('PLANNED','PICKING','READY','DISPATCHED','COMPLETED','CANCELLED')),
+    status varchar(32) NOT NULL CHECK (status IN ('PLANNED','ALLOCATED','PICKING','PICKED','PACKED','STAGED','READY_FOR_DISPATCH','HANDED_OVER','COMPLETED','SHORTAGE','HOLD','CANCELLED')),
     planned_at timestamptz NOT NULL,
     started_at timestamptz,
     completed_at timestamptz,
@@ -716,7 +723,6 @@ CREATE TABLE delivery_handoff_token (
     status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','REPLACED','EXPIRED','CONSUMED')),
     idempotency_key varchar(160) NOT NULL,
     created_at timestamptz NOT NULL,
-    UNIQUE (delivery_id, delivery_attempt_id),
     UNIQUE (issuer_operator_id, idempotency_key),
     CHECK (expires_at > issued_at),
     CHECK (token_hash ~ '^[0-9a-f]{64}$')
@@ -737,10 +743,9 @@ CREATE TABLE buyer_receipt_fact (
     reason varchar(2000),
     occurred_at timestamptz NOT NULL,
     idempotency_key varchar(160) NOT NULL,
-    UNIQUE (delivery_attempt_id),
+    UNIQUE (delivery_id, delivery_attempt_id),
     UNIQUE (buyer_membership_id, idempotency_key),
-    CHECK (accepted_quantity <= driver_delivered_quantity),
-    CHECK (decision = 'ACCEPTED' OR (reason IS NOT NULL AND length(btrim(reason)) > 0))
+    CHECK (accepted_quantity <= driver_delivered_quantity)
 );
 
 CREATE TABLE proof_of_delivery (
@@ -795,8 +800,11 @@ CREATE TABLE continuation_delivery (
 CREATE INDEX ix_fulfillment_scope_status ON fulfillment (tenant_id, workspace_id, status);
 CREATE INDEX ix_delivery_scope_status ON delivery (tenant_id, workspace_id, status);
 CREATE INDEX ix_delivery_attempt_delivery ON delivery_attempt (delivery_id, attempt_number);
-CREATE INDEX ix_delivery_handoff_token_lookup ON delivery_handoff_token (tenant_id, workspace_id, token_hash);
-CREATE INDEX ix_buyer_receipt_delivery ON buyer_receipt_fact (tenant_id, workspace_id, delivery_id, occurred_at);
+CREATE UNIQUE INDEX uq_delivery_handoff_token_active
+    ON delivery_handoff_token (delivery_id, delivery_attempt_id)
+    WHERE status = 'ACTIVE';
+CREATE INDEX ix_delivery_handoff_token_lookup ON delivery_handoff_token (delivery_id, status, expires_at);
+CREATE INDEX ix_buyer_receipt_delivery ON buyer_receipt_fact (delivery_id, occurred_at);
 CREATE INDEX ix_temperature_evidence_delivery_time ON temperature_evidence (delivery_id, captured_at);
 
 -- TARGET / BC-07 Credit & Receivables / shared PostgreSQL
@@ -857,7 +865,7 @@ CREATE TABLE receivable_application (
 CREATE TABLE financial_adjustment (
     adjustment_id uuid PRIMARY KEY,
     receivable_id uuid NOT NULL REFERENCES receivable (receivable_id),
-    kind varchar(32) NOT NULL CHECK (kind IN ('CREDIT_NOTE','DEBIT_NOTE','WRITE_OFF','CORRECTION')),
+    kind varchar(32) NOT NULL CHECK (kind IN ('INCREASE','DECREASE','WRITE_OFF','CORRECTION')),
     amount numeric(19,4) NOT NULL CHECK (amount > 0),
     currency char(3) NOT NULL,
     reason varchar(500) NOT NULL,
@@ -1049,7 +1057,7 @@ CREATE TABLE notification_template (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     event_type varchar(160) NOT NULL,
-    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','SMS','PUSH','IN_APP')),
+    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','IN_APP')),
     version integer NOT NULL CHECK (version > 0),
     content_snapshot jsonb NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('DRAFT','PUBLISHED','RETIRED')),
@@ -1086,7 +1094,7 @@ CREATE TABLE notification_preference (
     workspace_id uuid NOT NULL,
     recipient_key varchar(240) NOT NULL,
     event_type varchar(160) NOT NULL,
-    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','SMS','PUSH','IN_APP')),
+    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','IN_APP')),
     enabled boolean NOT NULL,
     updated_at timestamptz NOT NULL,
     UNIQUE (tenant_id, workspace_id, recipient_key, event_type, channel)
@@ -1097,7 +1105,7 @@ CREATE TABLE push_subscription (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     recipient_key varchar(240) NOT NULL,
-    surface varchar(32) NOT NULL CHECK (surface IN ('PLATFORM','PORTAL')),
+    surface varchar(32) NOT NULL CHECK (surface IN ('OPERATIONS_MOBILE','BUYER_MOBILE')),
     installation_id varchar(160) NOT NULL,
     platform varchar(16) NOT NULL CHECK (platform IN ('IOS','ANDROID')),
     provider_token_hash char(64) NOT NULL CHECK (provider_token_hash ~ '^[0-9a-f]{64}$'),
@@ -1113,7 +1121,7 @@ CREATE TABLE notification_attempt (
     attempt_id uuid PRIMARY KEY,
     notification_id uuid NOT NULL REFERENCES notification (notification_id),
     recipient_id uuid NOT NULL REFERENCES notification_recipient (recipient_id),
-    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','SMS','PUSH','IN_APP')),
+    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','IN_APP')),
     status varchar(32) NOT NULL CHECK (status IN ('STARTED','SUCCEEDED','FAILED')),
     provider_reference varchar(240),
     failure_reason varchar(500),
@@ -1122,8 +1130,8 @@ CREATE TABLE notification_attempt (
 
 CREATE INDEX ix_notification_scope_status ON notification (tenant_id, workspace_id, status, scheduled_at);
 CREATE INDEX ix_notification_recipient_status ON notification_recipient (notification_id, status);
-CREATE INDEX ix_notification_attempt_retry ON notification_attempt (notification_id, attempted_at);
 CREATE INDEX ix_push_subscription_recipient ON push_subscription (tenant_id, workspace_id, recipient_key, status);
+CREATE INDEX ix_notification_attempt_retry ON notification_attempt (notification_id, attempted_at);
 
 -- TARGET / BC-11 Business Traceability / shared PostgreSQL
 -- Append-only business facts; source aggregate IDs and evidence references are stable IDs.
@@ -1172,16 +1180,26 @@ CREATE TABLE outbox_event (
     occurred_at timestamptz NOT NULL,
     published_at timestamptz,
     attempt_count integer NOT NULL DEFAULT 0 CHECK (attempt_count >= 0),
-    UNIQUE (tenant_id, aggregate_type, aggregate_id, event_type, occurred_at)
+    next_attempt_at timestamptz,
+    last_error varchar(500),
+    dead_lettered_at timestamptz
 );
 
 CREATE TABLE inbox_deduplication (
     inbox_id uuid PRIMARY KEY,
     consumer_name varchar(160) NOT NULL,
     message_id uuid NOT NULL,
+    tenant_id uuid,
+    workspace_id uuid,
     received_at timestamptz NOT NULL,
     processed_at timestamptz,
-    status varchar(32) NOT NULL CHECK (status IN ('RECEIVED','PROCESSED','FAILED')),
+    next_attempt_at timestamptz,
+    lease_until timestamptz,
+    claim_token varchar(240),
+    attempt_count integer NOT NULL DEFAULT 0 CHECK (attempt_count >= 0),
+    last_error varchar(500),
+    dead_lettered_at timestamptz,
+    status varchar(32) NOT NULL CHECK (status IN ('RECEIVED','PROCESSING','PROCESSED','FAILED','DEAD_LETTER')),
     UNIQUE (consumer_name, message_id)
 );
 
@@ -1189,23 +1207,37 @@ CREATE TABLE idempotency_record (
     idempotency_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid,
+    actor_id uuid,
+    scope_key varchar(240) NOT NULL,
     operation_name varchar(160) NOT NULL,
     idempotency_key varchar(240) NOT NULL,
     request_hash varchar(128) NOT NULL,
+    state varchar(32) NOT NULL CHECK (state IN ('PROCESSING','COMPLETED','FAILED','CONFLICT','EXPIRED')),
     response_status integer,
     response_snapshot jsonb,
+    failure_code varchar(160),
     created_at timestamptz NOT NULL,
     completed_at timestamptz,
-    UNIQUE (tenant_id, operation_name, idempotency_key)
+    expires_at timestamptz NOT NULL,
+    UNIQUE (scope_key, operation_name, idempotency_key)
 );
 
 CREATE TABLE worker_lease (
     lease_id uuid PRIMARY KEY,
     worker_name varchar(160) NOT NULL,
+    queue_name varchar(160) NOT NULL,
+    item_id uuid NOT NULL,
+    tenant_id uuid,
+    workspace_id uuid,
     lease_token varchar(240) NOT NULL,
+    fencing_version bigint NOT NULL CHECK (fencing_version > 0),
+    status varchar(32) NOT NULL CHECK (status IN ('CLAIMED','RELEASED','EXPIRED','DEAD_LETTER')),
     acquired_at timestamptz NOT NULL,
     expires_at timestamptz NOT NULL,
-    UNIQUE (worker_name)
+    attempt_count integer NOT NULL DEFAULT 0 CHECK (attempt_count >= 0),
+    next_attempt_at timestamptz,
+    last_error varchar(500),
+    UNIQUE (queue_name, item_id)
 );
 
 CREATE TABLE security_audit_event (
@@ -1222,7 +1254,8 @@ CREATE TABLE security_audit_event (
 );
 
 CREATE INDEX ix_outbox_unpublished ON outbox_event (published_at, occurred_at);
-CREATE INDEX ix_inbox_consumer_status ON inbox_deduplication (consumer_name, status, received_at);
-CREATE INDEX ix_idempotency_scope_operation ON idempotency_record (tenant_id, operation_name, created_at);
-CREATE INDEX ix_lease_expiry ON worker_lease (expires_at);
+CREATE INDEX ix_outbox_retry ON outbox_event (published_at, next_attempt_at, occurred_at);
+CREATE INDEX ix_inbox_consumer_status ON inbox_deduplication (consumer_name, status, next_attempt_at, received_at);
+CREATE INDEX ix_idempotency_scope_operation ON idempotency_record (scope_key, operation_name, state, expires_at);
+CREATE INDEX ix_lease_claimable ON worker_lease (queue_name, status, next_attempt_at, expires_at);
 CREATE INDEX ix_security_audit_scope_time ON security_audit_event (tenant_id, occurred_at);

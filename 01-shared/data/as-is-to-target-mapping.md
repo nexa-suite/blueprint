@@ -1,9 +1,9 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # AS-IS to TARGET persistence mapping

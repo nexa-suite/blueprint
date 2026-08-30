@@ -1,9 +1,9 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-03 Catalog & Commercial Policy — Tactical Model
@@ -16,8 +16,9 @@ aggregate graph.
 
 Own authoritative offer inputs: Product, SKU, visibility, media metadata, Base
 Price, Price List, Customer Terms, Promotion and SKU cold-chain requirement.
-Platform manages catalog; Portal and both proposed Mobile surfaces consume safe
-projections. API resolves authoritative price.
+Platform manages catalog; Portal and both OWNER-ACCEPTED Mobile projections
+consume safe projections. API resolves authoritative price; Mobile client
+implementation remains NOT STARTED.
 
 ## Aggregate boundaries
 
@@ -105,8 +106,9 @@ catalog query and persistence **KEEP**, Product-family/SKU consolidation
 
 `PhysicalIdentifier`/GTIN is a BC-03-owned identifier value/lookup concern. The
 application query resolves an identifier to exactly one SKU or returns an
-explicit unknown/ambiguous result. It is not a Scanner, QR or Device aggregate,
-and it does not mutate inventory. API v0.17.0 provides the resolution contract
-and indexes over existing SKU identifier fields; no new published integration
-event is introduced. Persistence representation remains an implementation
-detail of the SKU/catalog model and is not a new Bounded Context.
+explicit unknown/ambiguous result. It is not a Scanner, QR or Device
+aggregate, and it does not mutate inventory. API v0.17.0 provides the
+resolution contract and indexes over existing SKU identifier fields; no new
+Published Integration Event is introduced. Persistence representation remains
+an implementation detail of the SKU/catalog model and is not a new Bounded
+Context.

@@ -1,6 +1,6 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: data
 last-reviewed: 2026-08-29
@@ -40,6 +40,13 @@ Physical Allocation. BC-06 stores `sales_order_id` and
 `physical_allocation_id`, but owns execution and Delivery. BC-07 stores
 `payment_id` on financial application records without owning Payment.
 
+BC-04 `commercial_commitment.origin_type` is either `PURCHASE_REQUEST` or
+`DIRECT_ORDER`. Only the approval-required origin carries the nullable
+`purchase_request_id` FK, constrained to be present for that origin and absent
+for Direct Order. Direct Order persists its confirmed `sales_order` through the
+same Commitment boundary; no polymorphic FK or synthetic Purchase Request is
+needed.
+
 ## Shared relational rules
 
 - Tenant-owned tables carry `tenant_id NOT NULL`; Workspace-owned tables carry
@@ -54,9 +61,27 @@ Physical Allocation. BC-06 stores `sales_order_id` and
 - Object Storage bytes never become PostgreSQL BLOBs. PostgreSQL stores object
   key, content type, size and hash metadata.
 
-The Mobile v0.17 concepts are intentionally modeled as existing-BC projections:
-GTIN on SKU, FEFO validation over Physical Allocation, immutable handoff/Buyer
-receipt facts in BC-06 and Push Subscription in BC-10. Retry/claim/idempotency
-implementation rows remain shared technical support and are not domain
-aggregates. Full import-ready SQL: [master-target-relational-model.sql](master-target-relational-model.sql).
+## Shared technical reliability invariants
+
+- `outbox_event_id` is durable event identity. Repeated occurrences of same
+  aggregate lifecycle event use new UUIDs; timestamp-based uniqueness does not
+  suppress legitimate occurrences.
+- `inbox_deduplication` stores consumer/message uniqueness, tenant/workspace
+  reconstruction, claim lease, attempt, retry and dead-letter state. Consumers
+  assume at-least-once delivery and remain idempotent.
+- `idempotency_record` stores deterministic scope, operation, key, request
+  fingerprint, state, replayable result, expiry and safe failure metadata.
+- `worker_lease` is item claim with queue identity, tenant/workspace scope,
+  lease token and fencing version. Queue workers reject stale completion.
+
+## Current API v0.17 reconciliation
+
+API v0.17.0 adds additive evidence for existing target ownership: optional GTIN
+resolution on BC-03 SKU; FEFO and physical-allocation-aware picking in BC-05;
+ephemeral handoff tokens plus immutable Buyer receipt/discrepancy facts in
+BC-06; provider-neutral Push Subscription lifecycle in BC-10; and retry/claim/
+dead-letter hardening in shared technical delivery. These are refinements of
+accepted contexts, not new Bounded Contexts or Published Integration Events.
+
+Full import-ready SQL: [master-target-relational-model.sql](master-target-relational-model.sql).
 Visual ERD projection: [PlantUML](master-database-diagram.puml) · [SVG](master-database-diagram.svg) · [PNG](master-database-diagram.png).

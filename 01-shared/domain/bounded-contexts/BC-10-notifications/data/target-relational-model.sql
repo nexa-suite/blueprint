@@ -6,7 +6,7 @@ CREATE TABLE notification_template (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     event_type varchar(160) NOT NULL,
-    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','SMS','PUSH','IN_APP')),
+    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','IN_APP')),
     version integer NOT NULL CHECK (version > 0),
     content_snapshot jsonb NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('DRAFT','PUBLISHED','RETIRED')),
@@ -43,7 +43,7 @@ CREATE TABLE notification_preference (
     workspace_id uuid NOT NULL,
     recipient_key varchar(240) NOT NULL,
     event_type varchar(160) NOT NULL,
-    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','SMS','PUSH','IN_APP')),
+    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','IN_APP')),
     enabled boolean NOT NULL,
     updated_at timestamptz NOT NULL,
     UNIQUE (tenant_id, workspace_id, recipient_key, event_type, channel)
@@ -54,7 +54,7 @@ CREATE TABLE push_subscription (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     recipient_key varchar(240) NOT NULL,
-    surface varchar(32) NOT NULL CHECK (surface IN ('PLATFORM','PORTAL')),
+    surface varchar(32) NOT NULL CHECK (surface IN ('OPERATIONS_MOBILE','BUYER_MOBILE')),
     installation_id varchar(160) NOT NULL,
     platform varchar(16) NOT NULL CHECK (platform IN ('IOS','ANDROID')),
     provider_token_hash char(64) NOT NULL CHECK (provider_token_hash ~ '^[0-9a-f]{64}$'),
@@ -70,7 +70,7 @@ CREATE TABLE notification_attempt (
     attempt_id uuid PRIMARY KEY,
     notification_id uuid NOT NULL REFERENCES notification (notification_id),
     recipient_id uuid NOT NULL REFERENCES notification_recipient (recipient_id),
-    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','SMS','PUSH','IN_APP')),
+    channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','IN_APP')),
     status varchar(32) NOT NULL CHECK (status IN ('STARTED','SUCCEEDED','FAILED')),
     provider_reference varchar(240),
     failure_reason varchar(500),
@@ -79,5 +79,5 @@ CREATE TABLE notification_attempt (
 
 CREATE INDEX ix_notification_scope_status ON notification (tenant_id, workspace_id, status, scheduled_at);
 CREATE INDEX ix_notification_recipient_status ON notification_recipient (notification_id, status);
-CREATE INDEX ix_notification_attempt_retry ON notification_attempt (notification_id, attempted_at);
 CREATE INDEX ix_push_subscription_recipient ON push_subscription (tenant_id, workspace_id, recipient_key, status);
+CREATE INDEX ix_notification_attempt_retry ON notification_attempt (notification_id, attempted_at);

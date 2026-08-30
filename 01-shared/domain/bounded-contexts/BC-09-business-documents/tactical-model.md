@@ -1,9 +1,9 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-09 Business Documents — Tactical Model
@@ -11,6 +11,12 @@ last-reviewed: 2026-08-25
 **State:** TARGET generic context. It owns immutable issued document metadata,
 numbering, snapshots and Object Storage references. It does not own Sales,
 Payment, Delivery or fiscal authority.
+
+## Purpose and product participation
+
+Own issued document identity, immutable snapshots, numbering, generation and
+private object references. Platform and Portal consume documents; proposed
+Mobile surfaces consume authorized evidence. API remains authority.
 
 ## Aggregate boundaries
 
@@ -95,6 +101,6 @@ rendering and storage references **KEEP/REFINE**, immutable revision semantics
 Mobile evidence is represented as an `EvidenceReference`/`MobileEvidenceReference`
 application value: object key/reference, content hash, media kind, capturedAt,
 subject and authorization metadata. It is not a Mobile-owned aggregate and does
-not move business-document authority to the client. API v0.17.0 hardens
-evidence references for handoff/receipt flows; issued documents remain immutable
-and private Object Storage bytes remain behind API authorization.
+not move Business Document authority to the client. API v0.17.0 hardens
+evidence references for handoff/receipt flows; issued documents remain
+immutable and private Object Storage bytes remain behind API authorization.

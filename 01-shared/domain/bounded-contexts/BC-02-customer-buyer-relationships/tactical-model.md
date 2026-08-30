@@ -1,6 +1,6 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
 last-reviewed: 2026-08-25
@@ -15,8 +15,9 @@ stays separate from global Human Identity and from Sales Commitment.
 
 Own Customer Account, contacts, addresses, Buyer Relationship lifecycle and
 the one principal active Buyer Identity assignment permitted in V1. Platform
-manages relationships; Buyer Portal and proposed Mobile consume authorized
-projections. API owns state.
+manages relationships; Buyer Portal and OWNER-ACCEPTED Mobile projections
+consume authorized projections. API owns state; Mobile client implementation
+remains NOT STARTED.
 
 ## Aggregate boundaries
 

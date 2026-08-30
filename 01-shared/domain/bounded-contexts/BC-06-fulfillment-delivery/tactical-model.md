@@ -1,9 +1,9 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-06 Fulfillment & Delivery — Tactical Model
@@ -11,6 +11,13 @@ last-reviewed: 2026-08-25
 **State:** TARGET core-domain execution model. Fulfillment and Delivery are
 separate roots; a failed attempt remains under one Delivery and partial outcome
 creates an idempotent Continuation Delivery.
+
+## Purpose and product participation
+
+Own fulfillment execution, dispatch, delivery attempts, continuation and
+immutable operational evidence. Platform and OWNER-ACCEPTED Operations Mobile
+projections execute work; Portal and Buyer Mobile consume authorized
+projections.
 
 ## Aggregate boundaries
 
@@ -64,7 +71,7 @@ and is never a new Delivery aggregate.
 | `LogisticsController` | dispatch/delivery operations boundary | AS-IS; KEEP/REFINE |
 | `ProofOfDeliveryController` | POD/evidence boundary | AS-IS; KEEP |
 | `FulfillmentController` | Platform warehouse execution boundary | TARGET coherent seam; current routes are evidence |
-| `DeliveryTrackingConsumer` | Portal/Mobile read projection | AS-IS Portal facade plus proposed Mobile consumer |
+| `DeliveryTrackingConsumer` | Portal/Mobile planning read projection | AS-IS Portal facade plus OWNER-ACCEPTED Mobile consumer projection |
 
 ## Infrastructure Layer dictionary
 
@@ -108,5 +115,5 @@ Customer Account and Buyer Relationship; it is not a QR or Scanner aggregate.
 `BuyerReceiptFact` and `BuyerDiscrepancyFact` are immutable Delivery outcome
 facts. Buyer acceptance does not overwrite Driver Attempt/POD history, and QR
 resolution alone is not acceptance. API v0.17.0 provides the handoff token and
-receipt/discrepancy contract in additive V93–V100 migrations. Location remains a
-bounded future/partial contract, not permanent tracking.
+receipt/discrepancy contract in additive V93–V100 migrations. Location remains
+a bounded future/partial contract, not permanent tracking.

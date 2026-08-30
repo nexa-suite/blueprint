@@ -1,6 +1,6 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
 last-reviewed: 2026-08-25
@@ -17,7 +17,8 @@ Identity BC, Mobile BC or a new tenant boundary.
 Own Tenant lifecycle, the V1 Tenant 1:1 Workspace relationship, global Human
 Identity linkage, Workforce Membership, roles/capabilities and fail-closed
 access eligibility. Website initiates onboarding; Platform governs workforce;
-Portal and proposed Mobile resolve authorized context. API is Domain authority.
+Portal and OWNER-ACCEPTED Mobile projections resolve authorized context. API is
+Domain authority; Mobile client implementation remains NOT STARTED.
 
 ## Aggregate boundaries
 
@@ -72,7 +73,7 @@ framework getters/setters.
 | `AuthenticationController` | sign-in/session boundary | AS-IS; KEEP, not Domain authority |
 | `IamSecurityController` | active context and access projection | AS-IS; REFINE to explicit access contract |
 | `TenantAccessController` | TARGET coherent tenant/membership capability boundary | TARGET logical interface, URI intentionally not invented |
-| `AccessContextConsumer` | Platform/Portal/Mobile consumer of access contract | TARGET interface role, not a new context |
+| `AccessContextConsumer` | Platform/Portal/Mobile projection consumer of access contract | TARGET interface role, not a new context |
 
 ## Infrastructure Layer dictionary
 

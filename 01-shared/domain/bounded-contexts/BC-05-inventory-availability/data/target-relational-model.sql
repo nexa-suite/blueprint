@@ -1,7 +1,5 @@
 -- TARGET / BC-05 Inventory Availability / shared PostgreSQL
 -- commitment_id and sku_id are stable non-owning references; local FKs are warehouse-owned.
--- Mobile scan validation is an application contract over physical_allocation_line;
--- no Scanner/QR aggregate or persistence table is introduced.
 
 CREATE TABLE warehouse (
     warehouse_id uuid PRIMARY KEY,
@@ -25,7 +23,7 @@ CREATE TABLE inventory_lot (
     expires_at timestamptz,
     on_hand_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (on_hand_quantity >= 0),
     held_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (held_quantity >= 0),
-    status varchar(32) NOT NULL CHECK (status IN ('AVAILABLE','HOLD','EXPIRED','DISPOSED')),
+    status varchar(32) NOT NULL CHECK (status IN ('AVAILABLE','HOLD','QUARANTINE','DAMAGED','WASTE','EXPIRED','IN_TRANSIT')),
     received_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (warehouse_id, lot_code)
@@ -125,9 +123,9 @@ CREATE TABLE warehouse_transfer (
     workspace_id uuid NOT NULL,
     source_warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
     destination_warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
-    status varchar(32) NOT NULL CHECK (status IN ('REQUESTED','DISPATCHED','RECEIVED','CANCELLED')),
+    status varchar(32) NOT NULL CHECK (status IN ('REQUESTED','IN_TRANSIT','RECEIVED')),
     requested_at timestamptz NOT NULL,
-    dispatched_at timestamptz,
+    in_transit_at timestamptz,
     received_at timestamptz,
     CHECK (source_warehouse_id <> destination_warehouse_id)
 );

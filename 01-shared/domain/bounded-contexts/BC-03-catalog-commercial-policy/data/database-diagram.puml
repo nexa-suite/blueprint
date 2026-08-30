@@ -28,8 +28,8 @@ entity "sku" as t_sku {
   * product_id : uuid <<FK, required>>
   * code : varchar(80) <<required>>
   * name : varchar(200) <<required>>
-  * unit_of_measure : varchar(32) <<required>>
     gtin : varchar(14)
+  * unit_of_measure : varchar(32) <<required>>
   * temperature_band : varchar(64) <<required>>
   * status : varchar(32) <<required>>
   * created_at : timestamptz <<required>>

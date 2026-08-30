@@ -1,6 +1,6 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
 last-reviewed: 2026-08-25
@@ -11,6 +11,12 @@ last-reviewed: 2026-08-25
 **State:** TARGET supporting financial authority. Credit history is not
 rewritten; Financial Adjustment changes current obligation while preserving
 original facts. Payment provider lifecycle belongs to BC-08.
+
+## Purpose and product participation
+
+Own credit exposure, reservations, receivables and provider-neutral financial
+adjustments. Platform governs authorized financial work; Portal and proposed
+Mobile surfaces consume restricted projections.
 
 ## Aggregate boundaries
 
@@ -33,7 +39,7 @@ coordinates BC-08 and BC-07 without a giant cross-context aggregate.
 | `CreditReservation` | Aggregate Root | reservation ID, source type/id, amount, status, version | `establish()`, `release()`, `convertToReceivable()` | one active protection per source |
 | `Receivable` | Aggregate Root | receivable ID, SO ID, original amount, outstanding, dueAt, status, version | `post()`, `apply()`, `adjust()`, `close()` | owns obligation history |
 | `ReceivableApplication` | Entity / fact | payment ID, amount, appliedAt, idempotency key | `applyOnce()` | Payment ID external; immutable effect |
-| `FinancialAdjustment` | Aggregate Root / fact | adjustment ID, receivable ID, amount, direction, reason, createdAt | `approve()`, `apply()` | explicit correction, never erase |
+| `FinancialAdjustment` | Aggregate Root / fact | adjustment ID, receivable ID, effect, amount, reason, createdAt | `approve()`, `apply()` | provider-neutral correction, never erase |
 | `FinancialLedgerEntry` | Entity / immutable fact | type, source ID, amount, occurredAt, correlation | none after append | durable financial history |
 | `Money` / `CreditLimit` | Value Objects | amount, currency/limit | `subtract()`, `isSufficient()` | no negative balance |
 | `ReceivableStatus` / `ReservationStatus` | Enum | open, applied, adjusted, released | none | lifecycle constraints |

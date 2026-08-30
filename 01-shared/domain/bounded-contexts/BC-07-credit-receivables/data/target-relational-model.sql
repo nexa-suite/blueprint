@@ -56,7 +56,7 @@ CREATE TABLE receivable_application (
 CREATE TABLE financial_adjustment (
     adjustment_id uuid PRIMARY KEY,
     receivable_id uuid NOT NULL REFERENCES receivable (receivable_id),
-    kind varchar(32) NOT NULL CHECK (kind IN ('CREDIT_NOTE','DEBIT_NOTE','WRITE_OFF','CORRECTION')),
+    kind varchar(32) NOT NULL CHECK (kind IN ('INCREASE','DECREASE','WRITE_OFF','CORRECTION')),
     amount numeric(19,4) NOT NULL CHECK (amount > 0),
     currency char(3) NOT NULL,
     reason varchar(500) NOT NULL,

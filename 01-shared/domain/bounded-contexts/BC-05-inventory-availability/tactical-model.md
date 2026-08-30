@@ -1,9 +1,9 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-05 Inventory Availability — Tactical Model
@@ -11,6 +11,13 @@ last-reviewed: 2026-08-25
 **State:** TARGET core-domain model. Inventory owns physical availability,
 Warehouse backing and Physical Allocation. It does not own Commercial
 Commitment or Fulfillment execution.
+
+## Purpose and product participation
+
+Own physical stock, sellable availability, warehouse backing, FEFO,
+allocation and transfer facts. Platform and OWNER-ACCEPTED Operations Mobile
+projections execute authorized work; API remains physical availability
+authority.
 
 ## Aggregate boundaries
 
@@ -37,7 +44,7 @@ of physical truth. Safety Stock is a policy, not a reservation.
 | `InventoryBackingLine` | Entity | warehouse/SKU IDs, protected quantity | `changeQuantity()` | owned by Backing |
 | `PhysicalAllocation` | Aggregate Root | allocation ID, commitment/fulfillment IDs, status, version | `allocateFEFO()`, `release()`, `confirm()` | composes AllocationLine; lot references |
 | `PhysicalAllocationLine` | Entity | lot ID, quantity, expiry snapshot | `confirmPick()` | owned by Allocation |
-| `WarehouseTransfer` | Aggregate Root | source/destination, state, requestedAt, receivedAt, version | `request()`, `dispatch()`, `receive()`, `cancel()` | composes TransferLine |
+| `WarehouseTransfer` | Aggregate Root | source/destination, state, requestedAt, inTransitAt, receivedAt, version | `request()`, `moveInTransit()`, `receive()` | composes TransferLine |
 | `InventoryMovement` / `InventoryAdjustment` | Immutable facts | quantity delta, reason, actor, occurredAt | none after append | physical ledger |
 | `LotDisposition` | Value/Entity | disposition, reason, decidedAt | `hold()`, `release()`, `reject()` | prevents sellability |
 | `StockQuantity` | Value Object | non-negative amount | `add()`, `subtractChecked()` | invariant value |
@@ -64,7 +71,7 @@ of physical truth. Safety Stock is a policy, not a reservation.
 | `InventoryController` | Platform warehouse/availability boundary | AS-IS warehouse controller; KEEP/REFINE |
 | `WarehouseController` | warehouse configuration boundary | AS-IS; KEEP |
 | `InventoryAvailabilityQueryConsumer` | Portal safe availability projection | TARGET consumer contract |
-| `OperationsInventoryConsumer` | proposed Mobile scan/work consumer | TARGET proposed interface |
+| `OperationsInventoryConsumer` | Operations Mobile planning scan/work consumer | TARGET interface; client NOT STARTED |
 
 ## Infrastructure Layer dictionary
 
@@ -110,5 +117,5 @@ physical pick to an existing `PhysicalAllocationLine`; it does not create a
 scan aggregate. FEFO ordering, stale allocation detection, over-pick rejection
 and controlled override with actor/reason are domain/application behavior.
 Override and discrepancy are append-only traceable facts. API v0.17.0 provides
-the contract and V93/V97/V98 evidence; the published event catalog remains
-unchanged.
+the contract and V93/V97/V98 evidence; the Published Integration Event catalog
+remains unchanged.

@@ -276,7 +276,7 @@ Technical capability contract only. Detailed design, dependencies, validation sc
 | Product | Shared |
 | Surface | Shared / Delivery |
 | Actor | Developer |
-| Concern | Secure selective local state for proposed Mobile experiences |
+| Concern | Secure selective local state for OWNER-ACCEPTED Mobile planning experiences |
 | Related Bounded Contexts | Cross-cutting Mobile foundation |
 | Likely products / repositories | Mobile |
 | Priority | DELIVERY REFINEMENT PENDING |

@@ -1,15 +1,21 @@
 ---
-status: draft
-maturity: DRAFT
+status: accepted
+maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-08-29
 ---
 
 # BC-10 Notifications — Tactical Model
 
 **State:** TARGET generic context. Notification intent and delivery state are
 owned here; source business state never changes because delivery fails.
+
+## Purpose and product participation
+
+Own notification intent, recipient policy, in-app/email delivery and retry
+history. Platform and Portal consume notifications; Mobile delivery remains
+proposed and does not create a new context.
 
 ## Aggregate boundaries
 
@@ -90,7 +96,7 @@ separation **REFINE**, full email retry worker **PARTIAL / NOT IMPLEMENTED**.
 provider-token hash, installation identity, platform/surface, lifecycle and
 version. Subscription registration, rotation, disable/unregister and push
 delivery attempts are application/technical reliability behavior, not a Device
-or Mobile aggregate. Retry, claim fencing and dead-letter state preserve
-at-least-once delivery without mutating source business state. API v0.17.0
-provides the provider-neutral foundation in V94–V100; native provider/config/
-credential operations remain open.
+or Mobile aggregate. Retry, claim fencing, invalid-token handling and
+dead-letter state preserve at-least-once delivery without mutating source
+business state. API v0.17.0 provides the provider-neutral foundation in
+V94–V100; native provider/config/credential operations remain open.

@@ -28,7 +28,7 @@ CREATE TABLE purchase_request (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     buyer_relationship_id uuid NOT NULL,
-    status varchar(32) NOT NULL CHECK (status IN ('SUBMITTED','UNDER_REVIEW','CHANGES_PROPOSED','REJECTED','COMMITTED','EXPIRED','CANCELLED')),
+    status varchar(32) NOT NULL CHECK (status IN ('SUBMITTED','CHANGES_PROPOSED','CONVERTED','REJECTED','WITHDRAWN','EXPIRED')),
     submitted_at timestamptz NOT NULL,
     expires_at timestamptz NOT NULL,
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),
@@ -62,12 +62,19 @@ CREATE TABLE commercial_commitment (
     commitment_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    purchase_request_id uuid NOT NULL REFERENCES purchase_request (purchase_request_id),
+    -- Origin discriminator avoids a polymorphic source FK. DIRECT_ORDER is
+    -- represented by the confirmed SalesOrder created in the same decision.
+    origin_type varchar(32) NOT NULL CHECK (origin_type IN ('PURCHASE_REQUEST','DIRECT_ORDER')),
+    purchase_request_id uuid REFERENCES purchase_request (purchase_request_id),
     buyer_relationship_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('ESTABLISHED','CONFIRMED','CANCELLED','REPLACED')),
     committed_at timestamptz NOT NULL,
     cancelled_at timestamptz,
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),
+    CHECK (
+        (origin_type = 'PURCHASE_REQUEST' AND purchase_request_id IS NOT NULL)
+        OR (origin_type = 'DIRECT_ORDER' AND purchase_request_id IS NULL)
+    ),
     UNIQUE (purchase_request_id)
 );
 
@@ -87,7 +94,7 @@ CREATE TABLE sales_order (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     commitment_id uuid NOT NULL REFERENCES commercial_commitment (commitment_id),
-    status varchar(32) NOT NULL CHECK (status IN ('CONFIRMED','CANCELLED','REPLACED')),
+    status varchar(32) NOT NULL CHECK (status IN ('CONFIRMED','IN_FULFILLMENT','PARTIALLY_FULFILLED','FULFILLED','PARTIALLY_DELIVERED','COMPLETED','CANCELLED')),
     confirmed_at timestamptz NOT NULL,
     cancelled_at timestamptz,
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),

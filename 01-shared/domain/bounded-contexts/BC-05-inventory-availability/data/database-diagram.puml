@@ -124,7 +124,7 @@ entity "warehouse_transfer" as t_warehouse_transfer {
   * destination_warehouse_id : uuid <<FK, required>>
   * status : varchar(32) <<required>>
   * requested_at : timestamptz <<required>>
-    dispatched_at : timestamptz
+    in_transit_at : timestamptz
     received_at : timestamptz
 }
 

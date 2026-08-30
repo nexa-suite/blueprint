@@ -28,3 +28,16 @@ No Web/Mobile context copy exists.
 
 Tactical DDD in each context README is TARGET design aid. It does not claim
 that current Spring modules, packages or schemas already match strategic model.
+
+## Tactical wave artifacts
+
+Each context also carries its complete TARGET tactical/data lens:
+
+- `tactical-model.md` — Domain, Application, Interface and Infrastructure responsibilities.
+- `diagrams/domain-model.puml` — primary Domain UML source with rendered review artifacts.
+- `data/data-model.md` and `data/target-relational-model.sql` — relational ownership lens.
+
+The shared [TARGET data model](../../data/master-data-model.md), [traceability
+matrix](../../data/tactical-traceability-matrix.md) and [C4 component coverage](../../architecture/c4/component-rubric-coverage.md)
+reconcile all eleven contexts. These artifacts are TARGET design evidence;
+current API packages and Flyway tables remain AS-IS evidence.
