@@ -12,7 +12,7 @@ import subprocess
 import sys
 
 root = Path(os.environ["ROOT_DIR"])
-course = root / "90-academic/mobile/course-1acc0238"
+course = root / "90-academic/courses/mobile-1acc0238/projections"
 catalog_path = root / "03-mobile/requirements/mobile-v1-catalog.md"
 readiness_path = root / "03-mobile/requirements/story-to-design-readiness.md"
 failures: list[str] = []

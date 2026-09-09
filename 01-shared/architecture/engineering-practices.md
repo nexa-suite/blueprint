@@ -25,4 +25,4 @@ Application source, unverified release claims, architecture invented from tools,
 
 ## Related areas
 
-[Architecture](README.md), [Operations](../../04-delivery/README.md), [Repositories](../../91-reference/source-material/repository-snapshots/README.md).
+[Architecture](README.md), [Operations](../../04-delivery/README.md), [Repositories](../../91-reference/source-material/README.md).

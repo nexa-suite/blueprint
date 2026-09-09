@@ -37,4 +37,4 @@ Dense tables, persistent labels, visible workflow status, request recovery and c
 
 ## Provenance boundary
 
-Detailed source classifications remain in the [frontend reference map](../../../../91-reference/legacy/legacy-ecosystem-report/frontend-reference-map.md), [validation findings](../../../../91-reference/legacy/legacy-ecosystem-report/validation-findings.md), [artifact classification](../../../../91-reference/legacy/legacy-ecosystem-report/artifact-classification.md) and [asset provenance](../../../../91-reference/legacy/legacy-ecosystem-report/asset-provenance.md). Binary assets marked `REVIEW_BEFORE_REPUBLICATION` remain local.
+Detailed source classifications remain in the frontend reference map (historical legacy evidence), validation findings (historical legacy evidence), artifact classification (historical legacy evidence) and asset provenance (historical legacy evidence). Binary assets marked `REVIEW_BEFORE_REPUBLICATION` remain local.

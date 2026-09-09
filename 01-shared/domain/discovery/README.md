@@ -29,7 +29,7 @@ The Product headings in `01-shared/product/` are not a Capability Map. Do not de
 
 ## Discovery input boundary
 
-The current product baseline, personas, known rules, AS-IS behavior evidence and the [legacy evidence register](../../../91-reference/legacy/legacy-ecosystem-report/legacy-evidence-register.md) are inputs. Accepted outputs are maintained in [Strategic DDD](../strategic-ddd/README.md); future discovery must preserve source-of-truth hierarchy.
+The current product baseline, personas, known rules, AS-IS behavior evidence and the legacy evidence register (historical legacy evidence) are inputs. Accepted outputs are maintained in [Strategic DDD](../strategic-ddd/README.md); future discovery must preserve source-of-truth hierarchy.
 
 ## Open evidence questions
 

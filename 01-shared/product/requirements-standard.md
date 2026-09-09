@@ -43,7 +43,7 @@ The catalog records identity, target product scope and story-level AC. The
 Mobile master backlog at
 `03-mobile/requirements/master-mobile-backlog.md` owns release and lifecycle
 fields for all 73 functional stories. The academic projection at
-`90-academic/mobile/course-1acc0238/requirements-projection.md` adds the
+`90-academic/courses/mobile-1acc0238/projections/requirements-projection.md` adds the
 course-only join fields for the 28-row Product Backlog ordering, Story Points,
 Sprints, milestones and evidence. Those fields are projections, not Product
 Acceptance or implementation claims. Personas, interviews, statistics, Mobile

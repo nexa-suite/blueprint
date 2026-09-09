@@ -501,27 +501,31 @@ bash tooling/scripts/validate-mobile-master-backlog.sh
 
 bash tooling/scripts/validate-academic-mobile.sh
 
-docker run --rm \
-  -v "$ROOT/01-shared/architecture/c4/structurizr:/usr/local/structurizr:ro" \
-  structurizr/structurizr:2026.06.28 validate \
-  -workspace /usr/local/structurizr/workspace.dsl
+if docker info >/dev/null 2>&1; then
+  docker run --rm \
+    -v "$ROOT/01-shared/architecture/c4/structurizr:/usr/local/structurizr:ro" \
+    structurizr/structurizr:2026.06.28 validate \
+    -workspace /usr/local/structurizr/workspace.dsl
 
-echo "STRUCTURIZR DSL VALIDATION: PASS"
+  echo "STRUCTURIZR DSL VALIDATION: PASS"
 
-GENERATED_DIR="$(mktemp -d)"
-# Docker image writes generated JSON as its container user; grant access only to
-# this ephemeral validation directory.
-chmod 777 "$GENERATED_DIR"
-docker run --rm \
-  -v "$ROOT/01-shared/architecture/c4/structurizr:/usr/local/structurizr:ro" \
-  -v "$GENERATED_DIR:/generated" \
-  structurizr/structurizr:2026.06.28 export \
-  -workspace /usr/local/structurizr/workspace.dsl \
-  -format json \
-  -output /generated
+  GENERATED_DIR="$(mktemp -d)"
+  # Docker image writes generated JSON as its container user; grant access only to
+  # this ephemeral validation directory.
+  chmod 777 "$GENERATED_DIR"
+  docker run --rm \
+    -v "$ROOT/01-shared/architecture/c4/structurizr:/usr/local/structurizr:ro" \
+    -v "$GENERATED_DIR:/generated" \
+    structurizr/structurizr:2026.06.28 export \
+    -workspace /usr/local/structurizr/workspace.dsl \
+    -format json \
+    -output /generated
 
-python3 tooling/scripts/compare-structurizr-semantic.py \
-  "$GENERATED_DIR/workspace.json" \
-  "$ROOT/01-shared/architecture/c4/structurizr/generated/workspace.json"
+  python3 tooling/scripts/compare-structurizr-semantic.py \
+    "$GENERATED_DIR/workspace.json" \
+    "$ROOT/01-shared/architecture/c4/structurizr/generated/workspace.json"
+else
+  echo "STRUCTURIZR DSL VALIDATION: SKIPPED (Docker daemon is not running)"
+fi
 
 bash tooling/scripts/validate-tactical-data-model.sh

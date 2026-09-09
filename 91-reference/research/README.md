@@ -1,5 +1,5 @@
-# Research Reference
+# Research
 
-- [Lean UX salvage audit](lean-ux-salvage-audit.md)
-- [Academic history](academic-history/README.md)
-- [Audits](audits/README.md)
+Evidencias de investigación, auditorías de producto y análisis de rescate técnico.
+
+- [Lean UX Salvage Audit](lean-ux-salvage-audit.md)

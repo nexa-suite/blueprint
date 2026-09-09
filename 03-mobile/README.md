@@ -15,7 +15,7 @@ compatibility baseline](../04-delivery/compatibility-baseline-2026-08-29.md).
 - [Architecture](architecture/README.md)
 
 UPC academic projection:
-[1ACC0238 course runway](../90-academic/mobile/course-1acc0238/README.md).
+[1ACC0238 course runway](../90-academic/courses/mobile-1acc0238/README.md).
 It maps the current Product catalog into the official AV1/TB1/AV2/TB2 rubric
 without promoting academic evidence to Product authority.
 

@@ -1,10 +1,7 @@
 # Reference
 
-Historical, research and external source material. Reference informs Nexa but
-does not become TARGET authority without an explicit decision and provenance.
+Material de referencia técnica externa y evidencia de investigación para el ecosistema Nexa.
 
-- [Legacy](legacy/README.md)
-- [Research](research/README.md)
-- [Source material](source-material/README.md)
-
-Current implementation evidence belongs in [04-delivery/as-is](../04-delivery/as-is/README.md).
+## Estructura
+- **[Research](research/README.md)**: Evidencias de investigación, auditorías de rescate de producto y análisis.
+- **[Source Material](source-material/README.md)**: Material bibliográfico y referencias externas coordinadas con [](../../tools/library).

@@ -56,4 +56,4 @@ must not silently enter Product, Domain or requirements truth.
 
 - [Source of Truth](../01-shared/engineering/governance/source-of-truth.md)
 - [Shared Design source relationship](../01-shared/design/design-system/source-of-truth.md)
-- [Academic evidence map](../90-academic/web-applications/evidence-map.md)
+- [Academic evidence map](../90-academic/courses/web-applications/evidence-map.md)

@@ -25,7 +25,7 @@ This document is the accepted Product, business and PRE-V1 architecture input. I
   Subscriptions, Entitlements and Feature tiers are deferred or runway items,
   not implemented V1 claims.
 
-The UPC course projection is isolated under `90-academic/mobile/course-1acc0238/`.
+The UPC course projection is isolated under `90-academic/courses/mobile-1acc0238/projections/`.
 Its requirements, milestones, technology constraints, evidence obligations and
 rubric statuses are academic planning evidence; they do not alter Product,
 Domain, C4 or production authority. The owner delivery goal is an Android-native

@@ -16,7 +16,7 @@ and the client is `NOT_STARTED`.
 
 The complete academic field projection, business-value backlog ordering,
 Story Points, Sprint assignment, milestone mapping and evidence links live in
-the isolated [UPC 1ACC0238 requirements projection](../../90-academic/mobile/course-1acc0238/requirements-projection.md).
+the isolated [UPC 1ACC0238 requirements projection](../../90-academic/courses/mobile-1acc0238/projections/requirements-projection.md).
 
 Canonical reading order:
 
