@@ -31,7 +31,7 @@ completed coursework or accepted Product scope.
 | Third-party service | Mobile constraint | OWNER_INPUT_REQUIRED | Select Maps, Push or Payment candidate and record PoC evidence | TB1 |
 | Autonomous-learning feature | Course outcome 7 | RESEARCH_PENDING | SPIKE-001 evaluates feature relevance, uncertainty, privacy and demonstrability | AV2 |
 | Android native implementation | Technology | IMPLEMENTATION_PENDING | Kotlin foundation, build and representative core flow | TB1 |
-| Cross-platform implementation strategy | Technology | OWNER_INPUT_REQUIRED | Evaluate Flutter/Dart vs KMP; do not silently choose | TB1 |
+| Cross-platform implementation strategy | Technology | OWNER_INPUT_REQUIRED | Track B is mandatory: evaluate and document one permitted option, Flutter/Dart or KMP/Kotlin; do not silently choose | TB1 |
 | Physical-device demonstration | Course requirement | IMPLEMENTATION_PENDING | Install and run representative flow on real Android device | TB2 |
 | Firebase App Distribution | Course requirement | IMPLEMENTATION_PENDING | Publish test build or record accepted equivalent | TB2 |
 | English and Latin American Spanish | i18n | TARGET DEFINED | `en_US` default; `es_419` coverage and screenshots pending | TB1 |

@@ -60,8 +60,11 @@ class or database authority.
 
 ## Framework decision
 
-Academic constraints require native Android/Kotlin and allow Flutter/Dart or
-Kotlin Multiplatform/Kotlin for cross-platform work. `SPIKE-002` remains open.
+The academic technology obligation is **Kotlin Android AND (Flutter/Dart OR
+KMP/Kotlin)**: native Android with Kotlin is Track A, and one permitted
+cross-platform option, Flutter with Dart or Kotlin Multiplatform with Kotlin, is
+Track B. `SPIKE-002` remains open; the framework selection is not silently
+made.
 Operations Mobile may be evaluated for native Android because of device/field
 interaction; Buyer Mobile may be evaluated for cross-platform delivery. This is
 not an accepted architecture until evidence and Owner acceptance exist.

@@ -65,6 +65,12 @@ implemented or accepted.
 | Languages | English `en_US`; Latin American Spanish `es_419` | TARGET DEFINED; Mobile client pending |
 | Accessibility | Mobile a11y evidence required | TARGET DEFINED; validation pending |
 
+The academic technology obligation is **Kotlin Android AND (Flutter/Dart OR
+KMP/Kotlin)**: Track A requires a native Android application using Kotlin, and
+Track B requires one permitted cross-platform option, either Flutter with Dart
+or Kotlin Multiplatform (KMP) with Kotlin. The framework selection remains OPEN;
+this derived constraint does not claim implementation or runtime evidence.
+
 ## Owner four-week outcome
 
 The owner goal is an Android-native foundation plus a representative core flow

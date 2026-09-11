@@ -28,8 +28,10 @@ invented.
   The Epic model is outcome-based.
 - V1 is online-first. Local persistence may support safe reads, harmless drafts,
   temporary evidence and retry metadata; it is not business authority.
-- The academic native constraint is Android/Kotlin. A cross-platform option
-  remains open for SPIKE-002; no framework is silently selected.
+- The academic technology obligation is **Kotlin Android AND (Flutter/Dart OR
+  KMP/Kotlin)**: native Android with Kotlin is mandatory Track A, and one
+  permitted cross-platform option is mandatory Track B. SPIKE-002 keeps the
+  framework selection open; no framework is silently selected.
 - The source course statement and rubric are intentionally excluded from the
   publishable Blueprint tree. This projection contains only derived planning.
 
