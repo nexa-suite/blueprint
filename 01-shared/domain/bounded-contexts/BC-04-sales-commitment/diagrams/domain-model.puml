@@ -139,7 +139,7 @@ CommercialCommitment "1" *-- "0..*" CommitmentOwnerTransfer : ownership
 CommercialCommitment "1" *-- "0..*" SalesCommitmentAdjustment : adjustments
 PurchaseRequest --> BuyerRelationship : stable relationship id
 PurchaseRequestLine --> Sku : stable SKU id
-CommercialCommitment --> InventoryBacking : decision id
+CommercialCommitment --> InventoryReservation : demand reference
 CommercialCommitment --> CreditReservation : decision id
 CommercialCommitment "1" --> "0..1" SalesOrder : transfers ownership
 CommitmentAcceptancePolicy ..> PurchaseRequestRepository : loads

@@ -30,8 +30,9 @@ RLS is required by tenant/workspace deployment policy.
 
 `buyer_relationship_id`, `sku_id`, identity IDs and downstream decision IDs
 are stable non-owning references. Transaction boundary: submit PR,
-commitment, inventory backing and applicable credit reservation must be one
-logical decision; Direct Order applies the same commitment/backing/credit
+commitment, Inventory Reservation, Warehouse Backing and applicable credit
+reservation must be one logical decision; Direct Order applies the same
+commitment/reservation/backing/credit
 boundary while creating no PR. PR-to-SO conversion transfers the existing
 Commitment without release/re-reserve. AS-IS anchors: sales drafts, purchase requests, commitments,
 sales orders, events and sequences; see [mapping](../../../../data/as-is-to-target-mapping.md).

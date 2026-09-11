@@ -8,17 +8,17 @@ last-reviewed: 2026-08-29
 
 # BC-05 — Inventory Availability functional contract
 
-**Purpose:** own physical stock, Sellable Availability, demand backing, lot
-allocation, FEFO and authorized inventory disposition.
+**Purpose:** own physical stock, Sellable Availability, Inventory Reservation,
+Warehouse Backing, lot allocation, FEFO and authorized inventory disposition.
 
 | Contract element | Definition |
 |---|---|
-| Concepts / roots | Warehouse, Inventory Lot, Inventory Position, Inventory Backing, Physical Allocation, Disposition |
+| Concepts / roots | Warehouse, Inventory Lot, Inventory Position, Inventory Reservation, Warehouse Backing, Physical Allocation, Disposition |
 | Value objects | SkuId, LotId, WarehouseId, Quantity, ExpiryDateUtc, AllocationId, ScanEvidence |
 | Boundary | Owns physical and sellability truth; does not own order lifecycle, delivery outcome or notification delivery. |
 | Commands | ReceiveStock, RegisterLot, ChangeDisposition, AdjustQuantity, TransferStock, ReserveDemand, AllocatePhysicalLots, ValidatePickScan, RecordCount |
 | Queries | ResolveLot, ReadSellableAvailability, ReadLotStock, ReadFEFOCandidate, ReadAllocation |
-| Invariants | Sellable = usable on-hand - active commitments - safety stock; expired/quarantined lots cannot allocate; no over-pick; FEFO is deterministic unless explicit override. |
+| Invariants | Sellable = usable on-hand - active Inventory Reservations - safety stock; Warehouse Backing distributes protected demand without double count; expired/quarantined lots cannot allocate; no over-pick; FEFO is deterministic unless explicit override. |
 | Actors / surfaces | Company Owner, Business Operations Manager, Warehouse Operator, Sales Representative; Platform, Operations Mobile, Buyer Portal/Mobile projections. |
 | Synchronous dependencies | BC-03 SKU meaning and BC-04 commitment demand; BC-06 may execute only a valid allocation binding. |
 | Events / consumers | `AvailabilityChanged.v1`, `PhysicalAllocationCreated.v1`; scan/FEFO/override facts remain internal/traceable. |

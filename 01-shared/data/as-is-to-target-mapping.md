@@ -142,11 +142,11 @@ snapshot/aggregate; `TECHNICAL` belongs to shared reliability/security;
 | `warehouse`, `storage_zone` | REFINE | BC-05 warehouse and storage location |
 | `inventory_lot`, `inventory_lot_disposition` | REFINE | BC-05 lot and disposition |
 | `inventory_event`, `stock_movement` | REFINE | BC-05 append-only movement and event |
-| `inventory_reservation`, `inventory_reservation_line`, `inventory_reservation_allocation` | REWORK | BC-05 backing and physical allocation |
+| `inventory_reservation`, `inventory_reservation_line`, `warehouse_backing`, `warehouse_backing_line`, `physical_allocation`, `physical_allocation_line` | REWORK | BC-05 Inventory Reservation, Warehouse Backing and Physical Allocation |
 | `inventory_transfer` | REFINE | BC-05 warehouse transfer |
 | `inventory_temperature_evaluation` | REFINE | BC-05 lot/warehouse quality evidence; delivery temperature remains BC-06 |
 | `safety_stock_policy` | REFINE | BC-05 safety policy |
-| `selection_snapshot` | REWORK | BC-05 FEFO/backing snapshot |
+| `selection_snapshot` | REWORK | BC-05 FEFO/Warehouse Backing snapshot |
 | `command_idempotency` | TECHNICAL | Shared `idempotency_record` |
 | `warehouse_service_configuration` | REFINE | BC-05 operational warehouse configuration |
 

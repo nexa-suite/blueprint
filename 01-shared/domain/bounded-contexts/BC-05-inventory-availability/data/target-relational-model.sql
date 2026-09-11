@@ -65,30 +65,52 @@ CREATE TABLE safety_stock_policy (
     CHECK (valid_to IS NULL OR valid_to > valid_from)
 );
 
-CREATE TABLE inventory_backing (
-    backing_id uuid PRIMARY KEY,
+CREATE TABLE inventory_reservation (
+    reservation_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     commercial_commitment_id uuid NOT NULL,
-    status varchar(32) NOT NULL CHECK (status IN ('REQUESTED','BACKED','RELEASED','CONSUMED','FAILED')),
+    status varchar(32) NOT NULL CHECK (status IN ('REQUESTED','RESERVED','RELEASED','CONSUMED','FAILED')),
     requested_at timestamptz NOT NULL,
     completed_at timestamptz,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (commercial_commitment_id)
 );
 
-CREATE TABLE inventory_backing_line (
+CREATE TABLE inventory_reservation_line (
     line_id uuid PRIMARY KEY,
-    backing_id uuid NOT NULL REFERENCES inventory_backing (backing_id),
+    reservation_id uuid NOT NULL REFERENCES inventory_reservation (reservation_id),
+    sku_id uuid NOT NULL,
+    requested_quantity numeric(19,6) NOT NULL CHECK (requested_quantity > 0),
+    reserved_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (reserved_quantity >= 0 AND reserved_quantity <= requested_quantity),
+    UNIQUE (reservation_id, sku_id)
+);
+
+CREATE TABLE warehouse_backing (
+    backing_id uuid PRIMARY KEY,
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    inventory_reservation_id uuid NOT NULL REFERENCES inventory_reservation (reservation_id),
+    status varchar(32) NOT NULL CHECK (status IN ('REQUESTED','BACKED','RELEASED','CONSUMED','FAILED')),
+    requested_at timestamptz NOT NULL,
+    completed_at timestamptz,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (inventory_reservation_id)
+);
+
+CREATE TABLE warehouse_backing_line (
+    line_id uuid PRIMARY KEY,
+    backing_id uuid NOT NULL REFERENCES warehouse_backing (backing_id),
+    warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
     sku_id uuid NOT NULL,
     requested_quantity numeric(19,6) NOT NULL CHECK (requested_quantity > 0),
     backed_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (backed_quantity >= 0 AND backed_quantity <= requested_quantity),
-    UNIQUE (backing_id, sku_id)
+    UNIQUE (backing_id, warehouse_id, sku_id)
 );
 
 CREATE TABLE physical_allocation (
     allocation_id uuid PRIMARY KEY,
-    backing_id uuid NOT NULL REFERENCES inventory_backing (backing_id),
+    warehouse_backing_id uuid NOT NULL REFERENCES warehouse_backing (backing_id),
     status varchar(32) NOT NULL CHECK (status IN ('ALLOCATED','RELEASED','CONSUMED')),
     allocated_at timestamptz NOT NULL,
     released_at timestamptz
@@ -152,5 +174,6 @@ CREATE TABLE lot_disposition (
 CREATE INDEX ix_inventory_lot_fefo ON inventory_lot (warehouse_id, sku_id, expires_at, status);
 CREATE INDEX ix_inventory_position_sku ON inventory_position (warehouse_id, sku_id);
 CREATE INDEX ix_inventory_movement_reference ON inventory_movement (reference_type, reference_id);
-CREATE INDEX ix_backing_commitment_status ON inventory_backing (commercial_commitment_id, status);
+CREATE INDEX ix_inventory_reservation_commitment_status ON inventory_reservation (commercial_commitment_id, status);
+CREATE INDEX ix_warehouse_backing_reservation_status ON warehouse_backing (inventory_reservation_id, status);
 CREATE INDEX ix_transfer_scope_status ON warehouse_transfer (tenant_id, workspace_id, status);

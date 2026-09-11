@@ -17,11 +17,11 @@ published fact through outbox/inbox. No flow creates a new Bounded Context.
 | Tenant onboarding | `S` ProvisionTenant → TenantActivated → MembershipGranted; `A` traceability and notification projections |
 | Buyer relationship activation | `S` RequestRelationship → ApproveRelationship → LinkBuyerIdentity; `A` authorized relationship projection |
 | Catalog → Buyer offer | `S` relationship eligibility → ResolveOffer → price/terms/SKU snapshot; `A` offer/availability UI refresh hint |
-| APPROVAL_REQUIRED purchase | `S` Buyer submits PR → commitment + inventory backing + applicable credit reservation; `A` PurchaseRequestSubmitted → sales review/notification |
-| DIRECT_ORDER purchase | `S` Buyer submits → resolve offer → commitment + backing + credit decision → SO born CONFIRMED; `A` SalesOrderConfirmed |
+| APPROVAL_REQUIRED purchase | `S` Buyer submits PR → Commercial Commitment → Inventory Reservation → Warehouse Backing + applicable credit reservation; `A` PurchaseRequestSubmitted → sales review/notification |
+| DIRECT_ORDER purchase | `S` Buyer submits → resolve offer → Commercial Commitment → Inventory Reservation → Warehouse Backing + credit decision → SO born CONFIRMED; `A` SalesOrderConfirmed |
 | PR → Sales Order | `S` review/material change → BuyerChangeAccepted when required → ConfirmSalesOrder and ownership transfer; `A` SalesOrderConfirmed |
 | Commercial Commitment | `S` SKU + quantity demand becomes active/released commitment; `A` CommercialCommitmentEstablished |
-| Inventory allocation | `S` demand → backing → FEFO Physical Allocation or explicit shortage; `A` AvailabilityChanged / PhysicalAllocationCreated |
+| Inventory allocation | `S` Commercial Commitment → Inventory Reservation → Warehouse Backing → FEFO Physical Allocation or explicit shortage; `A` AvailabilityChanged / PhysicalAllocationCreated |
 | Fulfillment | `S` SO + allocation → pick → pack → stage → ReadyForDispatch; `A` shortage or readiness projections |
 | Dispatch handoff | `S` verify goods/packages → assign Driver → mandatory Dispatch Handoff + photo + stable ID → dispatch; `A` handoff notification and traceability |
 | Delivery / POD | `S` attempt → offered/accepted/rejected quantities → recipient acknowledgement + photo + POD; `A` DeliveryCompleted or ContinuationDeliveryCreated |

@@ -9,15 +9,15 @@ last-reviewed: 2026-08-29
 # BC-05 Inventory Availability — Tactical Model
 
 **State:** TARGET core-domain model. Inventory owns physical availability,
-Warehouse backing and Physical Allocation. It does not own Commercial
-Commitment or Fulfillment execution.
+Inventory Reservation, Warehouse Backing and Physical Allocation. It does not
+own Commercial Commitment or Fulfillment execution.
 
 ## Purpose and product participation
 
-Own physical stock, sellable availability, warehouse backing, FEFO,
-allocation and transfer facts. Platform and OWNER-ACCEPTED Operations Mobile
-projections execute authorized work; API remains physical availability
-authority.
+Own physical stock, sellable availability, Inventory Reservation, Warehouse
+Backing, FEFO, allocation and transfer facts. Platform and OWNER-ACCEPTED
+Operations Mobile projections execute authorized work; API remains physical
+availability authority.
 
 ## Aggregate boundaries
 
@@ -25,8 +25,9 @@ authority.
 |---|---|---|
 | `InventoryPosition` | SKU + Warehouse quantity authority and sellable calculation inputs | SKU ID |
 | `InventoryLot` | lot/expiry/disposition and physical quantity | SKU/Warehouse IDs |
-| `InventoryBacking` | protects Commercial Commitment demand across eligible Warehouses | Commitment ID, SKU ID |
-| `PhysicalAllocation` | selects lot quantities for a Fulfillment contract | commitment/fulfillment IDs, lot IDs |
+| `InventoryReservation` | protects Commercial Commitment demand without selecting Warehouse or Lot | Commitment ID, SKU ID |
+| `WarehouseBacking` | distributes an Inventory Reservation across eligible Warehouses | Reservation ID, Warehouse ID, SKU ID |
+| `PhysicalAllocation` | selects lot quantities for a Fulfillment contract after Warehouse Backing | backing/fulfillment IDs, lot IDs |
 | `WarehouseTransfer` | source/destination movement state `REQUESTED -> IN_TRANSIT -> RECEIVED` | Warehouse/Lot IDs |
 
 Movement and adjustment facts are append-only; position is a guarded projection
@@ -40,9 +41,11 @@ of physical truth. Safety Stock is a policy, not a reservation.
 | `InventoryLot` | Aggregate Root | lot ID, SKU, warehouse, expiry, quantity, disposition, version | `receive()`, `hold()`, `releaseHold()`, `markExpired()` | physical lot; TARGET |
 | `InventoryPosition` | Aggregate Root | SKU/warehouse IDs, onHand, reserved, safetyStock, version | `applyMovement()`, `sellableAvailability()` | one per SKU + Warehouse |
 | `SafetyStockPolicy` | Entity | SKU/warehouse, minimum quantity, effectiveAt | `changeMinimum()` | owned by Warehouse policy boundary |
-| `InventoryBacking` | Aggregate Root | backing ID, commitment ID, status, version | `establish()`, `reallocate()`, `release()` | composes BackingLine; no lot ownership |
-| `InventoryBackingLine` | Entity | warehouse/SKU IDs, protected quantity | `changeQuantity()` | owned by Backing |
-| `PhysicalAllocation` | Aggregate Root | allocation ID, commitment/fulfillment IDs, status, version | `allocateFEFO()`, `release()`, `confirm()` | composes AllocationLine; lot references |
+| `InventoryReservation` | Aggregate Root | reservation ID, commitment ID, status, version | `reserve()`, `adjust()`, `release()` | composes ReservationLine; no Warehouse/Lot selection |
+| `InventoryReservationLine` | Entity | SKU ID, requested/reserved quantity | `changeQuantity()` | owned by Reservation |
+| `WarehouseBacking` | Aggregate Root | backing ID, reservation ID, status, version | `distribute()`, `reallocate()`, `release()` | composes BackingLine; no lot ownership |
+| `WarehouseBackingLine` | Entity | warehouse/SKU IDs, protected quantity | `changeQuantity()` | owned by Warehouse Backing |
+| `PhysicalAllocation` | Aggregate Root | allocation ID, Warehouse Backing/fulfillment IDs, status, version | `allocateFEFO()`, `release()`, `confirm()` | composes AllocationLine; lot references |
 | `PhysicalAllocationLine` | Entity | lot ID, quantity, expiry snapshot | `confirmPick()` | owned by Allocation |
 | `WarehouseTransfer` | Aggregate Root | source/destination, state, requestedAt, inTransitAt, receivedAt, version | `request()`, `moveInTransit()`, `receive()` | composes TransferLine |
 | `InventoryMovement` / `InventoryAdjustment` | Immutable facts | quantity delta, reason, actor, occurredAt | none after append | physical ledger |
@@ -50,15 +53,16 @@ of physical truth. Safety Stock is a policy, not a reservation.
 | `StockQuantity` | Value Object | non-negative amount | `add()`, `subtractChecked()` | invariant value |
 | `SellableAvailabilityPolicy` | Domain Service | none | `calculate(onHand, commitments, safetyStock)` | avoids double subtraction |
 | `FEFOAllocationPolicy` | Domain Service | none | `orderEligibleLots()` | expiry-tracked default |
-| `InventoryPositionRepository` / `InventoryBackingRepository` | Repository interfaces | none | `save()`, `bySkuWarehouse()` | roots only |
-| `InventoryBackingEstablished` / `PhysicalAllocationConfirmed` | Domain Events | IDs, quantities, occurredAt | immutable facts | no new published events |
+| `InventoryPositionRepository` / `InventoryReservationRepository` / `WarehouseBackingRepository` | Repository interfaces | none | `save()`, `bySkuWarehouse()` | roots only |
+| `InventoryReservationEstablished` / `WarehouseBackingEstablished` / `PhysicalAllocationConfirmed` | Domain Events | IDs, quantities, occurredAt | immutable facts | no new published events |
 
 ## Application Layer dictionary
 
 | Class | Capability | Orchestration |
 |---|---|---|
-| `EstablishInventoryBackingHandler` | protect commitment demand | deterministic Warehouse selection; same transaction boundary as sales/credit |
-| `ReleaseInventoryBackingHandler` | release on terminal PR/SO result | idempotent release ledger; no double subtract |
+| `CreateInventoryReservationHandler` | protect commitment demand | creates Inventory Reservation in the same logical decision as sales/credit |
+| `DistributeWarehouseBackingHandler` | distribute protected demand | deterministic Warehouse selection; no lot selection; same transaction boundary as reservation |
+| `ReleaseWarehouseBackingHandler` | release terminal backing | idempotent release ledger; no double subtract |
 | `AllocatePhysicalStockHandler` | lot selection | locks SKU/Warehouse/Lot, applies FEFO and creates allocation |
 | `RecordInventoryAdjustmentHandler` | correct physical truth | authorized reason, versioned mutation and shortage outcome |
 | `TransferInventoryHandler` | dispatch/receive stock | ordered source/destination locks and explicit transfer state |
@@ -78,19 +82,21 @@ of physical truth. Safety Stock is a policy, not a reservation.
 | Class | Role | Status |
 |---|---|---|
 | `InventoryRepositoryAdapter` | PostgreSQL position/lot/movement persistence | AS-IS warehouse adapters; KEEP/REFINE |
-| `InventoryBackingAdapter` | backing/reservation persistence | AS-IS V16/V49/V57/V75; REFINE ownership language |
+| `InventoryReservationAdapter` | reservation persistence | AS-IS V16/V49/V57/V75; REFINE ownership language |
+| `WarehouseBackingAdapter` | Warehouse distribution persistence | TARGET; no lot ownership |
 | `FEFOQueryAdapter` | ordered lot query | TARGET persistence adapter |
 | `TenantScopedTransactionPort` | RLS/worker scope | shared technical boundary |
 | `InventoryOutboxAdapter` | committed fact publication | AS-IS integration outbox; KEEP |
 
 ## Invariants and transaction boundaries
 
-- Sellable Availability = usable on-hand − active Commercial Commitments −
-  Safety Stock. Backing protects commitment once; it is not subtracted twice.
+- Sellable Availability = usable on-hand − active Inventory Reservations −
+  Safety Stock. Warehouse Backing distributes the reservation; it is not
+  subtracted twice.
 - HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are not sellable.
 - Prefer one Warehouse when it can satisfy demand; V1 may split across eligible
   Warehouses deterministically.
-- Physical Allocation cannot exceed committed/backed quantity or usable lot
+- Physical Allocation cannot exceed reserved/backed quantity or usable lot
   quantity. FEFO never selects expired/quarantined stock.
 - Transfer is explicit `REQUESTED`, `IN_TRANSIT`, `RECEIVED`; in-transit stock
   is not sellable at either location.
@@ -99,7 +105,8 @@ of physical truth. Safety Stock is a policy, not a reservation.
 
 ## Events, persistence and evidence
 
-Internal events include `InventoryBackingEstablished`, `InventoryHeld` and
+Internal events include `InventoryReservationEstablished`,
+`WarehouseBackingEstablished`, `InventoryHeld` and
 `PhysicalAllocationConfirmed`; published count remains 14. See [BC-05 data model](data/data-model.md),
 [target SQL](data/target-relational-model.sql) and [domain UML](diagrams/domain-model.puml).
 

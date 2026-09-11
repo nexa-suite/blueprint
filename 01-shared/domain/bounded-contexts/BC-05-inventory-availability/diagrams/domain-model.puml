@@ -55,26 +55,45 @@ class SafetyStockPolicy <<Entity>> {
   +changeMinimum(quantity: Quantity): void
 }
 
-class InventoryBacking <<Aggregate Root>> {
-  -backingId: InventoryBackingId
+class InventoryReservation <<Aggregate Root>> {
+  -reservationId: InventoryReservationId
   -commercialCommitmentId: CommitmentId
-  -status: BackingStatus
-  +back(): void
+  -status: ReservationStatus
+  +reserve(): void
+  +adjust(): void
   +release(): void
-  +complete(): void
 }
 
-class InventoryBackingLine <<Entity>> {
-  -lineId: InventoryBackingLineId
-  -backingId: InventoryBackingId
+class InventoryReservationLine <<Entity>> {
+  -lineId: InventoryReservationLineId
+  -reservationId: InventoryReservationId
   -skuId: SkuId
-  -quantity: Quantity
-  +allocate(quantity: Quantity): void
+  -requestedQuantity: Quantity
+  -reservedQuantity: Quantity
+  +changeQuantity(quantity: Quantity): void
+}
+
+class WarehouseBacking <<Aggregate Root>> {
+  -backingId: WarehouseBackingId
+  -inventoryReservationId: InventoryReservationId
+  -status: BackingStatus
+  +distribute(): void
+  +reallocate(): void
+  +release(): void
+}
+
+class WarehouseBackingLine <<Entity>> {
+  -lineId: WarehouseBackingLineId
+  -backingId: WarehouseBackingId
+  -warehouseId: WarehouseId
+  -skuId: SkuId
+  -backedQuantity: Quantity
+  +changeQuantity(quantity: Quantity): void
 }
 
 class PhysicalAllocation <<Aggregate Root>> {
   -allocationId: PhysicalAllocationId
-  -backingId: InventoryBackingId
+  -warehouseBackingId: WarehouseBackingId
   -status: AllocationStatus
   +allocate(): void
   +release(): void
@@ -138,6 +157,7 @@ interface InventoryRepository <<Repository>> {
 
 enum WarehouseStatus <<Enum>>
 enum LotStatus <<Enum>>
+enum ReservationStatus <<Enum>>
 enum BackingStatus <<Enum>>
 enum AllocationStatus <<Enum>>
 enum TransferStatus <<Enum>>
@@ -148,12 +168,16 @@ Warehouse "1" o-- "0..*" InventoryPosition : positions
 Warehouse "1" o-- "0..*" SafetyStockPolicy : policies
 InventoryLot "1" *-- "0..*" InventoryMovement : movements
 InventoryLot "1" *-- "0..*" LotDisposition : dispositions
-InventoryBacking "1" *-- "1..*" InventoryBackingLine : demand
+InventoryReservation "1" *-- "1..*" InventoryReservationLine : demand
+WarehouseBacking "1" *-- "1..*" WarehouseBackingLine : distribution
 PhysicalAllocation "1" *-- "1..*" PhysicalAllocationLine : physical lots
 WarehouseTransfer "1" *-- "1..*" WarehouseTransferLine : lines
 InventoryPosition --> Sku : stable SKU id
-InventoryBacking --> CommercialCommitment : stable commitment id
-InventoryBackingLine --> Sku : stable SKU id
+InventoryReservation --> CommercialCommitment : stable commitment id
+WarehouseBacking --> InventoryReservation : distributes demand
+WarehouseBackingLine --> Warehouse : eligible warehouse id
+WarehouseBackingLine --> Sku : stable SKU id
+PhysicalAllocation --> WarehouseBacking : selects from backing
 AvailabilityPolicy ..> InventoryRepository : reads
 AvailabilityPolicy --> InventoryLot : FEFO selects
 InventoryPosition --> SafetyStockPolicy : protects minimum

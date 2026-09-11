@@ -15,16 +15,19 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 |---|---|---|
 | Warehouse | `warehouse`, `safety_stock_policy` | scoped code; policy validity; warehouse FK |
 | Lot and position | `inventory_lot`, `inventory_position`, `inventory_movement`, `lot_disposition` | lot/warehouse FKs; non-negative stock; movement append-only |
-| Backing | `inventory_backing`, `inventory_backing_line` | commitment is external stable ID; line FK and quantity bounds |
-| Physical allocation | `physical_allocation`, `physical_allocation_line` | backing/lot FKs; allocation quantity bounds; scan-to-allocation validation |
+| Inventory reservation | `inventory_reservation`, `inventory_reservation_line` | commitment is external stable ID; line FK and quantity bounds; no Warehouse/Lot selection |
+| Warehouse backing | `warehouse_backing`, `warehouse_backing_line` | reservation FK; warehouse/lot-independent distribution; line quantity bounds |
+| Physical allocation | `physical_allocation`, `physical_allocation_line` | Warehouse Backing/lot FKs; allocation quantity bounds; scan-to-allocation validation |
 | Transfer | `warehouse_transfer`, `warehouse_transfer_line` | source/destination warehouse FKs; no self-transfer |
 | Adjustment | `inventory_adjustment` | warehouse/lot FKs; approval/application lifecycle |
 
 SQL has PK, same-owner FK, NOT NULL, quantity/status checks, unique stock
-positions and FEFO/backing/transfer indexes. RLS applies tenant/workspace;
+positions and FEFO/reservation/backing/transfer indexes. RLS applies tenant/workspace;
 no cross-BC FK is declared. `on_hand`, `reserved`, `held` and safety policy
-support Sellable Availability; lot expiry supports FEFO. AS-IS anchors are all
-`warehouse` tables, including reservation/allocation, movement, temperature
+support Sellable Availability; lot expiry supports FEFO. Inventory Reservation
+protects Commercial Commitment demand once; Warehouse Backing distributes that
+protection across eligible Warehouses without selecting lots. AS-IS anchors are
+all `warehouse` tables, including reservation/allocation, movement, temperature
 evaluation and transfer tables. Warehouse Transfer states are exactly
 `REQUESTED`, `IN_TRANSIT` and `RECEIVED`; lot status distinguishes
 `QUARANTINE`, `DAMAGED`, `WASTE` and `IN_TRANSIT` from sellable stock.
