@@ -19,6 +19,7 @@ Este documento fija la semántica C4 L1/L2 de Nexa independiente de los límites
 - [Structurizr DSL](structurizr/workspace.dsl) es la fuente semántica.
 - [README de Structurizr](structurizr/README.md) documenta las vistas y su validación.
 - [Level 4 code views](l4/README.md) use repository-derived or TARGET Mermaid views; they do not fake C4 Components or production classes.
+- [Model authority and derived artifacts](../model-authority.md) defines the boundary with Strategic/Tactical DDD, the target relational model and academic UML/PlantUML.
 - [L3/L4 technical views](l4/technical-lenses.md) index the requested API, Platform and Portal responsibility lenses and canonical workflows.
 - `structurizr/generated/workspace.json` es representación generada; no debe editarse manualmente.
 - `structurizr/workspace.json` es el espejo manual cargado para revisión académica; debe ser byte/semánticamente igual a la representación generada y no una segunda fuente.

@@ -27,6 +27,16 @@ canonical Product registry with independently valuable outcomes
 | Technical stories | 20 shared | 20 shared | No Mobile-only technical story or new Bounded Context is created. |
 | Spikes | 6 shared | 6 shared | Existing Spike contract is preserved; no new Spike is invented. |
 
+## Academic report boundary
+
+The current academic Mobile Report inventory is separate from the Product
+functional catalog: `6 LAND + 73 MOB + 12 Technical Stories + 6 Spikes = 97`
+academic backlog elements. Its 79 functional user-story records are the six
+academic `LAND` records plus the 73 canonical Mobile stories. The academic
+Technical Stories and Spikes are planning/research elements and do not redefine
+the 73-story Product backlog. See the [academic backlog boundary](academic-backlog-boundary.md)
+for the source ref and evidence classification.
+
 ## Historical reconciliation matrix
 
 | Historical ID | Historical title | Action | Current title | Current Epic | Target Release | Status | New replacement (if any) |

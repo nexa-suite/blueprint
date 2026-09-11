@@ -145,12 +145,14 @@ Product Backlog ordering follows business value. Product priority is not
 implementation dependency order. Technical prerequisites do not automatically
 become Product priority one.
 
-Keep dimensions separate:
+Keep dimensions separate and use the canonical taxonomy:
 
-- decision: ACCEPTED / PROPOSED / DEFERRED;
-- research: VALIDATED / PARTIALLY_VALIDATED / PENDING;
+- decision: OWNER-ACCEPTED / ACCEPTED / PROPOSED / RESEARCHING / DEFERRED;
+- research: PROPOSED / RESEARCHING / HISTORICAL;
 - implementation: IMPLEMENTED / PARTIAL / PLANNED / FUTURE;
-- production: READY / OPEN.
+- verification: TECHNICALLY VERIFIED;
+- Product acceptance: PRODUCT ACCEPTED;
+- production: PRODUCTION READY / OPEN.
 
 ## Canonical context references
 

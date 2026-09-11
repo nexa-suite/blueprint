@@ -24,7 +24,7 @@ Requirements entry points:
 - [Mobile requirements](../03-mobile/requirements/README.md)
 - [Mobile V1 catalog](../03-mobile/requirements/mobile-v1-catalog.md)
 - [Functional contracts](../01-shared/product/functional-contracts/README.md)
-- [Live compatibility baseline](../04-delivery/compatibility-baseline-2026-08-29.md)
+- [Live repository baseline](../04-delivery/as-is/live-repository-baseline-2026-09-10.md)
 - [Technical Stories](../01-shared/product/requirements/technical-stories.md)
 - [Spike Stories](../01-shared/product/requirements/spike-stories.md)
 

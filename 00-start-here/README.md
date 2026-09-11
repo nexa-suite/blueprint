@@ -8,8 +8,10 @@ domain, surface projections and delivery evidence.
 ## In three minutes
 
 - **Shared**: product, one domain, Design System, architecture, data, security and engineering.
+- **Market direction**: Peru-first present direction; international/LATAM is FUTURE.
 - **Web**: Website, Internal Platform and Buyer Portal.
 - **Mobile**: two owner-accepted-for-planning apps; research and client validation pending.
+- **Economics**: proposed/researching hypotheses only; no public monetary price is canonized.
 - **Problem**: [current Problem Foundation](../01-shared/product/vision/problem.md), with historical Web provenance.
 - **DDD**: [01-shared/domain](../01-shared/domain/README.md).
 - **C4**: [01-shared/architecture/c4](../01-shared/architecture/c4/README.md).
@@ -42,9 +44,11 @@ domain, surface projections and delivery evidence.
 tooling/       validators and local tools
 ```
 
-Status dimensions are separate: decision `ACCEPTED / PROPOSED / DEFERRED`;
-research `VALIDATED / PARTIALLY_VALIDATED / PENDING`; implementation
-`IMPLEMENTED / PARTIAL / PLANNED / FUTURE`; production `READY / OPEN`.
+Status dimensions are separate: decision `OWNER-ACCEPTED / ACCEPTED /
+PROPOSED / RESEARCHING / DEFERRED`; implementation `IMPLEMENTED / PARTIAL /
+PLANNED / FUTURE`; verification `TECHNICALLY VERIFIED`; Product acceptance
+`PRODUCT ACCEPTED`; production `PRODUCTION READY / OPEN`. Do not use a generic
+ambiguous `VALIDATED` state.
 
 Read [navigation](navigation.md), [status](status.md), [repository map](repository-map.md),
 [source of truth](../01-shared/engineering/governance/source-of-truth.md),

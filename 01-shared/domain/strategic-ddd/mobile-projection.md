@@ -15,7 +15,7 @@ experience/use-case composition, not ownership of a new business invariant.
 
 | Mobile actor / segment | Capability projection | Existing BC authority | Contract / consistency |
 |---|---|---|---|
-| Sales Representative / MOB-SEG-01 Field & Warehouse Operations | customer lookup, Buyer relationship, catalog/SKU/pricing/terms, sellable availability, draft and PR/order capture | BC-02, BC-03, BC-04, BC-05, BC-07 when relevant | synchronous authoritative lookup and submit; drafts may be selectively offline |
+| Sales Representative / later Mobile convenience (outside prioritized V1) | customer lookup, Buyer relationship, catalog/SKU/pricing/terms, sellable availability, draft and PR/order capture | BC-02, BC-03, BC-04, BC-05, BC-07 when relevant | V2+ research candidate; synchronous authoritative lookup and submit; drafts may be selectively offline |
 | Warehouse Operator / MOB-SEG-01 | scan-to-inventory, receiving, lot/expiry/quantity, picking, transfers, counts and evidence | BC-05, BC-11 | operational mutations require capability, idempotency and explicit sync; encoded data only |
 | Dispatch Coordinator / MOB-SEG-01 | fulfillment readiness, Dispatch Handoff, assignment and evidence | BC-06, BC-05, BC-11 | handoff is source fact; photographic evidence mandatory; async notifications |
 | Driver / MOB-SEG-02 Delivery Workforce | assigned deliveries, attempt, route, active location, outcome, POD and cold-chain evidence | BC-06, BC-09, BC-10, BC-11 | selective offline for delivery; location only active lifecycle; POD immutable |

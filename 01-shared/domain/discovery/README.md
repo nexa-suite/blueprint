@@ -13,13 +13,13 @@ evidence input, not semantic authority, and must not redefine Product V1.
 
 | Concern | Research status | Evidence | Next decision |
 |---|---|---|---|
-| Capability Mapping | PARTIALLY_VALIDATED | Accepted Product baseline, personas, rules and AS-IS evidence | future capability refinement |
-| EventStorming | PARTIALLY_VALIDATED | Accepted business facts, sequences and exceptions | event contract refinement |
-| Domain Storytelling | PARTIALLY_VALIDATED | Responsibility and exception stories | future process evidence |
-| Ubiquitous Language | VALIDATED | Accepted terms and rejected synonyms | explicit translation decision |
-| Subdomains | VALIDATED | Accepted Core/Supporting/Generic classification | strategic decision replacement |
+| Capability Mapping | RESEARCHING | Accepted Product baseline, personas, rules and AS-IS evidence | future capability refinement |
+| EventStorming | RESEARCHING | Accepted business facts, sequences and exceptions | event contract refinement |
+| Domain Storytelling | RESEARCHING | Responsibility and exception stories | future process evidence |
+| Ubiquitous Language | ACCEPTED | Accepted terms and rejected synonyms | explicit translation decision |
+| Subdomains | ACCEPTED | Accepted Core/Supporting/Generic classification | strategic decision replacement |
 | Bounded Contexts | 11 — FROZEN | Accepted ownership and lifecycle authority | explicit decision replacement |
-| Context Map | VALIDATED | Accepted authority direction and translations | contract evolution |
+| Context Map | ACCEPTED | Accepted authority direction and translations | contract evolution |
 
 ## Explicit non-decisions
 

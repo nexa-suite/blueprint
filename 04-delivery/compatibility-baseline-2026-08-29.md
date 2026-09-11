@@ -1,12 +1,17 @@
 ---
-status: accepted
-maturity: BASELINED
+status: reference
+maturity: SUPERSEDED
 scope: cross-cutting
 owner: architecture
 last-reviewed: 2026-08-29
 ---
 
 # Live compatibility baseline — 2026-08-29
+
+This point-in-time record is preserved for provenance. It is superseded as the
+current repository/ref inventory by the [live repository baseline —
+2026-09-10](as-is/live-repository-baseline-2026-09-10.md). Its historical
+claims are not silently rewritten.
 
 This is a point-in-time AS-IS evidence cut. It does not redefine TARGET, grant
 Product Acceptance or close the Production Gate. SHAs below are the published

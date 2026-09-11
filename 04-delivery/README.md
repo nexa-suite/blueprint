@@ -3,7 +3,8 @@
 Evidence and operational readiness. AS-IS does not redefine TARGET.
 
 - [AS-IS](as-is/README.md)
-- [Compatibility baseline — 2026-08-29](compatibility-baseline-2026-08-29.md)
+- [Live repository baseline — 2026-09-10](as-is/live-repository-baseline-2026-09-10.md)
+- [Historical compatibility baseline — 2026-08-29](compatibility-baseline-2026-08-29.md)
 - [Product Acceptance Gate](product-acceptance-gate.md)
 - [System Acceptance](system-acceptance/README.md)
 - [Runtime](runtime/README.md)

@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-10
 ---
 
 # Architecture history and reconciliation
@@ -22,9 +22,9 @@ shape into Product or Domain authority.
 | API v0.15 | IMPLEMENTED AS-IS release evidence | Fulfillment and financial completion foundations; no new context. |
 | API v0.16.0 / v0.16.1 | IMPLEMENTED AS-IS release evidence | Backend closure, security, idempotency, retry/dead-letter and mobile-readiness foundations. |
 | API v0.17.0 | IMPLEMENTED / TECHNICALLY VERIFIED candidate evidence | SKU/GTIN/lot resolution, FEFO/picking controls, ephemeral delivery handoff, immutable Buyer receipt/discrepancy and push subscription reliability; Mobile client remains absent. |
-| Platform/Portal v0.26.0 | IMPLEMENTED surface evidence | Production API-only adapter composition; no new endpoint, entity, state or BC. |
+| Platform/Portal live ref audit 2026-09-10 | IMPLEMENTED surface evidence | Current fetched refs and dirty-worktree caveats are recorded in the dated live baseline; no new endpoint, entity, state or BC is inferred here. |
 | Website v1.1.0 | IMPLEMENTED surface evidence | Public contact/demo API-backed experience; acquisition boundary only. |
-| Design Lab v1.0.2 | IMPLEMENTED design evidence | Executable Design System evidence; not product/domain authority. |
+| Design Lab v1.0.1 | IMPLEMENTED design evidence | Executable Design System evidence; not product/domain authority. |
 | Mobile v0.1.1 | IMPLEMENTED documentation evidence | No Android/iOS/KMP/Flutter/SwiftUI client or runtime. |
 
 ## Reconciliation rules
@@ -38,5 +38,6 @@ shape into Product or Domain authority.
 - The former combined Notification + Traceability concept is retained as
   history and is not recreated in current docs.
 
-See [the live compatibility baseline](../../../04-delivery/compatibility-baseline-2026-08-29.md),
+See [the live repository baseline](../../../04-delivery/as-is/live-repository-baseline-2026-09-10.md),
+[the historical compatibility baseline](../../../04-delivery/compatibility-baseline-2026-08-29.md),
 [current decisions](../../product/current-decisions.md), and [ADR index](README.md).

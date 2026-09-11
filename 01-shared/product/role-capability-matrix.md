@@ -47,4 +47,4 @@ by the Website/onboarding boundary and are not workforce role columns here.
   limited to the authorized supplier relationship.
 - Finance is a capability responsibility, not a new actor or Bounded Context.
 - The matrix is a target authorization projection. Current implementation
-  support is recorded in [the compatibility baseline](../../04-delivery/compatibility-baseline-2026-08-29.md).
+  support is recorded in [the live repository baseline](../../04-delivery/as-is/live-repository-baseline-2026-09-10.md).

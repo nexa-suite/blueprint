@@ -9,7 +9,9 @@ API v0.17.0.
 Customer Buyer receives critical Delivery updates, bounded handoff
 verification, receipt and discrepancy work in V1. Catalog, price/availability,
 drafts, commitments, material changes, history, finance, payments, documents,
-reorder, maps and contact remain V2+ or Portal work.
+reorder and maps remain V2+ or Portal work. A human escalation/contact route
+for delivery exceptions may remain a researched option; it does not authorize
+or require an in-app chat system.
 
 ## Boundary
 

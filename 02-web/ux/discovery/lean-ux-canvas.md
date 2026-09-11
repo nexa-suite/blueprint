@@ -1,7 +1,7 @@
 # Historical Lean UX Canvas
 
-Status: `HISTORICAL`; research status: `PARTIALLY_VALIDATED`; reuse:
-`WEB-REUSABLE` after current Product review.
+Status: `HISTORICAL`; research status: `HISTORICAL / RESEARCHING`; reuse:
+`WEB-REUSABLE` only after current Product review.
 
 Recovered from report requirements elicitation and product design chapters.
 

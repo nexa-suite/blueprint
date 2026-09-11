@@ -21,7 +21,7 @@ Contexts, duplicate identities or replace authorization.
 | Company Owner | Tenant identity, sensitive organization decisions and exceptional business authority | — | primary | — | secondary/planned | — |
 | Tenant Administrator | technical access, membership and capability governance | — | primary | — | — | — |
 | Business Operations Manager | cross-functional operational decisions, visibility and exceptions | — | primary | — | planned | — |
-| Sales Representative | Customer, catalog, commercial and assisted-order work | — | primary | — | planned | — |
+| Sales Representative | Customer, catalog, commercial and assisted-order work | — | primary | — | planned later; outside prioritized Mobile V1 | — |
 | Warehouse Operator | receiving, lots, inventory and fulfillment execution | — | primary | — | planned | — |
 | Dispatch Coordinator | readiness, assignment, handoff and delivery evidence | — | primary | — | planned | — |
 | Driver / Delivery Operator | assigned Delivery, Attempt, location and POD execution | — | — | — | planned | — |

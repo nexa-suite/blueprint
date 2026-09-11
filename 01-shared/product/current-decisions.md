@@ -3,16 +3,17 @@ status: accepted
 maturity: FROZEN
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-10
 ---
 
 # Current accepted decisions
 
-This document is the accepted Product, business and PRE-V1 architecture input. It outranks implementation evidence. AS-IS evidence records what exists; it never silently changes TARGET.
+This document is the accepted Product, business and PRE-V1 architecture input. It outranks implementation evidence. AS-IS evidence records what exists; it never silently changes TARGET. September 2026 Owner decisions are recorded in [the dedicated decision record](owner-decisions-2026-09.md).
 
 ## Product and business closure
 
-- Nexa V1 is a fast, role-focused B2B multi-tenant SaaS platform for importers, distributors and wholesalers, particularly cold-chain businesses.
+- Nexa V1 is a fast, role-focused B2B multi-tenant SaaS platform for importers, distributors and wholesalers, with a strong cold-chain specialization that does not define the whole market.
+- Nexa is **Peru-first** for its present commercial and Product direction. International/LATAM expansion is a distant **FUTURE** direction, not a current V1 commitment and not mechanically bound to the Mobile V4/Future backlog.
 - Product and Business V1 is **FROZEN / CLOSED**. This closure does not claim V1 implementation complete.
 - Fresh Nexa, Generic Tenant and ICISA Reference Tenant use the same product and release line. ICISA is explanatory evidence, never a required seed.
 - Tenant is the maximum business/data isolation boundary. V1 uses `Tenant 1:1 Workspace`; Workspace is the Tenant's operational environment, not a C4 Container.

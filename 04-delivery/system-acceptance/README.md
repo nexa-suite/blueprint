@@ -13,7 +13,7 @@ recovery and operational evidence. It is distinct from technical compilation
 and from Product Acceptance.
 
 - [V1 system acceptance plan](v1-system-acceptance-plan.md)
-- [Live compatibility baseline](../compatibility-baseline-2026-08-29.md)
+- [Live repository baseline](../as-is/live-repository-baseline-2026-09-10.md)
 - [Production Gate](../production-gate/README.md)
 
 No current document closes the gate without authenticated, tenant-scoped,

@@ -35,6 +35,11 @@ expand the academic course scope.
 The API v0.17.0 backend is a partial contract baseline, not a completed Mobile
 client. Research must still validate actors, workflows, app boundary, mobile
 IA, device permissions, accessibility, connectivity recovery and priority.
+Offline/connectivity needfinding is active research. Scanning remains
+conditional on task evidence and must retain a manual alternative. Buyer
+delivery exceptions may expose a human escalation/contact route, but no
+in-app chat system is authorized by this projection. Sales convenience remains
+outside prioritized Mobile V1.
 
 ## Non-negotiable product rules
 

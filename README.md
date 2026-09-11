@@ -5,13 +5,13 @@ Canonical documentation for Nexa Product, Domain, System, Web, accepted Mobile p
 ## Start here
 
 - [00-start-here](00-start-here/README.md) — orientation, authority and current status.
-- [Shared product](01-shared/product/README.md) — what Nexa is and for whom.
+- [Shared product](01-shared/product/README.md) — what Nexa is and for whom, including [September 2026 Owner decisions](01-shared/product/owner-decisions-2026-09.md) and [proposed/researching economics](01-shared/product/economics/README.md).
 - [Problem Foundation](01-shared/product/vision/problem.md) — current baseline and historical provenance.
 - [Shared domain](01-shared/domain/README.md) — one business domain and 11 accepted Bounded Contexts.
 - [Shared architecture](01-shared/architecture/README.md) — C4, technical architecture, data, security and reliability.
 - [Web](02-web/README.md) — Website, Platform and Portal experience contracts; 133 confirmed stories.
 - [Mobile](03-mobile/README.md) — two owner-accepted planning projections; 73-story master backlog (28 V1, 35 V2, 9 V3, 1 V4/Future), research/client validation pending.
-- [Delivery](04-delivery/README.md) — AS-IS, runtime, quality and production gates.
+- [Delivery](04-delivery/README.md) — AS-IS, the [live repository baseline](04-delivery/as-is/live-repository-baseline-2026-09-10.md), runtime, quality and production gates.
 - [90-academic](90-academic/README.md) — isolated academic projections.
 - [91-reference](91-reference/README.md) — historical, legacy, audit and external evidence.
 

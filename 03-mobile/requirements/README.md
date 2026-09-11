@@ -26,14 +26,15 @@ Canonical reading order:
 4. [Release roadmap](release-roadmap.md)
 5. [Sprint projection](sprint-plan.md)
 6. [Reconciliation matrix](reconciliation.md)
-7. [Epic index](epics/README.md)
-8. [Feature-family coverage](roadmap-coverage.md)
-9. [Coverage](coverage.md)
-10. [Derivation sources](derivation-sources.md)
-11. [Traceability model](traceability-model.md)
-12. [Technical reconciliation](mobile-technical-reconciliation.md)
-13. [Spike reconciliation](mobile-spike-reconciliation.md)
-14. [Story-to-design readiness](story-to-design-readiness.md)
+7. [Academic backlog boundary](academic-backlog-boundary.md)
+8. [Epic index](epics/README.md)
+9. [Feature-family coverage](roadmap-coverage.md)
+10. [Coverage](coverage.md)
+11. [Derivation sources](derivation-sources.md)
+12. [Traceability model](traceability-model.md)
+13. [Technical reconciliation](mobile-technical-reconciliation.md)
+14. [Spike reconciliation](mobile-spike-reconciliation.md)
+15. [Story-to-design readiness](story-to-design-readiness.md)
 
 Stories project shared capabilities and eleven accepted Bounded Contexts. They
 do not create Mobile, Driver, Dashboard, Barcode, QR or Device contexts.

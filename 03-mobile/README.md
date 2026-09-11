@@ -3,7 +3,7 @@
 Mobile has two product projections: **Nexa Operations Mobile** and **Nexa Buyer
 Mobile**. Product direction is `OWNER-ACCEPTED`; research is `PENDING`; the
 client is `NOT_STARTED`; API support is `PARTIAL` and is evidenced by [the live
-compatibility baseline](../04-delivery/compatibility-baseline-2026-08-29.md).
+repository baseline](../04-delivery/as-is/live-repository-baseline-2026-09-10.md).
 
 - [Product](product/README.md)
 - [Status](product/status.md)

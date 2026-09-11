@@ -5,6 +5,8 @@ Product authority shared by Web and Mobile.
 - [Product baseline](product-baseline.md)
 - [Problem Foundation](vision/problem.md)
 - [Current accepted decisions](current-decisions.md)
+- [September 2026 Owner decisions](owner-decisions-2026-09.md)
+- [Business economics — proposed/researching](economics/README.md)
 - [Shared actors](actors.md)
 - [Shared capability model](capability-map.md)
 - [Role-capability matrix](role-capability-matrix.md)
