@@ -3,15 +3,16 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # Mobile capability projection
 
 Mobile projects [the shared CAP-01..CAP-16 model](../../01-shared/product/capability-map.md)
-into two applications. Product direction is `OWNER-ACCEPTED`; research and
-client implementation remain pending. The release projection is 28 V1, 35 V2,
-9 V3 and 1 V4/Future functional stories.
+into two applications. Product direction is `ACCEPTED` for the Mobile V1
+Product Generation envelope of all 73 functional stories. The former 28/35/9/1
+grouping remains historical planning provenance. Needfinding evidence is
+available; solution validation and Product Acceptance remain open.
 
 | App | V1 capability projection | Explicit boundary |
 |---|---|---|

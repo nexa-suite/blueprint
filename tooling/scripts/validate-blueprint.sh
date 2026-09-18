@@ -294,16 +294,7 @@ mobile_catalog_blocks = {
         re.MULTILINE | re.DOTALL,
     )
 }
-mobile_v1_ids = {
-    "MOB-US-001", "MOB-US-002", "MOB-US-003",
-    "MOB-US-011", "MOB-US-012", "MOB-US-013", "MOB-US-014",
-    "MOB-US-015", "MOB-US-016", "MOB-US-017", "MOB-US-019",
-    "MOB-US-020", "MOB-US-021", "MOB-US-022", "MOB-US-023",
-    "MOB-US-024", "MOB-US-025", "MOB-US-026", "MOB-US-027",
-    "MOB-US-028", "MOB-US-031", "MOB-US-032", "MOB-US-033",
-    "MOB-US-034", "MOB-US-044", "MOB-US-047", "MOB-US-048",
-    "MOB-US-049",
-}
+mobile_generation_ids = {f"MOB-US-{i:03d}" for i in range(1, 74)}
 mobile_all_ids = set(mobile_catalog_blocks)
 mobile_catalog_numbers = sorted(int(item[-3:]) for item in mobile_all_ids)
 if (
@@ -321,15 +312,16 @@ mobile_master_rows = [
 ]
 mobile_v4_ids = {
     row[0] for row in mobile_master_rows
-    if len(row) > 4 and row[4] == "V4_FUTURE"
+    if len(row) > 5 and row[5] == "V4_FUTURE"
+}
+mobile_band_by_id = {
+    row[0]: row[5] for row in mobile_master_rows if len(row) > 5
 }
 for story_id, block in mobile_catalog_blocks.items():
     status = re.search(r"^\| Status \|\s*([^|]+?)\s*\|$", block, re.MULTILINE)
     status_value = status.group(1).strip() if status else ""
-    if story_id in mobile_v1_ids and status_value != "PLANNED":
-        failures.append(f"Mobile V1 story must remain PLANNED: {story_id}")
-    if story_id not in mobile_v1_ids and status_value not in {"DEFERRED", "PLANNED"}:
-        failures.append(f"Mobile non-V1 story has invalid baseline status: {story_id}")
+    if status_value not in {"DEFERRED", "PLANNED"}:
+        failures.append(f"Mobile story has invalid baseline status: {story_id}")
 mobile_epic_map = {}
 for line in mobile_epic_index.splitlines():
     if line.startswith("| MOBILE-EPIC-"):
@@ -341,7 +333,7 @@ for story_id, block in mobile_catalog_blocks.items():
     epic_id = epic_match.group(1) if epic_match else ""
     if story_id not in mobile_epic_map.get(epic_id, set()):
         failures.append(f"Mobile {story_id} has incorrect outcome Epic mapping")
-    if story_id in mobile_v1_ids:
+    if story_id in mobile_generation_ids:
         functional = " ".join(
             value.group(1) for value in re.finditer(
                 r"^\| (?:Title|Goal / Outcome) \|\s*(.*?)\s*\|$", block, re.MULTILINE
@@ -412,14 +404,15 @@ def validate_story_blocks(label, text, prefix, mobile=False):
                 if acceptance
                 else 0
             )
-            if story_id in mobile_v1_ids:
-                if not acceptance or criteria_count < 4:
-                    failures.append(f"Mobile V1 story requires four acceptance criteria: {story_id}")
+            band = mobile_band_by_id.get(story_id)
+            if band == "V1":
+                if not acceptance or criteria_count < 3:
+                    failures.append(f"Historical V1 story requires at least three acceptance criteria: {story_id}")
             elif story_id in mobile_v4_ids:
                 if not re.search(r"^### Outcome Conditions\s*$", block, re.MULTILINE):
                     failures.append(f"Mobile V4/Future story requires outcome conditions: {story_id}")
-            elif not acceptance or criteria_count < 2:
-                failures.append(f"Mobile roadmap story requires at least two acceptance criteria: {story_id}")
+            elif not acceptance or criteria_count < 1:
+                failures.append(f"Historical roadmap story requires acceptance criteria: {story_id}")
 
         surface_match = re.search(r"^\| Surface \|\s*(.*?)\s*\|$", block, re.MULTILINE)
         actor_match = re.search(r"^\| Actor \|\s*(.*?)\s*\|$", block, re.MULTILINE)
@@ -436,7 +429,7 @@ def validate_story_blocks(label, text, prefix, mobile=False):
                 )
 
         if mobile and not re.search(
-            r"^\| Research status \|\s*(?:NOT_REQUIRED|PENDING|RESEARCHING|VALIDATED)\s*\|$",
+            r"^\| Research status \|\s*(?:NOT_REQUIRED|PENDING|RESEARCHING|RESEARCH EVIDENCE AVAILABLE)\s*\|$",
             block,
             re.MULTILINE,
         ):

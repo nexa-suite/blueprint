@@ -3,7 +3,7 @@ status: planned
 maturity: BASELINED
 scope: runway
 owner: academic
-last-reviewed: 2026-08-24
+last-reviewed: 2026-09-18
 ---
 
 # Academic Requirements Projection
@@ -44,12 +44,13 @@ Evidence boundary:
 - Historical Web discovery may be reused only with source provenance and
   current Blueprint review. See [Academic Web Evidence](web-applications/README.md) and
   [historical source](../91-reference/legacy/legacy-ecosystem-report/README.md).
-- Mobile remains PROPOSED / RESEARCH VALIDATION PENDING. Web interviews and
-  personas are not silently promoted as Mobile validation.
+- Mobile AV1 Needfinding is COMPLETE at 9/9 interviews for problem/task
+  evidence. Solution validation and Product Acceptance remain open; Web
+  interviews and personas are not silently promoted as Mobile validation.
 - No interview evidence, persona, statistic, Story Point, acceptance criterion
   or academic result is fabricated by this projection.
 
 The detailed UPC projection is isolated in
-[course-1acc0238](mobile/course-1acc0238/README.md). It joins every Mobile V1
-story to the canonical Product story by ID and records academic-only priority,
-Story Points, Sprint, milestone and evidence status.
+[course-1acc0238](mobile/course-1acc0238/README.md). It indexes all 73 Mobile
+Product stories plus 6 LAND stories, 12 academic Technical Stories and 6
+Spikes: 97 PBIs / 426 SP across four academic Sprints.

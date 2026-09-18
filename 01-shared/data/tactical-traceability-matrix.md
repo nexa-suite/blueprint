@@ -27,5 +27,5 @@ does not create one class per User Story.
 | BC-11 | traceability/visibility; WEB-EPIC-15 | MOBILE-EPIC-02..07 | BusinessTraceabilityRecord | `business_traceability_record`, `traceability_evidence_reference` | `Nexa-API-FulfillmentDelivery-TARGET`; API overall | Platform, Portal, API, both Mobile projections |
 
 Requirement counts remain canonical: Web 15 Epics / 133 stories; Mobile 12
-Epics / 73 functional stories (28 V1, 35 V2, 9 V3, 1 V4/Future); Technical 20;
-Spikes 6; total 232.
+Epics / 73 functional stories in the Mobile V1 Product Generation (historical
+planning provenance 28/35/9/1); Technical 20; Spikes 6; total 232.

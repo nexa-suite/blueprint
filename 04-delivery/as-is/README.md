@@ -1,6 +1,8 @@
 # AS-IS evidence package
 
-Maturity: **BASELINED with caveat**. The implementation baseline is CLOSED WITH CAVEAT; exact merged-develop runtime provenance is VERIFIED, while authenticated browser and production-provider evidence retain explicit gaps.
+Maturity: **BASELINED with caveat**. The current Post-AV1 implementation
+baseline is CLOSED WITH CAVEAT; feature-branch evidence, authenticated browser
+and production-provider evidence retain explicit boundaries.
 
 This document describes AS-IS evidence and must not be interpreted as the TARGET domain or technical architecture.
 
@@ -8,10 +10,11 @@ Current modules are not automatically Subdomains, Bounded Contexts, Aggregates o
 
 ## Canonical records
 
+- [Live repository baseline — 2026-09-18](live-repository-baseline-2026-09-18.md) — current Post-AV1 Blueprint/Mobile/Report evidence cut.
 - [V1 Readiness Baseline — 2026-08-12](v1-readiness-baseline-2026-08-12.md) — preserved historical record.
 - [V1 Implementation Baseline](v1-implementation-baseline.md) — historical implementation, SCM and validation evidence.
 - [PRE-V1 Current-Ref Verification](pre-v1-current-ref-verification.md) — 2026-08-23 ref cut, current findings and explicit validation boundary.
-- [Compatibility Baseline — 2026-08-29](../compatibility-baseline-2026-08-29.md) — current published refs, local refs and Mobile/API reconciliation.
+- [Compatibility Baseline — 2026-08-29](../compatibility-baseline-2026-08-29.md) — historical published-ref cut; superseded as current inventory by the 2026-09-18 baseline.
 - [Business Behavior Evidence](business-behavior-evidence.md) — observed behaviors without capability or context conclusions.
 - [Current Terminology Evidence](current-terminology-evidence.md) — current terms and semantic collisions.
 - [Architecture Readiness Gaps](architecture-readiness-gaps.md) — historical unresolved evidence questions; current gates are in canonical architecture/operations docs.

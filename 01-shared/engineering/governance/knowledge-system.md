@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-08-22
+last-reviewed: 2026-09-18
 ---
 
 # Nexa knowledge system
@@ -11,7 +11,9 @@ last-reviewed: 2026-08-22
 Blueprint is the canonical knowledge system for Nexa. It preserves business
 model, accepted decisions, domain discovery, technical architecture,
 implementation evidence, repository relationships and design references in
-separate, navigable layers.
+separate, navigable layers. The [Owner decision record](../../product/owner-decisions-2026-09.md)
+and [knowledge-promotion register](knowledge-promotion-register-2026-09.md)
+record why material enters a layer.
 
 ## Authority and state model
 
@@ -36,6 +38,8 @@ are baselined for PRE-V1 construction. Production gates remain separate.
 | What is implemented or evidenced? | [Implementation traceability](../../../04-delivery/as-is/implementation-traceability.md), [current-ref AS-IS verification](../../../04-delivery/as-is/pre-v1-current-ref-verification.md), [AS-IS baseline](../../../04-delivery/as-is/v1-implementation-baseline.md) |
 | How do repositories relate? | [Repository map](../../../00-start-here/repository-map.md) |
 | How does Design Lab inform frontend work? | [Design convergence interface](../../design/design-system/web-evidence/design-lab-contract.md), [Design adoption](../../design/design-system/web-evidence/05-engineering/design-adoption.md) |
+| What is the Mobile Product projection? | [Mobile requirements](../../../03-mobile/requirements/README.md), [academic boundary](../../../03-mobile/requirements/academic-backlog-boundary.md) |
+| What is the model authority? | [Model authority](../../architecture/model-authority.md) |
 
 ## Reading contract
 
@@ -50,3 +54,6 @@ not a replacement for accepted Product decisions or frontend contracts.
 One document answers one primary question. Cross-links are preferred to copied
 text. Accepted-rule changes update their decision source and affected
 workflow/traceability links. Implementation baselines remain dated and AS-IS.
+Mobile Report remains an academic/research projection, and application
+repositories remain evidence; neither can redefine shared Product, Domain or
+Architecture authority.

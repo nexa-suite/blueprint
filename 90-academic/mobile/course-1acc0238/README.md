@@ -1,15 +1,16 @@
 ---
-status: planned
+status: reference
 maturity: BASELINED
 scope: runway
 owner: academic
-last-reviewed: 2026-08-30
+last-reviewed: 2026-09-18
 ---
 
-# UPC 1ACC0238 Mobile course runway
+# UPC 1ACC0238 Mobile course AV1 projection
 
 Isolated academic projection for **Aplicaciones para Dispositivos Móviles**,
-period `202620`, NRC `4949`, team `nexa-team`. This folder contains only
+period `202620`, NRC `4949`, team `nexa-team`. AV1 is complete in the official
+`nexa-suite/mobile-report` v1.0.1 publication. This folder contains only
 derived planning and evidence maps; the external course source is intentionally
 not stored in the publishable Blueprint tree. These documents do not copy
 academic authority into Nexa Product, Domain or Architecture.
@@ -19,9 +20,9 @@ academic authority into Nexa Product, Domain or Architecture.
 - `01-shared` owns accepted Product, Domain, Architecture and delivery rules.
 - `03-mobile` owns the Mobile Product projection and canonical story behavior.
 - `90-academic/mobile/course-1acc0238` owns course mapping, backlog projection,
-  milestone readiness and evidence status. The course projection intentionally
-  remains V1-only; the Product runway is indexed in the [Master Mobile Product
-  Backlog](../../../03-mobile/requirements/master-mobile-backlog.md).
+  milestone readiness and evidence status. The final academic projection covers
+  97 PBIs / 426 SP across four Sprints; the Product runway is indexed in the
+  [Master Mobile Product Backlog](../../../03-mobile/requirements/master-mobile-backlog.md).
 - `91-reference` owns historical and external evidence.
 - The external course statement is an input constraint only; its source file is
   local-only and is not a publishable Blueprint artifact.
@@ -52,18 +53,33 @@ implemented or accepted.
 | Period | 202620 / 2026-02 | SOURCE VERIFIED |
 | NRC | 4949 | SOURCE VERIFIED |
 | Team | nexa-team | SOURCE VERIFIED |
-| Official milestones | AV1 week 4; TB1 week 7; AV2 week 12; TB2 week 15 | SOURCE VERIFIED |
+| Official milestones | AV1 week 4; TB1 week 7; AV2 week 12; TB2 week 15 | SOURCE VERIFIED; AV1 COMPLETE; next milestone TB1 |
 | Native constraint | Android / Kotlin | TARGET ACADEMIC CONSTRAINT |
-| Cross-platform constraint | Flutter/Dart or Kotlin Multiplatform/Kotlin | TARGET ACADEMIC CONSTRAINT; choice OPEN |
+| Cross-platform constraint | Flutter/Dart or Kotlin Multiplatform/Kotlin | LATER ACADEMIC PLANNING; choice OPEN; not Product architecture |
 | Local storage | Required, non-authoritative in Nexa V1 | TARGET DEFINED; client evidence pending |
 | Device resource | Camera/scanner/evidence candidate | TARGET DEFINED; physical proof pending |
-| Internal service | Nexa REST API | API AS-IS PARTIAL; client integration pending |
+| Internal service | Nexa REST API | API AS-IS PARTIAL; client integration not verified |
 | Third-party service | Maps, Push or Payment candidate | Provider and proof OPEN |
 | Autonomous-learning feature | Explicit research Spike required | OPEN; SPIKE-001 |
 | Physical device | Required for final demonstration | PENDING |
 | App distribution | Firebase App Distribution or accepted equivalent | PENDING |
-| Languages | English `en_US`; Latin American Spanish `es_419` | TARGET DEFINED; Mobile client pending |
+| Languages | English `en_US`; Latin American Spanish `es_419` | TARGET DEFINED; Mobile client not verified |
 | Accessibility | Mobile a11y evidence required | TARGET DEFINED; validation pending |
+
+## AV1 evidence snapshot
+
+| Dimension | Current evidence state |
+|---|---|
+| Official academic report | `mobile-report` v1.0.1 at `77895a8950676ccdaec520a61c41107852268606` |
+| Needfinding | COMPLETE, 9/9 interviews; problem/task evidence only |
+| Academic backlog | 97 PBIs / 426 SP; 73 MOB + 6 LAND + 12 Technical + 6 Spikes |
+| Academic planning | Four Sprints; Mobile counts 4 / 21 / 24 / 24 |
+| Product solution validation | OPEN |
+| Product/UX Acceptance | OPEN |
+| Physical-device evidence | PENDING |
+
+The final AV1 plan places Flutter/Dart cross-platform work in later academic
+Sprints. This is academic planning and does not select Nexa Product architecture.
 
 ## Owner four-week outcome
 
@@ -78,11 +94,13 @@ claim that the Mobile client exists.
 |---|---|
 | READY | Structure and source links exist; evidence may still be absent. |
 | STRUCTURE_READY | Required section/schema exists; content or artifact remains pending. |
-| RESEARCH_PENDING | Interviews, validation or external decision not evidenced. |
+| RESEARCH EVIDENCE AVAILABLE | Named Needfinding evidence is available for the stated scope; solution validation remains open. |
 | OWNER_INPUT_REQUIRED | A Product, Architecture, Design or team decision is needed. |
-| IMPLEMENTATION_PENDING | No verified client/runtime artifact exists. |
+| PARTIAL IMPLEMENTATION EVIDENCE | A named unmerged Operations Android branch contains partial evidence; it is not an integrated release. |
+| IMPLEMENTATION_PENDING | The named slice has no verified client/runtime artifact. |
 | VERIFIED WITH CAVEAT | Evidence exists but scope or maturity boundary remains. |
 | NOT APPLICABLE | Rubric item does not apply to current bounded scope; rationale recorded. |
 
-Current course readiness is **STRUCTURE_READY with implementation and research
-gates open**.
+Current course readiness is **AV1 COMPLETE with implementation, solution
+validation, Product/UX Acceptance and physical-device gates open**; next course
+evolution is **TB1**.

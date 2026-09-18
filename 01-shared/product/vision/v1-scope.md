@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: v1
 owner: product
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # V1 scope
@@ -85,6 +85,12 @@ Tenant customization is limited to Nexa-supported configuration/policies and lig
 - PostgreSQL Database: V1 relational data store.
 - Object Storage: tenant-owned binary boundary.
 - Abstract external systems: Payment Provider, Email Delivery Service, Maps & Geolocation Provider.
+- Operations Mobile: Mobile V1 Product Generation projection; business/API
+  surface `PLATFORM`, transport marker `NATIVE`. Current runtime evidence is
+  partial and exists only on unmerged feature branches.
+- Buyer Mobile: Mobile V1 Product Generation projection; business/API surface
+  `PORTAL`, transport marker `NATIVE`. Current implementation remains not
+  implemented.
 
 ## Explicitly out of V1
 
@@ -96,6 +102,14 @@ Tenant customization is limited to Nexa-supported configuration/policies and lig
 - SUNAT integration.
 - Multi-user customer business accounts.
 - Plans, subscriptions, entitlements, feature tiers, Control Center and Support.
-- Native Mobile and Delivery Driver client implementation, IoT/automatic telemetry, deep QMS and complex carrier integrations remain outside the current V1 runtime baseline. Operations Mobile and Buyer Mobile are OWNER-ACCEPTED planning projections with 28 V1 candidate stories; research, client construction and production acceptance remain open. The Mobile Surface Scope Amendment / Rebaseline changes only Mobile surface exposure, story refinement, Epic composition and academic planning; it does not change Product core semantics, strategic BC ownership, invariants or Published Integration Events.
+- Mobile is part of the V1 Product Generation target, but current runtime and
+  implementation evidence remains partial. Operations native preview evidence
+  exists only on unmerged branches; Buyer Mobile remains TARGET / NOT
+  IMPLEMENTED. Cross-platform Product architecture remains OPEN. IoT/automatic
+  telemetry, deep QMS and complex carrier integrations remain outside the
+  current V1 runtime baseline. Product Generation is not a claim that runtime
+  implementation is complete. This boundary does not change Product core
+  semantics, strategic BC ownership, invariants or Published Integration
+  Events.
 
 Architecture Runway is documented separately. This file does not create formal capabilities, subdomains, Bounded Contexts, Context Maps or C4 L3.

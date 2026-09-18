@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # Current accepted decisions
@@ -17,10 +17,14 @@ This document is the accepted Product, business and PRE-V1 architecture input. I
 - Fresh Nexa, Generic Tenant and ICISA Reference Tenant use the same product and release line. ICISA is explanatory evidence, never a required seed.
 - Tenant is the maximum business/data isolation boundary. V1 uses `Tenant 1:1 Workspace`; Workspace is the Tenant's operational environment, not a C4 Container.
 - Public Website handles acquisition and onboarding initiation only. Internal Web Platform serves workforce operations. Buyer Portal serves an authorized Buyer relationship for the current supplier Tenant.
-- Mobile product direction is OWNER-ACCEPTED for a two-app projection. The
-  canonical master backlog has 73 functional stories (28 V1, 35 V2, 9 V3 and
-  1 V4/Future); the Mobile client, research validation and production
-  acceptance remain open. IoT automation, SUNAT fiscal integration,
+- Mobile product direction is OWNER-ACCEPTED for a two-app projection. From
+  2026-09-18, **Nexa V1** means the first coherent course-end Product
+  Generation, including Web V1 and Mobile V1 surface generations. The
+  canonical Mobile catalog has 73 functional stories in the Mobile V1 planning
+  envelope. The old 28/35/9/1 grouping is historical planning provenance,
+  SUPERSEDED AS CURRENT PRODUCT RELEASE NOMENCLATURE. Implementation, research
+  solution validation and Product Acceptance remain independent and open where
+  not evidenced. IoT automation, SUNAT fiscal integration,
   multi-currency, full returns/RMA, Control Center, Support, Plans,
   Subscriptions, Entitlements and Feature tiers are deferred or runway items,
   not implemented V1 claims.
@@ -46,10 +50,26 @@ options, not a silently selected Mobile architecture.
 
 Operations Mobile and Buyer Mobile are the two accepted-for-planning product
 projections over the shared domain. They do not add a Bounded Context, C4
-Container, deployment unit, framework or alternate authority. The canonical
-story registry retains 49 historical IDs and adds 24 independent outcomes.
-The master release projection is 28 V1, 35 V2, 9 V3 and 1 V4/Future; the
-Mobile client and Product Acceptance remain open.
+Container, deployment unit, framework or alternate authority. All 73
+`MOB-US-001..073` stories target Product Generation V1; the master lifecycle
+registry separately records Historical Planning Band, Academic Sprint and
+status. The old 28/35/9/1 release interpretation is preserved as provenance,
+not current Product release truth.
+
+The accepted surface/transport mapping is:
+
+- Operations Mobile: business/API surface `PLATFORM`; transport marker
+  `NATIVE`.
+- Buyer Mobile: business/API surface `PORTAL`; transport marker `NATIVE`.
+
+`NATIVE` is a transport marker, not a third business `ClientSurface`. No new
+API surface, C4 System or Bounded Context is created.
+
+Final AV1 Needfinding evidence is available for the three Mobile segments
+(`9/9` interviews), but solution validation, Product Acceptance, System
+Acceptance and Production Readiness remain open. Mobile `main` is
+documentation/runway only; unmerged Operations feature branches are
+implementation evidence, not Product acceptance.
 
 API v0.17.0 is backend candidate evidence for SKU/GTIN/lot resolution,
 FEFO/picking validation, bounded handoff tokens, immutable Buyer

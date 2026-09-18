@@ -45,7 +45,8 @@ policy, not a mandatory Finance actor or context.
 ## Surface status
 
 Website, Platform and Buyer Portal are current Web projections. Operations
-Mobile and Buyer Mobile are `OWNER-ACCEPTED` product directions with
-`PROPOSED / RESEARCH VALIDATION PENDING`, partial API support and no client
-implementation claim. See the [surface-role matrix](surface-role-matrix.md),
+Mobile and Buyer Mobile are accepted two-app projections in the 73-story Mobile
+V1 Product Generation. Needfinding evidence is available at 9/9; solution
+validation remains open, Operations implementation evidence is partial and
+unmerged, and Buyer implementation is not verified. See the [surface-role matrix](surface-role-matrix.md),
 [role-capability matrix](role-capability-matrix.md) and [Mobile catalog](../../03-mobile/requirements/mobile-v1-catalog.md).

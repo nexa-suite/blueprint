@@ -3,71 +3,53 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-30
+last-reviewed: 2026-09-18
 ---
 
-# Mobile Release Roadmap
+# Mobile Product Generation Roadmap
 
-This is a release projection over the canonical stories in
+This is a Product projection over the canonical stories in
 [mobile-v1-catalog.md](mobile-v1-catalog.md). It contains no second story
 body. Lifecycle metadata is indexed in [master-mobile-backlog.md](master-mobile-backlog.md).
 
-## Release intent
+## Current Product Generation
 
-| Release | Product intent | Readiness boundary | Count |
-|---|---|---|---:|
-| V1 | Safe, connected operations and buyer handoff/receipt | Implementation-ready after research, design and Product Acceptance gates | 28 |
-| V2 | Refined operational recovery, buyer continuity and commercial follow-through | Refinement-ready; contracts, research and provider decisions open | 35 |
-| V3 | Expanded field coordination, grouping, selective recovery and sales visits | Roadmap-ready; scope and feasibility still require evidence | 9 |
-| V4/Future | Controlled intelligent warehouse observations | Hypothesis only; no implementation commitment | 1 |
+**Nexa Mobile V1** is the course-end coherent Mobile Product Generation.
 
-## V1 — current course and Product commitment
+- The planning envelope contains all 73 canonical Mobile functional stories.
+- Product Generation membership is independent of implementation, Technical
+  Verification, Product Acceptance and production readiness.
+- Mobile remains online-first; local state is non-authoritative and external
+  navigation is the V1 navigation handoff boundary.
+- `MOB-US-073` remains conditional and hypothesis-level inside this planning
+  envelope.
 
-`MOB-US-001..003`, `MOB-US-011..017`, `MOB-US-019..028`,
-`MOB-US-031..034`, `MOB-US-044`, `MOB-US-047..049`.
+## Historical Planning Bands
 
-V1 is online-first. Temporary drafts, safe read cache and evidence staging may
-exist, but disconnected state cannot create authoritative inventory,
-allocation, dispatch, delivery, receipt, payment, credit, Purchase Request or
-Sales Order truth. Location is an external navigation handoff only.
+The following exact distribution is retained for provenance. It is
+**SUPERSEDED AS CURRENT PRODUCT RELEASE NOMENCLATURE on 2026-09-18**.
 
-## V2 — refinement-ready
+| Historical Planning Band | Story count | Membership |
+|---|---:|---|
+| Historical Band V1 | 28 | `MOB-US-001..003`, `MOB-US-011..017`, `MOB-US-019..028`, `MOB-US-031..034`, `MOB-US-044`, `MOB-US-047..049` |
+| Historical Band V2 | 35 | `MOB-US-004..010`, `MOB-US-018`, `MOB-US-030`, `MOB-US-035..043`, `MOB-US-046`, `MOB-US-050..053`, `MOB-US-057..058`, `MOB-US-061..065`, `MOB-US-067..071` |
+| Historical Band V3 | 9 | `MOB-US-029`, `MOB-US-045`, `MOB-US-054..056`, `MOB-US-059..060`, `MOB-US-066`, `MOB-US-072` |
+| Historical Band V4/Future | 1 | `MOB-US-073` |
+| **Total** | **73** | **MOB-US-001..073** |
 
-`MOB-US-004..010`, `MOB-US-018`, `MOB-US-030`, `MOB-US-035..043`,
-`MOB-US-046`, `MOB-US-050..053`, `MOB-US-057..058`, `MOB-US-061..065`,
-`MOB-US-067..071`.
+The historical membership lists remain recoverable in the reconciliation
+matrix and master backlog. They do not grant current release status or
+implementation readiness.
 
-V2 completes the deferred operational and commercial outcomes that have a
-credible product shape but still need research, contracts, authority rules or
-provider decisions. It does not make the generic “offline” or “contact”
-mechanisms authoritative by implication.
+## Current lifecycle / delivery boundary
 
-## V3 — roadmap-ready
+Target Product Generation does not grant implementation, Technical
+Verification, Product Acceptance, System Acceptance or production readiness.
+The master backlog keeps `Status`, `Historical Planning Band`, `Academic
+Sprint`, `Client Status`, `Implemented In`, `Verified In` and `Product Accepted
+In` as separate dimensions. Product Acceptance, System Acceptance and the
+Production Gate remain OPEN.
 
-`MOB-US-029`, `MOB-US-045`, `MOB-US-054..056`, `MOB-US-059..060`,
-`MOB-US-066`, `MOB-US-072`.
-
-V3 groups the higher-cost outcomes: consented location visibility, FEFO
-substitution, richer identity, grouped warehouse and delivery work, carrier
-handoff, selective offline recovery and authorized field visits. Each remains
-subject to explicit product and architecture decisions.
-
-## V4/Future — hypothesis
-
-`MOB-US-073` is the single hypothesis for advanced warehouse automation
-evidence. RFID, industrial scanners, labels, sensors and telemetry are
-possible mechanisms, not separate bounded contexts or promises. A device or
-provider cannot become authoritative without a Product decision, evidence
-contract, security/privacy review and owning-context design.
-
-## Release gates
-
-- V1: all 28 stories have human outcomes, mature acceptance scenarios, points,
-  sprint placement and design-readiness fields; research and Product
-  Acceptance remain open.
-- V2: each story has an identifiable outcome and preliminary acceptance
-  scenarios, but remains deferred until research and contract decisions close.
-- V3: each story is a bounded roadmap outcome with intentionally unestimated
-  delivery effort.
-- V4/Future: conditions are hypothesis-level and cannot use
-  `READY`, `IMPLEMENTED`, `VERIFIED` or `PRODUCT_ACCEPTED`.
+Academic Sprint assignment is recorded separately in the [academic backlog
+boundary](academic-backlog-boundary.md). Academic planning is not a Product
+release.

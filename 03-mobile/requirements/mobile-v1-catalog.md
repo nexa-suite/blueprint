@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-30
+last-reviewed: 2026-09-18
 ---
 
 # Master Mobile Functional Story Registry
@@ -15,23 +15,24 @@ in [master-mobile-backlog.md](master-mobile-backlog.md),
 [release-roadmap.md](release-roadmap.md) and [sprint-plan.md](sprint-plan.md);
 they do not duplicate story bodies.
 
-The current Product direction keeps exactly 28 stories in V1. The remaining
-historical stories and new outcomes are deliberately classified as V2, V3 or
-V4/Future. This is a Product projection over the accepted eleven Bounded
-Contexts; Mobile, Driver, Scanner, QR, Device, Push, Location and Offline are
-not Bounded Contexts.
+All 73 canonical stories belong to the current Nexa Mobile V1 Product
+Generation planning envelope. The old V1/V2/V3/V4_Future grouping remains
+recoverable as historical planning provenance in the lifecycle registry and
+roadmap; it no longer defines current Product releases. This is a Product
+projection over the accepted eleven Bounded Contexts; Mobile, Driver, Scanner,
+QR, Device, Push, Location and Offline are not Bounded Contexts.
 
 ## Current Epic model
 
-| Epic | Name | Stories | Scope |
+| Epic | Name | Stories | Historical Planning Band |
 |---|---|---|---|
 | MOBILE-EPIC-01 | Safe Access & Work Context | MOB-US-001, MOB-US-002, MOB-US-003 | V1 |
 | MOBILE-EPIC-02 | Warehouse Receiving, Identification & Picking | MOB-US-011, MOB-US-012, MOB-US-013, MOB-US-014, MOB-US-015, MOB-US-016, MOB-US-017, MOB-US-019 | V1 |
 | MOBILE-EPIC-03 | Dispatch Preparation & Handoff | MOB-US-020, MOB-US-021, MOB-US-022, MOB-US-023, MOB-US-024, MOB-US-025 | V1 |
 | MOBILE-EPIC-04 | Driver Delivery Execution & Proof | MOB-US-026, MOB-US-027, MOB-US-028, MOB-US-031, MOB-US-032, MOB-US-033, MOB-US-034 | V1 |
 | MOBILE-EPIC-05 | Delivery Handoff, Buyer Receipt & Critical Updates | MOB-US-044, MOB-US-047, MOB-US-048, MOB-US-049 | V1 |
-| MOBILE-EPIC-06 | Commercial & Operational Mobile Convenience | MOB-US-004, MOB-US-005, MOB-US-006, MOB-US-007, MOB-US-008, MOB-US-009, MOB-US-010, MOB-US-036, MOB-US-037, MOB-US-038, MOB-US-039, MOB-US-040, MOB-US-041, MOB-US-042, MOB-US-043 | V2+ |
-| MOBILE-EPIC-07 | Advanced Field Mobility & Offline Operations | MOB-US-018, MOB-US-029, MOB-US-030, MOB-US-035, MOB-US-045, MOB-US-046 | V2+ |
+| MOBILE-EPIC-06 | Commercial & Operational Mobile Convenience | MOB-US-004, MOB-US-005, MOB-US-006, MOB-US-007, MOB-US-008, MOB-US-009, MOB-US-010, MOB-US-036, MOB-US-037, MOB-US-038, MOB-US-039, MOB-US-040, MOB-US-041, MOB-US-042, MOB-US-043 | V2 |
+| MOBILE-EPIC-07 | Advanced Field Mobility & Offline Operations | MOB-US-018, MOB-US-029, MOB-US-030, MOB-US-035, MOB-US-045, MOB-US-046 | V2/V3 |
 | MOBILE-EPIC-08 | Warehouse Transfer & Inventory Accuracy | MOB-US-050, MOB-US-051, MOB-US-052, MOB-US-053, MOB-US-054, MOB-US-055, MOB-US-056 | V2/V3 |
 | MOBILE-EPIC-09 | Dispatch Exception & Delivery Coordination | MOB-US-057, MOB-US-058, MOB-US-059, MOB-US-060, MOB-US-061, MOB-US-062, MOB-US-063, MOB-US-064, MOB-US-065, MOB-US-066 | V2/V3 |
 | MOBILE-EPIC-10 | Buyer Delivery Continuity | MOB-US-067, MOB-US-068, MOB-US-069 | V2 |
@@ -42,9 +43,10 @@ V1 is online-first. A person may retain a harmless draft, safe read cache or
 temporary evidence while disconnected, but no disconnected action creates
 authoritative inventory, allocation, dispatch, Delivery, receipt, payment,
 credit, Purchase Request or Sales Order truth. Location in V1 means an
-external navigation handoff only. Research and Product Acceptance remain open;
-these criteria do not claim implementation or production readiness. V2 is
-refinement-ready, V3 is roadmap-ready and V4/Future remains hypothesis-level.
+external navigation handoff only. Research evidence is available, while
+solution validation and Product Acceptance remain open; these criteria do not
+claim implementation or production readiness. Historical bands are
+refinement/provenance labels, not current release semantics.
 
 ## Story catalog
 

@@ -1,18 +1,21 @@
 ---
 status: planned
 maturity: DRAFT
-scope: v1
+scope: runway
 owner: product
-last-reviewed: 2026-08-30
+last-reviewed: 2026-09-18
 ---
 
-# Mobile V1 Story-to-Design Readiness
+# Mobile current design-readiness subset
 
-This is the single readiness map for the 28 Mobile V1 stories. It gives
-Design and research enough context to explore flows without deciding screens,
-visual treatment or framework prematurely. The canonical behavior remains in
-[mobile-v1-catalog.md](mobile-v1-catalog.md); this document does not create
-new Product rules, Bounded Contexts or client implementation evidence.
+This is the currently assessed design-readiness subset of 28 stories. Its
+membership is historical/readiness evidence only; it does not define the
+current Nexa Mobile V1 Product Generation, which contains all 73 canonical
+stories. It gives Design and research enough context to explore flows without
+deciding screens, visual treatment or framework prematurely. The canonical
+behavior remains in [mobile-v1-catalog.md](mobile-v1-catalog.md); this document
+does not create new Product rules, Bounded Contexts or client implementation
+evidence.
 
 Terms:
 

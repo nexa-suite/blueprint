@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: cross-cutting
 owner: product
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # Shared Requirements
@@ -22,7 +22,7 @@ Catalog freeze for this wave:
 | Category | Count | Status |
 |---|---:|---|
 | Web functional User Stories | 133 | CONFIRMED / V1 |
-| Mobile functional User Stories | 73 | 28 V1; 35 V2; 9 V3; 1 V4/Future; lifecycle tracked in Mobile master backlog |
+| Mobile functional User Stories | 73 | Mobile V1 Product Generation; 28/35/9/1 retained as historical provenance; lifecycle tracked in Mobile master backlog |
 | Technical Stories | 20 | SHARED / DELIVERY |
 | Spike Stories | 6 | RESEARCH / ENABLER |
 | Total requirement items | 232 | BASELINED CATALOG; acceptance gates open |

@@ -15,8 +15,9 @@ working-tree state belong to each repository's own audit.
 | [Platform](https://github.com/nexa-suite/platform) | Internal Tenant Web Platform | Application; read-only from Blueprint |
 | [Portal](https://github.com/nexa-suite/portal) | Buyer Portal | Application; read-only from Blueprint |
 | [Website](https://github.com/nexa-suite/website) | Public acquisition and contact/demo entry point | Application; read-only from Blueprint |
-| [Mobile](https://github.com/nexa-suite/mobile) | Operations Mobile and Buyer Mobile product projection; client not started | Application evidence only; read-only from Blueprint |
-| [Academic report](https://github.com/upc-pre-202610-1asi0730-12242-king/nexa-ecosystem-report) | Historical coursework and product research evidence | Reference; not authority |
+| [Mobile](https://github.com/nexa-suite/mobile) | Operations Mobile and Buyer Mobile product projection | Operations partial evidence is on unmerged feature branches; Buyer implementation is not verified; read-only from Blueprint |
+| [Mobile academic report](https://github.com/nexa-suite/mobile-report) | Current AV1 academic report and research evidence source | Academic/research evidence; not Product, Domain or Architecture authority |
+| [Historical Web academic repository](https://github.com/upc-pre-202610-1asi0730-12242-king/nexa-ecosystem-report) | Historical coursework and Web research evidence | Historical reference; not current Mobile authority |
 
 ## Authority order
 
@@ -56,4 +57,5 @@ must not silently enter Product, Domain or requirements truth.
 
 - [Source of Truth](../01-shared/engineering/governance/source-of-truth.md)
 - [Shared Design source relationship](../01-shared/design/design-system/source-of-truth.md)
+- [Academic Mobile projection](../90-academic/mobile/course-1acc0238/README.md)
 - [Academic evidence map](../90-academic/web-applications/evidence-map.md)

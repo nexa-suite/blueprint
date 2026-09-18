@@ -1,11 +1,15 @@
-# Mobile segments
+# Mobile segment boundaries
 
-Product direction is `OWNER-ACCEPTED`; segment validation is `PENDING`.
+The following segment definitions are the current Mobile research projection
+after AV1. They consume shared Nexa actors and domain language; they do not
+create new Bounded Contexts, permissions, applications or deployment units.
 
-| ID | Segment | Primary actors | Product projection | Research boundary |
+| ID | Segment | Primary actors | Mobile projection | Evidence boundary |
 |---|---|---|---|---|
-| MOB-SEG-01 | Field & Warehouse Operations | Sales Representative; Warehouse Operator; Dispatch Coordinator | assisted commercial, physical inventory, handoff and evidence | field observation/interviews pending |
-| MOB-SEG-02 | Delivery Workforce | Driver / Delivery Operator | assigned Delivery, Attempt, POD, handoff and selective evidence recovery | delivery observation/privacy research pending |
-| MOB-SEG-03 | B2B Buyers | Customer Buyer | catalog, commitment, delivery receipt/discrepancy, finance and documents | buyer research pending |
+| MOB-SEG-01 | Warehouse & Dispatch Operations | Warehouse Operator; Dispatch Coordinator | physical preparation, verification, exception resolution, readiness and responsibility transfer | 3/3 Needfinding interviews; solution validation open |
+| MOB-SEG-02 | Driver Delivery Execution | Driver / Delivery Operator | assigned delivery, movement, incident communication, evidence and outcome explanation | 3/3 Needfinding interviews; no permanent tracking claim |
+| MOB-SEG-03 | B2B Buyers | Customer Buyer | supply continuity, provider coordination, delivery follow-up, exceptions and receipt when applicable | 3/3 Needfinding interviews; detailed physical receipt not universal |
 
-These are Product segments, not Bounded Contexts or deployment units.
+Sales Representative remains a shared Nexa actor, but is not a current
+prioritized Mobile research segment. Commercial convenience may remain a later
+course-end V1 candidate without changing that boundary.

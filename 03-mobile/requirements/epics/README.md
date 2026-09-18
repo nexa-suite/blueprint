@@ -3,17 +3,18 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-30
+last-reviewed: 2026-09-18
 ---
 
 # Mobile Epic Index
 
-The Master Mobile Product Backlog has twelve outcome-oriented Epics. Five
-remain the frozen V1 slice; Epics 06–11 organize V2/V3 refinement and Epic 12
-holds the V4/Future hypothesis. Epic identity is a Product projection, not a
-Bounded Context or deployment unit.
+There are exactly twelve outcome-oriented Product Mobile Epics. Epic identity
+is a Product projection, not a Bounded Context, permission model, application
+or deployment unit. Every canonical story belongs to the current **Nexa Mobile
+V1 Product Generation** planning envelope; the column below preserves the old
+release grouping as historical planning provenance only.
 
-| Epic ID | Title | Primary Actors | Product Outcome | Primary Capabilities | Primary BCs | Target Releases | Story IDs | Status |
+| Epic ID | Title | Primary Actors | Product Outcome | Primary Capabilities | Primary BCs | Historical Planning Bands | Story IDs | Status |
 |---|---|---|---|---|---|---|---|---|
 | MOBILE-EPIC-01 | Safe Access & Work Context | Mobile User | Return to the right permitted work in the right company context. | CAP-02 | BC-01, BC-02 | V1 | MOB-US-001, MOB-US-002, MOB-US-003 | BASELINED |
 | MOBILE-EPIC-02 | Warehouse Receiving, Identification & Picking | Warehouse Operator | Receive, identify and pick stock with safe lot and condition facts. | CAP-07, CAP-08, CAP-10, CAP-15 | BC-03, BC-05, BC-06, BC-11 | V1 | MOB-US-011, MOB-US-012, MOB-US-013, MOB-US-014, MOB-US-015, MOB-US-016, MOB-US-017, MOB-US-019 | BASELINED |
@@ -28,8 +29,7 @@ Bounded Context or deployment unit.
 | MOBILE-EPIC-11 | Mobile Commercial & Financial Follow-through | Customer Buyer, Sales Representative | Bring documents, payment evidence and customer visit follow-through into authorized field work. | CAP-03, CAP-12, CAP-13 | BC-02, BC-04, BC-07, BC-08, BC-09, BC-11 | V2/V3 | MOB-US-070, MOB-US-071, MOB-US-072 | BASELINED |
 | MOBILE-EPIC-12 | Future Intelligent Field Operations | Warehouse Operator | Explore controlled assistance from richer warehouse observations. | CAP-08, CAP-10 | BC-05, BC-06, BC-11 | V4_FUTURE | MOB-US-073 | HYPOTHESIS |
 
-Canonical story content is in [mobile-v1-catalog.md](../mobile-v1-catalog.md).
-The [master backlog](../master-mobile-backlog.md) owns lifecycle fields. The
-seven historical Epic filenames are compatibility pointers; their historical
-numeric grouping is evidence only. Reconciliation is in
-[reconciliation.md](../reconciliation.md).
+`Historical Planning Bands` preserve how the catalog was previously grouped;
+they do not define current Product Generation membership. Academic Sprint
+assignment is maintained in the [academic backlog boundary](../academic-backlog-boundary.md)
+and is not copied into this Epic index.

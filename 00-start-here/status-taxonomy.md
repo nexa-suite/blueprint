@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # Canonical status taxonomy
@@ -15,6 +15,7 @@ replacement for a test result, a release tag or Product Acceptance.
 |---|---|---|
 | `PROPOSED` | Candidate direction; not authorized as a product promise. | Written hypothesis and owner. |
 | `RESEARCHING` | Evidence collection is active. | Research plan, method and provenance. |
+| `RESEARCH EVIDENCE AVAILABLE` | Named research evidence is available for the stated scope; it does not validate a solution or grant Product Acceptance. | Source, participant boundary, method and provenance. |
 | `OWNER-ACCEPTED` | Product or Architecture owner accepted the direction for planning. | Explicit owner decision; implementation may still be absent. |
 | `ACCEPTED` | Canonical business or architecture rule. | Accepted decision and no unresolved contradiction. |
 | `BASELINED` | Inventory or contract is coherent at a named point in time. | Reproducible source and review date. |
@@ -29,8 +30,10 @@ replacement for a test result, a release tag or Product Acceptance.
 
 ## Composition rules
 
-- `OWNER-ACCEPTED` Mobile direction is compatible with `RESEARCHING` or
-  `PROPOSED / RESEARCH VALIDATION PENDING` stories.
+- `OWNER-ACCEPTED` Mobile direction is compatible with `RESEARCHING`, `RESEARCH
+  EVIDENCE AVAILABLE` or `PROPOSED` stories.
+- `VALIDATED` and `PARTIALLY_VALIDATED` are not canonical standalone status
+  values. Use the precise evidence state and name the separate acceptance gate.
 - `IMPLEMENTED` is repository evidence only. It does not imply
   `PRODUCT ACCEPTED` or `PRODUCTION READY`.
 - `TECHNICALLY VERIFIED` is always scoped to the exact command and ref.

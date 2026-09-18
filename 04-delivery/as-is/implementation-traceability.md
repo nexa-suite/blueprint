@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: engineering
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-18
 ---
 
 # Implementation traceability
@@ -11,7 +11,7 @@ last-reviewed: 2026-08-23
 This matrix connects accepted PRE-V1 product knowledge to independent
 repositories and evidence. It is an AS-IS index plus construction traceability;
 repository presence does not mean every flow is production-ready. The current
-ref cut is [recorded separately](pre-v1-current-ref-verification.md).
+Post-AV1 ref cut is [recorded separately](live-repository-baseline-2026-09-18.md).
 
 | Capability / surface | Repository evidence | Blueprint authority | Classification |
 | --- | --- | --- | --- |
@@ -25,7 +25,7 @@ ref cut is [recorded separately](pre-v1-current-ref-verification.md).
 | Business traceability | API, Platform, Portal | [Business ownership](../../01-shared/domain/ownership/business-ownership-matrix.md), [Traceability ADR](../../01-shared/architecture/decisions/adr/adr-0011-durable-business-traceability.md) | AS-IS evidence; BC-11 target accepted |
 | Public discovery and demo intake | Website | [Repository map](../../00-start-here/repository-map.md), [Product scope](../../01-shared/product/vision/v1-scope.md) | AS-IS public boundary |
 | Visual language and UX flows | Design Lab, Platform, Portal, Website | [Design convergence](../../01-shared/design/design-system/web-evidence/design-lab-contract.md), [Design adoption](../../01-shared/design/design-system/web-evidence/05-engineering/design-adoption.md) | Visual source/candidate guidance |
-| Mobile and driver workflows | Mobile | [Mobile master backlog](../../03-mobile/requirements/master-mobile-backlog.md) | Product direction OWNER-ACCEPTED; 73 functional stories (28 V1, 35 V2, 9 V3, 1 V4/Future); API PARTIAL; client NOT_STARTED; no V1 runtime claim |
+| Mobile and driver workflows | Mobile feature branches and `main` | [Mobile master backlog](../../03-mobile/requirements/master-mobile-backlog.md), [live baseline](live-repository-baseline-2026-09-18.md) | 73 Product stories target Mobile V1; historical bands 28/35/9/1 retained as provenance; Operations PARTIAL AS-IS evidence unmerged; Buyer NOT IMPLEMENTED; no Product Acceptance claim |
 
 ## Evidence rules
 
@@ -33,3 +33,5 @@ ref cut is [recorded separately](pre-v1-current-ref-verification.md).
 - Dated implementation baselines are snapshots, not automatically current runtime proof; use the current-ref verification for the latest accessible cut.
 - C4 L3/L4 views describe responsibility seams, not accepted Bounded Contexts.
 - Missing runtime, authenticated browser or provider evidence remains a gap.
+- Technical Verification evidence remains separate from Product Acceptance,
+  System Acceptance and Production Readiness.
