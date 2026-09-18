@@ -66,6 +66,8 @@ catalog_ids = [match.group(1) for match in catalog_matches]
 catalog_blocks = {match.group(1): match.group(0) for match in catalog_matches}
 if len(catalog_ids) != len(set(catalog_ids)) or set(catalog_ids) != all_expected:
     failures.append("canonical Mobile catalog must contain exactly MOB-US-001..073")
+if catalog_ids != [f"MOB-US-{number:03d}" for number in range(1, 74)]:
+    failures.append("canonical Mobile catalog story sections must be physically ordered MOB-US-001..073")
 
 master = master_path.read_text(encoding="utf-8")
 expected_headers = [
@@ -80,6 +82,18 @@ header_line = next((line for line in master.splitlines() if line.startswith("| I
 header_cells = [cell.strip() for cell in header_line.strip("|").split("|")] if header_line else []
 if header_cells != expected_headers:
     failures.append("master backlog headers do not expose the final 25-column schema")
+
+separator_pattern = re.compile(r"^\|(?:\s*:?-+:?\s*\|)+$")
+master_lines = master.splitlines()
+for index, line in enumerate(master_lines[:-1]):
+    next_line = master_lines[index + 1]
+    if line.startswith("|") and separator_pattern.fullmatch(next_line):
+        header_count = len(line.strip("|").split("|"))
+        separator_count = len(next_line.strip("|").split("|"))
+        if header_count != separator_count:
+            failures.append(
+                f"master Markdown table at line {index + 1} has header/separator arity {header_count}/{separator_count}"
+            )
 
 master_rows = [
     [cell.strip() for cell in line.strip("|").split("|")]
@@ -119,6 +133,23 @@ for story_id, block in catalog_blocks.items():
         failures.append(f"{story_id} has uncontrolled Status")
     if field(block, "Research status") not in research_values:
         failures.append(f"{story_id} has uncontrolled Research status")
+    if story_id in master_by_id:
+        if field(block, "Priority") != master_by_id[story_id][6]:
+            failures.append(f"{story_id} Priority diverges between catalog and master lifecycle index")
+        if field(block, "Status") != master_by_id[story_id][9]:
+            failures.append(f"{story_id} Status diverges between catalog and master lifecycle index")
+    obsolete_release_phrases = (
+        r"V1 candidate",
+        r"V2\s*/\s*deferred",
+        r"V2 refinement-ready",
+        r"V3 roadmap-ready",
+        r"no V1 commitment",
+        r"outside V1",
+        r"^\| Target Release \|",
+        r"^- Scenario: Deferral —",
+    )
+    if any(re.search(pattern, block, re.IGNORECASE | re.MULTILINE) for pattern in obsolete_release_phrases):
+        failures.append(f"{story_id} contains obsolete release administration in its current story body")
     statement = re.search(
         r"^### User Story\s*\n\s*As (?:a|an) .+?,\s*\n"
         r"I want .+?,\s*\nso that .+?\s*$", block, re.MULTILINE,
@@ -196,6 +227,13 @@ for row in master_rows:
         failures.append(f"{story_id} has uncontrolled Research Status")
     if row[15] not in client_values:
         failures.append(f"{story_id} has uncontrolled Client Status")
+    expected_client = "IN_PROGRESS" if story_id in {
+        "MOB-US-001", "MOB-US-002", "MOB-US-003", "MOB-US-011", "MOB-US-012",
+    } else "NOT_STARTED"
+    if row[15] != expected_client:
+        failures.append(f"{story_id} has unexpected Client Status {row[15]} (expected {expected_client})")
+    if row[9] in {"IMPLEMENTED", "VERIFIED", "PRODUCT_ACCEPTED"}:
+        failures.append(f"{story_id} claims implementation, verification or Product Acceptance in Status")
     if row[17:21] != ["NOT_IMPLEMENTED", "NOT_IMPLEMENTED", "NOT_VERIFIED", "NOT_ACCEPTED"]:
         failures.append(f"{story_id} claims implementation, verification or Product Acceptance")
     block = catalog_blocks.get(story_id, "")

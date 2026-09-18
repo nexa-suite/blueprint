@@ -8,7 +8,7 @@ last-reviewed: 2026-09-18
 
 # Architecture and delivery roadmap
 
-## PRE-V1 closure — complete as documentation
+## Historical PRE-V1 closure — complete as documentation
 
 1. Product and Business V1 — FROZEN / CLOSED.
 2. Capability Map, EventStorming and Domain Stories — BASELINED.
@@ -31,7 +31,7 @@ Repository-specific construction may begin through controlled vertical slices wi
 
 Use KEEP -> REFINE -> REWORK. Do not delete legacy paths or duplicate contract owners without consumer mapping, migration, tests and rollback. REWRITE requires extraordinary evidence.
 
-## Production Gate — open, non-blocking for PRE-V1
+## Production Gate — open, non-blocking for the historical PRE-V1 closure
 
 Cloud/provider topology, managed PostgreSQL, object storage, email, observability, secret manager, RPO/RTO, retention, SLA/SLO and responder organization remain open. Required future proof includes production-like staging, restore, rollback, migration runbook, provider outage, secret rotation, incident, break-glass, failed worker and data correction handling.
 

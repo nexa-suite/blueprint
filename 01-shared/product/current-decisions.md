@@ -8,7 +8,11 @@ last-reviewed: 2026-09-18
 
 # Current accepted decisions
 
-This document is the accepted Product, business and PRE-V1 architecture input. It outranks implementation evidence. AS-IS evidence records what exists; it never silently changes TARGET.
+This document is the accepted Product, business and canonical architecture
+input. Historical PRE-V1 decisions remain provenance where explicitly labeled;
+the current Post-AV1/course-end Product Generation state is authoritative. It
+outranks implementation evidence. AS-IS evidence records what exists; it never
+silently changes TARGET.
 
 ## Product and business closure
 

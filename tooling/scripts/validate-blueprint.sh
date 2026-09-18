@@ -304,6 +304,59 @@ if (
     or not {f"MOB-US-{i:03d}" for i in range(1, 50)} <= mobile_all_ids
 ):
     failures.append(f"Mobile canonical catalog must retain contiguous historical IDs from MOB-US-001: found {len(mobile_catalog_blocks)}")
+mobile_catalog_order = [
+    match.group(1)
+    for match in re.finditer(r"^## (MOB-US-\d{3}) —", mobile_catalog, re.MULTILINE)
+]
+if mobile_catalog_order != [f"MOB-US-{number:03d}" for number in range(1, 74)]:
+    failures.append("Mobile canonical story sections must be physically ordered MOB-US-001..073")
+for story_id, block in mobile_catalog_blocks.items():
+    if re.search(
+        r"V1 candidate|V2\s*/\s*deferred|V2 refinement-ready|V3 roadmap-ready|"
+        r"no V1 commitment|outside V1|^\| Target Release \||^- Scenario: Deferral —",
+        block,
+        re.IGNORECASE | re.MULTILINE,
+    ):
+        failures.append(f"Mobile {story_id} contains obsolete release administration in its current story body")
+global_mobile_docs = [
+    root / "03-mobile/actors/README.md",
+    root / "03-mobile/product/README.md",
+    root / "03-mobile/product/applications/README.md",
+    root / "03-mobile/product/applications/operations-mobile.md",
+    root / "03-mobile/product/applications/buyer-mobile.md",
+    root / "03-mobile/capabilities/README.md",
+    root / "03-mobile/capabilities/operations/README.md",
+    root / "03-mobile/architecture/README.md",
+    root / "03-mobile/architecture/technical/README.md",
+    root / "03-mobile/architecture/technical/application-architecture.md",
+    root / "03-mobile/ux/README.md",
+    root / "03-mobile/ux/design/README.md",
+    root / "03-mobile/ux/discovery/README.md",
+    root / "03-mobile/ux/discovery/research-plan.md",
+    root / "03-mobile/ux/discovery/findings.md",
+]
+global_research_regressions = re.compile(
+    r"research\s*[:=]\s*`?PENDING|Product definition is proposed|"
+    r"Empty discovery scaffold|add real evidence as it becomes available|"
+    r"waits for discovery|no interviews performed|no findings yet",
+    re.IGNORECASE,
+)
+for path in global_mobile_docs:
+    if not path.is_file():
+        failures.append(f"missing canonical Mobile leaf document: {path.relative_to(root)}")
+        continue
+    text = path.read_text(encoding="utf-8")
+    if global_research_regressions.search(text):
+        failures.append(f"global Mobile research regression in {path.relative_to(root)}")
+research_plan = (root / "03-mobile/ux/discovery/research-plan.md").read_text(encoding="utf-8")
+findings = (root / "03-mobile/ux/discovery/findings.md").read_text(encoding="utf-8")
+for required in ("9/9", "n=3", "77895a8950676ccdaec520a61c41107852268606", "SOLUTION", "OPEN"):
+    present = required in research_plan.upper() if required in {"SOLUTION", "OPEN"} else required in research_plan
+    if not present:
+        failures.append(f"Needfinding research plan missing boundary: {required}")
+for required in ("Warehouse & Dispatch Operations", "Driver Delivery Execution", "B2B Buyers", "3/3", "2/3", "1/3"):
+    if required not in findings:
+        failures.append(f"Needfinding findings missing source-supported segment evidence: {required}")
 mobile_master = (root / "03-mobile/requirements/master-mobile-backlog.md").read_text(encoding="utf-8")
 mobile_master_rows = [
     [cell.strip() for cell in line.strip("|").split("|")]

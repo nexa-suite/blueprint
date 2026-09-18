@@ -185,6 +185,9 @@ milestones = (course / "milestone-plan.md").read_text(encoding="utf-8")
 for required in ("AV1 COMPLETE", "97 PBIs / 426 SP", "Sprint 4", "No Sprint result", "TB1"):
     if required not in milestones:
         failures.append(f"milestone plan missing AV1 evidence boundary: {required}")
+rubric = (course / "rubric-compliance.md").read_text(encoding="utf-8")
+if "Sprint 1 / Sprint 2 / Sprint 3 / Sprint 4 evidence" not in rubric:
+    failures.append("rubric compliance must cover evidence templates for all four academic Sprints")
 architecture = (course / "architecture-projection.md").read_text(encoding="utf-8")
 for required in ("shared Blueprint C4 DSL remains the authority", "derived academic", "unmerged feature branches", "Wave 2"):
     if required not in architecture:

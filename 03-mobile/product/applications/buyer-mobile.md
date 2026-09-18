@@ -1,20 +1,25 @@
 # Nexa Buyer Mobile
 
-Product direction: `OWNER-ACCEPTED`. Research: `PENDING`. Client:
-`NOT_STARTED`. Backend: `PARTIAL`, with selected contracts in
-API v0.17.0.
+Product Generation direction is accepted as one of the two Mobile apps.
+Needfinding is complete for problem/task evidence (`9/9`, three interviews per
+segment); solution validation and Product Acceptance remain open. Buyer Mobile
+is not implemented. Backend support is `PARTIAL` through remote contracts;
+there is no verified Buyer runtime or final canonical cross-platform framework.
 
 ## Projection
 
 Customer Buyer receives critical Delivery updates, bounded handoff
-verification, receipt and discrepancy work in V1. Catalog, price/availability,
-drafts, commitments, material changes, history, finance, payments, documents,
-reorder, maps and contact remain V2+ or Portal work.
+verification, receipt and discrepancy work in the accepted Mobile Product
+projection. Catalog, price/availability, drafts, commitments, material
+changes, history, finance, payments, documents, reorder, maps and contact
+remain unimplemented or open behavior boundaries; their historical planning
+labels do not redefine the current Product Generation.
 
 ## Boundary
 
-Buyer Portal remains feature-complete while Mobile is researched. Buyer
-Relationship authorization remains authoritative. A Buyer receipt is a
+Buyer Portal remains feature-complete while Buyer Mobile solution validation
+and implementation remain open. Buyer Relationship authorization remains
+authoritative. A Buyer receipt is a
 separate immutable fact from Driver outcome and POD. Handoff-code verification
 does not equal acceptance. Full returns/RMA, rich dispute handling, permanent
 tracking and uncontrolled Driver contact are deferred.

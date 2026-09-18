@@ -35,7 +35,7 @@ domain, surface projections and delivery evidence.
 00-start-here/  navigation and status
 01-shared/     cross-surface product, domain, design and architecture
 02-web/        Website, Platform and Buyer Portal
-03-mobile/     owner-accepted-for-planning Operations Mobile and Buyer Mobile
+03-mobile/     accepted two-app Mobile Product Generation projection
 04-delivery/   AS-IS, runtime, CI/CD and Production Gate
 90-academic/   isolated course projections
 91-reference/  historical, research and source material

@@ -3,12 +3,14 @@ status: planned
 maturity: DRAFT
 scope: runway
 owner: mobile
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # Buyer Mobile Local Persistence
 
-**Decision:** PROPOSED / RESEARCH VALIDATION PENDING
+**Decision:** PROPOSED / SOLUTION VALIDATION OPEN
+**Academic evidence:** RESEARCH VALIDATION PENDING; this is a course evidence
+state, not a technology selection or Product Acceptance claim.
 **Technology:** NOT SELECTED
 **Authority:** LOCAL / NON-AUTHORITATIVE
 **Offline scope:** online-first V1 safe reading, harmless receipt/discrepancy

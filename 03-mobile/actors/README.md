@@ -8,9 +8,12 @@ Mobile adds no domain actors; it projects existing actors into two surfaces.
 | Operations Mobile | Business Operations Manager; Sales Representative; Warehouse Operator; Dispatch Coordinator; Driver / Delivery Operator | BC-01 access plus owning BC command/query policy |
 | Buyer Mobile | Customer Buyer | BC-01 access plus BC-02 Buyer Relationship policy |
 
-Status: product direction `OWNER-ACCEPTED`; research `PENDING`; client
-`NOT_STARTED`. Release ownership is indexed in
-[the Master Mobile Product Backlog](../requirements/master-mobile-backlog.md).
+Status: the two-app Mobile Product Generation is accepted for planning. The
+AV1 Needfinding evidence is available (`9/9`, three interviews per segment),
+while solution validation and Product Acceptance remain open. Operations has
+partial, unmerged AS-IS implementation evidence; Buyer Mobile is not
+implemented. Release ownership and independent lifecycle dimensions remain
+indexed in [the Master Mobile Product Backlog](../requirements/master-mobile-backlog.md).
 
 Driver is a delivery-work actor, not a new Driver BC. Finance is a capability
 responsibility, not a new Finance actor/context. Mobile role visibility never

@@ -31,7 +31,8 @@ screenshots, timings, URLs and validation outcomes are not invented here.
    Buyer Handoff QR.
 3. Customer Buyer resolves the handoff, confirms quantities and preserves an
    immutable discrepancy fact.
-4. Deferred commercial work is researched separately; it is not part of the Mobile V1 task flow.
+4. Commercial work with a deferred lifecycle has its own master-backlog status;
+   this task model does not promote it into observed solution evidence.
 
 Each goal requires the following chain:
 

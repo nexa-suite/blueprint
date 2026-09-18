@@ -59,7 +59,7 @@ current refinement status.
 
 The Mobile catalog additionally records App, shared capability, secondary BCs,
 research status, offline/idempotency expectation, authorization, device/evidence
-implication, dependencies and release classification. The master backlog also
+implication, dependencies and historical planning provenance. The master backlog also
 records Backend Support, Client Status, Academic Sprint, Sprint Implemented,
 Implemented In, Verified In and Product Accepted In using controlled values.
 

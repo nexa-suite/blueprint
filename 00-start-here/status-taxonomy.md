@@ -24,7 +24,7 @@ replacement for a test result, a release tag or Product Acceptance.
 | `TECHNICALLY VERIFIED` | A named technical check passed. | Exact command, ref and result. |
 | `PRODUCT ACCEPTED` | Product behavior passed the acceptance plan. | Scenarios, actors, evidence and decision. |
 | `PRODUCTION READY` | Production gate is closed for the stated scope. | Operational, security, recovery and release evidence. |
-| `DEFERRED` | Explicitly moved outside the current scope. | Owner, reason and target horizon. |
+| `DEFERRED` | Explicitly not promoted in the current lifecycle; it may remain in the current Product Generation catalog as deferred provenance. | Owner, reason and migration or target horizon. |
 | `SUPERSEDED` | Replaced by a newer decision or contract. | Replacement link and preserved history. |
 | `RETIRED` | No longer used; retained only for historical traceability. | Retirement reason and successor/history. |
 
@@ -39,4 +39,6 @@ replacement for a test result, a release tag or Product Acceptance.
 - `TECHNICALLY VERIFIED` is always scoped to the exact command and ref.
 - `FROZEN` protects semantics; it does not freeze an unvalidated client.
 - `DEFERRED` and `SUPERSEDED` must retain a migration or replacement record.
+- `DEFERRED` lifecycle status is independent of Product Generation membership;
+  it must not be silently promoted to implementation or acceptance.
 - AS-IS, TARGET and FUTURE labels are orthogonal to this taxonomy.

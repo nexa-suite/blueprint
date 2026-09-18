@@ -60,7 +60,7 @@ refinement/provenance labels, not current release semantics.
 | Surface | Operations Mobile; Buyer Mobile |
 | Actor | Mobile User |
 | Epic | MOBILE-EPIC-01 — Safe Access & Work Context |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Continue authorized work safely after returning to Nexa |
 | Owning Bounded Context | BC-01 — Tenant & Access Governance |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance |
@@ -92,7 +92,7 @@ so that I can resume my work without exposing protected information.
 | Surface | Operations Mobile; Buyer Mobile |
 | Actor | Mobile User |
 | Epic | MOBILE-EPIC-01 — Safe Access & Work Context |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Work in the intended company and business context |
 | Owning Bounded Context | BC-01 — Tenant & Access Governance |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships |
@@ -124,7 +124,7 @@ so that every task concerns the company and relationship I mean to serve.
 | Surface | Operations Mobile; Buyer Mobile |
 | Actor | Mobile User |
 | Epic | MOBILE-EPIC-01 — Safe Access & Work Context |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | See only work permitted for the person's role |
 | Owning Bounded Context | BC-01 — Tenant & Access Governance |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance |
@@ -156,7 +156,7 @@ so that I do not attempt work that my role or relationship does not allow.
 | Surface | Operations Mobile |
 | Actor | Business Operations Manager |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Review operational work at a glance |
 | Owning Bounded Context | BC-11 — Business Traceability |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-11 — Business Traceability |
@@ -176,7 +176,6 @@ so that I can prioritize work from current and trustworthy facts.
 - Scenario: Future view — Given an accepted future operational view, when the manager reviews it, then every item states its context and freshness.
 - Scenario: Incomplete facts — Given source facts are missing or stale, when the manager reviews the view, then the limitation is explicit and no total is invented.
 - Scenario: Unauthorized scope — Given the manager lacks scope permission, when the view is requested, then no private operational information is exposed.
-- Scenario: Deferral — Given the required view is not accepted, when this story is considered, then it remains outside Mobile V1.
 
 ## MOB-US-005 — Notice critical operational exceptions
 
@@ -188,7 +187,7 @@ so that I can prioritize work from current and trustworthy facts.
 | Surface | Operations Mobile |
 | Actor | Business Operations Manager |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Notice critical operational exceptions |
 | Owning Bounded Context | BC-11 — Business Traceability |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-11 — Business Traceability |
@@ -208,7 +207,6 @@ so that I can address blocked work before it delays a customer or delivery.
 - Scenario: Accepted exception — Given a future accepted exception view, when the manager reviews an item, then its scope, severity and owning work are clear.
 - Scenario: Incomplete exception — Given exception facts are incomplete, when the item is reviewed, then it is marked incomplete and not treated as a new business state.
 - Scenario: Authorized response — Given an exception needs correction, when the manager follows it, then Nexa directs the person to the authorized owning work.
-- Scenario: Deferral — Given the exception view is not accepted, when this story is considered, then it remains outside Mobile V1.
 
 ## MOB-US-006 — Find a customer and buyer relationship
 
@@ -220,7 +218,7 @@ so that I can address blocked work before it delays a customer or delivery.
 | Surface | Operations Mobile |
 | Actor | Sales Representative |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Find a customer and buyer relationship |
 | Owning Bounded Context | BC-02 — Customer & Buyer Relationships |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-02 — Customer & Buyer Relationships |
@@ -240,7 +238,6 @@ so that I can work with the correct customer in a future mobile flow.
 - Scenario: Authorized customer — Given an authorized relationship, when the representative searches, then only permitted customers are returned.
 - Scenario: Unrelated customer — Given a customer is unrelated or suspended, when the representative opens it, then protected work is unavailable.
 - Scenario: No reliable result — Given the search is empty or unavailable, when it completes, then no customer is guessed or exposed.
-- Scenario: Deferral — Given commercial access is not part of V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-007 — Review products, prices and availability
 
@@ -252,7 +249,7 @@ so that I can work with the correct customer in a future mobile flow.
 | Surface | Operations Mobile |
 | Actor | Sales Representative |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Review products, prices and availability |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-05 — Inventory Availability |
@@ -272,7 +269,6 @@ so that I can prepare future customer demand from trustworthy information.
 - Scenario: Authorized product — Given an authorized customer relationship, when a product is reviewed, then permitted price and availability information is shown with freshness.
 - Scenario: Unavailable product — Given a product is hidden or unavailable, when it is requested, then it cannot be treated as a commitment.
 - Scenario: Changed information — Given price or availability changes, when the representative continues, then Nexa requires current confirmation.
-- Scenario: Deferral — Given commercial review is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-008 — Prepare a customer request
 
@@ -284,7 +280,7 @@ so that I can prepare future customer demand from trustworthy information.
 | Surface | Operations Mobile |
 | Actor | Sales Representative |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Prepare a customer request |
 | Owning Bounded Context | BC-04 — Sales Commitment |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-03 — Catalog & Commercial Policy |
@@ -304,7 +300,6 @@ so that I can organize an intention before an authorized submission.
 - Scenario: Draft preparation — Given permitted products are known, when the representative prepares a request, then quantities remain an intention and create no commitment.
 - Scenario: Changed information — Given product or customer information changes, when the request is reviewed, then the change is visible before submission.
 - Scenario: Local draft — Given the person loses connection, when the request is edited, then it remains an unconfirmed draft.
-- Scenario: Deferral — Given field commercial preparation is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-009 — Submit a purchase request from field work
 
@@ -316,7 +311,7 @@ so that I can organize an intention before an authorized submission.
 | Surface | Operations Mobile |
 | Actor | Sales Representative |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Submit a purchase request from field work |
 | Owning Bounded Context | BC-04 — Sales Commitment |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-03 — Catalog & Commercial Policy; BC-05 — Inventory Availability; BC-07 — Credit & Receivables |
@@ -336,7 +331,6 @@ so that customer demand enters an authorized commitment process.
 - Scenario: Valid request — Given an accepted request and authorized relationship, when the representative submits it, then one Purchase Request is recorded.
 - Scenario: Invalid request — Given information is stale or authorization is missing, when the representative submits it, then no partial commitment is recorded.
 - Scenario: Uncertain result — Given the outcome is unknown, when the representative retries, then Nexa resolves the first result without creating a second request.
-- Scenario: Deferral — Given field submission is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-010 — Follow customer commitments and credit
 
@@ -348,7 +342,7 @@ so that customer demand enters an authorized commitment process.
 | Surface | Operations Mobile |
 | Actor | Sales Representative |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Follow customer commitments and credit |
 | Owning Bounded Context | BC-04 — Sales Commitment |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-07 — Credit & Receivables; BC-11 — Business Traceability |
@@ -368,7 +362,6 @@ so that I understand authorized customer progress while away from Platform.
 - Scenario: Authorized progress — Given an authorized relationship, when progress is reviewed, then commitment and relevant credit facts show their freshness.
 - Scenario: Incomplete finance facts — Given financial facts are stale or incomplete, when they are reviewed, then the limitation is explicit and no decision is invented.
 - Scenario: Relationship loss — Given the relationship is no longer authorized, when progress is requested, then protected facts are not exposed.
-- Scenario: Deferral — Given this convenience is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-011 — Identify a product from a package or label code
 
@@ -380,7 +373,7 @@ so that I understand authorized customer progress while away from Platform.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-02 — Warehouse Receiving, Identification & Picking |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Identify a product from a package or label code |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-03 — Catalog & Commercial Policy |
@@ -412,7 +405,7 @@ so that I handle the correct product during warehouse work.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-02 — Warehouse Receiving, Identification & Picking |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Find a product manually when scanning is unavailable |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-03 — Catalog & Commercial Policy |
@@ -444,7 +437,7 @@ so that I can continue safe work without guessing the product.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-02 — Warehouse Receiving, Identification & Picking |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Record stock that has just arrived |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-03 — Catalog & Commercial Policy; BC-05 — Inventory Availability; BC-11 — Business Traceability |
@@ -476,7 +469,7 @@ so that the warehouse has a trustworthy record of received stock.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-02 — Warehouse Receiving, Identification & Picking |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Record the actual lot, expiry and quantity |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-03 — Catalog & Commercial Policy; BC-05 — Inventory Availability; BC-11 — Business Traceability |
@@ -508,7 +501,7 @@ so that future picking uses what physically arrived.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-02 — Warehouse Receiving, Identification & Picking |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Check current lot and stock condition before physical work |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-03 — Catalog & Commercial Policy; BC-05 — Inventory Availability |
@@ -540,7 +533,7 @@ so that I choose stock that is safe and available for the task.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-02 — Warehouse Receiving, Identification & Picking |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Pick the correct lot and quantity for prepared work |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-03 — Catalog & Commercial Policy; BC-05 — Inventory Availability; BC-06 — Fulfillment & Delivery |
@@ -572,7 +565,7 @@ so that the delivery receives the stock that was actually prepared.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-02 — Warehouse Receiving, Identification & Picking |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Report a physical discrepancy or authorized stock disposition |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-06 — Fulfillment & Delivery; BC-11 — Business Traceability |
@@ -604,7 +597,7 @@ so that an exception remains visible without erasing what happened.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-07 — Advanced Field Mobility & Offline Operations |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Move stock between warehouse locations |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-05 — Inventory Availability; BC-11 — Business Traceability |
@@ -636,7 +629,7 @@ so that physical movement remains attributable from source to destination.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-02 — Warehouse Receiving, Identification & Picking |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Record temperature evidence for relevant stock |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-05 — Inventory Availability; BC-11 — Business Traceability |
@@ -668,7 +661,7 @@ so that cold-chain decisions use an attributable physical reading.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-03 — Dispatch Preparation & Handoff |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | See deliveries ready for dispatch preparation |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-05 — Inventory Availability; BC-06 — Fulfillment & Delivery |
@@ -700,7 +693,7 @@ so that I prepare only deliveries that are ready to leave the warehouse.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-03 — Dispatch Preparation & Handoff |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Assign a driver to a ready delivery |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-06 — Fulfillment & Delivery |
@@ -732,7 +725,7 @@ so that responsibility for the delivery is clear before handoff.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-03 — Dispatch Preparation & Handoff |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Check outgoing goods against the prepared delivery |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-05 — Inventory Availability; BC-06 — Fulfillment & Delivery |
@@ -764,7 +757,7 @@ so that the driver receives what the delivery actually requires.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-03 — Dispatch Preparation & Handoff |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Preserve warehouse-to-driver handoff evidence |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-09 — Business Documents; BC-11 — Business Traceability |
@@ -796,7 +789,7 @@ so that the movement of prepared goods remains reviewable.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-03 — Dispatch Preparation & Handoff |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Reliably identify a dispatch handoff |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-11 — Business Traceability |
@@ -828,7 +821,7 @@ so that the right delivery and driver remain linked throughout the handoff.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-03 — Dispatch Preparation & Handoff |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Confirm goods left warehouse control |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-05 — Inventory Availability; BC-11 — Business Traceability |
@@ -860,7 +853,7 @@ so that everyone can rely on the delivery's dispatch state.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-04 — Driver Delivery Execution & Proof |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | See deliveries assigned to the driver |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-06 — Fulfillment & Delivery |
@@ -892,7 +885,7 @@ so that I know which deliveries I am responsible for today.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-04 — Driver Delivery Execution & Proof |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Begin an assigned delivery |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-06 — Fulfillment & Delivery |
@@ -924,7 +917,7 @@ so that the Delivery Attempt has a clear and authorized start.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-04 — Driver Delivery Execution & Proof |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Open directions to the authorized delivery destination |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-06 — Fulfillment & Delivery |
@@ -956,7 +949,7 @@ so that I can travel to the right destination without changing the Delivery reco
 | Surface | Operations Mobile; Buyer Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-07 — Advanced Field Mobility & Offline Operations |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Share a delivery location during an active delivery |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-11 — Business Traceability |
@@ -987,7 +980,7 @@ so that a future accepted location service can support a bounded delivery need.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-07 — Advanced Field Mobility & Offline Operations |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Contact the buyer during delivery |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-10 — Notifications |
@@ -1007,7 +1000,6 @@ so that I can resolve an arrival question through an authorized channel.
 - Scenario: Future channel — Given an accepted contact policy exists, when the driver contacts the buyer, then only the authorized channel is used and its use is recorded.
 - Scenario: Missing consent — Given consent or assignment is missing, when contact is requested, then no personal contact is initiated.
 - Scenario: Separate outcome — Given contact occurs, when it ends, then it does not change Delivery outcome or Buyer receipt by itself.
-- Scenario: Deferral — Given no contact channel is accepted for V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-031 — Record the delivery attempt outcome
 
@@ -1019,7 +1011,7 @@ so that I can resolve an arrival question through an authorized channel.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-04 — Driver Delivery Execution & Proof |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Record the delivery attempt outcome |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance; BC-11 — Business Traceability |
@@ -1051,7 +1043,7 @@ so that the supplier knows what physically happened at the destination.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-04 — Driver Delivery Execution & Proof |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Record a partial or rejected delivery and what remains |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-11 — Business Traceability |
@@ -1083,7 +1075,7 @@ so that no physical outcome or remaining obligation is lost.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-04 — Driver Delivery Execution & Proof |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Preserve proof of delivery |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-09 — Business Documents; BC-11 — Business Traceability |
@@ -1115,7 +1107,7 @@ so that the Delivery outcome can be reviewed without losing its history.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-04 — Driver Delivery Execution & Proof |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Present a bounded delivery handoff code |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-11 — Business Traceability |
@@ -1147,7 +1139,7 @@ so that the buyer can identify the correct delivery safely.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-07 — Advanced Field Mobility & Offline Operations |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Continue delivery evidence after connection loss |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-11 — Business Traceability |
@@ -1167,7 +1159,6 @@ so that a future recovery flow can protect evidence without claiming false succe
 - Scenario: Future evidence recovery — Given a future recovery policy is accepted, when evidence is captured without a connection, then its pending state and minimum protected content are clear.
 - Scenario: Later confirmation — Given staged evidence is later reviewed, when Nexa accepts it, then only the exact accepted fact becomes authoritative.
 - Scenario: Rejection — Given staged evidence is rejected, when it is reviewed, then the reason remains clear and no Delivery success is implied.
-- Scenario: Deferral — Given V1 has no generic offline mutation authority, when this story is considered, then it remains deferred.
 
 ## MOB-US-036 — Browse supplier products
 
@@ -1179,7 +1170,7 @@ so that a future recovery flow can protect evidence without claiming false succe
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Browse supplier products |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships |
@@ -1199,7 +1190,6 @@ so that I can explore products offered through my supplier relationship.
 - Scenario: Authorized catalog — Given an active buyer relationship, when products are browsed, then only permitted products are shown.
 - Scenario: Suspended relationship — Given the buyer relationship is suspended, when products are browsed, then private product information is not exposed.
 - Scenario: Stale information — Given product information is stale, when it is browsed, then it is marked advisory and creates no order authority.
-- Scenario: Deferral — Given Buyer commerce is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-037 — Review product price and availability
 
@@ -1211,7 +1201,7 @@ so that I can explore products offered through my supplier relationship.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Review product price and availability |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-05 — Inventory Availability |
@@ -1231,7 +1221,6 @@ so that I can make a future request using current supplier information.
 - Scenario: Current product — Given an authorized relationship, when a product is reviewed, then its price, terms and sellable availability are shown with freshness.
 - Scenario: Stale product — Given product facts are stale, when the buyer continues, then current confirmation is required.
 - Scenario: Unavailable product — Given a product is hidden or unavailable, when it is requested, then it cannot be treated as a commitment.
-- Scenario: Deferral — Given Buyer commerce is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-038 — Prepare a purchase request
 
@@ -1243,7 +1232,7 @@ so that I can make a future request using current supplier information.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Prepare a purchase request |
 | Owning Bounded Context | BC-04 — Sales Commitment |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-03 — Catalog & Commercial Policy |
@@ -1263,7 +1252,6 @@ so that I can organize a future purchase without falsely confirming it.
 - Scenario: Draft — Given permitted products are available, when the buyer prepares a request, then it remains a draft and creates no reservation.
 - Scenario: Changed product — Given price or availability changes, when the buyer reviews the draft, then the change is clear before submission.
 - Scenario: Local preparation — Given the buyer loses connection, when the draft is edited, then it remains unconfirmed.
-- Scenario: Deferral — Given Buyer commerce is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-039 — Repeat a previous purchase
 
@@ -1275,7 +1263,7 @@ so that I can organize a future purchase without falsely confirming it.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Repeat a previous purchase |
 | Owning Bounded Context | BC-04 — Sales Commitment |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-03 — Catalog & Commercial Policy |
@@ -1295,7 +1283,6 @@ so that I can prepare a new request more quickly in a future flow.
 - Scenario: Reused history — Given the buyer can access prior history, when it is reused, then Nexa creates a new draft and rechecks current product facts.
 - Scenario: Changed product — Given a prior product is no longer available, when history is reused, then Nexa marks it and creates no silent order.
 - Scenario: Repeat action — Given the buyer repeats the action, when Nexa processes it, then no second commitment is created.
-- Scenario: Deferral — Given reorder convenience is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-040 — Submit a request or place a direct order
 
@@ -1307,7 +1294,7 @@ so that I can prepare a new request more quickly in a future flow.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Submit a request or place a direct order |
 | Owning Bounded Context | BC-04 — Sales Commitment |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-03 — Catalog & Commercial Policy; BC-05 — Inventory Availability; BC-07 — Credit & Receivables |
@@ -1327,7 +1314,6 @@ so that my chosen commitment path is explicit and authorized.
 - Scenario: Purchase Request — Given a valid draft and policy, when the buyer submits a request, then one Purchase Request is recorded.
 - Scenario: Direct order — Given direct ordering is permitted, when the buyer chooses it, then one Sales Order path is recorded without inventing a Purchase Request.
 - Scenario: Changed facts — Given price, availability, credit or permission changed, when the buyer submits, then no partial commitment is recorded.
-- Scenario: Deferral — Given Buyer commitment is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-041 — Respond to a material change
 
@@ -1339,7 +1325,7 @@ so that my chosen commitment path is explicit and authorized.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Respond to a material change |
 | Owning Bounded Context | BC-04 — Sales Commitment |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-07 — Credit & Receivables |
@@ -1359,7 +1345,6 @@ so that my future commitment reflects an explicit decision.
 - Scenario: Accept change — Given a current authorized change exists, when the buyer accepts it, then Nexa records the versioned change.
 - Scenario: Reject change — Given the buyer rejects it, when Nexa records the decision, then the original commitment remains intact.
 - Scenario: Stale change — Given the change is no longer current, when the buyer responds, then Nexa asks for the current decision and changes nothing silently.
-- Scenario: Deferral — Given material-change response is outside V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-042 — Follow requests and orders
 
@@ -1371,7 +1356,7 @@ so that my future commitment reflects an explicit decision.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Follow requests and orders |
 | Owning Bounded Context | BC-04 — Sales Commitment |
 | Relevant Bounded Contexts | BC-09 — Business Documents; BC-11 — Business Traceability |
@@ -1393,37 +1378,6 @@ so that I can understand authorized commercial progress.
 - Scenario: Revoked access — Given access is revoked, when progress is requested, then private information is not exposed.
 - Scenario: Stale progress — Given displayed progress is stale, when the buyer refreshes it, then Nexa exposes the current result or a truthful unavailable state.
 
-## MOB-US-070 — View business documents linked to a request or order
-
-| Field | Value |
-|---|---|
-| ID | MOB-US-070 |
-| Status | DEFERRED |
-| Product | Mobile |
-| Surface | Buyer Mobile; Operations Mobile |
-| Actor | Customer Buyer or Sales Representative |
-| Epic | MOBILE-EPIC-11 — Mobile Commercial & Financial Follow-through |
-| Priority | V2 — refinement-ready; no V1 commitment |
-| Title | View business documents linked to a request or order |
-| Owning Bounded Context | BC-09 — Business Documents |
-| Relevant Bounded Contexts | BC-04 — Sales Commitment; BC-02 — Customer & Buyer Relationships |
-| Shared Capability | CAP-13 — Business documents |
-| Goal / Outcome | Retrieve the authorized document that explains a commercial request or order. |
-| Research status | PENDING |
-| Connectivity and authority | Issued documents remain immutable and access-controlled; local copies are not authority. |
-
-### User Story
-
-As a Customer Buyer or Sales Representative,
-I want to view a business document linked to a request or order,
-so that I can use the authorized evidence for the commercial work.
-
-### Acceptance Criteria
-
-- Scenario: Authorized document — Given an issued document belongs to the permitted relationship, when the person requests it, then Nexa provides the document identity and authorized content.
-- Scenario: Missing document — Given no issued document exists, when the person requests it, then Nexa states that it is unavailable and changes no commitment.
-- Scenario: Revoked access — Given permission is revoked, when the person requests the document, then Nexa exposes no private content.
-
 ## MOB-US-043 — Review credit and payment status
 
 | Field | Value |
@@ -1434,7 +1388,7 @@ so that I can use the authorized evidence for the commercial work.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Review credit and payment status |
 | Owning Bounded Context | BC-07 — Credit & Receivables |
 | Relevant Bounded Contexts | BC-08 — Payments; BC-11 — Business Traceability |
@@ -1454,38 +1408,6 @@ so that I understand what is due without treating reported evidence as confirmat
 - Scenario: Current credit — Given an authorized relationship, when credit is reviewed, then amount, currency, freshness and source are clear.
 - Scenario: Payment status — Given payment evidence exists, when the buyer reviews it, then reported, confirmed and rejected states remain distinct.
 - Scenario: Stale status — Given payment status is stale, when the buyer refreshes it, then Nexa exposes current status or a truthful unavailable state.
-- Scenario: Deferral — Given Buyer finance is outside V1, when this story is considered, then it remains deferred.
-
-## MOB-US-071 — Report payment evidence and see its review outcome
-
-| Field | Value |
-|---|---|
-| ID | MOB-US-071 |
-| Status | DEFERRED |
-| Product | Mobile |
-| Surface | Buyer Mobile |
-| Actor | Customer Buyer |
-| Epic | MOBILE-EPIC-11 — Mobile Commercial & Financial Follow-through |
-| Priority | V2 — refinement-ready; no V1 commitment |
-| Title | Report payment evidence and see its review outcome |
-| Owning Bounded Context | BC-08 — Payments |
-| Relevant Bounded Contexts | BC-07 — Credit & Receivables; BC-11 — Business Traceability |
-| Shared Capability | CAP-12 — Payments and correction |
-| Goal / Outcome | Report permitted payment evidence and understand whether the owning process accepted or rejected it. |
-| Research status | PENDING |
-| Connectivity and authority | Payment Reported is not Payment Confirmed; provider and financial authority remain outside the client. |
-
-### User Story
-
-As a Customer Buyer,
-I want to report payment evidence and see its review outcome,
-so that I can follow a payment without claiming confirmation myself.
-
-### Acceptance Criteria
-
-- Scenario: Evidence reported — Given a permitted reference, amount and evidence are available, when the buyer reports them, then Nexa records the report as unconfirmed.
-- Scenario: Evidence reviewed — Given the owning process reviews the report, when the buyer checks status, then Nexa shows the review outcome without rewriting the report.
-- Scenario: Duplicate report — Given the same report is submitted again, when Nexa receives it, then it does not apply the evidence twice.
 
 ## MOB-US-044 — Know when a delivery needs attention
 
@@ -1497,7 +1419,7 @@ so that I can follow a payment without claiming confirmation myself.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-05 — Delivery Handoff, Buyer Receipt & Critical Updates |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Know when a delivery needs attention |
 | Owning Bounded Context | BC-10 — Notifications |
 | Relevant Bounded Contexts | BC-06 — Fulfillment & Delivery; BC-02 — Customer & Buyer Relationships |
@@ -1529,7 +1451,7 @@ so that I can respond to a relevant delivery change in time.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-07 — Advanced Field Mobility & Offline Operations |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | See an active driver on a map |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-11 — Business Traceability |
@@ -1560,7 +1482,7 @@ so that a future authorized service can help me understand arrival timing.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-07 — Advanced Field Mobility & Offline Operations |
-| Priority | V2 / deferred — no V1 commitment |
+| Priority | P2 |
 | Title | Contact the driver |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-10 — Notifications |
@@ -1580,7 +1502,6 @@ so that I can resolve an arrival question through an authorized Delivery channel
 - Scenario: Future channel — Given an accepted channel policy and active Delivery, when the buyer contacts the driver, then only the authorized channel is used.
 - Scenario: No permission — Given consent or active Delivery is missing, when contact is requested, then no personal contact is initiated.
 - Scenario: Separate facts — Given contact occurs, when it ends, then it does not change Driver outcome, Buyer receipt or Delivery state.
-- Scenario: Deferral — Given no contact channel is accepted for V1, when this story is considered, then it remains deferred.
 
 ## MOB-US-047 — Verify a delivery through the handoff code
 
@@ -1592,7 +1513,7 @@ so that I can resolve an arrival question through an authorized Delivery channel
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-05 — Delivery Handoff, Buyer Receipt & Critical Updates |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Verify a delivery through the handoff code |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-11 — Business Traceability |
@@ -1624,7 +1545,7 @@ so that I can confirm I am reviewing the correct Delivery.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-05 — Delivery Handoff, Buyer Receipt & Critical Updates |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Confirm the quantities actually received |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-11 — Business Traceability |
@@ -1656,7 +1577,7 @@ so that the supplier has a truthful record of my receipt.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-05 — Delivery Handoff, Buyer Receipt & Critical Updates |
-| Priority | V1 candidate — Product Acceptance pending |
+| Priority | P1 |
 | Title | Report a discrepancy without erasing the facts |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-11 — Business Traceability |
@@ -1688,7 +1609,7 @@ so that the supplier can resolve the difference while the history remains trustw
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-08 — Warehouse Transfer & Inventory Accuracy |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Handle an inbound receiving discrepancy with evidence |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-03 — Catalog & Commercial Policy; BC-11 — Business Traceability |
@@ -1696,7 +1617,6 @@ so that the supplier can resolve the difference while the history remains trustw
 | Goal / Outcome | Record an inbound difference such as damage, leakage, wrong product or quantity so receiving can continue with an attributable decision. |
 | Research status | PENDING |
 | Connectivity and authority | A discrepancy may be prepared locally, but stock and receiving truth require connected confirmation. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 5 |
 | Mobile Justification | Warehouse staff can capture the physical difference at the point of inspection, with evidence attached to the receiving decision. |
@@ -1731,7 +1651,7 @@ so that the receiving decision reflects what was physically found.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-08 — Warehouse Transfer & Inventory Accuracy |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Place stock on hold or quarantine and resolve it |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-06 — Fulfillment & Delivery; BC-11 — Business Traceability |
@@ -1739,7 +1659,6 @@ so that the receiving decision reflects what was physically found.
 | Goal / Outcome | Keep questionable stock out of available work until an authorized person records its release, disposition or continued hold. |
 | Research status | PENDING |
 | Connectivity and authority | Hold, quarantine and release are authoritative only after current permission and connected confirmation. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 5 |
 | Mobile Justification | The operator can protect stock immediately at the place where its condition is observed and preserve the reason for later review. |
@@ -1774,7 +1693,7 @@ so that unsafe or uncertain stock is not used before an authorized decision.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-08 — Warehouse Transfer & Inventory Accuracy |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Confirm destination receipt for an internal warehouse transfer |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-11 — Business Traceability |
@@ -1782,7 +1701,6 @@ so that unsafe or uncertain stock is not used before an authorized decision.
 | Goal / Outcome | Confirm what arrived at the destination of an internal transfer while keeping source, in-transit and destination facts distinct. |
 | Research status | PENDING |
 | Connectivity and authority | Destination receipt requires current transfer identity and connected confirmation; a local receipt is not authoritative. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 3 |
 | Mobile Justification | A destination operator can close the physical loop where the stock arrives and expose quantity or lot differences immediately. |
@@ -1817,7 +1735,7 @@ so that the stock record reflects the physical movement and any difference.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-08 — Warehouse Transfer & Inventory Accuracy |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Perform a cycle count and request a stock correction |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-11 — Business Traceability |
@@ -1825,7 +1743,6 @@ so that the stock record reflects the physical movement and any difference.
 | Goal / Outcome | Compare physical stock with the recorded quantity and request a traceable correction when the difference is confirmed. |
 | Research status | PENDING |
 | Connectivity and authority | Counting may be prepared locally, but a correction requires authorization, concurrency checks and connected confirmation. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 5 |
 | Mobile Justification | Counting at the storage location reduces delay between observing a difference and starting its controlled resolution. |
@@ -1860,7 +1777,7 @@ so that a physical difference can be resolved without rewriting stock history.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-08 — Warehouse Transfer & Inventory Accuracy |
-| Priority | V3 roadmap-ready |
+| Priority | P2 |
 | Title | Apply a reasoned lot substitution when FEFO cannot fulfill work |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-03 — Catalog & Commercial Policy; BC-06 — Fulfillment & Delivery |
@@ -1868,7 +1785,6 @@ so that a physical difference can be resolved without rewriting stock history.
 | Goal / Outcome | Request an authorized alternative lot when the expected FEFO lot cannot fulfill prepared work. |
 | Research status | PENDING |
 | Connectivity and authority | Substitution must be evaluated against current allocation, policy and available quantity; Mobile cannot decide it alone. |
-| Target Release | V3 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | The operator can surface the physical constraint at the decision point without silently changing allocation policy. |
@@ -1902,7 +1818,7 @@ so that the order can be reviewed without bypassing availability policy.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-08 — Warehouse Transfer & Inventory Accuracy |
-| Priority | V3 roadmap-ready |
+| Priority | P2 |
 | Title | Use richer product, package and storage identity information |
 | Owning Bounded Context | BC-03 — Catalog & Commercial Policy |
 | Relevant Bounded Contexts | BC-05 — Inventory Availability |
@@ -1910,7 +1826,6 @@ so that the order can be reviewed without bypassing availability policy.
 | Goal / Outcome | Identify products, packages, lots and storage positions from richer permitted identity information before physical work. |
 | Research status | PENDING |
 | Connectivity and authority | Camera, label and code mechanisms remain replaceable; Catalog confirmation is authoritative. |
-| Target Release | V3 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | Richer identity reduces handling errors while preserving manual fallback and the same Catalog authority. |
@@ -1944,7 +1859,7 @@ so that I can handle the intended stock with fewer identification errors.
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-08 — Warehouse Transfer & Inventory Accuracy |
-| Priority | V3 roadmap-ready |
+| Priority | P2 |
 | Title | Prepare a batch warehouse operation |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-06 — Fulfillment & Delivery |
@@ -1952,7 +1867,6 @@ so that I can handle the intended stock with fewer identification errors.
 | Goal / Outcome | Organize a permitted group of warehouse tasks while keeping each item and final result individually traceable. |
 | Research status | PENDING |
 | Connectivity and authority | Group preparation can be local, but each authoritative stock result must be confirmed under current state. |
-| Target Release | V3 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | Grouped work can reduce repeated handling while preserving item-level decisions and safe recovery. |
@@ -1986,7 +1900,7 @@ so that I can work efficiently without losing the result of each item.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Resolve a dispatch discrepancy before handoff |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-05 — Inventory Availability; BC-11 — Business Traceability |
@@ -1994,7 +1908,6 @@ so that I can work efficiently without losing the result of each item.
 | Goal / Outcome | Record and route a difference found during dispatch preparation before goods leave warehouse control. |
 | Research status | PENDING |
 | Connectivity and authority | Dispatch cannot proceed from a stale preparation view; the discrepancy and final decision require confirmation. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 5 |
 | Mobile Justification | The coordinator can resolve a handoff blocker at the dock while all responsibilities and facts remain visible. |
@@ -2029,7 +1942,7 @@ so that only a reviewed delivery leaves warehouse control.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Reassign a driver or reschedule dispatch safely |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-01 — Tenant & Access Governance |
@@ -2037,7 +1950,6 @@ so that only a reviewed delivery leaves warehouse control.
 | Goal / Outcome | Keep delivery responsibility and timing accurate when the original driver or dispatch plan can no longer proceed. |
 | Research status | PENDING |
 | Connectivity and authority | Reassignment and rescheduling require current delivery state, authorization and a single accepted result. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 5 |
 | Mobile Justification | Dispatch work often changes at the moment of execution; the coordinator needs a controlled recovery path from the field. |
@@ -2072,7 +1984,7 @@ so that the delivery remains owned by an eligible person at an agreed time.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V3 roadmap-ready |
+| Priority | P2 |
 | Title | Prepare grouped and multi-stop delivery loads |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships |
@@ -2080,7 +1992,6 @@ so that the delivery remains owned by an eligible person at an agreed time.
 | Goal / Outcome | Organize compatible deliveries into a load with explicit stops, responsibility and cold-chain constraints. |
 | Research status | PENDING |
 | Connectivity and authority | Grouping remains a proposal until all delivery, customer and condition rules are confirmed. |
-| Target Release | V3 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | A coordinator can inspect and adjust a proposed load where physical dispatch decisions happen. |
@@ -2114,7 +2025,7 @@ so that compatible deliveries can be dispatched with their constraints visible.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V3 roadmap-ready |
+| Priority | P2 |
 | Title | Complete a carrier handoff with traceable responsibility |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-09 — Business Documents; BC-11 — Business Traceability |
@@ -2122,7 +2033,6 @@ so that compatible deliveries can be dispatched with their constraints visible.
 | Goal / Outcome | Record when responsibility for a prepared load moves to an authorized carrier and preserve the handoff evidence. |
 | Research status | PENDING |
 | Connectivity and authority | Carrier selection, evidence and responsibility rules require Product and provider decisions before implementation. |
-| Target Release | V3 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | The handoff can be captured at the physical transfer point without treating a carrier mechanism as a new domain boundary. |
@@ -2156,15 +2066,14 @@ so that everyone can see who controls the load after it leaves the warehouse.
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Record temperature evidence at dispatch |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-05 — Inventory Availability; BC-11 — Business Traceability |
 | Shared Capability | CAP-10 — Cold-chain evidence and disposition |
 | Goal / Outcome | Preserve the temperature fact required to decide whether a prepared delivery can leave under its cold-chain policy. |
 | Research status | PENDING |
-| Connectivity and authority | Manual evidence is a proposed V2 capability; automatic telemetry remains outside this story. |
-| Target Release | V2 |
+| Connectivity and authority | Manual evidence remains proposed; automatic telemetry remains outside this story. |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 3 |
 | Mobile Justification | Dispatch staff can capture a required cold-chain check at the point of handoff with person, time and delivery context. |
@@ -2199,7 +2108,7 @@ so that the delivery decision reflects the condition observed before handoff.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Signal arrival for an active delivery |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-10 — Notifications; BC-11 — Business Traceability |
@@ -2207,7 +2116,6 @@ so that the delivery decision reflects the condition observed before handoff.
 | Goal / Outcome | Let the delivery team and buyer know that the authorized driver has reached the delivery context without completing the delivery. |
 | Research status | PENDING |
 | Connectivity and authority | Arrival is an explicit delivery fact; it is not continuous location tracking or proof of receipt. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 3 |
 | Mobile Justification | A deliberate arrival signal gives the driver and buyer a shared operational moment with minimal field effort. |
@@ -2242,7 +2150,7 @@ so that the buyer and delivery team know the handoff can begin.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Follow delivery instructions and authorized contact details |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships |
@@ -2250,7 +2158,6 @@ so that the buyer and delivery team know the handoff can begin.
 | Goal / Outcome | Reach the intended delivery contact and follow the permitted instructions for the active delivery. |
 | Research status | PENDING |
 | Connectivity and authority | Contact details and instructions are access-controlled and may be stale; the driver cannot infer or expose extra personal data. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 3 |
 | Mobile Justification | The driver needs the right context at the point of delivery without turning the app into an unrestricted contact directory. |
@@ -2285,7 +2192,7 @@ so that I can coordinate the handoff with the intended person.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Request a delivery reschedule from the field |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-10 — Notifications |
@@ -2293,7 +2200,6 @@ so that I can coordinate the handoff with the intended person.
 | Goal / Outcome | Ask for a different delivery time through the authorized delivery process without changing the schedule directly. |
 | Research status | PENDING |
 | Connectivity and authority | A request is not an accepted reschedule; the owning delivery process decides and reports the outcome. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 3 |
 | Mobile Justification | A buyer can communicate a real availability constraint while preserving the supplier's scheduling authority. |
@@ -2328,7 +2234,7 @@ so that the delivery team can decide how to handle my availability.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Record a richer delivery incident |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-11 — Business Traceability |
@@ -2336,7 +2242,6 @@ so that the delivery team can decide how to handle my availability.
 | Goal / Outcome | Describe an incident during delivery with enough context for an authorized follow-up decision. |
 | Research status | PENDING |
 | Connectivity and authority | Incident evidence may be staged temporarily, but accepted delivery facts and follow-up decisions remain connected and attributable. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 5 |
 | Mobile Justification | The driver can capture the situation while it is observable, reducing lost context during operational follow-up. |
@@ -2371,7 +2276,7 @@ so that the delivery team can make an informed follow-up decision.
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
 | Epic | MOBILE-EPIC-09 — Dispatch Exception & Delivery Coordination |
-| Priority | V3 roadmap-ready |
+| Priority | P2 |
 | Title | Recover an active delivery through selective offline operation |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-11 — Business Traceability |
@@ -2379,7 +2284,6 @@ so that the delivery team can make an informed follow-up decision.
 | Goal / Outcome | Preserve narrowly defined delivery evidence during a connection loss and make its later review explicit. |
 | Research status | PENDING |
 | Connectivity and authority | Offline evidence is temporary and bounded; no Delivery, receipt or payment truth is authoritative until Nexa confirms it. |
-| Target Release | V3 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | A driver can retain critical context during a short coverage gap without confusing stored evidence with accepted business truth. |
@@ -2413,7 +2317,7 @@ so that I can recover the work without claiming an unconfirmed delivery result.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-10 — Buyer Delivery Continuity |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Provide delivery instructions and an alternate receipt contact |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships |
@@ -2421,7 +2325,6 @@ so that I can recover the work without claiming an unconfirmed delivery result.
 | Goal / Outcome | Give the delivery team permitted instructions and an authorized alternate contact for receipt. |
 | Research status | PENDING |
 | Connectivity and authority | Instructions and contacts are scoped to the delivery and require authorization, consent and current confirmation. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 5 |
 | Mobile Justification | Buyers can reduce avoidable failed handoffs before the driver arrives while retaining control over shared information. |
@@ -2456,7 +2359,7 @@ so that the delivery can reach the right person under the agreed conditions.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-10 — Buyer Delivery Continuity |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Review the delivery timeline and acknowledge completion |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-11 — Business Traceability |
@@ -2464,7 +2367,6 @@ so that the delivery can reach the right person under the agreed conditions.
 | Goal / Outcome | Understand the sequence of delivery facts and acknowledge that the buyer has seen the final outcome without changing it. |
 | Research status | PENDING |
 | Connectivity and authority | Timeline facts are read from the authoritative delivery history; acknowledgement is distinct from receipt and completion. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 3 |
 | Mobile Justification | A clear timeline helps buyers understand what happened when delivery outcomes or discrepancies need follow-up. |
@@ -2499,7 +2401,7 @@ so that I understand the recorded outcome without changing the delivery history.
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
 | Epic | MOBILE-EPIC-10 — Buyer Delivery Continuity |
-| Priority | V2 refinement-ready |
+| Priority | P2 |
 | Title | Attach evidence to a delivery discrepancy |
 | Owning Bounded Context | BC-06 — Fulfillment & Delivery |
 | Relevant Bounded Contexts | BC-11 — Business Traceability |
@@ -2507,7 +2409,6 @@ so that I understand the recorded outcome without changing the delivery history.
 | Goal / Outcome | Add permitted evidence to a buyer discrepancy so the supplier can review the difference with its original context intact. |
 | Research status | PENDING |
 | Connectivity and authority | Evidence is access-controlled, may be temporarily staged and never rewrites receipt, Delivery or payment facts. |
-| Target Release | V2 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 3 |
 | Mobile Justification | The buyer can preserve the visible condition of a discrepancy at the time it is reported. |
@@ -2532,6 +2433,68 @@ so that the supplier can review the reported difference with its context.
 - Scenario: Unsupported or unsafe evidence — Given the evidence is unavailable, too large or not permitted, when the buyer tries to add it, then Nexa explains the problem and keeps the discrepancy unchanged.
 - Scenario: Original facts preserved — Given evidence is accepted, when the delivery is reviewed, then receipt, Driver outcome and discrepancy facts remain separate.
 
+## MOB-US-070 — View business documents linked to a request or order
+
+| Field | Value |
+|---|---|
+| ID | MOB-US-070 |
+| Status | DEFERRED |
+| Product | Mobile |
+| Surface | Buyer Mobile; Operations Mobile |
+| Actor | Customer Buyer or Sales Representative |
+| Epic | MOBILE-EPIC-11 — Mobile Commercial & Financial Follow-through |
+| Priority | P2 |
+| Title | View business documents linked to a request or order |
+| Owning Bounded Context | BC-09 — Business Documents |
+| Relevant Bounded Contexts | BC-04 — Sales Commitment; BC-02 — Customer & Buyer Relationships |
+| Shared Capability | CAP-13 — Business documents |
+| Goal / Outcome | Retrieve the authorized document that explains a commercial request or order. |
+| Research status | PENDING |
+| Connectivity and authority | Issued documents remain immutable and access-controlled; local copies are not authority. |
+
+### User Story
+
+As a Customer Buyer or Sales Representative,
+I want to view a business document linked to a request or order,
+so that I can use the authorized evidence for the commercial work.
+
+### Acceptance Criteria
+
+- Scenario: Authorized document — Given an issued document belongs to the permitted relationship, when the person requests it, then Nexa provides the document identity and authorized content.
+- Scenario: Missing document — Given no issued document exists, when the person requests it, then Nexa states that it is unavailable and changes no commitment.
+- Scenario: Revoked access — Given permission is revoked, when the person requests the document, then Nexa exposes no private content.
+
+## MOB-US-071 — Report payment evidence and see its review outcome
+
+| Field | Value |
+|---|---|
+| ID | MOB-US-071 |
+| Status | DEFERRED |
+| Product | Mobile |
+| Surface | Buyer Mobile |
+| Actor | Customer Buyer |
+| Epic | MOBILE-EPIC-11 — Mobile Commercial & Financial Follow-through |
+| Priority | P2 |
+| Title | Report payment evidence and see its review outcome |
+| Owning Bounded Context | BC-08 — Payments |
+| Relevant Bounded Contexts | BC-07 — Credit & Receivables; BC-11 — Business Traceability |
+| Shared Capability | CAP-12 — Payments and correction |
+| Goal / Outcome | Report permitted payment evidence and understand whether the owning process accepted or rejected it. |
+| Research status | PENDING |
+| Connectivity and authority | Payment Reported is not Payment Confirmed; provider and financial authority remain outside the client. |
+
+### User Story
+
+As a Customer Buyer,
+I want to report payment evidence and see its review outcome,
+so that I can follow a payment without claiming confirmation myself.
+
+### Acceptance Criteria
+
+- Scenario: Evidence reported — Given a permitted reference, amount and evidence are available, when the buyer reports them, then Nexa records the report as unconfirmed.
+- Scenario: Evidence reviewed — Given the owning process reviews the report, when the buyer checks status, then Nexa shows the review outcome without rewriting the report.
+- Scenario: Duplicate report — Given the same report is submitted again, when Nexa receives it, then it does not apply the evidence twice.
+
 ## MOB-US-072 — Work with a customer through an authorized field visit
 
 | Field | Value |
@@ -2542,7 +2505,7 @@ so that the supplier can review the reported difference with its context.
 | Surface | Operations Mobile |
 | Actor | Sales Representative |
 | Epic | MOBILE-EPIC-11 — Mobile Commercial & Financial Follow-through |
-| Priority | V3 roadmap-ready |
+| Priority | P2 |
 | Title | Work with a customer through an authorized field visit |
 | Owning Bounded Context | BC-02 — Customer & Buyer Relationships |
 | Relevant Bounded Contexts | BC-06 — Fulfillment & Delivery |
@@ -2550,7 +2513,6 @@ so that the supplier can review the reported difference with its context.
 | Goal / Outcome | Prepare and record an authorized customer visit with the relationship context and permitted follow-up visible. |
 | Research status | PENDING |
 | Connectivity and authority | Contact, location and navigation are mechanisms within an authorized relationship; no continuous location history is implied. |
-| Target Release | V3 |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | A sales representative can carry the right customer context into field work and capture the next authorized outcome. |
@@ -2584,7 +2546,7 @@ so that the visit starts with the right relationship context and ends with a cle
 | Surface | Operations Mobile |
 | Actor | Warehouse Operator |
 | Epic | MOBILE-EPIC-12 — Future Intelligent Field Operations |
-| Priority | V4 hypothesis |
+| Priority | P3 |
 | Title | Use advanced warehouse automation evidence in controlled work |
 | Owning Bounded Context | BC-05 — Inventory Availability |
 | Relevant Bounded Contexts | BC-06 — Fulfillment & Delivery; BC-11 — Business Traceability |
@@ -2592,7 +2554,6 @@ so that the visit starts with the right relationship context and ends with a cle
 | Goal / Outcome | Explore how richer automated observations could support a warehouse decision while keeping human authorization and historical traceability explicit. |
 | Research status | PENDING |
 | Connectivity and authority | RFID, industrial scanners, labels, sensors and automation are hypotheses; no device or telemetry source is selected or authoritative. |
-| Target Release | V4_FUTURE |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | A future field surface may help an operator review richer evidence, but the business outcome and trust model must be proven first. |

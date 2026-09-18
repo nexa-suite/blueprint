@@ -21,11 +21,19 @@ working-tree state belong to each repository's own audit.
 
 ## Authority order
 
-1. Blueprint Product and accepted Domain decisions.
-2. Design Lab executable visual evidence for Design System consumption.
-3. API contracts and application repositories for AS-IS implementation evidence.
-4. Academic report and legacy repositories for dated research and migration
-   evidence only.
+1. Explicit accepted Owner decisions.
+2. Current canonical `nexa-suite/blueprint` documentation.
+3. Verified modern implementation evidence as AS-IS.
+4. Current Design Lab evidence for UX/UI.
+5. Current research/academic evidence after classification and provenance
+   review.
+6. Historical evidence.
+7. Legacy repositories.
+8. Previous summaries, generated reports or assumptions only after independent
+   verification.
+
+Legacy is evidence, not authority. AS-IS is evidence, not TARGET; OPEN and
+FUTURE/RUNWAY remain distinct from accepted Product and Architecture decisions.
 
 Applications are not modified by Blueprint documentation work. Application
 repositories must be audited independently for branch, release and local

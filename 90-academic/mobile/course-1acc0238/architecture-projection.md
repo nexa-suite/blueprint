@@ -21,7 +21,7 @@ derived academic projections.
 | Container Diagram | same shared workspace | `Nexa-Containers-ASIS`, `Nexa-Containers-V1-TARGET` | Shared authority; academic projection; rendered evidence pending |
 | Component Diagrams | shared model and component coverage matrix | API, Platform, Portal, Website where useful, plus narrow Operations Mobile and Buyer Mobile V1 target views | Coverage mapped; no duplicate components |
 | Deployment Diagram | shared workspace deployment model | `Nexa-Deployment-Local-ASIS`, `Nexa-Deployment-V1-TARGET` | Provider-neutral target; local rendering pending |
-| Future/runway | shared workspace | genuinely deferred IoT, future identity/provider and V2/V3 concepts | No V1 implementation claim |
+| Future/runway | shared workspace | genuinely deferred IoT, identity/provider and other behavior concepts; historical V2/V3 labels remain provenance only | No Product Generation or implementation claim |
 
 ## L1 and L2 boundaries
 

@@ -34,3 +34,22 @@ The final Mobile Report `v1.0.1` target
 Its C4/DDD/UML material, including provider/system views, remains evidence to
 be reconciled in Wave 2. Wave 1 does not modify the shared C4 DSL, regenerate
 C4 JSON/SVG/PNG, alter the 11 BC set or create a competing Mobile UL.
+
+## Wave 2 reconciliation input inventory
+
+Wave 1.1 records the following reconciliation inputs without resolving them:
+
+- Shared Structurizr C4 versus the Mobile Report C4 projection.
+- L1/L2 actor and provider differences.
+- Push Delivery Service representation versus its shared C4 representation.
+- AS-IS versus TARGET Mobile evidence; unmerged Operations implementation is not
+  an integrated shared container.
+- Mobile Report Strategic DDD and Context Map versus the accepted 11-BC model.
+- Academic tactical DDD/UML/database material versus shared Domain and Data
+  authority.
+- Provider, security and integration differences across the projections.
+- Web and Mobile diagrams against the same shared C4 authority.
+
+This inventory is a Wave 2 input, not a decision record. Wave 1.1 does not
+resolve the C4/DDD/UML/security/provider or push-representation questions, does
+not generate assets, and does not alter the accepted Bounded Context set.

@@ -40,7 +40,7 @@ completed coursework or accepted Product scope.
 | 4 recent Q1/Q2 papers | Bibliography | RESEARCH_PENDING | Two domain and two Mobile-tech papers, max two years old, verified and cited APA 7 | AV1 |
 | Needfinding / validation videos | Annex C | OPEN | Needfinding is evidenced; validation/video publication fields remain open; no fabricated URLs | AV1/TB2 |
 | About Product / About Team videos | Annex C | IMPLEMENTATION_PENDING | Script, participant evidence, timing and publication links pending | AV2/TB2 |
-| Sprint 1 / Sprint 2 / Sprint 3 evidence | Chapter IV | STRUCTURE_READY | Sprint evidence templates mapped to academic milestones; results pending | TB1/TB2 |
+| Sprint 1 / Sprint 2 / Sprint 3 / Sprint 4 evidence | Chapter IV | STRUCTURE_READY | Sprint evidence templates mapped to all four academic milestones; results pending | TB1/TB2 |
 
 ## Evidence rules
 

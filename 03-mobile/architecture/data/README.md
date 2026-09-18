@@ -3,13 +3,14 @@ status: planned
 maturity: DRAFT
 scope: runway
 owner: mobile
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # Mobile local persistence boundary
 
 These are two logical, technology-neutral designs required by the mobile
-course rubric. They are **PROPOSED / RESEARCH VALIDATION PENDING** and
+course rubric. Problem/task evidence is available, but the persistence
+solution remains **PROPOSED / SOLUTION VALIDATION OPEN** and
 **LOCAL / NON-AUTHORITATIVE**. No Room, SQLite, Drift, Realm, CoreData,
 SQLDelight, KMP storage or Flutter storage framework is selected.
 
