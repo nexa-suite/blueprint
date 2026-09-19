@@ -35,8 +35,8 @@ integrity.
 
 BC-04 stores `customer_account_id`, `buyer_relationship_id` and `sku_id` as
 references, but does not own those records. BC-05 stores
-`commercial_commitment_id` and `sku_id`, but owns Warehouse backing and
-Physical Allocation. BC-06 stores `sales_order_id` and
+`commercial_commitment_id` and `sku_id`, but owns Inventory Reservation,
+deterministic SKU + Warehouse Backing and Physical Allocation. BC-06 stores `sales_order_id` and
 `physical_allocation_id`, but owns execution and Delivery. BC-07 stores
 `payment_id` on financial application records without owning Payment.
 

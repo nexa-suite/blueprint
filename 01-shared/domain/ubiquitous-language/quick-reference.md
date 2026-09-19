@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-19
 ---
 
 # Nexa Glossary
@@ -32,8 +32,11 @@ Canonical terms are maintained in [Ubiquitous Language](README.md). This index h
 | Financial Adjustment | explicit correction of historical obligation | silent rewrite or SUNAT Credit Note |
 | Delivery Attempt | attempt within one Delivery | new Delivery |
 | Continuation Delivery | remaining quantity after partial Delivery | retry or automatic backorder |
+| Driver Outcome | immutable operational fact for a Delivery Attempt | Buyer Receipt, POD or client-side status |
+| Buyer Receipt | immutable Buyer fact for quantity/discrepancy | Driver Outcome, QR validation or POD replacement |
 | POD | immutable delivery evidence | mutable status or mandatory signature/photo |
 | Business Document | immutable issued commercial/evidence artifact | automatic fiscal document |
+| Push Subscription | provider-neutral protected endpoint reference/hash and lifecycle record | accepted Push provider or Device BC |
 | Notification | retryable channel delivery state | source fact or traceability |
 | Business Traceability | durable business fact/timeline representation | notification or Security Audit |
 

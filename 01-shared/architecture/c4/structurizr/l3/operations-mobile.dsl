@@ -1,4 +1,4 @@
-component nexa.operationsMobile "Nexa-Operations-Mobile-TARGET" "V1 TARGET Operations Mobile planning projection for Warehouse, Dispatch and Driver work; client not implemented or research-validated" {
+component nexa.operationsMobile "Nexa-Operations-Mobile-TARGET" "OWNER-ACCEPTED V1 Operations Mobile target surface; partial Android/Kotlin/Compose evidence is unmerged and Product Acceptance is open" {
     include nexa.operationsMobile.operationsMobileAuth
     include nexa.operationsMobile.operationsMobileWork
     include nexa.operationsMobile.operationsMobileSync

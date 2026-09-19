@@ -38,17 +38,17 @@ buyerPortal = container "Nexa Buyer Portal" "Authenticated B2B Buyer experience 
 postgresqlDatabase = container "PostgreSQL" "Authoritative relational persistence for current Nexa transactional and configuration data" "PostgreSQL"
 objectStorage = container "Object Storage" "Tenant-owned documents, media and evidence through an S3-compatible boundary" "S3-compatible Object Storage"
 
-operationsMobile = container "Nexa Operations Mobile" "TARGET V1 planning projection for Warehouse, Dispatch and Driver delivery work; client NOT STARTED" "Mobile client — framework not selected" {
-    tags "TARGET V1,PLANNED,PROPOSED"
-    operationsMobileAuth = component "Authentication and Active Context" "Secure session, tenant/workspace context and capability-driven entry" "PROPOSED mobile component"
-    operationsMobileWork = component "Warehouse, Dispatch and Driver Work" "V1 product identification, receiving, FEFO/picking, dispatch handoff and Driver Delivery execution" "PROPOSED mobile component"
-    operationsMobileSync = component "Connectivity and Evidence Recovery" "V1 safe cache, harmless drafts, temporary evidence staging and retry/conflict states; no generic offline authority" "PROPOSED mobile component"
-    operationsMobileEvidence = component "Physical Capture and Handoff" "V1 package/label input, temperature/POD evidence and bounded handoff code; no stored location" "PROPOSED integration component"
+operationsMobile = container "Nexa Operations Mobile" "TARGET V1 / OWNER-ACCEPTED surface for Warehouse, Dispatch and Driver work; partial unmerged Android/Kotlin/Compose preview is AS-IS evidence and Product Acceptance remains open" "Mobile client technology — final selection open" {
+    tags "TARGET V1,OWNER-ACCEPTED"
+    operationsMobileAuth = component "Authentication and Active Context" "Secure session, tenant/workspace context and capability-driven entry" "TARGET mobile component"
+    operationsMobileWork = component "Warehouse, Dispatch and Driver Work" "V1 package/label identification, receiving, FEFO/picking, dispatch handoff and assigned Delivery execution" "TARGET mobile component"
+    operationsMobileSync = component "Connectivity, Freshness and Recovery" "Non-authoritative temporary staging, explicit retry and refetch/revalidation against server authority; no generic offline synchronization or hidden offline success" "TARGET mobile component"
+    operationsMobileEvidence = component "Physical Capture and Handoff" "Package/label scan, optional policy-authorized camera evidence and external navigation handoff; no stored, background or live Driver tracking" "TARGET integration component"
 }
-buyerMobile = container "Nexa Buyer Mobile" "TARGET V1 planning projection for critical Delivery updates, handoff, receipt and discrepancy; client NOT STARTED" "Mobile client — framework not selected" {
-    tags "TARGET V1,PLANNED,PROPOSED"
-    buyerMobileAuth = component "Buyer Authentication and Relationship Context" "Buyer identity, active supplier relationship and authorized Delivery context" "PROPOSED mobile component"
-    buyerMobileCommerce = component "Handoff and Receipt Work" "V1 handoff verification, actual quantity receipt and discrepancy reporting" "PROPOSED mobile component"
-    buyerMobileSync = component "Critical Delivery Updates" "V1 relevant Delivery updates, freshness and refresh; no notification-driven mutation" "PROPOSED mobile component"
+buyerMobile = container "Nexa Buyer Mobile" "TARGET V1 / OWNER-ACCEPTED surface for critical Delivery updates, handoff, receipt and discrepancy; not implemented and Product Acceptance remains open" "Mobile client technology — final selection open" {
+    tags "TARGET V1,OWNER-ACCEPTED"
+    buyerMobileAuth = component "Buyer Authentication and Relationship Context" "Buyer identity, active supplier relationship and authorized Delivery context" "TARGET mobile component"
+    buyerMobileCommerce = component "Handoff and Receipt Work" "Handoff verification, actual quantity receipt and discrepancy reporting under server authority" "TARGET mobile component"
+    buyerMobileSync = component "Critical Delivery Updates" "Fresh Delivery updates and refetch of authoritative state; Push is not a required target mechanism" "TARGET mobile component"
 }
 }

@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # BC-09 Business Documents — Tactical Model
@@ -15,8 +15,9 @@ Payment, Delivery or fiscal authority.
 ## Purpose and product participation
 
 Own issued document identity, immutable snapshots, numbering, generation and
-private object references. Platform and Portal consume documents; proposed
-Mobile surfaces consume authorized evidence. API remains authority.
+private object references. Platform and Portal consume documents;
+OWNER-ACCEPTED Mobile target surfaces consume authorized evidence. API remains
+authority.
 
 ## Aggregate boundaries
 
@@ -24,11 +25,12 @@ Mobile surfaces consume authorized evidence. API remains authority.
 |---|---|---|
 | `BusinessDocument` | requested/issued/replaced document snapshot and availability metadata | subject type/ID, CustomerAccount ID |
 | `DocumentNumberSeries` | scoped numbering allocation | tenant/workspace IDs |
-| `DocumentGenerationRequest` | retryable generation intent with idempotency/lease | BusinessDocument ID |
-| `ObjectStorageReference` | metadata for private bytes outside PostgreSQL | object key, evidence subject |
 
 Issued document facts are never updated in place. Replacement/revision links
-preserve the original.
+preserve the original. `ObjectStorageReference` is BusinessDocument-owned
+metadata Entity for private bytes outside PostgreSQL. `DocumentGenerationRequest`
+is persisted application work with idempotency/lease, not a Domain Aggregate or
+Entity that owns document truth.
 
 ## Domain Layer class dictionary
 
@@ -38,8 +40,7 @@ preserve the original.
 | `DocumentNumberSeries` | Aggregate Root | tenant/workspace, document type, next number, version | `reserveNumber()` | one scoped numbering boundary |
 | `DocumentSnapshotLine` | Entity | label, quantity, price, source ID | immutable after issue | owned by document |
 | `DocumentRevision` | Entity / fact | previous ID, replacement ID, reason, createdAt | `link()` | no overwrite |
-| `ObjectStorageReference` | Aggregate Root | key, bucket, content type, size, hash, private flag | `register()`, `markAvailable()` | bytes external |
-| `DocumentGenerationRequest` | Entity | idempotency key, attempt count, lease, nextAttemptAt | `claim()`, `retry()`, `complete()`, `fail()` | request lifecycle |
+| `ObjectStorageReference` | Entity | key, bucket, content type, size, hash, private flag | `register()`, `markAvailable()` | BusinessDocument-owned metadata; bytes external |
 | `DocumentType` / `DocumentStatus` | Enum | V1 document kinds/status | none | Commercial Invoice != SUNAT fiscal doc |
 | `StorageReference` / `ContentHash` | Value Objects | object metadata | `matches()` | no BLOB |
 | `DocumentNumberingPolicy` | Domain Service | none | `nextNumber(scope, type)` | no table ownership |
@@ -55,6 +56,7 @@ preserve the original.
 | `IssueBusinessDocumentHandler` | issue immutable document | number allocation, renderer, storage metadata and commit |
 | `ReplaceBusinessDocumentHandler` | correction/replacement | links new revision; never edits issued record |
 | `RegisterEvidenceReferenceHandler` | attach POD/media evidence | metadata/hash/object lifecycle only |
+| `DocumentGenerationRequest` | Application Work Item | persisted idempotency key, attempt count, lease and nextAttemptAt; `claim()`, `retry()`, `complete()`, `fail()` | retries generation without becoming Domain authority |
 | `RetryDocumentGenerationHandler` | worker retry | lease/fencing, bounded attempts and visible failure |
 
 ## Interface / Presentation Layer dictionary

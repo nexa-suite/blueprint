@@ -19,7 +19,7 @@ Canonical documentation for Nexa Product, Domain, System, Web, accepted Mobile p
 
 Accepted decisions and canonical documentation outrank verified implementation evidence. AS-IS is evidence, not TARGET. Legacy is historical evidence. Web and Mobile are experiences over one shared domain; they do not own duplicate DDD.
 
-Post-AV1 Mobile truth is indexed by the [owner decision record](01-shared/product/owner-decisions-2026-09.md), the [model authority](01-shared/architecture/model-authority.md), and the [academic backlog boundary](03-mobile/requirements/academic-backlog-boundary.md). Needfinding is complete at 9/9 interviews as problem/task evidence; Operations has partial implementation evidence on an unmerged branch, Buyer Mobile is not implemented, and Product Acceptance remains open.
+Post-AV1 truth is indexed by the [owner decision record](01-shared/product/owner-decisions-2026-09.md), the [model authority](01-shared/architecture/model-authority.md), and the [academic backlog boundary](03-mobile/requirements/academic-backlog-boundary.md). The canonical reconciliation retains one Nexa C4 system, 11 Strategic Bounded Contexts, 14 Published Integration Events and 95 TARGET tables. Needfinding is complete at 9/9 interviews as problem/task evidence; Operations has partial implementation evidence on an unmerged branch, Buyer Mobile is not implemented, and Product Acceptance remains open.
 
 Validate with:
 

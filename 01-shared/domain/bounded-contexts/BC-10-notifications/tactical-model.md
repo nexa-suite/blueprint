@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # BC-10 Notifications — Tactical Model
@@ -14,8 +14,8 @@ owned here; source business state never changes because delivery fails.
 ## Purpose and product participation
 
 Own notification intent, recipient policy, in-app/email delivery and retry
-history. Platform and Portal consume notifications; Mobile delivery remains
-proposed and does not create a new context.
+history. Platform and Portal consume notifications; provider-neutral Mobile
+subscription support does not create a new context or accept a Push provider.
 
 ## Aggregate boundaries
 
@@ -26,7 +26,10 @@ proposed and does not create a new context.
 | `NotificationPreference` | recipient/channel preference and suppression | identity/membership IDs |
 
 Attempts are Notification-owned delivery facts. In-app and email are V1
-channels; WhatsApp remains external/manual.
+channels; WhatsApp remains external/manual. `PushSubscription` is an internal,
+provider-neutral technical record associated with recipient preference and an
+installation; it is not a business Aggregate Root or an external Push provider
+acceptance.
 
 ## Domain Layer class dictionary
 
@@ -37,6 +40,7 @@ channels; WhatsApp remains external/manual.
 | `NotificationAttempt` | Entity / fact | attempt ID, channel, status, retryAt, provider ref | `recordAttempt()`, `scheduleRetry()`, `recordOutcome()` | owned by Notification |
 | `NotificationPreference` | Aggregate Root | recipient scope, channel, category, enabled | `enable()`, `disable()` | recipient preference authority |
 | `NotificationTemplate` | Aggregate Root | template key/version, channel, content policy, status | `publish()`, `retire()` | template lifecycle |
+| `PushSubscription` | Entity / technical record | installation identity, protected endpoint reference/hash, platform/surface, lifecycle, version | `register()`, `rotate()`, `disable()`, `unregister()` | provider-neutral internal record; not a business channel decision or Aggregate Root |
 | `Channel` / `DeliveryStatus` | Enum | `IN_APP`, `EMAIL`; queued/sent/delivered/failed | none | V1 constraints |
 | `RecipientReference` / `TemplateKey` | Value Objects | safe identity/durable key | `normalize()` | no secret payload |
 | `ChannelSelectionPolicy` | Domain Service | none | `choose(preference, channel availability)` | no notification ownership |
@@ -53,6 +57,7 @@ channels; WhatsApp remains external/manual.
 | `RetryNotificationHandler` | retry transient failure | lease/fencing and bounded backoff |
 | `ManageNotificationPreferenceHandler` | user preference | scoped preference mutation; cannot suppress mandatory security notices without policy |
 | `ProjectNotificationHandler` | in-app projection | writes recipient view without changing source state |
+| `ManagePushSubscriptionHandler` | provider-neutral subscription lifecycle | validates recipient scope, protects endpoint reference/hash and applies idempotent rotation/disable |
 
 ## Interface / Presentation Layer dictionary
 
@@ -78,6 +83,8 @@ channels; WhatsApp remains external/manual.
   state.
 - Payload excludes secrets and unnecessary personal/payment data.
 - V1 channels are in-app and email; WhatsApp is not a hidden third channel.
+- `PushSubscription` support does not accept a V1 external Push provider,
+  credentials or Product channel beyond in-app/email; those remain FUTURE/OPEN.
 
 ## Events, persistence and evidence
 
@@ -93,10 +100,11 @@ separation **REFINE**, full email retry worker **PARTIAL / NOT IMPLEMENTED**.
 ## Mobile v0.17 reconciliation
 
 `PushSubscription` is a BC-10-owned recipient/device delivery record with
-provider-token hash, installation identity, platform/surface, lifecycle and
-version. Subscription registration, rotation, disable/unregister and push
-delivery attempts are application/technical reliability behavior, not a Device
-or Mobile aggregate. Retry, claim fencing, invalid-token handling and
-dead-letter state preserve at-least-once delivery without mutating source
-business state. API v0.17.0 provides the provider-neutral foundation in
-V94–V100; native provider/config/credential operations remain open.
+protected endpoint reference/hash, installation identity, platform/surface,
+lifecycle and version. Subscription registration, rotation and disable/
+unregister are provider-neutral application/technical reliability behavior, not
+a Device or Mobile aggregate. Future provider delivery, retry, claim fencing,
+invalid-token handling and dead-letter behavior require separate provider and
+Product channel acceptance; they do not mutate source business state. API
+v0.17.0 is partial provider-neutral evidence only; native provider/config/
+credential operations remain OPEN.

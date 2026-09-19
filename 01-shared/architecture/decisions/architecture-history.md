@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-09-18
+last-reviewed: 2026-09-19
 ---
 
 # Architecture history and reconciliation
@@ -50,3 +50,23 @@ evidence exists on unmerged feature branches and is recorded as AS-IS only;
 there is no Product Acceptance claim. Buyer Mobile is not implemented. C4
 structural reconciliation and any change to shared Strategic DDD are
 intentionally deferred to Wave 2.
+
+## Post-AV1 Wave 2 reconciliation — 2026-09-19
+
+The canonical C4 source was reconciled and regenerated from Structurizr DSL:
+there remains one Nexa software system, six integrated AS-IS containers and
+eight TARGET V1 containers. Operations Mobile and Buyer Mobile are
+owner-accepted TARGET surfaces; the former has partial unmerged Android/Kotlin/
+Compose evidence and the latter is not implemented. The V1 provider boundary is
+Payment, Email and Maps. Push Delivery Service is Future/OPEN only. V1
+deployment uses separate logical Operations Mobile Device and Buyer Mobile
+Device nodes with no Buyer Android claim.
+
+Strategic DDD remains exactly 11 Bounded Contexts and 14 Published Integration
+Events. The context map was refined with Customer/Supplier language, a
+Published Language commercial snapshot, a Payment ACL and BC-06/07/08 durable
+source facts for BC-09. Tactical corrections clarify that a Driver Outcome is
+not a Buyer Receipt, retain 95 TARGET tables, and make Warehouse Backing
+deterministic by SKU plus Warehouse. These changes are semantic refinements,
+not an implementation, Product Acceptance, System Acceptance or Production
+Readiness claim.

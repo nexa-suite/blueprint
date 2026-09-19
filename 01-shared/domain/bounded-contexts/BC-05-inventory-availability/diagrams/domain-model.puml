@@ -32,9 +32,8 @@ class InventoryPosition <<Aggregate Root>> {
   -skuId: SkuId
   -available: Quantity
   -version: Version
-  +reserve(quantity: Quantity): void
-  +release(quantity: Quantity): void
-  +adjust(delta: QuantityDelta): void
+  +applyMovement(delta: QuantityDelta): void
+  +applyReservationResult(result: ReservationResult): void
   +sellableAvailability(): Quantity
 }
 
@@ -55,26 +54,27 @@ class SafetyStockPolicy <<Entity>> {
   +changeMinimum(quantity: Quantity): void
 }
 
-class InventoryBacking <<Aggregate Root>> {
-  -backingId: InventoryBackingId
+class InventoryReservation <<Aggregate Root>> {
+  -reservationId: InventoryReservationId
   -commercialCommitmentId: CommitmentId
   -status: BackingStatus
-  +back(): void
+  +establish(): void
   +release(): void
   +complete(): void
 }
 
-class InventoryBackingLine <<Entity>> {
-  -lineId: InventoryBackingLineId
-  -backingId: InventoryBackingId
+class WarehouseBacking <<Entity>> {
+  -lineId: WarehouseBackingId
+  -reservationId: InventoryReservationId
+  -warehouseId: WarehouseId
   -skuId: SkuId
   -quantity: Quantity
-  +allocate(quantity: Quantity): void
+  +changeQuantity(quantity: Quantity): void
 }
 
 class PhysicalAllocation <<Aggregate Root>> {
   -allocationId: PhysicalAllocationId
-  -backingId: InventoryBackingId
+  -reservationId: InventoryReservationId
   -status: AllocationStatus
   +allocate(): void
   +release(): void
@@ -148,18 +148,20 @@ Warehouse "1" o-- "0..*" InventoryPosition : positions
 Warehouse "1" o-- "0..*" SafetyStockPolicy : policies
 InventoryLot "1" *-- "0..*" InventoryMovement : movements
 InventoryLot "1" *-- "0..*" LotDisposition : dispositions
-InventoryBacking "1" *-- "1..*" InventoryBackingLine : demand
+InventoryReservation "1" *-- "1..*" WarehouseBacking : deterministic distribution
 PhysicalAllocation "1" *-- "1..*" PhysicalAllocationLine : physical lots
 WarehouseTransfer "1" *-- "1..*" WarehouseTransferLine : lines
 InventoryPosition --> Sku : stable SKU id
-InventoryBacking --> CommercialCommitment : stable commitment id
-InventoryBackingLine --> Sku : stable SKU id
+InventoryReservation --> CommercialCommitment : stable commitment id
+WarehouseBacking --> Warehouse : stable warehouse id
+WarehouseBacking --> Sku : stable SKU id
 AvailabilityPolicy ..> InventoryRepository : reads
 AvailabilityPolicy --> InventoryLot : FEFO selects
 InventoryPosition --> SafetyStockPolicy : protects minimum
 
 legend right
 TARGET / V1 / tactical design aid
+InventoryReservation protects demand; WarehouseBacking distributes it by SKU + Warehouse.
 Sellable Availability = on-hand - reserved - hold - safety stock.
 FEFO is a policy over lot expiry; no cross-BC FK is implied.
 *-- composition | --> domain dependency | ..> port/use

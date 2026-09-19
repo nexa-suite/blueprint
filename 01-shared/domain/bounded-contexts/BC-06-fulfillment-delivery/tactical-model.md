@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # BC-06 Fulfillment & Delivery — Tactical Model
@@ -24,7 +24,7 @@ projections.
 | Aggregate Root | Boundary and invariant | External references |
 |---|---|---|
 | `Fulfillment` | execution plan for a Sales Order, lines and picking/packing progression | SO and Physical Allocation IDs |
-| `Delivery` | delivery obligation, assignment, attempts and remaining quantity | SO/Fulfillment IDs, customer/address snapshot |
+| `Delivery` | delivery obligation, assignment, attempts, handoff/Buyer facts and remaining quantity | SO/Fulfillment IDs, customer/address snapshot |
 | `ProofOfDelivery` | immutable delivery evidence; corrections are addenda | Delivery/Attempt IDs, Object Storage refs |
 | `TemperatureEvidence` | manual reading/evidence and excursion decision input | Delivery/Lot IDs |
 
@@ -39,10 +39,13 @@ and is never a new Delivery aggregate.
 | `FulfillmentLine` | Entity | SKU, required/picked/packed quantity, allocation ID | `recordPick()`, `recordDiscrepancy()` | owned by Fulfillment |
 | `PickingResult` | Entity / fact | line, actor, quantity, scan ref, occurredAt | `confirm()` | immutable scan result |
 | `PickingDiscrepancy` | Entity / fact | reason, quantity, disposition | `record()` | owned by Fulfillment history |
-| `Delivery` | Aggregate Root | delivery ID, SO/Fulfillment IDs, state, window, remaining quantity, version | `schedule()`, `assignDriver()`, `start()`, `recordAttempt()`, `closePartial()`, `createContinuation()`, `complete()` | composes Assignment/Attempt/Outcome |
+| `Delivery` | Aggregate Root | delivery ID, SO/Fulfillment IDs, state, window, remaining quantity, version | `schedule()`, `assignDriver()`, `start()`, `recordAttempt()`, `issueHandoffToken()`, `recordBuyerReceipt()`, `closePartial()`, `createContinuation()`, `complete()` | composes Assignment/Attempt/Driver Outcome, handoff and Buyer facts |
 | `DeliveryAssignment` | Entity | driver reference, vehicle/reference, assignedAt | `assign()`, `reassign()` | owned by Delivery |
-| `DeliveryAttempt` | Entity | attempt ID, delivery ID, outcome, attemptedAt | `recordFailure()`, `recordPartialOutcome()`, `recordSuccess()` | one Delivery; no numeric universal limit |
+| `DeliveryAttempt` | Entity | attempt ID, delivery ID, Driver Outcome, attemptedAt | `recordFailure()`, `recordPartialOutcome()`, `recordSuccess()` | one Delivery; no numeric universal limit |
 | `DeliveryQuantityOutcome` | Entity / Value | SKU, delivered, rejected, remaining, reason | `validateAgainstObligation()` | owned by Attempt |
+| `DeliveryHandoffToken` | Entity / security fact | token hash, expiry, one-time state, Delivery/Attempt/Buyer references | `issue()`, `consumeOnce()`, `expire()` | bounded application-security fact; not QR/Scanner aggregate |
+| `BuyerReceiptFact` | Entity / immutable fact | Buyer relationship, accepted/rejected quantity, discrepancy and occurredAt | `record()` | does not overwrite Driver Outcome or POD history |
+| `DriverOutcome` | Value Object / immutable fact | attempted result, actor, occurredAt, reason | `isTerminal()` | Driver fact; distinct from Buyer Receipt |
 | `ProofOfDelivery` | Aggregate Root | POD ID, delivery/attempt ID, status, capturedAt, immutable evidence | `finalize()`, `rejectPending()` | immutable; Addendum not overwrite |
 | `ProofOfDeliveryAddendum` | Entity / fact | POD ID, correction reason, evidence ref, createdAt | `append()` | append-only correction |
 | `TemperatureEvidence` | Entity / fact | lot/delivery, reading, unit, capturedAt, actor | `record()` | manual V1 evidence |
@@ -61,7 +64,7 @@ and is never a new Delivery aggregate.
 | `ConfirmPickingHandler` | scan/pick confirmation | idempotent scan, version guard, discrepancy fact |
 | `AssignDeliveryHandler` | driver/route assignment | checks delivery readiness and capability |
 | `FinalizeDeliveryAttemptHandler` | success/failure/partial attempt | immutable outcomes, same Delivery and continuation idempotency |
-| `FinalizeProofOfDeliveryHandler` | immutable POD finalization | evidence references, policy-required fields and outbox |
+| `FinalizeProofOfDeliveryHandler` | immutable POD finalization | evidence references, policy-scoped fields and outbox |
 | `RecordTemperatureEvidenceHandler` | manual cold-chain evidence | stores reading, creates excursion/hold signal; no IoT claim |
 
 ## Interface / Presentation Layer dictionary
@@ -71,7 +74,7 @@ and is never a new Delivery aggregate.
 | `LogisticsController` | dispatch/delivery operations boundary | AS-IS; KEEP/REFINE |
 | `ProofOfDeliveryController` | POD/evidence boundary | AS-IS; KEEP |
 | `FulfillmentController` | Platform warehouse execution boundary | TARGET coherent seam; current routes are evidence |
-| `DeliveryTrackingConsumer` | Portal/Mobile planning read projection | AS-IS Portal facade plus OWNER-ACCEPTED Mobile consumer projection |
+| `DeliveryStatusConsumer` | Portal/Mobile read projection | AS-IS Portal facade plus OWNER-ACCEPTED Mobile target projection; no live tracking |
 
 ## Infrastructure Layer dictionary
 
@@ -92,6 +95,11 @@ and is never a new Delivery aggregate.
 - Partial delivery records actual delivered/rejected truth and creates one
   continuation for remaining obligation.
 - POD original is immutable; correction is an addendum/revision.
+- Driver Outcome is separate from Buyer Receipt. Buyer acceptance/rejection and
+  discrepancy preserve a distinct immutable history; token/QR resolution alone
+  is not acceptance.
+- Photo/signature evidence is required only when policy says so. V1 location is
+  external navigation handoff; no stored, background or live Driver tracking.
 - Temperature evidence is manual V1. Excursion places affected quantity on
   HOLD pending explicit ColdChainDisposition; it does not auto-destroy stock.
 
@@ -112,8 +120,8 @@ temperature persistence **KEEP/REFINE**, failed-attempt/continuation semantics
 `DeliveryHandoffToken` is a bounded, hashed/expiring, one-time application
 security fact owned by the Delivery workflow. It references Delivery, Attempt,
 Customer Account and Buyer Relationship; it is not a QR or Scanner aggregate.
-`BuyerReceiptFact` and `BuyerDiscrepancyFact` are immutable Delivery outcome
-facts. Buyer acceptance does not overwrite Driver Attempt/POD history, and QR
+`BuyerReceiptFact` and Buyer discrepancy are immutable Delivery facts. Buyer
+acceptance does not overwrite Driver Outcome/Attempt/POD history, and QR
 resolution alone is not acceptance. API v0.17.0 provides the handoff token and
-receipt/discrepancy contract in additive V93–V100 migrations. Location remains
-a bounded future/partial contract, not permanent tracking.
+receipt/discrepancy contract in additive V93–V100 migrations. V1 location is
+external navigation handoff, not stored or permanent tracking.

@@ -3,14 +3,17 @@ status: accepted
 maturity: FROZEN
 scope: v1
 owner: domain
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-19
 ---
 
 # Strategic DDD
 
 ## Verdict
 
-**ACCEPTED / PRE-V1.** Strategic DDD, 11 Bounded Contexts, Context Map, ownership, subdomain classification and Core Domain statement are frozen inputs for construction. They are not implementation-completion claims.
+**ACCEPTED / POST-AV1 CANONICAL BASELINE.** `PRE-V1` remains provenance for
+the decision sequence. Strategic DDD, 11 Bounded Contexts, Context Map,
+ownership, subdomain classification and Core Domain statement are frozen inputs
+for construction; they are not implementation-completion claims.
 
 ## Core Domain
 

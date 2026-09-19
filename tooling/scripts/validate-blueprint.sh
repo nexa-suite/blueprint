@@ -211,33 +211,200 @@ try:
     ])
     if actual_views != expected_views:
         failures.append(f"unexpected C4 views: {actual_views}")
-    system = next(s for s in workspace["model"]["softwareSystems"] if s["name"] == "Nexa")
-    as_is = {c["name"] for c in system["containers"] if "PLANNED" not in c.get("tags", "") and "PROPOSED" not in c.get("tags", "")}
+
+    model = workspace["model"]
+    people = model.get("people", [])
+    systems = model.get("softwareSystems", [])
+    nexa_systems = [system for system in systems if system.get("name") == "Nexa"]
+    if len(nexa_systems) != 1:
+        failures.append(f"expected exactly one Nexa software system, found {len(nexa_systems)}")
+        system = nexa_systems[0] if nexa_systems else {"containers": []}
+    else:
+        system = nexa_systems[0]
+
+    expected_people = {
+        "Interested Company / Prospect",
+        "Nexa Commercial & Onboarding Staff",
+        "Company Owner",
+        "Business Operations Manager",
+        "Tenant Administrator",
+        "Sales Representative",
+        "Warehouse Operator",
+        "Dispatch Coordinator",
+        "Driver / Delivery Operator",
+        "Customer Buyer",
+    }
+    people_by_id = {str(person["id"]): person for person in people}
+    actual_people = {person.get("name") for person in people}
+    if actual_people != expected_people:
+        failures.append(f"unexpected canonical C4 people: {sorted(actual_people)}")
+    if "Tenant Workforce" in actual_people:
+        failures.append("generic Tenant Workforce must not replace granular C4 actors")
+    driver = next((person for person in people if person.get("name") == "Driver / Delivery Operator"), None)
+    if not driver or not {"TARGET V1", "OWNER-ACCEPTED"} <= set(driver.get("tags", "").split(",")):
+        failures.append("Driver / Delivery Operator must remain an owner-accepted TARGET V1 actor")
+
+    systems_by_id = {str(item["id"]): item for item in systems}
+    container_name_by_id = {}
+    for item in systems:
+        for container in item.get("containers", []):
+            container_name_by_id[str(container["id"])] = container.get("name")
+
+    def find_view(group, key):
+        return next(view for view in views.get(group, []) if view.get("key") == key)
+
+    def element_ids(view):
+        return {str(element["id"]) for element in view.get("elements", [])}
+
+    def people_in(view):
+        return {people_by_id[element_id].get("name") for element_id in element_ids(view) if element_id in people_by_id}
+
+    def containers_in(view):
+        return {container_name_by_id[element_id] for element_id in element_ids(view) if element_id in container_name_by_id}
+
+    def external_systems_in(view):
+        return {
+            systems_by_id[element_id].get("name")
+            for element_id in element_ids(view)
+            if element_id in systems_by_id and systems_by_id[element_id].get("name") != "Nexa"
+        }
+
     expected_as_is = {
         "Nexa Website", "Nexa Platform", "Nexa Buyer Portal",
         "Nexa API", "PostgreSQL", "Object Storage",
     }
+    expected_target = expected_as_is | {"Nexa Operations Mobile", "Nexa Buyer Mobile"}
+    expected_v1_external = {
+        "Payment Provider", "Email Delivery Service", "Maps & Geolocation Provider",
+    }
+    as_is_l1 = find_view("systemContextViews", "Nexa-SystemContext-ASIS")
+    target_l1 = find_view("systemContextViews", "Nexa-SystemContext-V1-TARGET")
+    future_l1 = find_view("systemContextViews", "Nexa-SystemContext-Future-Runway")
+    as_is_l2 = find_view("containerViews", "Nexa-Containers-ASIS")
+    target_l2 = find_view("containerViews", "Nexa-Containers-V1-TARGET")
+
+    if people_in(as_is_l1) != expected_people - {"Driver / Delivery Operator"}:
+        failures.append("AS-IS L1 people must exclude only the TARGET Driver / Delivery Operator")
+    if people_in(target_l1) != expected_people:
+        failures.append("TARGET V1 L1 people differ from the accepted granular actor set")
+    if external_systems_in(as_is_l1) != expected_v1_external:
+        failures.append("AS-IS L1 external systems must be Payment, Email and Maps")
+    if external_systems_in(target_l1) != expected_v1_external:
+        failures.append("TARGET V1 L1 external systems must be Payment, Email and Maps")
+    if "Push Delivery Service" not in external_systems_in(future_l1):
+        failures.append("Push Delivery Service must appear in Future/OPEN L1 runway")
+
+    as_is = containers_in(as_is_l2)
     if as_is != expected_as_is:
         failures.append(f"unexpected AS-IS C4 containers: {sorted(as_is)}")
-    target = {c["name"] for c in system["containers"]}
-    expected_target = expected_as_is | {"Nexa Operations Mobile", "Nexa Buyer Mobile"}
+    target = containers_in(target_l2)
     if target != expected_target:
         failures.append(f"unexpected V1 TARGET C4 containers: {sorted(target)}")
-    planned_mobile = {
-        c["name"] for c in system["containers"]
-        if "TARGET V1" in c.get("tags", "")
-        and "PLANNED" in c.get("tags", "")
-        and "PROPOSED" in c.get("tags", "")
+    if external_systems_in(as_is_l2) != expected_v1_external:
+        failures.append("AS-IS L2 external systems must be Payment, Email and Maps")
+    if external_systems_in(target_l2) != expected_v1_external:
+        failures.append("TARGET V1 L2 external systems must be Payment, Email and Maps")
+
+    mobile_by_name = {container.get("name"): container for container in system.get("containers", [])}
+    for mobile_name in ("Nexa Operations Mobile", "Nexa Buyer Mobile"):
+        mobile = mobile_by_name.get(mobile_name)
+        if not mobile:
+            failures.append(f"missing {mobile_name} C4 container")
+            continue
+        tags = set(mobile.get("tags", "").split(","))
+        if not {"TARGET V1", "OWNER-ACCEPTED"} <= tags or {"PLANNED", "PROPOSED"} & tags:
+            failures.append(f"{mobile_name} must be TARGET V1 / OWNER-ACCEPTED, not a planned/proposed tag")
+    operations_mobile = mobile_by_name.get("Nexa Operations Mobile", {})
+    buyer_mobile = mobile_by_name.get("Nexa Buyer Mobile", {})
+    operations_description = f"{operations_mobile.get('description', '')} {operations_mobile.get('technology', '')}".lower()
+    buyer_description = f"{buyer_mobile.get('description', '')} {buyer_mobile.get('technology', '')}".lower()
+    if "partial unmerged android/kotlin/compose" not in operations_description or "final selection open" not in operations_description:
+        failures.append("Operations Mobile must retain partial unmerged AS-IS evidence and OPEN final technology")
+    if "not implemented" not in buyer_description or "final selection open" not in buyer_description:
+        failures.append("Buyer Mobile must remain not implemented with OPEN final technology")
+    operations_components = operations_mobile.get("components", [])
+    if not any("no generic offline synchronization" in component.get("description", "").lower() for component in operations_components):
+        failures.append("Operations Mobile must explicitly reject generic offline synchronization")
+    if not any("optional policy-authorized camera evidence" in component.get("description", "").lower() for component in operations_components):
+        failures.append("Operations Mobile capture must remain optional and policy-authorized")
+    if any("policy-required camera evidence" in component.get("description", "").lower() for component in operations_components):
+        failures.append("Operations Mobile must not make camera evidence universally mandatory")
+
+    push = next((item for item in systems if item.get("name") == "Push Delivery Service"), None)
+    if not push or not {"Future", "Open"} <= set(push.get("tags", "").split(",")):
+        failures.append("Push Delivery Service must be tagged Future and Open")
+    else:
+        push_id = str(push["id"])
+        view_membership = {
+            view.get("key")
+            for group in ("systemContextViews", "containerViews", "componentViews", "deploymentViews")
+            for view in views.get(group, [])
+            if push_id in element_ids(view)
+        }
+        if view_membership != {"Nexa-SystemContext-Future-Runway"}:
+            failures.append(f"Push Delivery Service view membership must be Future-only: {sorted(view_membership)}")
+
+    def walk_deployment(nodes):
+        for node in nodes:
+            yield node
+            yield from walk_deployment(node.get("children", []))
+
+    deployment_nodes = list(walk_deployment(model.get("deploymentNodes", [])))
+    v1_nodes = [node for node in deployment_nodes if node.get("environment") == "V1 TARGET"]
+    v1_by_name = {node.get("name"): node for node in v1_nodes}
+    for node_name, container_name in (
+        ("Operations Mobile Device", "Nexa Operations Mobile"),
+        ("Buyer Mobile Device", "Nexa Buyer Mobile"),
+    ):
+        node = v1_by_name.get(node_name)
+        if not node or node.get("technology") != "Mobile device":
+            failures.append(f"V1 deployment requires {node_name} with Mobile device technology")
+            continue
+        instances = {
+            container_name_by_id.get(str(instance.get("containerId")))
+            for instance in node.get("containerInstances", [])
+        }
+        if instances != {container_name}:
+            failures.append(f"{node_name} must contain only {container_name}")
+    if any("android" in f"{node.get('name', '')} {node.get('technology', '')}".lower() for node in v1_nodes):
+        failures.append("V1 deployment must not force either Mobile surface to Android")
+    v1_external_instances = {
+        systems_by_id.get(str(instance.get("softwareSystemId")), {}).get("name")
+        for node in v1_nodes
+        for instance in node.get("softwareSystemInstances", [])
     }
-    if planned_mobile != {"Nexa Operations Mobile", "Nexa Buyer Mobile"}:
-        failures.append(f"Mobile TARGET containers must remain planned projections: {sorted(planned_mobile)}")
+    if v1_external_instances != expected_v1_external:
+        failures.append(f"V1 deployment external systems differ: {sorted(v1_external_instances)}")
+    v1_deployment_view = find_view("deploymentViews", "Nexa-Deployment-V1-TARGET")
+    if v1_deployment_view.get("environment") != "V1 TARGET":
+        failures.append("V1 deployment view must select the V1 TARGET environment")
 except Exception as exc:
     failures.append(f"workspace.json inspection failed: {exc}")
 
 bc_root = root / "01-shared/domain/bounded-contexts"
 bc_dirs = sorted(p.name for p in bc_root.iterdir() if p.is_dir() and p.name.startswith("BC-"))
-if len(bc_dirs) != 11:
-    failures.append(f"expected exactly 11 Bounded Context directories, found {len(bc_dirs)}")
+expected_bc_dirs = [
+    "BC-01-tenant-access-governance",
+    "BC-02-customer-buyer-relationships",
+    "BC-03-catalog-commercial-policy",
+    "BC-04-sales-commitment",
+    "BC-05-inventory-availability",
+    "BC-06-fulfillment-delivery",
+    "BC-07-credit-receivables",
+    "BC-08-payments",
+    "BC-09-business-documents",
+    "BC-10-notifications",
+    "BC-11-business-traceability",
+]
+if bc_dirs != expected_bc_dirs:
+    failures.append(f"expected exactly the 11 accepted Bounded Context directories, found {bc_dirs}")
+
+context_map = root / "01-shared/domain/strategic-ddd/context-map.md"
+if context_map.is_file():
+    context_codes = set(re.findall(r"\bBC-\d{2}\b", context_map.read_text(encoding="utf-8")))
+    expected_context_codes = {directory[:5] for directory in expected_bc_dirs}
+    if not context_codes <= expected_context_codes:
+        failures.append(f"context map references non-canonical Bounded Context IDs: {sorted(context_codes - expected_context_codes)}")
 
 event_file = root / "01-shared/domain/events/published-events.md"
 published_events = re.findall(r"^\| `[^`]+\.v1` \|", event_file.read_text(encoding="utf-8"), re.MULTILINE)

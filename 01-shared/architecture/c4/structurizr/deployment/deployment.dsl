@@ -3,7 +3,7 @@ deployment nexa "Local AS-IS" "Nexa-Deployment-Local-ASIS" "Nexa local Docker Co
     autolayout lr
 }
 
-deployment nexa "V1 TARGET" "Nexa-Deployment-V1-TARGET" "Nexa provider-neutral V1 deployment projection" {
+deployment nexa "V1 TARGET" "Nexa-Deployment-V1-TARGET" "Nexa provider-neutral V1 deployment projection with separate logical Operations and Buyer Mobile devices" {
     include *
     autolayout lr
 }

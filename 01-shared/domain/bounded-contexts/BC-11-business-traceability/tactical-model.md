@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # BC-11 Business Traceability — Tactical Model
@@ -89,8 +89,9 @@ projection and replay **PARTIAL / NOT IMPLEMENTED**.
 ## Mobile v0.17 reconciliation
 
 BC-11 records significant identifier overrides, handoff issuance/resolution,
-Buyer receipt/discrepancy, push delivery attempts and Mobile evidence as safe
-append-only references. These are traceability facts, not new domain aggregates
+Buyer receipt/discrepancy, provider-neutral subscription lifecycle references
+and Mobile evidence as safe append-only references. A future Push provider or
+channel is not implied. These are traceability facts, not new domain aggregates
 or Published Integration Events. Source BCs retain lifecycle authority;
 traceability projection failure is replayable and does not roll back the source
 commit. API v0.17.0 adds evidence hardening, while full cross-context timeline

@@ -3,13 +3,13 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # BC-05 Inventory Availability — Tactical Model
 
 **State:** TARGET core-domain model. Inventory owns physical availability,
-Warehouse backing and Physical Allocation. It does not own Commercial
+Inventory Reservation/Warehouse Backing and Physical Allocation. It does not own Commercial
 Commitment or Fulfillment execution.
 
 ## Purpose and product participation
@@ -25,12 +25,15 @@ authority.
 |---|---|---|
 | `InventoryPosition` | SKU + Warehouse quantity authority and sellable calculation inputs | SKU ID |
 | `InventoryLot` | lot/expiry/disposition and physical quantity | SKU/Warehouse IDs |
-| `InventoryBacking` | protects Commercial Commitment demand across eligible Warehouses | Commitment ID, SKU ID |
+| `InventoryReservation` | protects Commercial Commitment demand across eligible Warehouses; relational root is `inventory_backing` | Commitment ID, SKU ID |
 | `PhysicalAllocation` | selects lot quantities for a Fulfillment contract | commitment/fulfillment IDs, lot IDs |
 | `WarehouseTransfer` | source/destination movement state `REQUESTED -> IN_TRANSIT -> RECEIVED` | Warehouse/Lot IDs |
 
-Movement and adjustment facts are append-only; position is a guarded projection
-of physical truth. Safety Stock is a policy, not a reservation.
+`WarehouseBacking` is the Reservation-owned deterministic SKU + Warehouse
+distribution, stored as `inventory_backing_line`; it is not a second Aggregate
+Root or a Physical Allocation. Movement and adjustment facts are append-only;
+position is a guarded projection of physical truth. Safety Stock is a policy,
+not a reservation.
 
 ## Domain Layer class dictionary
 
@@ -38,10 +41,10 @@ of physical truth. Safety Stock is a policy, not a reservation.
 |---|---|---|---|---|
 | `Warehouse` | Aggregate Root | warehouse ID, scope, status, service policy, version | `open()`, `close()`, `setServicePolicy()` | roots Position/Lot references |
 | `InventoryLot` | Aggregate Root | lot ID, SKU, warehouse, expiry, quantity, disposition, version | `receive()`, `hold()`, `releaseHold()`, `markExpired()` | physical lot; TARGET |
-| `InventoryPosition` | Aggregate Root | SKU/warehouse IDs, onHand, reserved, safetyStock, version | `applyMovement()`, `sellableAvailability()` | one per SKU + Warehouse |
+| `InventoryPosition` | Aggregate Root | SKU/warehouse IDs, onHand, reserved, safetyStock, version | `applyMovement()`, `applyReservationResult()`, `sellableAvailability()` | guarded projection; does not decide reserve/release |
 | `SafetyStockPolicy` | Entity | SKU/warehouse, minimum quantity, effectiveAt | `changeMinimum()` | owned by Warehouse policy boundary |
-| `InventoryBacking` | Aggregate Root | backing ID, commitment ID, status, version | `establish()`, `reallocate()`, `release()` | composes BackingLine; no lot ownership |
-| `InventoryBackingLine` | Entity | warehouse/SKU IDs, protected quantity | `changeQuantity()` | owned by Backing |
+| `InventoryReservation` | Aggregate Root | reservation ID, commitment ID, status, version | `establish()`, `reallocate()`, `release()` | represented by `inventory_backing`; composes WarehouseBacking; no lot ownership |
+| `WarehouseBacking` | Entity | warehouse/SKU IDs, protected quantity | `changeQuantity()` | represented by `inventory_backing_line`; owned by Reservation |
 | `PhysicalAllocation` | Aggregate Root | allocation ID, commitment/fulfillment IDs, status, version | `allocateFEFO()`, `release()`, `confirm()` | composes AllocationLine; lot references |
 | `PhysicalAllocationLine` | Entity | lot ID, quantity, expiry snapshot | `confirmPick()` | owned by Allocation |
 | `WarehouseTransfer` | Aggregate Root | source/destination, state, requestedAt, inTransitAt, receivedAt, version | `request()`, `moveInTransit()`, `receive()` | composes TransferLine |
@@ -50,15 +53,15 @@ of physical truth. Safety Stock is a policy, not a reservation.
 | `StockQuantity` | Value Object | non-negative amount | `add()`, `subtractChecked()` | invariant value |
 | `SellableAvailabilityPolicy` | Domain Service | none | `calculate(onHand, commitments, safetyStock)` | avoids double subtraction |
 | `FEFOAllocationPolicy` | Domain Service | none | `orderEligibleLots()` | expiry-tracked default |
-| `InventoryPositionRepository` / `InventoryBackingRepository` | Repository interfaces | none | `save()`, `bySkuWarehouse()` | roots only |
-| `InventoryBackingEstablished` / `PhysicalAllocationConfirmed` | Domain Events | IDs, quantities, occurredAt | immutable facts | no new published events |
+| `InventoryPositionRepository` / `InventoryReservationRepository` | Repository interfaces | none | `save()`, `bySkuWarehouse()` | roots only |
+| `InventoryReservationEstablished` / `PhysicalAllocationConfirmed` | Domain Events | IDs, quantities, occurredAt | immutable facts | no new published events |
 
 ## Application Layer dictionary
 
 | Class | Capability | Orchestration |
 |---|---|---|
-| `EstablishInventoryBackingHandler` | protect commitment demand | deterministic Warehouse selection; same transaction boundary as sales/credit |
-| `ReleaseInventoryBackingHandler` | release on terminal PR/SO result | idempotent release ledger; no double subtract |
+| `EstablishInventoryReservationHandler` | protect commitment demand | deterministic Warehouse selection; same transaction boundary as sales/credit |
+| `ReleaseInventoryReservationHandler` | release on terminal PR/SO result | idempotent release ledger; no double subtract |
 | `AllocatePhysicalStockHandler` | lot selection | locks SKU/Warehouse/Lot, applies FEFO and creates allocation |
 | `RecordInventoryAdjustmentHandler` | correct physical truth | authorized reason, versioned mutation and shortage outcome |
 | `TransferInventoryHandler` | dispatch/receive stock | ordered source/destination locks and explicit transfer state |
@@ -71,7 +74,7 @@ of physical truth. Safety Stock is a policy, not a reservation.
 | `InventoryController` | Platform warehouse/availability boundary | AS-IS warehouse controller; KEEP/REFINE |
 | `WarehouseController` | warehouse configuration boundary | AS-IS; KEEP |
 | `InventoryAvailabilityQueryConsumer` | Portal safe availability projection | TARGET consumer contract |
-| `OperationsInventoryConsumer` | Operations Mobile planning scan/work consumer | TARGET interface; client NOT STARTED |
+| `OperationsInventoryConsumer` | Operations Mobile target scan/work consumer | TARGET interface; partial unmerged client evidence remains separate |
 
 ## Infrastructure Layer dictionary
 
@@ -86,7 +89,8 @@ of physical truth. Safety Stock is a policy, not a reservation.
 ## Invariants and transaction boundaries
 
 - Sellable Availability = usable on-hand − active Commercial Commitments −
-  Safety Stock. Backing protects commitment once; it is not subtracted twice.
+  Safety Stock. Inventory Reservation protects commitment once; its
+  WarehouseBacking distribution is not subtracted twice.
 - HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are not sellable.
 - Prefer one Warehouse when it can satisfy demand; V1 may split across eligible
   Warehouses deterministically.
@@ -99,14 +103,14 @@ of physical truth. Safety Stock is a policy, not a reservation.
 
 ## Events, persistence and evidence
 
-Internal events include `InventoryBackingEstablished`, `InventoryHeld` and
+Internal events include `InventoryReservationEstablished`, `InventoryHeld` and
 `PhysicalAllocationConfirmed`; published count remains 14. See [BC-05 data model](data/data-model.md),
 [target SQL](data/target-relational-model.sql) and [domain UML](diagrams/domain-model.puml).
 
 AS-IS evidence at API main: `warehouse` domain/application/infrastructure and
 V15–V17, V38, V49, V57, V74, V77, V80–V81. Classification: lot/movement/
-reservation persistence **KEEP/REFINE**, explicit Sellable Availability and
-backing-vs-allocation semantics **REFINE**, full multi-Warehouse atomic
+reservation persistence **KEEP/REFINE**, explicit Inventory Reservation /
+Warehouse Backing versus Physical Allocation semantics **REFINE**, full multi-Warehouse atomic
 orchestration **PARTIAL / NOT IMPLEMENTED**.
 
 ## Mobile v0.17 reconciliation

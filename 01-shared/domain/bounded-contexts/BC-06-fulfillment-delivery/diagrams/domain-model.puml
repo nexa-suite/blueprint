@@ -63,8 +63,8 @@ class DeliveryAttempt <<Entity>> {
   -attemptId: DeliveryAttemptId
   -deliveryId: DeliveryId
   -attemptNumber: Integer
-  -outcome: AttemptOutcome
-  +recordOutcome(outcome: AttemptOutcome): void
+  -driverOutcome: DriverOutcome
+  +recordOutcome(outcome: DriverOutcome): void
 }
 
 class DeliveryAttemptLine <<Entity>> {
@@ -81,6 +81,34 @@ class DeliveryQuantityOutcome <<Entity>> {
   -fulfilledQuantity: Quantity
   -shortQuantity: Quantity
   +record(): void
+}
+
+class DeliveryHandoffToken <<Entity>> {
+  -handoffTokenId: HandoffTokenId
+  -deliveryId: DeliveryId
+  -attemptId: DeliveryAttemptId
+  -tokenHash: Hash
+  -expiresAt: Instant
+  +issue(): void
+  +consumeOnce(): void
+  +expire(): void
+}
+
+class BuyerReceiptFact <<Entity>> {
+  -buyerReceiptId: BuyerReceiptId
+  -deliveryId: DeliveryId
+  -buyerRelationshipId: BuyerRelationshipId
+  -acceptedQuantity: Quantity
+  -discrepancyReason: String
+  -recordedAt: Instant
+  +record(): void
+}
+
+class DriverOutcome <<Value Object>> {
+  -status: AttemptOutcome
+  -reason: String
+  -recordedAt: Instant
+  +isTerminal(): boolean
 }
 
 class ProofOfDelivery <<Aggregate Root>> {
@@ -153,6 +181,9 @@ Delivery "1" *-- "0..*" DeliveryAssignment : assignments
 Delivery "1" *-- "1..*" DeliveryAttempt : attempts
 DeliveryAttempt "1" *-- "0..*" DeliveryAttemptLine : delivered lines
 DeliveryAttempt "1" *-- "0..*" DeliveryQuantityOutcome : outcomes
+DeliveryAttempt *-- DriverOutcome : records
+Delivery "1" *-- "0..*" DeliveryHandoffToken : one-time handoff
+Delivery "1" *-- "0..*" BuyerReceiptFact : Buyer receipt/discrepancy
 Delivery "1" *-- "0..1" ProofOfDelivery : immutable POD
 ProofOfDelivery "1" *-- "0..*" ProofOfDeliveryAddendum : append only
 Delivery "1" *-- "0..*" TemperatureEvidence : evidence
@@ -167,6 +198,7 @@ Delivery *-- DestinationSnapshot : freezes destination
 legend right
 TARGET / V1 / tactical design aid
 POD is immutable; corrections are addenda. Temperature excursion may HOLD.
+Driver Outcome is not Buyer Receipt; handoff token resolution is not acceptance.
 Partial delivery opens ContinuationDelivery; it does not rewrite history.
 *-- composition | --> domain dependency | ..> port/use
 endlegend

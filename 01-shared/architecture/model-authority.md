@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-09-18
+last-reviewed: 2026-09-19
 ---
 
 # Model authority and derived artifacts
@@ -27,29 +27,28 @@ alternate shared dictionary. Mobile consumes shared Ubiquitous Language and
 domain semantics. If Mobile Report contains genuinely newer evidence, promote
 the semantic fact into the appropriate Blueprint authority first.
 
-## Post-AV1 boundary
+## Post-AV1 source boundary
 
 The final Mobile Report `v1.0.1` target
 `77895a8950676ccdaec520a61c41107852268606` is a derived academic projection.
-Its C4/DDD/UML material, including provider/system views, remains evidence to
-be reconciled in Wave 2. Wave 1 does not modify the shared C4 DSL, regenerate
-C4 JSON/SVG/PNG, alter the 11 BC set or create a competing Mobile UL.
+Its C4/DDD/UML material, including provider/system views, is derived academic
+evidence. It can refine an accepted semantic fact only through the Blueprint
+authority named above; it cannot override TARGET because it is newer or more
+granular.
 
-## Wave 2 reconciliation input inventory
+## Wave 2 reconciliation outcome
 
-Wave 1.1 records the following reconciliation inputs without resolving them:
+| Difference or evidence | Classification | Canonical outcome |
+|---|---|---|
+| One Nexa system, granular L1 actors and 6 AS-IS / 8 TARGET containers | `KEEP_CANON` | One software system; no generic Tenant Workforce actor; unmerged Operations preview stays outside integrated AS-IS and Buyer stays absent. |
+| Academic Push Delivery Service as a V1 provider | `REJECT_REPORT_DRIFT` | Push Delivery Service is Future/OPEN only; V1 external boundaries are Payment, Email and Maps. |
+| Academic Mobile topology, framework and per-BC C4 views | `HISTORICAL_ONLY` / `DERIVED_ACADEMIC_PROJECTION` | No Web/Mobile C4 split, no Mobile BC and no canonical L3 per BC; final Mobile technology remains OPEN. |
+| Operations and Buyer Product surfaces | `REFINE_CANON` | Both are `TARGET V1 / OWNER-ACCEPTED`; Operations has partial unmerged Android/Kotlin/Compose AS-IS evidence and Buyer is not implemented. |
+| Customer/Supplier labels, Published Language, Payment ACL and BC-06/07/08 source facts for BC-09 | `PROMOTE_SEMANTIC_DELTA` | Context map refined without changing the 11-context model or the 14 Published Integration Events. |
+| ResolvedOfferSnapshot, submission data/factory, Reservation/Warehouse Backing, handoff/receipt, document work item and provider-neutral PushSubscription | `PROMOTE_SEMANTIC_DELTA` | Tactical terminology and diagrams are corrected in their owning BCs; candidates are not promoted automatically to integration events. |
+| `inventory_backing_line.warehouse_id` | `REFINE_CANON` | The 95-table inventory is retained while deterministic SKU + Warehouse Backing is represented in both SQL authorities. |
+| Needfinding, technical verification and acceptance claims | `KEEP_CANON` | Needfinding is problem/task evidence; technical verification is distinct from Product Acceptance, System Acceptance and Production Readiness, all OPEN. |
 
-- Shared Structurizr C4 versus the Mobile Report C4 projection.
-- L1/L2 actor and provider differences.
-- Push Delivery Service representation versus its shared C4 representation.
-- AS-IS versus TARGET Mobile evidence; unmerged Operations implementation is not
-  an integrated shared container.
-- Mobile Report Strategic DDD and Context Map versus the accepted 11-BC model.
-- Academic tactical DDD/UML/database material versus shared Domain and Data
-  authority.
-- Provider, security and integration differences across the projections.
-- Web and Mobile diagrams against the same shared C4 authority.
-
-This inventory is a Wave 2 input, not a decision record. Wave 1.1 does not
-resolve the C4/DDD/UML/security/provider or push-representation questions, does
-not generate assets, and does not alter the accepted Bounded Context set.
+The reconciled C4 DSL and generated artifacts are canonical for their scope.
+The Mobile Report remains immutable v1.0.1 evidence; its views do not become a
+second C4, Strategic DDD, tactical or data authority.

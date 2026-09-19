@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-09-19
 ---
 
 # BC-07 Credit & Receivables — Tactical Model
@@ -15,8 +15,8 @@ original facts. Payment provider lifecycle belongs to BC-08.
 ## Purpose and product participation
 
 Own credit exposure, reservations, receivables and provider-neutral financial
-adjustments. Platform governs authorized financial work; Portal and proposed
-Mobile surfaces consume restricted projections.
+adjustments. Platform governs authorized financial work; Portal and
+OWNER-ACCEPTED Mobile target surfaces consume restricted projections.
 
 ## Aggregate boundaries
 

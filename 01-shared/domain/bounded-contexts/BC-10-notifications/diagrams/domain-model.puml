@@ -54,6 +54,19 @@ class NotificationAttempt <<Entity>> {
   +recordFailure(reason: FailureReason): void
 }
 
+class PushSubscription <<Technical Record>> {
+  -pushSubscriptionId: PushSubscriptionId
+  -recipientKey: RecipientKey
+  -installationId: InstallationId
+  -surface: SubscriptionSurface
+  -status: SubscriptionStatus
+  -version: Version
+  +register(endpoint: SecureEndpointReference): void
+  +rotate(endpoint: SecureEndpointReference): void
+  +disable(): void
+  +unregister(): void
+}
+
 class NotificationPolicy <<Domain Service>> {
   +selectRecipients(event: DomainEvent, preferences: List<NotificationPreference>): List<RecipientAddress>
   +shouldDeliver(notification: Notification): boolean
@@ -62,6 +75,12 @@ class NotificationPolicy <<Domain Service>> {
 class RecipientAddress <<Value Object>> {
   -value: String
   -kind: AddressKind
+}
+
+class SecureEndpointReference <<Value Object>> {
+  -endpointHash: Hash
+  -endpointReference: ProtectedReference
+  +matches(candidate: Hash): boolean
 }
 
 class DomainEvent <<Value Object>> {
@@ -87,6 +106,8 @@ enum RecipientStatus <<Enum>>
 NotificationTemplate "1" o-- "0..*" Notification : renders
 Notification "1" *-- "1..*" NotificationRecipient : recipients
 Notification "1" *-- "0..*" NotificationAttempt : attempts
+PushSubscription *-- SecureEndpointReference : protects endpoint
+PushSubscription --> NotificationPreference : recipient preference scope
 NotificationRecipient *-- RecipientAddress : destination
 Notification --> DomainEvent : reacts to
 NotificationPreference --> RecipientAddress : configures

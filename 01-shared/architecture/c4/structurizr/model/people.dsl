@@ -7,6 +7,6 @@ salesRepresentative = person "Sales Representative" "Manages customer relationsh
 warehouseOperator = person "Warehouse Operator" "Executes authorized receiving, inventory and warehouse workflows"
 dispatchCoordinator = person "Dispatch Coordinator" "Prepares dispatch, verifies handoff and coordinates delivery execution"
 b2bBuyer = person "Customer Buyer" "Uses authorized Buyer experiences for catalog, purchasing, delivery and documents"
-driverDeliveryOperator = person "Driver / Delivery Operator" "Executes assigned delivery attempts and captures delivery evidence" {
-    tags "TARGET V1,PLANNED,PROPOSED"
+driverDeliveryOperator = person "Driver / Delivery Operator" "Executes assigned delivery attempts and captures authorized delivery evidence when applicable" {
+    tags "TARGET V1,OWNER-ACCEPTED"
 }

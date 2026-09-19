@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-19
 ---
 
 # Canonical C4 model
@@ -21,7 +21,7 @@ Este documento fija la semántica C4 L1/L2 de Nexa independiente de los límites
 - [Level 4 code views](l4/README.md) use repository-derived or TARGET Mermaid views; they do not fake C4 Components or production classes.
 - [L3/L4 technical views](l4/technical-lenses.md) index the requested API, Platform and Portal responsibility lenses and canonical workflows.
 - `structurizr/generated/workspace.json` es representación generada; no debe editarse manualmente.
-- `structurizr/workspace.json` es el espejo manual cargado para revisión académica; debe ser byte/semánticamente igual a la representación generada y no una segunda fuente.
+- `structurizr/workspace.json` es el espejo generado para revisión; debe ser byte/semánticamente igual a la representación generada y no una segunda fuente.
 
 Source authority: `structurizr/workspace.dsl` and its included files. Level and
 deployment files are direct and unique: `structurizr/l1/l1.dsl`,
@@ -38,7 +38,7 @@ Vistas canónicas:
 - `Nexa-Deployment-Local-ASIS`
 - `Nexa-Deployment-V1-TARGET`
 
-Las vistas L3 son selectivas TARGET PRE-V1, baselined donde explican ownership técnico e invariantes útiles:
+Las vistas L3 son selectivas AS-IS/TARGET donde explican ownership técnico e invariantes útiles:
 
 - `Nexa-API-Overall-ASIS`
 - `Nexa-API-IdentityTenantCustomer-TARGET`
@@ -79,6 +79,10 @@ El L1 muestra únicamente Nexa y los sistemas externos V1:
 - Email Delivery Service.
 - Maps & Geolocation Provider.
 
+`Push Delivery Service` es sólo una frontera Future/OPEN: no aparece en L1
+AS-IS ni TARGET V1, L2 TARGET V1 o deployment V1. La selección de provider y
+la aceptación de canales más allá de in-app/email permanecen abiertas.
+
 No muestra PostgreSQL, Angular, Spring Boot, Docker, Workspace, módulos Java, esquemas, RLS, colas, ClamAV o MinIO: todos pertenecen a niveles inferiores o a vistas de runtime.
 
 ## L2 Container model
@@ -96,10 +100,12 @@ La lista canónica AS-IS es exactamente:
 | PostgreSQL | PostgreSQL | Persistencia transaccional/configuración compartida y lógicamente aislada. |
 | Object Storage | Frontera S3-compatible; MinIO local | Bytes de documentos/media tenant-owned; la API conserva la autorización y metadatos asociados. |
 
-The V1 TARGET L2 adds only `Nexa Operations Mobile` and `Nexa Buyer Mobile`,
-both `TARGET V1 / PLANNED / PROPOSED`; they are owner-accepted planning
-projections, not current client implementation claims. Thus AS-IS has six
-containers and V1 TARGET has eight.
+El L2 TARGET V1 agrega únicamente `Nexa Operations Mobile` y `Nexa Buyer
+Mobile`, ambos `TARGET V1 / OWNER-ACCEPTED`. Son superficies de producto
+aceptadas, no una afirmación de implementación integrada: Operations conserva
+evidencia parcial Android/Kotlin/Compose no fusionada; Buyer Mobile no está
+implementada; la tecnología final de ambas sigue OPEN. Por ello AS-IS tiene seis
+containers y TARGET V1 tiene ocho.
 
 ### Por qué las superficies están separadas
 
@@ -113,7 +119,7 @@ containers and V1 TARGET has eight.
 
 Payment, email y maps/geolocation aparecen como sistemas externos abstractos, no como marcas o proveedores productivos concretos. El API es el dueño actual de las fronteras de integración observadas:
 
-- Payment: Payment es concepto de negocio; Stripe es la dirección de pago online V1 de Nexa; WireMock es test double. El contrato productivo y decisiones técnicas siguen abiertos.
+- Payment: Payment es concepto de negocio; Stripe y WireMock son evidencia de adapter/test double, no una selección canónica de provider C4. El contrato productivo y decisiones técnicas siguen abiertos.
 - Email: SMTP y entrega son infraestructura; Mailpit es un sink local.
 - Maps/geolocation: el API contiene `GoogleMapsRoutingAdapter` y `LocalDeterministicMapAdapter`. El navegador puede obtener geolocalización del dispositivo, pero no se observó una integración client-side directa con Google/Apple/LinkedIn Maps.
 
@@ -121,19 +127,21 @@ Las decisiones de proveedor, credenciales, SLA y deployment productivo siguen ab
 
 ## Mobile projection
 
-La vista V1 TARGET incluye las dos aplicaciones planificadas con tags
-`TARGET V1,PLANNED,PROPOSED`. Driver / Delivery Operator is a TARGET actor. The full
-projection and BC mapping is in [Mobile domain projection](../../domain/strategic-ddd/mobile-projection.md).
+La vista V1 TARGET incluye las dos superficies owner-accepted con tags
+`TARGET V1,OWNER-ACCEPTED`. Driver / Delivery Operator es actor TARGET. La
+proyección y el mapeo a BCs están en [Mobile domain projection](../../domain/strategic-ddd/mobile-projection.md).
 
 - Nexa Operations Mobile.
 - Nexa Buyer Mobile.
 
-Future/Runway keeps Google, Apple, LinkedIn and IoT / Telemetry as explicitly
-deferred external systems only; no future container is invented here.
+Future/Runway conserva Push Delivery Service, Google, Apple, LinkedIn e IoT /
+Telemetry como sistemas externos explícitamente diferidos/OPEN; no se inventa
+ningún container futuro.
 
 Los elementos Future/Runway no están presentes en AS-IS ni en V1 TARGET y no
-deben describirse como implementados V1. Las dos apps Mobile sí aparecen en
-V1 TARGET como proyecciones planificadas. No se introduce microservicio alguno.
+deben describirse como implementados V1. Las dos apps Mobile aparecen en
+TARGET V1 bajo autoridad de producto, son online-first, no tienen sincronización
+offline genérica ni verdad de negocio local, y no introducen microservicios.
 
 ## Exclusiones deliberadas
 
@@ -151,8 +159,9 @@ La semántica de identidad global, membership workforce, Buyer relationship, pro
 
 ## Tactical rubric coverage
 
-[Component-level rubric coverage](component-rubric-coverage.md) maps all eleven
-Bounded Contexts to existing Structurizr component views. Reuse is deliberate:
-the views are logical seams inside accepted containers, not one container per
-context. Versioned SVG exports under [exports](exports/README.md) are review
-artifacts; the Structurizr DSL remains semantic source.
+[Component-level rubric coverage](component-rubric-coverage.md) maps los once
+Bounded Contexts a vistas Structurizr existentes y selectivas. La reutilización
+es deliberada: las vistas son seams lógicos dentro de containers aceptados, no
+un container ni una vista L3 canónica por contexto. Los SVG/PNG versionados en
+[exports](exports/README.md) son artefactos generados de revisión; el DSL sigue
+siendo la fuente semántica.
