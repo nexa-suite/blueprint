@@ -204,6 +204,24 @@ validation = (course / "validation-evidence-plan.md").read_text(encoding="utf-8"
 for required in ("V1 = 73", "Sprint 1 = 4", "Sprint 4 = 24", "Needfinding interviews are COMPLETE", "Validation interviews are NOT COMPLETED"):
     if required not in validation:
         failures.append(f"academic validation plan missing dimension: {required}")
+deferred_intent_row = next(
+    (line for line in validation.splitlines() if line.startswith("| Deferred commercial intent |")),
+    None,
+)
+if deferred_intent_row is None:
+    failures.append("academic validation plan is missing the Deferred commercial intent row")
+else:
+    if "V2+ only" in deferred_intent_row:
+        failures.append("Deferred commercial intent must not classify V1 Product Generation as V2+ only")
+    for required in ("lifecycle `DEFERRED`", "Target Product Generation is V1", "historical planning band is provenance only"):
+        if required not in deferred_intent_row:
+            failures.append(f"Deferred commercial intent row missing lifecycle boundary: {required}")
+needfinding_video_row = next(
+    (line for line in validation.splitlines() if line.startswith("| Needfinding video publication / attachment |")),
+    None,
+)
+if needfinding_video_row is None or "| PENDING |" not in (needfinding_video_row or ""):
+    failures.append("Needfinding video publication row must keep artifact publication state explicit")
 
 tracked = subprocess.check_output(["git", "ls-files"], cwd=root, text=True).splitlines()
 source_rel = "90-academic/mobile/enunciado-trabajo-final.md"

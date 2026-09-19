@@ -3,7 +3,7 @@ status: planned
 maturity: BASELINED
 scope: runway
 owner: delivery
-last-reviewed: 2026-09-18
+last-reviewed: 2026-09-19
 ---
 
 # Mobile validation and acceptance evidence plan
@@ -38,7 +38,7 @@ Readiness are independent.
 | Warehouse receipt/pick | camera/manual fallback, SKU/lot resolution, FEFO, stale allocation, duplicate retry, network failure, truthful result |
 | Driver Delivery | assignment, Attempt lifecycle, POD policy, handoff evidence, QR expiry/replay rejection, safe retry |
 | Buyer handoff | relationship authorization, one-time/TTL token, quantity confirmation, immutable receipt and discrepancy separation |
-| Deferred commercial intent | Draft no reservation, PR/Direct Order distinction, idempotency, credit/inventory conflict, server authority; V2+ only |
+| Deferred commercial intent | Draft no reservation, PR/Direct Order distinction, idempotency, credit/inventory conflict and server authority. Individual stories may remain lifecycle `DEFERRED` while Target Product Generation is V1; the historical planning band is provenance only. |
 | Push | subscription lifecycle, tenant-safe routing, invalid token/retry, deep-link reauthorization; no source-state mutation |
 
 ## Physical-device gate
@@ -58,7 +58,7 @@ Acceptance and Production Readiness remain OPEN.
 
 | Evidence | Required pattern | Current status |
 |---|---|---|
-| Needfinding Interviews | `upc-pre-202620-1acc0238-4949-nexa-team-needfinding-av1.mp4` | PENDING |
+| Needfinding video publication / attachment | `upc-pre-202620-1acc0238-4949-nexa-team-needfinding-av1.mp4` | PENDING |
 | Prototype Navigation | `upc-pre-202620-1acc0238-4949-nexa-team-prototypenavigation-tb1.mp4` | PENDING |
 | Validation AV2/TB2 | `upc-pre-202620-1acc0238-4949-nexa-team-validation-{av2/tb2}.mp4` | PENDING |
 | About the Product AV2/TB2 | source-defined names | PENDING |

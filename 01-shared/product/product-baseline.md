@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: v1
 owner: product
-last-reviewed: 2026-09-18
+last-reviewed: 2026-09-19
 ---
 
 # Product & Business V1 baseline
@@ -120,7 +120,24 @@ A capability presented as V1 must close coherently end-to-end. If it cannot be d
 
 ## V2 and future
 
-Deferred items include full Procurement, advanced CRM, advanced Finance, formal order amendments where not required, backorders, advanced BI/data warehouse, SUNAT integration, Control Center, advanced warehouse optimization, predictive inventory, multi-user customer accounts, plans/subscriptions/entitlements, IoT/automatic telemetry, deep QMS workflows and complex carrier integrations. Operations Mobile and Buyer Mobile are the accepted two-app Product Generation projection with 73 stories in the Mobile V1 course-end planning envelope. Their research, native client, provider/device decisions and Product Acceptance remain independent runway gates; unaccepted Mobile behavior expansions, including field sales, broad Buyer commerce, stored/continuous tracking, rich chat and reorder/BOM/transfer behavior, remain V2/Future. These behavior boundaries do not reclassify the 73-story Product Generation or its historical planning provenance.
+Operations Mobile and Buyer Mobile are the accepted two-app Mobile V1 Product
+Generation projection with 73 stories in the course-end planning envelope. A
+Mobile story may remain lifecycle `DEFERRED` while it requires research,
+refinement, contracts, design or implementation; its historical planning band
+is provenance only and does not reclassify it as Product V2/V3. This includes
+V1-generation field commercial convenience, Buyer commerce, and selected
+transfer or reorder behavior where the individual story remains deferred.
+
+Genuinely FUTURE / RUNWAY capabilities remain outside accepted current V1
+behavior: IoT/automatic telemetry; permanent, background or live Driver
+tracking; rich chat; full Returns/RMA; full Procurement; advanced CRM; advanced
+Finance; formal order amendments where not required; backorders; advanced
+BI/data warehouse; SUNAT integration; Control Center; advanced warehouse
+optimization; predictive inventory; multi-user Buyer organizations;
+plans/subscriptions/entitlements; deep QMS workflows; complex carrier
+integrations; and other explicitly deferred future expansions. Research, final
+client/provider/device decisions and Product Acceptance remain independent
+runway gates for the Mobile V1 generation.
 
 ## Closure reconciliation
 
