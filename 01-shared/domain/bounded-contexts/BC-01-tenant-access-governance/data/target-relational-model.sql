@@ -1,5 +1,6 @@
 -- TARGET / BC-01 Tenant & Access Governance / shared PostgreSQL
 -- Same-owner foreign keys only. RLS is a deployment policy over tenant_id/workspace_id.
+-- membership_role carries workspace scope because it bridges independently scoped roots.
 
 CREATE TABLE tenant (
     tenant_id uuid PRIMARY KEY,
@@ -33,6 +34,7 @@ CREATE TABLE human_identity (
     verified_at timestamptz,
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (normalized_email)
 );
 
@@ -62,6 +64,7 @@ CREATE TABLE workforce_membership (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (membership_id, workspace_id),
     UNIQUE (workspace_id, human_identity_id)
 );
 
@@ -73,6 +76,8 @@ CREATE TABLE role_definition (
     status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','RETIRED')),
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (role_id, workspace_id),
     UNIQUE (workspace_id, code)
 );
 
@@ -87,11 +92,16 @@ CREATE TABLE capability_definition (
 
 CREATE TABLE membership_role (
     assignment_id uuid PRIMARY KEY,
-    membership_id uuid NOT NULL REFERENCES workforce_membership (membership_id),
-    role_id uuid NOT NULL REFERENCES role_definition (role_id),
+    workspace_id uuid NOT NULL,
+    membership_id uuid NOT NULL,
+    role_id uuid NOT NULL,
     assigned_at timestamptz NOT NULL,
     removed_at timestamptz,
-    UNIQUE (membership_id, role_id)
+    UNIQUE (membership_id, role_id),
+    FOREIGN KEY (membership_id, workspace_id)
+        REFERENCES workforce_membership (membership_id, workspace_id),
+    FOREIGN KEY (role_id, workspace_id)
+        REFERENCES role_definition (role_id, workspace_id)
 );
 
 CREATE TABLE role_capability (

@@ -6,8 +6,11 @@ segment); solution validation and Product Acceptance remain open. Backend
 support is `PARTIAL`. Operations implementation evidence is also partial
 `AS-IS` evidence on unmerged feature branches and is not an integrated,
 accepted or production runtime. The observed branch evidence uses
-Android/Kotlin/Jetpack Compose; this AS-IS choice is not a final canonical
-framework assignment.
+Android/Kotlin/Jetpack Compose. Independently,
+[ADR-0018](../../../01-shared/architecture/decisions/adr/adr-0018-operations-mobile-native-android.md)
+accepts Android/Kotlin/Jetpack Compose as the TARGET construction technology;
+that decision does not turn the partial AS-IS evidence into implementation
+proof, solution validation or Product Acceptance.
 
 ## Projection
 

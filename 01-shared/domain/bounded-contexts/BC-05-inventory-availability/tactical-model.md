@@ -102,6 +102,16 @@ not a reservation.
 - Scarce inventory uses conditional updates/locks and version/CAS; no silent
   last-write-wins.
 
+## Persistence concurrency guards
+
+`warehouse`, `inventory_lot`, `inventory_position`, `inventory_backing`,
+`physical_allocation` and `warehouse_transfer` use SQL `version` CAS: each
+mutable update includes `WHERE <root_id> = :id AND version = :expectedVersion`
+and increments `version`. Scarce quantity changes additionally use a
+conditional `inventory_position` update that preserves quantity checks, and
+FEFO/transfer work uses deterministic ordered row locks. Allocation/backing
+bridges use scoped composite FKs; they are not independent versioned roots.
+
 ## Events, persistence and evidence
 
 Internal events include `InventoryReservationEstablished`, `InventoryHeld` and

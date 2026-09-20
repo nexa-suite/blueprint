@@ -4,7 +4,10 @@ Product Generation direction is accepted as one of the two Mobile apps.
 Needfinding is complete for problem/task evidence (`9/9`, three interviews per
 segment); solution validation and Product Acceptance remain open. Buyer Mobile
 is not implemented. Backend support is `PARTIAL` through remote contracts;
-there is no verified Buyer runtime or final canonical cross-platform framework.
+there is no verified Buyer runtime. [ADR-0019](../../../01-shared/architecture/decisions/adr/adr-0019-buyer-mobile-flutter.md)
+accepts Flutter/Dart for Android+iOS as the TARGET construction technology;
+that decision does not prove implementation, solution validation or Product
+Acceptance.
 
 ## Projection
 

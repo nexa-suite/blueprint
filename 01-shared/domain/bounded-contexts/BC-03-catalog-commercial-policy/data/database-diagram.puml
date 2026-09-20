@@ -25,6 +25,8 @@ entity "product" as t_product {
 
 entity "sku" as t_sku {
   * sku_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * product_id : uuid <<FK, required>>
   * code : varchar(80) <<required>>
   * name : varchar(200) <<required>>
@@ -59,10 +61,13 @@ entity "price_list" as t_price_list {
     valid_to : timestamptz
   * created_at : timestamptz <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "price_list_item" as t_price_list_item {
   * item_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * price_list_id : uuid <<FK, required>>
   * sku_id : uuid <<FK, required>>
   * unit_price : numeric(19,4) <<required>>
@@ -83,8 +88,8 @@ entity "base_price" as t_base_price {
 
 entity "customer_terms" as t_customer_terms {
   * terms_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * customer_account_id : uuid <<required>>
     price_list_id : uuid <<FK>>
   * credit_days : integer <<required>>
@@ -92,6 +97,7 @@ entity "customer_terms" as t_customer_terms {
   * valid_from : timestamptz <<required>>
     valid_to : timestamptz
   * created_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "promotion" as t_promotion {
@@ -106,24 +112,27 @@ entity "promotion" as t_promotion {
   * max_stackable : boolean <<required>>
   * created_at : timestamptz <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "promotion_sku" as t_promotion_sku {
   * promotion_sku_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * promotion_id : uuid <<FK, required>>
   * sku_id : uuid <<FK, required>>
   * discount_kind : varchar(32) <<required>>
   * discount_value : numeric(19,4) <<required>>
 }
 
-t_sku }o--|| t_product : product_id
+t_sku }o--|| t_product : product_id, tenant_id, workspace_id
 t_catalog_media }o--|| t_product : product_id
-t_price_list_item }o--|| t_price_list : price_list_id
-t_price_list_item }o--|| t_sku : sku_id
+t_price_list_item }o--|| t_price_list : price_list_id, tenant_id, workspace_id
+t_price_list_item }o--|| t_sku : sku_id, tenant_id, workspace_id
 t_base_price }o--|| t_sku : sku_id
-t_customer_terms }o--|| t_price_list : price_list_id
-t_promotion_sku }o--|| t_promotion : promotion_id
-t_promotion_sku }o--|| t_sku : sku_id
+t_customer_terms }o--|| t_price_list : price_list_id, tenant_id, workspace_id
+t_promotion_sku }o--|| t_promotion : promotion_id, tenant_id, workspace_id
+t_promotion_sku }o--|| t_sku : sku_id, tenant_id, workspace_id
 
 legend right
 TARGET / BC-03 logical relational ownership / SQL is the authority

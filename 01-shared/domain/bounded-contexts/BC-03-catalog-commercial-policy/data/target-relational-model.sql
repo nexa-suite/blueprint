@@ -1,5 +1,6 @@
 -- TARGET / BC-03 Catalog & Commercial Policy / shared PostgreSQL
--- customer_account_id and sku references to other BCs are stable IDs, not FKs.
+-- customer_account_id references another BC as a stable ID, not an FK.
+-- Scoped local root pairs use composite FKs where a bridge can otherwise cross scope.
 
 CREATE TABLE product (
     product_id uuid PRIMARY KEY,
@@ -12,12 +13,15 @@ CREATE TABLE product (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (product_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, code)
 );
 
 CREATE TABLE sku (
     sku_id uuid PRIMARY KEY,
-    product_id uuid NOT NULL REFERENCES product (product_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    product_id uuid NOT NULL,
     code varchar(80) NOT NULL,
     name varchar(200) NOT NULL,
     gtin varchar(14),
@@ -28,6 +32,9 @@ CREATE TABLE sku (
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (product_id, code),
+    UNIQUE (sku_id, tenant_id, workspace_id),
+    FOREIGN KEY (product_id, tenant_id, workspace_id)
+        REFERENCES product (product_id, tenant_id, workspace_id),
     CHECK (gtin IS NULL OR gtin ~ '^[0-9]{8,14}$')
 );
 
@@ -53,19 +60,27 @@ CREATE TABLE price_list (
     valid_to timestamptz,
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (price_list_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, code),
     CHECK (valid_to IS NULL OR valid_from IS NULL OR valid_to > valid_from)
 );
 
 CREATE TABLE price_list_item (
     item_id uuid PRIMARY KEY,
-    price_list_id uuid NOT NULL REFERENCES price_list (price_list_id),
-    sku_id uuid NOT NULL REFERENCES sku (sku_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    price_list_id uuid NOT NULL,
+    sku_id uuid NOT NULL,
     unit_price numeric(19,4) NOT NULL CHECK (unit_price >= 0),
     currency char(3) NOT NULL,
     valid_from timestamptz,
     valid_to timestamptz,
     UNIQUE (price_list_id, sku_id),
+    FOREIGN KEY (price_list_id, tenant_id, workspace_id)
+        REFERENCES price_list (price_list_id, tenant_id, workspace_id),
+    FOREIGN KEY (sku_id, tenant_id, workspace_id)
+        REFERENCES sku (sku_id, tenant_id, workspace_id),
     CHECK (valid_to IS NULL OR valid_from IS NULL OR valid_to > valid_from)
 );
 
@@ -85,12 +100,15 @@ CREATE TABLE customer_terms (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     customer_account_id uuid NOT NULL,
-    price_list_id uuid REFERENCES price_list (price_list_id),
+    price_list_id uuid,
     credit_days integer NOT NULL DEFAULT 0 CHECK (credit_days >= 0),
     currency char(3) NOT NULL,
     valid_from timestamptz NOT NULL,
     valid_to timestamptz,
     created_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    FOREIGN KEY (price_list_id, tenant_id, workspace_id)
+        REFERENCES price_list (price_list_id, tenant_id, workspace_id),
     CHECK (valid_to IS NULL OR valid_to > valid_from)
 );
 
@@ -106,17 +124,25 @@ CREATE TABLE promotion (
     max_stackable boolean NOT NULL DEFAULT false,
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (promotion_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, code),
     CHECK (ends_at > starts_at)
 );
 
 CREATE TABLE promotion_sku (
     promotion_sku_id uuid PRIMARY KEY,
-    promotion_id uuid NOT NULL REFERENCES promotion (promotion_id),
-    sku_id uuid NOT NULL REFERENCES sku (sku_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    promotion_id uuid NOT NULL,
+    sku_id uuid NOT NULL,
     discount_kind varchar(32) NOT NULL CHECK (discount_kind IN ('PERCENT','FIXED')),
     discount_value numeric(19,4) NOT NULL CHECK (discount_value > 0),
-    UNIQUE (promotion_id, sku_id)
+    UNIQUE (promotion_id, sku_id),
+    FOREIGN KEY (promotion_id, tenant_id, workspace_id)
+        REFERENCES promotion (promotion_id, tenant_id, workspace_id),
+    FOREIGN KEY (sku_id, tenant_id, workspace_id)
+        REFERENCES sku (sku_id, tenant_id, workspace_id)
 );
 
 CREATE INDEX ix_sku_product_status ON sku (product_id, status);

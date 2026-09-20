@@ -9,6 +9,7 @@ CREATE TABLE document_number_series (
     series_code varchar(32) NOT NULL,
     next_number bigint NOT NULL CHECK (next_number > 0),
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (series_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, workspace_id, document_type, series_code)
 );
 
@@ -16,7 +17,7 @@ CREATE TABLE business_document (
     document_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    series_id uuid NOT NULL REFERENCES document_number_series (series_id),
+    series_id uuid NOT NULL,
     document_type varchar(32) NOT NULL,
     document_number varchar(80) NOT NULL,
     sales_order_id uuid,
@@ -25,7 +26,10 @@ CREATE TABLE business_document (
     status varchar(32) NOT NULL CHECK (status IN ('DRAFT','ISSUED','VOID','SUPERSEDED')),
     issued_at timestamptz,
     voided_at timestamptz,
-    UNIQUE (tenant_id, document_type, document_number)
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (tenant_id, document_type, document_number),
+    FOREIGN KEY (series_id, tenant_id, workspace_id)
+        REFERENCES document_number_series (series_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE document_snapshot_line (

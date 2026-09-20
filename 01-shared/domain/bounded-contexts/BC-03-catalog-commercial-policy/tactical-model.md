@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-03 Catalog & Commercial Policy — Tactical Model
@@ -42,8 +42,8 @@ multiple policy roots without owning any one root.
 | `CatalogMedia` | Entity | media ID, storage ref, alt text, hash, sort order | `replaceReference()` | composed by Product; Object Storage bytes external |
 | `PriceList` | Aggregate Root | ID/code, scope, validity, status, version | `activate()`, `addPrice()`, `close()` | composes PriceListItem; TARGET |
 | `PriceListItem` | Entity | SKU ID, amount, currency, validity | `changeAmount()`, `expire()` | composed by PriceList; TARGET |
-| `CustomerTerms` | Aggregate Root | customer account ID, eligibility, payment mode, credit flags | `permit()`, `suspend()`, `changeTerms()` | references BC-02 ID; TARGET |
-| `Promotion` | Aggregate Root | ID, eligibility window, transformation, status | `activate()`, `applyOnce()`, `deactivate()` | one transformation; TARGET |
+| `CustomerTerms` | Aggregate Root | customer account ID, eligibility, payment mode, credit flags, version | `permit()`, `suspend()`, `changeTerms()` | references BC-02 ID; TARGET |
+| `Promotion` | Aggregate Root | ID, eligibility window, transformation, status, version | `activate()`, `applyOnce()`, `deactivate()` | one transformation; TARGET |
 | `Money` | Value Object | amount, currency | `add()`, `multiply()`, `isNonNegative()` | used by prices/snapshots |
 | `ColdChainRequirement` | Value Object | required flag, min/max temperature, shelf life | `accepts(reading)` | used by SKU; TARGET |
 | `PriceResolver` | Domain Service | none | `resolve(base, list, terms, promotion, instant)` | deterministic precedence; TARGET |
@@ -90,6 +90,15 @@ multiple policy roots without owning any one root.
   never reserve inventory or credit.
 - SKU cold-chain requirement is explicit; no IoT implication.
 - Price-list effective intervals do not overlap for same tenant/workspace/SKU.
+
+## Persistence concurrency guards
+
+`product`, `sku`, `price_list`, `customer_terms` and `promotion` use SQL
+`version` CAS: each mutable update includes
+`WHERE <root_id> = :id AND version = :expectedVersion` and increments
+`version`. `PriceListItem`, `BasePrice`, `CatalogMedia` and `PromotionSku`
+mutate through their owning root guard; the scope-bearing bridge FKs prevent a
+Price List or Promotion item from linking to a SKU in another scope.
 
 ## Events, persistence and evidence
 

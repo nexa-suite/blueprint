@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-10 target relational model
@@ -13,8 +13,8 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 
 | Table | PK / local FK | Integrity |
 |---|---|---|
-| `notification_template` | `template_id` | scoped event/channel/version unique; immutable content version |
-| `notification` | `notification_id`; template FK | event ID external; delivery state/version |
+| `notification_template` | `template_id` | scoped candidate key; immutable content version |
+| `notification` | `notification_id`; composite template scope FK | event ID external; template must share tenant/workspace; delivery state/version |
 | `notification_recipient` | `recipient_id`; notification FK | recipient pair unique; address/status checks |
 | `notification_preference` | `preference_id` | scoped recipient/event/channel unique |
 | `push_subscription` | `push_subscription_id` | installation-scoped provider-token hash and lifecycle |
@@ -37,5 +37,7 @@ push surface values to `PLATFORM` and `PORTAL`. The target projection names
 API/client mapping remains PARTIAL / OPEN until Mobile client construction.
 
 Event IDs and recipient identity keys are stable references. Delivery failure
-does not rewrite the source event. AS-IS anchors: `notifications.inbox_item`
+does not rewrite the source event. `notification_recipient` and
+`notification_attempt` are Notification-derived children; they do not duplicate
+scope. AS-IS anchors: `notifications.inbox_item`
 and `tenant_management.notification_preference`.

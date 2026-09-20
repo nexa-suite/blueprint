@@ -24,6 +24,7 @@ CREATE TABLE credit_reservation (
     status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','RELEASED','CONSUMED','EXPIRED')),
     reserved_at timestamptz NOT NULL,
     released_at timestamptz,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (credit_account_id, commercial_commitment_id)
 );
 
@@ -76,7 +77,8 @@ CREATE TABLE financial_ledger_entry (
     direction varchar(16) NOT NULL CHECK (direction IN ('DEBIT','CREDIT')),
     amount numeric(19,4) NOT NULL CHECK (amount > 0),
     currency char(3) NOT NULL,
-    posted_at timestamptz NOT NULL
+    posted_at timestamptz NOT NULL,
+    UNIQUE (adjustment_id)
 );
 
 CREATE INDEX ix_credit_account_scope_status ON credit_account (tenant_id, workspace_id, status);

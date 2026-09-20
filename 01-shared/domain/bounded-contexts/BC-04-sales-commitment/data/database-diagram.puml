@@ -66,8 +66,8 @@ entity "material_change_proposal" as t_material_change_proposal {
 
 entity "commercial_commitment" as t_commercial_commitment {
   * commitment_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * origin_type : varchar(32) <<required>>
     purchase_request_id : uuid <<FK>>
   * buyer_relationship_id : uuid <<required>>
@@ -90,8 +90,8 @@ entity "commercial_commitment_line" as t_commercial_commitment_line {
 
 entity "sales_order" as t_sales_order {
   * sales_order_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * commitment_id : uuid <<FK, required>>
   * status : varchar(32) <<required>>
   * confirmed_at : timestamptz <<required>>
@@ -131,9 +131,9 @@ entity "sales_commitment_adjustment" as t_sales_commitment_adjustment {
 t_request_draft_line }o--|| t_request_draft : draft_id
 t_purchase_request_line }o--|| t_purchase_request : purchase_request_id
 t_material_change_proposal }o--|| t_purchase_request : purchase_request_id
-t_commercial_commitment }o--|| t_purchase_request : purchase_request_id
+t_commercial_commitment }o--|| t_purchase_request : purchase_request_id, tenant_id, workspace_id
 t_commercial_commitment_line }o--|| t_commercial_commitment : commitment_id
-t_sales_order }o--|| t_commercial_commitment : commitment_id
+t_sales_order }o--|| t_commercial_commitment : commitment_id, tenant_id, workspace_id
 t_sales_order_line }o--|| t_sales_order : sales_order_id
 t_commitment_owner_transfer }o--|| t_commercial_commitment : commitment_id
 t_sales_commitment_adjustment }o--|| t_commercial_commitment : commitment_id

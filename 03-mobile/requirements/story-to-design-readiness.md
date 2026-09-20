@@ -3,7 +3,7 @@ status: planned
 maturity: DRAFT
 scope: runway
 owner: product
-last-reviewed: 2026-09-18
+last-reviewed: 2026-09-20
 ---
 
 # Mobile current design-readiness subset
@@ -12,7 +12,9 @@ This is the currently assessed design-readiness subset of 28 stories. Its
 membership is historical/readiness evidence only; it does not define the
 current Nexa Mobile V1 Product Generation, which contains all 73 canonical
 stories. It gives Design and research enough context to explore flows without
-deciding screens, visual treatment or framework prematurely. The canonical
+deciding screens or visual treatment prematurely. Client technology is already
+accepted by ADR-0018 (Operations Android/Kotlin/Jetpack Compose) and ADR-0019
+(Buyer Flutter/Dart for Android+iOS). The canonical
 behavior remains in [mobile-v1-catalog.md](mobile-v1-catalog.md); this document
 does not create new Product rules, Bounded Contexts or client implementation
 evidence.
@@ -64,6 +66,8 @@ Terms:
 
 The map supports research questions about actors, sequence, information load,
 device constraints, accessibility, error recovery and freshness. It does not
-choose a visual system, navigation pattern, framework, stored location policy,
-offline engine, notification provider or production screen set. Those remain
-open until the relevant research, Design and Product Acceptance evidence exists.
+choose a visual system, navigation pattern, stored location policy, offline
+engine, notification provider or production screen set. Those remain open
+until the relevant research, Design and Product Acceptance evidence exists.
+Accepted client technology does not prove any of those decisions, implementation,
+solution validation or Product Acceptance.

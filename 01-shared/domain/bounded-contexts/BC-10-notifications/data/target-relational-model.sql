@@ -11,6 +11,7 @@ CREATE TABLE notification_template (
     content_snapshot jsonb NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('DRAFT','PUBLISHED','RETIRED')),
     created_at timestamptz NOT NULL,
+    UNIQUE (template_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, workspace_id, event_type, channel, version)
 );
 
@@ -18,13 +19,15 @@ CREATE TABLE notification (
     notification_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    template_id uuid REFERENCES notification_template (template_id),
+    template_id uuid,
     event_id uuid NOT NULL,
     event_type varchar(160) NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('SCHEDULED','PROCESSING','DELIVERED','PARTIAL','FAILED','CANCELLED')),
     scheduled_at timestamptz NOT NULL,
     delivered_at timestamptz,
-    version integer NOT NULL DEFAULT 0 CHECK (version >= 0)
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    FOREIGN KEY (template_id, tenant_id, workspace_id)
+        REFERENCES notification_template (template_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE notification_recipient (
@@ -46,6 +49,7 @@ CREATE TABLE notification_preference (
     channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','IN_APP')),
     enabled boolean NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (tenant_id, workspace_id, recipient_key, event_type, channel)
 );
 

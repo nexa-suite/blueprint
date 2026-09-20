@@ -55,6 +55,7 @@ nexa.applicationApi.apiDomain -> nexa.applicationApi.apiReliability "Produces do
 nexa.applicationApi.apiAccessContext -> nexa.applicationApi.apiPersistence "Scopes reads/writes and RLS context"
 nexa.applicationApi.apiPersistence -> nexa.postgresqlDatabase "Reads and writes scoped state"
 nexa.applicationApi.apiReliability -> nexa.postgresqlDatabase "Stores outbox, inbox, leases and projections"
+nexa.applicationApi.apiReliability -> nexa.applicationApi.apiIntegrations "Later publishes committed outbox facts at-least-once after transaction"
 nexa.applicationApi.apiIntegrations -> paymentProvider "Uses payment ACL"
 nexa.applicationApi.apiIntegrations -> emailDeliveryService "Uses email ACL"
 nexa.applicationApi.apiIntegrations -> mapsGeolocationProvider "Uses maps/geolocation ACL"

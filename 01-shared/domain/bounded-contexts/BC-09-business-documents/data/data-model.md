@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-20
 ---
 
 # BC-09 target relational model
@@ -13,8 +13,8 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 
 | Table | PK / local FK | Integrity |
 |---|---|---|
-| `document_number_series` | `series_id` | scoped type/series unique; monotonic number and version |
-| `business_document` | `document_id`; series FK | immutable number; scoped type/number unique |
+| `document_number_series` | `series_id` | scoped candidate key; monotonic number and version |
+| `business_document` | `document_id`; composite series scope FK | immutable number; series must share tenant/workspace; scoped type/number unique |
 | `document_snapshot_line` | `line_id`; document FK | frozen description/price/quantity snapshot |
 | `document_revision` | `revision_id`; document FK | revision/hash unique; append-only |
 | `object_storage_reference` | `object_reference_id`; document FK | object key/hash unique; metadata only |
@@ -25,7 +25,9 @@ revision and generation indexes. RLS scopes tenant/workspace. Object Storage
 holds bytes; PostgreSQL carries key, content type, size and hash—never BLOB.
 
 Sales order, payment, receivable and SKU IDs are stable non-owning references.
-Issued documents and snapshots are immutable; correction means revision or
+`BusinessDocument -> DocumentNumberSeries` uses a local composite scoped FK;
+snapshot, revision, object and generation rows are parent-derived children and
+do not duplicate scope. Issued documents and snapshots are immutable; correction means revision or
 void. Mobile evidence is an authorized `EvidenceReference` value backed by
 Object Storage metadata and content hash; it does not move document authority
 to a client. AS-IS anchors: `business_documents.business_document`, generation,

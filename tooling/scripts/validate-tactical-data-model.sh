@@ -401,6 +401,203 @@ shared_sql = root / "01-shared/data/shared-technical-target-relational-model.sql
 if shared_sql.is_file() and sql_tables(shared_sql) != shared:
     failures.append("shared technical SQL table inventory differs")
 
+def table_body(sql_text: str, table: str) -> str:
+    match = re.search(
+        rf"(?ims)^\s*CREATE\s+TABLE\s+{re.escape(table)}\s*\((.*?)^\s*\);",
+        sql_text,
+    )
+    return match.group(1) if match else ""
+
+
+scope_integrity_contracts = {
+    "BC-01-tenant-access-governance": (
+        "UNIQUE (membership_id, workspace_id)",
+        "UNIQUE (role_id, workspace_id)",
+        "FOREIGN KEY (membership_id, workspace_id) REFERENCES workforce_membership (membership_id, workspace_id)",
+        "FOREIGN KEY (role_id, workspace_id) REFERENCES role_definition (role_id, workspace_id)",
+    ),
+    "BC-02-customer-buyer-relationships": (
+        "UNIQUE (customer_account_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (customer_account_id, tenant_id, workspace_id) REFERENCES customer_account (customer_account_id, tenant_id, workspace_id)",
+    ),
+    "BC-03-catalog-commercial-policy": (
+        "UNIQUE (sku_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (price_list_id, tenant_id, workspace_id) REFERENCES price_list (price_list_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (promotion_id, tenant_id, workspace_id) REFERENCES promotion (promotion_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (sku_id, tenant_id, workspace_id) REFERENCES sku (sku_id, tenant_id, workspace_id)",
+    ),
+    "BC-04-sales-commitment": (
+        "UNIQUE (purchase_request_id, tenant_id, workspace_id)",
+        "UNIQUE (commitment_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (purchase_request_id, tenant_id, workspace_id) REFERENCES purchase_request (purchase_request_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (commitment_id, tenant_id, workspace_id) REFERENCES commercial_commitment (commitment_id, tenant_id, workspace_id)",
+    ),
+    "BC-05-inventory-availability": (
+        "UNIQUE (warehouse_id, tenant_id, workspace_id)",
+        "UNIQUE (backing_id, tenant_id, workspace_id)",
+        "UNIQUE (allocation_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (backing_id, tenant_id, workspace_id) REFERENCES inventory_backing (backing_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (allocation_id, tenant_id, workspace_id) REFERENCES physical_allocation (allocation_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (lot_id, tenant_id, workspace_id) REFERENCES inventory_lot (lot_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (source_warehouse_id, tenant_id, workspace_id) REFERENCES warehouse (warehouse_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (destination_warehouse_id, tenant_id, workspace_id) REFERENCES warehouse (warehouse_id, tenant_id, workspace_id)",
+    ),
+    "BC-09-business-documents": (
+        "UNIQUE (series_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (series_id, tenant_id, workspace_id) REFERENCES document_number_series (series_id, tenant_id, workspace_id)",
+    ),
+    "BC-10-notifications": (
+        "UNIQUE (template_id, tenant_id, workspace_id)",
+        "FOREIGN KEY (template_id, tenant_id, workspace_id) REFERENCES notification_template (template_id, tenant_id, workspace_id)",
+    ),
+}
+for bc_name, fragments in scope_integrity_contracts.items():
+    relative = f"01-shared/domain/bounded-contexts/{bc_name}/data/target-relational-model.sql"
+    source = root / relative
+    if not source.is_file():
+        failures.append(f"missing scope-integrity source {relative}")
+        continue
+    normalized = re.sub(r"\s+", " ", source.read_text())
+    for fragment in fragments:
+        if fragment not in normalized:
+            failures.append(f"{relative} missing required same-scope guard: {fragment}")
+
+root_guard_contracts = {
+    "BC-01": {
+        "Tenant": ("tenant", "version", None),
+        "HumanIdentity": ("human_identity", "version", None),
+        "CompanyOnboardingRequest": ("company_onboarding_request", "version", None),
+        "WorkforceMembership": ("workforce_membership", "version", None),
+        "RoleDefinition": ("role_definition", "version", None),
+    },
+    "BC-02": {
+        "CustomerAccount": ("customer_account", "version", None),
+        "BuyerRelationship": ("buyer_relationship", "version", None),
+    },
+    "BC-03": {
+        "Product": ("product", "version", None),
+        "Sku": ("sku", "version", None),
+        "PriceList": ("price_list", "version", None),
+        "CustomerTerms": ("customer_terms", "version", None),
+        "Promotion": ("promotion", "version", None),
+    },
+    "BC-04": {
+        "RequestDraft": ("request_draft", "version", None),
+        "PurchaseRequest": ("purchase_request", "revision", None),
+        "CommercialCommitment": ("commercial_commitment", "revision", None),
+        "SalesOrder": ("sales_order", "revision", None),
+    },
+    "BC-05": {
+        "Warehouse": ("warehouse", "version", None),
+        "InventoryLot": ("inventory_lot", "version", None),
+        "InventoryPosition": ("inventory_position", "version", None),
+        "InventoryReservation": ("inventory_backing", "version", None),
+        "PhysicalAllocation": ("physical_allocation", "version", None),
+        "WarehouseTransfer": ("warehouse_transfer", "version", None),
+    },
+    "BC-06": {
+        "Fulfillment": ("fulfillment", "version", None),
+        "Delivery": ("delivery", "version", None),
+        "ProofOfDelivery": ("proof_of_delivery", "expected-state", "WHERE pod_id = :id AND status = :expectedStatus"),
+        "TemperatureEvidence": ("temperature_evidence", "append-only", None),
+    },
+    "BC-07": {
+        "CreditAccount": ("credit_account", "version", None),
+        "CreditReservation": ("credit_reservation", "version", None),
+        "Receivable": ("receivable", "version", None),
+        "FinancialAdjustment": ("financial_adjustment", "expected-state", "WHERE adjustment_id = :id AND status = :expectedStatus"),
+    },
+    "BC-08": {
+        "Payment": ("payment", "version", None),
+        "PaymentReconciliationCase": ("payment_reconciliation_case", "expected-state", "WHERE case_id = :id AND status = :expectedStatus"),
+    },
+    "BC-09": {
+        "DocumentNumberSeries": ("document_number_series", "version", None),
+        "BusinessDocument": ("business_document", "version", None),
+    },
+    "BC-10": {
+        "NotificationTemplate": ("notification_template", "expected-state", "WHERE template_id = :id AND status = :expectedStatus"),
+        "Notification": ("notification", "version", None),
+        "NotificationPreference": ("notification_preference", "version", None),
+    },
+    "BC-11": {
+        "BusinessTraceabilityRecord": ("business_traceability_record", "append-only", None),
+    },
+}
+for code, contracts in root_guard_contracts.items():
+    if set(contracts) != expected_aggregate_roots[code]:
+        failures.append(f"validator concurrency contract differs from Aggregate Root set: {code}")
+        continue
+    bc = next((item for item in bc_dirs if item.name.startswith(code)), None)
+    if not bc:
+        failures.append(f"missing concurrency BC directory: {code}")
+        continue
+    tactical = (bc / "tactical-model.md").read_text()
+    sql_text = (bc / "data/target-relational-model.sql").read_text()
+    if "## Persistence concurrency guards" not in tactical:
+        failures.append(f"{(bc / 'tactical-model.md').relative_to(root)} missing persistence concurrency guards")
+        continue
+    guard_section = tactical.split("## Persistence concurrency guards", 1)[1].split("\n## ", 1)[0]
+    for aggregate, (table, mode, documented_predicate) in contracts.items():
+        row = re.search(
+            rf"(?im)^\|\s*`{re.escape(aggregate)}`\s*\|\s*Aggregate Root(?:\s*/[^|]+)?\s*\|.*$",
+            tactical,
+        )
+        if not row:
+            failures.append(f"{(bc / 'tactical-model.md').relative_to(root)} missing Aggregate Root row for concurrency contract: {aggregate}")
+        body = table_body(sql_text, table)
+        if not body:
+            failures.append(f"{(bc / 'data/target-relational-model.sql').relative_to(root)} missing concurrency table: {table}")
+            continue
+        if table not in guard_section:
+            failures.append(f"{(bc / 'tactical-model.md').relative_to(root)} does not document persistence guard for {aggregate}")
+        if mode in {"version", "revision"}:
+            if not re.search(rf"\b{mode}\s+(?:integer|bigint)\s+NOT NULL", body, re.IGNORECASE):
+                failures.append(f"{(bc / 'data/target-relational-model.sql').relative_to(root)} missing {mode} guard for {aggregate}")
+            if "CAS" not in guard_section or f"AND {mode} = :expected{mode.title()}" not in guard_section:
+                failures.append(f"{(bc / 'tactical-model.md').relative_to(root)} lacks documented {mode} CAS predicate for {aggregate}")
+        elif mode == "expected-state":
+            if "status varchar" not in body or not documented_predicate or documented_predicate not in guard_section:
+                failures.append(f"{(bc / 'tactical-model.md').relative_to(root)} lacks documented expected-state persistence guard for {aggregate}")
+            if aggregate == "FinancialAdjustment" and "UNIQUE (adjustment_id)" not in sql_text:
+                failures.append("BC-07 FinancialAdjustment must retain its unique ledger transition key")
+        elif mode == "append-only" and "append-only" not in guard_section.lower():
+            failures.append(f"{(bc / 'tactical-model.md').relative_to(root)} lacks append-only persistence classification for {aggregate}")
+
+dynamic_source = root / "01-shared/architecture/c4/structurizr/l3/dynamic.dsl"
+relationships_source = root / "01-shared/architecture/c4/structurizr/model/relationships.dsl"
+if not dynamic_source.is_file() or not relationships_source.is_file():
+    failures.append("missing canonical Dynamic View source or relationship source")
+else:
+    dynamic_blocks = re.findall(
+        r'(?ms)^dynamic\s+\S+\s+"([^"]+)"[^\{]*\{\n(.*?)^\}',
+        dynamic_source.read_text(),
+    )
+    expected_dynamic_keys = {
+        "Nexa-Workflow-SubmitPurchaseRequest",
+        "Nexa-Workflow-ConfirmDirectOrder",
+        "Nexa-Workflow-ConvertPurchaseRequestToSalesOrder",
+        "Nexa-Workflow-FulfillmentPickDispatchHandoff",
+        "Nexa-Workflow-DeliveryPartialOutcomeContinuation",
+        "Nexa-Workflow-BuyerHandoffReceiptDiscrepancy",
+        "Nexa-Workflow-PaymentConfirmationReceivableApplication",
+    }
+    if {key for key, _ in dynamic_blocks} != expected_dynamic_keys:
+        failures.append("Dynamic View source must retain exactly seven canonical workflows")
+    required_outbox_sequence = (
+        "BEGIN local transaction",
+        "outbox",
+        "COMMIT authoritative state and outbox atomically",
+        "Later publisher reads committed outbox",
+        "Publish at-least-once after commit",
+    )
+    for key, body in dynamic_blocks:
+        positions = [body.find(marker) for marker in required_outbox_sequence]
+        if -1 in positions or positions != sorted(positions):
+            failures.append(f"{key} must persist outbox inside the local transaction before commit and publish only after commit")
+    if "Later publishes committed outbox facts at-least-once after transaction" not in relationships_source.read_text():
+        failures.append("C4 relationship source missing committed-outbox publisher relation")
+
 for mobile in ("operations-mobile-local-persistence", "buyer-mobile-local-persistence"):
     md = root / f"03-mobile/architecture/data/{mobile}.md"
     puml = root / f"03-mobile/architecture/data/{mobile}.puml"

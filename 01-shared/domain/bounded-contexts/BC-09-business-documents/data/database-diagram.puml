@@ -22,8 +22,8 @@ entity "document_number_series" as t_document_number_series {
 
 entity "business_document" as t_business_document {
   * document_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * series_id : uuid <<FK, required>>
   * document_type : varchar(32) <<required>>
   * document_number : varchar(80) <<required>>
@@ -33,6 +33,7 @@ entity "business_document" as t_business_document {
   * status : varchar(32) <<required>>
     issued_at : timestamptz
     voided_at : timestamptz
+  * version : integer <<required>>
 }
 
 entity "document_snapshot_line" as t_document_snapshot_line {
@@ -76,7 +77,7 @@ entity "document_generation_request" as t_document_generation_request {
     object_reference_id : uuid <<FK>>
 }
 
-t_business_document }o--|| t_document_number_series : series_id
+t_business_document }o--|| t_document_number_series : series_id, tenant_id, workspace_id
 t_document_snapshot_line }o--|| t_business_document : document_id
 t_document_revision }o--|| t_business_document : document_id
 t_object_storage_reference }o--|| t_business_document : document_id

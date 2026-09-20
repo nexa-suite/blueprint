@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-09-20
 ---
 
 # BC-02 Customer & Buyer Relationships — Tactical Model
@@ -88,6 +88,14 @@ BuyerRelationship Entity/fact, not an Aggregate Root or a mutable child graph.
   lifecycle is local to BuyerRelationship; cross-aggregate reads use IDs.
 - Sales submission revalidates relationship eligibility inside its application
   boundary; stale Portal projections cannot authorize a purchase.
+
+## Persistence concurrency guards
+
+`customer_account` and `buyer_relationship` use SQL `version` CAS: each
+mutable update includes `WHERE <root_id> = :id AND version = :expectedVersion`
+and increments `version`. The Customer Account reference is also constrained
+by the local tenant/workspace composite FK, so a CAS cannot retarget a
+relationship across scope.
 
 ## Events, persistence and evidence
 

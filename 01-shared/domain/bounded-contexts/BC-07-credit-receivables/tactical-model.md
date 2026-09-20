@@ -90,6 +90,14 @@ coordinates BC-08 and BC-07 without a giant cross-context aggregate.
 - Financial data is tenant-scoped and capability-restricted; Buyer sees a safe
   projection, not internal risk policy.
 
+## Persistence concurrency guards
+
+`credit_account`, `credit_reservation` and `receivable` use SQL `version` CAS:
+each mutable update includes `WHERE <root_id> = :id AND version = :expectedVersion`
+and increments `version`. `financial_adjustment` uses an expected-state
+predicate (`WHERE adjustment_id = :id AND status = :expectedStatus`) plus its
+unique ledger transition key, so approval/posting cannot be silently replayed.
+
 ## Events, persistence and evidence
 
 See [BC-07 data model](data/data-model.md), [target SQL](data/target-relational-model.sql)

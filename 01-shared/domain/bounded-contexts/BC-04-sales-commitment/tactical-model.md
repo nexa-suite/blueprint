@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-04 Sales Commitment — Tactical Model
@@ -38,12 +38,12 @@ preserve history without mutating submitted snapshots.
 |---|---|---|---|---|
 | `RequestDraft` | Aggregate Root | draft ID, buyer/tenant scope, status, version | `addLine()`, `removeLine()`, `changeDestination()`, `prepareSubmission()` | composes DraftLine; prepares data for atomic application orchestration |
 | `RequestDraftLine` | Entity | SKU ID, quantity, informative price | `changeQuantity()` | owned by Draft; no reservation |
-| `PurchaseRequest` | Aggregate Root | request ID, scope, status, expiresAt, commercial snapshot, version | `submit()`, `proposeMaterialChange()`, `acceptMaterialChange()`, `withdraw()`, `reject()`, `expire()`, `convert()` | composes RequestLine; accepted state machine |
+| `PurchaseRequest` | Aggregate Root | request ID, scope, status, expiresAt, commercial snapshot, revision | `submit()`, `proposeMaterialChange()`, `acceptMaterialChange()`, `withdraw()`, `reject()`, `expire()`, `convert()` | composes RequestLine; accepted state machine |
 | `PurchaseRequestLine` | Entity | SKU ID, quantity, price snapshot, terms snapshot | `replaceCommercialSnapshot()` | owned by PR; immutable after submit except replacement revision |
 | `MaterialChangeProposal` | Entity / fact | revision, change set, buyer consent, validation status | `accept()`, `reject()`, `expire()` | owned by PR history; TARGET |
-| `CommercialCommitment` | Aggregate Root | commitment ID, origin type, optional purchase request ID, owner type/id, status, expiry, version | `establishFromPurchaseRequest()`, `establishDirect()`, `transferOwnership()`, `release()`, `adjust()` | warehouse-neutral; BC-05 references ID; direct origin has no PR |
+| `CommercialCommitment` | Aggregate Root | commitment ID, origin type, optional purchase request ID, owner type/id, status, expiry, revision | `establishFromPurchaseRequest()`, `establishDirect()`, `transferOwnership()`, `release()`, `adjust()` | warehouse-neutral; BC-05 references ID; direct origin has no PR |
 | `CommercialCommitmentLine` | Entity | SKU ID, quantity, unit price, snapshot | `adjustQuantity()` | owned by Commitment |
-| `SalesOrder` | Aggregate Root | order ID, commitment ID, status, confirmedAt, version | `confirm()`, `markInFulfillment()`, `recordFulfillment()`, `complete()`, `cancel()` | composes SO lines; optional PR origin is resolved through Commitment; direct order is confirmed without PR |
+| `SalesOrder` | Aggregate Root | order ID, commitment ID, status, confirmedAt, revision | `confirm()`, `markInFulfillment()`, `recordFulfillment()`, `complete()`, `cancel()` | composes SO lines; optional PR origin is resolved through Commitment; direct order is confirmed without PR |
 | `SalesOrderLine` | Entity | SKU ID, committed/fulfilled quantity, price snapshot | `recordFulfilledQuantity()`, `cancelRemainder()` | owned by SO |
 | `CommercialTermsSnapshot` | Value Object | price, terms, currency, delivery facts | `isEquivalentTo()` | immutable PR/SO evidence |
 | `RequestSubmissionData` | Value Object | draft scope, lines and submitted intent | `validateCompleteness()` | produced by Draft; does not create a PurchaseRequest itself |
@@ -109,6 +109,16 @@ preserve history without mutating submitted snapshots.
   ownership transfer step.
 - SO is born `CONFIRMED`; completion means no unresolved quantity, not payment.
 - Material change requires Buyer acceptance and authoritative revalidation.
+
+## Persistence concurrency guards
+
+`request_draft` uses SQL `version` CAS with
+`WHERE draft_id = :id AND version = :expectedVersion`. `purchase_request`,
+`commercial_commitment` and `sales_order` use SQL `revision` CAS: each mutable
+transition includes `WHERE <root_id> = :id AND revision = :expectedRevision`
+and increments `revision`; terminal conversion also retains its expected-state
+and expiry predicates. Scoped local root FKs prevent PR, Commitment and Sales
+Order links from crossing tenant/workspace.
 
 ## Events, persistence and evidence
 

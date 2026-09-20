@@ -704,6 +704,52 @@ for path in global_mobile_docs:
     text = path.read_text(encoding="utf-8")
     if global_research_regressions.search(text):
         failures.append(f"global Mobile research regression in {path.relative_to(root)}")
+
+current_mobile_technology_docs = {
+    "03-mobile/product/applications/README.md": (
+        "ADR-0018", "ADR-0019", "Android/Kotlin/Jetpack Compose TARGET", "Flutter/Dart for Android+iOS TARGET",
+    ),
+    "03-mobile/product/applications/operations-mobile.md": (
+        "ADR-0018", "Android/Kotlin/Jetpack Compose", "does not turn the partial AS-IS evidence into implementation proof",
+    ),
+    "03-mobile/product/applications/buyer-mobile.md": (
+        "ADR-0019", "Flutter/Dart for Android+iOS", "does not prove implementation",
+    ),
+    "03-mobile/requirements/requirements-status.md": (
+        "Client technology", "ACCEPTED TARGET", "Operations = Android/Kotlin/Jetpack Compose", "Buyer = Flutter/Dart for Android+iOS",
+    ),
+    "03-mobile/requirements/mobile-spike-reconciliation.md": (
+        "SPIKE-002", "CLOSED / SUPERSEDED", "unrelated device/provider research remains OPEN",
+    ),
+    "03-mobile/requirements/mobile-technical-reconciliation.md": (
+        "Client technology is already accepted", "framework assignment is closed by ADR-0018/ADR-0019",
+    ),
+    "03-mobile/requirements/story-to-design-readiness.md": (
+        "Client technology is already accepted by ADR-0018", "Accepted client technology does not prove",
+    ),
+}
+stale_mobile_framework_patterns = (
+    r"\bno framework (?:is )?selected\b",
+    r"\bframework open\b",
+    r"\bProduct architecture choice remains OPEN\b",
+    r"\bfinal canonical cross-platform framework\b",
+    r"\bnot a final canonical framework assignment\b",
+    r"\bunresolved client strategy\b",
+    r"\bframework selection (?:remains )?OPEN\b",
+)
+for relative, markers in current_mobile_technology_docs.items():
+    source = root / relative
+    if not source.is_file():
+        failures.append(f"missing current Mobile technology source: {relative}")
+        continue
+    text = source.read_text(encoding="utf-8")
+    normalized_text = re.sub(r"\s+", " ", text)
+    for marker in markers:
+        if marker not in normalized_text:
+            failures.append(f"{relative} missing accepted Mobile technology marker {marker!r}")
+    for pattern in stale_mobile_framework_patterns:
+        if re.search(pattern, normalized_text, re.IGNORECASE):
+            failures.append(f"{relative} reopens accepted Mobile framework selection: {pattern}")
 research_plan = (root / "03-mobile/ux/discovery/research-plan.md").read_text(encoding="utf-8")
 findings = (root / "03-mobile/ux/discovery/findings.md").read_text(encoding="utf-8")
 for required in ("9/9", "n=3", "77895a8950676ccdaec520a61c41107852268606", "SOLUTION", "OPEN"):

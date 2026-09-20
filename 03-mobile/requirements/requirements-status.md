@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-09-18
+last-reviewed: 2026-09-20
 ---
 
 # Mobile Requirements Status
@@ -14,9 +14,9 @@ last-reviewed: 2026-09-18
 | Historical planning bands | PROVENANCE | Old V1/V2/V3/V4_FUTURE counts remain 28/35/9/1 and are superseded as current Product release nomenclature. |
 | Academic boundary | BASELINED | 97 PBIs / 426 SP across 4 academic Sprints; academic elements do not expand the Product catalog. |
 | Research | RESEARCH EVIDENCE AVAILABLE | 9/9 Needfinding interviews and problem/task evidence are recorded; solution validation remains OPEN. |
-| Operations client | PARTIAL AS-IS EVIDENCE | Unmerged Android feature branches contain named technical/access/warehouse previews; not integrated or Product Accepted. |
-| Buyer client | NOT IMPLEMENTED | Buyer Mobile remains TARGET / NOT IMPLEMENTED. |
-| Cross-platform | OPEN | Academic Flutter/Dart planning exists; Product architecture choice remains OPEN and not implemented. |
+| Operations client | PARTIAL AS-IS EVIDENCE | Android/Kotlin/Jetpack Compose is accepted TARGET construction technology by ADR-0018; unmerged Android branches remain partial, not integrated or Product Accepted. |
+| Buyer client | NOT IMPLEMENTED | Flutter/Dart for Android+iOS is accepted TARGET construction technology by ADR-0019; Buyer Mobile remains NOT IMPLEMENTED. |
+| Client technology | ACCEPTED TARGET | Operations = Android/Kotlin/Jetpack Compose; Buyer = Flutter/Dart for Android+iOS. Technology assignment does not prove implementation, solution validation or Product Acceptance. |
 | Backend | PARTIAL | Existing API evidence supports selected contracts; it does not prove Mobile Product Acceptance. |
 | Production | OPEN | Product Acceptance, System Acceptance and Production Gate remain open. |
 

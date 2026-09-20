@@ -9,132 +9,132 @@
         "containerInstances" : [ {
           "containerId" : "20",
           "environment" : "Local AS-IS",
-          "id" : "174",
+          "id" : "175",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.e86eb0c2-cf3f-4fab-b786-24ef0f952d47"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.5e1d7cd4-db36-4eb6-a5b2-8e4aca65b5aa"
           },
           "relationships" : [ {
             "description" : "Submits validated contact/demo intake",
-            "destinationId" : "177",
-            "id" : "178",
+            "destinationId" : "178",
+            "id" : "179",
             "linkedRelationshipId" : "99",
-            "sourceId" : "174",
+            "sourceId" : "175",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "36",
           "environment" : "Local AS-IS",
-          "id" : "175",
+          "id" : "176",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.1299971a-7bc8-4e61-a75c-a1287c8f01c1"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.f92e9aea-fd15-4154-a0d9-f95a2d198c66"
           },
           "relationships" : [ {
             "description" : "Uses authoritative API contracts",
-            "destinationId" : "177",
-            "id" : "179",
+            "destinationId" : "178",
+            "id" : "180",
             "linkedRelationshipId" : "100",
-            "sourceId" : "175",
+            "sourceId" : "176",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "43",
           "environment" : "Local AS-IS",
-          "id" : "176",
+          "id" : "177",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.8e03cb39-86e3-4d14-bf34-7bfe4715cad0"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.9342729f-07c2-4d8c-809a-4df40d957ee9"
           },
           "relationships" : [ {
             "description" : "Uses authoritative Buyer contracts",
-            "destinationId" : "177",
-            "id" : "180",
+            "destinationId" : "178",
+            "id" : "181",
             "linkedRelationshipId" : "101",
-            "sourceId" : "176",
+            "sourceId" : "177",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "22",
           "environment" : "Local AS-IS",
-          "id" : "177",
+          "id" : "178",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.dc247ed6-9d4f-4a3f-97ff-2b22c9ed1df0"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.79893c25-e2cb-48f5-9401-9b8f9905e5ad"
           },
           "relationships" : [ {
             "description" : "Reads and writes scoped transactional state",
-            "destinationId" : "181",
-            "id" : "182",
+            "destinationId" : "182",
+            "id" : "183",
             "linkedRelationshipId" : "108",
-            "sourceId" : "177",
+            "sourceId" : "178",
             "technology" : "SQL/JDBC"
           }, {
             "description" : "Stores and retrieves authorized evidence and documents",
-            "destinationId" : "183",
-            "id" : "184",
+            "destinationId" : "184",
+            "id" : "185",
             "linkedRelationshipId" : "109",
-            "sourceId" : "177",
+            "sourceId" : "178",
             "technology" : "S3-compatible API"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "50",
           "environment" : "Local AS-IS",
-          "id" : "181",
+          "id" : "182",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.f98ef19f-6674-4a89-af25-cc687286a389"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.e972163a-2f2f-4461-82e3-419374ad26ef"
           },
           "tags" : "Container Instance"
         }, {
           "containerId" : "51",
           "environment" : "Local AS-IS",
-          "id" : "183",
+          "id" : "184",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.fc026885-e371-4256-be63-99d64eb7c8d1"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.eb574661-1e2e-4df2-8dbc-ddfe364a16d7"
           },
           "tags" : "Container Instance"
         } ],
         "environment" : "Local AS-IS",
-        "id" : "173",
+        "id" : "174",
         "infrastructureNodes" : [ {
           "environment" : "Local AS-IS",
-          "id" : "185",
+          "id" : "186",
           "name" : "Mailpit",
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.42d551f8-71d4-4a59-a73f-4c6187650352"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.22bc9f38-bb7b-4aa3-b2f4-480044b9629d"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local SMTP sink"
         }, {
           "environment" : "Local AS-IS",
-          "id" : "186",
+          "id" : "187",
           "name" : "ClamAV",
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.9abe2625-755a-4c96-bae8-aa8211efbe26"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.e5212a63-6c07-44ef-a2c7-871eab25e29b"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local malware scanner"
         }, {
           "environment" : "Local AS-IS",
-          "id" : "187",
+          "id" : "188",
           "name" : "OpenTelemetry Collector",
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.a2502f9d-8d0b-4ef0-b8a3-be01861fa070"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.61d3f687-5a3f-49d9-a539-ed8e4bde969a"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local telemetry collector"
         }, {
           "environment" : "Local AS-IS",
-          "id" : "188",
+          "id" : "189",
           "name" : "Jaeger",
           "properties" : {
-            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.d1e254cd-657f-4240-95de-a77b83ccf4cb"
+            "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da.65a69fe7-0e32-4252-b23d-7bc874e3ec4b"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local trace viewer"
@@ -142,17 +142,17 @@
         "instances" : "1",
         "name" : "Docker Compose Runtime",
         "properties" : {
-          "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a"
+          "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb.f6fb0931-089b-4a68-984f-538643aac4da"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Docker Compose"
       } ],
       "environment" : "Local AS-IS",
-      "id" : "172",
+      "id" : "173",
       "instances" : "1",
       "name" : "Developer Machine",
       "properties" : {
-        "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6"
+        "structurizr.dsl.identifier" : "7fd4db42-00f1-46a4-a41c-322dd7381eab.071c2a53-0887-4327-8067-56a6552a34cb"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "macOS workstation"
@@ -160,27 +160,27 @@
       "containerInstances" : [ {
         "containerId" : "52",
         "environment" : "V1 TARGET",
-        "id" : "190",
+        "id" : "191",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.189a8924-6287-434e-9e7b-90bcc4016645.6974b679-88fd-4d24-b3d3-37205955910c"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.446aed90-20a0-44da-b037-27497f992857.bdfc0f9f-d909-433e-8138-e2c7470f79ac"
         },
         "relationships" : [ {
           "description" : "Uses authoritative API contracts; explicit retries refetch and revalidate server state",
-          "destinationId" : "201",
-          "id" : "202",
+          "destinationId" : "202",
+          "id" : "203",
           "linkedRelationshipId" : "102",
-          "sourceId" : "190",
+          "sourceId" : "191",
           "technology" : "HTTPS/JSON; V1 TARGET"
         } ],
         "tags" : "Container Instance"
       } ],
       "environment" : "V1 TARGET",
-      "id" : "189",
+      "id" : "190",
       "instances" : "1",
       "name" : "Operations Android Device",
       "properties" : {
-        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.189a8924-6287-434e-9e7b-90bcc4016645"
+        "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.446aed90-20a0-44da-b037-27497f992857"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "Android device"
@@ -188,27 +188,27 @@
       "containerInstances" : [ {
         "containerId" : "60",
         "environment" : "V1 TARGET",
-        "id" : "192",
+        "id" : "193",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.431ff5d6-6e36-48ed-bee7-2fd91e29d68b.159e97cb-b127-409b-bdb7-ba3daeb0f725"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.2735930a-07da-451a-955c-2fa521784262.35fc121a-e1b4-4c52-94d8-8ffe72cce100"
         },
         "relationships" : [ {
           "description" : "Uses authoritative Buyer API contracts; fresh state is refetched from the server",
-          "destinationId" : "201",
-          "id" : "203",
+          "destinationId" : "202",
+          "id" : "204",
           "linkedRelationshipId" : "103",
-          "sourceId" : "192",
+          "sourceId" : "193",
           "technology" : "HTTPS/JSON; V1 TARGET"
         } ],
         "tags" : "Container Instance"
       } ],
       "environment" : "V1 TARGET",
-      "id" : "191",
+      "id" : "192",
       "instances" : "1",
       "name" : "Buyer Android Device",
       "properties" : {
-        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.431ff5d6-6e36-48ed-bee7-2fd91e29d68b"
+        "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.2735930a-07da-451a-955c-2fa521784262"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "Android device"
@@ -216,27 +216,27 @@
       "containerInstances" : [ {
         "containerId" : "60",
         "environment" : "V1 TARGET",
-        "id" : "194",
+        "id" : "195",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.63fc4fa7-c5fe-4cad-9a3c-9f88a6bdcb62.021925a1-cf4f-4a1b-9e64-f7dab970793e"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.c0b154a5-511e-43d1-9a6c-dbbb0ed6263e.acf5904d-0b26-49c6-870c-757557b392e3"
         },
         "relationships" : [ {
           "description" : "Uses authoritative Buyer API contracts; fresh state is refetched from the server",
-          "destinationId" : "201",
-          "id" : "204",
+          "destinationId" : "202",
+          "id" : "205",
           "linkedRelationshipId" : "103",
-          "sourceId" : "194",
+          "sourceId" : "195",
           "technology" : "HTTPS/JSON; V1 TARGET"
         } ],
         "tags" : "Container Instance"
       } ],
       "environment" : "V1 TARGET",
-      "id" : "193",
+      "id" : "194",
       "instances" : "1",
       "name" : "Buyer iOS Device",
       "properties" : {
-        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.63fc4fa7-c5fe-4cad-9a3c-9f88a6bdcb62"
+        "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.c0b154a5-511e-43d1-9a6c-dbbb0ed6263e"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "iOS device"
@@ -245,197 +245,197 @@
         "containerInstances" : [ {
           "containerId" : "20",
           "environment" : "V1 TARGET",
-          "id" : "197",
+          "id" : "198",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.648cd608-8956-477c-9b7c-78d072a931f3.a762f1b6-2f89-41d7-b3ba-5089d530ce10"
+            "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.28db89b7-f309-4abb-b876-ec79a0313305.d6695ada-1c86-49ba-b2d4-25d825cf26ce"
           },
           "relationships" : [ {
             "description" : "Submits validated contact/demo intake",
-            "destinationId" : "201",
-            "id" : "205",
+            "destinationId" : "202",
+            "id" : "206",
             "linkedRelationshipId" : "99",
-            "sourceId" : "197",
+            "sourceId" : "198",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "36",
           "environment" : "V1 TARGET",
-          "id" : "198",
+          "id" : "199",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.648cd608-8956-477c-9b7c-78d072a931f3.3a7ebb5e-b231-4cec-9667-d946c8a4f6e9"
+            "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.28db89b7-f309-4abb-b876-ec79a0313305.1689a562-f504-4949-a5a0-71a964a04a2f"
           },
           "relationships" : [ {
             "description" : "Uses authoritative API contracts",
-            "destinationId" : "201",
-            "id" : "206",
+            "destinationId" : "202",
+            "id" : "207",
             "linkedRelationshipId" : "100",
-            "sourceId" : "198",
+            "sourceId" : "199",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "43",
           "environment" : "V1 TARGET",
-          "id" : "199",
+          "id" : "200",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.648cd608-8956-477c-9b7c-78d072a931f3.e11492be-6fdd-4f8d-986c-b64bd9dd36f4"
+            "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.28db89b7-f309-4abb-b876-ec79a0313305.16bc6567-d49a-49c0-a720-807ac9b70541"
           },
           "relationships" : [ {
             "description" : "Uses authoritative Buyer contracts",
-            "destinationId" : "201",
-            "id" : "207",
+            "destinationId" : "202",
+            "id" : "208",
             "linkedRelationshipId" : "101",
-            "sourceId" : "199",
+            "sourceId" : "200",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         } ],
         "environment" : "V1 TARGET",
-        "id" : "196",
+        "id" : "197",
         "instances" : "1",
         "name" : "Static Web Hosting / CDN",
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.648cd608-8956-477c-9b7c-78d072a931f3"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.28db89b7-f309-4abb-b876-ec79a0313305"
         },
         "tags" : "Element,Deployment Node"
       }, {
         "containerInstances" : [ {
           "containerId" : "22",
           "environment" : "V1 TARGET",
-          "id" : "201",
+          "id" : "202",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.dd5c7fff-37cc-47bb-acc1-18a8b60126ae.ceee2690-db0a-46aa-b64c-7076404e5b18"
+            "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.b0c84a26-966e-4d93-9212-7c72bb1adaec.b31b15f2-b4be-4cf6-bc7f-cd8cd2574163"
           },
           "relationships" : [ {
             "description" : "Reads and writes scoped transactional state",
-            "destinationId" : "209",
-            "id" : "210",
+            "destinationId" : "210",
+            "id" : "211",
             "linkedRelationshipId" : "108",
-            "sourceId" : "201",
+            "sourceId" : "202",
             "technology" : "SQL/JDBC"
           }, {
             "description" : "Stores and retrieves authorized evidence and documents",
-            "destinationId" : "212",
-            "id" : "213",
+            "destinationId" : "213",
+            "id" : "214",
             "linkedRelationshipId" : "109",
-            "sourceId" : "201",
+            "sourceId" : "202",
             "technology" : "S3-compatible API"
           }, {
             "description" : "Uses payment ACL",
-            "destinationId" : "215",
-            "id" : "216",
+            "destinationId" : "216",
+            "id" : "217",
             "linkedRelationshipId" : "110",
-            "sourceId" : "201",
+            "sourceId" : "202",
             "technology" : "Provider API / HTTPS"
           }, {
             "description" : "Uses email ACL",
-            "destinationId" : "217",
-            "id" : "218",
+            "destinationId" : "218",
+            "id" : "219",
             "linkedRelationshipId" : "111",
-            "sourceId" : "201",
+            "sourceId" : "202",
             "technology" : "Provider API / HTTPS"
           }, {
             "description" : "Uses maps/geolocation ACL",
-            "destinationId" : "219",
-            "id" : "220",
+            "destinationId" : "220",
+            "id" : "221",
             "linkedRelationshipId" : "112",
-            "sourceId" : "201",
+            "sourceId" : "202",
             "technology" : "Provider API / HTTPS"
           } ],
           "tags" : "Container Instance"
         } ],
         "environment" : "V1 TARGET",
-        "id" : "200",
+        "id" : "201",
         "instances" : "1",
         "name" : "API Compute",
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.dd5c7fff-37cc-47bb-acc1-18a8b60126ae"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.b0c84a26-966e-4d93-9212-7c72bb1adaec"
         },
         "tags" : "Element,Deployment Node"
       }, {
         "containerInstances" : [ {
           "containerId" : "50",
           "environment" : "V1 TARGET",
-          "id" : "209",
+          "id" : "210",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.eed00fc9-c142-4c10-8083-1dc4040424b0.6f20fea4-7611-4dc2-85db-085ba6302af1"
+            "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.6d3b4205-d77a-48e5-acbe-277c34652024.e97f9013-362c-473f-815a-a518440e4425"
           },
           "tags" : "Container Instance"
         } ],
         "environment" : "V1 TARGET",
-        "id" : "208",
+        "id" : "209",
         "instances" : "1",
         "name" : "Managed PostgreSQL",
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.eed00fc9-c142-4c10-8083-1dc4040424b0"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.6d3b4205-d77a-48e5-acbe-277c34652024"
         },
         "tags" : "Element,Deployment Node"
       }, {
         "containerInstances" : [ {
           "containerId" : "51",
           "environment" : "V1 TARGET",
-          "id" : "212",
+          "id" : "213",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.9129c3dd-fe91-4b17-ac93-cc957db2a47c.d447c6f2-808c-497f-ad5e-413d4109d91b"
+            "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.e6c70d48-f94d-4d29-baba-dafc1ecfc9cf.cf91f7a0-d075-4288-be98-6ebf29bc9280"
           },
           "tags" : "Container Instance"
         } ],
         "environment" : "V1 TARGET",
-        "id" : "211",
+        "id" : "212",
         "instances" : "1",
         "name" : "Object Storage",
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.9129c3dd-fe91-4b17-ac93-cc957db2a47c"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d.e6c70d48-f94d-4d29-baba-dafc1ecfc9cf"
         },
         "tags" : "Element,Deployment Node"
       } ],
       "environment" : "V1 TARGET",
-      "id" : "195",
+      "id" : "196",
       "instances" : "1",
       "name" : "Provider-neutral Hosting",
       "properties" : {
-        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0"
+        "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.16c09424-467e-477e-aba7-e8acf37eaa0d"
       },
       "tags" : "Element,Deployment Node"
     }, {
       "environment" : "V1 TARGET",
-      "id" : "214",
+      "id" : "215",
       "instances" : "1",
       "name" : "External Provider Boundary",
       "properties" : {
-        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.d2049e5b-870a-4b77-bb67-e03670f9e795"
+        "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.b0cf73d2-4ee6-4f9c-a463-38fde94712f2"
       },
       "softwareSystemInstances" : [ {
         "environment" : "V1 TARGET",
-        "id" : "215",
+        "id" : "216",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.d2049e5b-870a-4b77-bb67-e03670f9e795.c2bab47c-aa4e-4963-80ba-0308ebbfcb67"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.b0cf73d2-4ee6-4f9c-a463-38fde94712f2.9df19185-1deb-4744-b69f-fd7d4f7b9daa"
         },
         "softwareSystemId" : "11",
         "tags" : "Software System Instance"
       }, {
         "environment" : "V1 TARGET",
-        "id" : "217",
+        "id" : "218",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.d2049e5b-870a-4b77-bb67-e03670f9e795.df04ce02-5834-4b9d-b43d-b7bd17cb9301"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.b0cf73d2-4ee6-4f9c-a463-38fde94712f2.0bbc88a2-a16c-49c4-b47e-1489444315e9"
         },
         "softwareSystemId" : "12",
         "tags" : "Software System Instance"
       }, {
         "environment" : "V1 TARGET",
-        "id" : "219",
+        "id" : "220",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.d2049e5b-870a-4b77-bb67-e03670f9e795.cc8227c0-6018-4b68-a7ad-c1c453ad7803"
+          "structurizr.dsl.identifier" : "d409e727-b81c-4bf4-8cd4-948310c73c41.b0cf73d2-4ee6-4f9c-a463-38fde94712f2.8fab1aaf-fb4b-4c8b-8a42-5069ef9668a2"
         },
         "softwareSystemId" : "13",
         "tags" : "Software System Instance"
@@ -897,37 +897,37 @@
           }, {
             "description" : "Maps Commercial Commitment ownership to application workflows",
             "destinationId" : "30",
-            "id" : "128",
+            "id" : "129",
             "sourceId" : "24",
             "tags" : "Relationship"
           }, {
             "description" : "Maps Inventory Availability ownership to application workflows",
             "destinationId" : "31",
-            "id" : "129",
+            "id" : "130",
             "sourceId" : "24",
             "tags" : "Relationship"
           }, {
             "description" : "Maps Fulfillment and Delivery ownership to application workflows",
             "destinationId" : "32",
-            "id" : "130",
+            "id" : "131",
             "sourceId" : "24",
             "tags" : "Relationship"
           }, {
             "description" : "Maps Credit and Receivables ownership to application workflows",
             "destinationId" : "33",
-            "id" : "131",
+            "id" : "132",
             "sourceId" : "24",
             "tags" : "Relationship"
           }, {
             "description" : "Maps Payments and Business Documents ownership to application workflows",
             "destinationId" : "34",
-            "id" : "132",
+            "id" : "133",
             "sourceId" : "24",
             "tags" : "Relationship"
           }, {
             "description" : "Maps Notifications and Traceability ownership to application workflows",
             "destinationId" : "35",
-            "id" : "133",
+            "id" : "134",
             "sourceId" : "24",
             "tags" : "Relationship"
           } ],
@@ -995,25 +995,25 @@
           "relationships" : [ {
             "description" : "Uses payment ACL",
             "destinationId" : "11",
-            "id" : "124",
+            "id" : "125",
             "sourceId" : "28",
             "tags" : "Relationship"
           }, {
             "description" : "Uses email ACL",
             "destinationId" : "12",
-            "id" : "125",
+            "id" : "126",
             "sourceId" : "28",
             "tags" : "Relationship"
           }, {
             "description" : "Uses maps/geolocation ACL",
             "destinationId" : "13",
-            "id" : "126",
+            "id" : "127",
             "sourceId" : "28",
             "tags" : "Relationship"
           }, {
             "description" : "Uses storage and evidence ACL",
             "destinationId" : "51",
-            "id" : "127",
+            "id" : "128",
             "sourceId" : "28",
             "tags" : "Relationship"
           } ],
@@ -1033,6 +1033,12 @@
             "id" : "123",
             "sourceId" : "29",
             "tags" : "Relationship"
+          }, {
+            "description" : "Later publishes committed outbox facts at-least-once after transaction",
+            "destinationId" : "28",
+            "id" : "124",
+            "sourceId" : "29",
+            "tags" : "Relationship"
           } ],
           "tags" : "Element,Component",
           "technology" : "Transactional outbox/inbox"
@@ -1047,19 +1053,19 @@
           "relationships" : [ {
             "description" : "Requires atomic inventory protection",
             "destinationId" : "31",
-            "id" : "134",
+            "id" : "135",
             "sourceId" : "30",
             "tags" : "Relationship"
           }, {
             "description" : "Requires applicable atomic credit decision",
             "destinationId" : "33",
-            "id" : "135",
+            "id" : "136",
             "sourceId" : "30",
             "tags" : "Relationship"
           }, {
             "description" : "Passes confirmed order execution intent",
             "destinationId" : "32",
-            "id" : "136",
+            "id" : "137",
             "sourceId" : "30",
             "tags" : "Relationship"
           } ],
@@ -1076,7 +1082,7 @@
           "relationships" : [ {
             "description" : "Supplies Physical Allocation contract",
             "destinationId" : "32",
-            "id" : "137",
+            "id" : "138",
             "sourceId" : "31",
             "tags" : "Relationship"
           } ],
@@ -1093,7 +1099,7 @@
           "relationships" : [ {
             "description" : "Publishes committed operational facts after transaction",
             "destinationId" : "35",
-            "id" : "139",
+            "id" : "140",
             "sourceId" : "32",
             "tags" : "Relationship"
           } ],
@@ -1120,7 +1126,7 @@
           "relationships" : [ {
             "description" : "Applies confirmed Payment to Receivable by stable reference",
             "destinationId" : "33",
-            "id" : "138",
+            "id" : "139",
             "sourceId" : "34",
             "tags" : "Relationship"
           } ],
@@ -1194,13 +1200,13 @@
           "relationships" : [ {
             "description" : "Applies surface/capability navigation",
             "destinationId" : "39",
-            "id" : "140",
+            "id" : "141",
             "sourceId" : "37",
             "tags" : "Relationship"
           }, {
             "description" : "Selects authenticated shell",
             "destinationId" : "38",
-            "id" : "141",
+            "id" : "142",
             "sourceId" : "37",
             "tags" : "Relationship"
           } ],
@@ -1217,7 +1223,7 @@
           "relationships" : [ {
             "description" : "Hosts feature projections",
             "destinationId" : "40",
-            "id" : "142",
+            "id" : "143",
             "sourceId" : "38",
             "tags" : "Relationship"
           } ],
@@ -1234,7 +1240,7 @@
           "relationships" : [ {
             "description" : "Controls action availability",
             "destinationId" : "40",
-            "id" : "143",
+            "id" : "144",
             "sourceId" : "39",
             "tags" : "Relationship"
           } ],
@@ -1251,13 +1257,13 @@
           "relationships" : [ {
             "description" : "Loads and mutates API state",
             "destinationId" : "41",
-            "id" : "144",
+            "id" : "145",
             "sourceId" : "40",
             "tags" : "Relationship"
           }, {
             "description" : "Renders state and accessibility primitives",
             "destinationId" : "42",
-            "id" : "147",
+            "id" : "148",
             "sourceId" : "40",
             "tags" : "Relationship"
           } ],
@@ -1274,14 +1280,14 @@
           "relationships" : [ {
             "description" : "Uses HTTP/API contracts",
             "destinationId" : "23",
-            "id" : "145",
+            "id" : "146",
             "sourceId" : "41",
             "tags" : "Relationship"
           }, {
             "description" : "Uses HTTP/API contracts",
             "destinationId" : "22",
-            "id" : "146",
-            "linkedRelationshipId" : "145",
+            "id" : "147",
+            "linkedRelationshipId" : "146",
             "sourceId" : "41"
           } ],
           "tags" : "Element,Component",
@@ -1333,13 +1339,13 @@
           "relationships" : [ {
             "description" : "Applies relationship navigation",
             "destinationId" : "46",
-            "id" : "148",
+            "id" : "149",
             "sourceId" : "44",
             "tags" : "Relationship"
           }, {
             "description" : "Selects authenticated Buyer shell",
             "destinationId" : "45",
-            "id" : "149",
+            "id" : "150",
             "sourceId" : "44",
             "tags" : "Relationship"
           } ],
@@ -1356,7 +1362,7 @@
           "relationships" : [ {
             "description" : "Hosts Buyer projections",
             "destinationId" : "47",
-            "id" : "150",
+            "id" : "151",
             "sourceId" : "45",
             "tags" : "Relationship"
           } ],
@@ -1373,7 +1379,7 @@
           "relationships" : [ {
             "description" : "Controls allowed actions",
             "destinationId" : "47",
-            "id" : "151",
+            "id" : "152",
             "sourceId" : "46",
             "tags" : "Relationship"
           } ],
@@ -1390,13 +1396,13 @@
           "relationships" : [ {
             "description" : "Loads and mutates Buyer API state",
             "destinationId" : "48",
-            "id" : "152",
+            "id" : "153",
             "sourceId" : "47",
             "tags" : "Relationship"
           }, {
             "description" : "Renders state and accessibility primitives",
             "destinationId" : "49",
-            "id" : "155",
+            "id" : "156",
             "sourceId" : "47",
             "tags" : "Relationship"
           } ],
@@ -1413,14 +1419,14 @@
           "relationships" : [ {
             "description" : "Uses Buyer HTTP/API contracts",
             "destinationId" : "23",
-            "id" : "153",
+            "id" : "154",
             "sourceId" : "48",
             "tags" : "Relationship"
           }, {
             "description" : "Uses Buyer HTTP/API contracts",
             "destinationId" : "22",
-            "id" : "154",
-            "linkedRelationshipId" : "153",
+            "id" : "155",
+            "linkedRelationshipId" : "154",
             "sourceId" : "48"
           } ],
           "tags" : "Element,Component",
@@ -1492,7 +1498,7 @@
           "relationships" : [ {
             "description" : "Invokes explicit client use cases",
             "destinationId" : "54",
-            "id" : "156",
+            "id" : "157",
             "sourceId" : "53",
             "tags" : "Relationship"
           } ],
@@ -1509,19 +1515,19 @@
           "relationships" : [ {
             "description" : "Uses client data boundary",
             "destinationId" : "55",
-            "id" : "157",
+            "id" : "158",
             "sourceId" : "54",
             "tags" : "Relationship"
           }, {
             "description" : "Uses device capabilities through adapters",
             "destinationId" : "58",
-            "id" : "158",
+            "id" : "159",
             "sourceId" : "54",
             "tags" : "Relationship"
           }, {
             "description" : "Schedules only safe retryable client work",
             "destinationId" : "59",
-            "id" : "159",
+            "id" : "160",
             "sourceId" : "54",
             "tags" : "Relationship"
           } ],
@@ -1538,13 +1544,13 @@
           "relationships" : [ {
             "description" : "Reads and writes API contract data",
             "destinationId" : "56",
-            "id" : "160",
+            "id" : "161",
             "sourceId" : "55",
             "tags" : "Relationship"
           }, {
             "description" : "Reads/writes safe client-local state and staging",
             "destinationId" : "57",
-            "id" : "161",
+            "id" : "162",
             "sourceId" : "55",
             "tags" : "Relationship"
           } ],
@@ -1561,14 +1567,14 @@
           "relationships" : [ {
             "description" : "Uses authoritative Nexa API contracts",
             "destinationId" : "23",
-            "id" : "163",
+            "id" : "164",
             "sourceId" : "56",
             "tags" : "Relationship"
           }, {
             "description" : "Uses authoritative Nexa API contracts",
             "destinationId" : "22",
-            "id" : "164",
-            "linkedRelationshipId" : "163",
+            "id" : "165",
+            "linkedRelationshipId" : "164",
             "sourceId" : "56"
           } ],
           "tags" : "Element,Component",
@@ -1604,7 +1610,7 @@
           "relationships" : [ {
             "description" : "Reuses explicit retry and freshness policy",
             "destinationId" : "55",
-            "id" : "162",
+            "id" : "163",
             "sourceId" : "59",
             "tags" : "Relationship"
           } ],
@@ -1647,7 +1653,7 @@
           "relationships" : [ {
             "description" : "Invokes explicit client use cases",
             "destinationId" : "62",
-            "id" : "165",
+            "id" : "166",
             "sourceId" : "61",
             "tags" : "Relationship"
           } ],
@@ -1664,13 +1670,13 @@
           "relationships" : [ {
             "description" : "Uses client data boundary",
             "destinationId" : "63",
-            "id" : "166",
+            "id" : "167",
             "sourceId" : "62",
             "tags" : "Relationship"
           }, {
             "description" : "Uses platform capabilities through adapters",
             "destinationId" : "66",
-            "id" : "167",
+            "id" : "168",
             "sourceId" : "62",
             "tags" : "Relationship"
           } ],
@@ -1687,13 +1693,13 @@
           "relationships" : [ {
             "description" : "Reads and writes API contract data",
             "destinationId" : "64",
-            "id" : "168",
+            "id" : "169",
             "sourceId" : "63",
             "tags" : "Relationship"
           }, {
             "description" : "Reads/writes safe projections and harmless drafts",
             "destinationId" : "65",
-            "id" : "169",
+            "id" : "170",
             "sourceId" : "63",
             "tags" : "Relationship"
           } ],
@@ -1710,14 +1716,14 @@
           "relationships" : [ {
             "description" : "Uses authoritative Portal/Nexa API contracts",
             "destinationId" : "23",
-            "id" : "170",
+            "id" : "171",
             "sourceId" : "64",
             "tags" : "Relationship"
           }, {
             "description" : "Uses authoritative Portal/Nexa API contracts",
             "destinationId" : "22",
-            "id" : "171",
-            "linkedRelationshipId" : "170",
+            "id" : "172",
+            "linkedRelationshipId" : "171",
             "sourceId" : "64"
           } ],
           "tags" : "Element,Component",
@@ -1809,7 +1815,7 @@
   },
   "name" : "Nexa Suite",
   "properties" : {
-    "structurizr.inspection.error" : "91",
+    "structurizr.inspection.error" : "92",
     "structurizr.inspection.info" : "0",
     "structurizr.inspection.ignore" : "0",
     "structurizr.inspection.warning" : "0"
@@ -1908,6 +1914,8 @@
         "id" : "126"
       }, {
         "id" : "127"
+      }, {
+        "id" : "128"
       } ]
     }, {
       "automaticLayout" : {
@@ -2002,6 +2010,8 @@
         "id" : "126"
       }, {
         "id" : "127"
+      }, {
+        "id" : "128"
       } ]
     }, {
       "automaticLayout" : {
@@ -2053,8 +2063,6 @@
       "relationships" : [ {
         "id" : "115"
       }, {
-        "id" : "128"
-      }, {
         "id" : "129"
       }, {
         "id" : "130"
@@ -2076,6 +2084,8 @@
         "id" : "138"
       }, {
         "id" : "139"
+      }, {
+        "id" : "140"
       } ]
     }, {
       "automaticLayout" : {
@@ -2177,15 +2187,15 @@
       }, {
         "id" : "123"
       }, {
-        "id" : "128"
-      }, {
         "id" : "129"
       }, {
-        "id" : "131"
+        "id" : "130"
       }, {
-        "id" : "134"
+        "id" : "132"
       }, {
         "id" : "135"
+      }, {
+        "id" : "136"
       } ]
     }, {
       "automaticLayout" : {
@@ -2225,9 +2235,9 @@
       "relationships" : [ {
         "id" : "123"
       }, {
-        "id" : "137"
+        "id" : "138"
       }, {
-        "id" : "139"
+        "id" : "140"
       } ]
     }, {
       "automaticLayout" : {
@@ -2281,9 +2291,11 @@
       }, {
         "id" : "124"
       }, {
-        "id" : "127"
+        "id" : "125"
       }, {
-        "id" : "138"
+        "id" : "128"
+      }, {
+        "id" : "139"
       } ]
     }, {
       "automaticLayout" : {
@@ -2346,6 +2358,8 @@
         "id" : "126"
       }, {
         "id" : "127"
+      }, {
+        "id" : "128"
       } ]
     }, {
       "automaticLayout" : {
@@ -2391,8 +2405,6 @@
       "name" : "Component View: Nexa - Nexa Platform",
       "order" : 14,
       "relationships" : [ {
-        "id" : "140"
-      }, {
         "id" : "141"
       }, {
         "id" : "142"
@@ -2403,7 +2415,9 @@
       }, {
         "id" : "145"
       }, {
-        "id" : "147"
+        "id" : "146"
+      }, {
+        "id" : "148"
       } ]
     }, {
       "automaticLayout" : {
@@ -2449,8 +2463,6 @@
       "name" : "Component View: Nexa - Nexa Buyer Portal",
       "order" : 15,
       "relationships" : [ {
-        "id" : "148"
-      }, {
         "id" : "149"
       }, {
         "id" : "150"
@@ -2461,7 +2473,9 @@
       }, {
         "id" : "153"
       }, {
-        "id" : "155"
+        "id" : "154"
+      }, {
+        "id" : "156"
       } ]
     }, {
       "automaticLayout" : {
@@ -2537,8 +2551,6 @@
       "name" : "Component View: Nexa - Nexa Operations Mobile",
       "order" : 17,
       "relationships" : [ {
-        "id" : "156"
-      }, {
         "id" : "157"
       }, {
         "id" : "158"
@@ -2552,6 +2564,8 @@
         "id" : "162"
       }, {
         "id" : "163"
+      }, {
+        "id" : "164"
       } ]
     }, {
       "automaticLayout" : {
@@ -2597,8 +2611,6 @@
       "name" : "Component View: Nexa - Nexa Buyer Mobile",
       "order" : 18,
       "relationships" : [ {
-        "id" : "165"
-      }, {
         "id" : "166"
       }, {
         "id" : "167"
@@ -2608,6 +2620,8 @@
         "id" : "169"
       }, {
         "id" : "170"
+      }, {
+        "id" : "171"
       } ]
     } ],
     "configuration" : {
@@ -2946,10 +2960,6 @@
       },
       "description" : "Nexa local Docker Compose deployment evidence",
       "elements" : [ {
-        "id" : "172",
-        "x" : 0,
-        "y" : 0
-      }, {
         "id" : "173",
         "x" : 0,
         "y" : 0
@@ -2970,15 +2980,15 @@
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "181",
+        "id" : "178",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "183",
+        "id" : "182",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "185",
+        "id" : "184",
         "x" : 0,
         "y" : 0
       }, {
@@ -2993,21 +3003,25 @@
         "id" : "188",
         "x" : 0,
         "y" : 0
+      }, {
+        "id" : "189",
+        "x" : 0,
+        "y" : 0
       } ],
       "environment" : "Local AS-IS",
       "key" : "Nexa-Deployment-Local-ASIS",
       "name" : "Deployment View: Nexa - Local AS-IS",
       "order" : 26,
       "relationships" : [ {
-        "id" : "178"
-      }, {
         "id" : "179"
       }, {
         "id" : "180"
       }, {
-        "id" : "182"
+        "id" : "181"
       }, {
-        "id" : "184"
+        "id" : "183"
+      }, {
+        "id" : "185"
       } ],
       "softwareSystemId" : "19"
     }, {
@@ -3020,10 +3034,6 @@
       },
       "description" : "Nexa provider-neutral V1 deployment projection with separate logical Operations and Buyer Mobile devices",
       "elements" : [ {
-        "id" : "189",
-        "x" : 0,
-        "y" : 0
-      }, {
         "id" : "190",
         "x" : 0,
         "y" : 0
@@ -3072,7 +3082,7 @@
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "208",
+        "id" : "202",
         "x" : 0,
         "y" : 0
       }, {
@@ -3080,7 +3090,7 @@
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "211",
+        "id" : "210",
         "x" : 0,
         "y" : 0
       }, {
@@ -3088,7 +3098,7 @@
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "214",
+        "id" : "213",
         "x" : 0,
         "y" : 0
       }, {
@@ -3096,11 +3106,15 @@
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "217",
+        "id" : "216",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "219",
+        "id" : "218",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "220",
         "x" : 0,
         "y" : 0
       } ],
@@ -3109,8 +3123,6 @@
       "name" : "Deployment View: Nexa - V1 TARGET",
       "order" : 27,
       "relationships" : [ {
-        "id" : "202"
-      }, {
         "id" : "203"
       }, {
         "id" : "204"
@@ -3121,15 +3133,17 @@
       }, {
         "id" : "207"
       }, {
-        "id" : "210"
+        "id" : "208"
       }, {
-        "id" : "213"
+        "id" : "211"
       }, {
-        "id" : "216"
+        "id" : "214"
       }, {
-        "id" : "218"
+        "id" : "217"
       }, {
-        "id" : "220"
+        "id" : "219"
+      }, {
+        "id" : "221"
       } ],
       "softwareSystemId" : "19"
     } ],
@@ -3157,6 +3171,10 @@
         "y" : 0
       }, {
         "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
         "x" : 0,
         "y" : 0
       }, {
@@ -3205,38 +3223,53 @@
         "response" : false
       }, {
         "description" : "4. Establish Commercial Commitment",
-        "id" : "128",
+        "id" : "129",
         "order" : "4",
         "response" : false
       }, {
         "description" : "5. Protect inventory atomically",
-        "id" : "134",
+        "id" : "135",
         "order" : "5",
         "response" : false
       }, {
         "description" : "6. Evaluate applicable credit atomically",
-        "id" : "135",
+        "id" : "136",
         "order" : "6",
         "response" : false
       }, {
-        "description" : "7. Commit business decision",
+        "description" : "7. BEGIN local transaction and persist business mutations",
         "id" : "117",
         "order" : "7",
         "response" : false
       }, {
-        "description" : "8. Persist scoped state",
+        "description" : "8. Write authoritative scoped state",
         "id" : "122",
         "order" : "8",
         "response" : false
       }, {
-        "description" : "9. Record durable post-commit publication",
+        "description" : "9. Insert outbox fact in the same local transaction",
         "id" : "119",
         "order" : "9",
         "response" : false
       }, {
-        "description" : "10. Persist outbox",
+        "description" : "10. Write outbox beside authoritative state",
         "id" : "123",
         "order" : "10",
+        "response" : false
+      }, {
+        "description" : "11. COMMIT authoritative state and outbox atomically",
+        "id" : "122",
+        "order" : "11",
+        "response" : false
+      }, {
+        "description" : "12. Later publisher reads committed outbox",
+        "id" : "123",
+        "order" : "12",
+        "response" : false
+      }, {
+        "description" : "13. Publish at-least-once after commit",
+        "id" : "124",
+        "order" : "13",
         "response" : false
       } ]
     }, {
@@ -3263,6 +3296,14 @@
         "y" : 0
       }, {
         "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
         "x" : 0,
         "y" : 0
       }, {
@@ -3307,28 +3348,53 @@
         "response" : false
       }, {
         "description" : "4. Create confirmed Commercial Commitment/Sales Order boundary",
-        "id" : "128",
+        "id" : "129",
         "order" : "4",
         "response" : false
       }, {
         "description" : "5. Establish inventory protection in same decision",
-        "id" : "134",
+        "id" : "135",
         "order" : "5",
         "response" : false
       }, {
         "description" : "6. Establish applicable credit protection in same decision",
-        "id" : "135",
+        "id" : "136",
         "order" : "6",
         "response" : false
       }, {
-        "description" : "7. Commit all-or-nothing result",
+        "description" : "7. BEGIN local transaction and persist all-or-nothing result",
         "id" : "117",
         "order" : "7",
         "response" : false
       }, {
-        "description" : "8. Persist scoped state",
+        "description" : "8. Write authoritative scoped state",
         "id" : "122",
         "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. Insert outbox fact in the same local transaction",
+        "id" : "119",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "10. Write outbox beside authoritative state",
+        "id" : "123",
+        "order" : "10",
+        "response" : false
+      }, {
+        "description" : "11. COMMIT authoritative state and outbox atomically",
+        "id" : "122",
+        "order" : "11",
+        "response" : false
+      }, {
+        "description" : "12. Later publisher reads committed outbox",
+        "id" : "123",
+        "order" : "12",
+        "response" : false
+      }, {
+        "description" : "13. Publish at-least-once after commit",
+        "id" : "124",
+        "order" : "13",
         "response" : false
       } ]
     }, {
@@ -3355,6 +3421,14 @@
         "y" : 0
       }, {
         "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
         "x" : 0,
         "y" : 0
       }, {
@@ -3399,28 +3473,53 @@
         "response" : false
       }, {
         "description" : "4. Continue Commercial Commitment",
-        "id" : "128",
+        "id" : "129",
         "order" : "4",
         "response" : false
       }, {
         "description" : "5. Preserve inventory protection",
-        "id" : "134",
+        "id" : "135",
         "order" : "5",
         "response" : false
       }, {
         "description" : "6. Preserve/adjust applicable credit protection",
-        "id" : "135",
+        "id" : "136",
         "order" : "6",
         "response" : false
       }, {
-        "description" : "7. Commit Sales Order conversion",
+        "description" : "7. BEGIN local transaction and persist Sales Order conversion",
         "id" : "117",
         "order" : "7",
         "response" : false
       }, {
-        "description" : "8. Persist without gap",
+        "description" : "8. Write conversion without release/re-reserve gap",
         "id" : "122",
         "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. Insert outbox fact in the same local transaction",
+        "id" : "119",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "10. Write outbox beside authoritative state",
+        "id" : "123",
+        "order" : "10",
+        "response" : false
+      }, {
+        "description" : "11. COMMIT authoritative state and outbox atomically",
+        "id" : "122",
+        "order" : "11",
+        "response" : false
+      }, {
+        "description" : "12. Later publisher reads committed outbox",
+        "id" : "123",
+        "order" : "12",
+        "response" : false
+      }, {
+        "description" : "13. Publish at-least-once after commit",
+        "id" : "124",
+        "order" : "13",
         "response" : false
       } ]
     }, {
@@ -3447,6 +3546,14 @@
         "y" : 0
       }, {
         "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
         "x" : 0,
         "y" : 0
       }, {
@@ -3487,23 +3594,48 @@
         "response" : false
       }, {
         "description" : "4. Resolve Physical Allocation contract",
-        "id" : "129",
+        "id" : "130",
         "order" : "4",
         "response" : false
       }, {
         "description" : "5. Supply allocation to execution",
-        "id" : "137",
+        "id" : "138",
         "order" : "5",
         "response" : false
       }, {
-        "description" : "6. Commit fulfillment/dispatch fact",
+        "description" : "6. BEGIN local transaction and persist fulfillment/dispatch fact",
         "id" : "117",
         "order" : "6",
         "response" : false
       }, {
-        "description" : "7. Persist scoped execution state",
+        "description" : "7. Write scoped execution state",
         "id" : "122",
         "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Insert outbox fact in the same local transaction",
+        "id" : "119",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. Write outbox beside authoritative state",
+        "id" : "123",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "10. COMMIT authoritative state and outbox atomically",
+        "id" : "122",
+        "order" : "10",
+        "response" : false
+      }, {
+        "description" : "11. Later publisher reads committed outbox",
+        "id" : "123",
+        "order" : "11",
+        "response" : false
+      }, {
+        "description" : "12. Publish at-least-once after commit",
+        "id" : "124",
+        "order" : "12",
         "response" : false
       } ]
     }, {
@@ -3533,15 +3665,15 @@
         "x" : 0,
         "y" : 0
       }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
         "id" : "29",
         "x" : 0,
         "y" : 0
       }, {
         "id" : "32",
-        "x" : 0,
-        "y" : 0
-      }, {
-        "id" : "35",
         "x" : 0,
         "y" : 0
       }, {
@@ -3574,28 +3706,43 @@
         "response" : false
       }, {
         "description" : "4. Preserve immutable attempt outcome",
-        "id" : "130",
+        "id" : "131",
         "order" : "4",
         "response" : false
       }, {
-        "description" : "5. Emit committed partial/continuation facts after transaction",
-        "id" : "139",
+        "description" : "5. BEGIN local transaction and create idempotent parent-to-child continuation link",
+        "id" : "117",
         "order" : "5",
         "response" : false
       }, {
-        "description" : "6. Create idempotent parent-to-child continuation link",
-        "id" : "117",
+        "description" : "6. Write Delivery and child relationship",
+        "id" : "122",
         "order" : "6",
         "response" : false
       }, {
-        "description" : "7. Persist Delivery and child relationship",
-        "id" : "122",
+        "description" : "7. Insert partial/continuation outbox fact in the same local transaction",
+        "id" : "119",
         "order" : "7",
         "response" : false
       }, {
-        "description" : "8. Record durable projection publication",
-        "id" : "119",
+        "description" : "8. Write outbox beside authoritative state",
+        "id" : "123",
         "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. COMMIT authoritative state and outbox atomically",
+        "id" : "122",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "10. Later publisher reads committed outbox",
+        "id" : "123",
+        "order" : "10",
+        "response" : false
+      }, {
+        "description" : "11. Publish at-least-once after commit",
+        "id" : "124",
+        "order" : "11",
         "response" : false
       } ]
     }, {
@@ -3625,11 +3772,15 @@
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "32",
+        "id" : "28",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "35",
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
         "x" : 0,
         "y" : 0
       }, {
@@ -3662,23 +3813,43 @@
         "response" : false
       }, {
         "description" : "4. Verify handoff and record Buyer Receipt/Discrepancy separately",
-        "id" : "130",
+        "id" : "131",
         "order" : "4",
         "response" : false
       }, {
-        "description" : "5. Publish immutable business fact after commit",
-        "id" : "139",
+        "description" : "5. BEGIN local transaction and persist immutable Buyer Receipt/Discrepancy fact",
+        "id" : "117",
         "order" : "5",
         "response" : false
       }, {
-        "description" : "6. Persist immutable fact",
-        "id" : "117",
+        "description" : "6. Write scoped fact and evidence",
+        "id" : "122",
         "order" : "6",
         "response" : false
       }, {
-        "description" : "7. Persist scoped evidence",
-        "id" : "122",
+        "description" : "7. Insert immutable fact outbox entry in the same local transaction",
+        "id" : "119",
         "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Write outbox beside authoritative state",
+        "id" : "123",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. COMMIT authoritative state and outbox atomically",
+        "id" : "122",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "10. Later publisher reads committed outbox",
+        "id" : "123",
+        "order" : "10",
+        "response" : false
+      }, {
+        "description" : "11. Publish at-least-once after commit",
+        "id" : "124",
+        "order" : "11",
         "response" : false
       } ]
     }, {
@@ -3713,6 +3884,10 @@
         "y" : 0
       }, {
         "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
         "x" : 0,
         "y" : 0
       }, {
@@ -3758,28 +3933,53 @@
         "response" : false
       }, {
         "description" : "5. Verify provider result",
-        "id" : "124",
+        "id" : "125",
         "order" : "5",
         "response" : false
       }, {
         "description" : "6. Record confirmed Payment fact",
-        "id" : "132",
+        "id" : "133",
         "order" : "6",
         "response" : false
       }, {
         "description" : "7. Apply Payment to Receivable idempotently",
-        "id" : "138",
+        "id" : "139",
         "order" : "7",
         "response" : false
       }, {
-        "description" : "8. Commit immutable financial result",
+        "description" : "8. BEGIN local transaction and persist immutable financial result",
         "id" : "117",
         "order" : "8",
         "response" : false
       }, {
-        "description" : "9. Persist scoped history",
+        "description" : "9. Write scoped financial history",
         "id" : "122",
         "order" : "9",
+        "response" : false
+      }, {
+        "description" : "10. Insert outbox fact in the same local transaction",
+        "id" : "119",
+        "order" : "10",
+        "response" : false
+      }, {
+        "description" : "11. Write outbox beside authoritative state",
+        "id" : "123",
+        "order" : "11",
+        "response" : false
+      }, {
+        "description" : "12. COMMIT authoritative state and outbox atomically",
+        "id" : "122",
+        "order" : "12",
+        "response" : false
+      }, {
+        "description" : "13. Later publisher reads committed outbox",
+        "id" : "123",
+        "order" : "13",
+        "response" : false
+      }, {
+        "description" : "14. Publish at-least-once after commit",
+        "id" : "124",
+        "order" : "14",
         "response" : false
       } ]
     } ],

@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-10 Notifications — Tactical Model
@@ -35,10 +35,10 @@ acceptance.
 
 | Class | Category | Key attributes | Business behavior | Relationships / status |
 |---|---|---|---|---|
-| `Notification` | Aggregate Root | notification ID, source event, category, status, createdAt | `create()`, `selectChannel()`, `suppress()`, `markDelivered()`, `markTerminalFailure()` | composes recipients/attempts |
+| `Notification` | Aggregate Root | notification ID, source event, category, status, createdAt, version | `create()`, `selectChannel()`, `suppress()`, `markDelivered()`, `markTerminalFailure()` | composes recipients/attempts |
 | `NotificationRecipient` | Entity | recipient reference, channel, destination projection, preference result | `select()` | owned by Notification |
 | `NotificationAttempt` | Entity / fact | attempt ID, channel, status, retryAt, provider ref | `recordAttempt()`, `scheduleRetry()`, `recordOutcome()` | owned by Notification |
-| `NotificationPreference` | Aggregate Root | recipient scope, channel, category, enabled | `enable()`, `disable()` | recipient preference authority |
+| `NotificationPreference` | Aggregate Root | recipient scope, channel, category, enabled, version | `enable()`, `disable()` | recipient preference authority |
 | `NotificationTemplate` | Aggregate Root | template key/version, channel, content policy, status | `publish()`, `retire()` | template lifecycle |
 | `PushSubscription` | Entity / technical record | installation identity, protected endpoint reference/hash, platform/surface, lifecycle, version | `register()`, `rotate()`, `disable()`, `unregister()` | provider-neutral internal record; not a business channel decision or Aggregate Root |
 | `Channel` / `DeliveryStatus` | Enum | `IN_APP`, `EMAIL`; queued/sent/delivered/failed | none | V1 constraints |
@@ -85,6 +85,16 @@ acceptance.
 - V1 channels are in-app and email; WhatsApp is not a hidden third channel.
 - `PushSubscription` support does not accept a V1 external Push provider,
   credentials or Product channel beyond in-app/email; those remain FUTURE/OPEN.
+
+## Persistence concurrency guards
+
+`notification` and `notification_preference` use SQL `version` CAS: each
+mutable update includes `WHERE <root_id> = :id AND version = :expectedVersion`
+and increments `version`. `notification_template.version` is immutable content
+versioning, not an optimistic token; its lifecycle uses an expected-state
+predicate (`WHERE template_id = :id AND status = :expectedStatus`). The local
+template FK is composite-scoped, and `PushSubscription` remains an internal
+technical record rather than an Aggregate Root.
 
 ## Events, persistence and evidence
 

@@ -39,6 +39,7 @@ entity "human_identity" as t_human_identity {
     verified_at : timestamptz
   * created_at : timestamptz <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "company_onboarding_request" as t_company_onboarding_request {
@@ -77,6 +78,7 @@ entity "role_definition" as t_role_definition {
   * status : varchar(32) <<required>>
   * created_at : timestamptz <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "capability_definition" as t_capability_definition {
@@ -89,6 +91,7 @@ entity "capability_definition" as t_capability_definition {
 
 entity "membership_role" as t_membership_role {
   * assignment_id : uuid <<PK>>
+  * workspace_id : uuid <<FK, required>>
   * membership_id : uuid <<FK, required>>
   * role_id : uuid <<FK, required>>
   * assigned_at : timestamptz <<required>>
@@ -126,7 +129,7 @@ entity "customer_account" as t_customer_account {
 
 entity "customer_contact" as t_customer_contact {
   * contact_id : uuid <<PK>>
-  * customer_account_id : uuid <<FK, required>>
+  * customer_account_id : uuid <<required>>
   * human_identity_id : uuid <<required>>
   * role : varchar(32) <<required>>
   * status : varchar(32) <<required>>
@@ -151,8 +154,8 @@ entity "customer_address" as t_customer_address {
 
 entity "buyer_relationship" as t_buyer_relationship {
   * relationship_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * customer_account_id : uuid <<FK, required>>
   * human_identity_id : uuid <<required>>
   * status : varchar(32) <<required>>
@@ -187,6 +190,8 @@ entity "product" as t_product {
 
 entity "sku" as t_sku {
   * sku_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * product_id : uuid <<FK, required>>
   * code : varchar(80) <<required>>
   * name : varchar(200) <<required>>
@@ -221,10 +226,13 @@ entity "price_list" as t_price_list {
     valid_to : timestamptz
   * created_at : timestamptz <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "price_list_item" as t_price_list_item {
   * item_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * price_list_id : uuid <<FK, required>>
   * sku_id : uuid <<FK, required>>
   * unit_price : numeric(19,4) <<required>>
@@ -245,8 +253,8 @@ entity "base_price" as t_base_price {
 
 entity "customer_terms" as t_customer_terms {
   * terms_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * customer_account_id : uuid <<required>>
     price_list_id : uuid <<FK>>
   * credit_days : integer <<required>>
@@ -254,6 +262,7 @@ entity "customer_terms" as t_customer_terms {
   * valid_from : timestamptz <<required>>
     valid_to : timestamptz
   * created_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "promotion" as t_promotion {
@@ -268,10 +277,13 @@ entity "promotion" as t_promotion {
   * max_stackable : boolean <<required>>
   * created_at : timestamptz <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "promotion_sku" as t_promotion_sku {
   * promotion_sku_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * promotion_id : uuid <<FK, required>>
   * sku_id : uuid <<FK, required>>
   * discount_kind : varchar(32) <<required>>
@@ -334,8 +346,8 @@ entity "material_change_proposal" as t_material_change_proposal {
 
 entity "commercial_commitment" as t_commercial_commitment {
   * commitment_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * origin_type : varchar(32) <<required>>
     purchase_request_id : uuid <<FK>>
   * buyer_relationship_id : uuid <<required>>
@@ -358,8 +370,8 @@ entity "commercial_commitment_line" as t_commercial_commitment_line {
 
 entity "sales_order" as t_sales_order {
   * sales_order_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * commitment_id : uuid <<FK, required>>
   * status : varchar(32) <<required>>
   * confirmed_at : timestamptz <<required>>
@@ -411,6 +423,8 @@ entity "warehouse" as t_warehouse {
 
 entity "inventory_lot" as t_inventory_lot {
   * lot_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * warehouse_id : uuid <<FK, required>>
   * sku_id : uuid <<required>>
   * lot_code : varchar(120) <<required>>
@@ -466,6 +480,8 @@ entity "inventory_backing" as t_inventory_backing {
 
 entity "inventory_backing_line" as t_inventory_backing_line {
   * line_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * backing_id : uuid <<FK, required>>
   * warehouse_id : uuid <<FK, required>>
   * sku_id : uuid <<required>>
@@ -475,14 +491,19 @@ entity "inventory_backing_line" as t_inventory_backing_line {
 
 entity "physical_allocation" as t_physical_allocation {
   * allocation_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * backing_id : uuid <<FK, required>>
   * status : varchar(32) <<required>>
   * allocated_at : timestamptz <<required>>
     released_at : timestamptz
+  * version : integer <<required>>
 }
 
 entity "physical_allocation_line" as t_physical_allocation_line {
   * line_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * allocation_id : uuid <<FK, required>>
   * lot_id : uuid <<FK, required>>
   * sku_id : uuid <<required>>
@@ -505,14 +526,15 @@ entity "inventory_adjustment" as t_inventory_adjustment {
 
 entity "warehouse_transfer" as t_warehouse_transfer {
   * transfer_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * source_warehouse_id : uuid <<FK, required>>
   * destination_warehouse_id : uuid <<FK, required>>
   * status : varchar(32) <<required>>
   * requested_at : timestamptz <<required>>
     in_transit_at : timestamptz
     received_at : timestamptz
+  * version : integer <<required>>
 }
 
 entity "warehouse_transfer_line" as t_warehouse_transfer_line {
@@ -725,6 +747,7 @@ entity "credit_reservation" as t_credit_reservation {
   * status : varchar(32) <<required>>
   * reserved_at : timestamptz <<required>>
     released_at : timestamptz
+  * version : integer <<required>>
 }
 
 entity "receivable" as t_receivable {
@@ -859,8 +882,8 @@ entity "document_number_series" as t_document_number_series {
 
 entity "business_document" as t_business_document {
   * document_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * series_id : uuid <<FK, required>>
   * document_type : varchar(32) <<required>>
   * document_number : varchar(80) <<required>>
@@ -870,6 +893,7 @@ entity "business_document" as t_business_document {
   * status : varchar(32) <<required>>
     issued_at : timestamptz
     voided_at : timestamptz
+  * version : integer <<required>>
 }
 
 entity "document_snapshot_line" as t_document_snapshot_line {
@@ -927,8 +951,8 @@ entity "notification_template" as t_notification_template {
 
 entity "notification" as t_notification {
   * notification_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
     template_id : uuid <<FK>>
   * event_id : uuid <<required>>
   * event_type : varchar(160) <<required>>
@@ -956,6 +980,7 @@ entity "notification_preference" as t_notification_preference {
   * channel : varchar(32) <<required>>
   * enabled : boolean <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "push_subscription" as t_push_subscription {
@@ -1096,47 +1121,46 @@ t_company_onboarding_request }o--|| t_human_identity : requested_by_identity_id
 t_workforce_membership }o--|| t_workspace : workspace_id
 t_workforce_membership }o--|| t_human_identity : human_identity_id
 t_role_definition }o--|| t_workspace : workspace_id
-t_membership_role }o--|| t_workforce_membership : membership_id
-t_membership_role }o--|| t_role_definition : role_id
+t_membership_role }o--|| t_workforce_membership : membership_id, workspace_id
+t_membership_role }o--|| t_role_definition : role_id, workspace_id
 t_role_capability }o--|| t_role_definition : role_id
 t_role_capability }o--|| t_capability_definition : capability_id
 t_membership_capability_override }o--|| t_workforce_membership : membership_id
 t_membership_capability_override }o--|| t_capability_definition : capability_id
-t_customer_contact }o--|| t_customer_account : customer_account_id
 t_customer_address }o--|| t_customer_account : customer_account_id
-t_buyer_relationship }o--|| t_customer_account : customer_account_id
+t_buyer_relationship }o--|| t_customer_account : customer_account_id, tenant_id, workspace_id
 t_buyer_relationship_history }o--|| t_buyer_relationship : relationship_id
-t_sku }o--|| t_product : product_id
+t_sku }o--|| t_product : product_id, tenant_id, workspace_id
 t_catalog_media }o--|| t_product : product_id
-t_price_list_item }o--|| t_price_list : price_list_id
-t_price_list_item }o--|| t_sku : sku_id
+t_price_list_item }o--|| t_price_list : price_list_id, tenant_id, workspace_id
+t_price_list_item }o--|| t_sku : sku_id, tenant_id, workspace_id
 t_base_price }o--|| t_sku : sku_id
-t_customer_terms }o--|| t_price_list : price_list_id
-t_promotion_sku }o--|| t_promotion : promotion_id
-t_promotion_sku }o--|| t_sku : sku_id
+t_customer_terms }o--|| t_price_list : price_list_id, tenant_id, workspace_id
+t_promotion_sku }o--|| t_promotion : promotion_id, tenant_id, workspace_id
+t_promotion_sku }o--|| t_sku : sku_id, tenant_id, workspace_id
 t_request_draft_line }o--|| t_request_draft : draft_id
 t_purchase_request_line }o--|| t_purchase_request : purchase_request_id
 t_material_change_proposal }o--|| t_purchase_request : purchase_request_id
-t_commercial_commitment }o--|| t_purchase_request : purchase_request_id
+t_commercial_commitment }o--|| t_purchase_request : purchase_request_id, tenant_id, workspace_id
 t_commercial_commitment_line }o--|| t_commercial_commitment : commitment_id
-t_sales_order }o--|| t_commercial_commitment : commitment_id
+t_sales_order }o--|| t_commercial_commitment : commitment_id, tenant_id, workspace_id
 t_sales_order_line }o--|| t_sales_order : sales_order_id
 t_commitment_owner_transfer }o--|| t_commercial_commitment : commitment_id
 t_sales_commitment_adjustment }o--|| t_commercial_commitment : commitment_id
-t_inventory_lot }o--|| t_warehouse : warehouse_id
+t_inventory_lot }o--|| t_warehouse : warehouse_id, tenant_id, workspace_id
 t_inventory_position }o--|| t_warehouse : warehouse_id
 t_inventory_movement }o--|| t_warehouse : warehouse_id
 t_inventory_movement }o--|| t_inventory_lot : lot_id
 t_safety_stock_policy }o--|| t_warehouse : warehouse_id
-t_inventory_backing_line }o--|| t_inventory_backing : backing_id
-t_inventory_backing_line }o--|| t_warehouse : warehouse_id
-t_physical_allocation }o--|| t_inventory_backing : backing_id
-t_physical_allocation_line }o--|| t_physical_allocation : allocation_id
-t_physical_allocation_line }o--|| t_inventory_lot : lot_id
+t_inventory_backing_line }o--|| t_inventory_backing : backing_id, tenant_id, workspace_id
+t_inventory_backing_line }o--|| t_warehouse : warehouse_id, tenant_id, workspace_id
+t_physical_allocation }o--|| t_inventory_backing : backing_id, tenant_id, workspace_id
+t_physical_allocation_line }o--|| t_physical_allocation : allocation_id, tenant_id, workspace_id
+t_physical_allocation_line }o--|| t_inventory_lot : lot_id, tenant_id, workspace_id
 t_inventory_adjustment }o--|| t_warehouse : warehouse_id
 t_inventory_adjustment }o--|| t_inventory_lot : lot_id
-t_warehouse_transfer }o--|| t_warehouse : source_warehouse_id
-t_warehouse_transfer }o--|| t_warehouse : destination_warehouse_id
+t_warehouse_transfer }o--|| t_warehouse : source_warehouse_id, tenant_id, workspace_id
+t_warehouse_transfer }o--|| t_warehouse : destination_warehouse_id, tenant_id, workspace_id
 t_warehouse_transfer_line }o--|| t_warehouse_transfer : transfer_id
 t_lot_disposition }o--|| t_inventory_lot : lot_id
 t_fulfillment_line }o--|| t_fulfillment : fulfillment_id
@@ -1172,13 +1196,13 @@ t_payment_provider_event }o--|| t_payment : payment_id
 t_payment_refund }o--|| t_payment : payment_id
 t_payment_correction }o--|| t_payment : payment_id
 t_payment_reconciliation_case }o--|| t_payment : payment_id
-t_business_document }o--|| t_document_number_series : series_id
+t_business_document }o--|| t_document_number_series : series_id, tenant_id, workspace_id
 t_document_snapshot_line }o--|| t_business_document : document_id
 t_document_revision }o--|| t_business_document : document_id
 t_object_storage_reference }o--|| t_business_document : document_id
 t_document_generation_request }o--|| t_business_document : document_id
 t_document_generation_request }o--|| t_object_storage_reference : object_reference_id
-t_notification }o--|| t_notification_template : template_id
+t_notification }o--|| t_notification_template : template_id, tenant_id, workspace_id
 t_notification_recipient }o--|| t_notification : notification_id
 t_notification_attempt }o--|| t_notification : notification_id
 t_notification_attempt }o--|| t_notification_recipient : recipient_id

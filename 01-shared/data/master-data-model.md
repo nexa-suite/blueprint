@@ -59,7 +59,12 @@ needed.
   both `tenant_id` and `workspace_id NOT NULL`.
 - Global `human_identity` and `capability_definition` are deliberate
   exceptions. Membership rows provide their tenant relationships.
-- Mutable roots use `version` only where concurrent mutation is meaningful.
+- Mutable roots use `version`/`revision` only where concurrent mutation is
+  meaningful; each tactical model names its concrete SQL CAS or expected-state
+  guard.
+- A relation between independently scoped local roots carries scope and uses a
+  composite candidate-key FK. Simple owned children derive scope from their
+  parent; cross-BC IDs remain stable references rather than FKs.
 - Immutable facts use `occurred_at`, `created_at` or `issued_at`; no meaningless
   update timestamp is added to append-only records.
 - `jsonb` appears only for immutable snapshots, provider payload preservation or

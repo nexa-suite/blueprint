@@ -3,6 +3,7 @@
 -- Generated from the reviewed per-BC SQL lenses plus shared technical infrastructure.
 -- TARGET / BC-01 Tenant & Access Governance / shared PostgreSQL
 -- Same-owner foreign keys only. RLS is a deployment policy over tenant_id/workspace_id.
+-- membership_role carries workspace scope because it bridges independently scoped roots.
 
 CREATE TABLE tenant (
     tenant_id uuid PRIMARY KEY,
@@ -36,6 +37,7 @@ CREATE TABLE human_identity (
     verified_at timestamptz,
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (normalized_email)
 );
 
@@ -65,6 +67,7 @@ CREATE TABLE workforce_membership (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (membership_id, workspace_id),
     UNIQUE (workspace_id, human_identity_id)
 );
 
@@ -76,6 +79,8 @@ CREATE TABLE role_definition (
     status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','RETIRED')),
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (role_id, workspace_id),
     UNIQUE (workspace_id, code)
 );
 
@@ -90,11 +95,16 @@ CREATE TABLE capability_definition (
 
 CREATE TABLE membership_role (
     assignment_id uuid PRIMARY KEY,
-    membership_id uuid NOT NULL REFERENCES workforce_membership (membership_id),
-    role_id uuid NOT NULL REFERENCES role_definition (role_id),
+    workspace_id uuid NOT NULL,
+    membership_id uuid NOT NULL,
+    role_id uuid NOT NULL,
     assigned_at timestamptz NOT NULL,
     removed_at timestamptz,
-    UNIQUE (membership_id, role_id)
+    UNIQUE (membership_id, role_id),
+    FOREIGN KEY (membership_id, workspace_id)
+        REFERENCES workforce_membership (membership_id, workspace_id),
+    FOREIGN KEY (role_id, workspace_id)
+        REFERENCES role_definition (role_id, workspace_id)
 );
 
 CREATE TABLE role_capability (
@@ -133,12 +143,13 @@ CREATE TABLE customer_account (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (customer_account_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, tax_identifier)
 );
 
 CREATE TABLE customer_contact (
     contact_id uuid PRIMARY KEY,
-    customer_account_id uuid NOT NULL REFERENCES customer_account (customer_account_id),
+    customer_account_id uuid NOT NULL,
     human_identity_id uuid NOT NULL,
     role varchar(32) NOT NULL CHECK (role IN ('BUYER','BILLING','RECEIVING','ADMIN','OTHER')),
     status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','REMOVED')),
@@ -166,14 +177,16 @@ CREATE TABLE buyer_relationship (
     relationship_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    customer_account_id uuid NOT NULL REFERENCES customer_account (customer_account_id),
+    customer_account_id uuid NOT NULL,
     human_identity_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('PENDING','ACTIVE','SUSPENDED','REVOKED')),
     requested_at timestamptz NOT NULL,
     approved_at timestamptz,
     revoked_at timestamptz,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
-    UNIQUE (tenant_id, customer_account_id, human_identity_id)
+    UNIQUE (tenant_id, customer_account_id, human_identity_id),
+    FOREIGN KEY (customer_account_id, tenant_id, workspace_id)
+        REFERENCES customer_account (customer_account_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE buyer_relationship_history (
@@ -191,7 +204,8 @@ CREATE INDEX ix_buyer_relationship_customer ON buyer_relationship (customer_acco
 CREATE INDEX ix_customer_address_account_kind ON customer_address (customer_account_id, kind);
 
 -- TARGET / BC-03 Catalog & Commercial Policy / shared PostgreSQL
--- customer_account_id and sku references to other BCs are stable IDs, not FKs.
+-- customer_account_id references another BC as a stable ID, not an FK.
+-- Scoped local root pairs use composite FKs where a bridge can otherwise cross scope.
 
 CREATE TABLE product (
     product_id uuid PRIMARY KEY,
@@ -204,12 +218,15 @@ CREATE TABLE product (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (product_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, code)
 );
 
 CREATE TABLE sku (
     sku_id uuid PRIMARY KEY,
-    product_id uuid NOT NULL REFERENCES product (product_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    product_id uuid NOT NULL,
     code varchar(80) NOT NULL,
     name varchar(200) NOT NULL,
     gtin varchar(14),
@@ -220,6 +237,9 @@ CREATE TABLE sku (
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (product_id, code),
+    UNIQUE (sku_id, tenant_id, workspace_id),
+    FOREIGN KEY (product_id, tenant_id, workspace_id)
+        REFERENCES product (product_id, tenant_id, workspace_id),
     CHECK (gtin IS NULL OR gtin ~ '^[0-9]{8,14}$')
 );
 
@@ -245,19 +265,27 @@ CREATE TABLE price_list (
     valid_to timestamptz,
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (price_list_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, code),
     CHECK (valid_to IS NULL OR valid_from IS NULL OR valid_to > valid_from)
 );
 
 CREATE TABLE price_list_item (
     item_id uuid PRIMARY KEY,
-    price_list_id uuid NOT NULL REFERENCES price_list (price_list_id),
-    sku_id uuid NOT NULL REFERENCES sku (sku_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    price_list_id uuid NOT NULL,
+    sku_id uuid NOT NULL,
     unit_price numeric(19,4) NOT NULL CHECK (unit_price >= 0),
     currency char(3) NOT NULL,
     valid_from timestamptz,
     valid_to timestamptz,
     UNIQUE (price_list_id, sku_id),
+    FOREIGN KEY (price_list_id, tenant_id, workspace_id)
+        REFERENCES price_list (price_list_id, tenant_id, workspace_id),
+    FOREIGN KEY (sku_id, tenant_id, workspace_id)
+        REFERENCES sku (sku_id, tenant_id, workspace_id),
     CHECK (valid_to IS NULL OR valid_from IS NULL OR valid_to > valid_from)
 );
 
@@ -277,12 +305,15 @@ CREATE TABLE customer_terms (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     customer_account_id uuid NOT NULL,
-    price_list_id uuid REFERENCES price_list (price_list_id),
+    price_list_id uuid,
     credit_days integer NOT NULL DEFAULT 0 CHECK (credit_days >= 0),
     currency char(3) NOT NULL,
     valid_from timestamptz NOT NULL,
     valid_to timestamptz,
     created_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    FOREIGN KEY (price_list_id, tenant_id, workspace_id)
+        REFERENCES price_list (price_list_id, tenant_id, workspace_id),
     CHECK (valid_to IS NULL OR valid_to > valid_from)
 );
 
@@ -298,17 +329,25 @@ CREATE TABLE promotion (
     max_stackable boolean NOT NULL DEFAULT false,
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (promotion_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, code),
     CHECK (ends_at > starts_at)
 );
 
 CREATE TABLE promotion_sku (
     promotion_sku_id uuid PRIMARY KEY,
-    promotion_id uuid NOT NULL REFERENCES promotion (promotion_id),
-    sku_id uuid NOT NULL REFERENCES sku (sku_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    promotion_id uuid NOT NULL,
+    sku_id uuid NOT NULL,
     discount_kind varchar(32) NOT NULL CHECK (discount_kind IN ('PERCENT','FIXED')),
     discount_value numeric(19,4) NOT NULL CHECK (discount_value > 0),
-    UNIQUE (promotion_id, sku_id)
+    UNIQUE (promotion_id, sku_id),
+    FOREIGN KEY (promotion_id, tenant_id, workspace_id)
+        REFERENCES promotion (promotion_id, tenant_id, workspace_id),
+    FOREIGN KEY (sku_id, tenant_id, workspace_id)
+        REFERENCES sku (sku_id, tenant_id, workspace_id)
 );
 
 CREATE INDEX ix_sku_product_status ON sku (product_id, status);
@@ -353,6 +392,7 @@ CREATE TABLE purchase_request (
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    UNIQUE (purchase_request_id, tenant_id, workspace_id),
     CHECK (expires_at > submitted_at)
 );
 
@@ -384,7 +424,7 @@ CREATE TABLE commercial_commitment (
     -- Origin discriminator avoids a polymorphic source FK. DIRECT_ORDER is
     -- represented by the confirmed SalesOrder created in the same decision.
     origin_type varchar(32) NOT NULL CHECK (origin_type IN ('PURCHASE_REQUEST','DIRECT_ORDER')),
-    purchase_request_id uuid REFERENCES purchase_request (purchase_request_id),
+    purchase_request_id uuid,
     buyer_relationship_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('ESTABLISHED','CONFIRMED','CANCELLED','REPLACED')),
     committed_at timestamptz NOT NULL,
@@ -394,7 +434,10 @@ CREATE TABLE commercial_commitment (
         (origin_type = 'PURCHASE_REQUEST' AND purchase_request_id IS NOT NULL)
         OR (origin_type = 'DIRECT_ORDER' AND purchase_request_id IS NULL)
     ),
-    UNIQUE (purchase_request_id)
+    UNIQUE (purchase_request_id),
+    UNIQUE (commitment_id, tenant_id, workspace_id),
+    FOREIGN KEY (purchase_request_id, tenant_id, workspace_id)
+        REFERENCES purchase_request (purchase_request_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE commercial_commitment_line (
@@ -412,12 +455,15 @@ CREATE TABLE sales_order (
     sales_order_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    commitment_id uuid NOT NULL REFERENCES commercial_commitment (commitment_id),
+    commitment_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('CONFIRMED','IN_FULFILLMENT','PARTIALLY_FULFILLED','FULFILLED','PARTIALLY_DELIVERED','COMPLETED','CANCELLED')),
     confirmed_at timestamptz NOT NULL,
     cancelled_at timestamptz,
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),
-    UNIQUE (commitment_id)
+    UNIQUE (commitment_id),
+    UNIQUE (sales_order_id, tenant_id, workspace_id),
+    FOREIGN KEY (commitment_id, tenant_id, workspace_id)
+        REFERENCES commercial_commitment (commitment_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE sales_order_line (
@@ -457,6 +503,7 @@ CREATE INDEX ix_sales_order_scope_status ON sales_order (tenant_id, workspace_id
 
 -- TARGET / BC-05 Inventory Availability / shared PostgreSQL
 -- commitment_id and sku_id are stable non-owning references; local FKs are warehouse-owned.
+-- Scope is carried on root bridges only; simple warehouse-owned children derive it from parent.
 
 CREATE TABLE warehouse (
     warehouse_id uuid PRIMARY KEY,
@@ -469,12 +516,15 @@ CREATE TABLE warehouse (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (warehouse_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, code)
 );
 
 CREATE TABLE inventory_lot (
     lot_id uuid PRIMARY KEY,
-    warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    warehouse_id uuid NOT NULL,
     sku_id uuid NOT NULL,
     lot_code varchar(120) NOT NULL,
     expires_at timestamptz,
@@ -483,7 +533,10 @@ CREATE TABLE inventory_lot (
     status varchar(32) NOT NULL CHECK (status IN ('AVAILABLE','HOLD','QUARANTINE','DAMAGED','WASTE','EXPIRED','IN_TRANSIT')),
     received_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
-    UNIQUE (warehouse_id, lot_code)
+    UNIQUE (lot_id, tenant_id, workspace_id),
+    UNIQUE (warehouse_id, lot_code),
+    FOREIGN KEY (warehouse_id, tenant_id, workspace_id)
+        REFERENCES warehouse (warehouse_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE inventory_position (
@@ -532,35 +585,54 @@ CREATE TABLE inventory_backing (
     requested_at timestamptz NOT NULL,
     completed_at timestamptz,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (backing_id, tenant_id, workspace_id),
     UNIQUE (commercial_commitment_id)
 );
 
 CREATE TABLE inventory_backing_line (
     line_id uuid PRIMARY KEY,
-    backing_id uuid NOT NULL REFERENCES inventory_backing (backing_id),
-    warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    backing_id uuid NOT NULL,
+    warehouse_id uuid NOT NULL,
     sku_id uuid NOT NULL,
     requested_quantity numeric(19,6) NOT NULL CHECK (requested_quantity > 0),
     backed_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (backed_quantity >= 0 AND backed_quantity <= requested_quantity),
-    UNIQUE (backing_id, warehouse_id, sku_id)
+    UNIQUE (backing_id, warehouse_id, sku_id),
+    FOREIGN KEY (backing_id, tenant_id, workspace_id)
+        REFERENCES inventory_backing (backing_id, tenant_id, workspace_id),
+    FOREIGN KEY (warehouse_id, tenant_id, workspace_id)
+        REFERENCES warehouse (warehouse_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE physical_allocation (
     allocation_id uuid PRIMARY KEY,
-    backing_id uuid NOT NULL REFERENCES inventory_backing (backing_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    backing_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('ALLOCATED','RELEASED','CONSUMED')),
     allocated_at timestamptz NOT NULL,
-    released_at timestamptz
+    released_at timestamptz,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (allocation_id, tenant_id, workspace_id),
+    FOREIGN KEY (backing_id, tenant_id, workspace_id)
+        REFERENCES inventory_backing (backing_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE physical_allocation_line (
     line_id uuid PRIMARY KEY,
-    allocation_id uuid NOT NULL REFERENCES physical_allocation (allocation_id),
-    lot_id uuid NOT NULL REFERENCES inventory_lot (lot_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    allocation_id uuid NOT NULL,
+    lot_id uuid NOT NULL,
     sku_id uuid NOT NULL,
     quantity numeric(19,6) NOT NULL CHECK (quantity > 0),
     consumed_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (consumed_quantity >= 0 AND consumed_quantity <= quantity),
-    UNIQUE (allocation_id, lot_id)
+    UNIQUE (allocation_id, lot_id),
+    FOREIGN KEY (allocation_id, tenant_id, workspace_id)
+        REFERENCES physical_allocation (allocation_id, tenant_id, workspace_id),
+    FOREIGN KEY (lot_id, tenant_id, workspace_id)
+        REFERENCES inventory_lot (lot_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE inventory_adjustment (
@@ -580,12 +652,17 @@ CREATE TABLE warehouse_transfer (
     transfer_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    source_warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
-    destination_warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
+    source_warehouse_id uuid NOT NULL,
+    destination_warehouse_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('REQUESTED','IN_TRANSIT','RECEIVED')),
     requested_at timestamptz NOT NULL,
     in_transit_at timestamptz,
     received_at timestamptz,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    FOREIGN KEY (source_warehouse_id, tenant_id, workspace_id)
+        REFERENCES warehouse (warehouse_id, tenant_id, workspace_id),
+    FOREIGN KEY (destination_warehouse_id, tenant_id, workspace_id)
+        REFERENCES warehouse (warehouse_id, tenant_id, workspace_id),
     CHECK (source_warehouse_id <> destination_warehouse_id)
 );
 
@@ -866,6 +943,7 @@ CREATE TABLE credit_reservation (
     status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','RELEASED','CONSUMED','EXPIRED')),
     reserved_at timestamptz NOT NULL,
     released_at timestamptz,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (credit_account_id, commercial_commitment_id)
 );
 
@@ -918,7 +996,8 @@ CREATE TABLE financial_ledger_entry (
     direction varchar(16) NOT NULL CHECK (direction IN ('DEBIT','CREDIT')),
     amount numeric(19,4) NOT NULL CHECK (amount > 0),
     currency char(3) NOT NULL,
-    posted_at timestamptz NOT NULL
+    posted_at timestamptz NOT NULL,
+    UNIQUE (adjustment_id)
 );
 
 CREATE INDEX ix_credit_account_scope_status ON credit_account (tenant_id, workspace_id, status);
@@ -1021,6 +1100,7 @@ CREATE TABLE document_number_series (
     series_code varchar(32) NOT NULL,
     next_number bigint NOT NULL CHECK (next_number > 0),
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (series_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, workspace_id, document_type, series_code)
 );
 
@@ -1028,7 +1108,7 @@ CREATE TABLE business_document (
     document_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    series_id uuid NOT NULL REFERENCES document_number_series (series_id),
+    series_id uuid NOT NULL,
     document_type varchar(32) NOT NULL,
     document_number varchar(80) NOT NULL,
     sales_order_id uuid,
@@ -1037,7 +1117,10 @@ CREATE TABLE business_document (
     status varchar(32) NOT NULL CHECK (status IN ('DRAFT','ISSUED','VOID','SUPERSEDED')),
     issued_at timestamptz,
     voided_at timestamptz,
-    UNIQUE (tenant_id, document_type, document_number)
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (tenant_id, document_type, document_number),
+    FOREIGN KEY (series_id, tenant_id, workspace_id)
+        REFERENCES document_number_series (series_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE document_snapshot_line (
@@ -1102,6 +1185,7 @@ CREATE TABLE notification_template (
     content_snapshot jsonb NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('DRAFT','PUBLISHED','RETIRED')),
     created_at timestamptz NOT NULL,
+    UNIQUE (template_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, workspace_id, event_type, channel, version)
 );
 
@@ -1109,13 +1193,15 @@ CREATE TABLE notification (
     notification_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    template_id uuid REFERENCES notification_template (template_id),
+    template_id uuid,
     event_id uuid NOT NULL,
     event_type varchar(160) NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('SCHEDULED','PROCESSING','DELIVERED','PARTIAL','FAILED','CANCELLED')),
     scheduled_at timestamptz NOT NULL,
     delivered_at timestamptz,
-    version integer NOT NULL DEFAULT 0 CHECK (version >= 0)
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    FOREIGN KEY (template_id, tenant_id, workspace_id)
+        REFERENCES notification_template (template_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE notification_recipient (
@@ -1137,6 +1223,7 @@ CREATE TABLE notification_preference (
     channel varchar(32) NOT NULL CHECK (channel IN ('EMAIL','IN_APP')),
     enabled boolean NOT NULL,
     updated_at timestamptz NOT NULL,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (tenant_id, workspace_id, recipient_key, event_type, channel)
 );
 

@@ -108,6 +108,14 @@ and is never a new Delivery aggregate.
 - Temperature evidence is manual V1. Excursion places affected quantity on
   HOLD pending explicit ColdChainDisposition; it does not auto-destroy stock.
 
+## Persistence concurrency guards
+
+`fulfillment` and `delivery` use SQL `version` CAS: each mutable transition
+includes `WHERE <root_id> = :id AND version = :expectedVersion` and increments
+`version`. `proof_of_delivery` uses an expected-state predicate
+(`WHERE pod_id = :id AND status = :expectedStatus`) before sealing/rejecting;
+`temperature_evidence` is append-only and has no mutable-version claim.
+
 ## Events, persistence and evidence
 
 Internal events include `PickingConfirmed`, `DeliveryAttemptRecorded`,

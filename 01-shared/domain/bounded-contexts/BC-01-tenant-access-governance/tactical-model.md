@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-09-20
 ---
 
 # BC-01 Tenant & Access Governance — Tactical Model
@@ -40,10 +40,10 @@ the Workspace by identity and are not composed into the Tenant object graph.
 |---|---|---|---|---|
 | `Tenant` | Aggregate Root | `TenantId`, `name`, `status`, `expiryPolicy`, `version` | `requestActivation()`, `activate()`, `suspend()`, `changeExpiryPolicy()` | composes one `Workspace`; KEEP target, AS-IS close |
 | `Workspace` | Entity | `WorkspaceId`, `tenantId`, `slug`, `status` | `rename()`, `activate()`, `suspend()` | owned by Tenant; KEEP target |
-| `HumanIdentity` | Aggregate Root | `HumanIdentityId`, `email`, `displayName`, `status` | `changeDisplayName()`, `deactivate()` | global identity, referenced by memberships; KEEP AS-IS |
+| `HumanIdentity` | Aggregate Root | `HumanIdentityId`, `email`, `displayName`, `status`, `version` | `changeDisplayName()`, `deactivate()` | global identity, referenced by memberships; KEEP AS-IS |
 | `CompanyOnboardingRequest` | Aggregate Root | `OnboardingRequestId`, `TenantId`, requester identity, intake, status, version | `submit()`, `approve()`, `reject()` | activation handoff; never grants access before Tenant lifecycle gate |
 | `WorkforceMembership` | Aggregate Root | `MembershipId`, `tenantId`, `workspaceId`, `identityId`, `status`, `version` | `grant()`, `assignRole()`, `changeCapability()`, `suspend()`, `revoke()` | references Tenant/Workspace/Identity by ID; REFINE AS-IS |
-| `RoleDefinition` | Aggregate Root | `RoleId`, optional `tenantId`, `code`, `roleType`, `status` | `assignCapability()`, `removeCapability()`, `retire()` | owns capability assignments; REFINE AS-IS |
+| `RoleDefinition` | Aggregate Root | `RoleId`, optional `tenantId`, `code`, `roleType`, `status`, `version` | `assignCapability()`, `removeCapability()`, `retire()` | owns capability assignments; REFINE AS-IS |
 | `CompanyInformation` | Value Object | legal/trade name, tax identity, contact | `changeRegisteredData()` | used by onboarding/Tenant; TARGET |
 | `AccessContext` | Value Object | `tenantId`, `workspaceId`, `membershipId`, capability version | `requireCapability()` | generated per request; TARGET |
 | `CapabilityCode` | Value Object | normalized code | `isWithin()` | referenced by RoleDefinition; TARGET |
@@ -99,6 +99,14 @@ framework getters/setters.
   consistency boundaries with version/CAS and durable trace/security facts.
 - Cross-BC reads use IDs/projections. No membership graph is loaded into sales,
   catalog or delivery aggregates.
+
+## Persistence concurrency guards
+
+`tenant`, `human_identity`, `company_onboarding_request`,
+`workforce_membership` and `role_definition` use SQL `version` CAS: each
+mutable update includes `WHERE <root_id> = :id AND version = :expectedVersion`
+and increments `version`. Membership-role scope is guarded separately by its
+same-Workspace composite FKs; it is not a second root version.
 
 ## Events, persistence and evidence
 

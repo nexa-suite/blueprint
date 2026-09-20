@@ -3,15 +3,16 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: architecture
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-20
 ---
 
 # Mobile technical-story reconciliation
 
 The shared technical catalog remains the authority for cross-cutting technical
 work. Its 20 IDs are retained; the table below maps Mobile-relevant work to
-the product catalog without creating `MOB-TS` duplicates or choosing a client
-framework.
+the product catalog without creating `MOB-TS` duplicates. Client technology is
+already accepted: Operations Android/Kotlin/Jetpack Compose by ADR-0018 and
+Buyer Flutter/Dart for Android+iOS by ADR-0019.
 
 | ID | Existing technical story | Reconciled target | Status / evidence |
 |---|---|---|---|
@@ -29,7 +30,7 @@ framework.
 | TS-012 | Durable Business Traceability and Security Audit foundations | MOB-US-014, 017, 019, 023, 029, 033..035, 047..049, 050..053, 057, 060..069, 071, 073 | KEEP; BC-11 remains distinct from security audit. |
 | TS-013 | Web service i18n and canonical error contracts | all Mobile API consumers | KEEP; shared API error/Problem Details authority. |
 | TS-014 | Web i18n and a11y/ARIA support | Mobile UX equivalent remains open | KEEP for Web; Mobile accessibility is client acceptance work. |
-| TS-015 | Mobile local storage capability | MOB-US-001..003, 013..017, 019, 023, 033..035, 044, 047..049, 050, 052..053, 065..069 | REFINE; V1 safe cache, harmless draft, temporary evidence and retry metadata only; framework open. |
+| TS-015 | Mobile local storage capability | MOB-US-001..003, 013..017, 019, 023, 033..035, 044, 047..049, 050, 052..053, 065..069 | REFINE; V1 safe cache, harmless draft, temporary evidence and retry metadata only; framework assignment is closed by ADR-0018/ADR-0019, while client-local mechanism/package evidence remains open. |
 | TS-016 | Mobile camera-based Barcode/QR identification | MOB-US-011..012, 034, 047, 055 | REFINE; camera is optional input, manual fallback is required, no Scanner BC. |
 | TS-017 | Maps and geolocation capabilities | MOB-US-028, 029, 045, 072 | REFINE; V1 external navigation only; stored/background/live location is V2/Future. |
 | TS-018 | Mobile Push Notifications | MOB-US-044, 061..062, 067..068 | REFINE; critical Delivery updates and secure notification lifecycle; provider open. |
