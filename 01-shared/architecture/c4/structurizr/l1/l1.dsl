@@ -1,4 +1,4 @@
-systemContext nexa "Nexa-SystemContext-ASIS" "Nexa evidenced AS-IS system context; Mobile client not present" {
+systemContext nexa "Nexa-SystemContext-ASIS" "Integrated AS-IS excludes the unmerged Operations Mobile engineering preview; Buyer Mobile is absent" {
     include interestedCompany
     include nexaCommercialStaff
     include companyOwner
@@ -15,7 +15,7 @@ systemContext nexa "Nexa-SystemContext-ASIS" "Nexa evidenced AS-IS system contex
     autolayout lr
 }
 
-systemContext nexa "Nexa-SystemContext-V1-TARGET" "Nexa V1 TARGET system context with owner-accepted Mobile planning projections" {
+systemContext nexa "Nexa-SystemContext-V1-TARGET" "Nexa V1 TARGET system context with owner-accepted Operations and Buyer Mobile surfaces" {
     include interestedCompany
     include nexaCommercialStaff
     include companyOwner
@@ -48,6 +48,7 @@ systemContext nexa "Nexa-SystemContext-Future-Runway" "Nexa future runway with e
     include paymentProvider
     include emailDeliveryService
     include mapsGeolocationProvider
+    include pushDeliveryService
     include googleIdentityProvider
     include appleIdentityProvider
     include linkedinIdentityProvider

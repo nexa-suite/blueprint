@@ -3,25 +3,25 @@ status: planned
 maturity: BASELINED
 scope: runway
 owner: design
-last-reviewed: 2026-08-30
+last-reviewed: 2026-09-18
 ---
 
 # Mobile UX and research evidence plan
 
-No research evidence is fabricated. Product direction is owner-accepted;
-research is pending.
+No research evidence is fabricated. Product direction is owner-accepted.
+Needfinding is complete at 9/9 interviews for problem/task evidence; solution prototype validation and Product/UX Acceptance remain open.
 
 ## Segments and interview obligation
 
 | Segment | Actors | Required research | Current state |
 |---|---|---|---|
-| Field & Warehouse Operations | Sales Representative (V2+); Warehouse Operator; Dispatch Coordinator | 3–5 needfinding interviews; V1 warehouse/dispatch tasks plus deferred field-sales questions | RESEARCH_PENDING |
-| Delivery Workforce | Driver / Delivery Operator | 3–5 needfinding interviews/observations; privacy, battery, connectivity and evidence | RESEARCH_PENDING |
-| B2B Buyers | Customer Buyer | 3–5 needfinding interviews; catalog, commitment, receipt, discrepancy and finance needs | RESEARCH_PENDING |
+| Warehouse & Dispatch Operations | Warehouse Operator; Dispatch Coordinator | Needfinding evidence; warehouse/dispatch tasks plus deferred field-sales questions | RESEARCH EVIDENCE AVAILABLE; 3/3 |
+| Driver Delivery Execution | Driver / Delivery Operator | Needfinding evidence; privacy, battery, connectivity and evidence | RESEARCH EVIDENCE AVAILABLE; 3/3 |
+| B2B Buyers | Customer Buyer | Needfinding evidence; receipt, discrepancy and relationship needs | RESEARCH EVIDENCE AVAILABLE; 3/3 |
 
-Validation later requires 3–5 participants per segment interacting with Landing
-Page and Mobile flows. Names, screenshots, timings, URLs and summaries remain
-placeholders until supplied by the team.
+Solution validation later requires participants interacting with Landing Page and
+Mobile flows. Needfinding evidence is not solution validation. Names,
+screenshots, timings, URLs and validation outcomes are not invented here.
 
 ## High-value user goals
 
@@ -31,7 +31,8 @@ placeholders until supplied by the team.
    Buyer Handoff QR.
 3. Customer Buyer resolves the handoff, confirms quantities and preserves an
    immutable discrepancy fact.
-4. Deferred commercial work is researched separately; it is not part of the Mobile V1 task flow.
+4. Commercial work with a deferred lifecycle has its own master-backlog status;
+   this task model does not promote it into observed solution evidence.
 
 Each goal requires the following chain:
 
@@ -41,16 +42,16 @@ Each goal requires the following chain:
 
 | Artifact | Tool constraint from rubric | Status |
 |---|---|---|
-| User Persona | UXPressia | RESEARCH_PENDING |
-| User Task Matrix | UXPressia | RESEARCH_PENDING |
-| As-Is User Journey Map | UXPressia | RESEARCH_PENDING |
-| Empathy Map | UXPressia | RESEARCH_PENDING |
+| User Persona | UXPressia | RESEARCH-INFORMED SYNTHETIC ARTIFACT |
+| User Task Matrix | UXPressia | RESEARCH EVIDENCE AVAILABLE |
+| As-Is User Journey Map | UXPressia | RESEARCH EVIDENCE AVAILABLE |
+| Empathy Map | UXPressia | RESEARCH EVIDENCE AVAILABLE |
 | Impact Map | UXPressia | STRUCTURE_READY; SMART metrics proposed |
 | Wireframes | Figma | IMPLEMENTATION_PENDING |
 | Wireflows | LucidChart / Overflow | IMPLEMENTATION_PENDING |
 | Mock-ups | Figma | IMPLEMENTATION_PENDING |
 | User Flows | LucidChart / Overflow | IMPLEMENTATION_PENDING |
-| Interactive Prototype | Figma | IMPLEMENTATION_PENDING |
+| Interactive Prototype | Figma | OPEN; solution validation not evidenced |
 
 ## Inclusive design and i18n
 

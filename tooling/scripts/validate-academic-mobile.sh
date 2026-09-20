@@ -6,6 +6,7 @@ export ROOT_DIR
 
 python3 - <<'PY'
 from pathlib import Path
+from collections import Counter
 import os
 import re
 import subprocess
@@ -14,6 +15,9 @@ import sys
 root = Path(os.environ["ROOT_DIR"])
 course = root / "90-academic/mobile/course-1acc0238"
 catalog_path = root / "03-mobile/requirements/mobile-v1-catalog.md"
+master_path = root / "03-mobile/requirements/master-mobile-backlog.md"
+boundary_path = root / "03-mobile/requirements/academic-backlog-boundary.md"
+epic_index_path = root / "03-mobile/requirements/epics/README.md"
 readiness_path = root / "03-mobile/requirements/story-to-design-readiness.md"
 failures: list[str] = []
 
@@ -32,242 +36,192 @@ for name in required_docs:
     text = path.read_text(encoding="utf-8")
     if not text.startswith("---\n") or "\n---\n" not in text[4:]:
         failures.append(f"academic document lacks frontmatter: {path.relative_to(root)}")
-    else:
-        front = text[4:text.find("\n---\n", 4)]
-        values = dict(re.findall(r"(?m)^([A-Za-z][A-Za-z0-9_-]*):\s*(.+?)\s*$", front))
-        for key in ("status", "maturity", "scope", "owner", "last-reviewed"):
-            if key not in values:
-                failures.append(f"academic document missing {key}: {path.relative_to(root)}")
-        if values.get("scope") != "runway":
-            failures.append(f"academic document must remain scope runway: {path.relative_to(root)}")
+        continue
+    front = text[4:text.find("\n---\n", 4)]
+    values = dict(re.findall(r"(?m)^([A-Za-z][A-Za-z0-9_-]*):\s*(.+?)\s*$", front))
+    for key in ("status", "maturity", "scope", "owner", "last-reviewed"):
+        if key not in values:
+            failures.append(f"academic document missing {key}: {path.relative_to(root)}")
+    if values.get("scope") != "runway":
+        failures.append(f"academic document must remain scope runway: {path.relative_to(root)}")
+
+def expand_ids(text: str, prefix: str, width: int = 3) -> set[str]:
+    result: set[str] = set()
+    pattern = rf"{re.escape(prefix)}(\d{{{width}}})(?:\.\.(\d{{{width}}}))?"
+    for match in re.finditer(pattern, text):
+        start = int(match.group(1))
+        end = int(match.group(2) or match.group(1))
+        result.update(f"{prefix}{number:0{width}d}" for number in range(start, end + 1))
+    return result
+
+def story_blocks(text: str):
+    return list(re.finditer(
+        r"^## (MOB-US-\d{3}) — (.*?)\n(.*?)(?=^## MOB-US-|\Z)",
+        text,
+        re.MULTILINE | re.DOTALL,
+    ))
 
 catalog = catalog_path.read_text(encoding="utf-8")
-catalog_matches = list(re.finditer(
-    r"^## (MOB-US-\d{3}) — (.*?)\n(.*?)(?=^## MOB-US-|\Z)",
-    catalog,
-    re.MULTILINE | re.DOTALL,
-))
-canonical = {m.group(1): m.group(0) for m in catalog_matches}
-v1_ids = {
-    "MOB-US-001", "MOB-US-002", "MOB-US-003",
-    "MOB-US-011", "MOB-US-012", "MOB-US-013", "MOB-US-014",
-    "MOB-US-015", "MOB-US-016", "MOB-US-017", "MOB-US-019",
-    "MOB-US-020", "MOB-US-021", "MOB-US-022", "MOB-US-023",
-    "MOB-US-024", "MOB-US-025", "MOB-US-026", "MOB-US-027",
-    "MOB-US-028", "MOB-US-031", "MOB-US-032", "MOB-US-033",
-    "MOB-US-034", "MOB-US-044", "MOB-US-047", "MOB-US-048",
-    "MOB-US-049",
-}
-deferred_ids = {f"MOB-US-{i:03d}" for i in range(1, 50)} - v1_ids
-all_ids = set(canonical)
-canonical_numbers = sorted(int(sid[-3:]) for sid in all_ids)
-historical_ids = {f"MOB-US-{i:03d}" for i in range(1, 50)}
-if (
-    not canonical_numbers
-    or canonical_numbers[0] != 1
-    or canonical_numbers != list(range(1, canonical_numbers[-1] + 1))
-    or not historical_ids <= all_ids
-):
-    failures.append(f"canonical Mobile inventory must retain contiguous historical IDs from MOB-US-001; found {len(canonical)}")
-master = (root / "03-mobile/requirements/master-mobile-backlog.md").read_text(encoding="utf-8")
-master_rows = {}
+catalog_matches = story_blocks(catalog)
+catalog_ids = {match.group(1) for match in catalog_matches}
+expected_mobile = {f"MOB-US-{i:03d}" for i in range(1, 74)}
+if catalog_ids != expected_mobile or len(catalog_matches) != 73:
+    failures.append(f"canonical Mobile catalog must contain exactly MOB-US-001..073; found {len(catalog_ids)}")
+
+master = master_path.read_text(encoding="utf-8")
+header = next((line for line in master.splitlines() if line.startswith("| ID |")), "")
+expected_headers = [
+    "ID", "Title", "Actor", "Epic", "Target Product Generation",
+    "Historical Planning Band", "Priority", "Academic Story Points",
+    "Academic Sprint", "Status", "Primary BC", "Secondary BCs", "Capability",
+    "Backend Support", "Research Status", "Client Status", "Introduced In",
+    "Sprint Implemented", "Implemented In", "Verified In", "Product Accepted In",
+    "Description", "Mobile App", "Mobile Justification", "Dependencies",
+]
+header_cells = [cell.strip() for cell in header.strip("|").split("|")] if header else []
+if header_cells != expected_headers:
+    failures.append("master backlog does not expose the final 25-column schema")
+
+master_rows = []
 for line in master.splitlines():
     if re.match(r"^\| MOB-US-\d{3} \|", line):
-        cells = [cell.strip() for cell in line.strip("|").split("|")]
-        if cells:
-            master_rows[cells[0]] = cells
-future_ids = {
-    sid for sid, cells in master_rows.items()
-    if len(cells) > 4 and cells[4] == "V4_FUTURE"
-}
-actual_v1 = {
-    sid for sid in canonical if sid in v1_ids
-}
-if actual_v1 != v1_ids:
-    failures.append(f"canonical V1 IDs differ: expected {sorted(v1_ids)}, found {sorted(actual_v1)}")
-if (set(canonical) & {f"MOB-US-{i:03d}" for i in range(1, 50)}) - actual_v1 != deferred_ids:
-    failures.append("historical canonical deferred IDs do not equal the required 21-story set")
+        master_rows.append([cell.strip() for cell in line.strip("|").split("|")])
+master_by_id = {row[0]: row for row in master_rows if row}
+if set(master_by_id) != expected_mobile or len(master_rows) != 73:
+    failures.append(f"master backlog must contain exactly 73 Mobile rows; found {len(master_rows)}")
+if any(len(row) != len(expected_headers) for row in master_rows):
+    failures.append("master backlog rows must match the final 25-column schema")
 
-epic_index = (root / "03-mobile/requirements/epics/README.md").read_text(encoding="utf-8")
-epic_map = {}
-for line in epic_index.splitlines():
-    if line.startswith("| MOBILE-EPIC-"):
-        cells = [cell.strip() for cell in line.strip("|").split("|")]
-        if len(cells) >= 8:
-            epic_map[cells[0]] = set(re.findall(r"MOB-US-\d{3}", cells[7]))
-required_fields = [
-    "ID", "Product", "App", "Surface", "User / Actor", "Epic", "Priority",
-    "Title", "Owning Bounded Context", "Secondary Bounded Contexts",
-    "Shared Capability", "Business Goal / Impact", "Research status", "Scope",
-    "Mobile justification", "Backend Support", "Implementation Evidence",
-    "Client Status", "Dependencies", "Description / User Story",
-    "Acceptance Criteria", "Story Points", "Sprint", "Academic Milestone",
-]
+bands = Counter(row[5] for row in master_rows if len(row) == len(expected_headers))
+if bands != Counter({"V1": 28, "V2": 35, "V3": 9, "V4_FUTURE": 1}):
+    failures.append(f"historical planning band distribution is incorrect: {dict(bands)}")
+generations = Counter(row[4] for row in master_rows if len(row) == len(expected_headers))
+if generations != Counter({"V1": 73}):
+    failures.append(f"Product Generation distribution is incorrect: {dict(generations)}")
+sprints = Counter(row[8] for row in master_rows if len(row) == len(expected_headers))
+if sprints != Counter({"Sprint 1": 4, "Sprint 2": 21, "Sprint 3": 24, "Sprint 4": 24}):
+    failures.append(f"academic Sprint distribution is incorrect: {dict(sprints)}")
 
-for sid, block in canonical.items():
-    for field in ("ID", "Status", "Product", "Surface", "Actor", "Epic", "Priority", "Title", "Owning Bounded Context"):
-        if not re.search(rf"^\| {re.escape(field)} \|\s*[^|]+\|$", block, re.MULTILINE):
-            failures.append(f"{sid} missing required canonical field: {field}")
-    epic_value = re.search(r"^\| Epic \|\s*(.*?)\s*\|$", block, re.MULTILINE)
-    epic_id = next((eid for eid in epic_map if epic_value and eid in epic_value.group(1)), None)
-    if not epic_id:
-        failures.append(f"{sid} has no recognized canonical Epic")
-    elif sid not in epic_map[epic_id]:
-        failures.append(f"{sid} is assigned to the wrong canonical Epic")
-    statement = re.search(
-        r"^### User Story\s*\n\s*As (?:a|an) .+?,\s*\n"
-        r"I want .+?,\s*\nso that .+?\s*$",
-        block,
-        re.MULTILINE,
-    )
-    if not statement:
-        failures.append(f"{sid} lacks a complete human User Story statement")
-    acceptance = re.search(
-        r"^### Acceptance Criteria\s*\n(?P<criteria>.*?)(?=^## MOB-US-|^### Outcome Conditions|\Z)",
-        block,
-        re.MULTILINE | re.DOTALL,
-    )
-    criteria = acceptance.group("criteria") if acceptance else ""
-    scenarios = re.findall(r"^- Scenario: .*?(?=\n|\Z)", criteria, re.MULTILINE)
-    if sid in v1_ids and len(scenarios) < 4:
-        failures.append(f"{sid} requires at least four Scenario criteria")
-    if sid not in v1_ids and sid not in future_ids and not 2 <= len(scenarios) <= 4:
-        failures.append(f"{sid} requires two to four roadmap Scenario criteria")
-    if sid in future_ids and not re.search(r"^### Outcome Conditions\s*$", block, re.MULTILINE):
-        failures.append(f"{sid} requires high-level Outcome Conditions")
-    for scenario in scenarios:
-        if not all(re.search(rf"\b{word}\b", scenario, re.IGNORECASE) for word in ("Given", "when", "then")):
-            failures.append(f"{sid} has non-Gherkin Scenario criterion: {scenario[:80]}")
-    if sid in v1_ids:
-        title = re.search(r"^\| Title \|\s*(.*?)\s*\|$", block, re.MULTILINE).group(1)
-        functional_text = title + " " + (statement.group(0) if statement else "")
-        forbidden = re.compile(
-            r"\b(?:api|http|endpoint|database|table|schema|ui|ux|screen|component|"
-            r"client|server|idempotenc\w*|synchron\w*|sync)\b",
-            re.IGNORECASE,
-        )
-        if forbidden.search(functional_text):
-            failures.append(f"{sid} functional title/description contains engineering language")
-        if forbidden.search(" ".join(scenarios)):
-            failures.append(f"{sid} acceptance criteria contains UI/API/database or sync jargon")
-    if sid in {"MOB-US-029", "MOB-US-035", "MOB-US-045", "MOB-US-046"} and sid in v1_ids:
-        failures.append(f"{sid} is forbidden in V1")
-    if sid == "MOB-US-044" and "Push Subscription" in block:
-        failures.append("MOB-US-044 functional story must not expose Push Subscription wording")
+allowed_status = {"PLANNED", "READY", "IN_PROGRESS", "IMPLEMENTED", "VERIFIED", "PRODUCT_ACCEPTED", "DEFERRED", "SUPERSEDED", "RETIRED"}
+allowed_backend = {"SUPPORTED", "PARTIAL", "OPEN", "NOT_REQUIRED"}
+allowed_research = {"NOT_REQUIRED", "PENDING", "RESEARCHING", "RESEARCH EVIDENCE AVAILABLE"}
+allowed_client = {"NOT_STARTED", "IN_PROGRESS", "IMPLEMENTED", "VERIFIED"}
+for row in master_rows:
+    if len(row) != len(expected_headers):
+        continue
+    story_id = row[0]
+    if row[4] != "V1":
+        failures.append(f"{story_id} must target Product Generation V1")
+    if row[9] not in allowed_status:
+        failures.append(f"{story_id} has uncontrolled Status: {row[9]}")
+    if row[13] not in allowed_backend:
+        failures.append(f"{story_id} has uncontrolled Backend Support: {row[13]}")
+    if row[14] not in allowed_research:
+        failures.append(f"{story_id} has uncontrolled Research Status: {row[14]}")
+    if row[15] not in allowed_client:
+        failures.append(f"{story_id} has uncontrolled Client Status: {row[15]}")
+    if row[17:21] != ["NOT_IMPLEMENTED", "NOT_IMPLEMENTED", "NOT_VERIFIED", "NOT_ACCEPTED"]:
+        failures.append(f"{story_id} claims implementation, verification or Product Acceptance")
+
+boundary = boundary_path.read_text(encoding="utf-8")
+if "77895a8950676ccdaec520a61c41107852268606" not in boundary:
+    failures.append("academic boundary does not cite Mobile Report v1.0.1 target commit")
+if expand_ids(boundary, "MOB-US-") != expected_mobile:
+    failures.append("academic boundary must cover every MOB-US-001..073 story")
+if expand_ids(boundary, "LAND-US-") != {f"LAND-US-{i:03d}" for i in range(1, 7)}:
+    failures.append("academic boundary must cover LAND-US-001..006")
+if expand_ids(boundary, "TS-MOB-") != {f"TS-MOB-{i:03d}" for i in range(1, 13)}:
+    failures.append("academic boundary must cover TS-MOB-001..012")
+if expand_ids(boundary, "SPIKE-") != {f"SPIKE-{i:03d}" for i in range(1, 7)}:
+    failures.append("academic boundary must cover SPIKE-001..006")
+if not re.search(r"Academic total\s*\|\s*97", boundary):
+    failures.append("academic boundary must declare total 97")
+if "426 SP" not in boundary:
+    failures.append("academic boundary must declare 426 SP")
 
 projection = (course / "requirements-projection.md").read_text(encoding="utf-8")
 if "GENERATED ACADEMIC PROJECTION — DO NOT EDIT DIRECTLY" not in projection:
     failures.append("academic requirements projection must be marked generated and non-editable")
-rows = re.findall(r"^\|\s*(\d+)\s*\|\s*(MOB-US-\d{3})\s*\|.*$", projection, re.MULTILINE)
-if len(rows) != 28:
-    failures.append(f"academic backlog expected exactly 28 rows, found {len(rows)}")
-row_ids = [sid for _, sid in rows]
-if len(row_ids) != len(set(row_ids)) or set(row_ids) != v1_ids:
-    failures.append("academic backlog must contain each canonical V1 ID exactly once")
-if [int(order) for order, _ in rows] != list(range(1, 29)):
-    failures.append("academic backlog order must be contiguous 1..28")
-registry_blocks = {
-    m.group(1): m.group(0)
-    for m in re.finditer(
-        r"^### (MOB-US-\d{3}) - .*?(?=^### MOB-US-|^## Academic boundary|\Z)",
-        projection,
-        re.MULTILINE | re.DOTALL,
-    )
+if "97" not in projection or "426" not in projection or "Sprint 4" not in projection:
+    failures.append("academic requirements projection lacks final AV1 totals/four-Sprint plan")
+if "### User Story" in projection:
+    failures.append("academic requirements projection must remain an index, not a second story-body source")
+expected_sprint_ids = {
+    "Sprint 1": {"MOB-US-001", "MOB-US-002", "MOB-US-003", "MOB-US-011"},
+    "Sprint 2": {f"MOB-US-{i:03d}" for i in range(4, 11)} | {f"MOB-US-{i:03d}" for i in range(12, 26)},
+    "Sprint 3": {f"MOB-US-{i:03d}" for i in range(26, 50)},
+    "Sprint 4": {f"MOB-US-{i:03d}" for i in range(50, 74)},
 }
-if set(registry_blocks) != v1_ids:
-    failures.append("academic V1 field registry must contain exactly the 28 V1 IDs")
-for sid in v1_ids:
-    block = registry_blocks.get(sid, "")
-    for field in required_fields:
-        if not re.search(rf"^- \*\*{re.escape(field)}:\*\*\s*.+$", block, re.MULTILINE):
-            failures.append(f"{sid} missing visible academic field: {field}")
-    points = re.search(r"^- \*\*Story Points:\*\*\s*(\d+)$", block, re.MULTILINE)
-    if not points or int(points.group(1)) not in {1, 2, 3, 5, 8}:
-        failures.append(f"{sid} has invalid Story Points")
-    sprint = re.search(r"^- \*\*Sprint:\*\*\s*(S[1-3])$", block, re.MULTILINE)
-    if not sprint:
-        failures.append(f"{sid} has invalid Sprint")
-    if "Client Status:** NOT STARTED" not in block:
-        failures.append(f"{sid} must keep Client Status NOT STARTED")
-    if not re.search(r"^- \*\*Description / User Story:\*\*\s*As .+ I want .+ so that .+$", block, re.MULTILINE):
-        failures.append(f"{sid} academic Description / User Story is not visibly human-centered")
-    if len(re.findall(r"^\s+- Scenario: .*?(?=\n|\Z)", block, re.MULTILINE)) < 4:
-        failures.append(f"{sid} academic Acceptance Criteria are not visible as four scenarios")
-    title_match = re.search(r"^- \*\*Title:\*\*\s*(.+)$", block, re.MULTILINE)
-    epic_match = re.search(r"^- \*\*Epic:\*\*\s*(MOBILE-EPIC-\d{2})", block, re.MULTILINE)
-    canonical_title_match = re.search(r"^## " + re.escape(sid) + r" — (.*?)$", canonical[sid], re.MULTILINE)
-    if not title_match or not canonical_title_match or title_match.group(1).strip() != canonical_title_match.group(1).strip():
-        failures.append(f"{sid} academic title diverges from canonical catalog")
-    if not epic_match or sid not in epic_map.get(epic_match.group(1), set()):
-        failures.append(f"{sid} academic Epic diverges from canonical outcome mapping")
+for sprint_name, expected in expected_sprint_ids.items():
+    match = re.search(rf"^\| {re.escape(sprint_name)} \|(?P<body>.*?)\| \d+ \| \d+ \| \d+ \|$", projection, re.MULTILINE)
+    if not match or expand_ids(match.group("body"), "MOB-US-") != expected:
+        failures.append(f"academic requirements projection has incorrect {sprint_name} mapping")
 
-if not readiness_path.is_file():
-    failures.append("missing Mobile V1 story-to-design readiness artifact")
-else:
-    readiness = readiness_path.read_text(encoding="utf-8")
-    readiness_ids = set(re.findall(r"^\|\s*(MOB-US-\d{3})\s*\|", readiness, re.MULTILINE))
-    if readiness_ids != v1_ids:
-        failures.append("story-to-design readiness must map exactly the 28 V1 IDs")
-    header = next((line for line in readiness.splitlines() if line.startswith("| Story |")), "")
-    for label in (
-        "Actor", "Goal", "Trigger", "Information needed", "Primary action",
-        "Success", "Alternate", "Error", "Stale / connectivity / device",
-        "Related stories", "Task-flow and screen responsibility",
-    ):
-        if label not in header:
-            failures.append(f"story-to-design readiness missing column: {label}")
+epic_index = epic_index_path.read_text(encoding="utf-8")
+expected_epics = {f"MOBILE-EPIC-{i:02d}" for i in range(1, 13)}
+if set(re.findall(r"^\| (MOBILE-EPIC-\d{2}) \|", epic_index, re.MULTILINE)) != expected_epics:
+    failures.append("canonical Mobile Epic index must contain exactly 12 Epics")
 
 epics = (course / "epic-projection.md").read_text(encoding="utf-8")
 if "GENERATED ACADEMIC PROJECTION — DO NOT EDIT DIRECTLY" not in epics:
     failures.append("academic Epic projection must be marked generated and non-editable")
-epic_ids = re.findall(r"^## (MOBILE-EPIC-\d{2}) - .+$", epics, re.MULTILINE)
-if epic_ids != [f"MOBILE-EPIC-{i:02d}" for i in range(1, 8)]:
-    failures.append(f"academic Epic projection must contain MOBILE-EPIC-01..07 exactly once: {epic_ids}")
-epic_blocks = {
-    m.group(1): m.group(0)
-    for m in re.finditer(
-        r"^## (MOBILE-EPIC-\d{2}) - .*?(?=^## MOBILE-EPIC-|^## Academic boundary|\Z)",
-        epics,
-        re.MULTILINE | re.DOTALL,
-    )
-}
-epic_fields = (
-    "ID / Title", "Purpose / Outcome", "Actors", "Apps", "Capabilities",
-    "Bounded Contexts", "Business Goal / Impact", "V1 Stories",
-    "V2 / Deferred Stories", "Future / Runway", "Out of Scope",
-    "Success Criteria", "Implementation Evidence", "Academic Traceability",
-)
-for eid, block in epic_blocks.items():
-    for field in epic_fields:
-        if not re.search(rf"^- \*\*{re.escape(field)}:\*\*\s*.+$", block, re.MULTILINE):
-            failures.append(f"{eid} missing Epic field: {field}")
-    v1_match = re.search(r"^- \*\*V1 Stories:\*\*\s*(.+)$", block, re.MULTILINE)
-    deferred_match = re.search(r"^- \*\*V2 / Deferred Stories:\*\*\s*(.+)$", block, re.MULTILINE)
-    listed_v1 = set(re.findall(r"MOB-US-\d{3}", v1_match.group(1))) if v1_match else set()
-    listed_deferred = set(re.findall(r"MOB-US-\d{3}", deferred_match.group(1))) if deferred_match else set()
-    if eid in {"MOBILE-EPIC-01", "MOBILE-EPIC-02", "MOBILE-EPIC-03", "MOBILE-EPIC-04", "MOBILE-EPIC-05"} and listed_v1 != epic_map[eid]:
-        failures.append(f"{eid} V1 story mapping is incorrect")
-    if eid in {"MOBILE-EPIC-06", "MOBILE-EPIC-07"} and listed_deferred != epic_map[eid]:
-        failures.append(f"{eid} deferred story mapping is incorrect")
-if not all(f"WEB-US-{i:03d}" in epics for i in range(1, 6)) or "Sprint 1" not in epics:
-    failures.append("academic Epic projection must retain WEB-US-001..005 Landing Page dependency in Sprint 1")
+if set(re.findall(r"^\| (MOBILE-EPIC-\d{2}) \|", epics, re.MULTILINE)) != expected_epics:
+    failures.append("academic Epic projection must reflect MOBILE-EPIC-01..12")
+if "LAND-US-001..006" not in epics or "not a thirteenth Mobile Product Epic" not in epics:
+    failures.append("academic Epic projection must keep Landing Page separate from Mobile Epics")
 
-spikes = (root / "01-shared/product/requirements/spike-stories.md").read_text(encoding="utf-8")
-for field in ("Context", "Question", "Investigation Goal", "Alternatives", "Evidence Required", "Acceptance Criteria", "Expected Output", "Decision Produced", "Timebox"):
-    if field not in spikes:
-        failures.append(f"shared Spike contract missing field: {field}")
-for i in range(1, 7):
-    if f"| SPIKE-{i:03d} |" not in spikes:
-        failures.append(f"SPIKE-{i:03d} missing academic evidence-contract row")
+if not readiness_path.is_file():
+    failures.append("missing Mobile design-readiness subset")
+else:
+    readiness = readiness_path.read_text(encoding="utf-8")
+    readiness_ids = set(re.findall(r"^\|\s*(MOB-US-\d{3})\s*\|", readiness, re.MULTILINE))
+    historical_v1 = {sid for sid, row in master_by_id.items() if len(row) > 5 and row[5] == "V1"}
+    if len(readiness_ids) != 28 or readiness_ids != historical_v1:
+        failures.append("story-to-design readiness must remain the explicit 28-story assessed historical subset")
+    if "does not define the\ncurrent Nexa Mobile V1 Product Generation" not in readiness:
+        failures.append("story-to-design readiness must state that it does not define Product Generation V1")
 
+milestones = (course / "milestone-plan.md").read_text(encoding="utf-8")
+for required in ("AV1 COMPLETE", "97 PBIs / 426 SP", "Sprint 4", "No Sprint result", "TB1"):
+    if required not in milestones:
+        failures.append(f"milestone plan missing AV1 evidence boundary: {required}")
+rubric = (course / "rubric-compliance.md").read_text(encoding="utf-8")
+if "Sprint 1 / Sprint 2 / Sprint 3 / Sprint 4 evidence" not in rubric:
+    failures.append("rubric compliance must cover evidence templates for all four academic Sprints")
 architecture = (course / "architecture-projection.md").read_text(encoding="utf-8")
-for view in (
-    "Nexa-SystemContext-ASIS", "Nexa-SystemContext-V1-TARGET",
-    "Nexa-Containers-ASIS", "Nexa-Containers-V1-TARGET",
-    "Nexa-Deployment-Local-ASIS", "Nexa-Deployment-V1-TARGET",
-):
-    if view not in architecture:
-        failures.append(f"academic architecture projection missing C4 view: {view}")
+for required in ("shared Blueprint C4 DSL remains the authority", "derived academic", "unmerged feature branches", "Wave 2"):
+    if required not in architecture:
+        failures.append(f"academic architecture projection missing boundary: {required}")
+ux = (course / "ux-evidence-plan.md").read_text(encoding="utf-8")
+for required in ("9/9", "RESEARCH EVIDENCE AVAILABLE", "solution prototype validation", "Product/UX Acceptance"):
+    if required not in ux:
+        failures.append(f"academic UX evidence plan missing boundary: {required}")
+implementation = (course / "implementation-evidence-plan.md").read_text(encoding="utf-8")
+for required in ("Operations Android", "PARTIAL IMPLEMENTATION EVIDENCE", "Buyer Mobile", "NOT VERIFIED"):
+    if required not in implementation:
+        failures.append(f"academic implementation plan missing dimension: {required}")
+validation = (course / "validation-evidence-plan.md").read_text(encoding="utf-8")
+for required in ("V1 = 73", "Sprint 1 = 4", "Sprint 4 = 24", "Needfinding interviews are COMPLETE", "Validation interviews are NOT COMPLETED"):
+    if required not in validation:
+        failures.append(f"academic validation plan missing dimension: {required}")
+deferred_intent_row = next(
+    (line for line in validation.splitlines() if line.startswith("| Deferred commercial intent |")),
+    None,
+)
+if deferred_intent_row is None:
+    failures.append("academic validation plan is missing the Deferred commercial intent row")
+else:
+    if "V2+ only" in deferred_intent_row:
+        failures.append("Deferred commercial intent must not classify V1 Product Generation as V2+ only")
+    for required in ("lifecycle `DEFERRED`", "Target Product Generation is V1", "historical planning band is provenance only"):
+        if required not in deferred_intent_row:
+            failures.append(f"Deferred commercial intent row missing lifecycle boundary: {required}")
+needfinding_video_row = next(
+    (line for line in validation.splitlines() if line.startswith("| Needfinding video publication / attachment |")),
+    None,
+)
+if needfinding_video_row is None or "| PENDING |" not in (needfinding_video_row or ""):
+    failures.append("Needfinding video publication row must keep artifact publication state explicit")
 
 tracked = subprocess.check_output(["git", "ls-files"], cwd=root, text=True).splitlines()
 source_rel = "90-academic/mobile/enunciado-trabajo-final.md"
@@ -275,18 +229,11 @@ if source_rel in tracked or (root / source_rel).exists():
     failures.append("academic source transcription must be absent from the publishable tree")
 if any(path.endswith("mobile-applications-final-rubric.pdf") for path in tracked):
     failures.append("academic rubric PDF must not be tracked")
-source_pattern = re.compile(
-    r"(?:enunciado|original[-_]?rubric|course[-_]?source|source[-_]?statement)",
-    re.IGNORECASE,
-)
+source_pattern = re.compile(r"(?:enunciado|original[-_]?rubric|course[-_]?source|source[-_]?statement)", re.IGNORECASE)
 academic_paths = set(path for path in tracked if path.startswith("90-academic/"))
-academic_paths.update(
-    str(path.relative_to(root))
-    for path in (root / "90-academic").rglob("*")
-    if path.is_file()
-)
+academic_paths.update(str(path.relative_to(root)) for path in (root / "90-academic").rglob("*") if path.is_file())
 for path in academic_paths:
-    if (source_pattern.search(Path(path).name) and Path(path).suffix.lower() not in {".pdf", ".epub"}) or (path in tracked and Path(path).suffix.lower() in {".pdf", ".epub"}):
+    if source_pattern.search(Path(path).name) and Path(path).suffix.lower() not in {".pdf", ".epub"}:
         failures.append(f"academic source-like artifact must remain local-only: {path}")
     if Path(path).suffix.lower() == ".md" and path != source_rel:
         body = (root / path).read_text(encoding="utf-8")
@@ -300,7 +247,7 @@ if failures:
     sys.exit(1)
 
 print("ACADEMIC MOBILE VALIDATION: PASS")
-print("- canonical Mobile inventory: 73 IDs (49 historical + 24 independent; 28 course V1)")
-print("- academic backlog: 28 visible V1 rows with human Description/AC, points, sprints and milestones")
-print("- Epic mapping, design readiness, Spike contract, C4 projection and publication boundary: PASS")
+print("- academic boundary: 73 MOB + 6 LAND + 12 Technical + 6 Spikes = 97 PBIs / 426 SP")
+print("- final academic Sprints: Mobile 4 / 21 / 24 / 24")
+print("- derived projection, Epic mapping, assessed subset and publication boundary: PASS")
 PY

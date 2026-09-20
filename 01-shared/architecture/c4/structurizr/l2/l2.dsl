@@ -1,4 +1,4 @@
-container nexa "Nexa-Containers-ASIS" "Nexa evidenced AS-IS containers; Mobile client not present" {
+container nexa "Nexa-Containers-ASIS" "Integrated AS-IS containers exclude the unmerged Operations Mobile preview; Buyer Mobile is absent" {
     include interestedCompany
     include nexaCommercialStaff
     include companyOwner
@@ -20,7 +20,7 @@ container nexa "Nexa-Containers-ASIS" "Nexa evidenced AS-IS containers; Mobile c
     autolayout lr
 }
 
-container nexa "Nexa-Containers-V1-TARGET" "Nexa V1 TARGET containers with owner-accepted Mobile planning projections" {
+container nexa "Nexa-Containers-V1-TARGET" "Nexa V1 TARGET containers with owner-accepted Operations and Buyer Mobile surfaces" {
     include interestedCompany
     include nexaCommercialStaff
     include companyOwner

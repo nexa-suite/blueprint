@@ -1,7 +1,10 @@
 # Mobile technical direction
 
-Status: `OPEN / DISCOVERY`. The client framework, build pipeline, provider
-choices and production runtime are not selected.
+Status: `OPEN / DISCOVERY`. No final canonical client framework, build
+pipeline, provider choice or production runtime has been accepted. Current
+unmerged Operations AS-IS evidence uses Android/Kotlin/Jetpack Compose; that
+observed choice is not a TARGET assignment and Buyer Mobile has no verified
+implementation.
 
 - [Application architecture](application-architecture.md)
 - [Local storage](local-storage.md)

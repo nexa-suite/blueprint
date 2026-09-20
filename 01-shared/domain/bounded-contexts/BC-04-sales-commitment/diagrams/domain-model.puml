@@ -12,7 +12,7 @@ class RequestDraft <<Aggregate Root>> {
   -status: DraftStatus
   +addLine(skuId: SkuId, quantity: Quantity): void
   +removeLine(lineId: DraftLineId): void
-  +submit(): PurchaseRequest
+  +prepareSubmission(): RequestSubmissionData
 }
 
 class RequestDraftLine <<Entity>> {
@@ -52,10 +52,12 @@ class MaterialChangeProposal <<Entity>> {
 
 class CommercialCommitment <<Aggregate Root>> {
   -commitmentId: CommitmentId
+  -originType: CommitmentOriginType
   -purchaseRequestId: PurchaseRequestId
   -status: CommitmentStatus
   -revision: Revision
-  +establish(): void
+  +establishFromPurchaseRequest(): void
+  +establishDirect(): void
   +cancel(reason: CancellationReason): void
   +replace(): SalesOrder
 }
@@ -114,6 +116,24 @@ class TermsSnapshot <<Value Object>> {
   -capturedAt: Instant
 }
 
+class RequestSubmissionData <<Value Object>> {
+  -buyerRelationshipId: BuyerRelationshipId
+  -lines: DraftLineData
+  +validateCompleteness(): void
+}
+
+class ResolvedOfferSnapshot <<External Contract>> {
+  -skuId: SkuId
+  -unitPrice: Money
+  -termsSnapshot: TermsSnapshot
+  -promotionId: PromotionId [0..1]
+  -effectiveAt: Instant
+}
+
+class PurchaseRequestFactory <<Domain Factory>> {
+  +createFrom(data: RequestSubmissionData, offers: List<ResolvedOfferSnapshot>): PurchaseRequest
+}
+
 interface PurchaseRequestRepository <<Repository>> {
   +findById(id: PurchaseRequestId): PurchaseRequest
   +save(request: PurchaseRequest): void
@@ -129,8 +149,10 @@ enum CommitmentStatus <<Enum>>
 enum SalesOrderStatus <<Enum>>
 enum ProposalStatus <<Enum>>
 enum OwnerType <<Enum>>
+enum CommitmentOriginType <<Enum>>
 
 RequestDraft "1" *-- "0..*" RequestDraftLine : lines
+RequestDraft --> RequestSubmissionData : prepares
 PurchaseRequest "1" *-- "1..*" PurchaseRequestLine : lines
 PurchaseRequest "1" *-- "0..*" MaterialChangeProposal : changes
 CommercialCommitment "1" *-- "1..*" CommercialCommitmentLine : lines
@@ -139,18 +161,23 @@ CommercialCommitment "1" *-- "0..*" CommitmentOwnerTransfer : ownership
 CommercialCommitment "1" *-- "0..*" SalesCommitmentAdjustment : adjustments
 PurchaseRequest --> BuyerRelationship : stable relationship id
 PurchaseRequestLine --> Sku : stable SKU id
-CommercialCommitment --> InventoryBacking : decision id
+PurchaseRequestLine --> ResolvedOfferSnapshot : freezes offer
+CommercialCommitment --> InventoryReservation : decision id
 CommercialCommitment --> CreditReservation : decision id
 CommercialCommitment "1" --> "0..1" SalesOrder : transfers ownership
 CommitmentAcceptancePolicy ..> PurchaseRequestRepository : loads
 CommitmentAcceptancePolicy ..> CommitmentRepository : coordinates
 PurchaseRequestLine *-- TermsSnapshot : freezes terms
 CommercialCommitmentLine *-- TermsSnapshot : preserves terms
+PurchaseRequestFactory ..> RequestSubmissionData : creates from
+PurchaseRequestFactory --> PurchaseRequest : creates
 
 legend right
 TARGET / V1 / tactical design aid
 PR -> Commitment -> SO ownership transfer has no release/re-reserve gap.
+RequestDraft prepares submission data; the factory creates the PurchaseRequest after orchestration.
 BC-05 backing and BC-07 credit are stable decision references, not compositions.
+ResolvedOfferSnapshot is the Published Language contract from BC-03 with canonical fields skuId, unitPrice, termsSnapshot, optional promotionId [0..1] and effectiveAt; BC-04 does not recompute pricing policy, and the contract is not a Published Integration Event or shared aggregate.
 *-- composition | --> domain dependency | ..> port/use
 endlegend
 @enduml

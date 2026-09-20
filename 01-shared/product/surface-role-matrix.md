@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: product
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # Surface-role matrix
@@ -16,8 +16,8 @@ Context or becomes authoritative over business state.
 | Website | Public Interested Company / Prospect; Nexa Commercial & Onboarding Staff | Acquisition, contact and onboarding initiation | No Tenant operational state; no workforce or Buyer data | IMPLEMENTED, Website v1.1.0 |
 | Platform | Company Owner; Tenant Administrator; Business Operations Manager; Sales Representative; Warehouse Operator; Dispatch Coordinator | Workforce governance, customer, catalog, commercial, inventory, fulfillment, finance, documents and traceability | API and Tenant policy remain authoritative | IMPLEMENTED, Platform v0.26.0 |
 | Buyer Portal | Customer Buyer; authorized internal support projection | Catalog, draft, PR/SO, delivery, credit, payments and documents | Buyer Relationship and API authorization remain authoritative | IMPLEMENTED, Portal v0.26.0 |
-| Operations Mobile | Business Operations Manager; Sales Representative; Warehouse Operator; Dispatch Coordinator; Driver / Delivery Operator | Field sales, warehouse, dispatch and assigned delivery execution | API remains authority; selective offline may queue evidence but cannot fake success | OWNER-ACCEPTED direction; client NOT STARTED |
-| Buyer Mobile | Customer Buyer | Frequent catalog, commitment, delivery handoff, credit/payment visibility and documents | Buyer Relationship/API remains authority; no offline confirmation of critical facts | OWNER-ACCEPTED direction; client NOT STARTED |
+| Operations Mobile | Business Operations Manager; Sales Representative; Warehouse Operator; Dispatch Coordinator; Driver / Delivery Operator | Field sales, warehouse, dispatch and assigned delivery execution | Business/API surface `PLATFORM`; transport marker `NATIVE`; API remains authority | PARTIAL AS-IS IMPLEMENTATION EVIDENCE ON UNMERGED FEATURE BRANCH; NOT INTEGRATED; PRODUCT ACCEPTANCE OPEN |
+| Buyer Mobile | Customer Buyer | Frequent catalog, commitment, delivery handoff, credit/payment visibility and documents | Business/API surface `PORTAL`; transport marker `NATIVE`; Buyer Relationship/API remains authority | TARGET / NOT IMPLEMENTED; participant-backed Buyer research evidence available; solution validation open |
 
 ## Projection rules
 

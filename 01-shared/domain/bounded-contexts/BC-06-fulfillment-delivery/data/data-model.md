@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # BC-06 target relational model
@@ -32,7 +32,8 @@ Fulfillment status preserves the accepted progression `PLANNED`,
 `sales_order_id`, `physical_allocation_id`, SKU and operator IDs are stable
 non-owning references. POD success, temperature disposition and completion are
 server-authoritative. AS-IS anchors: logistics dispatch, attempts, POD,
-temperature and continuation tables; tracking view is a projection only. v0.17
-adds a bounded hashed one-time Delivery Handoff Token and immutable Buyer
-receipt/discrepancy facts. Buyer acceptance never overwrites Driver
-Attempt/POD history; QR validation is not acceptance.
+temperature and continuation tables. Accepted V1 has no tracking persistence:
+location is external navigation handoff only. v0.17 adds a bounded hashed
+one-time Delivery Handoff Token and immutable Buyer receipt/discrepancy facts.
+Buyer acceptance never overwrites Driver Outcome/Attempt/POD history; QR
+validation is not acceptance.

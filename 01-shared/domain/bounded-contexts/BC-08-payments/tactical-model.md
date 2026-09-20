@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-09-19
 ---
 
 # BC-08 Payments — Tactical Model
@@ -15,8 +15,9 @@ Receivable or Stripe.
 ## Purpose and product participation
 
 Own payment facts, provider translation, confirmation, refunds and
-reconciliation. Platform and Buyer Portal initiate authorized flows; proposed
-Buyer Mobile may retry with durable client identity. API remains authority.
+reconciliation. Platform and Buyer Portal initiate authorized flows;
+OWNER-ACCEPTED Buyer Mobile is a target projection that may retry with durable
+client identity. API remains authority.
 
 ## Aggregate boundaries
 

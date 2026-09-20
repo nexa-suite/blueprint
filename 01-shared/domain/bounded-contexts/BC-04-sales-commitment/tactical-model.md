@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-09-19
 ---
 
 # BC-04 Sales Commitment — Tactical Model
@@ -23,7 +23,7 @@ commercial authority.
 
 | Aggregate Root | Boundary and invariant | External references |
 |---|---|---|
-| `RequestDraft` | editable buyer intent; no commitment or reservation | Customer/Buyer/SKU IDs |
+| `RequestDraft` | editable buyer intent; prepares submission data but never returns another Aggregate Root | Customer/Buyer/SKU IDs |
 | `PurchaseRequest` | submitted all-or-nothing commercial intent with expiry and immutable snapshots | CustomerAccount, BuyerRelationship, SKU IDs |
 | `CommercialCommitment` | persistent warehouse-neutral SKU demand; originates from approval-required PR or Direct Order; ownership transfers commitment to SO | SKU ID; optional PurchaseRequest ID; backing is BC-05 |
 | `SalesOrder` | confirmed commercial roll-up and lifecycle; no draft SO V1 | Customer/Buyer IDs, Commitment ID; optional PR origin is resolved through Commitment |
@@ -36,7 +36,7 @@ preserve history without mutating submitted snapshots.
 
 | Class | Category | Key attributes | Business behavior | Relationships / status |
 |---|---|---|---|---|
-| `RequestDraft` | Aggregate Root | draft ID, buyer/tenant scope, status, version | `addLine()`, `removeLine()`, `changeDestination()`, `submit()` | composes DraftLine; submit delegates atomic app service |
+| `RequestDraft` | Aggregate Root | draft ID, buyer/tenant scope, status, version | `addLine()`, `removeLine()`, `changeDestination()`, `prepareSubmission()` | composes DraftLine; prepares data for atomic application orchestration |
 | `RequestDraftLine` | Entity | SKU ID, quantity, informative price | `changeQuantity()` | owned by Draft; no reservation |
 | `PurchaseRequest` | Aggregate Root | request ID, scope, status, expiresAt, commercial snapshot, version | `submit()`, `proposeMaterialChange()`, `acceptMaterialChange()`, `withdraw()`, `reject()`, `expire()`, `convert()` | composes RequestLine; accepted state machine |
 | `PurchaseRequestLine` | Entity | SKU ID, quantity, price snapshot, terms snapshot | `replaceCommercialSnapshot()` | owned by PR; immutable after submit except replacement revision |
@@ -46,6 +46,9 @@ preserve history without mutating submitted snapshots.
 | `SalesOrder` | Aggregate Root | order ID, commitment ID, status, confirmedAt, version | `confirm()`, `markInFulfillment()`, `recordFulfillment()`, `complete()`, `cancel()` | composes SO lines; optional PR origin is resolved through Commitment; direct order is confirmed without PR |
 | `SalesOrderLine` | Entity | SKU ID, committed/fulfilled quantity, price snapshot | `recordFulfilledQuantity()`, `cancelRemainder()` | owned by SO |
 | `CommercialTermsSnapshot` | Value Object | price, terms, currency, delivery facts | `isEquivalentTo()` | immutable PR/SO evidence |
+| `RequestSubmissionData` | Value Object | draft scope, lines and submitted intent | `validateCompleteness()` | produced by Draft; does not create a PurchaseRequest itself |
+| `PurchaseRequestFactory` | Domain Factory | none | `createFrom(submission, offerSnapshots)` | creates the PurchaseRequest only after application orchestration |
+| `ResolvedOfferSnapshot` | Published Language / external contract | `skuId`, `unitPrice`, `termsSnapshot`, `promotionId` [0..1], `effectiveAt` | none | supplied by BC-03; immutable after resolution; BC-04 consumes it and does not own or recompute pricing policy; not a Published Integration Event or shared aggregate |
 | `Quantity` / `Expiration` | Value Objects | positive amount / absolute Instant | `subtract()`, `hasExpired(now)` | protects quantity and expiry |
 | `CommitmentOriginType` | Enum | `PURCHASE_REQUEST` or `DIRECT_ORDER` | none | discriminator; only the PR origin carries a PurchaseRequest FK |
 | `PurchaseRequestState` / `SalesOrderState` | Enum | accepted lifecycle values | none | no `UNDER_REVIEW` persisted |
@@ -57,7 +60,7 @@ preserve history without mutating submitted snapshots.
 
 | Class | Capability | Orchestration |
 |---|---|---|
-| `SubmitPurchaseRequestHandler` | PR submission | locks required resources in deterministic order; creates commitment, backing and credit reservation atomically |
+| `SubmitPurchaseRequestHandler` | PR submission | obtains `RequestSubmissionData`, resolves BC-03 offer snapshots, creates the PR through the factory, then locks required resources and creates commitment, backing and credit reservation atomically |
 | `AcceptMaterialChangeHandler` | accepted revision | buyer consent, authoritative price/inventory/credit revalidation and atomic replacement |
 | `ConvertPurchaseRequestHandler` | PR to SO | CAS plus `now >= expiresAt` guard; transfers commitment ownership without release gap |
 | `ConfirmDirectOrderHandler` | direct SO | authoritative validation, establishes a `DIRECT_ORDER` commitment and the same logical inventory/credit boundary; never fabricates a PR |

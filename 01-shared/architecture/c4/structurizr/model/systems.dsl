@@ -2,6 +2,10 @@ paymentProvider = softwareSystem "Payment Provider" "Abstract external payment p
 emailDeliveryService = softwareSystem "Email Delivery Service" "Abstract external email delivery service"
 mapsGeolocationProvider = softwareSystem "Maps & Geolocation Provider" "Abstract external maps and geolocation service"
 
+pushDeliveryService = softwareSystem "Push Delivery Service" "Future/open provider runway; provider selection and Product channel acceptance beyond in-app/email remain open" {
+    tags "External System,Future,Open"
+}
+
 googleIdentityProvider = softwareSystem "Google Identity Provider" "Future optional identity provider; not a V1 production integration" {
     tags "External System,Future"
 }

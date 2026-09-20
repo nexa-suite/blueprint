@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # BC-03 Catalog & Commercial Policy — Tactical Model
@@ -16,9 +16,9 @@ aggregate graph.
 
 Own authoritative offer inputs: Product, SKU, visibility, media metadata, Base
 Price, Price List, Customer Terms, Promotion and SKU cold-chain requirement.
-Platform manages catalog; Portal and both OWNER-ACCEPTED Mobile projections
-consume safe projections. API resolves authoritative price; Mobile client
-implementation remains NOT STARTED.
+Platform manages catalog; Portal and both OWNER-ACCEPTED Mobile target surfaces
+consume safe projections. API resolves the authoritative offer; Operations has
+partial unmerged evidence and Buyer Mobile is not implemented.
 
 ## Aggregate boundaries
 
@@ -47,6 +47,7 @@ multiple policy roots without owning any one root.
 | `Money` | Value Object | amount, currency | `add()`, `multiply()`, `isNonNegative()` | used by prices/snapshots |
 | `ColdChainRequirement` | Value Object | required flag, min/max temperature, shelf life | `accepts(reading)` | used by SKU; TARGET |
 | `PriceResolver` | Domain Service | none | `resolve(base, list, terms, promotion, instant)` | deterministic precedence; TARGET |
+| `ResolvedOfferSnapshot` | Value Object / Published Language contract | `skuId`, `unitPrice`, `termsSnapshot`, `promotionId` [0..1], `effectiveAt` | `freeze()` | authoritative BC-03 output consumed by BC-04; immutable after resolution; not a Published Integration Event or shared aggregate |
 | `ProductRepository` / `SkuRepository` | Repository interfaces | none | `save()`, `byId()`, `search()` | roots only; TARGET |
 | `OfferPublished` | Domain Event | SKU/product IDs, effectiveAt | immutable fact | no new published event; TARGET |
 
@@ -56,7 +57,7 @@ multiple policy roots without owning any one root.
 |---|---|---|
 | `ManageProductHandler` | create/publish/archive Product | coordinates product and media ports; checks tenant capability |
 | `ManageSkuHandler` | register/maintain SKU | validates independent SKU identity and cold-chain policy |
-| `ResolveCatalogPriceHandler` | preview or authoritative resolution | invokes `PriceResolver`; marks preview as non-commitment |
+| `ResolveCatalogPriceHandler` | preview or authoritative resolution | invokes `PriceResolver`; returns `ResolvedOfferSnapshot` and marks preview as non-commitment |
 | `ManagePriceListHandler` | maintain effective list | versioned interval mutation; no overlapping active price |
 | `ManagePromotionHandler` | maintain eligibility | prevents stacked transformation and applies policy scope |
 
@@ -68,7 +69,7 @@ multiple policy roots without owning any one root.
 | `CatalogQueryController` | Portal/Platform catalog projection | AS-IS; KEEP |
 | `CatalogPricingController` | price/terms view | AS-IS; REFINE toward policy language |
 | `CatalogSkuController` | SKU lifecycle boundary | AS-IS; KEEP |
-| `CatalogProjectionConsumer` | Mobile safe catalog/price cache | TARGET proposed interface |
+| `CatalogProjectionConsumer` | Mobile safe catalog/price read projection | TARGET interface for owner-accepted surfaces; server remains authority |
 
 ## Infrastructure Layer dictionary
 

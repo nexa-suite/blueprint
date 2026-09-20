@@ -3,16 +3,17 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # BC × Product/Data Participation Matrix
 
 The Nexa API is the server-side Domain authority. Website, Platform, Buyer
 Portal and the two OWNER-ACCEPTED Mobile product projections consume contracts
-or projections; they do not own Aggregate state. `LOCAL CACHE / OFFLINE
-PARTICIPANT` means device state only, never authoritative business truth. The
-Mobile clients remain NOT STARTED and their local persistence remains proposed.
+or projections; they do not own Aggregate state. Mobile is online-first:
+temporary device staging/read state is never authoritative business truth and
+does not establish generic offline synchronization. Operations has partial
+unmerged Android/Kotlin/Compose AS-IS evidence; Buyer Mobile is not implemented.
 
 | BC | Website | Platform | Buyer Portal | API | Operations Mobile | Buyer Mobile |
 |---|---|---|---|---|---|---|
@@ -20,20 +21,20 @@ Mobile clients remain NOT STARTED and their local persistence remains proposed.
 | BC-02 Customer & Buyer Relationships | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | APPLICATION / INTERFACE CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED READ PROJECTION | OWNER-ACCEPTED READ PROJECTION |
 | BC-03 Catalog & Commercial Policy | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED READ PROJECTION | OWNER-ACCEPTED READ PROJECTION |
 | BC-04 Sales Commitment | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | APPLICATION / INTERFACE CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED PRODUCT PROJECTION | OWNER-ACCEPTED PRODUCT PROJECTION |
-| BC-05 Inventory Availability | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED LOCAL PROJECTION | READ PROJECTION CONSUMER |
+| BC-05 Inventory Availability | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED PRODUCT PROJECTION | READ PROJECTION CONSUMER |
 | BC-06 Fulfillment & Delivery | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED PRODUCT PROJECTION | READ PROJECTION CONSUMER |
 | BC-07 Credit & Receivables | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED READ PROJECTION | READ PROJECTION CONSUMER |
 | BC-08 Payments | NOT PARTICIPATING | APPLICATION / INTERFACE CONSUMER | APPLICATION / INTERFACE CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED READ PROJECTION | OWNER-ACCEPTED PRODUCT PROJECTION |
 | BC-09 Business Documents | NOT PARTICIPATING | READ PROJECTION CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED EVIDENCE PROJECTION | OWNER-ACCEPTED READ PROJECTION |
-| BC-10 Notifications | NOT PARTICIPATING | READ PROJECTION CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED LOCAL DELIVERY PROJECTION | OWNER-ACCEPTED LOCAL DELIVERY PROJECTION |
+| BC-10 Notifications | NOT PARTICIPATING | READ PROJECTION CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED NOTIFICATION PROJECTION | OWNER-ACCEPTED NOTIFICATION PROJECTION |
 | BC-11 Business Traceability | NOT PARTICIPATING | READ PROJECTION CONSUMER | READ PROJECTION CONSUMER | DOMAIN AUTHORITY | OWNER-ACCEPTED READ PROJECTION | OWNER-ACCEPTED READ PROJECTION |
 
 ## Database interpretation
 
 - Website, Platform and Buyer Portal have no local authoritative business
   database. Browser/session/cache state is not a second Nexa database.
-- Operations Mobile and Buyer Mobile have separate logical local persistence
-  designs under `03-mobile/architecture/data/`; these are PROPOSED and
-  technology-neutral.
+- Operations Mobile and Buyer Mobile have separate academic local-persistence
+  designs under `03-mobile/architecture/data/`; these are PROPOSED,
+  technology-neutral and non-authoritative, not generic offline-sync designs.
 - PostgreSQL remains one shared V1 topology. Per-BC SQL files are ownership
   lenses, not eleven physical PostgreSQL servers or schema-per-BC mandates.

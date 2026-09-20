@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-08-19
+last-reviewed: 2026-09-18
 ---
 
 # Blueprint publication policy
@@ -24,7 +24,7 @@ The Blueprint publishes authored architecture and documentation only. This docum
 | `00-start-here` | INCLUDE | Authority, decisions, maturity and publication controls |
 | `01-shared` | INCLUDE | Shared product, DDD, Design System, architecture, data, security and engineering |
 | `02-web` | INCLUDE | Web surface, requirement, journey and quality contracts |
-| `03-mobile` | RUNWAY | Owner-accepted Operations Mobile and Buyer Mobile planning projections; research and client implementation remain open |
+| `03-mobile` | RUNWAY | Owner-accepted Operations Mobile and Buyer Mobile Product projections; 9/9 Needfinding problem/task evidence is available, partial unmerged Operations implementation references are recorded, and solution validation/client integration remain open |
 | `04-delivery` | INCLUDE | AS-IS, runtime, CI/CD, quality and production-gate evidence |
 | `90-academic` | ISOLATED | Coursework projections and provenance only |
 | `91-reference` | SAFE EVIDENCE ONLY | Historical, research and source material |

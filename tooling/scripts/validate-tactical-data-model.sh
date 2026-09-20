@@ -141,12 +141,110 @@ master = root / "01-shared/data/master-target-relational-model.sql"
 if not master.is_file():
     failures.append(f"missing {master.relative_to(root)}")
 else:
+    master_text = master.read_text()
     master_tables = sql_tables(master)
     expected_master = all_target + shared
     if master_tables != expected_master:
         failures.append(f"master table order/set differs: expected {len(expected_master)}, found {len(master_tables)}")
-    if re.search(r"(?im)^\s*CREATE\s+SCHEMA\b", master.read_text()):
+    if re.search(r"(?im)^\s*CREATE\s+SCHEMA\b", master_text):
         failures.append("master SQL creates schema-per-BC structures")
+
+inventory_sql = root / "01-shared/domain/bounded-contexts/BC-05-inventory-availability/data/target-relational-model.sql"
+for path in (inventory_sql, master):
+    if not path.is_file():
+        continue
+    text = path.read_text()
+    required_fragments = (
+        "CREATE TABLE inventory_backing_line (",
+        "warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id)",
+        "UNIQUE (backing_id, warehouse_id, sku_id)",
+    )
+    if not all(fragment in text for fragment in required_fragments):
+        failures.append(f"{path.relative_to(root)} must preserve deterministic SKU + Warehouse Backing")
+
+semantic_markers = {
+    "01-shared/domain/bounded-contexts/BC-03-catalog-commercial-policy/tactical-model.md": (
+        "ResolvedOfferSnapshot",
+        "Published Language",
+        "`skuId`",
+        "`unitPrice`",
+        "`termsSnapshot`",
+        "`promotionId` [0..1]",
+        "`effectiveAt`",
+        "not a Published Integration Event",
+    ),
+    "01-shared/domain/bounded-contexts/BC-04-sales-commitment/tactical-model.md": (
+        "RequestSubmissionData",
+        "PurchaseRequestFactory",
+        "ResolvedOfferSnapshot",
+        "Published Language / external contract",
+        "`skuId`",
+        "`unitPrice`",
+        "`termsSnapshot`",
+        "`promotionId` [0..1]",
+        "`effectiveAt`",
+        "does not own or recompute pricing policy",
+        "not a Published Integration Event",
+    ),
+    "01-shared/domain/bounded-contexts/BC-05-inventory-availability/tactical-model.md": ("InventoryReservation", "WarehouseBacking"),
+    "01-shared/domain/bounded-contexts/BC-06-fulfillment-delivery/tactical-model.md": ("Driver Outcome", "Buyer Receipt", "DeliveryHandoffToken", "BuyerReceiptFact", "Photo/signature evidence is required only when policy says so.", "external navigation handoff"),
+    "01-shared/domain/bounded-contexts/BC-09-business-documents/tactical-model.md": ("Application Work Item", "ObjectStorageReference"),
+    "01-shared/domain/bounded-contexts/BC-10-notifications/tactical-model.md": ("PushSubscription", "FUTURE/OPEN", "internal", "not a business Aggregate Root"),
+}
+for relative, markers in semantic_markers.items():
+    path = root / relative
+    if not path.is_file():
+        failures.append(f"missing semantic tactical source {relative}")
+        continue
+    text = path.read_text()
+    for marker in markers:
+        if marker not in text:
+            failures.append(f"{relative} missing reconciled semantic marker {marker!r}")
+
+uml_semantic_markers = {
+    "01-shared/domain/bounded-contexts/BC-03-catalog-commercial-policy/diagrams/domain-model.puml": (
+        "class ResolvedOfferSnapshot",
+        "-skuId: SkuId",
+        "-unitPrice: Money",
+        "-termsSnapshot: TermsSnapshot",
+        "-promotionId: PromotionId [0..1]",
+        "-effectiveAt: Instant",
+        "Published Language contract",
+        "not a Published Integration Event",
+    ),
+    "01-shared/domain/bounded-contexts/BC-04-sales-commitment/diagrams/domain-model.puml": (
+        "class ResolvedOfferSnapshot",
+        "-skuId: SkuId",
+        "-unitPrice: Money",
+        "-termsSnapshot: TermsSnapshot",
+        "-promotionId: PromotionId [0..1]",
+        "-effectiveAt: Instant",
+        "Published Language contract",
+        "does not recompute pricing policy",
+        "not a Published Integration Event",
+    ),
+}
+for relative, markers in uml_semantic_markers.items():
+    path = root / relative
+    if not path.is_file():
+        failures.append(f"missing reconciled UML source {relative}")
+        continue
+    text = path.read_text()
+    for marker in markers:
+        if marker not in text:
+            failures.append(f"{relative} missing reconciled UML marker {marker!r}")
+
+delivery_flow = root / "01-shared/domain/processes/message-flows.md"
+if not delivery_flow.is_file():
+    failures.append(f"missing delivery flow source {delivery_flow.relative_to(root)}")
+else:
+    delivery_flow_text = delivery_flow.read_text()
+    if "mandatory photographic evidence" in delivery_flow_text.lower():
+        failures.append("Delivery flow must not make photographic evidence universally mandatory")
+    if "optional policy-authorized evidence" not in delivery_flow_text:
+        failures.append("Delivery flow must preserve optional policy-authorized evidence")
+    if "external navigation handoff only; it does not persist Driver location" not in delivery_flow_text:
+        failures.append("Delivery flow must preserve external navigation-only location boundary")
 master_db_diagram = root / "01-shared/data/master-database-diagram.puml"
 if not master_db_diagram.is_file():
     failures.append(f"missing {master_db_diagram.relative_to(root)}")
@@ -181,8 +279,54 @@ for mobile in ("operations-mobile-local-persistence", "buyer-mobile-local-persis
             failures.append(f"missing rendered Mobile UML PNG beside {path.relative_to(root)}")
 
 matrix = root / "01-shared/data/tactical-traceability-matrix.md"
-if matrix.is_file() and len(re.findall(r"(?m)^\|\s*BC-\d{2}\b", matrix.read_text())) != 11:
-    failures.append("requirement/aggregate/persistence/C4 matrix must have exactly 11 BC rows")
+backlog = root / "03-mobile/requirements/master-mobile-backlog.md"
+if matrix.is_file():
+    matrix_text = matrix.read_text()
+    matrix_rows = [
+        [cell.strip() for cell in line.strip().strip("|").split("|")]
+        for line in matrix_text.splitlines()
+        if re.match(r"^\|\s*BC-\d{2}\b", line)
+    ]
+    if len(matrix_rows) != 11:
+        failures.append("requirement/aggregate/persistence/C4 matrix must have exactly 11 BC rows")
+    if "V2+" in matrix_text:
+        failures.append("tactical traceability matrix must not use obsolete V2+ Product-release semantics")
+    def normalized_mobile_epics(cell: str) -> set[str]:
+        return {
+            f"MOBILE-EPIC-{number}"
+            for number in re.findall(r"(?:MOBILE-EPIC-)?(\d{2})", cell)
+        }
+
+    actual_epics_by_bc = {
+        row[0]: normalized_mobile_epics(row[2])
+        for row in matrix_rows
+        if len(row) >= 3
+    }
+    if set(actual_epics_by_bc) != set(expected):
+        failures.append("tactical traceability matrix BC set differs from canonical data ownership")
+    if backlog.is_file():
+        expected_epics_by_bc = {code: set() for code in expected}
+        for line in backlog.read_text().splitlines():
+            if not line.startswith("| MOB-US-"):
+                continue
+            cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+            if len(cells) != 25:
+                failures.append(f"master Mobile backlog row has unexpected column count: {cells[0] if cells else line}")
+                continue
+            epic = cells[3]
+            context_ids = set(re.findall(r"BC-\d{2}", f"{cells[10]}, {cells[11]}"))
+            for context_id in context_ids:
+                if context_id not in expected_epics_by_bc:
+                    failures.append(f"master Mobile backlog references non-canonical BC in trace derivation: {context_id}")
+                else:
+                    expected_epics_by_bc[context_id].add(epic)
+        if actual_epics_by_bc != expected_epics_by_bc:
+            failures.append("tactical traceability Mobile epics must derive from master backlog Primary/Secondary BC participation")
+        all_epics = {f"MOBILE-EPIC-{number:02d}" for number in range(1, 13)}
+        if set().union(*actual_epics_by_bc.values()) != all_epics:
+            failures.append("tactical traceability Mobile epics must cover exactly MOBILE-EPIC-01..12")
+else:
+    failures.append(f"missing {matrix.relative_to(root)}")
 c4_matrix = root / "01-shared/architecture/c4/component-rubric-coverage.md"
 if c4_matrix.is_file() and len(re.findall(r"(?m)^\|\s*BC-\d{2}\b", c4_matrix.read_text())) != 11:
     failures.append("C4 component rubric matrix must have exactly 11 BC rows")

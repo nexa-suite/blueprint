@@ -538,10 +538,11 @@ CREATE TABLE inventory_backing (
 CREATE TABLE inventory_backing_line (
     line_id uuid PRIMARY KEY,
     backing_id uuid NOT NULL REFERENCES inventory_backing (backing_id),
+    warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
     sku_id uuid NOT NULL,
     requested_quantity numeric(19,6) NOT NULL CHECK (requested_quantity > 0),
     backed_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (backed_quantity >= 0 AND backed_quantity <= requested_quantity),
-    UNIQUE (backing_id, sku_id)
+    UNIQUE (backing_id, warehouse_id, sku_id)
 );
 
 CREATE TABLE physical_allocation (

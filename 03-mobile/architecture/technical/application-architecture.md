@@ -1,9 +1,11 @@
 # Mobile application architecture
 
 Status: `OPEN / DISCOVERY`. Operations Mobile and Buyer Mobile remain two
-client projections over the same API/domain authority. Framework, navigation
-implementation, build distribution, dependency set and native bridges require
-spike evidence and explicit technical acceptance.
+client projections over the same API/domain authority. Current unmerged
+Operations AS-IS evidence uses Android/Kotlin/Jetpack Compose, but no final
+canonical framework assignment or production runtime is accepted. Framework,
+navigation implementation, build distribution, dependency set and native
+bridges require spike evidence and explicit technical acceptance.
 
 Required properties: feature-oriented boundaries, explicit API contracts,
 secure session/context handling, accessible loading/empty/error/stale/conflict

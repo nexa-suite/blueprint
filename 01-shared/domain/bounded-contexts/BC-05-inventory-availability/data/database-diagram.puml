@@ -81,6 +81,7 @@ entity "inventory_backing" as t_inventory_backing {
 entity "inventory_backing_line" as t_inventory_backing_line {
   * line_id : uuid <<PK>>
   * backing_id : uuid <<FK, required>>
+  * warehouse_id : uuid <<FK, required>>
   * sku_id : uuid <<required>>
   * requested_quantity : numeric(19,6) <<required>>
   * backed_quantity : numeric(19,6) <<required>>
@@ -152,6 +153,7 @@ t_inventory_movement }o--|| t_warehouse : warehouse_id
 t_inventory_movement }o--|| t_inventory_lot : lot_id
 t_safety_stock_policy }o--|| t_warehouse : warehouse_id
 t_inventory_backing_line }o--|| t_inventory_backing : backing_id
+t_inventory_backing_line }o--|| t_warehouse : warehouse_id
 t_physical_allocation }o--|| t_inventory_backing : backing_id
 t_physical_allocation_line }o--|| t_physical_allocation : allocation_id
 t_physical_allocation_line }o--|| t_inventory_lot : lot_id

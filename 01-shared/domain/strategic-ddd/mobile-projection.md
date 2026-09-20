@@ -1,33 +1,36 @@
 ---
-status: planned
+status: accepted
 maturity: BASELINED
-scope: runway
+scope: v1
 owner: domain
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-19
 ---
 
 # Mobile projection over the shared domain
 
 Mobile adds no Bounded Context. It projects the frozen 11-context domain through
-two planned applications: [Nexa Operations Mobile](../../../03-mobile/README.md)
+two OWNER-ACCEPTED V1 target surfaces: [Nexa Operations Mobile](../../../03-mobile/README.md)
 and [Nexa Buyer Mobile](../../../03-mobile/README.md). A Mobile capability is an
 experience/use-case composition, not ownership of a new business invariant.
 
-| Mobile actor / segment | Capability projection | Existing BC authority | Contract / consistency |
+| Research segment / actor | Capability projection | Existing BC authority | Contract / consistency |
 |---|---|---|---|
-| Sales Representative / MOB-SEG-01 Field & Warehouse Operations | customer lookup, Buyer relationship, catalog/SKU/pricing/terms, sellable availability, draft and PR/order capture | BC-02, BC-03, BC-04, BC-05, BC-07 when relevant | synchronous authoritative lookup and submit; drafts may be selectively offline |
-| Warehouse Operator / MOB-SEG-01 | scan-to-inventory, receiving, lot/expiry/quantity, picking, transfers, counts and evidence | BC-05, BC-11 | operational mutations require capability, idempotency and explicit sync; encoded data only |
-| Dispatch Coordinator / MOB-SEG-01 | fulfillment readiness, Dispatch Handoff, assignment and evidence | BC-06, BC-05, BC-11 | handoff is source fact; photographic evidence mandatory; async notifications |
-| Driver / MOB-SEG-02 Delivery Workforce | assigned deliveries, attempt, route, active location, outcome, POD and cold-chain evidence | BC-06, BC-09, BC-10, BC-11 | selective offline for delivery; location only active lifecycle; POD immutable |
-| B2B Buyer / MOB-SEG-03 B2B Buyers | catalog, availability, draft, PR/direct order, changes, SO, delivery, QR, discrepancy, credit, payment and documents | BC-02, BC-03, BC-04, BC-06, BC-07, BC-08, BC-09, BC-10, BC-11 | Portal remains feature-complete; online-authoritative payment/QR/security actions or explicit queued/idempotent semantics |
-| Business Operations Manager / cross-functional secondary | overview, critical exceptions and authorized decisions | BC-01, BC-04, BC-05, BC-06, BC-07, BC-10, BC-11 | projection/read/drill-down; full Web parity is not Mobile V1 priority |
+| `MOB-SEG-01` Warehouse & Dispatch Operations — Warehouse Operator | package/label identification, receiving, lot/expiry/quantity, physical discrepancy, picking, and transfer/count/evidence when the story lifecycle allows; manual alternative when scanning is unavailable | BC-03, BC-05, BC-11 | server-authoritative physical mutation; capability, idempotency and explicit outcome required |
+| `MOB-SEG-01` Warehouse & Dispatch Operations — Dispatch Coordinator | readiness, outgoing verification, assignment, Dispatch Handoff, exception and coordination | BC-05, BC-06, BC-11 | handoff is a source fact; photo/signature evidence is policy-driven, never universal |
+| `MOB-SEG-02` Driver Delivery Execution — Driver / Delivery Operator | assigned Delivery work, Delivery Attempt, external navigation handoff, incident communication, optional policy-authorized evidence, Driver Outcome and POD | BC-06, BC-09, BC-10, BC-11 | no stored/background/live Driver tracking; POD remains immutable and server-authoritative |
+| `MOB-SEG-03` B2B Buyers — Customer Buyer | critical Delivery context, handoff, Buyer Receipt and discrepancy; commercial/financial stories by their independent lifecycle | BC-02, BC-03, BC-04, BC-06, BC-07, BC-08, BC-09, BC-10, BC-11 | Buyer Portal remains the complete Web surface; Mobile is a projection, not authority |
+| Shared Nexa actor — Sales Representative | eligible Operations Mobile product stories where applicable | applicable BC authority per story | not a currently prioritized Needfinding segment |
+| Cross-functional secondary — Business Operations Manager | overview, critical exceptions and authorized decisions where stories require it | BC-01, BC-04, BC-05, BC-06, BC-07, BC-10, BC-11 | projection/read/drill-down; full Web parity is not Mobile V1 priority |
 
 ## Boundary decisions
 
 - No Scanning, QR, Maps, Offline, Tracking, Push Notification or IoT BC.
-- Camera, location, QR, secure local storage and synchronization are application
-  or integration concerns; Notifications remains BC-10 authority.
-- Dispatch Handoff is not POD. Driver and Buyer facts remain separate; a
+- Camera, package/label scan, secure local storage and external navigation are
+  application or integration concerns; Notifications remains BC-10 authority.
+- Connectivity is online-first. Temporary evidence or drafts may be staged, but
+  there is no generic offline synchronization, local business authority or
+  hidden offline success; protected business success requires server authority.
+- Dispatch Handoff is not POD. Driver Outcome is not Buyer Receipt; a
   discrepancy preserves both histories and creates an operations resolution.
 - Any concept that cannot fit the frozen contexts is a `STRATEGIC DDD REVIEW
   CANDIDATE`, not an automatic new BC.

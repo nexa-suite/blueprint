@@ -3,15 +3,15 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # Mobile Product Definition
 
 ## Product direction
 
-The Product owner accepts two projections for planning, subject to research and
-later Product Acceptance:
+The Product owner accepts two projections for the Mobile V1 Product Generation,
+subject to solution validation and later Product Acceptance:
 
 - **Nexa Operations Mobile:** Warehouse receiving/picking, dispatch handoff and
   Driver delivery execution/proof.
@@ -24,17 +24,15 @@ reuses the shared Product language and eleven accepted Bounded Contexts.
 
 ## V1 direction
 
-Identity/context foundation, product identification, receiving/lot/FEFO/pick,
-dispatch/handoff, Driver attempts/proof, and narrow Buyer
-handoff/receipt/discrepancy/critical-update work are represented in the
-28-story V1 catalog. The remaining historical stories are distributed across
-V2, V3 and V4/Future in the [Master Mobile Product
-Backlog](../requirements/master-mobile-backlog.md); future projections do not
-expand the academic course scope.
+All 73 canonical Mobile stories are in the Nexa Mobile V1 Product Generation
+planning envelope. The former 28/35/9/1 grouping remains historical planning
+provenance in the [Master Mobile Product Backlog](../requirements/master-mobile-backlog.md);
+it does not define current Product releases. Academic planning is separate and
+does not promote implementation or acceptance.
 
-The API v0.17.0 backend is a partial contract baseline, not a completed Mobile
-client. Research must still validate actors, workflows, app boundary, mobile
-IA, device permissions, accessibility, connectivity recovery and priority.
+The API v0.17.0 backend is a partial contract baseline. Final AV1 Needfinding is
+available for actors, tasks and journeys; solution validation remains open for
+mobile IA, device permissions, accessibility, connectivity recovery and priority.
 
 ## Non-negotiable product rules
 

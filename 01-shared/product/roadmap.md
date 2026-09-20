@@ -3,12 +3,12 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
 # Architecture and delivery roadmap
 
-## PRE-V1 closure — complete as documentation
+## Historical PRE-V1 closure — complete as documentation
 
 1. Product and Business V1 — FROZEN / CLOSED.
 2. Capability Map, EventStorming and Domain Stories — BASELINED.
@@ -20,7 +20,9 @@ last-reviewed: 2026-08-29
 8. C4 L1/L2 and selective C4 L3 TARGET — BASELINED where useful.
 9. AS-IS verification and AS-IS/TARGET fit — recorded with current-ref caveats.
 10. V1 Web User Stories, Acceptance Criteria and frontend product/UI contracts — COMPLETE.
-11. Mobile product direction, 49-story reconciliation and cross-surface functional contract layer — BASELINED; research/client acceptance pending.
+11. Mobile Product Generation, 73-story catalog, AV1 research evidence and
+    cross-surface functional contract layer — BASELINED; solution validation,
+    client integration and Product Acceptance remain open.
 12. ADR minimum set and Production Gate separation — BASELINED.
 
 ## Construction gate — PASSED — CONSTRUCTION AUTHORIZED
@@ -29,7 +31,7 @@ Repository-specific construction may begin through controlled vertical slices wi
 
 Use KEEP -> REFINE -> REWORK. Do not delete legacy paths or duplicate contract owners without consumer mapping, migration, tests and rollback. REWRITE requires extraordinary evidence.
 
-## Production Gate — open, non-blocking for PRE-V1
+## Production Gate — open, non-blocking for the historical PRE-V1 closure
 
 Cloud/provider topology, managed PostgreSQL, object storage, email, observability, secret manager, RPO/RTO, retention, SLA/SLO and responder organization remain open. Required future proof includes production-like staging, restore, rollback, migration runbook, provider outage, secret rotation, incident, break-glass, failed worker and data correction handling.
 
@@ -39,7 +41,10 @@ Cloud/provider topology, managed PostgreSQL, object storage, email, observabilit
 2. Backend construction — API v0.17.0 candidate contracts technically evidenced.
 3. Web construction — Website, Platform and Portal released refs evidenced.
 4. Product/System Acceptance — open; authenticated tenant and cross-surface proof required.
-5. Mobile research and client construction — owner-accepted direction; client not started.
+5. Mobile research and client construction — Needfinding 9/9 complete as
+   problem/task evidence; Operations implementation evidence is partial and
+   unmerged, Buyer client is not implemented, and cross-platform Product
+   architecture remains open.
 6. Staging and Production Gate — open pending provider, recovery and operational evidence.
 
 ## Future runway

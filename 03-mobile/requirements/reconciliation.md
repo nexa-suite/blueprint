@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-08-30
+last-reviewed: 2026-09-18
 ---
 
 # Mobile Requirements Reconciliation
@@ -14,22 +14,28 @@ canonical Product registry with independently valuable outcomes
 [mobile-v1-catalog.md](mobile-v1-catalog.md); lifecycle state is indexed in
 [master-mobile-backlog.md](master-mobile-backlog.md).
 
+The 2026-09-18 Owner decision changes the interpretation of the old release
+labels: current Product Generation is V1 for all 73 stories, while old V1/V2/
+V3/V4_FUTURE values remain historical planning provenance. The original
+`RELEASE_MOVE` and `SPLIT_REFINE` actions below are preserved as historical
+reconciliation history; they do not define current Product releases.
+
 ## Count and disposition
 
 | Measure | Historical | Final | Interpretation |
 |---|---:|---:|---|
 | Functional story IDs | 49 | 73 | All historical IDs remain recoverable; 24 new IDs represent independent outcomes. |
-| V1 | 42 | 28 | V1 is frozen to access, warehouse, dispatch, Driver delivery proof and narrow Buyer handoff/receipt/update work. |
-| V2 | 7 | 35 | Historical deferrals are distributed into refined operational, delivery, commercial and financial outcomes. |
-| V3 | 0 | 9 | Higher-cost field coordination, location, selective recovery and Sales outcomes are roadmap-ready. |
-| V4/Future | 0 | 1 | Advanced warehouse automation remains a hypothesis only. |
+| Historical Planning Band V1 | 42 | 28 | Historical grouping retained as provenance; it no longer defines current Product Generation. |
+| Historical Planning Band V2 | 7 | 35 | Historical deferrals retained as provenance; current Product Generation is V1. |
+| Historical Planning Band V3 | 0 | 9 | Historical roadmap grouping retained as provenance. |
+| Historical Planning Band V4/Future | 0 | 1 | Advanced warehouse automation remains a hypothesis; historical label retained. |
 | Epics | 7 | 12 | Five V1 Epics are preserved; five new outcome groups and one Future Epic are added. |
 | Technical stories | 20 shared | 20 shared | No Mobile-only technical story or new Bounded Context is created. |
 | Spikes | 6 shared | 6 shared | Existing Spike contract is preserved; no new Spike is invented. |
 
 ## Historical reconciliation matrix
 
-| Historical ID | Historical title | Action | Current title | Current Epic | Target Release | Status | New replacement (if any) |
+| Historical ID | Historical title | Action | Current title | Current Epic | Historical Planning Band | Status | New replacement (if any) |
 |---|---|---|---|---|---|---|---|
 | MOB-US-001 | Authenticate on Mobile | REFINE | Continue authorized work safely after returning to Nexa | MOBILE-EPIC-01 | V1 | PLANNED | — |
 | MOB-US-002 | Select an active business context | REFINE | Work in the intended company and business context | MOBILE-EPIC-01 | V1 | PLANNED | — |
@@ -83,7 +89,7 @@ canonical Product registry with independently valuable outcomes
 
 ## New independent story inventory
 
-| ID | Why historical stories do not cover it | Actor | Independent outcome | Release | Epic | Primary BC | CAP |
+| ID | Why historical stories do not cover it | Actor | Independent outcome | Historical Planning Band | Epic | Primary BC | CAP |
 |---|---|---|---|---|---|---|---|
 | MOB-US-050 | Existing receiving stories do not isolate inbound inspection differences and evidence. | Warehouse Operator | Handle an inbound receiving discrepancy with evidence. | V2 | MOBILE-EPIC-08 | BC-05 | CAP-08 |
 | MOB-US-051 | Existing disposition wording does not provide a complete hold, quarantine and resolution lifecycle. | Warehouse Operator | Place stock on hold or quarantine and resolve it. | V2 | MOBILE-EPIC-08 | BC-05 | CAP-10 |
@@ -115,4 +121,5 @@ canonical Product registry with independently valuable outcomes
 The seven former Epic filenames remain compatibility pointers. Numeric grouping
 in historical documents is evidence only; the current Epic index and master
 registry are authoritative. No story is promoted to `IMPLEMENTED`, `VERIFIED`
-or `PRODUCT_ACCEPTED` by this reconciliation.
+or `PRODUCT_ACCEPTED` by this reconciliation. `MOB-US-073` remains
+hypothesis-level even though its current Product Generation target is V1.

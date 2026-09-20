@@ -2,25 +2,29 @@
 
 ## Purpose
 
-Separate observed AS-IS persistence evidence from the accepted PRE-V1 TARGET Data Architecture and later physical migration work.
+Separate observed AS-IS persistence evidence from the accepted current
+V1/Post-AV1 TARGET Data Architecture and later physical migration work.
 
 ## Authoritative content
 
 - [Data architecture readiness](data-architecture-readiness.md).
-- [PRE-V1 data architecture](data-architecture.md) and [transaction/concurrency matrix](transaction-concurrency-matrix.md).
+- [Logical target data architecture (PRE-V1 provenance)](data-architecture.md) and [transaction/concurrency matrix](transaction-concurrency-matrix.md).
 - [AS-IS implementation baseline](../../04-delivery/as-is/v1-implementation-baseline.md).
 - [Architecture readiness gaps](../../04-delivery/as-is/architecture-readiness-gaps.md).
 
 ## Current status
 
-AS-IS database evidence is BASELINED as evidence. PRE-V1 TARGET data ownership, isolation, history and concurrency are ACCEPTED for construction; physical schema evolution, retention and production operations remain gated.
+AS-IS database evidence is BASELINED as evidence. Current V1/Post-AV1 TARGET
+data ownership, isolation, history and concurrency are ACCEPTED for
+construction; physical schema evolution, retention and production operations
+remain gated.
 
 ## Expected artifacts
 
 This tactical wave supplies an import-ready logical TARGET model and explicit
 AS-IS mapping. Physical PostgreSQL schema evolution, retention/classification
 decisions and production rollout remain later gates; data ownership is already
-baselined for PRE-V1.
+baselined for the current V1/Post-AV1 baseline.
 
 ## Tactical data-model wave
 

@@ -3,12 +3,14 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-19
 ---
 
 # Ubiquitous Language
 
-These terms are canonical for PRE-V1. Context-local synonyms require an explicit translation contract.
+These terms are canonical for the accepted current V1 baseline. PRE-V1
+remains provenance for the decision history. Context-local synonyms require an
+explicit translation contract.
 
 | Term | Canonical meaning | Must not be collapsed into |
 |---|---|---|
@@ -40,7 +42,9 @@ These terms are canonical for PRE-V1. Context-local synonyms require an explicit
 | Delivery | scheduled/attempted obligation to deliver goods | Delivery Attempt or Dispatch |
 | Delivery Attempt | one attempt within same Delivery | new Delivery or automatic failure finality |
 | Continuation Delivery | new Delivery for remaining quantity after partial delivery | retry of original attempt or backorder |
-| POD | immutable proof-of-delivery evidence | mutable delivery state |
+| Driver Outcome | immutable operational fact recorded for a Delivery Attempt | Buyer Receipt, POD or a client-side status |
+| Buyer Receipt | immutable Buyer fact confirming/rejecting delivered quantity and discrepancy | Driver Outcome, QR validation or POD replacement |
+| POD | immutable proof-of-delivery evidence | mutable delivery state, universal photo/signature requirement or Buyer Receipt |
 | Temperature Excursion | out-of-range observation requiring evaluation | automatic destruction or automatic quarantine |
 | ColdChainDisposition | authorized outcome for affected cold-chain quantity: `RELEASE`, `CONTINUE_HOLD`, `REJECT` or `WASTE` | automatic destruction or `RETURN_TO_SUPPLIER` synonym |
 | REJECT | outcome that quantity is not accepted for normal sellable/fulfillment use | automatic `RETURN_TO_SUPPLIER` |
@@ -53,6 +57,7 @@ These terms are canonical for PRE-V1. Context-local synonyms require an explicit
 | Payment Report | external/manual payment claim awaiting handling | Payment Confirmed |
 | Financial Adjustment | explicit BC-07 correction to historical financial obligation; an issued BC-09 document records its snapshot | silent rewrite, document-only mutation or SUNAT Credit Note |
 | Business Document | issued commercial/evidence artifact with immutable history | Security Audit or automatic fiscal document |
+| Push Subscription | provider-neutral protected endpoint reference/hash and lifecycle record owned by Notifications | accepted external Push provider, Device Bounded Context or business authority |
 | Notification | delivery intent and channel state | source business fact or Traceability |
 | Business Traceability | durable representation of meaningful business facts and timeline | Notification or Security Audit |
 | Security Audit | security and authorization evidence | Buyer business timeline |

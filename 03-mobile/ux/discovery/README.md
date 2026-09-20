@@ -1,7 +1,9 @@
 # Mobile discovery
 
-Research-validation workspace. Product definition is proposed; add real
-evidence as it becomes available and do not convert assumptions into findings.
+Needfinding evidence workspace. The AV1 campaign is closed with `9/9`
+interviews (`3/3` per segment) for problem/task evidence. Solution validation,
+prototype validation and Product Acceptance remain `OPEN`; assumptions and
+hypotheses must not be presented as findings.
 
 - [Assumptions](assumptions.md)
 - [Hypotheses](hypotheses.md)

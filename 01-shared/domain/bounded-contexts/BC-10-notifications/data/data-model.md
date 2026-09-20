@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # BC-10 target relational model
@@ -26,7 +26,8 @@ content is a versioned JSON snapshot; it does not own business truth.
 
 V1 business notification channels remain exactly `IN_APP` and `EMAIL`.
 `push_subscription` is the provider-neutral Mobile delivery foundation and
-does not make provider tokens or devices business authority. Delivery retry,
+does not make provider tokens or devices business authority; it does not accept
+an external Push provider or Product channel beyond in-app/email. Delivery retry,
 claim fencing, invalid-token disablement and dead-letter handling remain
 application/technical reliability behavior.
 

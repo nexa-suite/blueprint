@@ -3,12 +3,17 @@ status: accepted
 maturity: FROZEN
 scope: v1
 owner: product
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-19
 ---
 
 # Product & Business V1 baseline
 
-This is the frozen Product authority for Nexa V1. It records accepted product direction; Strategic DDD and construction ownership are linked separately and do not turn this Product record into schemas or implementation contracts.
+This is the frozen Product authority for Nexa V1. **Nexa V1 is the current
+coherent Product Generation goal**, with Web V1 and Mobile V1 as surface
+generations/projections of one Nexa Product. A Product Generation target is
+separate from current implementation completeness. Strategic DDD and
+construction ownership are linked separately and do not turn this Product
+record into schemas or implementation contracts.
 
 Product / Business V1 status: **FROZEN / CLOSED**. No major Product V1 decision blocker remains. Detailed sequence, terminology, ownership and exceptions are inputs to Domain Discovery, not reasons to reopen the Product baseline.
 
@@ -115,7 +120,24 @@ A capability presented as V1 must close coherently end-to-end. If it cannot be d
 
 ## V2 and future
 
-Deferred items include full Procurement, advanced CRM, advanced Finance, formal order amendments where not required, backorders, advanced BI/data warehouse, SUNAT integration, Control Center, advanced warehouse optimization, predictive inventory, multi-user customer accounts, plans/subscriptions/entitlements, IoT/automatic telemetry, deep QMS workflows and complex carrier integrations. Operations Mobile and Buyer Mobile are OWNER-ACCEPTED product projections with 28 V1 candidate stories, but their research, native client, provider/device decisions and production acceptance remain runway; unaccepted Mobile expansions, including field sales, broad Buyer commerce, stored/continuous tracking, rich chat and reorder/BOM/transfer expansions, remain V2/Future.
+Operations Mobile and Buyer Mobile are the accepted two-app Mobile V1 Product
+Generation projection with 73 stories in the course-end planning envelope. A
+Mobile story may remain lifecycle `DEFERRED` while it requires research,
+refinement, contracts, design or implementation; its historical planning band
+is provenance only and does not reclassify it as Product V2/V3. This includes
+V1-generation field commercial convenience, Buyer commerce, and selected
+transfer or reorder behavior where the individual story remains deferred.
+
+Genuinely FUTURE / RUNWAY capabilities remain outside accepted current V1
+behavior: IoT/automatic telemetry; permanent, background or live Driver
+tracking; rich chat; full Returns/RMA; full Procurement; advanced CRM; advanced
+Finance; formal order amendments where not required; backorders; advanced
+BI/data warehouse; SUNAT integration; Control Center; advanced warehouse
+optimization; predictive inventory; multi-user Buyer organizations;
+plans/subscriptions/entitlements; deep QMS workflows; complex carrier
+integrations; and other explicitly deferred future expansions. Research, final
+client/provider/device decisions and Product Acceptance remain independent
+runway gates for the Mobile V1 generation.
 
 ## Closure reconciliation
 

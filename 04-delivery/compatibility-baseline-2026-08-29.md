@@ -1,14 +1,15 @@
 ---
-status: accepted
-maturity: BASELINED
+status: reference
+maturity: HISTORICAL
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-18
 ---
 
-# Live compatibility baseline — 2026-08-29
+# Historical compatibility baseline — 2026-08-29
 
-This is a point-in-time AS-IS evidence cut. It does not redefine TARGET, grant
+This is a point-in-time historical AS-IS evidence cut and is **SUPERSEDED AS
+CURRENT REF INVENTORY** by [Live repository baseline — 2026-09-18](as-is/live-repository-baseline-2026-09-18.md). It does not redefine TARGET, grant
 Product Acceptance or close the Production Gate. SHAs below are the published
 tag targets unless a local branch is explicitly named.
 

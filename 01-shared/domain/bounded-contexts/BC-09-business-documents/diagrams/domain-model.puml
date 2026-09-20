@@ -52,9 +52,11 @@ class ObjectStorageReference <<Entity>> {
   +verify(): boolean
 }
 
-class DocumentGenerationRequest <<Entity>> {
+class DocumentGenerationRequest <<Application Work Item>> {
   -generationRequestId: DocumentGenerationRequestId
   -documentId: BusinessDocumentId
+  -idempotencyKey: IdempotencyKey
+  -leaseUntil: Instant
   -status: GenerationStatus
   +queue(): void
   +complete(objectReference: ObjectStorageReference): void
@@ -89,7 +91,7 @@ DocumentNumberSeries "1" o-- "0..*" BusinessDocument : numbers
 BusinessDocument "1" *-- "1..*" DocumentSnapshotLine : immutable snapshot
 BusinessDocument "1" *-- "1..*" DocumentRevision : revisions
 BusinessDocument "1" *-- "0..*" ObjectStorageReference : artifacts
-BusinessDocument "1" *-- "0..*" DocumentGenerationRequest : generation
+DocumentGenerationRequest --> BusinessDocument : generates
 DocumentSnapshotLine *-- Money : price snapshot
 DocumentGenerationRequest --> ObjectStorageReference : produces
 BusinessDocument --> SalesOrder : stable order id

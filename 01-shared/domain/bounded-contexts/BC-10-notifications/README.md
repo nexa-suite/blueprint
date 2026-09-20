@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-19
 ---
 
 # BC-10 Notifications
@@ -19,7 +19,7 @@ last-reviewed: 2026-08-23
 | Upstream / downstream | Upstream: source BC published facts. Downstream: recipients and Business Traceability. Sync: candidate persistence; async: delivery/retry. |
 | Failure / transaction | Outbox/inbox, retry and dead-letter/reviewable terminal state; provider outage does not roll back source fact. |
 | Security / tenant | Recipient and channel preferences are scoped; payload avoids secrets and unnecessary personal data; authorization applies to in-app projections. |
-| Web / Mobile consumers | Web: Platform/Portal in-app and email. Mobile: push is core proposed capability for Buyer, Driver, Warehouse and BOM; this context remains authority. |
+| Web / Mobile consumers | Web: Platform/Portal in-app and email. Mobile: provider-neutral `PushSubscription` support may be recorded here, but an external Push provider/channel beyond in-app/email is FUTURE/OPEN. |
 | Out of scope | Source business lifecycle, push-device BC, chat, permanent tracking and a Mobile Notifications BC. |
 
 ## Tactical DDD target

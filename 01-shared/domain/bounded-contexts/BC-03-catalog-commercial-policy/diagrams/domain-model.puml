@@ -90,14 +90,17 @@ class PromotionSku <<Entity>> {
 }
 
 class CommercialPolicy <<Domain Service>> {
-  +resolvePrice(skuId: SkuId, customerId: CustomerAccountId, at: Instant): ResolvedPrice
+  +resolveOffer(skuId: SkuId, customerId: CustomerAccountId, at: Instant): ResolvedOfferSnapshot
   +validateSellable(sku: Sku): boolean
 }
 
-class ResolvedPrice <<Value Object>> {
+class ResolvedOfferSnapshot <<Value Object>> {
+  -skuId: SkuId
   -unitPrice: Money
-  -source: PriceSource
-  -promotionId: PromotionId
+  -termsSnapshot: TermsSnapshot
+  -promotionId: PromotionId [0..1]
+  -effectiveAt: Instant
+  +freeze(): ResolvedOfferSnapshot
 }
 
 class Money <<Value Object>> {
@@ -115,15 +118,13 @@ interface SkuRepository <<Repository>> {
 }
 
 interface PricePolicyRepository <<Repository>> {
-  +findActiveFor(skuId: SkuId, customerId: CustomerAccountId, at: Instant): ResolvedPrice
+  +findActiveFor(skuId: SkuId, customerId: CustomerAccountId, at: Instant): ResolvedOfferSnapshot
 }
 
 enum ProductStatus <<Enum>>
 enum SkuStatus <<Enum>>
 enum PriceListStatus <<Enum>>
 enum PromotionStatus <<Enum>>
-enum PriceSource <<Enum>>
-
 Product "1" *-- "1..*" Sku : variants
 Product "1" *-- "0..*" CatalogMedia : media
 PriceList "1" *-- "0..*" PriceListItem : prices
@@ -134,13 +135,14 @@ Sku "1" o-- "0..*" PromotionSku : discounted
 CustomerTerms --> PriceList : applies list
 CommercialPolicy ..> PricePolicyRepository : resolves
 CommercialPolicy ..> SkuRepository : validates
-CommercialPolicy --> ResolvedPrice : returns
-ResolvedPrice *-- Money : amount
+CommercialPolicy --> ResolvedOfferSnapshot : returns
+ResolvedOfferSnapshot *-- Money : amount
 Promotion *-- TimeWindow : validity
 
 legend right
 TARGET / V1 / tactical design aid
 Price precedence: Base Price -> Price List -> Customer Terms -> max one Promotion.
+ResolvedOfferSnapshot is the Published Language contract for BC-04 with canonical fields skuId, unitPrice, termsSnapshot, optional promotionId [0..1] and effectiveAt; it is not a Published Integration Event or shared aggregate.
 CustomerAccountId is a non-owning BC-02 reference.
 *-- composition | --> domain dependency | ..> port/use
 endlegend

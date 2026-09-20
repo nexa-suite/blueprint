@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-19
 ---
 
 # Context Map
@@ -13,9 +13,9 @@ Relationships describe authority and translation. They do not imply deployment, 
 | Upstream | Downstream | Relationship | Contract / translation | Interaction | Translation / ACL | Consistency |
 |---|---|---|---|---|---|---|
 | Tenant & Access Governance | all tenant-scoped BCs | upstream authorization context | verified Tenant/Workspace scope, membership and capability decision | synchronous query/decision | no translation; fail-closed ACL | immediate for authorization; projections may be stale but cannot grant |
-| Customer & Buyer Relationships | Catalog & Commercial Policy | relationship policy supplier | active relationship and eligibility reference | synchronous lookup | stable relationship ID; no shared Customer entity | current relationship required |
-| Customer & Buyer Relationships | Sales Commitment | account/actor supplier | Customer Account, Buyer Relationship and principal Buyer identity reference | synchronous command input | identity/reference translation | atomic with submit validation |
-| Catalog & Commercial Policy | Sales Commitment | Published Language / offer supplier | resolved price, terms, promotion and SKU cold-chain snapshot | synchronous resolution | commercial snapshot | snapshot immutable after acceptance |
+| Customer & Buyer Relationships | Catalog & Commercial Policy | Customer/Supplier | active relationship and eligibility reference | synchronous lookup | stable relationship ID; no shared Customer entity | current relationship required |
+| Customer & Buyer Relationships | Sales Commitment | Customer/Supplier | Customer Account, Buyer Relationship and principal Buyer identity reference | synchronous command input | identity/reference translation | atomic with submit validation |
+| Catalog & Commercial Policy | Sales Commitment | Customer/Supplier / Published Language | resolved offer snapshot: price, terms, promotion and SKU cold-chain facts | synchronous resolution | immutable commercial snapshot | snapshot immutable after acceptance |
 | Sales Commitment | Inventory Availability | demand contract | Commercial Commitment ID, SKU, quantity, active/released status | synchronous decision | stable IDs; no Warehouse/Lot selection | atomic protection |
 | Inventory Availability | Sales Commitment | availability decision supplier | full-protection result with Reservation/Warehouse Backing references | synchronous decision | availability contract | atomic with commitment |
 | Sales Commitment | Credit & Receivables | credit demand contract | amount, terms, commitment reference and reservation intent | synchronous decision | amount/terms snapshot | atomic when applicable |
@@ -23,11 +23,14 @@ Relationships describe authority and translation. They do not imply deployment, 
 | Sales Commitment | Fulfillment & Delivery | commercial obligation supplier | immutable confirmed SO snapshot and remaining quantities | published fact + projection | Sales Order contract | async after commit |
 | Inventory Availability | Fulfillment & Delivery | physical truth supplier | usable lots/quantities and Physical Allocation authority | published fact + command | lot/allocation contract | async announcement; source mutation explicit |
 | Fulfillment & Delivery | Inventory Availability | physical mutation contract | pick/pack/dispatch movement, shortage and disposition facts | synchronous mutation / async fact | movement/evidence references | source execution stays separate |
-| Fulfillment & Delivery | Business Documents | evidence supplier | Delivery/POD facts and document request | async event | immutable evidence snapshot | eventual after source commit |
+| Fulfillment & Delivery | Business Documents | Customer/Supplier / Published Language | committed Delivery, POD and evidence source facts | durable async fact | immutable evidence snapshot | eventual after source commit |
+| Credit & Receivables | Business Documents | Customer/Supplier / Published Language | `ReceivablePosted.v1` for receivable documents; authorized BC-07 Financial Adjustment source snapshot/application contract where applicable, with no separate Published Integration Event | durable async event; application request where document policy requires | immutable financial snapshot; BC-07 remains authority | eventual after source commit; no implied financial-adjustment event |
+| Payments | Business Documents | Customer/Supplier / Published Language | `PaymentConfirmed.v1` confirmed payment source fact consumed for immutable Payment Receipt issuance where applicable | durable async event after source commit | provider-neutral payment reference; document status stays in BC-09 | eventual; applicable receipt policy only |
 | Credit & Receivables | Payments | payment target supplier | Receivable/payment application contract | synchronous command input | provider-neutral payment reference | explicit reconciliation |
 | Payments | Credit & Receivables | payment fact supplier | confirmed/rejected/refunded Payment with idempotent provider reference | async published event | provider ACL translation | eventual, deduplicated |
-| all source BCs | Notifications | published fact consumers | candidate with recipient, template, channel and correlation | async event | notification candidate translation | at-least-once |
-| all source BCs | Business Traceability | published durable fact consumers | append-only fact with actor, reason, evidence and source reference | async event | traceability projection | eventual, replayable |
+| Payment Provider (external) | Payments | Anti-Corruption Layer | provider requests/responses/webhooks translated into provider-neutral Payment facts and commands | external I/O after intent/commit boundary | provider ACL; no provider vocabulary in domain | idempotency, verification, reconciliation and deduplication explicit |
+| BC-04 / BC-06 / BC-07 / BC-08 / BC-09 | Notifications | published fact consumer | confirmed fact with recipient, template, channel and correlation | durable async event | notification candidate translation | at-least-once |
+| BC-01..BC-10 | Business Traceability | published durable fact consumer | append-only fact with actor, reason, evidence and source reference | durable async event | traceability projection | eventual, replayable |
 | Notifications | Business Traceability | delivery evidence consumer | delivery outcome only; never replaces source fact | async event | delivery result translation | eventual |
 
 ## Atomic boundary
@@ -41,3 +44,5 @@ PR submission and required Commercial Commitment, complete Inventory Reservation
 - At-least-once event delivery requires inbox/deduplication; no exactly-once transport claim.
 - Business Traceability is a transversal representation. Source BCs retain authority for facts.
 - A technical ACL may translate Stripe, legacy identifiers or current schema terms without changing canonical language.
+- No Shared Kernel, Conformist relationship or implicit shared persistence ownership exists between the eleven Bounded Contexts.
+- BC-01 supplies authorization context; it is not an Open Host Service designation.
