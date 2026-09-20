@@ -24,7 +24,7 @@ last-reviewed: 2026-08-23
 
 ## Tactical DDD target
 
-Aggregate Root: BusinessTimeline. Entities: BusinessFact, EvidenceReference, CorrelationLink. Value Objects: FactId, ActorRef, Reason, SourceReference, TimelineEntry. Domain Services: TraceabilityProjectionPolicy, SensitivePayloadPolicy. Repositories: BusinessFactRepository. Lifecycle: recorded → projected → authorized/reviewed; entries are never silently overwritten.
+Aggregate Root: BusinessTraceabilityRecord. TraceabilityEvidenceReference is a child fact; BusinessTimeline is an authorized projection/read model, never the persisted Aggregate Root. Value Objects: FactId, ActorRef, Reason, SourceReference and TimelineEntry. Domain Services: TraceabilityProjectionPolicy and SensitivePayloadPolicy. Repositories: BusinessFactRepository. Lifecycle: recorded → projected → authorized/reviewed; entries are never silently overwritten.
 
 ## Tactical wave artifacts
 

@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 export ROOT_DIR
 
+python3 "$ROOT_DIR/tooling/scripts/generate-target-database-diagrams.py" --check
+
 python3 - <<'PY'
 from pathlib import Path
 import os
@@ -35,6 +37,20 @@ expected = {
 }
 shared = ["outbox_event", "inbox_deduplication", "idempotency_record", "worker_lease", "security_audit_event"]
 
+expected_aggregate_roots = {
+    "BC-01": {"Tenant", "HumanIdentity", "CompanyOnboardingRequest", "WorkforceMembership", "RoleDefinition"},
+    "BC-02": {"CustomerAccount", "BuyerRelationship"},
+    "BC-03": {"Product", "Sku", "PriceList", "CustomerTerms", "Promotion"},
+    "BC-04": {"RequestDraft", "PurchaseRequest", "CommercialCommitment", "SalesOrder"},
+    "BC-05": {"Warehouse", "InventoryLot", "InventoryPosition", "InventoryReservation", "PhysicalAllocation", "WarehouseTransfer"},
+    "BC-06": {"Fulfillment", "Delivery", "ProofOfDelivery", "TemperatureEvidence"},
+    "BC-07": {"CreditAccount", "CreditReservation", "Receivable", "FinancialAdjustment"},
+    "BC-08": {"Payment", "PaymentReconciliationCase"},
+    "BC-09": {"DocumentNumberSeries", "BusinessDocument"},
+    "BC-10": {"NotificationTemplate", "Notification", "NotificationPreference"},
+    "BC-11": {"BusinessTraceabilityRecord"},
+}
+
 def sql_tables(path: Path) -> list[str]:
     return re.findall(r"(?im)^\s*CREATE\s+TABLE\s+([a-z][a-z0-9_]*)\s*\(", path.read_text())
 
@@ -59,6 +75,7 @@ for bc in bc_dirs:
     data_doc = bc / "data/data-model.md"
     sql = bc / "data/target-relational-model.sql"
     db_diagram = bc / "data/database-diagram.puml"
+    readme = bc / "README.md"
     for required in (tactical, diagram, data_doc, sql, db_diagram):
         if not required.is_file():
             failures.append(f"missing {required.relative_to(root)}")
@@ -84,6 +101,23 @@ for bc in bc_dirs:
             failures.append(f"missing rendered UML SVG beside {diagram.relative_to(root)}")
         if not list(diagram.parent.glob("*.png")):
             failures.append(f"missing rendered UML PNG beside {diagram.relative_to(root)}")
+        actual_roots = set(re.findall(r"(?m)^class\s+(\w+)\s+<<Aggregate Root>>", text))
+        expected_roots = expected_aggregate_roots.get(code, set())
+        if actual_roots != expected_roots:
+            failures.append(f"{diagram.relative_to(root)} Aggregate Root set differs: {sorted(actual_roots)}")
+        for relation in re.finditer(r"(?m)^\s*(\w+).*?\*--.*?\b(\w+)\s*(?::|$)", text):
+            source, target = relation.groups()
+            if source in actual_roots and target in actual_roots:
+                failures.append(f"{diagram.relative_to(root)} composes Aggregate Root {source} into Aggregate Root {target}")
+    if readme.is_file() and tactical.is_file():
+        readme_text = readme.read_text().lower()
+        tactical_text = tactical.read_text().lower()
+        for aggregate_root in expected_aggregate_roots.get(code, set()):
+            marker = aggregate_root.lower()
+            if marker not in readme_text:
+                failures.append(f"{readme.relative_to(root)} does not classify {aggregate_root} as an Aggregate Root")
+            if not re.search(rf"\|\s*`?{re.escape(aggregate_root)}s?`?\s*\|\s*Aggregate Root", tactical.read_text(), re.IGNORECASE):
+                failures.append(f"{tactical.relative_to(root)} does not classify {aggregate_root} as an Aggregate Root")
     if data_doc.is_file():
         text = data_doc.read_text()
         require_lifecycle(data_doc)
@@ -161,6 +195,111 @@ for path in (inventory_sql, master):
     )
     if not all(fragment in text for fragment in required_fragments):
         failures.append(f"{path.relative_to(root)} must preserve deterministic SKU + Warehouse Backing")
+
+if inventory_sql.is_file():
+    inventory_text = inventory_sql.read_text()
+    for fragment in (
+        "CHECK (reserved_quantity + held_quantity <= on_hand_quantity)",
+        "Projection of active InventoryReservation protection",
+        "do not subtract both",
+    ):
+        if fragment not in inventory_text:
+            failures.append(f"{inventory_sql.relative_to(root)} missing reserved-quantity single-subtraction guard: {fragment}")
+    inventory_docs = [
+        root / "01-shared/domain/bounded-contexts/BC-05-inventory-availability/README.md",
+        root / "01-shared/domain/bounded-contexts/BC-05-inventory-availability/tactical-model.md",
+        root / "01-shared/domain/bounded-contexts/BC-05-inventory-availability/data/data-model.md",
+    ]
+    if any("second subtraction" not in path.read_text().lower() and "subtracted twice" not in path.read_text().lower() for path in inventory_docs):
+        failures.append("BC-05 README, tactical model and data model must state Warehouse Backing is not a second subtraction")
+
+delivery_sql = root / "01-shared/domain/bounded-contexts/BC-06-fulfillment-delivery/data/target-relational-model.sql"
+delivery_states = (
+    "PLANNED", "SCHEDULED", "DISPATCHED", "IN_TRANSIT", "ATTEMPTED",
+    "DELIVERED", "PARTIALLY_DELIVERED", "ATTEMPT_FAILED", "RESCHEDULED",
+    "CANCELLED", "FAILED_FINAL",
+)
+if delivery_sql.is_file():
+    delivery_text = delivery_sql.read_text()
+    for state in delivery_states:
+        if state not in delivery_text:
+            failures.append(f"Delivery SQL missing canonical state {state}")
+    for ambiguous in ("'PARTIAL'", "'FAILED'", "'ASSIGNED'"):
+        if ambiguous in delivery_text:
+            failures.append(f"Delivery SQL retains ambiguous lifecycle value {ambiguous}")
+    for fragment in (
+        "CREATE UNIQUE INDEX uq_delivery_assignment_active",
+        "WHERE unassigned_at IS NULL",
+        "buyer_relationship_id uuid NOT NULL",
+        "child_delivery_id uuid NOT NULL",
+        "UNIQUE (parent_delivery_id)",
+        "UNIQUE (child_delivery_id)",
+        "UNIQUE (tenant_id, workspace_id, idempotency_key)",
+    ):
+        if fragment not in delivery_text:
+            failures.append(f"Delivery SQL missing required lifecycle/integrity fragment {fragment}")
+    if "buyer_membership_id" in delivery_text:
+        failures.append("Delivery SQL must use Buyer Relationship, not buyer_membership_id")
+    for relative in (
+        "01-shared/domain/bounded-contexts/BC-06-fulfillment-delivery/README.md",
+        "01-shared/domain/bounded-contexts/BC-06-fulfillment-delivery/tactical-model.md",
+        "01-shared/domain/bounded-contexts/BC-06-fulfillment-delivery/data/data-model.md",
+        "01-shared/domain/bounded-contexts/BC-06-fulfillment-delivery/diagrams/domain-model.puml",
+    ):
+        text = (root / relative).read_text()
+        for state in delivery_states:
+            if state not in text:
+                failures.append(f"{relative} missing canonical Delivery state {state}")
+
+receivable_sql = root / "01-shared/domain/bounded-contexts/BC-07-credit-receivables/data/target-relational-model.sql"
+if receivable_sql.is_file():
+    receivable_text = receivable_sql.read_text()
+    for fragment in (
+        "sales_order_id uuid NOT NULL",
+        "business_document_id uuid,",
+        "UNIQUE (tenant_id, workspace_id, sales_order_id)",
+    ):
+        if fragment not in receivable_text:
+            failures.append(f"Receivable SQL missing canonical SalesOrder source fragment {fragment}")
+
+state_sources = {
+    "purchase-request-state": ("SUBMITTED", "CHANGES_PROPOSED", "CONVERTED", "REJECTED", "WITHDRAWN", "EXPIRED"),
+    "fulfillment-state": ("PLANNED", "ALLOCATED", "PICKING", "PICKED", "PACKED", "STAGED", "READY_FOR_DISPATCH", "HANDED_OVER", "COMPLETED", "SHORTAGE", "HOLD", "CANCELLED"),
+    "delivery-state": delivery_states,
+    "warehouse-transfer-state": ("REQUESTED", "IN_TRANSIT", "RECEIVED"),
+    "credit-reservation-state": ("ACTIVE", "RELEASED", "CONSUMED", "EXPIRED"),
+    "payment-state": ("INITIATED", "AUTHORIZED", "CONFIRMED", "FAILED", "CANCELLED", "REFUNDED", "PARTIALLY_REFUNDED"),
+}
+for name, states in state_sources.items():
+    source = root / "01-shared/domain/state-machines" / f"{name}.puml"
+    if not source.is_file():
+        failures.append(f"missing canonical state-machine source {source.relative_to(root)}")
+        continue
+    text = source.read_text()
+    if "@startuml" not in text or "@enduml" not in text:
+        failures.append(f"invalid PlantUML state-machine source {source.relative_to(root)}")
+    for state in states:
+        if state not in text:
+            failures.append(f"{source.relative_to(root)} missing canonical state {state}")
+    for suffix in (".svg", ".png"):
+        if not source.with_suffix(suffix).is_file():
+            failures.append(f"missing rendered state-machine artifact {source.with_suffix(suffix).relative_to(root)}")
+
+domain_story_sources = (
+    "01-buyer-commercial-intent", "02-controlled-pr-change", "03-stock-becoming-sellable",
+    "04-partial-delivery-continuation", "05-independent-tenant-relationships",
+    "06-payment-reconciliation", "07-security-audit-buyer-timeline",
+)
+for name in domain_story_sources:
+    source = root / "01-shared/domain/processes/domain-storytelling" / f"{name}.puml"
+    if not source.is_file():
+        failures.append(f"missing current domain-storytelling source {source.relative_to(root)}")
+        continue
+    if "@startuml" not in source.read_text() or "@enduml" not in source.read_text():
+        failures.append(f"invalid domain-storytelling PlantUML source {source.relative_to(root)}")
+    for suffix in (".svg", ".png"):
+        if not source.with_suffix(suffix).is_file():
+            failures.append(f"missing rendered domain-storytelling artifact {source.with_suffix(suffix).relative_to(root)}")
 
 semantic_markers = {
     "01-shared/domain/bounded-contexts/BC-03-catalog-commercial-policy/tactical-model.md": (
@@ -270,7 +409,7 @@ for mobile in ("operations-mobile-local-persistence", "buyer-mobile-local-persis
             failures.append(f"missing {path.relative_to(root)}")
             continue
         text = path.read_text()
-        for marker in ("PROPOSED", "RESEARCH VALIDATION PENDING", "NOT SELECTED", "NON-AUTHORITATIVE"):
+        for marker in ("ACCEPTED TARGET", "RESEARCH VALIDATION PENDING", "LOCAL", "NON-AUTHORITATIVE"):
             if marker not in text:
                 failures.append(f"{path.relative_to(root)} missing {marker!r}")
         if path.suffix == ".puml" and not list(path.parent.glob("*.svg")):
@@ -335,7 +474,7 @@ if academic.is_file() and len(re.findall(r"(?m)^\|\s*BC-\d{2}\b", academic.read_
     failures.append("academic Web tactical projection must have exactly 11 BC rows")
 
 c4_exports = root / "01-shared/architecture/c4/exports"
-for level, expected_count in (("l1", 3), ("l2", 2), ("l3", 11), ("deployment", 2)):
+for level, expected_count in (("l1", 3), ("l2", 2), ("l3", 13), ("dynamic", 7), ("deployment", 2)):
     svgs = sorted((c4_exports / level).glob("*.svg"))
     if len(svgs) != expected_count:
         failures.append(f"C4 {level} exports expected {expected_count} SVG, found {len(svgs)}")
@@ -354,6 +493,6 @@ print(f"- bounded contexts: {len(bc_dirs)}")
 print(f"- target tables: {len(all_target) + len(shared)} (90 BC + 5 shared)")
 print("- primary PlantUML: 11 BC + 2 Mobile; rendered SVG + PNG present")
 print("- matrices: requirements, C4 and academic coverage present")
-print("- C4 exports: 18 SVG + 18 PNG (including 2 deployment views)")
+print("- C4 exports: 27 SVG + 27 PNG (including 7 dynamic and 2 deployment views)")
 print("- database ERD projections: 11 BC + 1 master; SVG + PNG present")
 PY

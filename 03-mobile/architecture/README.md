@@ -1,17 +1,20 @@
 # Mobile Architecture
 
-The two-app Mobile Product Generation is accepted for planning and Needfinding
-is complete (`9/9`) for problem/task evidence. Technical/client architecture
-and solution validation remain `OPEN`. Current Operations AS-IS evidence is
-partial and unmerged and uses Android/Kotlin/Jetpack Compose; this does not
-establish a final canonical framework assignment or accepted production
-runtime. Buyer Mobile is not implemented and final cross-platform architecture
-remains open.
+The two-app Mobile TARGET is accepted. Nexa Operations Mobile uses native
+Android/Kotlin/Jetpack Compose; Nexa Buyer Mobile uses Flutter/Dart for Android
+and iOS. Exact baseline lives in the shared
+[Technology baseline](../../01-shared/architecture/technology-baseline.md).
 
-- [Technical projection](technical/README.md)
-- [Data boundary](data/README.md)
-- [Operations Mobile local persistence](data/operations-mobile-local-persistence.md)
-- [Buyer Mobile local persistence](data/buyer-mobile-local-persistence.md)
+Both clients are C4 Containers inside one Nexa Software System. Neither creates
+a Bounded Context, API, backend/domain model, database authority or generic
+offline synchronization engine. Operations has partial unmerged implementation
+evidence; Buyer is not implemented. Those facts do not alter TARGET assignments
+or prove Product Acceptance.
 
-Local models are non-authoritative projections. They reuse the shared API and
-eleven Bounded Contexts and do not add PostgreSQL tables or a Mobile BC.
+- [Technical architecture](technical/README.md)
+- [Client-local data boundary](data/README.md)
+- [Operations local persistence](data/operations-mobile-local-persistence.md)
+- [Buyer local persistence](data/buyer-mobile-local-persistence.md)
+
+Client local models are device-scoped, non-authoritative projections. The API
+remains authority for protected business decisions.

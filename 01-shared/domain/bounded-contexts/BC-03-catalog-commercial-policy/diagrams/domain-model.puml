@@ -16,7 +16,7 @@ class Product <<Aggregate Root>> {
   +retire(): void
 }
 
-class Sku <<Entity>> {
+class Sku <<Aggregate Root>> {
   -skuId: SkuId
   -productId: ProductId
   -code: SkuCode
@@ -61,7 +61,7 @@ class BasePrice <<Entity>> {
   +replace(amount: Money): void
 }
 
-class CustomerTerms <<Entity>> {
+class CustomerTerms <<Aggregate Root>> {
   -termsId: CustomerTermsId
   -customerAccountId: CustomerAccountId
   -priceListId: PriceListId
@@ -125,7 +125,7 @@ enum ProductStatus <<Enum>>
 enum SkuStatus <<Enum>>
 enum PriceListStatus <<Enum>>
 enum PromotionStatus <<Enum>>
-Product "1" *-- "1..*" Sku : variants
+Product --> Sku : stable SkuId
 Product "1" *-- "0..*" CatalogMedia : media
 PriceList "1" *-- "0..*" PriceListItem : prices
 Promotion "1" *-- "0..*" PromotionSku : scope

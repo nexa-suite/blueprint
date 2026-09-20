@@ -1,4 +1,4 @@
-component nexa.applicationApi "Nexa-API-Overall-ASIS" "API implementation and target seams" {
+component nexa.applicationApi "Nexa-API-Overall-ASIS" "Observed API technical component view; target semantics remain explicitly separated" {
     include nexa.applicationApi.apiPresentation
     include nexa.applicationApi.apiApplication
     include nexa.applicationApi.apiDomain
@@ -11,6 +11,34 @@ component nexa.applicationApi "Nexa-API-Overall-ASIS" "API implementation and ta
     include paymentProvider
     include emailDeliveryService
     include mapsGeolocationProvider
+    autolayout lr
+}
+
+component nexa.applicationApi "Nexa-API-TechnicalArchitecture-TARGET" "TARGET API technical architecture: presentation, application, domain, access, persistence, integrations and reliability" {
+    include nexa.applicationApi.apiPresentation
+    include nexa.applicationApi.apiApplication
+    include nexa.applicationApi.apiDomain
+    include nexa.applicationApi.apiAccessContext
+    include nexa.applicationApi.apiPersistence
+    include nexa.applicationApi.apiIntegrations
+    include nexa.applicationApi.apiReliability
+    include nexa.postgresqlDatabase
+    include nexa.objectStorage
+    include paymentProvider
+    include emailDeliveryService
+    include mapsGeolocationProvider
+    autolayout lr
+}
+
+component nexa.applicationApi "Nexa-API-DomainOwnershipMapping-TARGET" "TARGET logical ownership mapping. Bounded Context is not a Java package, Spring Modulith module, C4 Container or PostgreSQL schema." {
+    include nexa.applicationApi.apiApplication
+    include nexa.applicationApi.apiDomain
+    include nexa.applicationApi.targetCommercialCommitment
+    include nexa.applicationApi.targetInventoryAvailability
+    include nexa.applicationApi.targetFulfillmentDelivery
+    include nexa.applicationApi.targetCreditReceivables
+    include nexa.applicationApi.targetPaymentDocuments
+    include nexa.applicationApi.targetNotificationTraceability
     autolayout lr
 }
 

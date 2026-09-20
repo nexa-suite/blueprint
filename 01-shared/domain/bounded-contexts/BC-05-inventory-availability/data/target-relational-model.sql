@@ -39,7 +39,8 @@ CREATE TABLE inventory_position (
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (warehouse_id, sku_id),
     CHECK (reserved_quantity <= on_hand_quantity),
-    CHECK (held_quantity <= on_hand_quantity)
+    CHECK (held_quantity <= on_hand_quantity),
+    CHECK (reserved_quantity + held_quantity <= on_hand_quantity)
 );
 
 CREATE TABLE inventory_movement (
@@ -155,3 +156,8 @@ CREATE INDEX ix_inventory_position_sku ON inventory_position (warehouse_id, sku_
 CREATE INDEX ix_inventory_movement_reference ON inventory_movement (reference_type, reference_id);
 CREATE INDEX ix_backing_commitment_status ON inventory_backing (commercial_commitment_id, status);
 CREATE INDEX ix_transfer_scope_status ON warehouse_transfer (tenant_id, workspace_id, status);
+
+COMMENT ON COLUMN inventory_position.reserved_quantity IS
+    'Projection of active InventoryReservation protection. inventory_backing and its lines establish this amount; do not subtract both.';
+COMMENT ON COLUMN inventory_position.held_quantity IS
+    'Physical non-sellable quantity. Sellable availability subtracts it once before reservation and safety-stock protection.';

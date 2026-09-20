@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-05 target relational model
@@ -23,7 +23,12 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 SQL has PK, same-owner FK, NOT NULL, quantity/status checks, unique stock
 positions and FEFO/reservation/transfer indexes. RLS applies tenant/workspace;
 no cross-BC FK is declared. `on_hand`, `reserved`, `held` and safety policy
-support Sellable Availability; lot expiry supports FEFO. AS-IS anchors are all
+support Sellable Availability; lot expiry supports FEFO. `reserved_quantity`
+is the guarded position projection of active `InventoryReservation` protection
+represented by `inventory_backing`; a backing or backing line is never a
+second subtraction. `held_quantity` is physically non-sellable. Thus the
+calculation is `max(0, on_hand - held - reserved - safety_stock)` and the SQL
+prevents reserved plus held from exceeding on-hand. AS-IS anchors are all
 `warehouse` tables, including reservation/allocation, movement, temperature
 evaluation and transfer tables. Warehouse Transfer states are exactly
 `REQUESTED`, `IN_TRANSIT` and `RECEIVED`; lot status distinguishes
@@ -33,5 +38,6 @@ Physical Allocation Line, applies FEFO ordering, rejects stale or over-pick
 attempts and permits only policy-controlled overrides with actor and reason.
 `inventory_backing` is the physical relational representation of the
 Inventory Reservation root; `inventory_backing_line.warehouse_id` makes its
-Warehouse Backing distribution explicit. Scanning is an application
+Warehouse Backing distribution explicit. It protects commitment demand once;
+`physical_allocation` is a later, separate lot-selection fact. Scanning is an application
 interaction, not a new domain aggregate.

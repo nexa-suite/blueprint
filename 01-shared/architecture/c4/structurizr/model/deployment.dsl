@@ -26,12 +26,16 @@ deploymentEnvironment "Local AS-IS" {
 }
 
 deploymentEnvironment "V1 TARGET" {
-    deploymentNode "Operations Mobile Device" {
-        technology "Mobile device"
+    deploymentNode "Operations Android Device" {
+        technology "Android device"
         containerInstance nexa.operationsMobile
     }
-    deploymentNode "Buyer Mobile Device" {
-        technology "Mobile device"
+    deploymentNode "Buyer Android Device" {
+        technology "Android device"
+        containerInstance nexa.buyerMobile
+    }
+    deploymentNode "Buyer iOS Device" {
+        technology "iOS device"
         containerInstance nexa.buyerMobile
     }
     deploymentNode "Provider-neutral Hosting" {

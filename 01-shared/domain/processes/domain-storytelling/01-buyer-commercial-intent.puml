@@ -1,0 +1,28 @@
+@startuml 01-buyer-commercial-intent
+title Domain Story 1 — Buyer Commercial Intent
+hide footbox
+autonumber
+actor "B2B Buyer" as Buyer
+participant "Buyer Surface" as Surface
+participant "Sales Commitment" as Sales
+participant "Catalog & Commercial Policy" as Catalog
+participant "Inventory Availability" as Inventory
+participant "Credit & Receivables" as Credit
+
+Buyer -> Surface : Select visible SKU and Customer Account context
+Surface -> Sales : Submit direct order or Purchase Request
+Sales -> Catalog : Validate authoritative price and policy
+Sales -> Inventory : Evaluate current sellability
+Sales -> Credit : Evaluate hard-block credit decision
+alt accepted
+  Sales -> Sales : Establish Commercial Commitment
+  Sales --> Surface : Commercial outcome
+else conflict
+  Sales --> Surface : Explicit conflict
+end
+
+note over Surface,Sales
+Cart is not a Commercial Commitment.
+The Buyer never receives a silently substituted SKU.
+end note
+@enduml

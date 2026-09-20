@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-05 Inventory Availability — Tactical Model
@@ -88,8 +88,9 @@ not a reservation.
 
 ## Invariants and transaction boundaries
 
-- Sellable Availability = usable on-hand − active Commercial Commitments −
-  Safety Stock. Inventory Reservation protects commitment once; its
+- Sellable Availability = `max(0, onHand − held − reserved − safetyStock)`.
+  `reserved` is the guarded InventoryPosition projection of active Inventory
+  Reservation protection, represented by `inventory_backing`; its
   WarehouseBacking distribution is not subtracted twice.
 - HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are not sellable.
 - Prefer one Warehouse when it can satisfy demand; V1 may split across eligible

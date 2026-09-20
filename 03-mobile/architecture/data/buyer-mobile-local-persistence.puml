@@ -1,5 +1,5 @@
 @startuml BuyerMobileLocalPersistence
-title Buyer Mobile — V1 Local Assistance (PROPOSED / RESEARCH VALIDATION PENDING)
+title Buyer Mobile — V1 Local Assistance (ACCEPTED TARGET / NON-AUTHORITATIVE)
 hide circle
 skinparam classAttributeIconSize 0
 skinparam shadowing false
@@ -65,8 +65,8 @@ enum FreshnessState <<Enum>>
 enum RetryState <<Enum>>
 
 legend right
-PROPOSED / RESEARCH VALIDATION PENDING
-Technology: NOT SELECTED. Logical records only; no framework commitment.
+ACCEPTED TARGET / RESEARCH VALIDATION PENDING
+Technology: Flutter/Dart secure platform-storage abstraction; package selection remains implementation-level.
 LOCAL / NON-AUTHORITATIVE. Nexa remains authority for Delivery, receipt,
 payment, authorization, commitment and traceability.
 V1 keeps recent Delivery/handoff reads, harmless receipt/discrepancy drafts,

@@ -3,23 +3,28 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-20
 ---
 
 # Master database-diagram source and academic handoff
 
 ## Canonical source
 
-Import [master-target-relational-model.sql](master-target-relational-model.sql)
-into Vertabelo (preferred) or LucidChart. SQL is PostgreSQL-oriented but avoids
-extensions, functions and schema-per-BC assumptions so academic import remains
-portable. Per-BC SQL files are readable grading lenses; this master is the
-system poster.
+The authored inputs are the eleven per-BC
+`target-relational-model.sql` files plus
+[shared technical relational SQL](shared-technical-target-relational-model.sql).
+Run `python3 tooling/scripts/generate-target-database-diagrams.py` from the
+Blueprint root to deterministically generate
+[master-target-relational-model.sql](master-target-relational-model.sql) and
+the PlantUML ERD projections. Run the same command with `--check` to reject
+drift. The generated Master SQL is PostgreSQL-oriented but avoids extensions,
+functions and schema-per-BC assumptions so academic import remains portable.
 
 For local visual review, use the generated [PlantUML projection](master-database-diagram.puml),
 [SVG](master-database-diagram.svg) or [PNG](master-database-diagram.png).
-SQL remains the authority; the PlantUML ERD is generated from the reviewed SQL
-and is not a second schema definition.
+The reviewed per-BC plus shared SQL is authoritative; Master SQL, PlantUML,
+SVG and PNG are deterministic/generated outputs, never a second schema
+definition.
 
 ## Diagram organization
 

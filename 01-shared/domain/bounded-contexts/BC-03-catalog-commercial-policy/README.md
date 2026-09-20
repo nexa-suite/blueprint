@@ -24,7 +24,7 @@ last-reviewed: 2026-08-23
 
 ## Tactical DDD target
 
-Aggregate Roots: Product, SellableOffer. Entities: SKU, PriceListEntry, CustomerTerm, PromotionRule. Value Objects: SkuId, Money, Currency, Visibility, CommercialSnapshot. Domain Services: OfferResolutionPolicy, PromotionStackingPolicy. Repositories: ProductRepository, OfferRepository. Lifecycle: draft → published → retired; snapshots are immutable at commitment boundary.
+Aggregate Roots: Product, SKU, PriceList, CustomerTerms and Promotion. CatalogMedia, PriceListItem and PromotionSku are child Entities. ResolvedOfferSnapshot is immutable Published Language, not an Aggregate Root. Value Objects: SkuId, Money, Currency, Visibility and CommercialSnapshot. Domain Services: OfferResolutionPolicy and PromotionStackingPolicy. Repositories: ProductRepository and OfferRepository. Lifecycle: draft → published → retired; snapshots are immutable at commitment boundary.
 
 ## Tactical wave artifacts
 

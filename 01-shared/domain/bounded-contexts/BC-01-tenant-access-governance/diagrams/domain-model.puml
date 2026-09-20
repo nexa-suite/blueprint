@@ -14,7 +14,7 @@ class Tenant <<Aggregate Root>> {
   +changeSettings(settings: TenantSettings): void
 }
 
-class Workspace <<Aggregate Root>> {
+class Workspace <<Entity>> {
   -workspaceId: WorkspaceId
   -tenantId: TenantId
   -name: WorkspaceName
@@ -52,7 +52,7 @@ class WorkforceMembership <<Aggregate Root>> {
   +can(capability: CapabilityCode): boolean
 }
 
-class RoleDefinition <<Entity>> {
+class RoleDefinition <<Aggregate Root>> {
   -roleId: RoleId
   -code: RoleCode
   -name: RoleName
@@ -108,12 +108,12 @@ enum MembershipStatus <<Enum>>
 enum CapabilityEffect <<Enum>>
 
 Tenant "1" *-- "1" Workspace : owns
-Tenant "1" o-- "0..*" CompanyOnboardingRequest : receives
-Workspace "1" o-- "0..*" WorkforceMembership : scopes
-HumanIdentity "1" o-- "0..*" WorkforceMembership : participates
+Tenant --> CompanyOnboardingRequest : lifecycle reference
+WorkforceMembership --> Workspace : scoped by identity
+WorkforceMembership --> HumanIdentity : identity reference
 WorkforceMembership "1" *-- "0..*" MembershipRole : has
 WorkforceMembership "1" *-- "0..*" MembershipCapabilityOverride : overrides
-RoleDefinition "1" o-- "0..*" MembershipRole : assigned
+MembershipRole --> RoleDefinition : role identity
 RoleDefinition "1" *-- "0..*" RoleCapability : grants
 CapabilityDefinition "1" o-- "0..*" RoleCapability : target
 CapabilityDefinition "1" o-- "0..*" MembershipCapabilityOverride : target

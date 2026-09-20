@@ -15,7 +15,7 @@ class Warehouse <<Aggregate Root>> {
   +assignZone(zone: StorageZone): void
 }
 
-class InventoryLot <<Entity>> {
+class InventoryLot <<Aggregate Root>> {
   -lotId: InventoryLotId
   -warehouseId: WarehouseId
   -skuId: SkuId
@@ -162,7 +162,8 @@ InventoryPosition --> SafetyStockPolicy : protects minimum
 legend right
 TARGET / V1 / tactical design aid
 InventoryReservation protects demand; WarehouseBacking distributes it by SKU + Warehouse.
-Sellable Availability = on-hand - reserved - hold - safety stock.
+Sellable Availability = max(0, on-hand - held - reserved - safety stock).
+`reserved` is the InventoryReservation projection; WarehouseBacking is not a second subtraction.
 FEFO is a policy over lot expiry; no cross-BC FK is implied.
 *-- composition | --> domain dependency | ..> port/use
 endlegend

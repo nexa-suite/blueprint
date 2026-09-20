@@ -34,7 +34,7 @@ class NotificationRecipient <<Entity>> {
   +suppress(reason: SuppressionReason): void
 }
 
-class NotificationPreference <<Entity>> {
+class NotificationPreference <<Aggregate Root>> {
   -preferenceId: NotificationPreferenceId
   -tenantId: TenantId
   -recipientKey: RecipientKey

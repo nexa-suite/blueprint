@@ -4,7 +4,7 @@ source: ../structurizr/workspace.dsl
 format: SVG + PNG
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # Versioned C4 visuals
@@ -26,7 +26,19 @@ kept with the Blueprint cut; the Structurizr DSL remains the semantic source and
 - `l1/`: system context views.
 - `l2/`: container views.
 - `l3/`: selected technical/component views.
+- `dynamic/`: critical workflow views using the static model; no duplicate
+  software elements are introduced for sequencing.
 - `deployment/`: Local AS-IS and provider-neutral V1 TARGET deployment views.
+
+## Current canonical view manifest
+
+| Group | View keys |
+|---|---|
+| L1 | `Nexa-SystemContext-ASIS`, `Nexa-SystemContext-V1-TARGET`, `Nexa-SystemContext-Future-Runway` |
+| L2 | `Nexa-Containers-ASIS`, `Nexa-Containers-V1-TARGET` |
+| L3 | `Nexa-API-Overall-ASIS`, `Nexa-API-TechnicalArchitecture-TARGET`, `Nexa-API-DomainOwnershipMapping-TARGET`, `Nexa-API-IdentityTenantCustomer-TARGET`, `Nexa-API-CommercialInventory-TARGET`, `Nexa-API-FulfillmentDelivery-TARGET`, `Nexa-API-CreditPaymentDocuments-TARGET`, `Nexa-API-IntegrationReliability-ASIS`, `Nexa-Platform-Frontend-TARGET`, `Nexa-Portal-Frontend-TARGET`, `Nexa-Website-Frontend-ASIS`, `Nexa-Operations-Mobile-TARGET`, `Nexa-Buyer-Mobile-TARGET` |
+| Dynamic | `Nexa-Workflow-SubmitPurchaseRequest`, `Nexa-Workflow-ConfirmDirectOrder`, `Nexa-Workflow-ConvertPurchaseRequestToSalesOrder`, `Nexa-Workflow-FulfillmentPickDispatchHandoff`, `Nexa-Workflow-DeliveryPartialOutcomeContinuation`, `Nexa-Workflow-BuyerHandoffReceiptDiscrepancy`, `Nexa-Workflow-PaymentConfirmationReceivableApplication` |
+| Deployment | `Nexa-Deployment-Local-ASIS`, `Nexa-Deployment-V1-TARGET` |
 
 Regenerate after a deliberate DSL change with the pinned Structurizr image.
 First use `merge` to generate both workspace JSON mirrors from DSL while
@@ -44,7 +56,7 @@ docker run --rm \
   -workspace /usr/local/structurizr/workspace.dsl
 
 # Export PlantUML into an ephemeral writable directory, render SVG + PNG, and
-# copy matching Nexa view basenames into this directory's l1/l2/l3/deployment.
+# copy matching Nexa view basenames into this directory's l1/l2/l3/dynamic/deployment.
 docker run --rm \
   -v "$PWD/01-shared/architecture/c4/structurizr:/usr/local/structurizr:ro" \
   -v "$OUTPUT_DIR:/out" \

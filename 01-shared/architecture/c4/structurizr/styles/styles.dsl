@@ -26,6 +26,18 @@ styles {
         background #6C757D
         color #FFFFFF
     }
+    element "TARGET V1" {
+        background #0F766E
+        color #FFFFFF
+    }
+    element "AS-IS / TARGET" {
+        background #B45309
+        color #FFFFFF
+    }
+    element "Domain ownership mapping" {
+        background #7C3AED
+        color #FFFFFF
+    }
     element "Future" {
         opacity 60
         border dashed

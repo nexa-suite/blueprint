@@ -1,5 +1,6 @@
 -- TARGET / BC-07 Credit & Receivables / shared PostgreSQL
--- customer_account_id, commitment_id, payment_id and document_id are stable IDs.
+-- customer_account_id, commitment_id, payment_id, sales_order_id and
+-- business_document_id are stable non-owning references.
 
 CREATE TABLE credit_account (
     credit_account_id uuid PRIMARY KEY,
@@ -31,7 +32,7 @@ CREATE TABLE receivable (
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
     customer_account_id uuid NOT NULL,
-    sales_order_id uuid,
+    sales_order_id uuid NOT NULL,
     business_document_id uuid,
     original_amount numeric(19,4) NOT NULL CHECK (original_amount > 0),
     outstanding_amount numeric(19,4) NOT NULL CHECK (outstanding_amount >= 0 AND outstanding_amount <= original_amount),
@@ -39,7 +40,8 @@ CREATE TABLE receivable (
     due_at timestamptz NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('OPEN','PARTIALLY_SETTLED','SETTLED','WRITTEN_OFF')),
     issued_at timestamptz NOT NULL,
-    version integer NOT NULL DEFAULT 0 CHECK (version >= 0)
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (tenant_id, workspace_id, sales_order_id)
 );
 
 CREATE TABLE receivable_application (
@@ -81,3 +83,8 @@ CREATE INDEX ix_credit_account_scope_status ON credit_account (tenant_id, worksp
 CREATE INDEX ix_credit_reservation_commitment_status ON credit_reservation (commercial_commitment_id, status);
 CREATE INDEX ix_receivable_scope_due_status ON receivable (tenant_id, workspace_id, due_at, status);
 CREATE INDEX ix_ledger_receivable_time ON financial_ledger_entry (receivable_id, posted_at);
+
+COMMENT ON COLUMN receivable.sales_order_id IS
+    'Required source of the credit or net obligation. Receivable posts at confirmed SalesOrder, not universally at delivery or document issuance.';
+COMMENT ON COLUMN receivable.business_document_id IS
+    'Optional secondary BusinessDocument reference; it does not define the posting trigger.';

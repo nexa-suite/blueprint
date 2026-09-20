@@ -25,11 +25,11 @@ remains NOT STARTED.
 |---|---|---|
 | `CustomerAccount` | supplier-Tenant customer record, contacts and addresses; account may exist without Portal identity | Tenant/Workspace IDs |
 | `BuyerRelationship` | invitation, approval, suspension and revocation for one supplier Tenant | CustomerAccount ID, HumanIdentity ID |
-| `BuyerRelationshipHistory` | immutable lifecycle facts; not a mutable child graph | relationship ID, actor reference |
 
 Contacts and addresses compose into CustomerAccount because their lifecycle is
 account-owned. BuyerRelationship references CustomerAccount by ID; it is not
-composed into a global identity.
+composed into a global identity. `BuyerRelationshipHistory` is an append-only
+BuyerRelationship Entity/fact, not an Aggregate Root or a mutable child graph.
 
 ## Domain Layer class dictionary
 

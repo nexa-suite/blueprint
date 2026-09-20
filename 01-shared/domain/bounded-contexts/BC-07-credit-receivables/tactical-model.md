@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-07 Credit & Receivables — Tactical Model
@@ -24,7 +24,7 @@ OWNER-ACCEPTED Mobile target surfaces consume restricted projections.
 |---|---|---|
 | `CreditAccount` | limit, exposure and reservation policy for one Customer Account | CustomerAccount ID |
 | `CreditReservation` | active protection for one commercial source; released or converted once | PR/SO/Commitment IDs |
-| `Receivable` | posted obligation, balance and due state | SalesOrder ID |
+| `Receivable` | posted obligation, balance and due state | confirmed SalesOrder ID; optional BusinessDocument ID |
 | `FinancialAdjustment` | explicit correction effect with reason and actor | Receivable ID, source document ID |
 
 `ReceivableApplication` belongs to financial authority because it changes
@@ -37,12 +37,12 @@ coordinates BC-08 and BC-07 without a giant cross-context aggregate.
 |---|---|---|---|---|
 | `CreditAccount` | Aggregate Root | account ID, customer ID, limit, policy, version | `setLimit()`, `availableCredit()`, `reserve()`, `release()` | owns reservation decisions |
 | `CreditReservation` | Aggregate Root | reservation ID, source type/id, amount, status, version | `establish()`, `release()`, `convertToReceivable()` | one active protection per source |
-| `Receivable` | Aggregate Root | receivable ID, SO ID, original amount, outstanding, dueAt, status, version | `post()`, `apply()`, `adjust()`, `close()` | owns obligation history |
+| `Receivable` | Aggregate Root | receivable ID, confirmed SO ID, optional BusinessDocument ID, original amount, outstanding, dueAt, status, version | `post()`, `apply()`, `adjust()`, `close()` | owns obligation history |
 | `ReceivableApplication` | Entity / fact | payment ID, amount, appliedAt, idempotency key | `applyOnce()` | Payment ID external; immutable effect |
 | `FinancialAdjustment` | Aggregate Root / fact | adjustment ID, receivable ID, effect, amount, reason, createdAt | `approve()`, `apply()` | provider-neutral correction, never erase |
 | `FinancialLedgerEntry` | Entity / immutable fact | type, source ID, amount, occurredAt, correlation | none after append | durable financial history |
 | `Money` / `CreditLimit` | Value Objects | amount, currency/limit | `subtract()`, `isSufficient()` | no negative balance |
-| `ReceivableStatus` / `ReservationStatus` | Enum | open, applied, adjusted, released | none | lifecycle constraints |
+| `ReceivableStatus` / `ReservationStatus` | Enum | `OPEN`, `PARTIALLY_SETTLED`, `SETTLED`, `WRITTEN_OFF`; `ACTIVE`, `RELEASED`, `CONSUMED`, `EXPIRED` | none | lifecycle constraints |
 | `CreditExposurePolicy` | Domain Service | none | `calculateAvailable(limit, reservations, receivables)` | formula authority |
 | `ReceivablePostingPolicy` | Domain Service | none | `postAtSalesOrderConfirmation()` | policy, no source aggregate ownership |
 | `CreditAccountRepository` / `ReceivableRepository` | Repository interfaces | none | `save()`, `byId()` | roots only |

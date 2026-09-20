@@ -1,0 +1,20 @@
+@startuml 05-independent-tenant-relationships
+title Domain Story 5 — Global Identity and Independent Tenant Relationships
+hide footbox
+autonumber
+actor "Human Identity" as Identity
+participant "Tenant & Access Governance" as Access
+participant "Customer & Buyer Relationships" as BuyerRelationship
+participant "Application API" as API
+
+Identity -> Access : Authenticate once
+Access -> Access : Resolve Workforce Membership for Tenant A
+Identity -> BuyerRelationship : Resolve independent Buyer Relationship for Tenant B
+API -> Access : Create one current Tenant context per request
+API -> API : Apply server authorization and persistence isolation
+
+note over Access,BuyerRelationship
+One person can be workforce and Buyer in one Tenant.
+Relationship types remain independent and never grant cross-Tenant data.
+end note
+@enduml

@@ -29,7 +29,8 @@ class CreditReservation <<Aggregate Root>> {
 class Receivable <<Aggregate Root>> {
   -receivableId: ReceivableId
   -customerAccountId: CustomerAccountId
-  -documentId: BusinessDocumentId
+  -salesOrderId: SalesOrderId
+  -businessDocumentId: BusinessDocumentId?
   -balance: Money
   -status: ReceivableStatus
   +issue(): void
@@ -46,7 +47,7 @@ class ReceivableApplication <<Entity>> {
   +reverse(): void
 }
 
-class FinancialAdjustment <<Entity>> {
+class FinancialAdjustment <<Aggregate Root>> {
   -adjustmentId: FinancialAdjustmentId
   -receivableId: ReceivableId
   -kind: AdjustmentKind
@@ -90,9 +91,9 @@ enum ReceivableStatus <<Enum>>
 enum AdjustmentKind <<Enum>>
 enum LedgerDirection <<Enum>>
 
-CreditAccount "1" *-- "0..*" CreditReservation : reserves
+CreditAccount --> CreditReservation : reservation identity
 Receivable "1" *-- "0..*" ReceivableApplication : applications
-Receivable "1" *-- "0..*" FinancialAdjustment : adjustments
+FinancialAdjustment --> Receivable : stable receivable id
 Receivable "1" *-- "0..*" FinancialLedgerEntry : ledger
 CreditReservation *-- Money : amount
 ReceivableApplication *-- Money : amount
@@ -100,7 +101,8 @@ FinancialAdjustment *-- Money : amount
 CreditAccount --> CustomerAccount : stable customer id
 CreditReservation --> CommercialCommitment : stable commitment id
 ReceivableApplication --> Payment : stable payment id
-Receivable --> BusinessDocument : stable document id
+Receivable --> SalesOrder : confirmed order id; posting source
+Receivable --> BusinessDocument : optional secondary document id
 CreditDecisionPolicy ..> CreditAccountRepository : loads
 CreditDecisionPolicy --> Money : calculates
 ReceivableRepository ..> Receivable : persists
@@ -108,7 +110,8 @@ ReceivableRepository ..> Receivable : persists
 legend right
 TARGET / V1 / tactical design aid
 Available credit = limit - active reservations - outstanding receivables.
-Payment and BusinessDocument references are stable IDs; no cross-BC FK.
+Receivable posts from confirmed SalesOrder; BusinessDocument is optional secondary evidence.
+Payment, SalesOrder and BusinessDocument references are stable IDs; no cross-BC FK.
 *-- composition | --> domain dependency | ..> port/use
 endlegend
 @enduml

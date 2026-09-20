@@ -3,16 +3,16 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: architecture
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-20
 ---
 
-# Application Architecture TARGET — PRE-V1
+# Application Architecture TARGET — Post-AV1 / V1
 
 This is the accepted construction target. It does not claim current code already conforms and does not mandate a microservice or one technical module per Bounded Context.
 
 ## Runtime shape
 
-| Decision | PRE-V1 target | Constraint |
+| Decision | TARGET | Constraint |
 |---|---|---|
 | Deployment | one Nexa Application API modular monolith | no service split before ownership, data and operations justify it |
 | Persistence | shared PostgreSQL | logical ownership, tenant scope and RLS; no database-per-BC assumption |

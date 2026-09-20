@@ -9,132 +9,132 @@
         "containerInstances" : [ {
           "containerId" : "20",
           "environment" : "Local AS-IS",
-          "id" : "146",
+          "id" : "174",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.410b5643-572b-47a8-86a1-7aaceff8f3f0"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.e86eb0c2-cf3f-4fab-b786-24ef0f952d47"
           },
           "relationships" : [ {
             "description" : "Submits validated contact/demo intake",
-            "destinationId" : "149",
-            "id" : "150",
-            "linkedRelationshipId" : "93",
-            "sourceId" : "146",
+            "destinationId" : "177",
+            "id" : "178",
+            "linkedRelationshipId" : "99",
+            "sourceId" : "174",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "36",
           "environment" : "Local AS-IS",
-          "id" : "147",
+          "id" : "175",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.78d03590-43b6-40a2-82c9-1152cf3bc5df"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.1299971a-7bc8-4e61-a75c-a1287c8f01c1"
           },
           "relationships" : [ {
             "description" : "Uses authoritative API contracts",
-            "destinationId" : "149",
-            "id" : "151",
-            "linkedRelationshipId" : "94",
-            "sourceId" : "147",
+            "destinationId" : "177",
+            "id" : "179",
+            "linkedRelationshipId" : "100",
+            "sourceId" : "175",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "43",
           "environment" : "Local AS-IS",
-          "id" : "148",
+          "id" : "176",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.a00dcdb8-6ee6-43d3-946f-21b77762b2e0"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.8e03cb39-86e3-4d14-bf34-7bfe4715cad0"
           },
           "relationships" : [ {
             "description" : "Uses authoritative Buyer contracts",
-            "destinationId" : "149",
-            "id" : "152",
-            "linkedRelationshipId" : "95",
-            "sourceId" : "148",
+            "destinationId" : "177",
+            "id" : "180",
+            "linkedRelationshipId" : "101",
+            "sourceId" : "176",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "22",
           "environment" : "Local AS-IS",
-          "id" : "149",
+          "id" : "177",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.b770de74-1436-45d7-8f86-973a0f2b4d7b"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.dc247ed6-9d4f-4a3f-97ff-2b22c9ed1df0"
           },
           "relationships" : [ {
             "description" : "Reads and writes scoped transactional state",
-            "destinationId" : "153",
-            "id" : "154",
-            "linkedRelationshipId" : "98",
-            "sourceId" : "149",
+            "destinationId" : "181",
+            "id" : "182",
+            "linkedRelationshipId" : "108",
+            "sourceId" : "177",
             "technology" : "SQL/JDBC"
           }, {
             "description" : "Stores and retrieves authorized evidence and documents",
-            "destinationId" : "155",
-            "id" : "156",
-            "linkedRelationshipId" : "99",
-            "sourceId" : "149",
+            "destinationId" : "183",
+            "id" : "184",
+            "linkedRelationshipId" : "109",
+            "sourceId" : "177",
             "technology" : "S3-compatible API"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "50",
           "environment" : "Local AS-IS",
-          "id" : "153",
+          "id" : "181",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.4ad256ef-bb5b-441a-a386-c12ab60df5ad"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.f98ef19f-6674-4a89-af25-cc687286a389"
           },
           "tags" : "Container Instance"
         }, {
           "containerId" : "51",
           "environment" : "Local AS-IS",
-          "id" : "155",
+          "id" : "183",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.76402330-556d-4d84-a603-68c4a09f749b"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.fc026885-e371-4256-be63-99d64eb7c8d1"
           },
           "tags" : "Container Instance"
         } ],
         "environment" : "Local AS-IS",
-        "id" : "145",
+        "id" : "173",
         "infrastructureNodes" : [ {
           "environment" : "Local AS-IS",
-          "id" : "157",
+          "id" : "185",
           "name" : "Mailpit",
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.d251fe2b-37b7-4365-9657-01ef31c5be5d"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.42d551f8-71d4-4a59-a73f-4c6187650352"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local SMTP sink"
         }, {
           "environment" : "Local AS-IS",
-          "id" : "158",
+          "id" : "186",
           "name" : "ClamAV",
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.6f57c1ce-677d-455c-a07e-f6da82d3d28e"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.9abe2625-755a-4c96-bae8-aa8211efbe26"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local malware scanner"
         }, {
           "environment" : "Local AS-IS",
-          "id" : "159",
+          "id" : "187",
           "name" : "OpenTelemetry Collector",
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.797271e5-10a8-4274-9e8e-2ac4b0397050"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.a2502f9d-8d0b-4ef0-b8a3-be01861fa070"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local telemetry collector"
         }, {
           "environment" : "Local AS-IS",
-          "id" : "160",
+          "id" : "188",
           "name" : "Jaeger",
           "properties" : {
-            "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac.2a5bf40e-1c4d-4c78-a8c5-5475cb96e71e"
+            "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a.d1e254cd-657f-4240-95de-a77b83ccf4cb"
           },
           "tags" : "Element,Infrastructure Node",
           "technology" : "Local trace viewer"
@@ -142,17 +142,17 @@
         "instances" : "1",
         "name" : "Docker Compose Runtime",
         "properties" : {
-          "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd.7ccb1eec-97e8-4ac9-b5ed-ee2737456fac"
+          "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6.f3b9aacc-f9dd-45c8-8bed-3bde9d5a2d0a"
         },
         "tags" : "Element,Deployment Node",
         "technology" : "Docker Compose"
       } ],
       "environment" : "Local AS-IS",
-      "id" : "144",
+      "id" : "172",
       "instances" : "1",
       "name" : "Developer Machine",
       "properties" : {
-        "structurizr.dsl.identifier" : "3608e3e1-3947-4124-8bf5-0d7b6386f6dd.464e187d-4b2b-475e-afc3-17340ff1a3cd"
+        "structurizr.dsl.identifier" : "0c8d30ed-216d-4796-ab41-d82efeb11230.d7d29324-1373-4af2-94a6-ea7cf54505a6"
       },
       "tags" : "Element,Deployment Node",
       "technology" : "macOS workstation"
@@ -160,254 +160,282 @@
       "containerInstances" : [ {
         "containerId" : "52",
         "environment" : "V1 TARGET",
-        "id" : "162",
+        "id" : "190",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.918d5c1a-ae13-439a-92c9-874d1decb84c.943d2c35-5d64-4829-9426-7d1c1d039f1d"
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.189a8924-6287-434e-9e7b-90bcc4016645.6974b679-88fd-4d24-b3d3-37205955910c"
         },
         "relationships" : [ {
           "description" : "Uses authoritative API contracts; explicit retries refetch and revalidate server state",
-          "destinationId" : "171",
-          "id" : "172",
-          "linkedRelationshipId" : "96",
-          "sourceId" : "162",
+          "destinationId" : "201",
+          "id" : "202",
+          "linkedRelationshipId" : "102",
+          "sourceId" : "190",
           "technology" : "HTTPS/JSON; V1 TARGET"
         } ],
         "tags" : "Container Instance"
       } ],
       "environment" : "V1 TARGET",
-      "id" : "161",
+      "id" : "189",
       "instances" : "1",
-      "name" : "Operations Mobile Device",
+      "name" : "Operations Android Device",
       "properties" : {
-        "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.918d5c1a-ae13-439a-92c9-874d1decb84c"
+        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.189a8924-6287-434e-9e7b-90bcc4016645"
       },
       "tags" : "Element,Deployment Node",
-      "technology" : "Mobile device"
+      "technology" : "Android device"
     }, {
       "containerInstances" : [ {
-        "containerId" : "57",
+        "containerId" : "60",
         "environment" : "V1 TARGET",
-        "id" : "164",
+        "id" : "192",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.cb1387a7-3b77-4811-8df7-c75cc1891b50.72489693-bf95-4782-8bb1-5738219a10a2"
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.431ff5d6-6e36-48ed-bee7-2fd91e29d68b.159e97cb-b127-409b-bdb7-ba3daeb0f725"
         },
         "relationships" : [ {
           "description" : "Uses authoritative Buyer API contracts; fresh state is refetched from the server",
-          "destinationId" : "171",
-          "id" : "173",
-          "linkedRelationshipId" : "97",
-          "sourceId" : "164",
+          "destinationId" : "201",
+          "id" : "203",
+          "linkedRelationshipId" : "103",
+          "sourceId" : "192",
           "technology" : "HTTPS/JSON; V1 TARGET"
         } ],
         "tags" : "Container Instance"
       } ],
       "environment" : "V1 TARGET",
-      "id" : "163",
+      "id" : "191",
       "instances" : "1",
-      "name" : "Buyer Mobile Device",
+      "name" : "Buyer Android Device",
       "properties" : {
-        "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.cb1387a7-3b77-4811-8df7-c75cc1891b50"
+        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.431ff5d6-6e36-48ed-bee7-2fd91e29d68b"
       },
       "tags" : "Element,Deployment Node",
-      "technology" : "Mobile device"
+      "technology" : "Android device"
+    }, {
+      "containerInstances" : [ {
+        "containerId" : "60",
+        "environment" : "V1 TARGET",
+        "id" : "194",
+        "instanceId" : 1,
+        "properties" : {
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.63fc4fa7-c5fe-4cad-9a3c-9f88a6bdcb62.021925a1-cf4f-4a1b-9e64-f7dab970793e"
+        },
+        "relationships" : [ {
+          "description" : "Uses authoritative Buyer API contracts; fresh state is refetched from the server",
+          "destinationId" : "201",
+          "id" : "204",
+          "linkedRelationshipId" : "103",
+          "sourceId" : "194",
+          "technology" : "HTTPS/JSON; V1 TARGET"
+        } ],
+        "tags" : "Container Instance"
+      } ],
+      "environment" : "V1 TARGET",
+      "id" : "193",
+      "instances" : "1",
+      "name" : "Buyer iOS Device",
+      "properties" : {
+        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.63fc4fa7-c5fe-4cad-9a3c-9f88a6bdcb62"
+      },
+      "tags" : "Element,Deployment Node",
+      "technology" : "iOS device"
     }, {
       "children" : [ {
         "containerInstances" : [ {
           "containerId" : "20",
           "environment" : "V1 TARGET",
-          "id" : "167",
+          "id" : "197",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.ed31632e-0134-42e2-90cd-fb8b96c5a7a1.20b55cf6-817c-4d96-ab74-21286a55be6e"
+            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.648cd608-8956-477c-9b7c-78d072a931f3.a762f1b6-2f89-41d7-b3ba-5089d530ce10"
           },
           "relationships" : [ {
             "description" : "Submits validated contact/demo intake",
-            "destinationId" : "171",
-            "id" : "174",
-            "linkedRelationshipId" : "93",
-            "sourceId" : "167",
+            "destinationId" : "201",
+            "id" : "205",
+            "linkedRelationshipId" : "99",
+            "sourceId" : "197",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "36",
           "environment" : "V1 TARGET",
-          "id" : "168",
+          "id" : "198",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.ed31632e-0134-42e2-90cd-fb8b96c5a7a1.c5228682-da66-48f0-82c5-51734210f904"
+            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.648cd608-8956-477c-9b7c-78d072a931f3.3a7ebb5e-b231-4cec-9667-d946c8a4f6e9"
           },
           "relationships" : [ {
             "description" : "Uses authoritative API contracts",
-            "destinationId" : "171",
-            "id" : "175",
-            "linkedRelationshipId" : "94",
-            "sourceId" : "168",
+            "destinationId" : "201",
+            "id" : "206",
+            "linkedRelationshipId" : "100",
+            "sourceId" : "198",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         }, {
           "containerId" : "43",
           "environment" : "V1 TARGET",
-          "id" : "169",
+          "id" : "199",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.ed31632e-0134-42e2-90cd-fb8b96c5a7a1.8954dab5-ffa2-4406-824a-92c9ae3e8d09"
+            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.648cd608-8956-477c-9b7c-78d072a931f3.e11492be-6fdd-4f8d-986c-b64bd9dd36f4"
           },
           "relationships" : [ {
             "description" : "Uses authoritative Buyer contracts",
-            "destinationId" : "171",
-            "id" : "176",
-            "linkedRelationshipId" : "95",
-            "sourceId" : "169",
+            "destinationId" : "201",
+            "id" : "207",
+            "linkedRelationshipId" : "101",
+            "sourceId" : "199",
             "technology" : "HTTPS/JSON"
           } ],
           "tags" : "Container Instance"
         } ],
         "environment" : "V1 TARGET",
-        "id" : "166",
+        "id" : "196",
         "instances" : "1",
         "name" : "Static Web Hosting / CDN",
         "properties" : {
-          "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.ed31632e-0134-42e2-90cd-fb8b96c5a7a1"
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.648cd608-8956-477c-9b7c-78d072a931f3"
         },
         "tags" : "Element,Deployment Node"
       }, {
         "containerInstances" : [ {
           "containerId" : "22",
           "environment" : "V1 TARGET",
-          "id" : "171",
+          "id" : "201",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.fbc61f45-bf13-46c4-ba24-1064990aea12.e734dae1-6096-4337-b8e6-415c9738a4b2"
+            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.dd5c7fff-37cc-47bb-acc1-18a8b60126ae.ceee2690-db0a-46aa-b64c-7076404e5b18"
           },
           "relationships" : [ {
             "description" : "Reads and writes scoped transactional state",
-            "destinationId" : "178",
-            "id" : "179",
-            "linkedRelationshipId" : "98",
-            "sourceId" : "171",
+            "destinationId" : "209",
+            "id" : "210",
+            "linkedRelationshipId" : "108",
+            "sourceId" : "201",
             "technology" : "SQL/JDBC"
           }, {
             "description" : "Stores and retrieves authorized evidence and documents",
-            "destinationId" : "181",
-            "id" : "182",
-            "linkedRelationshipId" : "99",
-            "sourceId" : "171",
+            "destinationId" : "212",
+            "id" : "213",
+            "linkedRelationshipId" : "109",
+            "sourceId" : "201",
             "technology" : "S3-compatible API"
           }, {
             "description" : "Uses payment ACL",
-            "destinationId" : "184",
-            "id" : "185",
-            "linkedRelationshipId" : "100",
-            "sourceId" : "171",
+            "destinationId" : "215",
+            "id" : "216",
+            "linkedRelationshipId" : "110",
+            "sourceId" : "201",
             "technology" : "Provider API / HTTPS"
           }, {
             "description" : "Uses email ACL",
-            "destinationId" : "186",
-            "id" : "187",
-            "linkedRelationshipId" : "101",
-            "sourceId" : "171",
+            "destinationId" : "217",
+            "id" : "218",
+            "linkedRelationshipId" : "111",
+            "sourceId" : "201",
             "technology" : "Provider API / HTTPS"
           }, {
             "description" : "Uses maps/geolocation ACL",
-            "destinationId" : "188",
-            "id" : "189",
-            "linkedRelationshipId" : "102",
-            "sourceId" : "171",
+            "destinationId" : "219",
+            "id" : "220",
+            "linkedRelationshipId" : "112",
+            "sourceId" : "201",
             "technology" : "Provider API / HTTPS"
           } ],
           "tags" : "Container Instance"
         } ],
         "environment" : "V1 TARGET",
-        "id" : "170",
+        "id" : "200",
         "instances" : "1",
         "name" : "API Compute",
         "properties" : {
-          "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.fbc61f45-bf13-46c4-ba24-1064990aea12"
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.dd5c7fff-37cc-47bb-acc1-18a8b60126ae"
         },
         "tags" : "Element,Deployment Node"
       }, {
         "containerInstances" : [ {
           "containerId" : "50",
           "environment" : "V1 TARGET",
-          "id" : "178",
+          "id" : "209",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.f4c6ba08-5424-484b-a7c3-5f7583776684.e511ca06-0e1a-45bf-b282-b7a518c1c9d7"
+            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.eed00fc9-c142-4c10-8083-1dc4040424b0.6f20fea4-7611-4dc2-85db-085ba6302af1"
           },
           "tags" : "Container Instance"
         } ],
         "environment" : "V1 TARGET",
-        "id" : "177",
+        "id" : "208",
         "instances" : "1",
         "name" : "Managed PostgreSQL",
         "properties" : {
-          "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.f4c6ba08-5424-484b-a7c3-5f7583776684"
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.eed00fc9-c142-4c10-8083-1dc4040424b0"
         },
         "tags" : "Element,Deployment Node"
       }, {
         "containerInstances" : [ {
           "containerId" : "51",
           "environment" : "V1 TARGET",
-          "id" : "181",
+          "id" : "212",
           "instanceId" : 1,
           "properties" : {
-            "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.bcb3ec70-29f1-41b2-92e6-310837ae9203.e2f7dd04-7086-4647-b0d6-076af72b04a2"
+            "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.9129c3dd-fe91-4b17-ac93-cc957db2a47c.d447c6f2-808c-497f-ad5e-413d4109d91b"
           },
           "tags" : "Container Instance"
         } ],
         "environment" : "V1 TARGET",
-        "id" : "180",
+        "id" : "211",
         "instances" : "1",
         "name" : "Object Storage",
         "properties" : {
-          "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def.bcb3ec70-29f1-41b2-92e6-310837ae9203"
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0.9129c3dd-fe91-4b17-ac93-cc957db2a47c"
         },
         "tags" : "Element,Deployment Node"
       } ],
       "environment" : "V1 TARGET",
-      "id" : "165",
+      "id" : "195",
       "instances" : "1",
       "name" : "Provider-neutral Hosting",
       "properties" : {
-        "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.70bc4875-780c-46f8-bc23-fbafcd3d4def"
+        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.821b61d0-c463-45d5-aef4-6cb3644a5ec0"
       },
       "tags" : "Element,Deployment Node"
     }, {
       "environment" : "V1 TARGET",
-      "id" : "183",
+      "id" : "214",
       "instances" : "1",
       "name" : "External Provider Boundary",
       "properties" : {
-        "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.c02dcef5-851c-485a-9d90-29232fe7e362"
+        "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.d2049e5b-870a-4b77-bb67-e03670f9e795"
       },
       "softwareSystemInstances" : [ {
         "environment" : "V1 TARGET",
-        "id" : "184",
+        "id" : "215",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.c02dcef5-851c-485a-9d90-29232fe7e362.4fee6b87-9982-4862-b505-e943d0f277a7"
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.d2049e5b-870a-4b77-bb67-e03670f9e795.c2bab47c-aa4e-4963-80ba-0308ebbfcb67"
         },
         "softwareSystemId" : "11",
         "tags" : "Software System Instance"
       }, {
         "environment" : "V1 TARGET",
-        "id" : "186",
+        "id" : "217",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.c02dcef5-851c-485a-9d90-29232fe7e362.2d1e4f92-a2eb-4eed-8a44-eea96ef1535b"
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.d2049e5b-870a-4b77-bb67-e03670f9e795.df04ce02-5834-4b9d-b43d-b7bd17cb9301"
         },
         "softwareSystemId" : "12",
         "tags" : "Software System Instance"
       }, {
         "environment" : "V1 TARGET",
-        "id" : "188",
+        "id" : "219",
         "instanceId" : 1,
         "properties" : {
-          "structurizr.dsl.identifier" : "4ee6f1ce-85d2-4a59-8b5a-7cd6e4f1da94.c02dcef5-851c-485a-9d90-29232fe7e362.f65d5629-2bb0-4850-9b71-f3e316d8cdd1"
+          "structurizr.dsl.identifier" : "f81da441-e6ea-4038-b160-beee1e32f993.d2049e5b-870a-4b77-bb67-e03670f9e795.cc8227c0-6018-4b68-a7ad-c1c453ad7803"
         },
         "softwareSystemId" : "13",
         "tags" : "Software System Instance"
@@ -424,14 +452,14 @@
       "relationships" : [ {
         "description" : "Discovers product and requests contact/demo",
         "destinationId" : "19",
-        "id" : "61",
+        "id" : "67",
         "sourceId" : "1",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Discovers Nexa and submits public intake",
         "destinationId" : "20",
-        "id" : "76",
+        "id" : "82",
         "sourceId" : "1",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
@@ -447,14 +475,14 @@
       "relationships" : [ {
         "description" : "Processes assisted commercial/onboarding work",
         "destinationId" : "19",
-        "id" : "62",
+        "id" : "68",
         "sourceId" : "2",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses assisted onboarding surface",
         "destinationId" : "36",
-        "id" : "77",
+        "id" : "83",
         "sourceId" : "2",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
@@ -470,14 +498,14 @@
       "relationships" : [ {
         "description" : "Governs company and workforce",
         "destinationId" : "19",
-        "id" : "63",
+        "id" : "69",
         "sourceId" : "3",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses company governance surface",
         "destinationId" : "36",
-        "id" : "78",
+        "id" : "84",
         "sourceId" : "3",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
@@ -493,21 +521,21 @@
       "relationships" : [ {
         "description" : "Supervises authorized operations",
         "destinationId" : "19",
-        "id" : "64",
+        "id" : "70",
         "sourceId" : "4",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses operational overview and decisions",
         "destinationId" : "36",
-        "id" : "79",
+        "id" : "85",
         "sourceId" : "4",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses V1 TARGET operational oversight capabilities",
         "destinationId" : "52",
-        "id" : "89",
+        "id" : "95",
         "sourceId" : "4",
         "tags" : "Relationship",
         "technology" : "Mobile client / HTTPS; target"
@@ -523,14 +551,14 @@
       "relationships" : [ {
         "description" : "Governs access and capabilities",
         "destinationId" : "19",
-        "id" : "65",
+        "id" : "71",
         "sourceId" : "5",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses access governance surface",
         "destinationId" : "36",
-        "id" : "80",
+        "id" : "86",
         "sourceId" : "5",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
@@ -546,21 +574,21 @@
       "relationships" : [ {
         "description" : "Manages customer and commercial work",
         "destinationId" : "19",
-        "id" : "66",
+        "id" : "72",
         "sourceId" : "6",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses commercial work surface",
         "destinationId" : "36",
-        "id" : "81",
+        "id" : "87",
         "sourceId" : "6",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses V1 TARGET field-sales capabilities",
         "destinationId" : "52",
-        "id" : "86",
+        "id" : "92",
         "sourceId" : "6",
         "tags" : "Relationship",
         "technology" : "Mobile client / HTTPS; target"
@@ -576,21 +604,21 @@
       "relationships" : [ {
         "description" : "Executes authorized warehouse work",
         "destinationId" : "19",
-        "id" : "67",
+        "id" : "73",
         "sourceId" : "7",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses warehouse work surface",
         "destinationId" : "36",
-        "id" : "82",
+        "id" : "88",
         "sourceId" : "7",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses V1 TARGET warehouse capabilities",
         "destinationId" : "52",
-        "id" : "87",
+        "id" : "93",
         "sourceId" : "7",
         "tags" : "Relationship",
         "technology" : "Mobile client / HTTPS; target"
@@ -606,21 +634,21 @@
       "relationships" : [ {
         "description" : "Coordinates dispatch and delivery handoff",
         "destinationId" : "19",
-        "id" : "68",
+        "id" : "74",
         "sourceId" : "8",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses dispatch work surface",
         "destinationId" : "36",
-        "id" : "83",
+        "id" : "89",
         "sourceId" : "8",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses V1 TARGET dispatch capabilities",
         "destinationId" : "52",
-        "id" : "88",
+        "id" : "94",
         "sourceId" : "8",
         "tags" : "Relationship",
         "technology" : "Mobile client / HTTPS; target"
@@ -636,21 +664,21 @@
       "relationships" : [ {
         "description" : "Uses authorized Buyer self-service",
         "destinationId" : "19",
-        "id" : "69",
+        "id" : "75",
         "sourceId" : "9",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses Buyer web capabilities",
         "destinationId" : "43",
-        "id" : "84",
+        "id" : "90",
         "sourceId" : "9",
         "tags" : "Relationship",
         "technology" : "Browser / HTTPS"
       }, {
         "description" : "Uses V1 TARGET Buyer Mobile capabilities",
-        "destinationId" : "57",
-        "id" : "85",
+        "destinationId" : "60",
+        "id" : "91",
         "sourceId" : "9",
         "tags" : "Relationship",
         "technology" : "Mobile client / HTTPS; target"
@@ -666,15 +694,15 @@
       "relationships" : [ {
         "description" : "Executes assigned delivery work",
         "destinationId" : "52",
-        "id" : "70",
+        "id" : "76",
         "sourceId" : "10",
         "tags" : "Relationship",
         "technology" : "Mobile client / HTTPS"
       }, {
         "description" : "Executes assigned delivery work",
         "destinationId" : "19",
-        "id" : "71",
-        "linkedRelationshipId" : "70",
+        "id" : "77",
+        "linkedRelationshipId" : "76",
         "sourceId" : "10",
         "technology" : "Mobile client / HTTPS"
       } ],
@@ -765,15 +793,15 @@
           "relationships" : [ {
             "description" : "Submits validated contact/demo intake",
             "destinationId" : "23",
-            "id" : "90",
+            "id" : "96",
             "sourceId" : "21",
             "tags" : "Relationship",
             "technology" : "HTTPS/JSON"
           }, {
             "description" : "Submits validated contact/demo intake",
             "destinationId" : "22",
-            "id" : "91",
-            "linkedRelationshipId" : "90",
+            "id" : "97",
+            "linkedRelationshipId" : "96",
             "sourceId" : "21",
             "technology" : "HTTPS/JSON"
           } ],
@@ -790,20 +818,20 @@
         "relationships" : [ {
           "description" : "Submits validated contact/demo intake",
           "destinationId" : "23",
-          "id" : "92",
-          "linkedRelationshipId" : "90",
+          "id" : "98",
+          "linkedRelationshipId" : "96",
           "sourceId" : "20",
           "technology" : "HTTPS/JSON"
         }, {
           "description" : "Submits validated contact/demo intake",
           "destinationId" : "22",
-          "id" : "93",
-          "linkedRelationshipId" : "90",
+          "id" : "99",
+          "linkedRelationshipId" : "96",
           "sourceId" : "20",
           "technology" : "HTTPS/JSON"
         } ],
         "tags" : "Element,Container",
-        "technology" : "Static HTML/CSS/JavaScript served by Nginx"
+        "technology" : "Static Web / Nginx"
       }, {
         "components" : [ {
           "description" : "REST controllers, webhook endpoints and Problem Details translation",
@@ -816,13 +844,13 @@
           "relationships" : [ {
             "description" : "Resolves authenticated identity and requested scope",
             "destinationId" : "26",
-            "id" : "103",
+            "id" : "113",
             "sourceId" : "23",
             "tags" : "Relationship"
           }, {
             "description" : "Invokes typed commands and queries",
             "destinationId" : "24",
-            "id" : "104",
+            "id" : "114",
             "sourceId" : "23",
             "tags" : "Relationship"
           } ],
@@ -832,38 +860,74 @@
           "description" : "Commands, queries, transactions and ports coordinating business workflows",
           "documentation" : { },
           "id" : "24",
-          "name" : "Application Use Cases and Ports",
+          "name" : "Application Use Cases",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.apiApplication"
           },
           "relationships" : [ {
             "description" : "Applies domain policies and transitions",
             "destinationId" : "25",
-            "id" : "105",
+            "id" : "115",
             "sourceId" : "24",
             "tags" : "Relationship"
           }, {
             "description" : "Requires authorized execution context",
             "destinationId" : "26",
-            "id" : "106",
+            "id" : "116",
             "sourceId" : "24",
             "tags" : "Relationship"
           }, {
             "description" : "Uses repositories and transaction ports",
             "destinationId" : "27",
-            "id" : "107",
+            "id" : "117",
             "sourceId" : "24",
             "tags" : "Relationship"
           }, {
             "description" : "Uses provider/device ports",
             "destinationId" : "28",
-            "id" : "108",
+            "id" : "118",
             "sourceId" : "24",
             "tags" : "Relationship"
           }, {
             "description" : "Records durable facts and projections",
             "destinationId" : "29",
-            "id" : "109",
+            "id" : "119",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Maps Commercial Commitment ownership to application workflows",
+            "destinationId" : "30",
+            "id" : "128",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Maps Inventory Availability ownership to application workflows",
+            "destinationId" : "31",
+            "id" : "129",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Maps Fulfillment and Delivery ownership to application workflows",
+            "destinationId" : "32",
+            "id" : "130",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Maps Credit and Receivables ownership to application workflows",
+            "destinationId" : "33",
+            "id" : "131",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Maps Payments and Business Documents ownership to application workflows",
+            "destinationId" : "34",
+            "id" : "132",
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Maps Notifications and Traceability ownership to application workflows",
+            "destinationId" : "35",
+            "id" : "133",
             "sourceId" : "24",
             "tags" : "Relationship"
           } ],
@@ -873,14 +937,14 @@
           "description" : "Framework-free domain models, policies, state transitions and invariant decisions",
           "documentation" : { },
           "id" : "25",
-          "name" : "Domain Policies and Lifecycles",
+          "name" : "Domain Policies / Invariants",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.apiDomain"
           },
           "relationships" : [ {
             "description" : "Produces domain facts for publication",
             "destinationId" : "29",
-            "id" : "110",
+            "id" : "120",
             "sourceId" : "25",
             "tags" : "Relationship"
           } ],
@@ -897,7 +961,7 @@
           "relationships" : [ {
             "description" : "Scopes reads/writes and RLS context",
             "destinationId" : "27",
-            "id" : "111",
+            "id" : "121",
             "sourceId" : "26",
             "tags" : "Relationship"
           } ],
@@ -907,49 +971,49 @@
           "description" : "Scoped repositories, mappings, Flyway-backed state and RLS boundary",
           "documentation" : { },
           "id" : "27",
-          "name" : "Tenant-aware Persistence Adapters",
+          "name" : "Persistence Adapters",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.apiPersistence"
           },
           "relationships" : [ {
             "description" : "Reads and writes scoped state",
             "destinationId" : "50",
-            "id" : "112",
+            "id" : "122",
             "sourceId" : "27",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component",
           "technology" : "JDBC / JPA / PostgreSQL"
         }, {
-          "description" : "Payment, email, maps, storage and scanning/location ACLs",
+          "description" : "Payment, email, maps, storage and device capability ACLs",
           "documentation" : { },
           "id" : "28",
-          "name" : "Provider and Device Adapters",
+          "name" : "External Integration Adapters",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.apiIntegrations"
           },
           "relationships" : [ {
             "description" : "Uses payment ACL",
             "destinationId" : "11",
-            "id" : "114",
+            "id" : "124",
             "sourceId" : "28",
             "tags" : "Relationship"
           }, {
             "description" : "Uses email ACL",
             "destinationId" : "12",
-            "id" : "115",
+            "id" : "125",
             "sourceId" : "28",
             "tags" : "Relationship"
           }, {
             "description" : "Uses maps/geolocation ACL",
             "destinationId" : "13",
-            "id" : "116",
+            "id" : "126",
             "sourceId" : "28",
             "tags" : "Relationship"
           }, {
             "description" : "Uses storage and evidence ACL",
             "destinationId" : "51",
-            "id" : "117",
+            "id" : "127",
             "sourceId" : "28",
             "tags" : "Relationship"
           } ],
@@ -959,51 +1023,84 @@
           "description" : "Durable events, leases, fencing, retries, reconciliation and change-feed projections",
           "documentation" : { },
           "id" : "29",
-          "name" : "Outbox, Inbox and Projections",
+          "name" : "Reliability / Outbox / Inbox / Projections",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.apiReliability"
           },
           "relationships" : [ {
             "description" : "Stores outbox, inbox, leases and projections",
             "destinationId" : "50",
-            "id" : "113",
+            "id" : "123",
             "sourceId" : "29",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component",
           "technology" : "Transactional outbox/inbox"
         }, {
-          "description" : "TARGET logical seam for Purchase Request, Commercial Commitment and Sales Order",
+          "description" : "Logical ownership mapping lens for Purchase Request, Commercial Commitment and Sales Order; BC != Java package, Spring Modulith module, C4 Container or PostgreSQL schema",
           "documentation" : { },
           "id" : "30",
           "name" : "Sales Commitment",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetCommercialCommitment"
           },
+          "relationships" : [ {
+            "description" : "Requires atomic inventory protection",
+            "destinationId" : "31",
+            "id" : "134",
+            "sourceId" : "30",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Requires applicable atomic credit decision",
+            "destinationId" : "33",
+            "id" : "135",
+            "sourceId" : "30",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Passes confirmed order execution intent",
+            "destinationId" : "32",
+            "id" : "136",
+            "sourceId" : "30",
+            "tags" : "Relationship"
+          } ],
           "tags" : "Element,Component",
-          "technology" : "PRE-V1 target logical component"
+          "technology" : "Domain ownership mapping"
         }, {
-          "description" : "TARGET logical seam for sellable availability, backing and Physical Allocation authority",
+          "description" : "Logical ownership mapping lens for sellable availability, backing and Physical Allocation; BC != Java package, Spring Modulith module, C4 Container or PostgreSQL schema",
           "documentation" : { },
           "id" : "31",
           "name" : "Inventory Availability",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetInventoryAvailability"
           },
+          "relationships" : [ {
+            "description" : "Supplies Physical Allocation contract",
+            "destinationId" : "32",
+            "id" : "137",
+            "sourceId" : "31",
+            "tags" : "Relationship"
+          } ],
           "tags" : "Element,Component",
-          "technology" : "PRE-V1 target logical component"
+          "technology" : "Domain ownership mapping"
         }, {
-          "description" : "TARGET logical seam for fulfillment, dispatch, delivery, POD and continuation",
+          "description" : "Logical ownership mapping lens for fulfillment, dispatch, delivery, POD and continuation; BC != Java package, Spring Modulith module, C4 Container or PostgreSQL schema",
           "documentation" : { },
           "id" : "32",
           "name" : "Fulfillment and Delivery",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetFulfillmentDelivery"
           },
+          "relationships" : [ {
+            "description" : "Publishes committed operational facts after transaction",
+            "destinationId" : "35",
+            "id" : "139",
+            "sourceId" : "32",
+            "tags" : "Relationship"
+          } ],
           "tags" : "Element,Component",
-          "technology" : "PRE-V1 target logical component"
+          "technology" : "Domain ownership mapping"
         }, {
-          "description" : "TARGET logical seam for credit, reservation, receivable and correction",
+          "description" : "Logical ownership mapping lens for credit, reservation, receivable and correction; BC != Java package, Spring Modulith module, C4 Container or PostgreSQL schema",
           "documentation" : { },
           "id" : "33",
           "name" : "Credit and Receivables",
@@ -1011,19 +1108,26 @@
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetCreditReceivables"
           },
           "tags" : "Element,Component",
-          "technology" : "PRE-V1 target logical component"
+          "technology" : "Domain ownership mapping"
         }, {
-          "description" : "TARGET technical lens for distinct Payments and Business Documents contexts",
+          "description" : "Logical ownership mapping lens for distinct Payments and Business Documents contexts; BC != Java package, Spring Modulith module, C4 Container or PostgreSQL schema",
           "documentation" : { },
           "id" : "34",
           "name" : "Payments and Business Documents Lens",
           "properties" : {
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetPaymentDocuments"
           },
+          "relationships" : [ {
+            "description" : "Applies confirmed Payment to Receivable by stable reference",
+            "destinationId" : "33",
+            "id" : "138",
+            "sourceId" : "34",
+            "tags" : "Relationship"
+          } ],
           "tags" : "Element,Component",
-          "technology" : "PRE-V1 target logical component"
+          "technology" : "Domain ownership mapping"
         }, {
-          "description" : "TARGET technical lens for distinct Notifications and Business Traceability contexts",
+          "description" : "Logical ownership mapping lens for distinct Notifications and Business Traceability contexts; BC != Java package, Spring Modulith module, C4 Container or PostgreSQL schema",
           "documentation" : { },
           "id" : "35",
           "name" : "Notifications and Business Traceability Lens",
@@ -1031,7 +1135,7 @@
             "structurizr.dsl.identifier" : "nexa.applicationApi.targetNotificationTraceability"
           },
           "tags" : "Element,Component",
-          "technology" : "PRE-V1 target logical component"
+          "technology" : "Domain ownership mapping"
         } ],
         "description" : "Authoritative application and domain behavior, tenant enforcement, workflows, integrations and persistence orchestration",
         "documentation" : { },
@@ -1043,41 +1147,41 @@
         "relationships" : [ {
           "description" : "Reads and writes scoped transactional state",
           "destinationId" : "50",
-          "id" : "98",
+          "id" : "108",
           "sourceId" : "22",
           "tags" : "Relationship",
           "technology" : "SQL/JDBC"
         }, {
           "description" : "Stores and retrieves authorized evidence and documents",
           "destinationId" : "51",
-          "id" : "99",
+          "id" : "109",
           "sourceId" : "22",
           "tags" : "Relationship",
           "technology" : "S3-compatible API"
         }, {
           "description" : "Uses payment ACL",
           "destinationId" : "11",
-          "id" : "100",
+          "id" : "110",
           "sourceId" : "22",
           "tags" : "Relationship",
           "technology" : "Provider API / HTTPS"
         }, {
           "description" : "Uses email ACL",
           "destinationId" : "12",
-          "id" : "101",
+          "id" : "111",
           "sourceId" : "22",
           "tags" : "Relationship",
           "technology" : "Provider API / HTTPS"
         }, {
           "description" : "Uses maps/geolocation ACL",
           "destinationId" : "13",
-          "id" : "102",
+          "id" : "112",
           "sourceId" : "22",
           "tags" : "Relationship",
           "technology" : "Provider API / HTTPS"
         } ],
         "tags" : "Element,Container",
-        "technology" : "Java 25 / Spring Boot 4.1 / Spring Modulith modular monolith"
+        "technology" : "Java 25 / Spring Boot 4.1 / Spring Modulith"
       }, {
         "components" : [ {
           "description" : "Lazy routes, authentication, surface and capability navigation",
@@ -1090,13 +1194,13 @@
           "relationships" : [ {
             "description" : "Applies surface/capability navigation",
             "destinationId" : "39",
-            "id" : "118",
+            "id" : "140",
             "sourceId" : "37",
             "tags" : "Relationship"
           }, {
             "description" : "Selects authenticated shell",
             "destinationId" : "38",
-            "id" : "119",
+            "id" : "141",
             "sourceId" : "37",
             "tags" : "Relationship"
           } ],
@@ -1113,7 +1217,7 @@
           "relationships" : [ {
             "description" : "Hosts feature projections",
             "destinationId" : "40",
-            "id" : "120",
+            "id" : "142",
             "sourceId" : "38",
             "tags" : "Relationship"
           } ],
@@ -1130,7 +1234,7 @@
           "relationships" : [ {
             "description" : "Controls action availability",
             "destinationId" : "40",
-            "id" : "121",
+            "id" : "143",
             "sourceId" : "39",
             "tags" : "Relationship"
           } ],
@@ -1147,13 +1251,13 @@
           "relationships" : [ {
             "description" : "Loads and mutates API state",
             "destinationId" : "41",
-            "id" : "122",
+            "id" : "144",
             "sourceId" : "40",
             "tags" : "Relationship"
           }, {
             "description" : "Renders state and accessibility primitives",
             "destinationId" : "42",
-            "id" : "126",
+            "id" : "147",
             "sourceId" : "40",
             "tags" : "Relationship"
           } ],
@@ -1170,14 +1274,14 @@
           "relationships" : [ {
             "description" : "Uses HTTP/API contracts",
             "destinationId" : "23",
-            "id" : "123",
+            "id" : "145",
             "sourceId" : "41",
             "tags" : "Relationship"
           }, {
             "description" : "Uses HTTP/API contracts",
             "destinationId" : "22",
-            "id" : "124",
-            "linkedRelationshipId" : "123",
+            "id" : "146",
+            "linkedRelationshipId" : "145",
             "sourceId" : "41"
           } ],
           "tags" : "Element,Component",
@@ -1203,19 +1307,20 @@
         "relationships" : [ {
           "description" : "Uses authoritative API contracts",
           "destinationId" : "22",
-          "id" : "94",
+          "id" : "100",
           "sourceId" : "36",
           "tags" : "Relationship",
           "technology" : "HTTPS/JSON"
         }, {
-          "description" : "Uses HTTP/API contracts",
+          "description" : "Uses authoritative API presentation contracts",
           "destinationId" : "23",
-          "id" : "125",
-          "linkedRelationshipId" : "123",
-          "sourceId" : "36"
+          "id" : "104",
+          "sourceId" : "36",
+          "tags" : "Relationship",
+          "technology" : "HTTPS/JSON"
         } ],
         "tags" : "Element,Container",
-        "technology" : "Angular 22 SPA served by Nginx"
+        "technology" : "Angular 22 / TypeScript"
       }, {
         "components" : [ {
           "description" : "Buyer routes, authentication, surface and relationship navigation",
@@ -1228,13 +1333,13 @@
           "relationships" : [ {
             "description" : "Applies relationship navigation",
             "destinationId" : "46",
-            "id" : "127",
+            "id" : "148",
             "sourceId" : "44",
             "tags" : "Relationship"
           }, {
             "description" : "Selects authenticated Buyer shell",
             "destinationId" : "45",
-            "id" : "128",
+            "id" : "149",
             "sourceId" : "44",
             "tags" : "Relationship"
           } ],
@@ -1251,7 +1356,7 @@
           "relationships" : [ {
             "description" : "Hosts Buyer projections",
             "destinationId" : "47",
-            "id" : "129",
+            "id" : "150",
             "sourceId" : "45",
             "tags" : "Relationship"
           } ],
@@ -1268,7 +1373,7 @@
           "relationships" : [ {
             "description" : "Controls allowed actions",
             "destinationId" : "47",
-            "id" : "130",
+            "id" : "151",
             "sourceId" : "46",
             "tags" : "Relationship"
           } ],
@@ -1285,13 +1390,13 @@
           "relationships" : [ {
             "description" : "Loads and mutates Buyer API state",
             "destinationId" : "48",
-            "id" : "131",
+            "id" : "152",
             "sourceId" : "47",
             "tags" : "Relationship"
           }, {
             "description" : "Renders state and accessibility primitives",
             "destinationId" : "49",
-            "id" : "135",
+            "id" : "155",
             "sourceId" : "47",
             "tags" : "Relationship"
           } ],
@@ -1308,14 +1413,14 @@
           "relationships" : [ {
             "description" : "Uses Buyer HTTP/API contracts",
             "destinationId" : "23",
-            "id" : "132",
+            "id" : "153",
             "sourceId" : "48",
             "tags" : "Relationship"
           }, {
             "description" : "Uses Buyer HTTP/API contracts",
             "destinationId" : "22",
-            "id" : "133",
-            "linkedRelationshipId" : "132",
+            "id" : "154",
+            "linkedRelationshipId" : "153",
             "sourceId" : "48"
           } ],
           "tags" : "Element,Component",
@@ -1341,19 +1446,20 @@
         "relationships" : [ {
           "description" : "Uses authoritative Buyer contracts",
           "destinationId" : "22",
-          "id" : "95",
+          "id" : "101",
           "sourceId" : "43",
           "tags" : "Relationship",
           "technology" : "HTTPS/JSON"
         }, {
-          "description" : "Uses Buyer HTTP/API contracts",
+          "description" : "Uses authoritative Buyer API presentation contracts",
           "destinationId" : "23",
-          "id" : "134",
-          "linkedRelationshipId" : "132",
-          "sourceId" : "43"
+          "id" : "105",
+          "sourceId" : "43",
+          "tags" : "Relationship",
+          "technology" : "HTTPS/JSON"
         } ],
         "tags" : "Element,Container",
-        "technology" : "Angular 22 SPA served by Nginx"
+        "technology" : "Angular 22 / TypeScript"
       }, {
         "description" : "Authoritative relational persistence for current Nexa transactional and configuration data",
         "documentation" : { },
@@ -1376,81 +1482,136 @@
         "technology" : "S3-compatible Object Storage"
       }, {
         "components" : [ {
-          "description" : "Secure session, tenant/workspace context and capability-driven entry",
+          "description" : "Compose UI, navigation, ViewModels, UiState, UiActions and accessible loading/error/stale/conflict states",
           "documentation" : { },
           "id" : "53",
-          "name" : "Authentication and Active Context",
+          "name" : "Operations Presentation",
           "properties" : {
-            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsMobileAuth"
+            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsPresentation"
           },
           "relationships" : [ {
-            "description" : "Controls capability entry",
+            "description" : "Invokes explicit client use cases",
             "destinationId" : "54",
-            "id" : "136",
+            "id" : "156",
             "sourceId" : "53",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component",
-          "technology" : "TARGET mobile component"
+          "technology" : "Jetpack Compose"
         }, {
-          "description" : "V1 package/label identification, receiving, FEFO/picking, dispatch handoff and assigned Delivery execution",
+          "description" : "Workflow orchestration, command preparation, freshness checks, explicit retry decisions and idempotency-key reuse; no server-domain authority",
           "documentation" : { },
           "id" : "54",
-          "name" : "Warehouse, Dispatch and Driver Work",
+          "name" : "Operations Application / Use Cases",
           "properties" : {
-            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsMobileWork"
+            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsApplication"
           },
           "relationships" : [ {
-            "description" : "Stages only non-authoritative temporary evidence or drafts",
+            "description" : "Uses client data boundary",
             "destinationId" : "55",
-            "id" : "137",
+            "id" : "157",
             "sourceId" : "54",
             "tags" : "Relationship"
           }, {
-            "description" : "Requests package/label scan, optional policy-authorized camera evidence and external navigation handoff",
-            "destinationId" : "56",
-            "id" : "138",
+            "description" : "Uses device capabilities through adapters",
+            "destinationId" : "58",
+            "id" : "158",
+            "sourceId" : "54",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Schedules only safe retryable client work",
+            "destinationId" : "59",
+            "id" : "159",
             "sourceId" : "54",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component",
-          "technology" : "TARGET mobile component"
+          "technology" : "Kotlin application layer"
         }, {
-          "description" : "Non-authoritative temporary staging, explicit retry and refetch/revalidation against server authority; no generic offline synchronization or hidden offline success",
+          "description" : "Client data boundary, remote/local mediation, safe cache/staging and mapping",
           "documentation" : { },
           "id" : "55",
-          "name" : "Connectivity, Freshness and Recovery",
+          "name" : "Operations Repositories",
           "properties" : {
-            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsMobileSync"
+            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsRepositories"
           },
           "relationships" : [ {
-            "description" : "Explicit retry; refetches and revalidates server authority",
-            "destinationId" : "22",
-            "id" : "139",
+            "description" : "Reads and writes API contract data",
+            "destinationId" : "56",
+            "id" : "160",
+            "sourceId" : "55",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Reads/writes safe client-local state and staging",
+            "destinationId" : "57",
+            "id" : "161",
             "sourceId" : "55",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component",
-          "technology" : "TARGET mobile component"
+          "technology" : "Kotlin repositories"
         }, {
-          "description" : "Package/label scan, optional policy-authorized camera evidence and external navigation handoff; no stored, background or live Driver tracking",
+          "description" : "Nexa API contracts only",
           "documentation" : { },
           "id" : "56",
-          "name" : "Physical Capture and Handoff",
+          "name" : "Nexa API Remote Data Source",
           "properties" : {
-            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsMobileEvidence"
+            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsRemoteDataSource"
           },
           "relationships" : [ {
-            "description" : "Uploads evidence and submits operational facts",
-            "destinationId" : "22",
-            "id" : "140",
+            "description" : "Uses authoritative Nexa API contracts",
+            "destinationId" : "23",
+            "id" : "163",
             "sourceId" : "56",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Uses authoritative Nexa API contracts",
+            "destinationId" : "22",
+            "id" : "164",
+            "linkedRelationshipId" : "163",
+            "sourceId" : "56"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "HTTPS/JSON"
+        }, {
+          "description" : "DataStore, Room only where structured persistence is justified, temporary evidence/drafts/retry metadata; no authoritative business truth and no generic offline synchronization",
+          "documentation" : { },
+          "id" : "57",
+          "name" : "Operations Local State & Staging",
+          "properties" : {
+            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsLocalState"
+          },
+          "tags" : "Element,Component",
+          "technology" : "Android client-local storage"
+        }, {
+          "description" : "Camera, Barcode/QR input, secure storage/Keystore, external navigation and connectivity; camera evidence is optional and policy-authorized",
+          "documentation" : { },
+          "id" : "58",
+          "name" : "Device Capability Adapters",
+          "properties" : {
+            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsDeviceAdapters"
+          },
+          "tags" : "Element,Component",
+          "technology" : "Android platform adapters"
+        }, {
+          "description" : "WorkManager-style persistent retries only for safe retryable client work; refetches and revalidates server state",
+          "documentation" : { },
+          "id" : "59",
+          "name" : "Background Retry / Work Coordinator",
+          "properties" : {
+            "structurizr.dsl.identifier" : "nexa.operationsMobile.operationsBackgroundRetry"
+          },
+          "relationships" : [ {
+            "description" : "Reuses explicit retry and freshness policy",
+            "destinationId" : "55",
+            "id" : "162",
+            "sourceId" : "59",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component",
-          "technology" : "TARGET integration component"
+          "technology" : "Android WorkManager-style coordination"
         } ],
-        "description" : "TARGET V1 / OWNER-ACCEPTED surface for Warehouse, Dispatch and Driver work; partial unmerged Android/Kotlin/Compose preview is AS-IS evidence and Product Acceptance remains open",
+        "description" : "TARGET V1 / OWNER-ACCEPTED surface for Warehouse, Dispatch and Driver work. Partial unmerged Android/Kotlin/Compose work remains AS-IS evidence; the canonical construction technology is accepted, while implementation and Product acceptance remain separate gates.",
         "documentation" : { },
         "id" : "52",
         "name" : "Nexa Operations Mobile",
@@ -1460,69 +1621,131 @@
         "relationships" : [ {
           "description" : "Uses authoritative API contracts; explicit retries refetch and revalidate server state",
           "destinationId" : "22",
-          "id" : "96",
+          "id" : "102",
+          "sourceId" : "52",
+          "tags" : "Relationship",
+          "technology" : "HTTPS/JSON; V1 TARGET"
+        }, {
+          "description" : "Uses authoritative API presentation contracts",
+          "destinationId" : "23",
+          "id" : "106",
           "sourceId" : "52",
           "tags" : "Relationship",
           "technology" : "HTTPS/JSON; V1 TARGET"
         } ],
         "tags" : "Element,Container,TARGET V1,OWNER-ACCEPTED",
-        "technology" : "Mobile client technology — final selection open"
+        "technology" : "Android / Kotlin / Jetpack Compose"
       }, {
         "components" : [ {
-          "description" : "Buyer identity, active supplier relationship and authorized Delivery context",
+          "description" : "Flutter Views/Widgets, ViewModels, UI state/actions and navigation",
           "documentation" : { },
-          "id" : "58",
-          "name" : "Buyer Authentication and Relationship Context",
+          "id" : "61",
+          "name" : "Buyer Presentation",
           "properties" : {
-            "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerMobileAuth"
+            "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerPresentation"
           },
           "relationships" : [ {
-            "description" : "Scopes Buyer actions to active relationship",
-            "destinationId" : "59",
-            "id" : "141",
-            "sourceId" : "58",
+            "description" : "Invokes explicit client use cases",
+            "destinationId" : "62",
+            "id" : "165",
+            "sourceId" : "61",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component",
-          "technology" : "TARGET mobile component"
+          "technology" : "Flutter presentation"
         }, {
-          "description" : "Handoff verification, actual quantity receipt and discrepancy reporting under server authority",
+          "description" : "Delivery attention, handoff verification, receipt/discrepancy preparation and selected commercial/financial convenience flows under server authority",
           "documentation" : { },
-          "id" : "59",
-          "name" : "Handoff and Receipt Work",
+          "id" : "62",
+          "name" : "Buyer Application / Use Cases",
           "properties" : {
-            "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerMobileCommerce"
+            "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerApplication"
           },
           "relationships" : [ {
-            "description" : "Requests fresh Delivery updates without local business authority",
-            "destinationId" : "60",
-            "id" : "142",
-            "sourceId" : "59",
+            "description" : "Uses client data boundary",
+            "destinationId" : "63",
+            "id" : "166",
+            "sourceId" : "62",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Uses platform capabilities through adapters",
+            "destinationId" : "66",
+            "id" : "167",
+            "sourceId" : "62",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component",
-          "technology" : "TARGET mobile component"
+          "technology" : "Dart application layer"
         }, {
-          "description" : "Fresh Delivery updates and refetch of authoritative state; Push is not a required target mechanism",
+          "description" : "Safe client state, refresh, mapping and retry/error handling",
           "documentation" : { },
-          "id" : "60",
-          "name" : "Critical Delivery Updates",
+          "id" : "63",
+          "name" : "Buyer Repositories",
           "properties" : {
-            "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerMobileSync"
+            "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerRepositories"
           },
           "relationships" : [ {
-            "description" : "Refetches authoritative state",
+            "description" : "Reads and writes API contract data",
+            "destinationId" : "64",
+            "id" : "168",
+            "sourceId" : "63",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Reads/writes safe projections and harmless drafts",
+            "destinationId" : "65",
+            "id" : "169",
+            "sourceId" : "63",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Dart repositories"
+        }, {
+          "description" : "Portal/Nexa API native-client contracts",
+          "documentation" : { },
+          "id" : "64",
+          "name" : "Nexa API Remote Services",
+          "properties" : {
+            "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerRemoteServices"
+          },
+          "relationships" : [ {
+            "description" : "Uses authoritative Portal/Nexa API contracts",
+            "destinationId" : "23",
+            "id" : "170",
+            "sourceId" : "64",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Uses authoritative Portal/Nexa API contracts",
             "destinationId" : "22",
-            "id" : "143",
-            "sourceId" : "60",
-            "tags" : "Relationship"
+            "id" : "171",
+            "linkedRelationshipId" : "170",
+            "sourceId" : "64"
           } ],
           "tags" : "Element,Component",
-          "technology" : "TARGET mobile component"
+          "technology" : "HTTPS/JSON"
+        }, {
+          "description" : "Safe recent projections, harmless receipt/discrepancy drafts, freshness/retry metadata and no business authority",
+          "documentation" : { },
+          "id" : "65",
+          "name" : "Buyer Local State & Drafts",
+          "properties" : {
+            "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerLocalState"
+          },
+          "tags" : "Element,Component",
+          "technology" : "Flutter client-local storage"
+        }, {
+          "description" : "Camera/QR input, secure platform storage, deep links and notifications only when accepted",
+          "documentation" : { },
+          "id" : "66",
+          "name" : "Buyer Platform Adapters",
+          "properties" : {
+            "structurizr.dsl.identifier" : "nexa.buyerMobile.buyerPlatformAdapters"
+          },
+          "tags" : "Element,Component",
+          "technology" : "Flutter platform adapters"
         } ],
-        "description" : "TARGET V1 / OWNER-ACCEPTED surface for critical Delivery updates, handoff, receipt and discrepancy; not implemented and Product Acceptance remains open",
+        "description" : "TARGET V1 / OWNER-ACCEPTED surface for critical Delivery updates, handoff, receipt and discrepancy. The client is not implemented; Flutter/Dart Android+iOS is the accepted construction technology and Product acceptance remains a separate gate.",
         "documentation" : { },
-        "id" : "57",
+        "id" : "60",
         "name" : "Nexa Buyer Mobile",
         "properties" : {
           "structurizr.dsl.identifier" : "nexa.buyerMobile"
@@ -1530,13 +1753,20 @@
         "relationships" : [ {
           "description" : "Uses authoritative Buyer API contracts; fresh state is refetched from the server",
           "destinationId" : "22",
-          "id" : "97",
-          "sourceId" : "57",
+          "id" : "103",
+          "sourceId" : "60",
+          "tags" : "Relationship",
+          "technology" : "HTTPS/JSON; V1 TARGET"
+        }, {
+          "description" : "Uses authoritative Buyer API presentation contracts",
+          "destinationId" : "23",
+          "id" : "107",
+          "sourceId" : "60",
           "tags" : "Relationship",
           "technology" : "HTTPS/JSON; V1 TARGET"
         } ],
         "tags" : "Element,Container,TARGET V1,OWNER-ACCEPTED",
-        "technology" : "Mobile client technology — final selection open"
+        "technology" : "Flutter / Dart / Android + iOS"
       } ],
       "description" : "Multi-tenant B2B SaaS platform coordinating B2B commercial commitments, inventory availability, fulfillment and delivery for importers and distributors",
       "documentation" : { },
@@ -1548,28 +1778,28 @@
       "relationships" : [ {
         "description" : "Uses abstract payment services",
         "destinationId" : "11",
-        "id" : "72",
+        "id" : "78",
         "sourceId" : "19",
         "tags" : "Relationship",
         "technology" : "Provider API / HTTPS"
       }, {
         "description" : "Uses abstract email delivery",
         "destinationId" : "12",
-        "id" : "73",
+        "id" : "79",
         "sourceId" : "19",
         "tags" : "Relationship",
         "technology" : "Provider API / HTTPS"
       }, {
         "description" : "Uses abstract maps/geolocation services",
         "destinationId" : "13",
-        "id" : "74",
+        "id" : "80",
         "sourceId" : "19",
         "tags" : "Relationship",
         "technology" : "Provider API / HTTPS"
       }, {
         "description" : "Future/open provider runway; selection and Product channel acceptance remain open",
         "destinationId" : "14",
-        "id" : "75",
+        "id" : "81",
         "sourceId" : "19",
         "tags" : "Relationship",
         "technology" : "Provider API / HTTPS; future"
@@ -1579,7 +1809,7 @@
   },
   "name" : "Nexa Suite",
   "properties" : {
-    "structurizr.inspection.error" : "78",
+    "structurizr.inspection.error" : "91",
     "structurizr.inspection.info" : "0",
     "structurizr.inspection.ignore" : "0",
     "structurizr.inspection.warning" : "0"
@@ -1594,7 +1824,7 @@
         "vertices" : true
       },
       "containerId" : "22",
-      "description" : "API implementation and target seams",
+      "description" : "Observed API technical component view; target semantics remain explicitly separated",
       "elements" : [ {
         "id" : "11",
         "x" : 0,
@@ -1649,26 +1879,6 @@
       "name" : "Component View: Nexa - Nexa API",
       "order" : 6,
       "relationships" : [ {
-        "id" : "103"
-      }, {
-        "id" : "104"
-      }, {
-        "id" : "105"
-      }, {
-        "id" : "106"
-      }, {
-        "id" : "107"
-      }, {
-        "id" : "108"
-      }, {
-        "id" : "109"
-      }, {
-        "id" : "110"
-      }, {
-        "id" : "111"
-      }, {
-        "id" : "112"
-      }, {
         "id" : "113"
       }, {
         "id" : "114"
@@ -1678,6 +1888,194 @@
         "id" : "116"
       }, {
         "id" : "117"
+      }, {
+        "id" : "118"
+      }, {
+        "id" : "119"
+      }, {
+        "id" : "120"
+      }, {
+        "id" : "121"
+      }, {
+        "id" : "122"
+      }, {
+        "id" : "123"
+      }, {
+        "id" : "124"
+      }, {
+        "id" : "125"
+      }, {
+        "id" : "126"
+      }, {
+        "id" : "127"
+      } ]
+    }, {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "containerId" : "22",
+      "description" : "TARGET API technical architecture: presentation, application, domain, access, persistence, integrations and reliability",
+      "elements" : [ {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "26",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "51",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "Nexa-API-TechnicalArchitecture-TARGET",
+      "name" : "Component View: Nexa - Nexa API",
+      "order" : 7,
+      "relationships" : [ {
+        "id" : "113"
+      }, {
+        "id" : "114"
+      }, {
+        "id" : "115"
+      }, {
+        "id" : "116"
+      }, {
+        "id" : "117"
+      }, {
+        "id" : "118"
+      }, {
+        "id" : "119"
+      }, {
+        "id" : "120"
+      }, {
+        "id" : "121"
+      }, {
+        "id" : "122"
+      }, {
+        "id" : "123"
+      }, {
+        "id" : "124"
+      }, {
+        "id" : "125"
+      }, {
+        "id" : "126"
+      }, {
+        "id" : "127"
+      } ]
+    }, {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "containerId" : "22",
+      "description" : "TARGET logical ownership mapping. Bounded Context is not a Java package, Spring Modulith module, C4 Container or PostgreSQL schema.",
+      "elements" : [ {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "33",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "34",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "35",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "Nexa-API-DomainOwnershipMapping-TARGET",
+      "name" : "Component View: Nexa - Nexa API",
+      "order" : 8,
+      "relationships" : [ {
+        "id" : "115"
+      }, {
+        "id" : "128"
+      }, {
+        "id" : "129"
+      }, {
+        "id" : "130"
+      }, {
+        "id" : "131"
+      }, {
+        "id" : "132"
+      }, {
+        "id" : "133"
+      }, {
+        "id" : "134"
+      }, {
+        "id" : "135"
+      }, {
+        "id" : "136"
+      }, {
+        "id" : "137"
+      }, {
+        "id" : "138"
+      }, {
+        "id" : "139"
       } ]
     }, {
       "automaticLayout" : {
@@ -1713,19 +2111,19 @@
       "externalContainerBoundariesVisible" : false,
       "key" : "Nexa-API-IdentityTenantCustomer-TARGET",
       "name" : "Component View: Nexa - Nexa API",
-      "order" : 7,
+      "order" : 9,
       "relationships" : [ {
-        "id" : "103"
+        "id" : "113"
       }, {
-        "id" : "104"
+        "id" : "114"
       }, {
-        "id" : "105"
+        "id" : "115"
       }, {
-        "id" : "106"
+        "id" : "116"
       }, {
-        "id" : "109"
+        "id" : "119"
       }, {
-        "id" : "110"
+        "id" : "120"
       } ]
     }, {
       "automaticLayout" : {
@@ -1769,15 +2167,25 @@
       "externalContainerBoundariesVisible" : false,
       "key" : "Nexa-API-CommercialInventory-TARGET",
       "name" : "Component View: Nexa - Nexa API",
-      "order" : 8,
+      "order" : 10,
       "relationships" : [ {
-        "id" : "105"
+        "id" : "115"
       }, {
-        "id" : "109"
+        "id" : "119"
       }, {
-        "id" : "110"
+        "id" : "120"
       }, {
-        "id" : "113"
+        "id" : "123"
+      }, {
+        "id" : "128"
+      }, {
+        "id" : "129"
+      }, {
+        "id" : "131"
+      }, {
+        "id" : "134"
+      }, {
+        "id" : "135"
       } ]
     }, {
       "automaticLayout" : {
@@ -1813,9 +2221,13 @@
       "externalContainerBoundariesVisible" : false,
       "key" : "Nexa-API-FulfillmentDelivery-TARGET",
       "name" : "Component View: Nexa - Nexa API",
-      "order" : 9,
+      "order" : 11,
       "relationships" : [ {
-        "id" : "113"
+        "id" : "123"
+      }, {
+        "id" : "137"
+      }, {
+        "id" : "139"
       } ]
     }, {
       "automaticLayout" : {
@@ -1863,13 +2275,15 @@
       "externalContainerBoundariesVisible" : false,
       "key" : "Nexa-API-CreditPaymentDocuments-TARGET",
       "name" : "Component View: Nexa - Nexa API",
-      "order" : 10,
+      "order" : 12,
       "relationships" : [ {
-        "id" : "113"
+        "id" : "123"
       }, {
-        "id" : "114"
+        "id" : "124"
       }, {
-        "id" : "117"
+        "id" : "127"
+      }, {
+        "id" : "138"
       } ]
     }, {
       "automaticLayout" : {
@@ -1917,21 +2331,21 @@
       "externalContainerBoundariesVisible" : false,
       "key" : "Nexa-API-IntegrationReliability-ASIS",
       "name" : "Component View: Nexa - Nexa API",
-      "order" : 11,
+      "order" : 13,
       "relationships" : [ {
-        "id" : "108"
+        "id" : "118"
       }, {
-        "id" : "109"
+        "id" : "119"
       }, {
-        "id" : "113"
+        "id" : "123"
       }, {
-        "id" : "114"
+        "id" : "124"
       }, {
-        "id" : "115"
+        "id" : "125"
       }, {
-        "id" : "116"
+        "id" : "126"
       }, {
-        "id" : "117"
+        "id" : "127"
       } ]
     }, {
       "automaticLayout" : {
@@ -1975,21 +2389,21 @@
       "externalContainerBoundariesVisible" : false,
       "key" : "Nexa-Platform-Frontend-TARGET",
       "name" : "Component View: Nexa - Nexa Platform",
-      "order" : 12,
+      "order" : 14,
       "relationships" : [ {
-        "id" : "118"
+        "id" : "140"
       }, {
-        "id" : "119"
+        "id" : "141"
       }, {
-        "id" : "120"
+        "id" : "142"
       }, {
-        "id" : "121"
+        "id" : "143"
       }, {
-        "id" : "122"
+        "id" : "144"
       }, {
-        "id" : "123"
+        "id" : "145"
       }, {
-        "id" : "126"
+        "id" : "147"
       } ]
     }, {
       "automaticLayout" : {
@@ -2033,21 +2447,21 @@
       "externalContainerBoundariesVisible" : false,
       "key" : "Nexa-Portal-Frontend-TARGET",
       "name" : "Component View: Nexa - Nexa Buyer Portal",
-      "order" : 13,
+      "order" : 15,
       "relationships" : [ {
-        "id" : "127"
+        "id" : "148"
       }, {
-        "id" : "128"
+        "id" : "149"
       }, {
-        "id" : "129"
+        "id" : "150"
       }, {
-        "id" : "130"
+        "id" : "151"
       }, {
-        "id" : "131"
+        "id" : "152"
       }, {
-        "id" : "132"
+        "id" : "153"
       }, {
-        "id" : "135"
+        "id" : "155"
       } ]
     }, {
       "automaticLayout" : {
@@ -2071,9 +2485,9 @@
       "externalContainerBoundariesVisible" : false,
       "key" : "Nexa-Website-Frontend-ASIS",
       "name" : "Component View: Nexa - Nexa Website",
-      "order" : 14,
+      "order" : 16,
       "relationships" : [ {
-        "id" : "90"
+        "id" : "96"
       } ]
     }, {
       "automaticLayout" : {
@@ -2084,7 +2498,7 @@
         "vertices" : true
       },
       "containerId" : "52",
-      "description" : "OWNER-ACCEPTED V1 Operations Mobile target surface; partial Android/Kotlin/Compose evidence is unmerged and Product Acceptance is open",
+      "description" : "OWNER-ACCEPTED V1 Operations Mobile construction decomposition; Android/Kotlin/Compose is canonical, while implementation and Product acceptance remain separate gates",
       "elements" : [ {
         "id" : "23",
         "x" : 0,
@@ -2105,30 +2519,8 @@
         "id" : "56",
         "x" : 0,
         "y" : 0
-      } ],
-      "externalContainerBoundariesVisible" : false,
-      "key" : "Nexa-Operations-Mobile-TARGET",
-      "name" : "Component View: Nexa - Nexa Operations Mobile",
-      "order" : 15,
-      "relationships" : [ {
-        "id" : "136"
       }, {
-        "id" : "137"
-      }, {
-        "id" : "138"
-      } ]
-    }, {
-      "automaticLayout" : {
-        "edgeSeparation" : 50,
-        "nodeSeparation" : 50,
-        "rankDirection" : "LeftRight",
-        "rankSeparation" : 100,
-        "vertices" : true
-      },
-      "containerId" : "57",
-      "description" : "OWNER-ACCEPTED V1 Buyer Mobile target surface; not implemented, final technology and Product Acceptance remain open",
-      "elements" : [ {
-        "id" : "23",
+        "id" : "57",
         "x" : 0,
         "y" : 0
       }, {
@@ -2139,24 +2531,92 @@
         "id" : "59",
         "x" : 0,
         "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "Nexa-Operations-Mobile-TARGET",
+      "name" : "Component View: Nexa - Nexa Operations Mobile",
+      "order" : 17,
+      "relationships" : [ {
+        "id" : "156"
       }, {
-        "id" : "60",
+        "id" : "157"
+      }, {
+        "id" : "158"
+      }, {
+        "id" : "159"
+      }, {
+        "id" : "160"
+      }, {
+        "id" : "161"
+      }, {
+        "id" : "162"
+      }, {
+        "id" : "163"
+      } ]
+    }, {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "containerId" : "60",
+      "description" : "OWNER-ACCEPTED V1 Buyer Mobile construction decomposition; Flutter/Dart Android+iOS is canonical, the client is not implemented and Product acceptance remains a separate gate",
+      "elements" : [ {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "61",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "62",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "63",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "64",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "65",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "66",
         "x" : 0,
         "y" : 0
       } ],
       "externalContainerBoundariesVisible" : false,
       "key" : "Nexa-Buyer-Mobile-TARGET",
       "name" : "Component View: Nexa - Nexa Buyer Mobile",
-      "order" : 16,
+      "order" : 18,
       "relationships" : [ {
-        "id" : "141"
+        "id" : "165"
       }, {
-        "id" : "142"
+        "id" : "166"
+      }, {
+        "id" : "167"
+      }, {
+        "id" : "168"
+      }, {
+        "id" : "169"
+      }, {
+        "id" : "170"
       } ]
     } ],
     "configuration" : {
       "styles" : {
         "elements" : [ {
+          "background" : "#b45309",
+          "color" : "#ffffff",
+          "tag" : "AS-IS / TARGET"
+        }, {
           "background" : "#db3a34",
           "color" : "#ffffff",
           "tag" : "Container"
@@ -2165,6 +2625,10 @@
           "color" : "#ffffff",
           "shape" : "Cylinder",
           "tag" : "Database"
+        }, {
+          "background" : "#7c3aed",
+          "color" : "#ffffff",
+          "tag" : "Domain ownership mapping"
         }, {
           "background" : "#6c757d",
           "color" : "#ffffff",
@@ -2187,6 +2651,10 @@
           "color" : "#ffffff",
           "shape" : "Cylinder",
           "tag" : "Storage"
+        }, {
+          "background" : "#0f766e",
+          "color" : "#ffffff",
+          "tag" : "TARGET V1"
         }, {
           "border" : "Dashed",
           "opacity" : 45,
@@ -2286,19 +2754,15 @@
       }, {
         "id" : "101"
       }, {
-        "id" : "102"
+        "id" : "108"
       }, {
-        "id" : "76"
+        "id" : "109"
       }, {
-        "id" : "77"
+        "id" : "110"
       }, {
-        "id" : "78"
+        "id" : "111"
       }, {
-        "id" : "79"
-      }, {
-        "id" : "80"
-      }, {
-        "id" : "81"
+        "id" : "112"
       }, {
         "id" : "82"
       }, {
@@ -2306,13 +2770,17 @@
       }, {
         "id" : "84"
       }, {
-        "id" : "93"
+        "id" : "85"
       }, {
-        "id" : "94"
+        "id" : "86"
       }, {
-        "id" : "95"
+        "id" : "87"
       }, {
-        "id" : "98"
+        "id" : "88"
+      }, {
+        "id" : "89"
+      }, {
+        "id" : "90"
       }, {
         "id" : "99"
       } ],
@@ -2407,7 +2875,7 @@
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "57",
+        "id" : "60",
         "x" : 0,
         "y" : 0
       } ],
@@ -2422,19 +2890,19 @@
       }, {
         "id" : "102"
       }, {
-        "id" : "70"
+        "id" : "103"
+      }, {
+        "id" : "108"
+      }, {
+        "id" : "109"
+      }, {
+        "id" : "110"
+      }, {
+        "id" : "111"
+      }, {
+        "id" : "112"
       }, {
         "id" : "76"
-      }, {
-        "id" : "77"
-      }, {
-        "id" : "78"
-      }, {
-        "id" : "79"
-      }, {
-        "id" : "80"
-      }, {
-        "id" : "81"
       }, {
         "id" : "82"
       }, {
@@ -2452,17 +2920,17 @@
       }, {
         "id" : "89"
       }, {
+        "id" : "90"
+      }, {
+        "id" : "91"
+      }, {
+        "id" : "92"
+      }, {
         "id" : "93"
       }, {
         "id" : "94"
       }, {
         "id" : "95"
-      }, {
-        "id" : "96"
-      }, {
-        "id" : "97"
-      }, {
-        "id" : "98"
       }, {
         "id" : "99"
       } ],
@@ -2478,68 +2946,68 @@
       },
       "description" : "Nexa local Docker Compose deployment evidence",
       "elements" : [ {
-        "id" : "144",
+        "id" : "172",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "145",
+        "id" : "173",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "146",
+        "id" : "174",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "147",
+        "id" : "175",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "148",
+        "id" : "176",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "149",
+        "id" : "177",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "153",
+        "id" : "181",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "155",
+        "id" : "183",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "157",
+        "id" : "185",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "158",
+        "id" : "186",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "159",
+        "id" : "187",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "160",
+        "id" : "188",
         "x" : 0,
         "y" : 0
       } ],
       "environment" : "Local AS-IS",
       "key" : "Nexa-Deployment-Local-ASIS",
       "name" : "Deployment View: Nexa - Local AS-IS",
-      "order" : 17,
+      "order" : 26,
       "relationships" : [ {
-        "id" : "150"
+        "id" : "178"
       }, {
-        "id" : "151"
+        "id" : "179"
       }, {
-        "id" : "152"
+        "id" : "180"
       }, {
-        "id" : "154"
+        "id" : "182"
       }, {
-        "id" : "156"
+        "id" : "184"
       } ],
       "softwareSystemId" : "19"
     }, {
@@ -2552,108 +3020,768 @@
       },
       "description" : "Nexa provider-neutral V1 deployment projection with separate logical Operations and Buyer Mobile devices",
       "elements" : [ {
-        "id" : "161",
+        "id" : "189",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "162",
+        "id" : "190",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "163",
+        "id" : "191",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "164",
+        "id" : "192",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "165",
+        "id" : "193",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "166",
+        "id" : "194",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "167",
+        "id" : "195",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "168",
+        "id" : "196",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "169",
+        "id" : "197",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "170",
+        "id" : "198",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "171",
+        "id" : "199",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "177",
+        "id" : "200",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "178",
+        "id" : "201",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "180",
+        "id" : "208",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "181",
+        "id" : "209",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "183",
+        "id" : "211",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "184",
+        "id" : "212",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "186",
+        "id" : "214",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "188",
+        "id" : "215",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "217",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "219",
         "x" : 0,
         "y" : 0
       } ],
       "environment" : "V1 TARGET",
       "key" : "Nexa-Deployment-V1-TARGET",
       "name" : "Deployment View: Nexa - V1 TARGET",
-      "order" : 18,
+      "order" : 27,
       "relationships" : [ {
-        "id" : "172"
+        "id" : "202"
       }, {
-        "id" : "173"
+        "id" : "203"
       }, {
-        "id" : "174"
+        "id" : "204"
       }, {
-        "id" : "175"
+        "id" : "205"
       }, {
-        "id" : "176"
+        "id" : "206"
       }, {
-        "id" : "179"
+        "id" : "207"
       }, {
-        "id" : "182"
+        "id" : "210"
       }, {
-        "id" : "185"
+        "id" : "213"
       }, {
-        "id" : "187"
+        "id" : "216"
       }, {
-        "id" : "189"
+        "id" : "218"
+      }, {
+        "id" : "220"
       } ],
       "softwareSystemId" : "19"
+    } ],
+    "dynamicViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "Submit Purchase Request: atomic commitment and protection precede asynchronous publication",
+      "elementId" : "22",
+      "elements" : [ {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "33",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "43",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "Nexa-Workflow-SubmitPurchaseRequest",
+      "name" : "Dynamic View: Nexa - Nexa API",
+      "order" : 19,
+      "relationships" : [ {
+        "description" : "1. Submit Purchase Request",
+        "id" : "90",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "2. Send authorized command",
+        "id" : "105",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "3. Invoke submit use case",
+        "id" : "114",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "4. Establish Commercial Commitment",
+        "id" : "128",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. Protect inventory atomically",
+        "id" : "134",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Evaluate applicable credit atomically",
+        "id" : "135",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. Commit business decision",
+        "id" : "117",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Persist scoped state",
+        "id" : "122",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. Record durable post-commit publication",
+        "id" : "119",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "10. Persist outbox",
+        "id" : "123",
+        "order" : "10",
+        "response" : false
+      } ]
+    }, {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "Confirm Direct Order: Commercial Commitment, Inventory and Credit are all-or-nothing",
+      "elementId" : "22",
+      "elements" : [ {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "33",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "43",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "Nexa-Workflow-ConfirmDirectOrder",
+      "name" : "Dynamic View: Nexa - Nexa API",
+      "order" : 20,
+      "relationships" : [ {
+        "description" : "1. Confirm direct-order intent",
+        "id" : "90",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "2. Send authorized command",
+        "id" : "105",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "3. Invoke confirm use case",
+        "id" : "114",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "4. Create confirmed Commercial Commitment/Sales Order boundary",
+        "id" : "128",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. Establish inventory protection in same decision",
+        "id" : "134",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Establish applicable credit protection in same decision",
+        "id" : "135",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. Commit all-or-nothing result",
+        "id" : "117",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Persist scoped state",
+        "id" : "122",
+        "order" : "8",
+        "response" : false
+      } ]
+    }, {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "Convert Purchase Request to Sales Order without release/re-reserve gap",
+      "elementId" : "22",
+      "elements" : [ {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "33",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "36",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "Nexa-Workflow-ConvertPurchaseRequestToSalesOrder",
+      "name" : "Dynamic View: Nexa - Nexa API",
+      "order" : 21,
+      "relationships" : [ {
+        "description" : "1. Review accepted Purchase Request",
+        "id" : "87",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "2. Send conversion command",
+        "id" : "104",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "3. Invoke conversion use case",
+        "id" : "114",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "4. Continue Commercial Commitment",
+        "id" : "128",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. Preserve inventory protection",
+        "id" : "134",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Preserve/adjust applicable credit protection",
+        "id" : "135",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. Commit Sales Order conversion",
+        "id" : "117",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Persist without gap",
+        "id" : "122",
+        "order" : "8",
+        "response" : false
+      } ]
+    }, {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "Fulfillment, pick and dispatch handoff: BC-05 retains Physical Allocation authority and BC-06 executes work",
+      "elementId" : "22",
+      "elements" : [ {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "52",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "Nexa-Workflow-FulfillmentPickDispatchHandoff",
+      "name" : "Dynamic View: Nexa - Nexa API",
+      "order" : 22,
+      "relationships" : [ {
+        "description" : "1. Start authorized warehouse work",
+        "id" : "93",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "2. Send operational command",
+        "id" : "106",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "3. Invoke fulfillment use case",
+        "id" : "114",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "4. Resolve Physical Allocation contract",
+        "id" : "129",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. Supply allocation to execution",
+        "id" : "137",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Commit fulfillment/dispatch fact",
+        "id" : "117",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. Persist scoped execution state",
+        "id" : "122",
+        "order" : "7",
+        "response" : false
+      } ]
+    }, {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "Delivery partial outcome: failed attempt remains on the Delivery; partial result creates child continuation Delivery",
+      "elementId" : "22",
+      "elements" : [ {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "35",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "52",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "Nexa-Workflow-DeliveryPartialOutcomeContinuation",
+      "name" : "Dynamic View: Nexa - Nexa API",
+      "order" : 23,
+      "relationships" : [ {
+        "description" : "1. Record Delivery attempt",
+        "id" : "76",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "2. Send idempotent operational command",
+        "id" : "106",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "3. Invoke finalize-attempt use case",
+        "id" : "114",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "4. Preserve immutable attempt outcome",
+        "id" : "130",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. Emit committed partial/continuation facts after transaction",
+        "id" : "139",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Create idempotent parent-to-child continuation link",
+        "id" : "117",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. Persist Delivery and child relationship",
+        "id" : "122",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Record durable projection publication",
+        "id" : "119",
+        "order" : "8",
+        "response" : false
+      } ]
+    }, {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "Buyer handoff, receipt and discrepancy: verification is not receipt; Driver Outcome and Buyer Receipt remain immutable and separate",
+      "elementId" : "22",
+      "elements" : [ {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "35",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "60",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "Nexa-Workflow-BuyerHandoffReceiptDiscrepancy",
+      "name" : "Dynamic View: Nexa - Nexa API",
+      "order" : 24,
+      "relationships" : [ {
+        "description" : "1. Open authorized Delivery attention",
+        "id" : "91",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "2. Send handoff/receipt command",
+        "id" : "107",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "3. Resolve bounded command",
+        "id" : "114",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "4. Verify handoff and record Buyer Receipt/Discrepancy separately",
+        "id" : "130",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. Publish immutable business fact after commit",
+        "id" : "139",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Persist immutable fact",
+        "id" : "117",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. Persist scoped evidence",
+        "id" : "122",
+        "order" : "7",
+        "response" : false
+      } ]
+    }, {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "description" : "Payment confirmation and Receivable application: provider ACL, confirmed Payment and idempotent application preserve financial history",
+      "elementId" : "22",
+      "elements" : [ {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "33",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "34",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "43",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "Nexa-Workflow-PaymentConfirmationReceivableApplication",
+      "name" : "Dynamic View: Nexa - Nexa API",
+      "order" : 25,
+      "relationships" : [ {
+        "description" : "1. Report payment intent/status",
+        "id" : "90",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "2. Send authorized request",
+        "id" : "105",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "3. Invoke payment use case",
+        "id" : "114",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "4. Use provider ACL",
+        "id" : "118",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. Verify provider result",
+        "id" : "124",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Record confirmed Payment fact",
+        "id" : "132",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. Apply Payment to Receivable idempotently",
+        "id" : "138",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Commit immutable financial result",
+        "id" : "117",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. Persist scoped history",
+        "id" : "122",
+        "order" : "9",
+        "response" : false
+      } ]
     } ],
     "systemContextViews" : [ {
       "automaticLayout" : {
@@ -2722,29 +3850,29 @@
       "name" : "System Context View: Nexa",
       "order" : 1,
       "relationships" : [ {
-        "id" : "61"
-      }, {
-        "id" : "62"
-      }, {
-        "id" : "63"
-      }, {
-        "id" : "64"
-      }, {
-        "id" : "65"
-      }, {
-        "id" : "66"
-      }, {
         "id" : "67"
       }, {
         "id" : "68"
       }, {
         "id" : "69"
       }, {
+        "id" : "70"
+      }, {
+        "id" : "71"
+      }, {
         "id" : "72"
       }, {
         "id" : "73"
       }, {
         "id" : "74"
+      }, {
+        "id" : "75"
+      }, {
+        "id" : "78"
+      }, {
+        "id" : "79"
+      }, {
+        "id" : "80"
       } ],
       "softwareSystemId" : "19"
     }, {
@@ -2818,23 +3946,13 @@
       "name" : "System Context View: Nexa",
       "order" : 2,
       "relationships" : [ {
-        "id" : "61"
-      }, {
-        "id" : "62"
-      }, {
-        "id" : "63"
-      }, {
-        "id" : "64"
-      }, {
-        "id" : "65"
-      }, {
-        "id" : "66"
-      }, {
         "id" : "67"
       }, {
         "id" : "68"
       }, {
         "id" : "69"
+      }, {
+        "id" : "70"
       }, {
         "id" : "71"
       }, {
@@ -2843,6 +3961,16 @@
         "id" : "73"
       }, {
         "id" : "74"
+      }, {
+        "id" : "75"
+      }, {
+        "id" : "77"
+      }, {
+        "id" : "78"
+      }, {
+        "id" : "79"
+      }, {
+        "id" : "80"
       } ],
       "softwareSystemId" : "19"
     }, {
@@ -2936,23 +4064,13 @@
       "name" : "System Context View: Nexa",
       "order" : 3,
       "relationships" : [ {
-        "id" : "61"
-      }, {
-        "id" : "62"
-      }, {
-        "id" : "63"
-      }, {
-        "id" : "64"
-      }, {
-        "id" : "65"
-      }, {
-        "id" : "66"
-      }, {
         "id" : "67"
       }, {
         "id" : "68"
       }, {
         "id" : "69"
+      }, {
+        "id" : "70"
       }, {
         "id" : "71"
       }, {
@@ -2963,6 +4081,16 @@
         "id" : "74"
       }, {
         "id" : "75"
+      }, {
+        "id" : "77"
+      }, {
+        "id" : "78"
+      }, {
+        "id" : "79"
+      }, {
+        "id" : "80"
+      }, {
+        "id" : "81"
       } ],
       "softwareSystemId" : "19"
     } ]

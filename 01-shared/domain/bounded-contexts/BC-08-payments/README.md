@@ -24,7 +24,7 @@ last-reviewed: 2026-08-23
 
 ## Tactical DDD target
 
-Aggregate Root: Payment. Entities: PaymentReport, ProviderCallback, Refund, ReconciliationCase. Value Objects: PaymentId, ProviderReference, Money, PaymentStatus. Domain Services: ProviderCallbackVerification, PaymentReconciliationPolicy. Repositories: PaymentRepository, InboxRepository. Lifecycle: reported → pending → confirmed/rejected → refunded/corrected.
+Aggregate Roots: Payment and PaymentReconciliationCase. Payment attempts, provider callbacks, refunds and corrections remain within the appropriate Payment/reliability boundary. Value Objects: PaymentId, ProviderReference, Money and PaymentStatus. Domain Services: ProviderCallbackVerification and PaymentReconciliationPolicy. Repositories: PaymentRepository and InboxRepository. Payment lifecycle: `INITIATED` → `AUTHORIZED` → `CONFIRMED`, or `FAILED` / `CANCELLED`; confirmed Payment may become `PARTIALLY_REFUNDED` or `REFUNDED`. Provider report/callback is an input fact, not a persisted Payment state.
 
 ## Tactical wave artifacts
 

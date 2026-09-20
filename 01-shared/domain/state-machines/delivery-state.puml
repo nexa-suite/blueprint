@@ -1,0 +1,36 @@
+@startuml delivery-state
+title Delivery — Canonical V1 Lifecycle
+hide empty description
+skinparam shadowing false
+
+[*] --> PLANNED
+PLANNED --> SCHEDULED
+SCHEDULED --> DISPATCHED
+DISPATCHED --> IN_TRANSIT
+IN_TRANSIT --> ATTEMPTED : record attempt
+ATTEMPTED --> DELIVERED : complete delivery
+ATTEMPTED --> PARTIALLY_DELIVERED : partial outcome
+ATTEMPTED --> ATTEMPT_FAILED : failed attempt
+ATTEMPT_FAILED --> RESCHEDULED : operations decision
+RESCHEDULED --> SCHEDULED : new window
+ATTEMPT_FAILED --> FAILED_FINAL : operations exhaustion decision
+PLANNED --> CANCELLED
+SCHEDULED --> CANCELLED
+RESCHEDULED --> CANCELLED
+
+DELIVERED --> [*]
+PARTIALLY_DELIVERED --> [*]
+CANCELLED --> [*]
+FAILED_FINAL --> [*]
+
+note right of ATTEMPTED
+Assignment is an active/history fact, not a Delivery state.
+Failed attempts remain under this Delivery; no fixed attempt count.
+end note
+
+note right of PARTIALLY_DELIVERED
+Preserve the immutable outcome and create one
+idempotent parent-to-child Continuation Delivery
+for remaining obligation.
+end note
+@enduml

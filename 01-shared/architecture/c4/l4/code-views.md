@@ -3,12 +3,17 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-20
 ---
 
 # Selective C4 Level 4 code views
 
-These views are deliberately narrow. They show implementation seams that matter for PRE-V1 construction; they do not claim that current packages are Bounded Contexts. Current classes are marked `AS-IS`; accepted logical responsibilities are marked `TARGET`. The C4 guidance recommends using only levels that add value; these views exist because selected concurrency, security and provider seams need code-level traceability. See the [official C4 diagram guidance](https://c4model.com/diagrams).
+These views are deliberately narrow. They show implementation seams that matter
+for Post-AV1/V1 construction; they do not claim that current packages are
+Bounded Contexts. Current classes are marked `AS-IS`; accepted logical
+responsibilities are marked `TARGET`. The C4 guidance recommends using only
+levels that add value; these views exist because selected concurrency, security
+and provider seams need code-level traceability. See the [official C4 diagram guidance](https://c4model.com/diagrams).
 
 ## Customer access and Buyer relationship path
 

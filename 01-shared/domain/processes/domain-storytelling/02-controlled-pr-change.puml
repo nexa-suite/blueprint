@@ -1,0 +1,33 @@
+@startuml 02-controlled-pr-change
+title Domain Story 2 — Sales Controlled Purchase Request Change
+hide footbox
+autonumber
+actor Sales
+actor "B2B Buyer" as Buyer
+participant "Purchase Request" as PR
+participant "Sales Commitment" as SalesCommitment
+participant "Inventory Availability" as Inventory
+participant "Credit & Receivables" as Credit
+
+Sales -> PR : Review submitted request
+Sales -> PR : Propose controlled commercial change
+opt material content requires business consent
+  PR -> Buyer : Preserve consent-required evidence
+  Buyer --> PR : Accepted commercial decision
+end
+alt confirm
+  PR -> SalesCommitment : Convert without release/re-reserve gap
+  SalesCommitment -> Inventory : Atomically replace/adjust protection
+  SalesCommitment -> Credit : Atomically replace/adjust applicable reservation
+  SalesCommitment --> PR : Sales Order confirmed
+else reject
+  PR --> Buyer : Rejection with reason
+else unresolved or Buyer withdraws
+  PR --> Buyer : Preserve request history
+end
+
+note over PR,SalesCommitment
+Buyer cannot freely mutate a submitted PR.
+Product substitution needs explicit Buyer acceptance.
+end note
+@enduml

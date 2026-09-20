@@ -41,6 +41,7 @@ the Workspace by identity and are not composed into the Tenant object graph.
 | `Tenant` | Aggregate Root | `TenantId`, `name`, `status`, `expiryPolicy`, `version` | `requestActivation()`, `activate()`, `suspend()`, `changeExpiryPolicy()` | composes one `Workspace`; KEEP target, AS-IS close |
 | `Workspace` | Entity | `WorkspaceId`, `tenantId`, `slug`, `status` | `rename()`, `activate()`, `suspend()` | owned by Tenant; KEEP target |
 | `HumanIdentity` | Aggregate Root | `HumanIdentityId`, `email`, `displayName`, `status` | `changeDisplayName()`, `deactivate()` | global identity, referenced by memberships; KEEP AS-IS |
+| `CompanyOnboardingRequest` | Aggregate Root | `OnboardingRequestId`, `TenantId`, requester identity, intake, status, version | `submit()`, `approve()`, `reject()` | activation handoff; never grants access before Tenant lifecycle gate |
 | `WorkforceMembership` | Aggregate Root | `MembershipId`, `tenantId`, `workspaceId`, `identityId`, `status`, `version` | `grant()`, `assignRole()`, `changeCapability()`, `suspend()`, `revoke()` | references Tenant/Workspace/Identity by ID; REFINE AS-IS |
 | `RoleDefinition` | Aggregate Root | `RoleId`, optional `tenantId`, `code`, `roleType`, `status` | `assignCapability()`, `removeCapability()`, `retire()` | owns capability assignments; REFINE AS-IS |
 | `CompanyInformation` | Value Object | legal/trade name, tax identity, contact | `changeRegisteredData()` | used by onboarding/Tenant; TARGET |

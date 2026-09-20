@@ -24,7 +24,7 @@ last-reviewed: 2026-08-23
 
 ## Tactical DDD target
 
-Aggregate Root: BusinessDocument. Entities: DocumentLineSnapshot, ReplacementLink, EvidenceReference. Value Objects: DocumentId, DocumentNumber, DocumentType, IssuedSnapshot. Domain Services: DocumentNumberingPolicy, DocumentIssuePolicy. Repositories: BusinessDocumentRepository. Lifecycle: requested → issued → available → replaced/linked without mutation.
+Aggregate Roots: BusinessDocument and DocumentNumberSeries. Document snapshots, revisions and ObjectStorageReference are document-owned Entities; bytes remain outside PostgreSQL. Value Objects: DocumentId, DocumentNumber, DocumentType and IssuedSnapshot. Domain Services: DocumentNumberingPolicy and DocumentIssuePolicy. Repositories: BusinessDocumentRepository. Lifecycle: requested → issued → available → replaced/linked without mutation.
 
 ## Tactical wave artifacts
 

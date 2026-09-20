@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-20
 ---
 
 # BC-05 Inventory Availability
@@ -13,7 +13,7 @@ last-reviewed: 2026-08-23
 | Purpose / classification | Owns physical truth, sellability, deterministic backing and Physical Allocation; Core. Strategic importance: connects commitment to real cold-chain stock. |
 | Language / actors | Inventory Lot, physical stock, Sellable Availability, Safety Stock, Inventory Reservation, Warehouse Backing, HOLD, QUARANTINE, FEFO, Physical Allocation, ColdChainDisposition. Actors: Warehouse Operator, Business Operations Manager, Sales Representative. |
 | Responsibilities / data | Receiving, lots, quantities, movement, holds, safety stock, availability, warehouse-neutral backing, lot allocation and transfers. |
-| Invariants | Sellable = usable on-hand - active commitments - safety stock; backing protects full demand without double count; in-transit is not sellable twice; expired/quarantined lots cannot allocate. |
+| Invariants | Sellable = max(0, on-hand - held - reserved - safety stock); `reserved` is the guarded Inventory Reservation projection represented by backing, so it is subtracted once; in-transit is not sellable twice; expired/quarantined lots cannot allocate. |
 | Commands | ReceiveStock, RegisterLot, ChangeDisposition, AdjustQuantity, TransferStock, ReserveDemand, AllocatePhysicalLots, ReleaseBacking, RecordCount. |
 | Domain / published events | Internal: StockReceived, LotCreated, InventoryMoved, CommitmentDemandObserved, AllocationExecuted, ShortageDetected. Published: AvailabilityChanged.v1, PhysicalAllocationCreated.v1. |
 | Upstream / downstream | Upstream: Sales Commitment demand and catalog SKU semantics. Downstream: Sales projections and Fulfillment & Delivery. Sync: full protection and allocation decisions; async: availability announcements. |
@@ -24,7 +24,7 @@ last-reviewed: 2026-08-23
 
 ## Tactical DDD target
 
-Aggregate Roots: InventoryPosition, InventoryReservation, PhysicalAllocation. Entities: InventoryLot, WarehouseBacking, StockMovement, Count. Value Objects: SkuId, WarehouseId, LotId, Quantity, ExpiryDate, Disposition. Domain Services: SellableAvailabilityPolicy, FEFOAllocationPolicy. Repositories: InventoryLotRepository, ReservationRepository, AllocationRepository. Lifecycle: received → sellable/hold/quarantine/expired; reservation → backed → allocated/released.
+Aggregate Roots: Warehouse, InventoryLot, InventoryPosition, InventoryReservation, PhysicalAllocation and WarehouseTransfer. WarehouseBacking is an InventoryReservation-owned Entity; it distributes protection and is not a second subtraction. `inventory_backing` is the relational representation of the Reservation; PhysicalAllocation is a later, separate lot-selection root. Value Objects: SkuId, WarehouseId, LotId, Quantity, ExpiryDate and Disposition. Domain Services: SellableAvailabilityPolicy and FEFOAllocationPolicy. Repositories: InventoryLotRepository, ReservationRepository and AllocationRepository. Lifecycle: received → sellable/hold/quarantine/expired; reservation → backed → allocated/released.
 
 ## Tactical wave artifacts
 

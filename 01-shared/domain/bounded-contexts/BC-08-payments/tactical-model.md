@@ -42,7 +42,7 @@ application to Receivable is coordinated with BC-07.
 | `PaymentReconciliationCase` | Aggregate Root | case ID, payment ID, state, nextAction | `open()`, `assign()`, `resolve()`, `escalate()` | uncertain provider/local state |
 | `PaymentMethodReference` | Value Object | provider-neutral token/reference, type, last4 if safe | `isUsable()` | never raw PAN/CVV |
 | `ProviderReference` / `IdempotencyKey` | Value Objects | external ID / stable intention key | `sameAs()` | dedupe keys |
-| `PaymentStatus` | Enum | reported, pending, confirmed, rejected, refunded, reconciliation required | none | lifecycle constraints |
+| `PaymentStatus` | Enum | `INITIATED`, `AUTHORIZED`, `CONFIRMED`, `FAILED`, `CANCELLED`, `REFUNDED`, `PARTIALLY_REFUNDED` | none | lifecycle constraints; reconciliation is a separate root |
 | `ProviderCallbackVerification` | Domain Service | none | `verify(signature, event)` | provider ACL, no state ownership |
 | `PaymentReconciliationPolicy` | Domain Service | none | `classify(providerResult, localResult)` | explicit uncertainty |
 | `PaymentRepository` | Repository interface | none | `save()`, `byId()` | Payment root only |

@@ -38,7 +38,7 @@ entity "receivable" as t_receivable {
   * tenant_id : uuid <<required>>
   * workspace_id : uuid <<required>>
   * customer_account_id : uuid <<required>>
-    sales_order_id : uuid
+  * sales_order_id : uuid <<required>>
     business_document_id : uuid
   * original_amount : numeric(19,4) <<required>>
   * outstanding_amount : numeric(19,4) <<required>>

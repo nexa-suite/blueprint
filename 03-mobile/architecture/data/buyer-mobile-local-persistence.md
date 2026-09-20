@@ -1,17 +1,18 @@
 ---
-status: planned
-maturity: DRAFT
-scope: runway
+status: accepted
+maturity: BASELINED
+scope: v1
 owner: mobile
-last-reviewed: 2026-09-18
+last-reviewed: 2026-09-20
 ---
 
 # Buyer Mobile Local Persistence
 
-**Decision:** PROPOSED / SOLUTION VALIDATION OPEN
+**Decision:** ACCEPTED TARGET CLIENT-LOCAL BOUNDARY
 **Academic evidence:** RESEARCH VALIDATION PENDING; this is a course evidence
-state, not a technology selection or Product Acceptance claim.
-**Technology:** NOT SELECTED
+state, not a Product Acceptance claim.
+**Technology:** Flutter/Dart secure platform-storage abstraction; concrete
+secure-storage/local-database package remains an implementation choice.
 **Authority:** LOCAL / NON-AUTHORITATIVE
 **Offline scope:** online-first V1 safe reading, harmless receipt/discrepancy
 drafts and notification state.

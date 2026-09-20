@@ -1,0 +1,26 @@
+@startuml payment-state
+title Payment — Canonical V1 Lifecycle
+hide empty description
+skinparam shadowing false
+
+[*] --> INITIATED
+INITIATED --> AUTHORIZED : provider authorization
+AUTHORIZED --> CONFIRMED : confirmed provider fact
+INITIATED --> FAILED
+AUTHORIZED --> FAILED
+INITIATED --> CANCELLED
+AUTHORIZED --> CANCELLED
+CONFIRMED --> PARTIALLY_REFUNDED : partial correction
+CONFIRMED --> REFUNDED : full refund
+PARTIALLY_REFUNDED --> REFUNDED : remaining refund
+
+FAILED --> [*]
+CANCELLED --> [*]
+REFUNDED --> [*]
+
+note right of CONFIRMED
+Payment confirmation is server-authoritative.
+An uncertain provider/local outcome opens a separate
+PaymentReconciliationCase; it never erases payment history.
+end note
+@enduml

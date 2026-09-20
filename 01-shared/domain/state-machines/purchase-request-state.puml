@@ -1,0 +1,28 @@
+@startuml purchase-request-state
+title Purchase Request — Canonical V1 Lifecycle
+hide empty description
+skinparam shadowing false
+
+[*] --> SUBMITTED : submit
+SUBMITTED --> CHANGES_PROPOSED : propose material change
+CHANGES_PROPOSED --> SUBMITTED : resolve accepted change
+SUBMITTED --> CONVERTED : convert to Sales Order
+SUBMITTED --> REJECTED : reject with reason
+SUBMITTED --> WITHDRAWN : Buyer withdraws
+SUBMITTED --> EXPIRED : expiresAt reached
+CHANGES_PROPOSED --> REJECTED : reject with reason
+CHANGES_PROPOSED --> WITHDRAWN : Buyer withdraws
+CHANGES_PROPOSED --> EXPIRED : expiresAt reached
+
+CONVERTED --> [*]
+REJECTED --> [*]
+WITHDRAWN --> [*]
+EXPIRED --> [*]
+
+note right of SUBMITTED
+Only persisted Purchase Request states:
+SUBMITTED, CHANGES_PROPOSED, CONVERTED,
+REJECTED, WITHDRAWN, EXPIRED.
+RequestDraft is a separate Aggregate Root.
+end note
+@enduml

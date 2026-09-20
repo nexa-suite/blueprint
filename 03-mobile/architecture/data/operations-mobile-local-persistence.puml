@@ -1,5 +1,5 @@
 @startuml OperationsMobileLocalPersistence
-title Operations Mobile — V1 Local Assistance (PROPOSED / RESEARCH VALIDATION PENDING)
+title Operations Mobile — V1 Local Assistance (ACCEPTED TARGET / NON-AUTHORITATIVE)
 hide circle
 skinparam classAttributeIconSize 0
 skinparam shadowing false
@@ -59,8 +59,8 @@ enum EvidenceState <<Enum>>
 enum RetryState <<Enum>>
 
 legend right
-PROPOSED / RESEARCH VALIDATION PENDING
-Technology: NOT SELECTED. Logical records only; no framework commitment.
+ACCEPTED TARGET / RESEARCH VALIDATION PENDING
+Technology: Android Keystore, DataStore and Room when structured staging/cache is justified.
 LOCAL / NON-AUTHORITATIVE. Nexa remains authority for inventory, allocation,
 pick, dispatch, Delivery, payment, authorization, POD and traceability.
 V1 is online-first. Drafts, safe reads, temporary evidence and retry metadata
