@@ -98,8 +98,7 @@ class ResolvedOfferSnapshot <<Value Object>> {
   -skuId: SkuId
   -unitPrice: Money
   -termsSnapshot: TermsSnapshot
-  -source: PriceSource
-  -promotionId: PromotionId
+  -promotionId: PromotionId [0..1]
   -effectiveAt: Instant
   +freeze(): ResolvedOfferSnapshot
 }
@@ -126,8 +125,6 @@ enum ProductStatus <<Enum>>
 enum SkuStatus <<Enum>>
 enum PriceListStatus <<Enum>>
 enum PromotionStatus <<Enum>>
-enum PriceSource <<Enum>>
-
 Product "1" *-- "1..*" Sku : variants
 Product "1" *-- "0..*" CatalogMedia : media
 PriceList "1" *-- "0..*" PriceListItem : prices
@@ -145,7 +142,7 @@ Promotion *-- TimeWindow : validity
 legend right
 TARGET / V1 / tactical design aid
 Price precedence: Base Price -> Price List -> Customer Terms -> max one Promotion.
-ResolvedOfferSnapshot is BC-03 Published Language for BC-04, not a published event.
+ResolvedOfferSnapshot is the Published Language contract for BC-04 with canonical fields skuId, unitPrice, termsSnapshot, optional promotionId [0..1] and effectiveAt; it is not a Published Integration Event or shared aggregate.
 CustomerAccountId is a non-owning BC-02 reference.
 *-- composition | --> domain dependency | ..> port/use
 endlegend

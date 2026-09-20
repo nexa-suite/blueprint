@@ -10,8 +10,10 @@ last-reviewed: 2026-09-19
 
 The UPC rubric asks for C4 Component diagrams for containers participating in
 each Bounded Context. Existing Structurizr views are reused when they explain
-the relevant logical seams. No new C4 Container, deployment unit or strategic
-context is created in this wave.
+the relevant logical seams. No new Software System, strategic context or
+container-per-BC architecture is created in this wave. Existing accepted Mobile
+containers remain within Nexa; TARGET deployment explicitly contains separate
+logical Operations Mobile Device and Buyer Mobile Device nodes.
 
 | BC | Participating container(s) | Existing component view | Coverage decision |
 |---|---|---|---|

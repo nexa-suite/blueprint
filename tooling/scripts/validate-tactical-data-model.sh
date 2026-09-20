@@ -163,8 +163,29 @@ for path in (inventory_sql, master):
         failures.append(f"{path.relative_to(root)} must preserve deterministic SKU + Warehouse Backing")
 
 semantic_markers = {
-    "01-shared/domain/bounded-contexts/BC-03-catalog-commercial-policy/tactical-model.md": ("ResolvedOfferSnapshot", "Published Language"),
-    "01-shared/domain/bounded-contexts/BC-04-sales-commitment/tactical-model.md": ("RequestSubmissionData", "PurchaseRequestFactory", "ResolvedOfferSnapshot"),
+    "01-shared/domain/bounded-contexts/BC-03-catalog-commercial-policy/tactical-model.md": (
+        "ResolvedOfferSnapshot",
+        "Published Language",
+        "`skuId`",
+        "`unitPrice`",
+        "`termsSnapshot`",
+        "`promotionId` [0..1]",
+        "`effectiveAt`",
+        "not a Published Integration Event",
+    ),
+    "01-shared/domain/bounded-contexts/BC-04-sales-commitment/tactical-model.md": (
+        "RequestSubmissionData",
+        "PurchaseRequestFactory",
+        "ResolvedOfferSnapshot",
+        "Published Language / external contract",
+        "`skuId`",
+        "`unitPrice`",
+        "`termsSnapshot`",
+        "`promotionId` [0..1]",
+        "`effectiveAt`",
+        "does not own or recompute pricing policy",
+        "not a Published Integration Event",
+    ),
     "01-shared/domain/bounded-contexts/BC-05-inventory-availability/tactical-model.md": ("InventoryReservation", "WarehouseBacking"),
     "01-shared/domain/bounded-contexts/BC-06-fulfillment-delivery/tactical-model.md": ("Driver Outcome", "Buyer Receipt", "DeliveryHandoffToken", "BuyerReceiptFact", "Photo/signature evidence is required only when policy says so.", "external navigation handoff"),
     "01-shared/domain/bounded-contexts/BC-09-business-documents/tactical-model.md": ("Application Work Item", "ObjectStorageReference"),
@@ -179,6 +200,39 @@ for relative, markers in semantic_markers.items():
     for marker in markers:
         if marker not in text:
             failures.append(f"{relative} missing reconciled semantic marker {marker!r}")
+
+uml_semantic_markers = {
+    "01-shared/domain/bounded-contexts/BC-03-catalog-commercial-policy/diagrams/domain-model.puml": (
+        "class ResolvedOfferSnapshot",
+        "-skuId: SkuId",
+        "-unitPrice: Money",
+        "-termsSnapshot: TermsSnapshot",
+        "-promotionId: PromotionId [0..1]",
+        "-effectiveAt: Instant",
+        "Published Language contract",
+        "not a Published Integration Event",
+    ),
+    "01-shared/domain/bounded-contexts/BC-04-sales-commitment/diagrams/domain-model.puml": (
+        "class ResolvedOfferSnapshot",
+        "-skuId: SkuId",
+        "-unitPrice: Money",
+        "-termsSnapshot: TermsSnapshot",
+        "-promotionId: PromotionId [0..1]",
+        "-effectiveAt: Instant",
+        "Published Language contract",
+        "does not recompute pricing policy",
+        "not a Published Integration Event",
+    ),
+}
+for relative, markers in uml_semantic_markers.items():
+    path = root / relative
+    if not path.is_file():
+        failures.append(f"missing reconciled UML source {relative}")
+        continue
+    text = path.read_text()
+    for marker in markers:
+        if marker not in text:
+            failures.append(f"{relative} missing reconciled UML marker {marker!r}")
 
 delivery_flow = root / "01-shared/domain/processes/message-flows.md"
 if not delivery_flow.is_file():

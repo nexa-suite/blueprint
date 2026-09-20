@@ -3,10 +3,13 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: architecture
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-19
 ---
 
-# Integration and Event Architecture PRE-V1
+# Integration and Event Architecture — Current V1 Baseline
+
+This is the accepted Post-AV1 current V1 event baseline. PRE-V1 wording in
+historical records remains provenance only.
 
 Events are business facts, not commands, endpoints or a substitute for atomic consistency. No Published Integration Event exists without a known consumer.
 
@@ -61,7 +64,7 @@ Tenant/workspace scope is mandatory for tenant facts. System workers use an expl
 | `FulfillmentShortage.v1` | Fulfillment & Delivery | Published | Sales Commitment, Inventory, Notifications, Traceability | async after source decision | required | required | FulfillmentId | event ID + shortage reference | retry; unresolved state visible | v1 |
 | `DeliveryCompleted.v1` | Fulfillment & Delivery | Published | Documents, Notifications, Traceability, Portal | async after immutable POD | required | required | DeliveryId | POD/finalization key | retry; source remains completed | v1 |
 | `ContinuationDeliveryCreated.v1` | Fulfillment & Delivery | Published | Portal, Dispatch, Notifications, Traceability | async after partial delivery transaction | required | required | SalesOrderId + continuation ID | continuation creation key | retry; one continuation per outcome | v1 |
-| `PaymentConfirmed.v1` | Payments | Published | Credit & Receivables, Sales/Portal, Notifications, Traceability | async after provider/manual confirmation | required | required | PaymentId/provider event | provider event ID + payment key | inbox dedupe; reviewable failure | v1; provider-neutral |
+| `PaymentConfirmed.v1` | Payments | Published | Credit & Receivables, Sales/Portal, Notifications, Traceability, Business Documents | async after provider/manual confirmation | required | required | PaymentId/provider event | provider event ID + payment key | inbox dedupe; reviewable failure | v1; provider-neutral |
 | `ReceivablePosted.v1` | Credit & Receivables | Published | Documents, Portal/Platform, Traceability | async after SO confirmation transaction | required | required | ReceivableId | posting intention key | retry/reconcile; no double count | v1 |
 | `BusinessDocumentIssued.v1` | Business Documents | Published | Portal, Notifications, Traceability | async after immutable issue | required | required | DocumentId | issuance key | retry; issued history unchanged | v1 |
 | `NotificationDeliveryFailed.v1` | Notifications | Published | Traceability, operations | async | required | required | NotificationId | delivery attempt key | retry then terminal visible; source unchanged | v1 |

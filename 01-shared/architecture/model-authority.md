@@ -22,10 +22,13 @@ semantic authorities.
 | Mobile Product | `03-mobile` over shared canon | Mobile Report Product/research projection and generated assets |
 | Academic course projection | `90-academic/mobile/course-1acc0238` | Mobile Report publication/evidence |
 
-Mobile does not create a Bounded Context, C4 System, deployment unit or
-alternate shared dictionary. Mobile consumes shared Ubiquitous Language and
-domain semantics. If Mobile Report contains genuinely newer evidence, promote
-the semantic fact into the appropriate Blueprint authority first.
+Mobile does not create a Bounded Context, separate C4 Software System,
+alternate domain model, alternate Ubiquitous Language or deployment-per-BC
+architecture. Operations Mobile and Buyer Mobile are C4 Containers projected
+within Nexa and may be represented on explicit device deployment nodes. Mobile
+consumes shared domain semantics. If Mobile Report contains genuinely newer
+evidence, promote the semantic fact into the appropriate Blueprint authority
+first.
 
 ## Post-AV1 source boundary
 

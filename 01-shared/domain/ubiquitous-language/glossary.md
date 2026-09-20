@@ -8,7 +8,9 @@ last-reviewed: 2026-09-19
 
 # Ubiquitous Language
 
-These terms are canonical for PRE-V1. Context-local synonyms require an explicit translation contract.
+These terms are canonical for the accepted current V1 baseline. PRE-V1
+remains provenance for the decision history. Context-local synonyms require an
+explicit translation contract.
 
 | Term | Canonical meaning | Must not be collapsed into |
 |---|---|---|

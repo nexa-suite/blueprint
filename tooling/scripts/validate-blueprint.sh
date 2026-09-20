@@ -407,9 +407,112 @@ if context_map.is_file():
         failures.append(f"context map references non-canonical Bounded Context IDs: {sorted(context_codes - expected_context_codes)}")
 
 event_file = root / "01-shared/domain/events/published-events.md"
-published_events = re.findall(r"^\| `[^`]+\.v1` \|", event_file.read_text(encoding="utf-8"), re.MULTILINE)
+event_text = event_file.read_text(encoding="utf-8")
+published_events = re.findall(r"^\| `[^`]+\.v1` \|", event_text, re.MULTILINE)
 if len(published_events) != 14:
     failures.append(f"expected 14 Published Integration Events, found {len(published_events)}")
+
+context_map_text = context_map.read_text(encoding="utf-8") if context_map.is_file() else ""
+context_rows = [
+    [cell.strip() for cell in line.strip().strip("|").split("|")]
+    for line in context_map_text.splitlines()
+    if line.startswith("|") and not line.startswith("|---")
+]
+payment_acl_rows = [row for row in context_rows if row and row[0] == "Payment Provider (external)"]
+if len(payment_acl_rows) != 1:
+    failures.append(f"expected exactly one Payment Provider (external) ACL row, found {len(payment_acl_rows)}")
+else:
+    payment_acl = payment_acl_rows[0]
+    if len(payment_acl) < 5 or payment_acl[1] != "Payments" or payment_acl[2] != "Anti-Corruption Layer":
+        failures.append("Payment Provider (external) must be upstream of Payments through an Anti-Corruption Layer")
+    for marker in (
+        "provider requests/responses/webhooks",
+        "provider-neutral Payment facts and commands",
+        "idempotency",
+        "verification",
+        "reconciliation",
+        "deduplication",
+    ):
+        if marker not in " | ".join(payment_acl):
+            failures.append(f"Payment ACL row missing semantic marker {marker!r}")
+
+event_rows = [
+    [cell.strip() for cell in line.strip().strip("|").split("|")]
+    for line in event_text.splitlines()
+    if line.startswith("|") and not line.startswith("|---")
+]
+payment_confirmed_rows = [
+    row for row in event_rows
+    if row and row[0].strip("`") == "PaymentConfirmed.v1"
+]
+if len(payment_confirmed_rows) != 1:
+    failures.append(f"expected exactly one PaymentConfirmed.v1 row, found {len(payment_confirmed_rows)}")
+elif "Business Documents" not in " | ".join(payment_confirmed_rows[0]):
+    failures.append("PaymentConfirmed.v1 must list Business Documents as a consumer")
+for forbidden_event in (
+    "PaymentReceiptRequested.v1",
+    "PaymentReconciled.v1",
+    "PaymentDocumentRequested.v1",
+    "FinancialAdjustmentCreated.v1",
+):
+    if forbidden_event in event_text:
+        failures.append(f"Wave 2.1 must not introduce {forbidden_event}")
+
+current_authority_markers = {
+    "01-shared/domain/ubiquitous-language/glossary.md": (
+        "canonical for the accepted current V1 baseline",
+        "PRE-V1\nremains provenance for the decision history",
+    ),
+    "01-shared/domain/events/published-events.md": (
+        "# Integration and Event Architecture — Current V1 Baseline",
+        "last-reviewed: 2026-09-19",
+    ),
+    "01-shared/data/README.md": (
+        "accepted current\nV1/Post-AV1 TARGET Data Architecture",
+        "baselined for the current V1/Post-AV1 baseline",
+    ),
+    "01-shared/domain/README.md": (
+        "accepted\nMobile V1 target projections",
+        "partial/unmerged AS-IS",
+        "Buyer is not implemented",
+    ),
+    "01-shared/architecture/model-authority.md": (
+        "separate C4 Software System",
+        "explicit device deployment nodes",
+    ),
+    "01-shared/architecture/c4/component-rubric-coverage.md": (
+        "No new Software System",
+        "separate logical Operations Mobile Device",
+    ),
+}
+for relative, markers in current_authority_markers.items():
+    path = root / relative
+    if not path.is_file():
+        failures.append(f"missing current-authority source {relative}")
+        continue
+    text = path.read_text(encoding="utf-8")
+    for marker in markers:
+        if marker not in text:
+            failures.append(f"{relative} missing current-authority marker {marker!r}")
+
+stale_current_phrases = {
+    "01-shared/data/README.md": ("accepted PRE-V1 TARGET Data Architecture",),
+    "01-shared/domain/README.md": ("future Mobile experiences",),
+    "01-shared/architecture/model-authority.md": (
+        "Mobile does not create a Bounded Context, C4 System, deployment unit",
+    ),
+    "01-shared/architecture/c4/component-rubric-coverage.md": (
+        "No new C4 Container, deployment unit or strategic context",
+    ),
+}
+for relative, phrases in stale_current_phrases.items():
+    path = root / relative
+    if not path.is_file():
+        continue
+    text = path.read_text(encoding="utf-8")
+    for phrase in phrases:
+        if phrase in text:
+            failures.append(f"{relative} retains stale current-authority phrase {phrase!r}")
 
 adr_count = len(list((root / "01-shared/architecture/decisions/adr").glob("adr-*.md")))
 if adr_count != 17:

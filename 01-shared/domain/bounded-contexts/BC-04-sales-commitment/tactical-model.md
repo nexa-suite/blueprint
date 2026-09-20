@@ -48,7 +48,7 @@ preserve history without mutating submitted snapshots.
 | `CommercialTermsSnapshot` | Value Object | price, terms, currency, delivery facts | `isEquivalentTo()` | immutable PR/SO evidence |
 | `RequestSubmissionData` | Value Object | draft scope, lines and submitted intent | `validateCompleteness()` | produced by Draft; does not create a PurchaseRequest itself |
 | `PurchaseRequestFactory` | Domain Factory | none | `createFrom(submission, offerSnapshots)` | creates the PurchaseRequest only after application orchestration |
-| `ResolvedOfferSnapshot` | External Published Language contract | SKU, authoritative price/terms/promotion/effectiveAt | none | supplied by BC-03; no event or aggregate sharing |
+| `ResolvedOfferSnapshot` | Published Language / external contract | `skuId`, `unitPrice`, `termsSnapshot`, `promotionId` [0..1], `effectiveAt` | none | supplied by BC-03; immutable after resolution; BC-04 consumes it and does not own or recompute pricing policy; not a Published Integration Event or shared aggregate |
 | `Quantity` / `Expiration` | Value Objects | positive amount / absolute Instant | `subtract()`, `hasExpired(now)` | protects quantity and expiry |
 | `CommitmentOriginType` | Enum | `PURCHASE_REQUEST` or `DIRECT_ORDER` | none | discriminator; only the PR origin carries a PurchaseRequest FK |
 | `PurchaseRequestState` / `SalesOrderState` | Enum | accepted lifecycle values | none | no `UNDER_REVIEW` persisted |

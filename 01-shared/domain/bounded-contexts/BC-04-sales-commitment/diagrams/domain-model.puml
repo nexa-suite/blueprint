@@ -126,6 +126,7 @@ class ResolvedOfferSnapshot <<External Contract>> {
   -skuId: SkuId
   -unitPrice: Money
   -termsSnapshot: TermsSnapshot
+  -promotionId: PromotionId [0..1]
   -effectiveAt: Instant
 }
 
@@ -176,6 +177,7 @@ TARGET / V1 / tactical design aid
 PR -> Commitment -> SO ownership transfer has no release/re-reserve gap.
 RequestDraft prepares submission data; the factory creates the PurchaseRequest after orchestration.
 BC-05 backing and BC-07 credit are stable decision references, not compositions.
+ResolvedOfferSnapshot is the Published Language contract from BC-03 with canonical fields skuId, unitPrice, termsSnapshot, optional promotionId [0..1] and effectiveAt; BC-04 does not recompute pricing policy, and the contract is not a Published Integration Event or shared aggregate.
 *-- composition | --> domain dependency | ..> port/use
 endlegend
 @enduml

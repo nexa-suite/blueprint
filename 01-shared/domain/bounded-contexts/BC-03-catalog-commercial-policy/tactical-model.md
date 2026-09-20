@@ -47,7 +47,7 @@ multiple policy roots without owning any one root.
 | `Money` | Value Object | amount, currency | `add()`, `multiply()`, `isNonNegative()` | used by prices/snapshots |
 | `ColdChainRequirement` | Value Object | required flag, min/max temperature, shelf life | `accepts(reading)` | used by SKU; TARGET |
 | `PriceResolver` | Domain Service | none | `resolve(base, list, terms, promotion, instant)` | deterministic precedence; TARGET |
-| `ResolvedOfferSnapshot` | Value Object / Published Language contract | SKU ID, resolved price, terms, promotion, effectiveAt | `freeze()` | authoritative BC-03 output consumed by BC-04; not a Published Integration Event |
+| `ResolvedOfferSnapshot` | Value Object / Published Language contract | `skuId`, `unitPrice`, `termsSnapshot`, `promotionId` [0..1], `effectiveAt` | `freeze()` | authoritative BC-03 output consumed by BC-04; immutable after resolution; not a Published Integration Event or shared aggregate |
 | `ProductRepository` / `SkuRepository` | Repository interfaces | none | `save()`, `byId()`, `search()` | roots only; TARGET |
 | `OfferPublished` | Domain Event | SKU/product IDs, effectiveAt | immutable fact | no new published event; TARGET |
 

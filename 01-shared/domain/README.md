@@ -1,8 +1,9 @@
 # Shared Domain
 
-One canonical Nexa domain shared by Website, Platform, Portal and future Mobile
-experiences. This area preserves accepted Strategic DDD and business semantics;
-it does not derive contexts from code folders.
+One canonical Nexa domain shared by Website, Platform, Portal and accepted
+Mobile V1 target projections. Operations has partial/unmerged AS-IS evidence;
+Buyer is not implemented. This area preserves accepted Strategic DDD and
+business semantics; it does not derive contexts from code folders.
 
 - [Strategic DDD](strategic-ddd/README.md)
 - [Bounded Contexts](bounded-contexts/README.md) — exactly 11 accepted contexts
