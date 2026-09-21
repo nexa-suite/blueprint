@@ -27,7 +27,7 @@ Domain authority; Mobile client implementation remains NOT STARTED.
 | `Tenant` | Owns lifecycle and isolation policy; one active Workspace in V1; one active Company Owner | `TenantId`, no deep membership graph |
 | `HumanIdentity` | Global person identity; never duplicated per Tenant | referenced by identity |
 | `WorkforceMembership` | Tenant/workspace participation, status and capability context | `HumanIdentityId`, `TenantId`, `WorkspaceId` |
-| `RoleDefinition` | Role lifecycle and capability assignment; global templates or tenant custom role | `CapabilityCode` |
+| `RoleDefinition` | Workspace-scoped role lifecycle and capability assignment | global `CapabilityCode` values |
 | `CompanyOnboardingRequest` | Complex intake and activation handoff; no access until Tenant lifecycle gate passes | requester identity reference |
 
 `Workspace` is a Tenant-owned entity with an explicit identity because accepted
@@ -43,7 +43,7 @@ the Workspace by identity and are not composed into the Tenant object graph.
 | `HumanIdentity` | Aggregate Root | `HumanIdentityId`, `email`, `displayName`, `status`, `version` | `changeDisplayName()`, `deactivate()` | global identity, referenced by memberships; KEEP AS-IS |
 | `CompanyOnboardingRequest` | Aggregate Root | `OnboardingRequestId`, `TenantId`, requester identity, intake, status, version | `submit()`, `approve()`, `reject()` | activation handoff; never grants access before Tenant lifecycle gate |
 | `WorkforceMembership` | Aggregate Root | `MembershipId`, `tenantId`, `workspaceId`, `identityId`, `status`, `version` | `grant()`, `assignRole()`, `changeCapability()`, `suspend()`, `revoke()` | references Tenant/Workspace/Identity by ID; REFINE AS-IS |
-| `RoleDefinition` | Aggregate Root | `RoleId`, optional `tenantId`, `code`, `roleType`, `status`, `version` | `assignCapability()`, `removeCapability()`, `retire()` | owns capability assignments; REFINE AS-IS |
+| `RoleDefinition` | Aggregate Root | `RoleId`, `WorkspaceId`, `code`, `roleType`, `status`, `version` | `assignCapability()`, `removeCapability()`, `retire()` | workspace-scoped root; owns capability assignments; `CapabilityDefinition` stays global; REFINE AS-IS |
 | `CompanyInformation` | Value Object | legal/trade name, tax identity, contact | `changeRegisteredData()` | used by onboarding/Tenant; TARGET |
 | `AccessContext` | Value Object | `tenantId`, `workspaceId`, `membershipId`, capability version | `requireCapability()` | generated per request; TARGET |
 | `CapabilityCode` | Value Object | normalized code | `isWithin()` | referenced by RoleDefinition; TARGET |
@@ -92,6 +92,9 @@ framework getters/setters.
 - Tenant is maximum business/data isolation boundary; missing or ambiguous
   scope rejects access.
 - V1 has exactly one Workspace per Tenant and one active Company Owner.
+- `RoleDefinition` is always scoped to one Workspace. There is no global role
+  template in the current TARGET; a future shared-template decision remains
+  outside this model.
 - Human Identity is global; Workforce Membership is tenant-scoped.
 - Client-supplied tenant IDs are input only. API reconstructs scope and applies
   authorization plus RLS context.

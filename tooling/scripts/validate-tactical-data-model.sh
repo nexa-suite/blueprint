@@ -462,6 +462,47 @@ for bc_name, fragments in scope_integrity_contracts.items():
         if fragment not in normalized:
             failures.append(f"{relative} missing required same-scope guard: {fragment}")
 
+bc01_tactical = root / "01-shared/domain/bounded-contexts/BC-01-tenant-access-governance/tactical-model.md"
+bc01_uml = root / "01-shared/domain/bounded-contexts/BC-01-tenant-access-governance/diagrams/domain-model.puml"
+bc01_data = root / "01-shared/domain/bounded-contexts/BC-01-tenant-access-governance/data/data-model.md"
+for path, markers in {
+    bc01_tactical: ("Workspace-scoped role lifecycle", "`WorkspaceId`", "CapabilityDefinition` stays global"),
+    bc01_uml: ("class RoleDefinition <<Aggregate Root>>", "-workspaceId: WorkspaceId", "RoleDefinition --> Workspace : scoped by identity"),
+    bc01_data: ("`role_definition` is a Workspace-scoped Aggregate Root", "no global role template"),
+}.items():
+    if not path.is_file():
+        failures.append(f"missing BC-01 role-scope source {path.relative_to(root)}")
+        continue
+    text = path.read_text()
+    for marker in markers:
+        if marker not in text:
+            failures.append(f"{path.relative_to(root)} missing RoleDefinition workspace-scope marker: {marker}")
+if bc01_tactical.is_file() and re.search(r"global templates|optional `tenantId`", bc01_tactical.read_text(), re.IGNORECASE):
+    failures.append("BC-01 RoleDefinition must not reopen global template or optional-tenant scope")
+
+bc10_sql = root / "01-shared/domain/bounded-contexts/BC-10-notifications/data/target-relational-model.sql"
+bc10_tactical = root / "01-shared/domain/bounded-contexts/BC-10-notifications/tactical-model.md"
+bc10_uml = root / "01-shared/domain/bounded-contexts/BC-10-notifications/diagrams/domain-model.puml"
+bc10_data = root / "01-shared/domain/bounded-contexts/BC-10-notifications/data/data-model.md"
+if bc10_sql.is_file():
+    bc10_sql_text = bc10_sql.read_text()
+    if "provider_token_hash" not in bc10_sql_text or "provider_endpoint_reference" in bc10_sql_text:
+        failures.append("BC-10 current PostgreSQL TARGET must persist provider_token_hash only")
+for path, markers in {
+    bc10_tactical: ("`provider_token_hash`", "FUTURE / PROVIDER-ADAPTER INPUT", "NOT PERSISTED IN CURRENT POSTGRESQL TARGET"),
+    bc10_uml: ("-providerTokenHash: ProviderTokenHash", "FUTURE / PROVIDER-ADAPTER INPUT", "NOT PERSISTED IN CURRENT POSTGRESQL TARGET"),
+    bc10_data: ("persists only `provider_token_hash`", "has no\n`provider_endpoint_reference`", "NOT PERSISTED IN CURRENT POSTGRESQL TARGET"),
+}.items():
+    if not path.is_file():
+        failures.append(f"missing BC-10 PushSubscription source {path.relative_to(root)}")
+        continue
+    text = path.read_text()
+    for marker in markers:
+        if marker not in text:
+            failures.append(f"{path.relative_to(root)} missing PushSubscription persistence marker: {marker}")
+if bc10_uml.is_file() and "SecureEndpointReference" in bc10_uml.read_text():
+    failures.append("BC-10 UML must not model SecureEndpointReference as current PostgreSQL TARGET state")
+
 root_guard_contracts = {
     "BC-01": {
         "Tenant": ("tenant", "version", None),

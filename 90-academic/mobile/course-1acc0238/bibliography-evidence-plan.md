@@ -17,7 +17,7 @@ register tracks evidence without inventing papers or citations.
 |---|---|---|
 | Business domain | Problem, sector, target segments and market relevance | Source-backed domain papers, market reports or official statistics |
 | Engineering methods and techniques | Lean UX, User Stories, Impact Mapping, DDD, Scrum, architecture and validation | Cited primary/official or academic sources |
-| Languages, frameworks and tools | Kotlin, Android, Flutter/Dart or KMP, REST/OpenAPI, Figma, Structurizr, Git/GitHub and selected services | Official documentation and versioned project evidence |
+| Languages, frameworks and tools | Kotlin/Android/Jetpack Compose for Operations and Flutter/Dart for Buyer, REST/OpenAPI, Figma, Structurizr, Git/GitHub and selected services | Official documentation and versioned project evidence; Kotlin Multiplatform/Kotlin is historical evaluated provenance only |
 
 ## Mandatory recent academic papers
 

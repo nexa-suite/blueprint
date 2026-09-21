@@ -73,9 +73,12 @@ and C4 remain owned by shared Blueprint records. Wave 2 reconciled canonical
 AS-IS/TARGET and generated artifacts from the shared DSL; this projection does
 not create another source of truth.
 
-## Framework decision
+## Framework decision closure
 
-Academic constraints and tracks may evaluate native Android/Kotlin, Flutter/Dart
-or Kotlin Multiplatform/Kotlin. `SPIKE-002` remains open. Those tracks,
-including later academic Flutter work, are not an accepted Product architecture;
-final framework choice remains OPEN pending evidence and Owner acceptance.
+Operations Mobile is the accepted TARGET Android/Kotlin/Jetpack Compose
+construction client by ADR-0018. Buyer Mobile is the accepted TARGET
+Flutter/Dart Android+iOS construction client by ADR-0019. `SPIKE-002` retains
+historical framework evaluation, including Kotlin Multiplatform/Kotlin, but its
+framework-selection question is **CLOSED / SUPERSEDED** by those ADRs.
+Technology selection is not implementation proof, solution validation or
+Product Acceptance. Unrelated device/provider research remains OPEN.

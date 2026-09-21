@@ -31,6 +31,11 @@ an external Push provider or Product channel beyond in-app/email. Delivery retry
 claim fencing, invalid-token disablement and dead-letter handling remain
 application/technical reliability behavior.
 
+The current PostgreSQL TARGET persists only `provider_token_hash` for the
+technical subscription identity and deduplication lifecycle. It has no
+`provider_endpoint_reference`. Endpoint material is **FUTURE /
+PROVIDER-ADAPTER INPUT** and is **NOT PERSISTED IN CURRENT POSTGRESQL TARGET**.
+
 Compatibility caveat: the API v0.17.0 AS-IS migration currently constrains its
 push surface values to `PLATFORM` and `PORTAL`. The target projection names
 `OPERATIONS_MOBILE` and `BUYER_MOBILE` are Product-facing design values; their

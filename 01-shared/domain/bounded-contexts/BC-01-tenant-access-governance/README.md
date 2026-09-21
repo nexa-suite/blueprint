@@ -24,7 +24,7 @@ last-reviewed: 2026-08-23
 
 ## Tactical DDD target
 
-Aggregate Roots: Tenant, HumanIdentity, WorkforceMembership, RoleDefinition and CompanyOnboardingRequest. Workspace is a Tenant-owned Entity, not an Aggregate Root. Value Objects: TenantId, WorkspaceId, MembershipId, AccessContext and Capability. Domain Services: AccessEligibilityPolicy. Repositories: TenantRepository and MembershipRepository. Lifecycles: provisioning → active → suspended; membership granted → changed → revoked. Invariants stay in this context; technical modules remain undecided.
+Aggregate Roots: Tenant, HumanIdentity, WorkforceMembership, RoleDefinition and CompanyOnboardingRequest. `RoleDefinition` is a Workspace-scoped root; `CapabilityDefinition` remains global and there is no current global role template. Workspace is a Tenant-owned Entity, not an Aggregate Root. Value Objects: TenantId, WorkspaceId, MembershipId, AccessContext and Capability. Domain Services: AccessEligibilityPolicy. Repositories: TenantRepository and MembershipRepository. Lifecycles: provisioning → active → suspended; membership granted → changed → revoked. Invariants stay in this context; technical modules remain undecided.
 
 ## Tactical wave artifacts
 

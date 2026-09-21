@@ -728,6 +728,40 @@ current_mobile_technology_docs = {
         "Client technology is already accepted by ADR-0018", "Accepted client technology does not prove",
     ),
 }
+academic_mobile_technology_docs = {
+    "90-academic/mobile/course-1acc0238/README.md": (
+        "Operations Android / Kotlin / Jetpack Compose accepted TARGET by ADR-0018",
+        "Flutter/Dart accepted TARGET by ADR-0019",
+        "CLOSED / SUPERSEDED",
+        "unrelated device/provider research remains OPEN",
+    ),
+    "90-academic/mobile/course-1acc0238/architecture-projection.md": (
+        "Operations Mobile is the accepted TARGET Android/Kotlin/Jetpack Compose",
+        "Buyer Mobile is the accepted TARGET Flutter/Dart Android+iOS",
+        "CLOSED / SUPERSEDED",
+        "Technology selection is not implementation proof",
+    ),
+    "90-academic/mobile/course-1acc0238/rubric-compliance.md": (
+        "Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018",
+        "Buyer Mobile uses Flutter/Dart for Android+iOS by ADR-0019",
+        "Framework selection is closed by ADR-0018",
+    ),
+    "90-academic/mobile/course-1acc0238/implementation-evidence-plan.md": (
+        "Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018",
+        "Buyer Flutter/Dart Android+iOS is accepted TARGET by ADR-0019",
+        "CLOSED / SUPERSEDED",
+    ),
+    "90-academic/mobile/course-1acc0238/milestone-plan.md": (
+        "Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018",
+        "Buyer Flutter/Dart baselines",
+        "CLOSED / SUPERSEDED",
+    ),
+    "90-academic/mobile/course-1acc0238/bibliography-evidence-plan.md": (
+        "Kotlin/Android/Jetpack Compose for Operations",
+        "Flutter/Dart for Buyer",
+        "historical evaluated provenance only",
+    ),
+}
 stale_mobile_framework_patterns = (
     r"\bno framework (?:is )?selected\b",
     r"\bframework open\b",
@@ -736,8 +770,11 @@ stale_mobile_framework_patterns = (
     r"\bnot a final canonical framework assignment\b",
     r"\bunresolved client strategy\b",
     r"\bframework selection (?:remains )?OPEN\b",
+    r"\bfinal framework choice remains OPEN\b",
+    r"\bEvaluate Flutter/Dart vs KMP\b",
+    r"\bFlutter/Dart\s+or\s+Kotlin Multiplatform/Kotlin.*(?:choice|selection)\s+OPEN\b",
 )
-for relative, markers in current_mobile_technology_docs.items():
+for relative, markers in {**current_mobile_technology_docs, **academic_mobile_technology_docs}.items():
     source = root / relative
     if not source.is_file():
         failures.append(f"missing current Mobile technology source: {relative}")

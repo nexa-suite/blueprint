@@ -54,8 +54,8 @@ implemented or accepted.
 | NRC | 4949 | SOURCE VERIFIED |
 | Team | nexa-team | SOURCE VERIFIED |
 | Official milestones | AV1 week 4; TB1 week 7; AV2 week 12; TB2 week 15 | SOURCE VERIFIED; AV1 COMPLETE; next milestone TB1 |
-| Native constraint | Android / Kotlin | TARGET ACADEMIC CONSTRAINT |
-| Cross-platform constraint | Flutter/Dart or Kotlin Multiplatform/Kotlin | LATER ACADEMIC PLANNING; choice OPEN; not Product architecture |
+| Native constraint | Operations Android / Kotlin / Jetpack Compose accepted TARGET by ADR-0018 | Framework selection CLOSED / SUPERSEDED; implementation evidence remains separate |
+| Cross-platform constraint | Flutter/Dart accepted TARGET by ADR-0019; Kotlin Multiplatform/Kotlin is historical evaluated course alternative | Framework selection CLOSED / SUPERSEDED by ADR-0018 and ADR-0019; unrelated device/provider research remains OPEN |
 | Local storage | Required, non-authoritative in Nexa V1 | TARGET DEFINED; client evidence pending |
 | Device resource | Camera/scanner/evidence candidate | TARGET DEFINED; physical proof pending |
 | Internal service | Nexa REST API | API AS-IS PARTIAL; client integration not verified |
@@ -78,8 +78,12 @@ implemented or accepted.
 | Product/UX Acceptance | OPEN |
 | Physical-device evidence | PENDING |
 
-The final AV1 plan places Flutter/Dart cross-platform work in later academic
-Sprints. This is academic planning and does not select Nexa Product architecture.
+The final AV1 plan places the accepted Flutter/Dart Buyer construction work in
+later academic Sprints. `SPIKE-002` preserves historical framework evaluation,
+but its framework-selection question is **CLOSED / SUPERSEDED** by ADR-0018 and
+ADR-0019. Technology selection does not prove implementation, solution
+validation or Product Acceptance; unrelated device/provider research remains
+OPEN.
 
 ## Owner four-week outcome
 

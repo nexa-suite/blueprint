@@ -54,6 +54,7 @@ class WorkforceMembership <<Aggregate Root>> {
 
 class RoleDefinition <<Aggregate Root>> {
   -roleId: RoleId
+  -workspaceId: WorkspaceId
   -code: RoleCode
   -name: RoleName
   +rename(name: RoleName): void
@@ -69,6 +70,7 @@ class CapabilityDefinition <<Entity>> {
 
 class MembershipRole <<Entity>> {
   -assignmentId: MembershipRoleId
+  -workspaceId: WorkspaceId
   -membershipId: MembershipId
   -roleId: RoleId
   +assign(): void
@@ -114,6 +116,7 @@ WorkforceMembership --> HumanIdentity : identity reference
 WorkforceMembership "1" *-- "0..*" MembershipRole : has
 WorkforceMembership "1" *-- "0..*" MembershipCapabilityOverride : overrides
 MembershipRole --> RoleDefinition : role identity
+RoleDefinition --> Workspace : scoped by identity
 RoleDefinition "1" *-- "0..*" RoleCapability : grants
 CapabilityDefinition "1" o-- "0..*" RoleCapability : target
 CapabilityDefinition "1" o-- "0..*" MembershipCapabilityOverride : target

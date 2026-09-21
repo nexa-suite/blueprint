@@ -30,10 +30,12 @@ has NOT NULL, status/amount checks, optimistic `version` on mutable roots and
 indexes for scope/status/onboarding lookup. Deployment must apply tenant and
 workspace RLS; SQL deliberately stays portable and does not invent policies.
 
-`human_identity` and `capability_definition` are global exceptions. No
-cross-BC FK is declared; future BC references use stable IDs. `membership_role`
-carries `workspace_id` because it links independently scoped Membership and
-Role roots; the Tenant is parent-derived through Workspace. `role_capability`
+`human_identity` and `capability_definition` are global exceptions.
+`role_definition` is a Workspace-scoped Aggregate Root; no global role template
+is represented in the current TARGET. No cross-BC FK is declared; future BC
+references use stable IDs. `membership_role` carries `workspace_id` because it
+links independently scoped Membership and Role roots; the Tenant is
+parent-derived through Workspace. `role_capability`
 and `membership_capability_override` are root-owned simple children and derive
 scope through their parent rather than duplicating it. Membership, role
 assignment and authorization decisions are mutable; audit/event history is
