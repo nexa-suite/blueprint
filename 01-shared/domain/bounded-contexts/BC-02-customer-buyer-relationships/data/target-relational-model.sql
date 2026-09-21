@@ -11,12 +11,13 @@ CREATE TABLE customer_account (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (customer_account_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, tax_identifier)
 );
 
 CREATE TABLE customer_contact (
     contact_id uuid PRIMARY KEY,
-    customer_account_id uuid NOT NULL REFERENCES customer_account (customer_account_id),
+    customer_account_id uuid NOT NULL,
     human_identity_id uuid NOT NULL,
     role varchar(32) NOT NULL CHECK (role IN ('BUYER','BILLING','RECEIVING','ADMIN','OTHER')),
     status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','REMOVED')),
@@ -44,14 +45,16 @@ CREATE TABLE buyer_relationship (
     relationship_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    customer_account_id uuid NOT NULL REFERENCES customer_account (customer_account_id),
+    customer_account_id uuid NOT NULL,
     human_identity_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('PENDING','ACTIVE','SUSPENDED','REVOKED')),
     requested_at timestamptz NOT NULL,
     approved_at timestamptz,
     revoked_at timestamptz,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
-    UNIQUE (tenant_id, customer_account_id, human_identity_id)
+    UNIQUE (tenant_id, customer_account_id, human_identity_id),
+    FOREIGN KEY (customer_account_id, tenant_id, workspace_id)
+        REFERENCES customer_account (customer_account_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE buyer_relationship_history (

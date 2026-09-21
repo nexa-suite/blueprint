@@ -1,0 +1,22 @@
+@startuml 07-security-audit-buyer-timeline
+title Domain Story 7 — Security Audit versus Buyer Business Timeline
+hide footbox
+autonumber
+participant "Business Source Context" as Source
+participant "Business Traceability" as Traceability
+participant Notifications
+participant "Security Layer" as Security
+actor "B2B Buyer" as Buyer
+
+Source -> Traceability : Commit meaningful business fact
+Traceability -> Traceability : Project reduced authorized Buyer timeline
+Traceability -> Notifications : Publish notification projection input
+Notifications --> Buyer : Send configured notification
+Security -> Security : Record authorization/security audit fact separately
+Traceability --> Buyer : Show authorized business progress and documents
+
+note over Traceability,Security
+Security audit details, worker notes and internal lot changes
+are not Buyer timeline content. Traceability and Notifications remain separate BCs.
+end note
+@enduml

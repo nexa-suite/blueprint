@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # Canonical C4 model
@@ -17,7 +17,7 @@ Este documento fija la semántica C4 L1/L2 de Nexa independiente de los límites
 ## Fuente canónica
 
 - [Structurizr DSL](structurizr/workspace.dsl) es la fuente semántica.
-- [README de Structurizr](structurizr/README.md) documenta las vistas y su validación.
+- [README de Structurizr](structurizr/README.md) documenta las vistas y su validación. El runtime Docker local vive fuera de Blueprint en `nexa-suite/complementary/structurizr/` y no es fuente semántica.
 - [Level 4 code views](l4/README.md) use repository-derived or TARGET Mermaid views; they do not fake C4 Components or production classes.
 - [L3/L4 technical views](l4/technical-lenses.md) index the requested API, Platform and Portal responsibility lenses and canonical workflows.
 - `structurizr/generated/workspace.json` es representación generada; no debe editarse manualmente.
@@ -41,6 +41,8 @@ Vistas canónicas:
 Las vistas L3 son selectivas AS-IS/TARGET donde explican ownership técnico e invariantes útiles:
 
 - `Nexa-API-Overall-ASIS`
+- `Nexa-API-TechnicalArchitecture-TARGET`
+- `Nexa-API-DomainOwnershipMapping-TARGET`
 - `Nexa-API-IdentityTenantCustomer-TARGET`
 - `Nexa-API-CommercialInventory-TARGET`
 - `Nexa-API-FulfillmentDelivery-TARGET`
@@ -51,6 +53,13 @@ Las vistas L3 son selectivas AS-IS/TARGET donde explican ownership técnico e in
 - `Nexa-Website-Frontend-ASIS`
 - `Nexa-Operations-Mobile-TARGET`
 - `Nexa-Buyer-Mobile-TARGET`
+
+Las siete vistas dinámicas canónicas modelan Submit Purchase Request, Confirm
+Direct Order, Convert Purchase Request to Sales Order, Fulfillment/Pick/
+Dispatch/Handoff, Delivery partial/continuation, Buyer handoff/receipt/
+discrepancy y Payment/Receivable application. Sus claves estables están en el
+[DSL de dinámicas](structurizr/l3/dynamic.dsl); muestran el límite atómico
+antes de la publicación durable asíncrona.
 
 No se crea una vista de componentes del Website: su implementación estática y frontera pública son simples y no agregan una decisión arquitectónica útil en este corte. Las vistas de deployment se mantienen separadas del modelo de containers.
 
@@ -101,11 +110,11 @@ La lista canónica AS-IS es exactamente:
 | Object Storage | Frontera S3-compatible; MinIO local | Bytes de documentos/media tenant-owned; la API conserva la autorización y metadatos asociados. |
 
 El L2 TARGET V1 agrega únicamente `Nexa Operations Mobile` y `Nexa Buyer
-Mobile`, ambos `TARGET V1 / OWNER-ACCEPTED`. Son superficies de producto
-aceptadas, no una afirmación de implementación integrada: Operations conserva
-evidencia parcial Android/Kotlin/Compose no fusionada; Buyer Mobile no está
-implementada; la tecnología final de ambas sigue OPEN. Por ello AS-IS tiene seis
-containers y TARGET V1 tiene ocho.
+Mobile`, ambos `TARGET V1 / OWNER-ACCEPTED`: Operations usa
+Android/Kotlin/Jetpack Compose y Buyer usa Flutter/Dart para Android+iOS. Son
+superficies de producto aceptadas, no una afirmación de implementación
+integrada: Operations conserva evidencia parcial no fusionada y Buyer Mobile no
+está implementada. Por ello AS-IS tiene seis containers y TARGET V1 tiene ocho.
 
 ### Por qué las superficies están separadas
 
@@ -131,8 +140,8 @@ La vista V1 TARGET incluye las dos superficies owner-accepted con tags
 `TARGET V1,OWNER-ACCEPTED`. Driver / Delivery Operator es actor TARGET. La
 proyección y el mapeo a BCs están en [Mobile domain projection](../../domain/strategic-ddd/mobile-projection.md).
 
-- Nexa Operations Mobile.
-- Nexa Buyer Mobile.
+- Nexa Operations Mobile: Android / Kotlin / Jetpack Compose.
+- Nexa Buyer Mobile: Flutter / Dart / Android + iOS.
 
 Future/Runway conserva Push Delivery Service, Google, Apple, LinkedIn e IoT /
 Telemetry como sistemas externos explícitamente diferidos/OPEN; no se inventa

@@ -52,8 +52,8 @@ entity "picking_discrepancy" as t_picking_discrepancy {
 
 entity "delivery" as t_delivery {
   * delivery_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * fulfillment_id : uuid <<FK, required>>
   * status : varchar(32) <<required>>
   * destination_snapshot : jsonb <<required>>
@@ -101,8 +101,8 @@ entity "delivery_quantity_outcome" as t_delivery_quantity_outcome {
 
 entity "delivery_handoff_token" as t_delivery_handoff_token {
   * delivery_handoff_token_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * delivery_id : uuid <<FK, required>>
   * delivery_attempt_id : uuid <<FK, required>>
   * customer_account_id : uuid <<required>>
@@ -117,12 +117,12 @@ entity "delivery_handoff_token" as t_delivery_handoff_token {
 
 entity "buyer_receipt_fact" as t_buyer_receipt_fact {
   * buyer_receipt_fact_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * delivery_id : uuid <<FK, required>>
   * delivery_attempt_id : uuid <<FK, required>>
   * customer_account_id : uuid <<required>>
-  * buyer_membership_id : uuid <<required>>
+  * buyer_relationship_id : uuid <<required>>
   * handoff_token_id : uuid <<FK, required>>
   * decision : varchar(32) <<required>>
   * driver_delivered_quantity : numeric(19,6) <<required>>
@@ -172,34 +172,37 @@ entity "temperature_excursion" as t_temperature_excursion {
 
 entity "continuation_delivery" as t_continuation_delivery {
   * continuation_id : uuid <<PK>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
   * parent_delivery_id : uuid <<FK, required>>
-  * status : varchar(32) <<required>>
+  * child_delivery_id : uuid <<FK, required>>
   * remaining_snapshot : jsonb <<required>>
   * opened_at : timestamptz <<required>>
-    closed_at : timestamptz
+  * idempotency_key : varchar(160) <<required>>
 }
 
 t_fulfillment_line }o--|| t_fulfillment : fulfillment_id
 t_picking_result }o--|| t_fulfillment : fulfillment_id
 t_picking_discrepancy }o--|| t_picking_result : picking_result_id
 t_picking_discrepancy }o--|| t_fulfillment_line : fulfillment_line_id
-t_delivery }o--|| t_fulfillment : fulfillment_id
+t_delivery }o--|| t_fulfillment : fulfillment_id, tenant_id, workspace_id
 t_delivery_assignment }o--|| t_delivery : delivery_id
 t_delivery_attempt }o--|| t_delivery : delivery_id
 t_delivery_attempt_line }o--|| t_delivery_attempt : attempt_id
 t_delivery_attempt_line }o--|| t_fulfillment_line : fulfillment_line_id
 t_delivery_quantity_outcome }o--|| t_delivery_attempt : attempt_id
-t_delivery_handoff_token }o--|| t_delivery : delivery_id
-t_delivery_handoff_token }o--|| t_delivery_attempt : delivery_attempt_id
-t_buyer_receipt_fact }o--|| t_delivery : delivery_id
-t_buyer_receipt_fact }o--|| t_delivery_attempt : delivery_attempt_id
+t_delivery_handoff_token }o--|| t_delivery : delivery_id, tenant_id, workspace_id
+t_delivery_handoff_token }o--|| t_delivery_attempt : delivery_attempt_id, delivery_id
 t_buyer_receipt_fact }o--|| t_delivery_handoff_token : handoff_token_id
+t_buyer_receipt_fact }o--|| t_delivery : delivery_id, tenant_id, workspace_id
+t_buyer_receipt_fact }o--|| t_delivery_attempt : delivery_attempt_id, delivery_id
 t_proof_of_delivery }o--|| t_delivery : delivery_id
 t_proof_of_delivery_addendum }o--|| t_proof_of_delivery : pod_id
 t_temperature_evidence }o--|| t_delivery : delivery_id
 t_temperature_excursion }o--|| t_delivery : delivery_id
 t_temperature_excursion }o--|| t_temperature_evidence : evidence_id
-t_continuation_delivery }o--|| t_delivery : parent_delivery_id
+t_continuation_delivery }o--|| t_delivery : parent_delivery_id, tenant_id, workspace_id
+t_continuation_delivery }o--|| t_delivery : child_delivery_id, tenant_id, workspace_id
 
 legend right
 TARGET / BC-06 logical relational ownership / SQL is the authority

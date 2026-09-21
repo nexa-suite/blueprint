@@ -1,0 +1,14 @@
+@startuml warehouse-transfer-state
+title Warehouse Transfer — Canonical V1 Lifecycle
+hide empty description
+skinparam shadowing false
+
+[*] --> REQUESTED
+REQUESTED --> IN_TRANSIT : dispatch source quantity
+IN_TRANSIT --> RECEIVED : receive destination quantity
+RECEIVED --> [*]
+
+note right of IN_TRANSIT
+In-transit stock is not sellable at either location.
+end note
+@enduml

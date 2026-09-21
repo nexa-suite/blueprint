@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-20
 ---
 
 # BC-07 Credit & Receivables
@@ -12,7 +12,7 @@ last-reviewed: 2026-08-23
 |---|---|
 | Purpose / classification | Owns credit risk, reservation, formal obligation and correction; Supporting. Strategic importance: protects commercial acceptance and financial consistency. |
 | Language / actors | Credit Account, Credit Limit, Credit Reservation, Available Credit, Receivable, Financial Adjustment. Actors: Business Operations Manager, Sales Representative, B2B Buyer. |
-| Responsibilities / data | Credit policy, reservations, available credit formula, receivable posting/application and explicit financial corrections. |
+| Responsibilities / data | Credit policy, reservations, available credit formula, Receivable posting at confirmed SalesOrder/application and explicit financial corrections; BusinessDocument reference is secondary and optional. |
 | Invariants | Available Credit is explicit; reservation and receivable do not double count; corrections preserve history; Payment != Receivable. |
 | Commands | SetCreditLimit, EvaluateCredit, EstablishCreditReservation, ConvertReservationToReceivable, ApplyPayment, ReleaseCredit, RecordFinancialAdjustment. |
 | Domain / published events | Internal: CreditEvaluated, CreditReservationReleased, PaymentApplied, FinancialAdjustmentRecorded. Published: CreditReservationEstablished.v1, ReceivablePosted.v1. |
@@ -24,7 +24,7 @@ last-reviewed: 2026-08-23
 
 ## Tactical DDD target
 
-Aggregate Roots: CreditAccount, CreditReservation, Receivable. Entities: CreditLimit, ReceivableApplication, FinancialAdjustment. Value Objects: CreditAmount, AvailableCredit, Terms, AdjustmentReason. Domain Services: CreditDecisionPolicy, DoubleCountPreventionPolicy. Repositories: CreditAccountRepository, ReceivableRepository. Lifecycle: reservation → converted/released; receivable → open → applied/adjusted.
+Aggregate Roots: CreditAccount, CreditReservation, Receivable and FinancialAdjustment. ReceivableApplication and ledger entries are immutable facts; FinancialAdjustment preserves correction history without rewriting original facts. Value Objects: CreditAmount, AvailableCredit, Terms and AdjustmentReason. Domain Services: CreditDecisionPolicy and DoubleCountPreventionPolicy. Repositories: CreditAccountRepository and ReceivableRepository. Credit Reservation lifecycle: `ACTIVE` → `CONSUMED` / `RELEASED` / `EXPIRED`; Receivable lifecycle: `OPEN` → `PARTIALLY_SETTLED` / `SETTLED` / `WRITTEN_OFF`.
 
 ## Tactical wave artifacts
 

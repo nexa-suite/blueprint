@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-09 Business Documents — Tactical Model
@@ -86,6 +86,15 @@ Entity that owns document truth.
   Storage behind API authorization.
 - Number allocation and issuance are idempotent; sequence gaps are explicit,
   not silently reused.
+
+## Persistence concurrency guards
+
+`document_number_series` and pre-issue `business_document` state use SQL
+`version` CAS: each mutable update includes
+`WHERE <root_id> = :id AND version = :expectedVersion` and increments
+`version`. Issued snapshots remain immutable; a correction creates a new
+revision/replacement rather than updating the issued root. The scoped series FK
+also prevents a document from consuming a number series in another scope.
 
 ## Events, persistence and evidence
 

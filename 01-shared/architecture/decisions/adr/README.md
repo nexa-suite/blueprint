@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-20
 ---
 
 # Architecture Decision Records
@@ -18,7 +18,7 @@ Accepted ADRs use Status, Context, Decision, Consequences, Alternatives, Evidenc
 - [ADR-0004 V1 and Runway C4 separation](adr-0004-v1-and-runway-c4-separation.md)
 - [ADR-0005 Object Storage for binary assets](adr-0005-object-storage-for-binary-assets.md)
 
-## PRE-V1 closure set
+## Historical PRE-V1 closure set
 
 - [ADR-0006 Atomic Commercial Confirmation Boundary](adr-0006-atomic-commercial-confirmation-boundary.md)
 - [ADR-0007 Commercial Commitment and Reservation Ownership](adr-0007-commercial-commitment-reservation-ownership.md)
@@ -33,4 +33,14 @@ Accepted ADRs use Status, Context, Decision, Consequences, Alternatives, Evidenc
 - [ADR-0016 Strategic DDD 10-to-11 Bounded Context acceptance](adr-0016-strategic-ddd-10-to-11-acceptance.md)
 - [ADR-0017 Privileged support and break-glass security](adr-0017-privileged-support-break-glass.md)
 
-These ADRs close PRE-V1 construction decisions. Production provider, cloud, retention, RPO/RTO, SLO and responder organization remain Production Gate items.
+## Wave 3 construction decisions
+
+- [ADR-0018 Operations Mobile Native Android](adr-0018-operations-mobile-native-android.md)
+- [ADR-0019 Buyer Mobile Flutter](adr-0019-buyer-mobile-flutter.md)
+- [ADR-0020 Mobile Client Layering](adr-0020-mobile-client-layering.md)
+- [ADR-0021 Mobile Local Persistence Is Non-Authoritative](adr-0021-mobile-local-persistence-boundary.md)
+
+The older PRE-V1 records remain historical accepted decisions where labeled.
+The Wave 3 records baseline current client technology and architecture. Provider,
+cloud, retention, RPO/RTO, SLO and responder organization remain Production Gate
+items.

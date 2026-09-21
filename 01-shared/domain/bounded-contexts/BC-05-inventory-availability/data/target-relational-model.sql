@@ -1,5 +1,6 @@
 -- TARGET / BC-05 Inventory Availability / shared PostgreSQL
 -- commitment_id and sku_id are stable non-owning references; local FKs are warehouse-owned.
+-- Scope is carried on root bridges only; simple warehouse-owned children derive it from parent.
 
 CREATE TABLE warehouse (
     warehouse_id uuid PRIMARY KEY,
@@ -12,12 +13,15 @@ CREATE TABLE warehouse (
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (warehouse_id, tenant_id, workspace_id),
     UNIQUE (tenant_id, code)
 );
 
 CREATE TABLE inventory_lot (
     lot_id uuid PRIMARY KEY,
-    warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    warehouse_id uuid NOT NULL,
     sku_id uuid NOT NULL,
     lot_code varchar(120) NOT NULL,
     expires_at timestamptz,
@@ -26,7 +30,10 @@ CREATE TABLE inventory_lot (
     status varchar(32) NOT NULL CHECK (status IN ('AVAILABLE','HOLD','QUARANTINE','DAMAGED','WASTE','EXPIRED','IN_TRANSIT')),
     received_at timestamptz NOT NULL,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
-    UNIQUE (warehouse_id, lot_code)
+    UNIQUE (lot_id, tenant_id, workspace_id),
+    UNIQUE (warehouse_id, lot_code),
+    FOREIGN KEY (warehouse_id, tenant_id, workspace_id)
+        REFERENCES warehouse (warehouse_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE inventory_position (
@@ -39,7 +46,8 @@ CREATE TABLE inventory_position (
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
     UNIQUE (warehouse_id, sku_id),
     CHECK (reserved_quantity <= on_hand_quantity),
-    CHECK (held_quantity <= on_hand_quantity)
+    CHECK (held_quantity <= on_hand_quantity),
+    CHECK (reserved_quantity + held_quantity <= on_hand_quantity)
 );
 
 CREATE TABLE inventory_movement (
@@ -74,35 +82,54 @@ CREATE TABLE inventory_backing (
     requested_at timestamptz NOT NULL,
     completed_at timestamptz,
     version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (backing_id, tenant_id, workspace_id),
     UNIQUE (commercial_commitment_id)
 );
 
 CREATE TABLE inventory_backing_line (
     line_id uuid PRIMARY KEY,
-    backing_id uuid NOT NULL REFERENCES inventory_backing (backing_id),
-    warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    backing_id uuid NOT NULL,
+    warehouse_id uuid NOT NULL,
     sku_id uuid NOT NULL,
     requested_quantity numeric(19,6) NOT NULL CHECK (requested_quantity > 0),
     backed_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (backed_quantity >= 0 AND backed_quantity <= requested_quantity),
-    UNIQUE (backing_id, warehouse_id, sku_id)
+    UNIQUE (backing_id, warehouse_id, sku_id),
+    FOREIGN KEY (backing_id, tenant_id, workspace_id)
+        REFERENCES inventory_backing (backing_id, tenant_id, workspace_id),
+    FOREIGN KEY (warehouse_id, tenant_id, workspace_id)
+        REFERENCES warehouse (warehouse_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE physical_allocation (
     allocation_id uuid PRIMARY KEY,
-    backing_id uuid NOT NULL REFERENCES inventory_backing (backing_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    backing_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('ALLOCATED','RELEASED','CONSUMED')),
     allocated_at timestamptz NOT NULL,
-    released_at timestamptz
+    released_at timestamptz,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (allocation_id, tenant_id, workspace_id),
+    FOREIGN KEY (backing_id, tenant_id, workspace_id)
+        REFERENCES inventory_backing (backing_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE physical_allocation_line (
     line_id uuid PRIMARY KEY,
-    allocation_id uuid NOT NULL REFERENCES physical_allocation (allocation_id),
-    lot_id uuid NOT NULL REFERENCES inventory_lot (lot_id),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    allocation_id uuid NOT NULL,
+    lot_id uuid NOT NULL,
     sku_id uuid NOT NULL,
     quantity numeric(19,6) NOT NULL CHECK (quantity > 0),
     consumed_quantity numeric(19,6) NOT NULL DEFAULT 0 CHECK (consumed_quantity >= 0 AND consumed_quantity <= quantity),
-    UNIQUE (allocation_id, lot_id)
+    UNIQUE (allocation_id, lot_id),
+    FOREIGN KEY (allocation_id, tenant_id, workspace_id)
+        REFERENCES physical_allocation (allocation_id, tenant_id, workspace_id),
+    FOREIGN KEY (lot_id, tenant_id, workspace_id)
+        REFERENCES inventory_lot (lot_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE inventory_adjustment (
@@ -122,12 +149,17 @@ CREATE TABLE warehouse_transfer (
     transfer_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    source_warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
-    destination_warehouse_id uuid NOT NULL REFERENCES warehouse (warehouse_id),
+    source_warehouse_id uuid NOT NULL,
+    destination_warehouse_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('REQUESTED','IN_TRANSIT','RECEIVED')),
     requested_at timestamptz NOT NULL,
     in_transit_at timestamptz,
     received_at timestamptz,
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    FOREIGN KEY (source_warehouse_id, tenant_id, workspace_id)
+        REFERENCES warehouse (warehouse_id, tenant_id, workspace_id),
+    FOREIGN KEY (destination_warehouse_id, tenant_id, workspace_id)
+        REFERENCES warehouse (warehouse_id, tenant_id, workspace_id),
     CHECK (source_warehouse_id <> destination_warehouse_id)
 );
 
@@ -155,3 +187,8 @@ CREATE INDEX ix_inventory_position_sku ON inventory_position (warehouse_id, sku_
 CREATE INDEX ix_inventory_movement_reference ON inventory_movement (reference_type, reference_id);
 CREATE INDEX ix_backing_commitment_status ON inventory_backing (commercial_commitment_id, status);
 CREATE INDEX ix_transfer_scope_status ON warehouse_transfer (tenant_id, workspace_id, status);
+
+COMMENT ON COLUMN inventory_position.reserved_quantity IS
+    'Projection of active InventoryReservation protection. inventory_backing and its lines establish this amount; do not subtract both.';
+COMMENT ON COLUMN inventory_position.held_quantity IS
+    'Physical non-sellable quantity. Sellable availability subtracts it once before reservation and safety-stock protection.';

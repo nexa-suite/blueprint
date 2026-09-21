@@ -1,0 +1,32 @@
+@startuml fulfillment-state
+title Fulfillment — Canonical V1 Lifecycle
+hide empty description
+skinparam shadowing false
+
+[*] --> PLANNED
+PLANNED --> ALLOCATED
+ALLOCATED --> PICKING
+PICKING --> PICKED
+PICKED --> PACKED
+PACKED --> STAGED
+STAGED --> READY_FOR_DISPATCH
+READY_FOR_DISPATCH --> HANDED_OVER
+HANDED_OVER --> COMPLETED
+
+ALLOCATED --> SHORTAGE : allocation shortage
+PICKING --> SHORTAGE : pick discrepancy
+PICKING --> HOLD : operational hold
+STAGED --> HOLD : operational hold
+PLANNED --> CANCELLED : cancel
+HOLD --> CANCELLED : cancel
+
+COMPLETED --> [*]
+SHORTAGE --> [*]
+CANCELLED --> [*]
+
+note right of HOLD
+HOLD and SHORTAGE require an explicit owning
+workflow decision; this diagram does not invent
+a universal recovery transition.
+end note
+@enduml

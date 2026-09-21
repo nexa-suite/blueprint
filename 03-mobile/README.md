@@ -1,7 +1,8 @@
 # Mobile
 
-Mobile has two product projections: **Nexa Operations Mobile** and **Nexa Buyer
-Mobile**. Product direction is `ACCEPTED` for the V1 Product Generation
+Mobile has two accepted TARGET clients: **Nexa Operations Mobile** is native
+Android/Kotlin/Jetpack Compose; **Nexa Buyer Mobile** is Flutter/Dart for
+Android+iOS. Product direction is `ACCEPTED` for the V1 Product Generation
 envelope. Needfinding is complete at 9/9 for problem/task evidence; solution
 validation and Product Acceptance remain open. Operations has partial evidence
 on unmerged feature branches, Buyer is not implemented, and API support is

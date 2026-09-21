@@ -1,12 +1,16 @@
 # Mobile local storage
 
-Status: `OPEN / DISCOVERY`. The logical local models are proposed only.
+Status: ACCEPTED TARGET BOUNDARY / NON-AUTHORITATIVE. Allowed device state is
+a secure session reference, active context reference, safe cache, harmless
+draft/evidence staging, freshness metadata and retry metadata. Operations may
+use Android Keystore, DataStore and Room where structured local staging/cache is
+justified. Buyer uses a secure platform-storage abstraction; specific Flutter
+package selection remains implementation-level.
+WorkManager may carry safe, durable retry/background work after an intent is
+persisted; it does not make local state authoritative.
 
-Allowed V1 candidates: secure session reference, active context reference,
-freshness metadata, refreshable assigned/read projections, harmless local drafts,
-temporary evidence staging and retry metadata. Forbidden: passwords, bearer
-tokens, provider secrets, card/payment credentials and authoritative
-inventory/allocation/pick/dispatch/Delivery/receipt/order/payment state. A
-generic synchronization cursor or background sync engine is not a V1 feature.
-Encryption, retention, wipe/revocation and platform keystore selection require
-SPIKE-004 and security acceptance.
+Forbidden authority includes passwords, bearer tokens, provider secrets,
+payment credentials, Inventory/Allocation/Pick/Dispatch/Delivery finalization,
+Purchase Request, Sales Order, Credit, Payment and authorization state. A local
+write is not business success until API confirms it. No generic synchronization
+cursor, offline transaction engine or last-write-wins authority is V1.

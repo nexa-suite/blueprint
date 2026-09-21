@@ -100,6 +100,7 @@ expected_c4_files = [
     "01-shared/architecture/c4/structurizr/l3/website.dsl",
     "01-shared/architecture/c4/structurizr/l3/operations-mobile.dsl",
     "01-shared/architecture/c4/structurizr/l3/buyer-mobile.dsl",
+    "01-shared/architecture/c4/structurizr/l3/dynamic.dsl",
     "01-shared/architecture/c4/structurizr/deployment/deployment.dsl",
     "01-shared/architecture/c4/structurizr/styles/styles.dsl",
     "01-shared/architecture/c4/structurizr/generated/workspace.json",
@@ -107,6 +108,13 @@ expected_c4_files = [
 for expected in expected_c4_files:
     if not (root / expected).is_file():
         failures.append(f"missing canonical C4 file: {expected}")
+
+for stale_compose in (
+    "01-shared/architecture/c4/structurizr/docker-compose.yml",
+    "tooling/structurizr/compose.yml",
+):
+    if (root / stale_compose).exists():
+        failures.append(f"Structurizr runtime must remain local-only under complementary/structurizr: {stale_compose}")
 
 for rel in paths:
     if not (root / rel).exists():
@@ -195,6 +203,7 @@ try:
         [v["key"] for v in views.get("systemContextViews", [])]
         + [v["key"] for v in views.get("containerViews", [])]
         + [v["key"] for v in views.get("componentViews", [])]
+        + [v["key"] for v in views.get("dynamicViews", [])]
         + [v["key"] for v in views.get("deploymentViews", [])]
     )
     expected_views = sorted([
@@ -202,12 +211,19 @@ try:
         "Nexa-SystemContext-Future-Runway",
         "Nexa-Containers-ASIS", "Nexa-Containers-V1-TARGET",
         "Nexa-Deployment-Local-ASIS", "Nexa-Deployment-V1-TARGET",
-        "Nexa-API-Overall-ASIS", "Nexa-API-IdentityTenantCustomer-TARGET",
+        "Nexa-API-Overall-ASIS", "Nexa-API-TechnicalArchitecture-TARGET",
+        "Nexa-API-DomainOwnershipMapping-TARGET", "Nexa-API-IdentityTenantCustomer-TARGET",
         "Nexa-API-CommercialInventory-TARGET", "Nexa-API-FulfillmentDelivery-TARGET",
         "Nexa-API-CreditPaymentDocuments-TARGET", "Nexa-API-IntegrationReliability-ASIS",
         "Nexa-Platform-Frontend-TARGET", "Nexa-Portal-Frontend-TARGET",
         "Nexa-Website-Frontend-ASIS", "Nexa-Operations-Mobile-TARGET",
         "Nexa-Buyer-Mobile-TARGET",
+        "Nexa-Workflow-SubmitPurchaseRequest", "Nexa-Workflow-ConfirmDirectOrder",
+        "Nexa-Workflow-ConvertPurchaseRequestToSalesOrder",
+        "Nexa-Workflow-FulfillmentPickDispatchHandoff",
+        "Nexa-Workflow-DeliveryPartialOutcomeContinuation",
+        "Nexa-Workflow-BuyerHandoffReceiptDiscrepancy",
+        "Nexa-Workflow-PaymentConfirmationReceivableApplication",
     ])
     if actual_views != expected_views:
         failures.append(f"unexpected C4 views: {actual_views}")
@@ -318,17 +334,75 @@ try:
     buyer_mobile = mobile_by_name.get("Nexa Buyer Mobile", {})
     operations_description = f"{operations_mobile.get('description', '')} {operations_mobile.get('technology', '')}".lower()
     buyer_description = f"{buyer_mobile.get('description', '')} {buyer_mobile.get('technology', '')}".lower()
-    if "partial unmerged android/kotlin/compose" not in operations_description or "final selection open" not in operations_description:
-        failures.append("Operations Mobile must retain partial unmerged AS-IS evidence and OPEN final technology")
-    if "not implemented" not in buyer_description or "final selection open" not in buyer_description:
-        failures.append("Buyer Mobile must remain not implemented with OPEN final technology")
+    if operations_mobile.get("technology") != "Android / Kotlin / Jetpack Compose":
+        failures.append("Operations Mobile technology must be Android / Kotlin / Jetpack Compose")
+    if buyer_mobile.get("technology") != "Flutter / Dart / Android + iOS":
+        failures.append("Buyer Mobile technology must be Flutter / Dart / Android + iOS")
+    if "partial unmerged android/kotlin/compose" not in operations_description or "accepted" not in operations_description:
+        failures.append("Operations Mobile must retain partial unmerged AS-IS evidence and accepted construction technology")
+    if "not implemented" not in buyer_description or "accepted" not in buyer_description:
+        failures.append("Buyer Mobile must retain not-implemented evidence and accepted construction technology")
     operations_components = operations_mobile.get("components", [])
+    if {component.get("name") for component in operations_components} != {
+        "Operations Presentation", "Operations Application / Use Cases",
+        "Operations Repositories", "Nexa API Remote Data Source",
+        "Operations Local State & Staging", "Device Capability Adapters",
+        "Background Retry / Work Coordinator",
+    }:
+        failures.append("Operations Mobile component decomposition differs from the canonical construction set")
+    buyer_components = buyer_mobile.get("components", [])
+    if {component.get("name") for component in buyer_components} != {
+        "Buyer Presentation", "Buyer Application / Use Cases", "Buyer Repositories",
+        "Nexa API Remote Services", "Buyer Local State & Drafts", "Buyer Platform Adapters",
+    }:
+        failures.append("Buyer Mobile component decomposition differs from the canonical construction set")
     if not any("no generic offline synchronization" in component.get("description", "").lower() for component in operations_components):
         failures.append("Operations Mobile must explicitly reject generic offline synchronization")
-    if not any("optional policy-authorized camera evidence" in component.get("description", "").lower() for component in operations_components):
+    if not any(
+        "optional" in component.get("description", "").lower()
+        and "policy-authorized" in component.get("description", "").lower()
+        for component in operations_components
+    ):
         failures.append("Operations Mobile capture must remain optional and policy-authorized")
     if any("policy-required camera evidence" in component.get("description", "").lower() for component in operations_components):
         failures.append("Operations Mobile must not make camera evidence universally mandatory")
+
+    api_components = {component.get("name"): component for component in mobile_by_name.get("Nexa API", {}).get("components", [])}
+    expected_api_technical_components = {
+        "API Presentation", "Application Use Cases", "Domain Policies / Invariants",
+        "Tenant Access Context", "Persistence Adapters", "External Integration Adapters",
+        "Reliability / Outbox / Inbox / Projections",
+    }
+    if not expected_api_technical_components <= set(api_components):
+        failures.append("API technical L3 components differ from the canonical construction set")
+    mapping_components = {
+        "Sales Commitment", "Inventory Availability", "Fulfillment and Delivery",
+        "Credit and Receivables", "Payments and Business Documents Lens",
+        "Notifications and Business Traceability Lens",
+    }
+    if any(api_components.get(name, {}).get("technology") != "Domain ownership mapping" for name in mapping_components):
+        failures.append("API domain mapping components must remain a separate logical ownership lens")
+
+    expected_dynamic_views = {
+        "Nexa-Workflow-SubmitPurchaseRequest",
+        "Nexa-Workflow-ConfirmDirectOrder",
+        "Nexa-Workflow-ConvertPurchaseRequestToSalesOrder",
+        "Nexa-Workflow-FulfillmentPickDispatchHandoff",
+        "Nexa-Workflow-DeliveryPartialOutcomeContinuation",
+        "Nexa-Workflow-BuyerHandoffReceiptDiscrepancy",
+        "Nexa-Workflow-PaymentConfirmationReceivableApplication",
+    }
+    actual_dynamic_views = {view.get("key") for view in views.get("dynamicViews", [])}
+    if actual_dynamic_views != expected_dynamic_views:
+        failures.append(f"dynamic view keys differ: {sorted(actual_dynamic_views)}")
+    for view in views.get("dynamicViews", []):
+        if not view.get("relationships"):
+            failures.append(f"dynamic view has no ordered workflow relationships: {view.get('key')}")
+
+    c4_source_text = "\n".join((root / path).read_text(encoding="utf-8") for path in expected_c4_files if path.endswith(".dsl"))
+    for stale in ("PRE-V1 target logical component", "Mobile client technology — final selection open"):
+        if stale in c4_source_text:
+            failures.append(f"active C4 source retains stale technology label: {stale}")
 
     push = next((item for item in systems if item.get("name") == "Push Delivery Service"), None)
     if not push or not {"Future", "Open"} <= set(push.get("tags", "").split(",")):
@@ -337,7 +411,7 @@ try:
         push_id = str(push["id"])
         view_membership = {
             view.get("key")
-            for group in ("systemContextViews", "containerViews", "componentViews", "deploymentViews")
+            for group in ("systemContextViews", "containerViews", "componentViews", "dynamicViews", "deploymentViews")
             for view in views.get(group, [])
             if push_id in element_ids(view)
         }
@@ -352,13 +426,14 @@ try:
     deployment_nodes = list(walk_deployment(model.get("deploymentNodes", [])))
     v1_nodes = [node for node in deployment_nodes if node.get("environment") == "V1 TARGET"]
     v1_by_name = {node.get("name"): node for node in v1_nodes}
-    for node_name, container_name in (
-        ("Operations Mobile Device", "Nexa Operations Mobile"),
-        ("Buyer Mobile Device", "Nexa Buyer Mobile"),
+    for node_name, technology, container_name in (
+        ("Operations Android Device", "Android device", "Nexa Operations Mobile"),
+        ("Buyer Android Device", "Android device", "Nexa Buyer Mobile"),
+        ("Buyer iOS Device", "iOS device", "Nexa Buyer Mobile"),
     ):
         node = v1_by_name.get(node_name)
-        if not node or node.get("technology") != "Mobile device":
-            failures.append(f"V1 deployment requires {node_name} with Mobile device technology")
+        if not node or node.get("technology") != technology:
+            failures.append(f"V1 deployment requires {node_name} with {technology} technology")
             continue
         instances = {
             container_name_by_id.get(str(instance.get("containerId")))
@@ -366,8 +441,19 @@ try:
         }
         if instances != {container_name}:
             failures.append(f"{node_name} must contain only {container_name}")
-    if any("android" in f"{node.get('name', '')} {node.get('technology', '')}".lower() for node in v1_nodes):
-        failures.append("V1 deployment must not force either Mobile surface to Android")
+    buyer_nodes = [v1_by_name.get(name) for name in ("Buyer Android Device", "Buyer iOS Device")]
+    buyer_container_ids = {
+        str(instance.get("containerId"))
+        for node in buyer_nodes
+        if node
+        for instance in node.get("containerInstances", [])
+    }
+    if len(buyer_container_ids) != 1 or {
+        container_name_by_id.get(container_id) for container_id in buyer_container_ids
+    } != {"Nexa Buyer Mobile"}:
+        failures.append("Buyer Android and Buyer iOS must deploy the same Nexa Buyer Mobile C4 Container")
+    if any("structurizr" in f"{node.get('name', '')} {node.get('technology', '')}".lower() for node in v1_nodes):
+        failures.append("Structurizr tooling must not appear in the Nexa V1 deployment model")
     v1_external_instances = {
         systems_by_id.get(str(instance.get("softwareSystemId")), {}).get("name")
         for node in v1_nodes
@@ -515,8 +601,8 @@ for relative, phrases in stale_current_phrases.items():
             failures.append(f"{relative} retains stale current-authority phrase {phrase!r}")
 
 adr_count = len(list((root / "01-shared/architecture/decisions/adr").glob("adr-*.md")))
-if adr_count != 17:
-    failures.append(f"expected 17 ADRs, found {adr_count}")
+if adr_count != 21:
+    failures.append(f"expected 21 ADRs, found {adr_count}")
 
 web_requirements = "\n".join(
     p.read_text(encoding="utf-8")
@@ -618,6 +704,118 @@ for path in global_mobile_docs:
     text = path.read_text(encoding="utf-8")
     if global_research_regressions.search(text):
         failures.append(f"global Mobile research regression in {path.relative_to(root)}")
+
+current_mobile_technology_docs = {
+    "03-mobile/product/applications/README.md": (
+        "ADR-0018", "ADR-0019", "Android/Kotlin/Jetpack Compose TARGET", "Flutter/Dart for Android+iOS TARGET",
+    ),
+    "03-mobile/product/applications/operations-mobile.md": (
+        "ADR-0018", "Android/Kotlin/Jetpack Compose", "does not turn the partial AS-IS evidence into implementation proof",
+    ),
+    "03-mobile/product/applications/buyer-mobile.md": (
+        "ADR-0019", "Flutter/Dart for Android+iOS", "does not prove implementation",
+    ),
+    "03-mobile/requirements/requirements-status.md": (
+        "Client technology", "ACCEPTED TARGET", "Operations = Android/Kotlin/Jetpack Compose", "Buyer = Flutter/Dart for Android+iOS",
+    ),
+    "03-mobile/requirements/mobile-spike-reconciliation.md": (
+        "SPIKE-002", "CLOSED / SUPERSEDED", "unrelated device/provider research remains OPEN",
+    ),
+    "03-mobile/requirements/mobile-technical-reconciliation.md": (
+        "Client technology is already accepted", "framework assignment is closed by ADR-0018/ADR-0019",
+    ),
+    "03-mobile/requirements/story-to-design-readiness.md": (
+        "Client technology is already accepted by ADR-0018", "Accepted client technology does not prove",
+    ),
+}
+academic_mobile_technology_docs = {
+    "90-academic/mobile/course-1acc0238/README.md": (
+        "Operations Android / Kotlin / Jetpack Compose accepted TARGET by ADR-0018",
+        "Flutter/Dart accepted TARGET by ADR-0019",
+        "CLOSED / SUPERSEDED",
+        "unrelated device/provider research remains OPEN",
+    ),
+    "90-academic/mobile/course-1acc0238/architecture-projection.md": (
+        "Operations Mobile is the accepted TARGET Android/Kotlin/Jetpack Compose",
+        "Buyer Mobile is the accepted TARGET Flutter/Dart Android+iOS",
+        "CLOSED / SUPERSEDED",
+        "Technology selection is not implementation proof",
+    ),
+    "90-academic/mobile/course-1acc0238/rubric-compliance.md": (
+        "Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018",
+        "Buyer Mobile uses Flutter/Dart for Android+iOS by ADR-0019",
+        "Framework selection is closed by ADR-0018",
+    ),
+    "90-academic/mobile/course-1acc0238/implementation-evidence-plan.md": (
+        "Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018",
+        "Buyer Flutter/Dart Android+iOS is accepted TARGET by ADR-0019",
+        "CLOSED / SUPERSEDED",
+    ),
+    "90-academic/mobile/course-1acc0238/milestone-plan.md": (
+        "Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018",
+        "Buyer Flutter/Dart baselines",
+        "CLOSED / SUPERSEDED",
+    ),
+    "90-academic/mobile/course-1acc0238/bibliography-evidence-plan.md": (
+        "Kotlin/Android/Jetpack Compose for Operations",
+        "Flutter/Dart for Buyer",
+        "historical evaluated provenance only",
+    ),
+}
+construction_document_contracts = {
+    "01-shared/architecture/technology-baseline.md": (
+        "Kotlin `2.4.x`", "Compose BOM `2026.09.00`", "Hilt", "Navigation 3",
+        "CameraX", "ML Kit Barcode Scanning", "bundled model", "manual",
+        "WorkManager", "provider", "go_router", "Swift Package Manager", "CocoaPods",
+    ),
+    "03-mobile/capabilities/operations/camera.md": (
+        "TARGET DEFINED", "IMPLEMENTATION NOT YET VERIFIED", "CameraX",
+        "ML Kit Barcode Scanning bundled model", "manual", "EAN", "UPC", "QR",
+    ),
+    "03-mobile/architecture/technical/dependency-injection-and-navigation.md": (
+        "Hilt", "Navigation", "provider", "go_router",
+    ),
+    "03-mobile/architecture/technical/local-storage.md": (
+        "Android Keystore", "DataStore", "Room", "WorkManager",
+    ),
+    "03-mobile/architecture/technical/performance-and-observability.md": (
+        "Baseline Profiles", "Macrobenchmark", "profile/release mode", "Flutter DevTools",
+    ),
+}
+stale_mobile_framework_patterns = (
+    r"\bno framework (?:is )?selected\b",
+    r"\bframework open\b",
+    r"\bProduct architecture choice remains OPEN\b",
+    r"\bfinal canonical cross-platform framework\b",
+    r"\bnot a final canonical framework assignment\b",
+    r"\bunresolved client strategy\b",
+    r"\bframework selection (?:remains )?OPEN\b",
+    r"\bfinal framework choice remains OPEN\b",
+    r"\bEvaluate Flutter/Dart vs KMP\b",
+    r"\bFlutter/Dart\s+or\s+Kotlin Multiplatform/Kotlin.*(?:choice|selection)\s+OPEN\b",
+)
+for relative, markers in {**current_mobile_technology_docs, **academic_mobile_technology_docs}.items():
+    source = root / relative
+    if not source.is_file():
+        failures.append(f"missing current Mobile technology source: {relative}")
+        continue
+    text = source.read_text(encoding="utf-8")
+    normalized_text = re.sub(r"\s+", " ", text)
+    for marker in markers:
+        if marker not in normalized_text:
+            failures.append(f"{relative} missing accepted Mobile technology marker {marker!r}")
+    for pattern in stale_mobile_framework_patterns:
+        if re.search(pattern, normalized_text, re.IGNORECASE):
+            failures.append(f"{relative} reopens accepted Mobile framework selection: {pattern}")
+for relative, markers in construction_document_contracts.items():
+    source = root / relative
+    if not source.is_file():
+        failures.append(f"missing construction-readiness primary file: {relative}")
+        continue
+    normalized_text = re.sub(r"\s+", " ", source.read_text(encoding="utf-8"))
+    for marker in markers:
+        if marker not in normalized_text:
+            failures.append(f"{relative} missing accepted construction marker {marker!r}")
 research_plan = (root / "03-mobile/ux/discovery/research-plan.md").read_text(encoding="utf-8")
 findings = (root / "03-mobile/ux/discovery/findings.md").read_text(encoding="utf-8")
 for required in ("9/9", "n=3", "77895a8950676ccdaec520a61c41107852268606", "SOLUTION", "OPEN"):

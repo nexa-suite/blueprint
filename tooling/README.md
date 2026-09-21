@@ -6,7 +6,8 @@ Provide safe, local documentation and architecture tooling for validating author
 
 ## Authoritative content
 
-- [Structurizr local tooling](structurizr/README.md).
+- [Structurizr source support](structurizr/README.md). Local runtime lives at
+  `../complementary/structurizr/`, outside Blueprint and outside publication.
 - [Blueprint validator](scripts/validate-blueprint.sh).
 - [Structurizr semantic comparator](scripts/compare-structurizr-semantic.py).
 - Tool configurations that are safe, reproducible and repository-relative.
@@ -18,6 +19,19 @@ LOCAL TOOLING BASELINED where documented. Tooling does not define architecture o
 ## Expected artifacts
 
 Diagram validation/rendering instructions, link/lint helpers and safe documentation automation.
+
+## Local Structurizr runtime
+
+```bash
+cd ../complementary/structurizr
+docker compose up -d
+docker compose logs -f structurizr
+docker compose down
+```
+
+The Compose project is `nexa-blueprint-architecture`. It mounts the canonical
+Blueprint Structurizr workspace read-only; no Compose runtime is versioned in
+this repository.
 
 ## What must not live here
 

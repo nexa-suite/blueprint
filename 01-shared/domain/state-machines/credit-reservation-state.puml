@@ -1,0 +1,19 @@
+@startuml credit-reservation-state
+title Credit Reservation — Canonical V1 Lifecycle
+hide empty description
+skinparam shadowing false
+
+[*] --> ACTIVE : establish protected credit
+ACTIVE --> CONSUMED : convert to Receivable
+ACTIVE --> RELEASED : terminal commercial result
+ACTIVE --> EXPIRED : validity expires
+CONSUMED --> [*]
+RELEASED --> [*]
+EXPIRED --> [*]
+
+note right of ACTIVE
+Available Credit subtracts active reservations once.
+Receivable posting at confirmed SalesOrder transfers
+the exposure without double counting.
+end note
+@enduml

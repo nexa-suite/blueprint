@@ -178,6 +178,7 @@ def signature(workspace):
         "systemContextViews",
         "containerViews",
         "componentViews",
+        "dynamicViews",
         "deploymentViews",
     )
     for group in view_groups:

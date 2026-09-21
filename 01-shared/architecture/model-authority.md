@@ -45,7 +45,7 @@ granular.
 |---|---|---|
 | One Nexa system, granular L1 actors and 6 AS-IS / 8 TARGET containers | `KEEP_CANON` | One software system; no generic Tenant Workforce actor; unmerged Operations preview stays outside integrated AS-IS and Buyer stays absent. |
 | Academic Push Delivery Service as a V1 provider | `REJECT_REPORT_DRIFT` | Push Delivery Service is Future/OPEN only; V1 external boundaries are Payment, Email and Maps. |
-| Academic Mobile topology, framework and per-BC C4 views | `HISTORICAL_ONLY` / `DERIVED_ACADEMIC_PROJECTION` | No Web/Mobile C4 split, no Mobile BC and no canonical L3 per BC; final Mobile technology remains OPEN. |
+| Academic Mobile topology and per-BC C4 views | `HISTORICAL_ONLY` / `DERIVED_ACADEMIC_PROJECTION` | No Web/Mobile C4 split, no Mobile BC and no canonical L3 per BC. Canonical client technology is defined in the current Technology Baseline. |
 | Operations and Buyer Product surfaces | `REFINE_CANON` | Both are `TARGET V1 / OWNER-ACCEPTED`; Operations has partial unmerged Android/Kotlin/Compose AS-IS evidence and Buyer is not implemented. |
 | Customer/Supplier labels, Published Language, Payment ACL and BC-06/07/08 source facts for BC-09 | `PROMOTE_SEMANTIC_DELTA` | Context map refined without changing the 11-context model or the 14 Published Integration Events. |
 | ResolvedOfferSnapshot, submission data/factory, Reservation/Warehouse Backing, handoff/receipt, document work item and provider-neutral PushSubscription | `PROMOTE_SEMANTIC_DELTA` | Tactical terminology and diagrams are corrected in their owning BCs; candidates are not promoted automatically to integration events. |

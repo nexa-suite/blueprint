@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-20
 ---
 
 # BC-03 target relational model
@@ -13,18 +13,21 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 
 | Table group | Tables | Local integrity |
 |---|---|---|
-| Catalog | `product`, `sku`, `catalog_media` | product -> SKU/media composition; optional GTIN; scoped codes; status checks |
-| Price | `price_list`, `price_list_item`, `base_price` | price list/SKU FKs; non-negative money; validity windows |
-| Terms | `customer_terms` | customer ID is BC-02 stable reference; optional local price-list FK |
-| Promotion | `promotion`, `promotion_sku` | promotion/SKU FKs; active window; discount checks |
+| Catalog | `product`, `sku`, `catalog_media` | Product/SKU scoped candidate keys; SKU cannot cross Product scope; media is Product-derived |
+| Price | `price_list`, `price_list_item`, `base_price` | scope-bearing PriceListItem composite FKs to Price List/SKU; non-negative money; validity windows |
+| Terms | `customer_terms` | customer ID is BC-02 stable reference; optional local Price List composite scope FK |
+| Promotion | `promotion`, `promotion_sku` | scope-bearing PromotionSku composite FKs; active window; discount checks |
 
 Every tenant/workspace-owned table has explicit scope columns. SQL carries PK,
 NOT NULL, unique keys, validity/price checks and indexes for SKU, price and
 promotion resolution. RLS must scope tenant/workspace at runtime. `jsonb` is
 not used: product and commercial policy data remains relational.
 
-`customer_account_id` is a non-owning BC-02 ID. Product is not SKU; SKU is the
-sellable variant. AS-IS anchors: `catalog_management.product`, family,
+`customer_account_id` is a non-owning BC-02 ID. `PriceListItem` and
+`PromotionSku` carry scope because each bridges independently scoped local
+roots; `CustomerTerms` uses the same scope for its optional local Price List.
+`CatalogMedia` and `BasePrice` are parent-derived simple children and do not
+duplicate scope. Product is not SKU; SKU is the sellable variant. AS-IS anchors: `catalog_management.product`, family,
 variant, sellable SKU, prices, visibility, promotion and asset tables. V40,
 V48, V54 and V65 are historical evolution evidence, not target schema
 authority. The v0.17 identifier contract resolves a known physical identifier

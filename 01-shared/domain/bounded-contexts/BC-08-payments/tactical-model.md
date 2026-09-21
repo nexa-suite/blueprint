@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-08 Payments — Tactical Model
@@ -42,7 +42,7 @@ application to Receivable is coordinated with BC-07.
 | `PaymentReconciliationCase` | Aggregate Root | case ID, payment ID, state, nextAction | `open()`, `assign()`, `resolve()`, `escalate()` | uncertain provider/local state |
 | `PaymentMethodReference` | Value Object | provider-neutral token/reference, type, last4 if safe | `isUsable()` | never raw PAN/CVV |
 | `ProviderReference` / `IdempotencyKey` | Value Objects | external ID / stable intention key | `sameAs()` | dedupe keys |
-| `PaymentStatus` | Enum | reported, pending, confirmed, rejected, refunded, reconciliation required | none | lifecycle constraints |
+| `PaymentStatus` | Enum | `INITIATED`, `AUTHORIZED`, `CONFIRMED`, `FAILED`, `CANCELLED`, `REFUNDED`, `PARTIALLY_REFUNDED` | none | lifecycle constraints; reconciliation is a separate root |
 | `ProviderCallbackVerification` | Domain Service | none | `verify(signature, event)` | provider ACL, no state ownership |
 | `PaymentReconciliationPolicy` | Domain Service | none | `classify(providerResult, localResult)` | explicit uncertainty |
 | `PaymentRepository` | Repository interface | none | `save()`, `byId()` | Payment root only |
@@ -87,6 +87,14 @@ application to Receivable is coordinated with BC-07.
   `UNALLOCATED / RECONCILIATION_REQUIRED`; no silent erase.
 - Historical Payment facts are immutable. Refund/correction is explicit.
 - Never store card secrets, PAN, CVV or bearer/provider secrets.
+
+## Persistence concurrency guards
+
+`payment` uses SQL `version` CAS: each mutable update includes
+`WHERE payment_id = :id AND version = :expectedVersion` and increments
+`version`. `payment_reconciliation_case` uses an expected-state predicate
+(`WHERE case_id = :id AND status = :expectedStatus`); provider-event uniqueness
+and idempotency keep retries from creating duplicate payment facts.
 
 ## Events, persistence and evidence
 

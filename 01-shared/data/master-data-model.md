@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-20
 ---
 
 # Nexa Target PostgreSQL Master Data Model
@@ -35,10 +35,16 @@ integrity.
 
 BC-04 stores `customer_account_id`, `buyer_relationship_id` and `sku_id` as
 references, but does not own those records. BC-05 stores
-`commercial_commitment_id` and `sku_id`, but owns Inventory Reservation,
-deterministic SKU + Warehouse Backing and Physical Allocation. BC-06 stores `sales_order_id` and
-`physical_allocation_id`, but owns execution and Delivery. BC-07 stores
-`payment_id` on financial application records without owning Payment.
+`commercial_commitment_id` and `sku_id`, but owns Inventory Backing and
+Physical Allocation. `inventory_position.reserved_quantity` is the projection
+of active protected commercial demand: Warehouse Backing distributes that
+protection and is not a second availability subtraction. BC-06 stores
+`sales_order_id` and `physical_allocation_id`, owns execution and Delivery,
+and records Buyer facts through a stable BC-02 `buyer_relationship_id`.
+Continuation links reference a real child Delivery. BC-07 posts Receivables
+from a non-null `sales_order_id`; an optional Business Document is evidence,
+not financial authority. BC-07 stores `payment_id` on financial application
+records without owning Payment.
 
 BC-04 `commercial_commitment.origin_type` is either `PURCHASE_REQUEST` or
 `DIRECT_ORDER`. Only the approval-required origin carries the nullable
@@ -53,7 +59,12 @@ needed.
   both `tenant_id` and `workspace_id NOT NULL`.
 - Global `human_identity` and `capability_definition` are deliberate
   exceptions. Membership rows provide their tenant relationships.
-- Mutable roots use `version` only where concurrent mutation is meaningful.
+- Mutable roots use `version`/`revision` only where concurrent mutation is
+  meaningful; each tactical model names its concrete SQL CAS or expected-state
+  guard.
+- A relation between independently scoped local roots carries scope and uses a
+  composite candidate-key FK. Simple owned children derive scope from their
+  parent; cross-BC IDs remain stable references rather than FKs.
 - Immutable facts use `occurred_at`, `created_at` or `issued_at`; no meaningless
   update timestamp is added to append-only records.
 - `jsonb` appears only for immutable snapshots, provider payload preservation or

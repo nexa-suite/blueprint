@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-06 Fulfillment & Delivery — Tactical Model
@@ -40,7 +40,7 @@ and is never a new Delivery aggregate.
 | `PickingResult` | Entity / fact | line, actor, quantity, scan ref, occurredAt | `confirm()` | immutable scan result |
 | `PickingDiscrepancy` | Entity / fact | reason, quantity, disposition | `record()` | owned by Fulfillment history |
 | `Delivery` | Aggregate Root | delivery ID, SO/Fulfillment IDs, state, window, remaining quantity, version | `schedule()`, `assignDriver()`, `start()`, `recordAttempt()`, `issueHandoffToken()`, `recordBuyerReceipt()`, `closePartial()`, `createContinuation()`, `complete()` | composes Assignment/Attempt/Driver Outcome, handoff and Buyer facts |
-| `DeliveryAssignment` | Entity | driver reference, vehicle/reference, assignedAt | `assign()`, `reassign()` | owned by Delivery |
+| `DeliveryAssignment` | Entity | driver reference, vehicle/reference, assignedAt, unassignedAt | `assign()`, `reassign()`, `unassign()` | owned by Delivery; at most one active assignment |
 | `DeliveryAttempt` | Entity | attempt ID, delivery ID, Driver Outcome, attemptedAt | `recordFailure()`, `recordPartialOutcome()`, `recordSuccess()` | one Delivery; no numeric universal limit |
 | `DeliveryQuantityOutcome` | Entity / Value | SKU, delivered, rejected, remaining, reason | `validateAgainstObligation()` | owned by Attempt |
 | `DeliveryHandoffToken` | Entity / security fact | token hash, expiry, one-time state, Delivery/Attempt/Buyer references | `issue()`, `consumeOnce()`, `expire()` | bounded application-security fact; not QR/Scanner aggregate |
@@ -48,10 +48,10 @@ and is never a new Delivery aggregate.
 | `DriverOutcome` | Value Object / immutable fact | attempted result, actor, occurredAt, reason | `isTerminal()` | Driver fact; distinct from Buyer Receipt |
 | `ProofOfDelivery` | Aggregate Root | POD ID, delivery/attempt ID, status, capturedAt, immutable evidence | `finalize()`, `rejectPending()` | immutable; Addendum not overwrite |
 | `ProofOfDeliveryAddendum` | Entity / fact | POD ID, correction reason, evidence ref, createdAt | `append()` | append-only correction |
-| `TemperatureEvidence` | Entity / fact | lot/delivery, reading, unit, capturedAt, actor | `record()` | manual V1 evidence |
+| `TemperatureEvidence` | Aggregate Root / immutable fact | evidence ID, delivery/lot, reading, unit, capturedAt, actor | `record()` | manual V1 evidence; excursion references it by ID |
 | `TemperatureExcursion` | Entity | affected quantity, threshold, state, disposition | `placeOnHold()`, `recordDisposition()` | links BC-05 disposition by ID |
-| `ContinuationDelivery` | Entity / root-linked record | parent delivery, remaining quantities, idempotency key | `createOnce()` | linked continuation, not retry attempt |
-| `DeliveryState` / `FulfillmentState` | Enum | accepted progress and explicit exceptions | none | lifecycle guards |
+| `ContinuationDelivery` | Entity / root-linked record | parent Delivery, child Delivery, remaining quantities, idempotency key | `createOnce()` | one idempotent parent-to-child relation; not retry attempt or second lifecycle |
+| `DeliveryState` / `FulfillmentState` | Enum | accepted progress and explicit exceptions | none | lifecycle guards; Assignment remains a fact |
 | `DeliveryExecutionPolicy` | Domain Service | none | `calculateRemaining()`, `shouldCreateContinuation()` | no aggregate ownership |
 | `FulfillmentRepository` / `DeliveryRepository` | Repository interfaces | none | `save()`, `byId()` | roots only |
 | `ProofOfDeliveryFinalized` / `DeliveryPartiallyCompleted` | Domain Events | IDs, quantities, occurredAt | immutable facts | published catalog unchanged |
@@ -88,12 +88,17 @@ and is never a new Delivery aggregate.
 
 ## Invariants and transaction boundaries
 
-- Fulfillment progresses through accepted states; allocation authority remains
-  BC-05.
+- Fulfillment states are exactly `PLANNED`, `ALLOCATED`, `PICKING`, `PICKED`,
+  `PACKED`, `STAGED`, `READY_FOR_DISPATCH`, `HANDED_OVER`, `COMPLETED`,
+  `SHORTAGE`, `HOLD` and `CANCELLED`; allocation authority remains BC-05.
 - Failed DeliveryAttempt remains under same Delivery; no universal numeric
   exhaustion limit.
 - Partial delivery records actual delivered/rejected truth and creates one
-  continuation for remaining obligation.
+  idempotent parent-to-child continuation for remaining obligation.
+- Delivery states are exactly `PLANNED`, `SCHEDULED`, `DISPATCHED`,
+  `IN_TRANSIT`, `ATTEMPTED`, `DELIVERED`, `PARTIALLY_DELIVERED`,
+  `ATTEMPT_FAILED`, `RESCHEDULED`, `CANCELLED` and `FAILED_FINAL`.
+  Assignment is a separate time-bounded fact; at most one is active.
 - POD original is immutable; correction is an addendum/revision.
 - Driver Outcome is separate from Buyer Receipt. Buyer acceptance/rejection and
   discrepancy preserve a distinct immutable history; token/QR resolution alone
@@ -102,6 +107,14 @@ and is never a new Delivery aggregate.
   external navigation handoff; no stored, background or live Driver tracking.
 - Temperature evidence is manual V1. Excursion places affected quantity on
   HOLD pending explicit ColdChainDisposition; it does not auto-destroy stock.
+
+## Persistence concurrency guards
+
+`fulfillment` and `delivery` use SQL `version` CAS: each mutable transition
+includes `WHERE <root_id> = :id AND version = :expectedVersion` and increments
+`version`. `proof_of_delivery` uses an expected-state predicate
+(`WHERE pod_id = :id AND status = :expectedStatus`) before sealing/rejecting;
+`temperature_evidence` is append-only and has no mutable-version claim.
 
 ## Events, persistence and evidence
 

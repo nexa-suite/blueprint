@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-05 Inventory Availability — Tactical Model
@@ -88,8 +88,9 @@ not a reservation.
 
 ## Invariants and transaction boundaries
 
-- Sellable Availability = usable on-hand − active Commercial Commitments −
-  Safety Stock. Inventory Reservation protects commitment once; its
+- Sellable Availability = `max(0, onHand − held − reserved − safetyStock)`.
+  `reserved` is the guarded InventoryPosition projection of active Inventory
+  Reservation protection, represented by `inventory_backing`; its
   WarehouseBacking distribution is not subtracted twice.
 - HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are not sellable.
 - Prefer one Warehouse when it can satisfy demand; V1 may split across eligible
@@ -100,6 +101,16 @@ not a reservation.
   is not sellable at either location.
 - Scarce inventory uses conditional updates/locks and version/CAS; no silent
   last-write-wins.
+
+## Persistence concurrency guards
+
+`warehouse`, `inventory_lot`, `inventory_position`, `inventory_backing`,
+`physical_allocation` and `warehouse_transfer` use SQL `version` CAS: each
+mutable update includes `WHERE <root_id> = :id AND version = :expectedVersion`
+and increments `version`. Scarce quantity changes additionally use a
+conditional `inventory_position` update that preserves quantity checks, and
+FEFO/transfer work uses deterministic ordered row locks. Allocation/backing
+bridges use scoped composite FKs; they are not independent versioned roots.
 
 ## Events, persistence and evidence
 

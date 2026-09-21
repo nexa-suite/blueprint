@@ -76,6 +76,12 @@ the record, while Object Storage bytes remain external.
 - Security Audit is separate and may carry security-specific retention/access;
   neither store contains secrets or raw payment credentials.
 
+## Persistence concurrency guards
+
+`business_traceability_record` is append-only. Its SQL uniqueness keys are
+idempotency/deduplication guards for fact insertion, not a mutable-version
+claim; corrections append a new record.
+
 ## Events, persistence and evidence
 
 See [BC-11 data model](data/data-model.md), [target SQL](data/target-relational-model.sql)

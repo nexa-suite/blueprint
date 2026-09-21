@@ -30,8 +30,8 @@ completed coursework or accepted Product scope.
 | Internal device resource | Mobile constraint | NOT VERIFIED | Camera proof for barcode/QR/evidence on physical Android device remains pending | TB1 |
 | Third-party service | Mobile constraint | OWNER_INPUT_REQUIRED | Select Maps, Push or Payment candidate and record PoC evidence | TB1 |
 | Autonomous-learning feature | Course outcome 7 | OPEN | SPIKE-001 evaluates feature relevance, uncertainty, privacy and demonstrability | AV2 |
-| Android native implementation | Technology | PARTIAL IMPLEMENTATION EVIDENCE | Kotlin/Operations evidence is on an unmerged branch; integrated release not claimed | TB1 |
-| Cross-platform implementation strategy | Technology | OWNER_INPUT_REQUIRED | Evaluate Flutter/Dart vs KMP; do not silently choose | TB1 |
+| Android native implementation | Technology | PARTIAL IMPLEMENTATION EVIDENCE | Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018; partial evidence is on an unmerged branch and integrated release is not claimed | TB1 |
+| Cross-platform implementation strategy | Technology | ACCEPTED TARGET | Buyer Mobile uses Flutter/Dart for Android+iOS by ADR-0019; KMP is historical evaluated provenance, not an open selection | TB1 |
 | Physical-device demonstration | Course requirement | PENDING | Install and run representative flow on real Android device | TB2 |
 | Firebase App Distribution | Course requirement | IMPLEMENTATION_PENDING | Publish test build or record accepted equivalent | TB2 |
 | English and Latin American Spanish | i18n | TARGET DEFINED | `en_US` default; `es_419` coverage and screenshots pending | TB1 |
@@ -47,6 +47,9 @@ completed coursework or accepted Product scope.
 - The external academic source is not a publishable Blueprint artifact; only derived constraints are retained here.
 - Current Product decisions remain in [Current Decisions](../../../01-shared/product/current-decisions.md).
 - No external interview, citation, UX artifact, device run or video is inferred from repository structure.
-- Course technology constraints do not select a Mobile framework or create a new Bounded Context.
+- Course technology constraints do not create a new Bounded Context. Framework
+  selection is closed by ADR-0018 (Operations Android/Kotlin/Jetpack Compose)
+  and ADR-0019 (Buyer Flutter/Dart Android+iOS); this does not prove
+  implementation, validation or Product Acceptance.
 - `Technical PASS`, `IMPLEMENTATION`, `Product Acceptance`, `System Acceptance`
   and `Production Readiness` remain separate gates.

@@ -20,10 +20,10 @@ invented; the source provides week numbers, not calendar dates.
 | Needfinding interviews, analysis and personas | COMPLETE | REFINE | VALIDATION_PENDING | FINAL | 9/9 Needfinding interviews complete; problem/task evidence only | Research |
 | User Stories, Impact Mapping and Product Backlog | COMPLETE | REFINE | REFINE | FINAL | 97 PBIs / 426 SP across four academic Sprints; Product Acceptance remains open | Product |
 | Strategic DDD and 11 BC baseline | READY | PRESERVE | PRESERVE | FINAL | Shared Blueprint evidence exists | Architecture/Domain |
-| C4 Context, Container, Component and Deployment | VERIFIED WITH CAVEAT | REFINE | REFINE | FINAL | Shared C4 is authority; academic views are derived; Wave 2 reconciliation remains open | Architecture |
+| C4 Context, Container, Component and Deployment | VERIFIED WITH CAVEAT | REFINE | REFINE | FINAL | Shared C4 is authority; academic views are derived; Wave 3.2 canonical closure is complete; implementation and acceptance remain separate | Architecture |
 | Tactical domain/database diagrams | STRUCTURE_READY | REFINE | REFINE | FINAL | Shared SQL/UML projections available | Domain/Data |
 | UI/UX wireframes, wireflows, mock-ups, user flows, prototype | RESEARCH EVIDENCE AVAILABLE | IMPLEMENTATION_PENDING | VALIDATION_PENDING | FINAL | As-Is task/journey evidence exists; solution prototype validation open | Design |
-| Android native foundation | PARTIAL IMPLEMENTATION EVIDENCE | TARGET | REFINE | FINAL | Operations evidence exists on an unmerged feature branch; not integrated | Mobile engineering |
+| Android native foundation | PARTIAL IMPLEMENTATION EVIDENCE | TARGET | REFINE | FINAL | Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018; evidence exists on an unmerged feature branch and is not integrated | Mobile engineering |
 | Representative Warehouse/Operations flow | PARTIAL IMPLEMENTATION EVIDENCE | TARGET | REFINE | FINAL | Named branch evidence is partial; physical-device proof pending | Mobile engineering |
 | Driver/Delivery flow | IMPLEMENTATION_PENDING | TARGET | REFINE | FINAL | No verified end-to-end device evidence | Mobile engineering |
 | Landing Page | AS-IS ref verified | DEPLOYMENT PROOF PENDING | DEPLOYMENT PROOF PENDING | FINAL | Website release ref exists; public deployment evidence separate | Website |
@@ -40,7 +40,7 @@ invented; the source provides week numbers, not calendar dates.
 
 | Week | Focus | Concrete output | Truth boundary |
 |---|---|---|---|
-| Week 1 | Architecture and Product closure | Scope, epics, stories, AC, backlog, architecture questions, Android strategy, local-storage strategy, camera strategy, REST contract, third-party decision question, SPIKE-001, C4 Deployment, tactical projections | Documentation-ready only; no client completion claim |
+| Week 1 | Architecture and Product closure | Scope, epics, stories, AC, backlog, accepted Operations Android/Kotlin/Jetpack Compose and Buyer Flutter/Dart baselines, local-storage strategy, camera strategy, REST contract, third-party decision question, SPIKE-001, C4 Deployment, tactical projections | Documentation-ready only; no client completion claim |
 | Week 2 | Android foundation | Kotlin project skeleton, architecture, authentication, Tenant/Workspace context, API client, i18n/a11y foundation, local persistence foundation, camera proof, first API integration | Target; implementation evidence required |
 | Week 3 | Representative core flow | One Warehouse physical workflow, one Driver/Delivery workflow, API use, error/conflict behavior, physical-device run | Target; no result fabricated |
 | Week 4 | AV1 readiness plus risk reduction | Requirements/DDD/architecture package and enough Android proof to expose risk | AV1 focuses requirements and architecture; device proof remains evidence gate |
@@ -56,3 +56,7 @@ invented; the source provides week numbers, not calendar dates.
 
 The four-Sprint mapping is an academic projection. No Sprint result, velocity,
 team assignment, Product Acceptance or TB1 delivery is claimed here.
+
+`SPIKE-002` preserves framework-evaluation provenance only: its framework
+question is **CLOSED / SUPERSEDED** by ADR-0018 and ADR-0019. Device/provider
+research remains OPEN and does not reopen the accepted client technology.

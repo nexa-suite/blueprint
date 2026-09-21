@@ -1,0 +1,27 @@
+@startuml 04-partial-delivery-continuation
+title Domain Story 4 — Partial Delivery Creates Continuation
+hide footbox
+autonumber
+actor "Dispatch Coordinator" as Dispatch
+actor "Delivery Actor" as Driver
+actor "B2B Buyer" as Buyer
+participant Delivery
+
+Dispatch -> Delivery : Schedule Delivery within time window
+Driver -> Delivery : Record actual attempt and delivered quantity
+alt failed attempt
+  Delivery -> Delivery : Preserve attempt on same Delivery
+  Delivery -> Delivery : Operations decides another attempt / reschedule
+else partial outcome
+  Delivery -> Delivery : Preserve delivered and remaining quantities
+  Delivery -> Delivery : Create one idempotent child Continuation Delivery
+  Delivery --> Buyer : Expose delivered result and remaining obligation
+else complete
+  Delivery --> Buyer : Expose delivered result
+end
+
+note over Delivery
+Continuation is neither another attempt of the original Delivery
+nor a new backorder. Returned/rejected goods go to Warehouse HOLD pending inspection.
+end note
+@enduml

@@ -1,0 +1,22 @@
+@startuml 03-stock-becoming-sellable
+title Domain Story 3 — Warehouse Stock Becoming Sellable
+hide footbox
+autonumber
+actor "Warehouse Operator" as Operator
+participant "Inventory Availability" as Inventory
+participant "Sales Commitment" as Sales
+participant "Fulfillment & Delivery" as Fulfillment
+
+Operator -> Inventory : Receive quantity and Inventory Lot
+Operator -> Inventory : Record required receiving temperature
+Inventory -> Inventory : Accept, HOLD, reject or route ColdChainDisposition
+Inventory --> Sales : Expose sellable availability by SKU and Warehouse
+Sales -> Inventory : Request full SKU + quantity protection
+Inventory -> Inventory : Create deterministic Warehouse Backing
+Sales --> Fulfillment : Later request execution against Physical Allocation
+
+note over Inventory,Fulfillment
+Physical truth is authoritative. Inventory owns backing and allocation;
+Fulfillment executes work against that authority.
+end note
+@enduml

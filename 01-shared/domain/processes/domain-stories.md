@@ -12,6 +12,8 @@ Stories below clarify responsibility, authority or exceptional handoff. The comp
 
 ## Story 1 — Buyer submits commercial intent
 
+Canonical diagram: [PlantUML](domain-storytelling/01-buyer-commercial-intent.puml) · [SVG](domain-storytelling/01-buyer-commercial-intent.svg) · [PNG](domain-storytelling/01-buyer-commercial-intent.png).
+
 ```text
 B2B Buyer
   selects visible SKU and Customer Account context
@@ -26,6 +28,8 @@ Sales Commitment
 Authority notes: Cart has no commitment. Catalog / Commercial Policy owns price inputs. Inventory owns sellability. Credit owns hard-block decision. Sales Commitment owns the commercial outcome. Buyer must never silently receive a substituted SKU.
 
 ## Story 2 — Sales changes a Purchase Request
+
+Canonical diagram: [PlantUML](domain-storytelling/02-controlled-pr-change.puml) · [SVG](domain-storytelling/02-controlled-pr-change.svg) · [PNG](domain-storytelling/02-controlled-pr-change.png).
 
 ```text
 Sales
@@ -42,6 +46,8 @@ Sales Commitment
 Accepted policy: Buyer does not freely mutate submitted PR; no universal system-enforced re-accept click follows every Sales modification; consent-required changes preserve evidence; Product substitution requires explicit Buyer acceptance; material agreed modification resets validity; Sales rejection requires reason; Buyer withdrawal may omit reason. Expiry is 72 hours by default, Tenant configurable 1–7 days, with absolute `expiresAt: Instant`.
 
 ## Story 3 — Warehouse makes stock sellable
+
+Canonical diagram: [PlantUML](domain-storytelling/03-stock-becoming-sellable.puml) · [SVG](domain-storytelling/03-stock-becoming-sellable.svg) · [PNG](domain-storytelling/03-stock-becoming-sellable.png).
 
 ```text
 Warehouse Operator
@@ -61,6 +67,8 @@ Authority notes: physical truth wins. Rejected receiving remains evidence. A tem
 
 ## Story 4 — Partial delivery creates continuation
 
+Canonical diagram: [PlantUML](domain-storytelling/04-partial-delivery-continuation.puml) · [SVG](domain-storytelling/04-partial-delivery-continuation.svg) · [PNG](domain-storytelling/04-partial-delivery-continuation.png).
+
 ```text
 Dispatch Coordinator
   schedules Delivery within a time window
@@ -78,6 +86,8 @@ The continuation is not another attempt of the original Delivery and is not a ne
 
 ## Story 5 — Global identity with independent Tenant relationships
 
+Canonical diagram: [PlantUML](domain-storytelling/05-independent-tenant-relationships.puml) · [SVG](domain-storytelling/05-independent-tenant-relationships.svg) · [PNG](domain-storytelling/05-independent-tenant-relationships.png).
+
 ```text
 Human Identity
   authenticates once
@@ -93,6 +103,8 @@ Application API
 One person may be workforce and Buyer in one Tenant. Relationship types remain independent. No relationship grants another Tenant's data.
 
 ## Story 6 — Captured payment with failed order creation
+
+Canonical diagram: [PlantUML](domain-storytelling/06-payment-reconciliation.puml) · [SVG](domain-storytelling/06-payment-reconciliation.svg) · [PNG](domain-storytelling/06-payment-reconciliation.png).
 
 ```text
 Buyer
@@ -111,6 +123,8 @@ Operations
 Provider details remain behind an adapter. Payment is the business concept; Stripe is the selected V1 provider direction.
 
 ## Story 7 — Security audit versus buyer timeline
+
+Canonical diagram: [PlantUML](domain-storytelling/07-security-audit-buyer-timeline.puml) · [SVG](domain-storytelling/07-security-audit-buyer-timeline.svg) · [PNG](domain-storytelling/07-security-audit-buyer-timeline.png).
 
 ```text
 Business source context

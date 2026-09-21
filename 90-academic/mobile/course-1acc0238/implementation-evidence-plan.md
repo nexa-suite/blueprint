@@ -16,7 +16,7 @@ partial; no Mobile client completion or integrated release is claimed.
 | Phase | Target evidence | Current state |
 |---|---|---|
 | Android foundation | Kotlin project, build, architecture, auth/session, context, API client | Operations PARTIAL IMPLEMENTATION EVIDENCE; unmerged |
-| Local persistence | secure session/context/freshness, safe read cache, harmless draft, temporary evidence and retry boundary | PARTIAL evidence on named branch; framework open |
+| Local persistence | secure session/context/freshness, safe read cache, harmless draft, temporary evidence and retry boundary | PARTIAL evidence on named branch; implementation/package evidence open, framework selection closed |
 | Device resource | camera barcode/QR/evidence proof with permission and fallback | NOT VERIFIED; physical device pending |
 | REST integration | real Nexa API request, Problem Details, retry, stale/conflict state | API AS-IS PARTIAL; deployed client integration not verified |
 | Core physical flow | Warehouse receiving or FEFO/pick on device | Operations PARTIAL evidence; not integrated or Product Accepted |
@@ -28,9 +28,9 @@ partial; no Mobile client completion or integrated release is claimed.
 
 | Slice | Current evidence |
 |---|---|
-| Operations Android | PARTIAL IMPLEMENTATION EVIDENCE on `origin/feature/native-foundation` and `origin/feature/connected-access-preview`; both unmerged into `develop` |
+| Operations Android | Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018; PARTIAL IMPLEMENTATION EVIDENCE on `origin/feature/native-foundation` and `origin/feature/connected-access-preview`; both unmerged into `develop` |
 | Buyer Mobile | NOT IMPLEMENTED in the audited baseline |
-| Cross-platform | NOT IMPLEMENTED; Product architecture choice OPEN; later academic Flutter/Dart plan only |
+| Cross-platform | NOT IMPLEMENTED; Buyer Flutter/Dart Android+iOS is accepted TARGET by ADR-0019; later implementation evidence remains absent |
 | Physical device | NOT VERIFIED |
 | Deployed API on device | NOT VERIFIED |
 | Camera hardware | NOT VERIFIED |
@@ -75,3 +75,6 @@ upc-pre-202620-1acc0238-4949-nexa-team-report-tb2.pdf
 - Mobile `main` remains documentation-only for the audited baseline; feature-branch evidence is partial and unmerged.
 - Design Lab is visual-system evidence, not Mobile implementation evidence.
 - Application repositories remain read-only evidence in this Blueprint wave.
+- `SPIKE-002` framework selection is CLOSED / SUPERSEDED by ADR-0018 and
+  ADR-0019. Unrelated device/provider research remains OPEN; neither state is
+  implementation proof, solution validation or Product Acceptance.

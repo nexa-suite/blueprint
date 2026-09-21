@@ -127,7 +127,7 @@ class ProofOfDeliveryAddendum <<Entity>> {
   +append(): void
 }
 
-class TemperatureEvidence <<Entity>> {
+class TemperatureEvidence <<Aggregate Root>> {
   -evidenceId: TemperatureEvidenceId
   -deliveryId: DeliveryId
   -capturedAt: Instant
@@ -146,9 +146,10 @@ class TemperatureExcursion <<Entity>> {
 class ContinuationDelivery <<Entity>> {
   -continuationId: ContinuationDeliveryId
   -parentDeliveryId: DeliveryId
-  -status: ContinuationStatus
-  +open(): void
-  +close(): void
+  -childDeliveryId: DeliveryId
+  -remainingSnapshot: RemainingObligationSnapshot
+  -idempotencyKey: IdempotencyKey
+  +createOnce(): void
 }
 
 class DeliveryExecutionPolicy <<Domain Service>> {
@@ -167,12 +168,45 @@ interface DeliveryRepository <<Repository>> {
   +save(delivery: Delivery): void
 }
 
-enum FulfillmentStatus <<Enum>>
-enum DeliveryStatus <<Enum>>
-enum AttemptOutcome <<Enum>>
+enum FulfillmentStatus <<Enum>> {
+  PLANNED
+  ALLOCATED
+  PICKING
+  PICKED
+  PACKED
+  STAGED
+  READY_FOR_DISPATCH
+  HANDED_OVER
+  COMPLETED
+  SHORTAGE
+  HOLD
+  CANCELLED
+}
+
+enum DeliveryStatus <<Enum>> {
+  PLANNED
+  SCHEDULED
+  DISPATCHED
+  IN_TRANSIT
+  ATTEMPTED
+  DELIVERED
+  PARTIALLY_DELIVERED
+  ATTEMPT_FAILED
+  RESCHEDULED
+  CANCELLED
+  FAILED_FINAL
+}
+
+enum AttemptOutcome <<Enum>> {
+  PENDING
+  DELIVERED
+  PARTIALLY_DELIVERED
+  ATTEMPT_FAILED
+  REFUSED
+  ABSENT
+}
 enum PodStatus <<Enum>>
 enum ExcursionStatus <<Enum>>
-enum ContinuationStatus <<Enum>>
 
 Fulfillment "1" *-- "1..*" FulfillmentLine : lines
 Fulfillment "1" *-- "0..1" PickingResult : picking
@@ -184,11 +218,12 @@ DeliveryAttempt "1" *-- "0..*" DeliveryQuantityOutcome : outcomes
 DeliveryAttempt *-- DriverOutcome : records
 Delivery "1" *-- "0..*" DeliveryHandoffToken : one-time handoff
 Delivery "1" *-- "0..*" BuyerReceiptFact : Buyer receipt/discrepancy
-Delivery "1" *-- "0..1" ProofOfDelivery : immutable POD
+Delivery --> ProofOfDelivery : stable pod id
 ProofOfDelivery "1" *-- "0..*" ProofOfDeliveryAddendum : append only
-Delivery "1" *-- "0..*" TemperatureEvidence : evidence
-Delivery "1" *-- "0..*" TemperatureExcursion : excursions
+Delivery --> TemperatureEvidence : stable evidence id
+TemperatureEvidence "1" *-- "0..*" TemperatureExcursion : excursion facts
 Delivery "1" *-- "0..*" ContinuationDelivery : continuations
+ContinuationDelivery --> Delivery : child delivery id
 Fulfillment --> SalesOrder : stable order id
 FulfillmentLine --> PhysicalAllocation : stable allocation id
 DeliveryExecutionPolicy ..> DeliveryRepository : loads
@@ -197,7 +232,8 @@ Delivery *-- DestinationSnapshot : freezes destination
 
 legend right
 TARGET / V1 / tactical design aid
-POD is immutable; corrections are addenda. Temperature excursion may HOLD.
+POD and TemperatureEvidence are independent Aggregate Roots; corrections are addenda.
+Temperature excursion may HOLD. ContinuationDelivery links parent and child Delivery roots.
 Driver Outcome is not Buyer Receipt; handoff token resolution is not acceptance.
 Partial delivery opens ContinuationDelivery; it does not rewrite history.
 *-- composition | --> domain dependency | ..> port/use

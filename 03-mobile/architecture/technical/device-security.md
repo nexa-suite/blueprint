@@ -1,8 +1,11 @@
 # Mobile device security
 
-Status: `OPEN / DISCOVERY`. Canonical security authority remains [Shared
-Security](../../../01-shared/security/README.md). The client must protect
-session references and local evidence, minimize PII, clear revoked scope and
-avoid logging tokens/payment data. Platform keystore, attestation, jailbreak/
-root posture, screenshot policy, encryption and remote wipe require research,
-technical spikes and acceptance; no implementation claim is made.
+Status: ACCEPTED TARGET BOUNDARY. Shared Security remains canonical. Clients
+protect session references and local evidence, minimize PII, clear revoked
+scope, fail closed without active Tenant/Workspace context and never log tokens
+or payment data. Operations uses an Android Keystore boundary; Buyer uses a
+secure platform-storage abstraction.
+
+Attestation, jailbreak/root posture, screenshot policy, encryption settings,
+retention and remote wipe remain implementation/acceptance gates. No statement
+here proves a client security implementation or Product Acceptance.

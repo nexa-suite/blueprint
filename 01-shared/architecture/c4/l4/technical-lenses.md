@@ -3,12 +3,14 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-23
+last-reviewed: 2026-09-20
 ---
 
 # C4 Level 3 and Level 4 technical views
 
-These are selective PRE-V1 TARGET technical lenses inside V1 applications. They are not one-to-one Bounded Contexts, do not derive ownership from folders and do not authorize application refactoring.
+These are selective Post-AV1/V1 TARGET technical lenses inside V1 applications.
+They are not one-to-one Bounded Contexts, do not derive ownership from folders
+and do not authorize application refactoring.
 
 ## API component lenses
 

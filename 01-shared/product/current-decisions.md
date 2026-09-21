@@ -38,9 +38,12 @@ Its requirements, milestones, technology constraints, evidence obligations and
 rubric statuses are academic planning evidence; they do not alter Product,
 Domain, C4 or production authority. The owner delivery goal is an Android-native
 Mobile foundation and representative core flow within approximately four weeks;
-this is a delivery target, not an implementation claim. Native Android/Kotlin
-and cross-platform Flutter/Dart or Kotlin Multiplatform remain evaluated
-options, not a silently selected Mobile architecture.
+this is a delivery target, not an implementation claim. The accepted TARGET
+assignments are **Nexa Operations Mobile = native Android / Kotlin / Jetpack
+Compose** and **Nexa Buyer Mobile = Flutter / Dart for Android + iOS**. They
+are construction decisions, not proof of client implementation, solution
+validation or Product Acceptance. Exact technology/build baselines live in
+[Technology baseline](../architecture/technology-baseline.md).
 
 ## Identity, relationship and governance language
 
@@ -52,9 +55,12 @@ options, not a silently selected Mobile architecture.
 
 ## Mobile rebaseline
 
-Operations Mobile and Buyer Mobile are the two accepted-for-planning product
-projections over the shared domain. They do not add a Bounded Context, C4
-Container, deployment unit, framework or alternate authority. All 73
+Operations Mobile and Buyer Mobile are accepted TARGET client projections over
+the shared domain. They do not add a Bounded Context, a C4 Software System, a
+business authority, a backend/domain model or a database authority. They **are
+C4 Containers inside the one Nexa Software System**; their device deployment
+nodes are separate, and Android/iOS deployments of Buyer Mobile are instances
+of the same C4 Container. C4 Container does not mean Docker container. All 73
 `MOB-US-001..073` stories target Product Generation V1; the master lifecycle
 registry separately records Historical Planning Band, Academic Sprint and
 status. The old 28/35/9/1 release interpretation is preserved as provenance,

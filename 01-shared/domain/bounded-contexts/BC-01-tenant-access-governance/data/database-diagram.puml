@@ -39,6 +39,7 @@ entity "human_identity" as t_human_identity {
     verified_at : timestamptz
   * created_at : timestamptz <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "company_onboarding_request" as t_company_onboarding_request {
@@ -77,6 +78,7 @@ entity "role_definition" as t_role_definition {
   * status : varchar(32) <<required>>
   * created_at : timestamptz <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "capability_definition" as t_capability_definition {
@@ -89,6 +91,7 @@ entity "capability_definition" as t_capability_definition {
 
 entity "membership_role" as t_membership_role {
   * assignment_id : uuid <<PK>>
+  * workspace_id : uuid <<FK, required>>
   * membership_id : uuid <<FK, required>>
   * role_id : uuid <<FK, required>>
   * assigned_at : timestamptz <<required>>
@@ -118,8 +121,8 @@ t_company_onboarding_request }o--|| t_human_identity : requested_by_identity_id
 t_workforce_membership }o--|| t_workspace : workspace_id
 t_workforce_membership }o--|| t_human_identity : human_identity_id
 t_role_definition }o--|| t_workspace : workspace_id
-t_membership_role }o--|| t_workforce_membership : membership_id
-t_membership_role }o--|| t_role_definition : role_id
+t_membership_role }o--|| t_workforce_membership : membership_id, workspace_id
+t_membership_role }o--|| t_role_definition : role_id, workspace_id
 t_role_capability }o--|| t_role_definition : role_id
 t_role_capability }o--|| t_capability_definition : capability_id
 t_membership_capability_override }o--|| t_workforce_membership : membership_id

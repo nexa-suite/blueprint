@@ -54,7 +54,7 @@ flowchart TB
 - **Public Website** is an interaction surface for anonymous discovery and structured contact/demo intake. It may call the public API endpoint, but it does not carry an authenticated Tenant context for public browsing.
 - **Internal Web Platform** is the authenticated surface for the grouped Tenant workforce. Its role differences are authorization and workflow differences inside one surface, not separate C4 containers or contexts.
 - **Buyer Portal** is a separate authenticated surface because Buyer navigation, commercial self-service, tracking and account relationship behavior differ from internal workforce operations.
-- **Mobile** is shown as an accepted product projection and implementation-runway interaction surface. It is not part of current V1 runtime evidence.
+- **Mobile** has accepted client assignments: Operations is Android/Kotlin/Jetpack Compose and Buyer is Flutter/Dart for Android+iOS. Both remain separate C4 Containers inside Nexa; neither is current integrated runtime evidence or a second Domain authority.
 
 ## Business logic placement without premature DDD
 

@@ -17,6 +17,7 @@ workspace "Nexa Suite" "Canonical shared Nexa C4 system model with AS-IS and V1 
         !include l3/website.dsl
         !include l3/operations-mobile.dsl
         !include l3/buyer-mobile.dsl
+        !include l3/dynamic.dsl
         !include deployment/deployment.dsl
         !include styles/styles.dsl
     }

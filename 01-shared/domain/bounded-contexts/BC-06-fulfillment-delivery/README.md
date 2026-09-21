@@ -24,12 +24,15 @@ last-reviewed: 2026-09-19
 
 ## Tactical DDD target
 
-Aggregate Roots: Fulfillment, Delivery. Entities: DispatchHandoff, DeliveryAttempt,
-DeliveryHandoffToken, BuyerReceiptFact, POD and DeliveryDiscrepancy. Value
+Aggregate Roots: Fulfillment, Delivery, ProofOfDelivery and TemperatureEvidence.
+Delivery owns assignment/attempt/handoff/Buyer facts; POD owns addenda and
+TemperatureEvidence owns/references excursion facts. ContinuationDelivery is an
+immutable parent-to-child Delivery link, never a competing lifecycle. Value
 Objects: DeliveryId, HandoffId, AttemptId, DriverOutcome, EvidenceRef and
-DeliveryQuantity. Driver Outcome is not Buyer Receipt. Lifecycle: planned →
-picked → packed → staged → ready → handed over → dispatched → attempted →
-completed/failed with continuation.
+DeliveryQuantity. Driver Outcome is not Buyer Receipt. Lifecycle: `PLANNED` →
+`SCHEDULED` → `DISPATCHED` → `IN_TRANSIT` → `ATTEMPTED` → `DELIVERED` /
+`PARTIALLY_DELIVERED` / `ATTEMPT_FAILED` → `RESCHEDULED` / `CANCELLED` /
+`FAILED_FINAL`.
 
 ## Tactical wave artifacts
 

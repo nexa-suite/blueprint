@@ -1,17 +1,18 @@
 ---
-status: planned
-maturity: DRAFT
-scope: runway
+status: accepted
+maturity: BASELINED
+scope: v1
 owner: mobile
-last-reviewed: 2026-09-18
+last-reviewed: 2026-09-20
 ---
 
 # Operations Mobile Local Persistence
 
-**Decision:** PROPOSED / SOLUTION VALIDATION OPEN
+**Decision:** ACCEPTED TARGET CLIENT-LOCAL BOUNDARY
 **Academic evidence:** RESEARCH VALIDATION PENDING; this is a course evidence
-state, not a technology selection or Product Acceptance claim.
-**Technology:** NOT SELECTED
+state, not a Product Acceptance claim.
+**Technology:** Android Keystore, DataStore and Room when structured local
+staging/cache is justified.
 **Authority:** LOCAL / NON-AUTHORITATIVE
 **Offline scope:** online-first V1 assistance only: safe reads, harmless drafts,
 temporary evidence staging and retry metadata.
@@ -46,8 +47,8 @@ key. There is no generic V1 sync cursor or background synchronization engine.
 
 ## Academic boundary
 
-This model satisfies logical local-persistence coverage without selecting a
-framework or inventing Mobile implementation classes. It reuses BC-01, BC-05,
+This model satisfies logical local-persistence coverage without inventing
+authoritative Mobile implementation classes. It reuses BC-01, BC-05,
 BC-06, BC-09, BC-10 and BC-11 canonical Domain Models through shared contracts.
 
 Diagram: [Operations Mobile local persistence](operations-mobile-local-persistence.puml).

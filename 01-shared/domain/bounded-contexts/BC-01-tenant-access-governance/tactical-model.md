@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-09-20
 ---
 
 # BC-01 Tenant & Access Governance — Tactical Model
@@ -27,7 +27,7 @@ Domain authority; Mobile client implementation remains NOT STARTED.
 | `Tenant` | Owns lifecycle and isolation policy; one active Workspace in V1; one active Company Owner | `TenantId`, no deep membership graph |
 | `HumanIdentity` | Global person identity; never duplicated per Tenant | referenced by identity |
 | `WorkforceMembership` | Tenant/workspace participation, status and capability context | `HumanIdentityId`, `TenantId`, `WorkspaceId` |
-| `RoleDefinition` | Role lifecycle and capability assignment; global templates or tenant custom role | `CapabilityCode` |
+| `RoleDefinition` | Workspace-scoped role lifecycle and capability assignment | global `CapabilityCode` values |
 | `CompanyOnboardingRequest` | Complex intake and activation handoff; no access until Tenant lifecycle gate passes | requester identity reference |
 
 `Workspace` is a Tenant-owned entity with an explicit identity because accepted
@@ -40,9 +40,10 @@ the Workspace by identity and are not composed into the Tenant object graph.
 |---|---|---|---|---|
 | `Tenant` | Aggregate Root | `TenantId`, `name`, `status`, `expiryPolicy`, `version` | `requestActivation()`, `activate()`, `suspend()`, `changeExpiryPolicy()` | composes one `Workspace`; KEEP target, AS-IS close |
 | `Workspace` | Entity | `WorkspaceId`, `tenantId`, `slug`, `status` | `rename()`, `activate()`, `suspend()` | owned by Tenant; KEEP target |
-| `HumanIdentity` | Aggregate Root | `HumanIdentityId`, `email`, `displayName`, `status` | `changeDisplayName()`, `deactivate()` | global identity, referenced by memberships; KEEP AS-IS |
+| `HumanIdentity` | Aggregate Root | `HumanIdentityId`, `email`, `displayName`, `status`, `version` | `changeDisplayName()`, `deactivate()` | global identity, referenced by memberships; KEEP AS-IS |
+| `CompanyOnboardingRequest` | Aggregate Root | `OnboardingRequestId`, `TenantId`, requester identity, intake, status, version | `submit()`, `approve()`, `reject()` | activation handoff; never grants access before Tenant lifecycle gate |
 | `WorkforceMembership` | Aggregate Root | `MembershipId`, `tenantId`, `workspaceId`, `identityId`, `status`, `version` | `grant()`, `assignRole()`, `changeCapability()`, `suspend()`, `revoke()` | references Tenant/Workspace/Identity by ID; REFINE AS-IS |
-| `RoleDefinition` | Aggregate Root | `RoleId`, optional `tenantId`, `code`, `roleType`, `status` | `assignCapability()`, `removeCapability()`, `retire()` | owns capability assignments; REFINE AS-IS |
+| `RoleDefinition` | Aggregate Root | `RoleId`, `WorkspaceId`, `code`, `roleType`, `status`, `version` | `assignCapability()`, `removeCapability()`, `retire()` | workspace-scoped root; owns capability assignments; `CapabilityDefinition` stays global; REFINE AS-IS |
 | `CompanyInformation` | Value Object | legal/trade name, tax identity, contact | `changeRegisteredData()` | used by onboarding/Tenant; TARGET |
 | `AccessContext` | Value Object | `tenantId`, `workspaceId`, `membershipId`, capability version | `requireCapability()` | generated per request; TARGET |
 | `CapabilityCode` | Value Object | normalized code | `isWithin()` | referenced by RoleDefinition; TARGET |
@@ -91,6 +92,9 @@ framework getters/setters.
 - Tenant is maximum business/data isolation boundary; missing or ambiguous
   scope rejects access.
 - V1 has exactly one Workspace per Tenant and one active Company Owner.
+- `RoleDefinition` is always scoped to one Workspace. There is no global role
+  template in the current TARGET; a future shared-template decision remains
+  outside this model.
 - Human Identity is global; Workforce Membership is tenant-scoped.
 - Client-supplied tenant IDs are input only. API reconstructs scope and applies
   authorization plus RLS context.
@@ -98,6 +102,14 @@ framework getters/setters.
   consistency boundaries with version/CAS and durable trace/security facts.
 - Cross-BC reads use IDs/projections. No membership graph is loaded into sales,
   catalog or delivery aggregates.
+
+## Persistence concurrency guards
+
+`tenant`, `human_identity`, `company_onboarding_request`,
+`workforce_membership` and `role_definition` use SQL `version` CAS: each
+mutable update includes `WHERE <root_id> = :id AND version = :expectedVersion`
+and increments `version`. Membership-role scope is guarded separately by its
+same-Workspace composite FKs; it is not a second root version.
 
 ## Events, persistence and evidence
 

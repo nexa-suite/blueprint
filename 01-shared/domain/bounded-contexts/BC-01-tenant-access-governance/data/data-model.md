@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-25
+last-reviewed: 2026-09-20
 ---
 
 # BC-01 target relational model
@@ -21,7 +21,7 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 | `workforce_membership` | `membership_id` | workspace, human identity | workspace + identity unique |
 | `role_definition` | `role_id` | workspace | workspace + code unique |
 | `capability_definition` | `capability_id` | — | global capability code unique |
-| `membership_role` | `assignment_id` | membership, role | pair unique |
+| `membership_role` | `assignment_id` | composite membership/role scope FKs | workspace-scoped bridge; membership + role must share Workspace |
 | `role_capability` | `role_capability_id` | role, capability | pair unique |
 | `membership_capability_override` | `override_id` | membership, capability | pair unique; `ALLOW/DENY` check |
 
@@ -30,10 +30,16 @@ has NOT NULL, status/amount checks, optimistic `version` on mutable roots and
 indexes for scope/status/onboarding lookup. Deployment must apply tenant and
 workspace RLS; SQL deliberately stays portable and does not invent policies.
 
-`human_identity` and `capability_definition` are global exceptions. No
-cross-BC FK is declared; future BC references use stable IDs. Membership,
-role assignment and authorization decisions are mutable; audit/event history
-is append-only in Shared Technical / BC-11 projections.
+`human_identity` and `capability_definition` are global exceptions.
+`role_definition` is a Workspace-scoped Aggregate Root; no global role template
+is represented in the current TARGET. No cross-BC FK is declared; future BC
+references use stable IDs. `membership_role` carries `workspace_id` because it
+links independently scoped Membership and Role roots; the Tenant is
+parent-derived through Workspace. `role_capability`
+and `membership_capability_override` are root-owned simple children and derive
+scope through their parent rather than duplicating it. Membership, role
+assignment and authorization decisions are mutable; audit/event history is
+append-only in Shared Technical / BC-11 projections.
 
 AS-IS anchors: `iam.user_account`, `password_credential`, `refresh_session`,
 `tenant_management.tenant`, `workspace`, membership/role/permission tables and

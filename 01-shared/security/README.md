@@ -8,6 +8,7 @@ Index current security evidence and the accepted PRE-V1 security construction ta
 
 - [Security architecture readiness](security-architecture-readiness.md).
 - [PRE-V1 security architecture](security-architecture-target.md), [authorization matrix](authorization-matrix.md) and [threat model](threat-model.md).
+- [Mobile security verification profile](mobile-security-verification.md).
 - [AS-IS implementation baseline](../../04-delivery/as-is/v1-implementation-baseline.md).
 - [Architecture readiness gaps](../../04-delivery/as-is/architecture-readiness-gaps.md).
 - Accepted identity and role decisions in [Current accepted decisions](../product/current-decisions.md).

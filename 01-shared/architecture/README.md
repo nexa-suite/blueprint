@@ -10,6 +10,7 @@
 Architecture models TARGET separately from implementation evidence. The
 post-AV1 canonical baseline preserves one Nexa C4 software system, 11 Strategic
 Bounded Contexts, 14 Published Integration Events and a 95-table TARGET data
-inventory. Mobile is a product projection over that shared model: Operations
-has partial unmerged AS-IS evidence, Buyer is not implemented, and final client
-technology, provider selection and Product Acceptance remain OPEN.
+inventory. Mobile is a client projection over that shared model: Operations is
+Android/Kotlin/Jetpack Compose, Buyer is Flutter/Dart for Android+iOS;
+Operations has partial unmerged AS-IS evidence and Buyer is not implemented.
+Provider selection and Product Acceptance remain OPEN.

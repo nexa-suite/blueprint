@@ -24,7 +24,7 @@ last-reviewed: 2026-09-19
 
 ## Tactical DDD target
 
-Aggregate Root: Notification. Entities: NotificationAttempt, Recipient, ChannelPreference. Value Objects: NotificationId, TemplateKey, Channel, DeliveryStatus. Domain Services: ChannelSelectionPolicy, RetryPolicy. Repositories: NotificationRepository. Lifecycle: candidate → queued → attempted → delivered/retryable-failed/terminal-failed.
+Aggregate Roots: Notification, NotificationTemplate and NotificationPreference. NotificationAttempt and Recipient are Notification-owned facts. PushSubscription is a technical/application delivery record, not a strategic Aggregate Root or accepted Push provider. Current PostgreSQL TARGET persists `provider_token_hash` only; endpoint material is **FUTURE / PROVIDER-ADAPTER INPUT** and **NOT PERSISTED IN CURRENT POSTGRESQL TARGET**. Value Objects: NotificationId, TemplateKey, Channel and DeliveryStatus. Domain Services: ChannelSelectionPolicy and RetryPolicy. Repositories: NotificationRepository. Lifecycle: candidate → queued → attempted → delivered/retryable-failed/terminal-failed.
 
 ## Tactical wave artifacts
 

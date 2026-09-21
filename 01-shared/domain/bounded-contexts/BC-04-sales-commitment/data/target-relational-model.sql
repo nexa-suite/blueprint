@@ -34,6 +34,7 @@ CREATE TABLE purchase_request (
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),
     created_at timestamptz NOT NULL,
     updated_at timestamptz NOT NULL,
+    UNIQUE (purchase_request_id, tenant_id, workspace_id),
     CHECK (expires_at > submitted_at)
 );
 
@@ -65,7 +66,7 @@ CREATE TABLE commercial_commitment (
     -- Origin discriminator avoids a polymorphic source FK. DIRECT_ORDER is
     -- represented by the confirmed SalesOrder created in the same decision.
     origin_type varchar(32) NOT NULL CHECK (origin_type IN ('PURCHASE_REQUEST','DIRECT_ORDER')),
-    purchase_request_id uuid REFERENCES purchase_request (purchase_request_id),
+    purchase_request_id uuid,
     buyer_relationship_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('ESTABLISHED','CONFIRMED','CANCELLED','REPLACED')),
     committed_at timestamptz NOT NULL,
@@ -75,7 +76,10 @@ CREATE TABLE commercial_commitment (
         (origin_type = 'PURCHASE_REQUEST' AND purchase_request_id IS NOT NULL)
         OR (origin_type = 'DIRECT_ORDER' AND purchase_request_id IS NULL)
     ),
-    UNIQUE (purchase_request_id)
+    UNIQUE (purchase_request_id),
+    UNIQUE (commitment_id, tenant_id, workspace_id),
+    FOREIGN KEY (purchase_request_id, tenant_id, workspace_id)
+        REFERENCES purchase_request (purchase_request_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE commercial_commitment_line (
@@ -93,12 +97,15 @@ CREATE TABLE sales_order (
     sales_order_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    commitment_id uuid NOT NULL REFERENCES commercial_commitment (commitment_id),
+    commitment_id uuid NOT NULL,
     status varchar(32) NOT NULL CHECK (status IN ('CONFIRMED','IN_FULFILLMENT','PARTIALLY_FULFILLED','FULFILLED','PARTIALLY_DELIVERED','COMPLETED','CANCELLED')),
     confirmed_at timestamptz NOT NULL,
     cancelled_at timestamptz,
     revision integer NOT NULL DEFAULT 0 CHECK (revision >= 0),
-    UNIQUE (commitment_id)
+    UNIQUE (commitment_id),
+    UNIQUE (sales_order_id, tenant_id, workspace_id),
+    FOREIGN KEY (commitment_id, tenant_id, workspace_id)
+        REFERENCES commercial_commitment (commitment_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE sales_order_line (

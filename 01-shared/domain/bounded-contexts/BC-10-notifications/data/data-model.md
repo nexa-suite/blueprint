@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-20
 ---
 
 # BC-10 target relational model
@@ -13,8 +13,8 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 
 | Table | PK / local FK | Integrity |
 |---|---|---|
-| `notification_template` | `template_id` | scoped event/channel/version unique; immutable content version |
-| `notification` | `notification_id`; template FK | event ID external; delivery state/version |
+| `notification_template` | `template_id` | scoped candidate key; immutable content version |
+| `notification` | `notification_id`; composite template scope FK | event ID external; template must share tenant/workspace; delivery state/version |
 | `notification_recipient` | `recipient_id`; notification FK | recipient pair unique; address/status checks |
 | `notification_preference` | `preference_id` | scoped recipient/event/channel unique |
 | `push_subscription` | `push_subscription_id` | installation-scoped provider-token hash and lifecycle |
@@ -31,11 +31,18 @@ an external Push provider or Product channel beyond in-app/email. Delivery retry
 claim fencing, invalid-token disablement and dead-letter handling remain
 application/technical reliability behavior.
 
+The current PostgreSQL TARGET persists only `provider_token_hash` for the
+technical subscription identity and deduplication lifecycle. It has no
+`provider_endpoint_reference`. Endpoint material is **FUTURE /
+PROVIDER-ADAPTER INPUT** and is **NOT PERSISTED IN CURRENT POSTGRESQL TARGET**.
+
 Compatibility caveat: the API v0.17.0 AS-IS migration currently constrains its
 push surface values to `PLATFORM` and `PORTAL`. The target projection names
 `OPERATIONS_MOBILE` and `BUYER_MOBILE` are Product-facing design values; their
 API/client mapping remains PARTIAL / OPEN until Mobile client construction.
 
 Event IDs and recipient identity keys are stable references. Delivery failure
-does not rewrite the source event. AS-IS anchors: `notifications.inbox_item`
+does not rewrite the source event. `notification_recipient` and
+`notification_attempt` are Notification-derived children; they do not duplicate
+scope. AS-IS anchors: `notifications.inbox_item`
 and `tenant_management.notification_preference`.

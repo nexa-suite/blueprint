@@ -34,7 +34,7 @@ class NotificationRecipient <<Entity>> {
   +suppress(reason: SuppressionReason): void
 }
 
-class NotificationPreference <<Entity>> {
+class NotificationPreference <<Aggregate Root>> {
   -preferenceId: NotificationPreferenceId
   -tenantId: TenantId
   -recipientKey: RecipientKey
@@ -58,11 +58,12 @@ class PushSubscription <<Technical Record>> {
   -pushSubscriptionId: PushSubscriptionId
   -recipientKey: RecipientKey
   -installationId: InstallationId
+  -providerTokenHash: ProviderTokenHash
   -surface: SubscriptionSurface
   -status: SubscriptionStatus
   -version: Version
-  +register(endpoint: SecureEndpointReference): void
-  +rotate(endpoint: SecureEndpointReference): void
+  +register(tokenHash: ProviderTokenHash): void
+  +rotate(tokenHash: ProviderTokenHash): void
   +disable(): void
   +unregister(): void
 }
@@ -77,9 +78,8 @@ class RecipientAddress <<Value Object>> {
   -kind: AddressKind
 }
 
-class SecureEndpointReference <<Value Object>> {
-  -endpointHash: Hash
-  -endpointReference: ProtectedReference
+class ProviderTokenHash <<Value Object>> {
+  -value: Hash
   +matches(candidate: Hash): boolean
 }
 
@@ -106,7 +106,7 @@ enum RecipientStatus <<Enum>>
 NotificationTemplate "1" o-- "0..*" Notification : renders
 Notification "1" *-- "1..*" NotificationRecipient : recipients
 Notification "1" *-- "0..*" NotificationAttempt : attempts
-PushSubscription *-- SecureEndpointReference : protects endpoint
+PushSubscription *-- ProviderTokenHash : persists dedupe identity only
 PushSubscription --> NotificationPreference : recipient preference scope
 NotificationRecipient *-- RecipientAddress : destination
 Notification --> DomainEvent : reacts to
@@ -119,6 +119,7 @@ legend right
 TARGET / V1 / tactical design aid
 Notification is delivery state, not business truth; source event remains authoritative.
 Preferences and recipients are tenant-scoped; retries are explicit attempts.
+Push endpoint material is FUTURE / PROVIDER-ADAPTER INPUT and is NOT PERSISTED IN CURRENT POSTGRESQL TARGET.
 *-- composition | --> domain dependency | ..> port/use
 endlegend
 @enduml

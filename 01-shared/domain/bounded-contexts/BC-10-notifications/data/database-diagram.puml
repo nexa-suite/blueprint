@@ -24,8 +24,8 @@ entity "notification_template" as t_notification_template {
 
 entity "notification" as t_notification {
   * notification_id : uuid <<PK>>
-  * tenant_id : uuid <<required>>
-  * workspace_id : uuid <<required>>
+  * tenant_id : uuid <<FK, required>>
+  * workspace_id : uuid <<FK, required>>
     template_id : uuid <<FK>>
   * event_id : uuid <<required>>
   * event_type : varchar(160) <<required>>
@@ -53,6 +53,7 @@ entity "notification_preference" as t_notification_preference {
   * channel : varchar(32) <<required>>
   * enabled : boolean <<required>>
   * updated_at : timestamptz <<required>>
+  * version : integer <<required>>
 }
 
 entity "push_subscription" as t_push_subscription {
@@ -82,7 +83,7 @@ entity "notification_attempt" as t_notification_attempt {
   * attempted_at : timestamptz <<required>>
 }
 
-t_notification }o--|| t_notification_template : template_id
+t_notification }o--|| t_notification_template : template_id, tenant_id, workspace_id
 t_notification_recipient }o--|| t_notification : notification_id
 t_notification_attempt }o--|| t_notification : notification_id
 t_notification_attempt }o--|| t_notification_recipient : recipient_id

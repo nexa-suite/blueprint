@@ -1,5 +1,6 @@
 -- TARGET / BC-06 Fulfillment & Delivery / shared PostgreSQL
--- sales_order_id, physical_allocation_id and sku_id are stable non-owning references.
+-- sales_order_id, physical_allocation_id, sku_id, customer_account_id and
+-- buyer_relationship_id are stable non-owning references.
 
 CREATE TABLE fulfillment (
     fulfillment_id uuid PRIMARY KEY,
@@ -10,7 +11,8 @@ CREATE TABLE fulfillment (
     planned_at timestamptz NOT NULL,
     started_at timestamptz,
     completed_at timestamptz,
-    version integer NOT NULL DEFAULT 0 CHECK (version >= 0)
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (fulfillment_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE fulfillment_line (
@@ -46,13 +48,16 @@ CREATE TABLE delivery (
     delivery_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    fulfillment_id uuid NOT NULL REFERENCES fulfillment (fulfillment_id),
-    status varchar(32) NOT NULL CHECK (status IN ('PLANNED','ASSIGNED','DISPATCHED','IN_TRANSIT','PARTIAL','DELIVERED','FAILED','CANCELLED')),
+    fulfillment_id uuid NOT NULL,
+    status varchar(32) NOT NULL CHECK (status IN ('PLANNED','SCHEDULED','DISPATCHED','IN_TRANSIT','ATTEMPTED','DELIVERED','PARTIALLY_DELIVERED','ATTEMPT_FAILED','RESCHEDULED','CANCELLED','FAILED_FINAL')),
     destination_snapshot jsonb NOT NULL,
     scheduled_at timestamptz,
     dispatched_at timestamptz,
     delivered_at timestamptz,
-    version integer NOT NULL DEFAULT 0 CHECK (version >= 0)
+    version integer NOT NULL DEFAULT 0 CHECK (version >= 0),
+    UNIQUE (delivery_id, tenant_id, workspace_id),
+    FOREIGN KEY (fulfillment_id, tenant_id, workspace_id)
+        REFERENCES fulfillment (fulfillment_id, tenant_id, workspace_id)
 );
 
 CREATE TABLE delivery_assignment (
@@ -68,10 +73,11 @@ CREATE TABLE delivery_attempt (
     attempt_id uuid PRIMARY KEY,
     delivery_id uuid NOT NULL REFERENCES delivery (delivery_id),
     attempt_number integer NOT NULL CHECK (attempt_number > 0),
-    outcome varchar(32) NOT NULL CHECK (outcome IN ('PENDING','DELIVERED','PARTIAL','FAILED','REFUSED','ABSENT')),
+    outcome varchar(32) NOT NULL CHECK (outcome IN ('PENDING','DELIVERED','PARTIALLY_DELIVERED','ATTEMPT_FAILED','REFUSED','ABSENT')),
     attempted_at timestamptz NOT NULL,
     notes varchar(1000),
-    UNIQUE (delivery_id, attempt_number)
+    UNIQUE (delivery_id, attempt_number),
+    UNIQUE (attempt_id, delivery_id)
 );
 
 CREATE TABLE delivery_attempt_line (
@@ -98,8 +104,8 @@ CREATE TABLE delivery_handoff_token (
     delivery_handoff_token_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    delivery_id uuid NOT NULL REFERENCES delivery (delivery_id),
-    delivery_attempt_id uuid NOT NULL REFERENCES delivery_attempt (attempt_id),
+    delivery_id uuid NOT NULL,
+    delivery_attempt_id uuid NOT NULL,
     customer_account_id uuid NOT NULL,
     token_hash char(64) NOT NULL,
     issued_at timestamptz NOT NULL,
@@ -108,7 +114,11 @@ CREATE TABLE delivery_handoff_token (
     status varchar(32) NOT NULL CHECK (status IN ('ACTIVE','REPLACED','EXPIRED','CONSUMED')),
     idempotency_key varchar(160) NOT NULL,
     created_at timestamptz NOT NULL,
-    UNIQUE (issuer_operator_id, idempotency_key),
+    UNIQUE (tenant_id, workspace_id, issuer_operator_id, idempotency_key),
+    FOREIGN KEY (delivery_id, tenant_id, workspace_id)
+        REFERENCES delivery (delivery_id, tenant_id, workspace_id),
+    FOREIGN KEY (delivery_attempt_id, delivery_id)
+        REFERENCES delivery_attempt (attempt_id, delivery_id),
     CHECK (expires_at > issued_at),
     CHECK (token_hash ~ '^[0-9a-f]{64}$')
 );
@@ -117,10 +127,10 @@ CREATE TABLE buyer_receipt_fact (
     buyer_receipt_fact_id uuid PRIMARY KEY,
     tenant_id uuid NOT NULL,
     workspace_id uuid NOT NULL,
-    delivery_id uuid NOT NULL REFERENCES delivery (delivery_id),
-    delivery_attempt_id uuid NOT NULL REFERENCES delivery_attempt (attempt_id),
+    delivery_id uuid NOT NULL,
+    delivery_attempt_id uuid NOT NULL,
     customer_account_id uuid NOT NULL,
-    buyer_membership_id uuid NOT NULL,
+    buyer_relationship_id uuid NOT NULL,
     handoff_token_id uuid NOT NULL REFERENCES delivery_handoff_token (delivery_handoff_token_id),
     decision varchar(32) NOT NULL CHECK (decision IN ('ACCEPTED','DISPUTED')),
     driver_delivered_quantity numeric(19,6) NOT NULL CHECK (driver_delivered_quantity >= 0),
@@ -129,7 +139,11 @@ CREATE TABLE buyer_receipt_fact (
     occurred_at timestamptz NOT NULL,
     idempotency_key varchar(160) NOT NULL,
     UNIQUE (delivery_id, delivery_attempt_id),
-    UNIQUE (buyer_membership_id, idempotency_key),
+    UNIQUE (buyer_relationship_id, idempotency_key),
+    FOREIGN KEY (delivery_id, tenant_id, workspace_id)
+        REFERENCES delivery (delivery_id, tenant_id, workspace_id),
+    FOREIGN KEY (delivery_attempt_id, delivery_id)
+        REFERENCES delivery_attempt (attempt_id, delivery_id),
     CHECK (accepted_quantity <= driver_delivered_quantity)
 );
 
@@ -175,16 +189,29 @@ CREATE TABLE temperature_excursion (
 
 CREATE TABLE continuation_delivery (
     continuation_id uuid PRIMARY KEY,
-    parent_delivery_id uuid NOT NULL REFERENCES delivery (delivery_id),
-    status varchar(32) NOT NULL CHECK (status IN ('OPEN','DISPATCHED','COMPLETED','CANCELLED')),
+    tenant_id uuid NOT NULL,
+    workspace_id uuid NOT NULL,
+    parent_delivery_id uuid NOT NULL,
+    child_delivery_id uuid NOT NULL,
     remaining_snapshot jsonb NOT NULL,
     opened_at timestamptz NOT NULL,
-    closed_at timestamptz
+    idempotency_key varchar(160) NOT NULL,
+    UNIQUE (parent_delivery_id),
+    UNIQUE (child_delivery_id),
+    UNIQUE (tenant_id, workspace_id, idempotency_key),
+    CHECK (parent_delivery_id <> child_delivery_id),
+    FOREIGN KEY (parent_delivery_id, tenant_id, workspace_id)
+        REFERENCES delivery (delivery_id, tenant_id, workspace_id),
+    FOREIGN KEY (child_delivery_id, tenant_id, workspace_id)
+        REFERENCES delivery (delivery_id, tenant_id, workspace_id)
 );
 
 CREATE INDEX ix_fulfillment_scope_status ON fulfillment (tenant_id, workspace_id, status);
 CREATE INDEX ix_delivery_scope_status ON delivery (tenant_id, workspace_id, status);
 CREATE INDEX ix_delivery_attempt_delivery ON delivery_attempt (delivery_id, attempt_number);
+CREATE UNIQUE INDEX uq_delivery_assignment_active
+    ON delivery_assignment (delivery_id)
+    WHERE unassigned_at IS NULL;
 CREATE UNIQUE INDEX uq_delivery_handoff_token_active
     ON delivery_handoff_token (delivery_id, delivery_attempt_id)
     WHERE status = 'ACTIVE';

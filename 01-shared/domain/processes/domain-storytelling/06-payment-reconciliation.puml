@@ -1,0 +1,30 @@
+@startuml 06-payment-reconciliation
+title Domain Story 6 — Captured Payment with Failed Order Creation
+hide footbox
+autonumber
+actor "B2B Buyer" as Buyer
+participant Payment
+participant "Payment Provider" as Provider
+participant "Sales Commitment" as Sales
+participant Operations
+
+Buyer -> Payment : Start prepaid online checkout
+Payment -> Provider : Obtain provider authorization/capture
+Provider --> Payment : Provider result
+Payment -> Sales : Request final Sales Order creation
+alt Sales Order creation fails after capture
+  Sales --> Payment : Failure
+  Payment -> Payment : Record UNALLOCATED / RECONCILIATION_REQUIRED
+  Payment -> Provider : Attempt automatic refund
+  alt refund failure
+    Provider --> Payment : Failure / uncertain result
+    Payment --> Operations : Open visible reconciliation work
+  end
+else Sales Order creation succeeds
+  Sales --> Payment : Confirmed order boundary
+end
+
+note over Payment,Operations
+Provider behavior stays behind an adapter. Financial history is never erased.
+end note
+@enduml

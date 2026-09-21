@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: domain
-last-reviewed: 2026-08-25
+last-reviewed: 2026-09-20
 ---
 
 # BC-02 Customer & Buyer Relationships — Tactical Model
@@ -25,11 +25,11 @@ remains NOT STARTED.
 |---|---|---|
 | `CustomerAccount` | supplier-Tenant customer record, contacts and addresses; account may exist without Portal identity | Tenant/Workspace IDs |
 | `BuyerRelationship` | invitation, approval, suspension and revocation for one supplier Tenant | CustomerAccount ID, HumanIdentity ID |
-| `BuyerRelationshipHistory` | immutable lifecycle facts; not a mutable child graph | relationship ID, actor reference |
 
 Contacts and addresses compose into CustomerAccount because their lifecycle is
 account-owned. BuyerRelationship references CustomerAccount by ID; it is not
-composed into a global identity.
+composed into a global identity. `BuyerRelationshipHistory` is an append-only
+BuyerRelationship Entity/fact, not an Aggregate Root or a mutable child graph.
 
 ## Domain Layer class dictionary
 
@@ -88,6 +88,14 @@ composed into a global identity.
   lifecycle is local to BuyerRelationship; cross-aggregate reads use IDs.
 - Sales submission revalidates relationship eligibility inside its application
   boundary; stale Portal projections cannot authorize a purchase.
+
+## Persistence concurrency guards
+
+`customer_account` and `buyer_relationship` use SQL `version` CAS: each
+mutable update includes `WHERE <root_id> = :id AND version = :expectedVersion`
+and increments `version`. The Customer Account reference is also constrained
+by the local tenant/workspace composite FK, so a CAS cannot retarget a
+relationship across scope.
 
 ## Events, persistence and evidence
 
