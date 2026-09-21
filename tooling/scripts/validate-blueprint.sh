@@ -762,6 +762,26 @@ academic_mobile_technology_docs = {
         "historical evaluated provenance only",
     ),
 }
+construction_document_contracts = {
+    "01-shared/architecture/technology-baseline.md": (
+        "Kotlin `2.4.x`", "Compose BOM `2026.09.00`", "Hilt", "Navigation 3",
+        "CameraX", "ML Kit Barcode Scanning", "bundled model", "manual",
+        "WorkManager", "provider", "go_router", "Swift Package Manager", "CocoaPods",
+    ),
+    "03-mobile/capabilities/operations/camera.md": (
+        "TARGET DEFINED", "IMPLEMENTATION NOT YET VERIFIED", "CameraX",
+        "ML Kit Barcode Scanning bundled model", "manual", "EAN", "UPC", "QR",
+    ),
+    "03-mobile/architecture/technical/dependency-injection-and-navigation.md": (
+        "Hilt", "Navigation", "provider", "go_router",
+    ),
+    "03-mobile/architecture/technical/local-storage.md": (
+        "Android Keystore", "DataStore", "Room", "WorkManager",
+    ),
+    "03-mobile/architecture/technical/performance-and-observability.md": (
+        "Baseline Profiles", "Macrobenchmark", "profile/release mode", "Flutter DevTools",
+    ),
+}
 stale_mobile_framework_patterns = (
     r"\bno framework (?:is )?selected\b",
     r"\bframework open\b",
@@ -787,6 +807,15 @@ for relative, markers in {**current_mobile_technology_docs, **academic_mobile_te
     for pattern in stale_mobile_framework_patterns:
         if re.search(pattern, normalized_text, re.IGNORECASE):
             failures.append(f"{relative} reopens accepted Mobile framework selection: {pattern}")
+for relative, markers in construction_document_contracts.items():
+    source = root / relative
+    if not source.is_file():
+        failures.append(f"missing construction-readiness primary file: {relative}")
+        continue
+    normalized_text = re.sub(r"\s+", " ", source.read_text(encoding="utf-8"))
+    for marker in markers:
+        if marker not in normalized_text:
+            failures.append(f"{relative} missing accepted construction marker {marker!r}")
 research_plan = (root / "03-mobile/ux/discovery/research-plan.md").read_text(encoding="utf-8")
 findings = (root / "03-mobile/ux/discovery/findings.md").read_text(encoding="utf-8")
 for required in ("9/9", "n=3", "77895a8950676ccdaec520a61c41107852268606", "SOLUTION", "OPEN"):

@@ -20,7 +20,7 @@ invented; the source provides week numbers, not calendar dates.
 | Needfinding interviews, analysis and personas | COMPLETE | REFINE | VALIDATION_PENDING | FINAL | 9/9 Needfinding interviews complete; problem/task evidence only | Research |
 | User Stories, Impact Mapping and Product Backlog | COMPLETE | REFINE | REFINE | FINAL | 97 PBIs / 426 SP across four academic Sprints; Product Acceptance remains open | Product |
 | Strategic DDD and 11 BC baseline | READY | PRESERVE | PRESERVE | FINAL | Shared Blueprint evidence exists | Architecture/Domain |
-| C4 Context, Container, Component and Deployment | VERIFIED WITH CAVEAT | REFINE | REFINE | FINAL | Shared C4 is authority; academic views are derived; Wave 2 reconciliation remains open | Architecture |
+| C4 Context, Container, Component and Deployment | VERIFIED WITH CAVEAT | REFINE | REFINE | FINAL | Shared C4 is authority; academic views are derived; Wave 3.2 canonical closure is complete; implementation and acceptance remain separate | Architecture |
 | Tactical domain/database diagrams | STRUCTURE_READY | REFINE | REFINE | FINAL | Shared SQL/UML projections available | Domain/Data |
 | UI/UX wireframes, wireflows, mock-ups, user flows, prototype | RESEARCH EVIDENCE AVAILABLE | IMPLEMENTATION_PENDING | VALIDATION_PENDING | FINAL | As-Is task/journey evidence exists; solution prototype validation open | Design |
 | Android native foundation | PARTIAL IMPLEMENTATION EVIDENCE | TARGET | REFINE | FINAL | Operations Android/Kotlin/Jetpack Compose is accepted TARGET by ADR-0018; evidence exists on an unmerged feature branch and is not integrated | Mobile engineering |

@@ -8,10 +8,17 @@ last-reviewed: 2026-09-20
 
 # Mobile performance and observability
 
-Performance work is evidence-driven. Measure representative authorized flows,
-startup, network recovery, camera/manual fallback and background retry before
-claiming a device-ready result. Do not optimize by weakening authorization,
+Performance work is evidence-driven: measure baseline, establish budget, then
+enforce a gate. No numeric startup, jank or SLO target is accepted before a
+measured baseline exists. Do not optimize by weakening authorization,
 freshness, idempotency or evidence integrity.
+
+Operations Android uses Baseline Profiles and Macrobenchmark for representative
+critical journeys; meaningful acceptance measurements run on physical Android
+devices. Buyer Flutter uses profile/release mode and Flutter DevTools frame,
+startup and runtime metrics; debug mode is not meaningful performance evidence.
+Measure startup, authorized API flow, network recovery, camera/manual fallback
+and background retry as applicable.
 
 Client telemetry is optional construction instrumentation. It may use safe
 correlation IDs, route/feature outcome, latency class, retry category and

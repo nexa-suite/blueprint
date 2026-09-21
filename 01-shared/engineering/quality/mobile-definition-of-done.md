@@ -8,19 +8,23 @@ last-reviewed: 2026-09-20
 
 # Mobile Definition of Done
 
-A Mobile slice is done only when its authorized API contract, tenant/context
-handling, error/conflict/unknown-result state, accessibility behavior and
-appropriate automated evidence are present. A build alone is not Product
-Acceptance.
+A relevant Mobile slice is Done only when applicable evidence includes:
 
-- No client-owned business authority, aggregate clone or separate server
-  database.
-- Authenticated scope is reconstructed by API; client cache/draft/staging stays
-  non-authoritative and revocation fails closed.
-- Retry-sensitive commands retain idempotency behavior; stale/conflict results
-  are visible and not silently overwritten.
-- Operations camera/barcode input preserves mandatory manual fallback.
-- Sensitive material is protected and absent from telemetry/logs.
-- Unit, contract/adapter and selected integration/UI evidence is recorded for
-  the slice; physical-device, distribution and acceptance gates are not implied
-  unless separately evidenced.
+- User Story/Acceptance Criteria traceability, owning Bounded Context and API
+  contract identified.
+- Accepted architecture boundary respected; no client-owned business authority,
+  aggregate clone or separate server database.
+- Authenticated Tenant/Workspace or Buyer Relationship handling; API scope is
+  reconstructed server-side and revocation fails closed.
+- Loading, empty, error, stale, conflict, timeout and unknown-result states.
+- Idempotency/revision behavior for critical commands; no silent overwrite.
+- Unit, contract/adapter, ViewModel/state and selected integration/UI evidence at
+  the required gate; lint and static/architecture checks pass.
+- Accessibility baseline and required device-capability fallback, including
+  Operations manual identification fallback.
+- No raw credentials, tokens or sensitive payload leakage; implementation
+  evidence updated.
+
+A build, rendered screen, branch or screenshot alone is not completion.
+
+DoD != Product Acceptance != System Acceptance != Production Readiness.
