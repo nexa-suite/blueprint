@@ -1,4 +1,16 @@
+<div align="center">
+
+<img src="./01-shared/engineering/docs/assets/nexa.svg" alt="Nexa" width="240" />
+
 # Nexa Blueprint
+
+**Canonical Product, Domain and Architecture documentation authority.**
+
+![Authority](https://img.shields.io/badge/authority-canonical-0F766E?style=flat-square) ![Format](https://img.shields.io/badge/docs-Markdown-000000?style=flat-square&logo=markdown&logoColor=white) ![Latest Git tag](https://img.shields.io/github/v/tag/nexa-suite/blueprint?sort=semver&style=flat-square&label=latest%20Git%20tag)
+
+[Orientation](./00-start-here/README.md) · [Product](./01-shared/product/README.md) · [Architecture](./01-shared/architecture/README.md) · [Delivery](./04-delivery/README.md) · [Validation](./tooling/scripts/validate-blueprint.sh)
+
+</div>
 
 Canonical documentation for Nexa Product, Domain, System, Web, accepted Mobile projections, delivery evidence, academic projections, and historical reference.
 
@@ -6,7 +18,7 @@ Canonical documentation for Nexa Product, Domain, System, Web, accepted Mobile p
 
 This repository is the documentation authority for accepted Product, Domain, Architecture, and technical data decisions. It is not a runtime application, a deployed service, or a substitute for verified implementation evidence. AS-IS evidence and TARGET design remain explicitly separated; planned or accepted decisions are not presented as implemented or production-ready without supporting evidence.
 
-The current authority records one Nexa system, 11 accepted Strategic Bounded Contexts, 14 published integration events, and 95 TARGET tables. Needfinding is complete at 9/9 interviews as problem and task evidence. The Operations mobile projection has partial implementation evidence on an unmerged branch; Buyer Mobile is a TARGET projection and is not implemented; Product Acceptance, device evidence, and production readiness remain open where the delivery records say so.
+The current authority records one Nexa system, 11 accepted Strategic Bounded Contexts, 14 published integration events, and 95 TARGET tables. Needfinding is complete at 9/9 interviews as problem and task evidence. Operations Mobile has partial implementation evidence integrated in the current Mobile repository baseline; this does not mean Mobile V1 is complete or accepted. Buyer Mobile remains a TARGET projection and is not implemented. Product Acceptance, device evidence, and production readiness remain open where the delivery records say so.
 
 ## Nexa Product Ecosystem
 
@@ -40,7 +52,7 @@ The current authority records one Nexa system, 11 accepted Strategic Bounded Con
 
 ## Mobile boundary
 
-The accepted Mobile target includes Operations Android with Kotlin and Jetpack Compose, and Buyer Mobile with Flutter and Dart for Android and iOS. Current evidence distinguishes the target from implementation: Operations has partial work on unmerged feature branches, while Buyer Mobile has no verified implementation. The [mobile requirements](03-mobile/requirements/README.md), [mobile architecture](03-mobile/architecture/README.md), and [delivery records](04-delivery/README.md) are authoritative for the boundary and open gates.
+The accepted Mobile target includes Operations Android with Kotlin and Jetpack Compose, and Buyer Mobile with Flutter and Dart for Android and iOS. Current evidence distinguishes implementation from acceptance: partial Operations implementation is integrated in the current Mobile baseline; Buyer Mobile has no verified implementation. Neither integration nor the accepted target proves Mobile V1 completion, Product Acceptance, System Acceptance or Production Readiness. The [mobile requirements](03-mobile/requirements/README.md), [mobile architecture](03-mobile/architecture/README.md), and [delivery records](04-delivery/README.md) are authoritative for the boundary and open gates.
 
 ## Documentation and validation stack
 
