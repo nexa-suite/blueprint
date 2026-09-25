@@ -3,13 +3,27 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: product
-last-reviewed: 2026-08-29
+last-reviewed: 2026-09-25
 ---
 
 # BC-01 — Tenant & Access Governance functional contract
 
 **Purpose:** establish identity, Tenant isolation, Workspace scope, Workforce
 Membership, capability grants and safe context propagation.
+
+## Accepted Wave 2 identity-first access contract (TARGET)
+
+Operations Mobile uses the `PLATFORM` business surface with the `NATIVE`
+transport marker. `POST /api/v1/authentication/identity-sign-in` accepts an
+identity identifier, password and surface without a `workspaceSlug`. It
+returns exactly `SESSION_ESTABLISHED`, `CONTEXT_SELECTION_REQUIRED` or
+`NO_WORK_CONTEXT`: zero eligible contexts creates no scoped session, refresh
+family or context ticket; one context establishes its scoped session; multiple
+contexts require explicit selection. Context listing and selection, ticket
+authority, expiry, session rotation and failure outcomes are specified in the
+[Mobile API client contract](../../../03-mobile/architecture/technical/api-client-contract.md).
+The existing workspace-scoped Web sign-in remains backward compatible. This is
+the accepted TARGET contract; it does not assert current API implementation.
 
 | Contract element | Definition |
 |---|---|
