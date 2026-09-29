@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: architecture
-last-reviewed: 2026-09-19
+last-reviewed: 2026-09-27
 ---
 
 # Bounded Context component-level rubric coverage
@@ -31,7 +31,10 @@ logical Operations Mobile Device and Buyer Mobile Device nodes.
 
 Mobile entries son superficies de producto `TARGET V1 / OWNER-ACCEPTED`, no
 afirmaciones de cliente integrado: Operations tiene evidencia parcial no
-fusionada y Buyer no está implementada; la tecnología final permanece OPEN. La
+fusionada y Buyer no está implementada. La tecnología TARGET ya está aceptada:
+Operations Android/Kotlin/Jetpack Compose ([ADR-0018](../decisions/adr/adr-0018-operations-mobile-native-android.md))
+y Buyer Flutter/Dart ([ADR-0019](../decisions/adr/adr-0019-buyer-mobile-flutter.md));
+esto no acredita Product Acceptance. La
 fuente de componentes sigue siendo el [Structurizr DSL](structurizr/workspace.dsl).
 El conjunto SVG/PNG generado bajo [exports](exports/README.md) es evidencia de
 revisión y no reemplaza el DSL ni la representación generada.
