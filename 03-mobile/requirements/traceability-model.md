@@ -27,3 +27,15 @@ those elements remain academic only. Backend or feature-branch evidence never
 becomes Mobile Product Acceptance. Product and BC authority remain in [Shared
 Product](../../01-shared/product/README.md) and [Strategic
 DDD](../../01-shared/domain/strategic-ddd/README.md).
+
+## Accepted Owner closure traceability
+
+| Stories | Product source | Remaining evidence boundary |
+| --- | --- | --- |
+| 004 | [Owner closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md) | Bounded prepared-Fulfillment coverage; implementation and acceptance separate |
+| 005 | Same Owner closure, exceptions | Canonical lifecycle/authority; backend contracts and factual closure evidence |
+| 029 / Buyer 045 | Same Owner closure, location | Operational workday and relationship boundaries; exact raw retention OPEN; live API/device proof separate |
+| 030 / Buyer 046 | Same Owner closure, chat | Sales ↔ Buyer chat ONLY; Driver contact excluded; explicit history/edit policy; no implicit business commands |
+| 059 / 060 | Same Owner closure, loads/handoff | Server compatibility data and bilateral responsibility facts; external 3PL access FUTURE |
+| 063 | Same Owner closure, instructions | Current assignment/active window, provenance, versioned critical acknowledgment |
+| 073 / related 019 / 061 | Same Owner closure, manual temperature | Real evidence/exception/affected-stock HOLD; IoT FUTURE; implementation proof separate |

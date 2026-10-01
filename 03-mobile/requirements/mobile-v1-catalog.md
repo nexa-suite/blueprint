@@ -151,7 +151,7 @@ so that I do not attempt work that my role or relationship does not allow.
 | Field | Value |
 |---|---|
 | ID | MOB-US-004 |
-| Status | DEFERRED |
+| Status | PLANNED |
 | Product | Mobile |
 | Surface | Operations Mobile |
 | Actor | Business Operations Manager |
@@ -163,7 +163,7 @@ so that I do not attempt work that my role or relationship does not allow.
 | Shared Capability | CAP-16 — Operational visibility |
 | Goal / Outcome | Prioritize work from an accepted, reliable operational view. |
 | Research status | PENDING |
-| Connectivity and authority | Deferred until the operational projection and freshness rules are accepted. |
+| Connectivity and authority | Initial view is the authorized prepared-Fulfillment projection by Warehouse; context, version, timestamp and incomplete coverage are explicit. |
 
 ### User Story
 
@@ -173,16 +173,18 @@ so that I can prioritize work from current and trustworthy facts.
 
 ### Acceptance Criteria
 
-- Scenario: Future view — Given an accepted future operational view, when the manager reviews it, then every item states its context and freshness.
-- Scenario: Incomplete facts — Given source facts are missing or stale, when the manager reviews the view, then the limitation is explicit and no total is invented.
-- Scenario: Unauthorized scope — Given the manager lacks scope permission, when the view is requested, then no private operational information is exposed.
+- Scenario: Authorized view — Given current permitted prepared Fulfillment work, when the manager opens the initial view, then every item states Tenant/Workspace, version, fact timestamp and Warehouse-authorized coverage.
+- Scenario: Incomplete facts — Given missing or stale facts, when the view is reviewed, then limitations are explicit and no totals for other processes are invented.
+- Scenario: Unauthorized scope — Given no current scope or Warehouse permission, when the view is requested, then no private work is disclosed.
+
+Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
 ## MOB-US-005 — Notice critical operational exceptions
 
 | Field | Value |
 |---|---|
 | ID | MOB-US-005 |
-| Status | DEFERRED |
+| Status | PLANNED |
 | Product | Mobile |
 | Surface | Operations Mobile |
 | Actor | Business Operations Manager |
@@ -194,7 +196,7 @@ so that I can prioritize work from current and trustworthy facts.
 | Shared Capability | CAP-16 — Operational visibility |
 | Goal / Outcome | Notice accepted exceptions that need an authorized operational response. |
 | Research status | PENDING |
-| Connectivity and authority | Deferred until exception meaning, ownership and response rules are accepted. |
+| Connectivity and authority | Accepted exception meaning, severity, responsibility and lifecycle follow the 2026-10-01 Owner closure; server contracts remain independently required. |
 
 ### User Story
 
@@ -204,9 +206,12 @@ so that I can address blocked work before it delays a customer or delivery.
 
 ### Acceptance Criteria
 
-- Scenario: Accepted exception — Given a future accepted exception view, when the manager reviews an item, then its scope, severity and owning work are clear.
-- Scenario: Incomplete exception — Given exception facts are incomplete, when the item is reviewed, then it is marked incomplete and not treated as a new business state.
-- Scenario: Authorized response — Given an exception needs correction, when the manager follows it, then Nexa directs the person to the authorized owning work.
+- Scenario: Exception meaning — Given a fact prevents normal work, creates material risk or requires intervention, when reported, then it references affected owning work and retains detector/reporter, type, severity and time; informative events are not exceptions.
+- Scenario: Authorized responsibility — Given an exception in permitted work, when an authorized actor claims it or BOM assigns/reassigns it, then responsible identity and timestamp are preserved; reporting does not grant resolution authority.
+- Scenario: Lifecycle — Given an authorized response, when work progresses through OPEN, CLAIMED/ASSIGNED, UNDER_REVIEW/IN_PROGRESS, RESOLVED and CLOSED, then resolution, reason and applicable evidence remain attributable without changing owning business truth implicitly.
+- Scenario: Closure reasons — Given BLOCKING or CRITICAL severity, when closure is requested, then an explicit reason is required; WARNING may use an already preserved sufficiently explicit resolution/reason code.
+
+Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
 ## MOB-US-006 — Find a customer and buyer relationship
 
@@ -924,7 +929,7 @@ so that the Delivery Attempt has a clear and authorized start.
 | Shared Capability | CAP-09 — Fulfillment, dispatch and delivery |
 | Goal / Outcome | Hand the authorized delivery destination to a navigation service without changing Delivery truth. |
 | Research status | PENDING |
-| Connectivity and authority | V1 hands off to external navigation; Nexa does not store continuous driver location. |
+| Connectivity and authority | Navigation hands off externally and does not itself collect location; separate operational Driver tracking follows MOB-US-029. |
 
 ### User Story
 
@@ -937,14 +942,14 @@ so that I can travel to the right destination without changing the Delivery reco
 - Scenario: Authorized destination — Given an active authorized delivery has a destination, when the driver asks for directions, then Nexa hands that destination to the chosen navigation service.
 - Scenario: Missing destination — Given the destination is missing or not authorized, when directions are requested, then Nexa does not disclose an unverified location.
 - Scenario: Navigation unavailable — Given the navigation service is unavailable, when directions are requested, then the Delivery Attempt remains unchanged and the failure is clear.
-- Scenario: No stored tracking — Given directions are opened, when the handoff completes, then Nexa stores no continuous or background driver location from this action.
+- Scenario: No stored tracking — Given directions are opened, when navigation handoff completes, then that action does not itself collect location; the separate operational-hours tracking requirement follows MOB-US-029.
 
 ## MOB-US-029 — Share a delivery location during an active delivery
 
 | Field | Value |
 |---|---|
 | ID | MOB-US-029 |
-| Status | DEFERRED |
+| Status | PLANNED |
 | Product | Mobile |
 | Surface | Operations Mobile; Buyer Mobile |
 | Actor | Driver or Delivery Operator |
@@ -956,7 +961,7 @@ so that I can travel to the right destination without changing the Delivery reco
 | Shared Capability | CAP-09 — Fulfillment, dispatch and delivery |
 | Goal / Outcome | Consider a future bounded location capability with explicit consent and retention. |
 | Research status | PENDING |
-| Connectivity and authority | Stored, periodic, background and live location are deferred; V1 uses navigation handoff only. |
+| Connectivity and authority | Continuous Driver location is required only during the operational Driver workday in current Tenant/Workspace; off-duty tracking is forbidden. Exact raw-location retention remains OPEN. |
 
 ### User Story
 
@@ -966,9 +971,13 @@ so that a future accepted location service can support a bounded delivery need.
 
 ### Acceptance Criteria
 
-- Scenario: Future consent — Given a future location policy is accepted, when the driver shares a location, then consent, scope and retention are explicit.
-- Scenario: No active delivery — Given no active delivery exists, when location is requested, then no location is shared.
-- Scenario: Privacy boundary — Given the person withdraws permission, when location sharing is requested, then no new location is disclosed.
+- Scenario: Operational workday — Given the actor is working as Driver using Operations Mobile, when the operational workday is active, then location collection follows the accepted operational policy within current Tenant/Workspace, never private off-duty surveillance.
+- Scenario: Permission loss — Given required OS location permission is revoked or disabled during that workday, when detected, then Nexa shows and records the condition and can block Driver functions that require location until restoration.
+- Scenario: Bounded visibility — Given responsibility requires location, when Driver, Dispatch Coordinator or BOM reads it, then only permitted operational context is disclosed; unrelated roles have no implicit access.
+- Scenario: Buyer map — Given the Buyer own Delivery has actually left dispatch, when live tracking is requested, then only its assigned Driver location is disclosed through the current Buyer Relationship; tracking stops on terminal/cancelled Delivery.
+- Scenario: Privacy — Given workday ends or scope/assignment is lost, when further disclosure or collection is attempted, then off-duty/unrelated tracking is refused; retention is finite and unrelated reuse is not authorized.
+
+Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
 ## MOB-US-030 — Contact the buyer during delivery
 
@@ -987,7 +996,7 @@ so that a future accepted location service can support a bounded delivery need.
 | Shared Capability | CAP-09 — Fulfillment, dispatch and delivery |
 | Goal / Outcome | Resolve an arrival question through a future authorized channel. |
 | Research status | PENDING |
-| Connectivity and authority | Deferred until channel, consent and audit rules are accepted. |
+| Connectivity and authority | Owner limits Nexa chat to Sales ↔ Buyer only. No Driver ↔ Buyer chat or external WhatsApp/SMS channel is authorized in V1. |
 
 ### User Story
 
@@ -997,9 +1006,11 @@ so that I can resolve an arrival question through an authorized channel.
 
 ### Acceptance Criteria
 
-- Scenario: Future channel — Given an accepted contact policy exists, when the driver contacts the buyer, then only the authorized channel is used and its use is recorded.
-- Scenario: Missing consent — Given consent or assignment is missing, when contact is requested, then no personal contact is initiated.
-- Scenario: Separate outcome — Given contact occurs, when it ends, then it does not change Delivery outcome or Buyer receipt by itself.
+- Scenario: Excluded Driver channel — Given Driver/Buyer contact is requested, when the current V1 communication scope is applied, then no Driver ↔ Buyer chat or WhatsApp/SMS/personal-contact channel is exposed.
+- Scenario: Sales/Buyer scope — Given authorized Sales and Buyer relationship, when contextual Nexa chat is available, then only that participant pair is admitted; this does not implement Driver contact.
+- Scenario: Separate facts — Given business coordination, when it occurs, then no Delivery outcome, receipt, POD, stock or financial fact changes implicitly.
+
+Owner clarification: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Driver contact remains unavailable in this scope; implementation and acceptance are separate.
 
 ## MOB-US-031 — Record the delivery attempt outcome
 
@@ -1446,7 +1457,7 @@ so that I can respond to a relevant delivery change in time.
 | Field | Value |
 |---|---|
 | ID | MOB-US-045 |
-| Status | DEFERRED |
+| Status | PLANNED |
 | Product | Mobile |
 | Surface | Buyer Mobile |
 | Actor | Customer Buyer |
@@ -1458,7 +1469,7 @@ so that I can respond to a relevant delivery change in time.
 | Shared Capability | CAP-09 — Fulfillment, dispatch and delivery |
 | Goal / Outcome | Consider a future consented location experience for an active Delivery. |
 | Research status | PENDING |
-| Connectivity and authority | Stored, periodic and live location, map tracking and ETA are deferred. |
+| Connectivity and authority | Buyer live Delivery map is accepted after its Delivery actually leaves dispatch; access remains current Buyer Relationship + Customer/Delivery scoped. |
 
 ### User Story
 
@@ -1468,9 +1479,11 @@ so that a future authorized service can help me understand arrival timing.
 
 ### Acceptance Criteria
 
-- Scenario: Future location — Given a future location policy is accepted, when the buyer opens an active Delivery, then only bounded consented location is shown.
-- Scenario: No active Delivery — Given no active Delivery exists, when the buyer requests a map, then no driver location is disclosed.
-- Scenario: Privacy boundary — Given permission or relationship is missing, when the buyer requests a map, then no location is disclosed.
+- Scenario: Own dispatched Delivery — Given the Buyer own Delivery is ready/dispatched and has actually left dispatch, when its live map is opened, then only the corresponding assigned Driver progress/location is shown.
+- Scenario: Unrelated or inactive Delivery — Given another Customer/Driver, missing relationship, terminal or cancelled Delivery, when tracking is requested, then no operational location is disclosed.
+- Scenario: Separate state — Given a live map update, when it is displayed, then it creates no Delivery completion or Buyer Receipt.
+
+Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
 ## MOB-US-046 — Contact the driver
 
@@ -1489,7 +1502,7 @@ so that a future authorized service can help me understand arrival timing.
 | Shared Capability | CAP-09 — Fulfillment, dispatch and delivery |
 | Goal / Outcome | Resolve a future arrival question through an authorized Delivery channel. |
 | Research status | PENDING |
-| Connectivity and authority | Deferred until provider, consent, privacy and audit rules are accepted. |
+| Connectivity and authority | Owner limits Nexa chat to Sales ↔ Buyer only. No Driver ↔ Buyer chat or external WhatsApp/SMS channel is authorized in V1. |
 
 ### User Story
 
@@ -1499,9 +1512,11 @@ so that I can resolve an arrival question through an authorized Delivery channel
 
 ### Acceptance Criteria
 
-- Scenario: Future channel — Given an accepted channel policy and active Delivery, when the buyer contacts the driver, then only the authorized channel is used.
-- Scenario: No permission — Given consent or active Delivery is missing, when contact is requested, then no personal contact is initiated.
-- Scenario: Separate facts — Given contact occurs, when it ends, then it does not change Driver outcome, Buyer receipt or Delivery state.
+- Scenario: Excluded Driver channel — Given Driver/Buyer contact is requested, when the current V1 communication scope is applied, then no Driver ↔ Buyer chat or WhatsApp/SMS/personal-contact channel is exposed.
+- Scenario: Sales/Buyer scope — Given authorized Sales and Buyer relationship, when contextual Nexa chat is available, then only that participant pair is admitted; this does not implement Driver contact.
+- Scenario: Separate facts — Given business coordination, when it occurs, then no Delivery outcome, receipt, POD, stock or financial fact changes implicitly.
+
+Owner clarification: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Driver contact remains unavailable in this scope; implementation and acceptance are separate.
 
 ## MOB-US-047 — Verify a delivery through the handoff code
 
@@ -1979,7 +1994,7 @@ so that the delivery remains owned by an eligible person at an agreed time.
 | Field | Value |
 |---|---|
 | ID | MOB-US-059 |
-| Status | DEFERRED |
+| Status | PLANNED |
 | Product | Mobile |
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
@@ -1991,7 +2006,7 @@ so that the delivery remains owned by an eligible person at an agreed time.
 | Shared Capability | CAP-09 — Fulfillment, dispatch and delivery |
 | Goal / Outcome | Organize compatible deliveries into a load with explicit stops, responsibility and cold-chain constraints. |
 | Research status | PENDING |
-| Connectivity and authority | Grouping remains a proposal until all delivery, customer and condition rules are confirmed. |
+| Connectivity and authority | Simple grouping and manual/semi-assisted stop ordering are accepted; server validates origin, readiness, windows, geographic reasonableness, temperature, handling, capacity and separation restrictions. |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | A coordinator can inspect and adjust a proposed load where physical dispatch decisions happen. |
@@ -2012,15 +2027,19 @@ so that compatible deliveries can be dispatched with their constraints visible.
 
 ### Acceptance Criteria
 
-- Scenario: Compatible load — Given deliveries satisfy the accepted grouping rules, when the coordinator prepares a load, then Nexa shows every delivery, stop and required condition.
-- Scenario: Incompatible delivery — Given one delivery violates a customer or cold-chain rule, when the coordinator prepares the load, then Nexa keeps it outside the load and explains why.
+- Scenario: Compatible load — Given READY_FOR_DISPATCH Deliveries with same origin Warehouse, compatible windows, reasonable geographic route, same temperature range, compatible handling, enough capacity and no separation restriction, when grouped, then every Delivery, stop and condition is shown; same Customer or prior Driver is not required.
+- Scenario: Incompatible Delivery — Given a different origin/range, incompatible window/handling, insufficient capacity, BLOCKED/HOLD/cold-chain or dedicated/customer-contract restriction, when grouping is attempted, then the Delivery remains outside with the reason.
+- Scenario: Stop order — Given an authorized coordinator, when ordering stops manually or with assistance, then current order is explicit without requiring automatic optimization.
+- Scenario: Controlled changes — Given permitted pre-handoff Delivery state, when moved between loads, then current authoritative state is checked; after Driver handoff, operational stop reordering preserves actor, time, previous/new order and reason.
+
+Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
 ## MOB-US-060 — Complete a carrier handoff with traceable responsibility
 
 | Field | Value |
 |---|---|
 | ID | MOB-US-060 |
-| Status | DEFERRED |
+| Status | PLANNED |
 | Product | Mobile |
 | Surface | Operations Mobile |
 | Actor | Dispatch Coordinator |
@@ -2032,7 +2051,7 @@ so that compatible deliveries can be dispatched with their constraints visible.
 | Shared Capability | CAP-09 — Fulfillment, dispatch and delivery |
 | Goal / Outcome | Record when responsibility for a prepared load moves to an authorized carrier and preserve the handoff evidence. |
 | Research status | PENDING |
-| Connectivity and authority | Carrier selection, evidence and responsibility rules require Product and provider decisions before implementation. |
+| Connectivity and authority | V1 Driver is an authorized Workforce Membership; responsibility transfers only after Dispatch confirmation and explicit Driver acceptance of the whole load. External 3PL direct access is FUTURE. |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | The handoff can be captured at the physical transfer point without treating a carrier mechanism as a new domain boundary. |
@@ -2053,8 +2072,12 @@ so that everyone can see who controls the load after it leaves the warehouse.
 
 ### Acceptance Criteria
 
-- Scenario: Handoff accepted — Given a prepared load and authorized carrier are present, when the coordinator records the handoff, then Nexa preserves carrier, person, time and delivery responsibility.
-- Scenario: Evidence incomplete — Given required handoff evidence is missing, when the coordinator tries to finish, then Nexa leaves responsibility with the current owner and states what is required.
+- Scenario: Load review — Given a prepared load offered to its assigned authorized Driver, when reviewed, then Deliveries, relevant quantities/summary, critical restrictions/instructions and applicable condition/evidence are visible.
+- Scenario: Bilateral acceptance — Given both parties operate through Nexa, when Dispatch confirms handoff and Driver explicitly accepts the whole load, then responsibility is recorded with both identities and time; Buyer Receipt is separate.
+- Scenario: Incomplete handoff — Given only one acceptance exists, when responsibility is reviewed, then the bilateral transfer is not claimed complete.
+- Scenario: External carrier — Given an external 3PL, when its operational reference/evidence is recorded, then no direct Mobile access is granted; vehicle/plate data remain optional unless Tenant policy requires them.
+
+Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
 ## MOB-US-061 — Record temperature evidence at dispatch
 
@@ -2145,7 +2168,7 @@ so that the buyer and delivery team know the handoff can begin.
 | Field | Value |
 |---|---|
 | ID | MOB-US-063 |
-| Status | DEFERRED |
+| Status | PLANNED |
 | Product | Mobile |
 | Surface | Operations Mobile |
 | Actor | Driver or Delivery Operator |
@@ -2157,7 +2180,7 @@ so that the buyer and delivery team know the handoff can begin.
 | Shared Capability | CAP-09 — Fulfillment, dispatch and delivery |
 | Goal / Outcome | Reach the intended delivery contact and follow the permitted instructions for the active delivery. |
 | Research status | PENDING |
-| Connectivity and authority | Contact details and instructions are access-controlled and may be stale; the driver cannot infer or expose extra personal data. |
+| Connectivity and authority | Current assigned Driver sees minimum instructions/data only while Delivery is operationally active. Critical instructions require versioned acknowledgment; chat never updates instructions implicitly. |
 | Sprint Planned | UNASSIGNED |
 | Story Points | 3 |
 | Mobile Justification | The driver needs the right context at the point of delivery without turning the app into an unrestricted contact directory. |
@@ -2178,9 +2201,13 @@ so that I can coordinate the handoff with the intended person.
 
 ### Acceptance Criteria
 
-- Scenario: Authorized context — Given an active delivery includes permitted instructions, when the driver opens them, then Nexa shows only information needed for that delivery.
-- Scenario: Instructions changed — Given the delivery instructions are no longer current, when the driver views them, then Nexa marks them stale and requires a fresh confirmation before relying on them.
-- Scenario: Restricted information — Given a contact or instruction is not permitted for the driver, when the driver requests it, then Nexa withholds it and explains the permitted path.
+- Scenario: Instruction provenance — Given Buyer/authorized Customer contact instructions or Sales faithfully recording them, when stored, then actual recorder/provenance is retained; Dispatch/BOM creates operational instructions within authority.
+- Scenario: Buyer edit boundary — Given Delivery reaches READY_FOR_DISPATCH, when Buyer requests a subsequent change, then it goes through Nexa coordination and an explicit Dispatch decision rather than direct active-instruction mutation.
+- Scenario: Minimum current view — Given current active assignment, when Driver reads instructions, then destination, needed recipient identity, window, goods/load summary, customer/operational instructions, cold-chain and critical safety/handling are available; credit, prices, payments and unrelated Customer information are excluded.
+- Scenario: Critical acknowledgment — Given cold-chain handling, access restriction, special unloading, customer safety or validity-compromising handling instructions, when relevant execution is requested, then acknowledgment of current version/content, actor and timestamp is required; normal instructions have no mandatory acknowledgment.
+- Scenario: Access loss — Given reassignment, cancellation or completion/closure, when instructions are requested, then operational access no longer needed is revoked.
+
+Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
 ## MOB-US-064 — Request a delivery reschedule from the field
 
@@ -2553,7 +2580,7 @@ so that the visit starts with the right relationship context and ends with a cle
 | Shared Capability | CAP-08 — Receiving and warehouse operations; CAP-10 — Cold-chain evidence and disposition |
 | Goal / Outcome | Explore how richer automated observations could support a warehouse decision while keeping human authorization and historical traceability explicit. |
 | Research status | PENDING |
-| Connectivity and authority | RFID, industrial scanners, labels, sensors and automation are hypotheses; no device or telemetry source is selected or authoritative. |
+| Connectivity and authority | V1 uses authorized manual Celsius evidence; out-of-range requires photo, exception and preventive HOLD. Automated IoT/provider selection remains FUTURE; no automatic disposition is authorized. |
 | Sprint Planned | UNASSIGNED |
 | Story Points | UNESTIMATED |
 | Mobile Justification | A future field surface may help an operator review richer evidence, but the business outcome and trust model must be proven first. |
@@ -2572,8 +2599,12 @@ As a Warehouse Operator,
 I want to review advanced warehouse observations with a controlled decision,
 so that future automation can assist work without becoming unexamined stock truth.
 
-### Outcome Conditions
+### Acceptance Criteria
 
-- The Product decision identifies a valuable warehouse outcome before a device or provider is selected.
-- Any automated observation remains attributable, reviewable and subordinate to the owning Bounded Context's authorization.
-- The release does not promise a specific RFID, scanner, sensor, label or telemetry implementation.
+- Scenario: Manual reading — Given authorized cold-chain Receiving or Delivery work, when temperature is measured using an appropriate external instrument, then Nexa retains value in Celsius, time, actor, Tenant/Workspace and affected business context without certifying hardware.
+- Scenario: Evidence requirement — Given an in-range reading, when captured, then photo is optional; given excursion, when captured, then photo of thermometer/display/evidence is required.
+- Scenario: Preventive safeguard — Given a confirmed out-of-range reading against product requirement, when accepted, then Temperature Evidence and Cold-Chain/Operational Exception are recorded and affected quantity/stock enters preventive HOLD.
+- Scenario: Controlled disposition — Given preventive HOLD, when disposition is needed, then authorized actor and evidence are required; temperature alone never automatically RELEASES, REJECTS, WASTES, RETURNS, destroys stock or accepts Delivery.
+- Scenario: Applicability — Given product cold-chain requirements, when Receiving/Delivery is performed, then required temperature is enforced; temperature is not universally mandatory during Fulfillment and no IoT sensor/telemetry provider is selected.
+
+Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.

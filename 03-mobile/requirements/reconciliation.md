@@ -123,3 +123,7 @@ in historical documents is evidence only; the current Epic index and master
 registry are authoritative. No story is promoted to `IMPLEMENTED`, `VERIFIED`
 or `PRODUCT_ACCEPTED` by this reconciliation. `MOB-US-073` remains
 hypothesis-level even though its current Product Generation target is V1.
+
+## Current Owner supersession — 2026-10-01
+
+The historical DEFERRED/hypothesis entries for 004, 005, 029, 030, 045, 046, 059, 060, 063 and manual-temperature scope of 073 are superseded as current Product meaning by [Owner closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Their historical bands and provenance remain recoverable; automated IoT remains FUTURE. No implementation or client acceptance is inferred.

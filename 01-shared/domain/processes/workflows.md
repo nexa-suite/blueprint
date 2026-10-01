@@ -71,3 +71,9 @@ not the source of business truth.
 | Domain ownership | ACCEPTED PRE-V1 target; construction authorized, implementation migration remains repository-specific evidence work. |
 | Technical handoffs | AS-IS evidence plus selective TARGET guidance. |
 | Authenticated browser proof | Not claimed by these diagrams. |
+
+## Accepted Operations workflows — 2026-10-01
+
+[Owner closure](../../product/owner-decisions-2026-10-01-mobile-operations.md) refines existing BC workflows without adding contexts or changing Inventory/Delivery/financial authority. Operational exception reporting is separate from resolution authority; its attributable lifecycle reaches CLOSED only through an authorized response. Simple loads validate compatible origin, readiness, windows, route, temperature, handling, capacity and restrictions. Dispatch confirmation plus explicit assigned Driver whole-load acceptance records operational responsibility; Buyer Receipt remains later and separate. Critical current instructions require versioned Driver acknowledgment. Manual out-of-range temperature requires real photo, evidence, exception and preventive affected-stock HOLD; final disposition still requires authorized actor/evidence. Chat messages and live location are coordination, never implicit business commands.
+
+Owner clarification 2026-10-01: chat is exclusively Sales ↔ Buyer in an authorized relationship. Driver ↔ Buyer and other chat participant pairs are excluded from this scope.

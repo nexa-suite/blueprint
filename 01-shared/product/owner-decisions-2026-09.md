@@ -83,3 +83,7 @@ evidence for Wave 2 reconciliation.
 
 Peru-first remains Owner-accepted current Product direction. Website pricing,
 plans and registration drift remains outside this wave.
+
+## Subsequent Owner supersession
+
+[2026-10-01 Operations Mobile closure](owner-decisions-2026-10-01-mobile-operations.md) supersedes earlier hypothesis/exclusion statements for its accepted manual-temperature and operational scope. The September decisions remain historical provenance; automated IoT remains FUTURE.

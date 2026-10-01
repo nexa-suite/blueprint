@@ -32,7 +32,7 @@ no investigation result is claimed.
 | SPIKE-003 | Warehouse/Delivery physical identifiers and ephemeral handoff token | Which barcode/QR/GS1 identifiers and scan fallback are safe? | Evaluate camera capability, formats, ambiguity, permissions, offline boundary and server validation. | Camera scanner; external scanning library; manual identifier entry; defer unsupported formats. | Standards/technology comparison, representative scan evidence, fallback and security notes. | Identifier scope, validation boundary and unresolved questions are explicit. | Scan evidence pack and recommendation. | OPEN; no Barcode/QR BC created. | RECOMMENDED 8-16h |
 | SPIKE-004 | Course local-storage constraint; Nexa integrity and tenant isolation | What may be local and how should retry, conflict, encryption and sync work? | Define selective offline-safe reads/drafts/queues without fake authoritative success. | Online-only; secure cache; local draft; idempotent queue for selected evidence. | Data-classification matrix, conflict/retry scenarios, sync sequence and feasibility evidence. | Safe offline boundary and connectivity-required workflows are explicit. | Storage/sync recommendation and sequence. | OPEN; Product/Architecture acceptance required. | RECOMMENDED 8-16h |
 | SPIKE-005 | Critical notification and deep-link requirement | Which events merit push and how do expiry, tenant scope and stale links recover? | Evaluate channel policy, permission lifecycle, privacy, retry and source-state ownership. | Provider-neutral push; email fallback; in-app refresh; no push for low-criticality facts. | Event-to-notification matrix, threat cases, provider options and delivery/recovery evidence. | Push classes, safety rules and open provider decisions are documented. | Notification/deep-link evidence pack. | OPEN; notification delivery never becomes source authority. | RECOMMENDED 8-16h |
-| SPIKE-006 | Delivery navigation/location value versus privacy, battery and provider risk | What minimum active-Delivery location capability is useful and safe? | Evaluate navigation, active-only sharing, consent, retention, battery, connectivity and fallback. | External navigation only; active-Delivery location; manual location; defer live location. | Privacy/threat notes, battery/connection observations, map options and fallback flow. | Minimum boundary, exclusions and fallback are explicit; permanent tracking is excluded. | Location evidence pack and recommendation. | OPEN; Product/privacy/Architecture acceptance required. | RECOMMENDED 8-16h |
+| SPIKE-006 | Delivery navigation/location value versus privacy, battery and provider risk | What minimum active-Delivery location capability is useful and safe? | Evaluate navigation, active-only sharing, consent, retention, battery, connectivity and fallback. | External navigation only; active-Delivery location; manual location; defer live location. | Privacy/threat notes, battery/connection observations, map options and fallback flow. | Minimum boundary, exclusions and fallback are explicit; off-duty surveillance is excluded; operational-hours Driver tracking is accepted by Owner 2026-10-01. | Location evidence pack and recommendation. | OPEN; Product/privacy/Architecture acceptance required. | RECOMMENDED 8-16h |
 
 ## SPIKE-001 — Select the autonomous-learning feature and external technology
 
@@ -214,8 +214,12 @@ Privacy and threat notes, battery/connection observations, map options and fallb
 
 ### Completion criteria
 
-Recommendation defines the minimum location boundary and explicit exclusions; permanent employee tracking is not accepted.
+Recommendation defines the minimum location boundary and explicit exclusions; off-duty employee surveillance is not accepted; required Driver operational-hours tracking and Buyer scoped live maps follow the 2026-10-01 Owner closure.
 
 ### Output / recommendation
 
 A concise evidence pack and recommendation, with unresolved assumptions explicitly retained.
+
+## SPIKE-006 Product supersession — 2026-10-01
+
+Earlier external-navigation-only and defer-live-location alternatives are superseded for required Driver operational-hours location and Buyer own-Delivery live maps. Exact raw-location retention, provider, battery/device behavior and evidence remain OPEN; this does not claim a tracking implementation.

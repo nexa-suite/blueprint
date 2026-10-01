@@ -16,3 +16,7 @@ Product authority shared by Web and Mobile.
 - [Vision](vision/README.md)
 - [Rules](rules/README.md)
 - [Roadmap](roadmap.md)
+
+## Operations Mobile Owner closure
+
+[Accepted decisions — 2026-10-01](owner-decisions-2026-10-01-mobile-operations.md) supersede conflicting earlier tracking/chat and operational-safeguard scope. Chat is exclusively Sales ↔ Buyer. Product meaning, implementation and acceptance remain separate.

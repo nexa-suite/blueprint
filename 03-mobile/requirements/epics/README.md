@@ -27,7 +27,7 @@ release grouping as historical planning provenance only.
 | MOBILE-EPIC-09 | Dispatch Exception & Delivery Coordination | Dispatch Coordinator, Driver or Delivery Operator, Customer Buyer | Recover dispatch and delivery coordination while preserving responsibility and evidence. | CAP-09, CAP-10, CAP-14, CAP-15 | BC-01, BC-02, BC-05, BC-06, BC-10, BC-11 | V2/V3 | MOB-US-057, MOB-US-058, MOB-US-059, MOB-US-060, MOB-US-061, MOB-US-062, MOB-US-063, MOB-US-064, MOB-US-065, MOB-US-066 | BASELINED |
 | MOBILE-EPIC-10 | Buyer Delivery Continuity | Customer Buyer | Help the buyer prepare, understand and evidence delivery continuity. | CAP-09, CAP-15 | BC-02, BC-06, BC-11 | V2 | MOB-US-067, MOB-US-068, MOB-US-069 | BASELINED |
 | MOBILE-EPIC-11 | Mobile Commercial & Financial Follow-through | Customer Buyer, Sales Representative | Bring documents, payment evidence and customer visit follow-through into authorized field work. | CAP-03, CAP-12, CAP-13 | BC-02, BC-04, BC-07, BC-08, BC-09, BC-11 | V2/V3 | MOB-US-070, MOB-US-071, MOB-US-072 | BASELINED |
-| MOBILE-EPIC-12 | Future Intelligent Field Operations | Warehouse Operator | Explore controlled assistance from richer warehouse observations. | CAP-08, CAP-10 | BC-05, BC-06, BC-11 | V4_FUTURE | MOB-US-073 | HYPOTHESIS |
+| MOBILE-EPIC-12 | Future Intelligent Field Operations | Warehouse Operator | Manual temperature evidence and safeguards are accepted; automated assistance remains FUTURE. | CAP-08, CAP-10 | BC-05, BC-06, BC-11 | V4_FUTURE | MOB-US-073 | BASELINED |
 
 `Historical Planning Bands` preserve how the catalog was previously grouped;
 they do not define current Product Generation membership. Academic Sprint

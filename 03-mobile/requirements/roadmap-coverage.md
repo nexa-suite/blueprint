@@ -20,12 +20,12 @@ story or Bounded Context when an existing business outcome already covers it.
 | Driver delivery execution | MOB-US-026..034; MOB-US-030, MOB-US-035, MOB-US-062..066 | Historical V1 to V3 | Arrival, instructions, incidents and selective recovery extend the existing delivery lifecycle. |
 | Buyer delivery continuity | MOB-US-044, MOB-US-047..049; MOB-US-064, MOB-US-067..069; MOB-US-045..046 | Historical V1 to V3 | Buyer receipt, discrepancy, instructions, timeline, reschedule, contact and consented location remain distinct. |
 | Buyer commerce | MOB-US-036..043; MOB-US-070..071 | Historical V2 | Catalog, drafts, requests, orders, documents and payment evidence remain refinement candidates. |
-| Field Sales | MOB-US-006..010, MOB-US-072 | Historical V2 to V3 | Calls, email, WhatsApp and navigation are mechanisms within relationship work, not extra Mobile stories. |
+| Field Sales | MOB-US-006..010, MOB-US-072 | Historical V2 to V3 | Contextual Nexa chat and navigation are mechanisms within authorized relationship work; WhatsApp/SMS are excluded from V1 Mobile operational communication. |
 | BOM / Company Owner workflows | MOB-US-004..005 and existing governance references | Historical V2+ hypothesis | Approval, dashboards and owner-specific actions remain open until a distinct accepted outcome is evidenced. No invented IDs. |
 | Device-native capture | MOB-US-011..012, MOB-US-034, MOB-US-049, MOB-US-069; TS-016 | Historical V1 to V2 | Camera, code, manual fallback and evidence are mechanisms under existing outcomes. |
 | Cold chain | MOB-US-019, MOB-US-051, MOB-US-061, MOB-US-073; TS-018 | Historical V1 to V4/Future | Manual attributable evidence is in scope; automatic sensor/telemetry behavior remains a hypothesis. |
 | Offline | TS-015, TS-019; MOB-US-035, MOB-US-066 | Historical V2 to V3 | Selective staging/recovery only; no offline authority or generic synchronization promise. |
-| Location and navigation | MOB-US-028; MOB-US-029, MOB-US-045, MOB-US-072; TS-017 | Historical V1 to V3 | Current V1 generation uses external navigation only; stored/background/live tracking requires future consent and retention decisions. |
+| Location and navigation | MOB-US-028; MOB-US-029, MOB-US-045, MOB-US-072; TS-017 | Historical V1 to V3 | External navigation is separate; operational-hours Driver location and scoped Buyer live maps are accepted; exact raw-location retention remains OPEN. |
 | Payments and notifications | MOB-US-043, MOB-US-044, MOB-US-071; TS-018 | Historical V1 to V2 | Critical attention and payment evidence are distinct from provider, confirmation and preference mechanisms. |
 | Future carriers, route support and IoT | MOB-US-059, MOB-US-060, MOB-US-073; SPIKE-006 | Historical V3 to V4/Future | Grouped loads, handoff and automation evidence are bounded by existing BCs; no carrier, route or IoT BC is created. |
 
@@ -39,7 +39,8 @@ story or Bounded Context when an existing business outcome already covers it.
 - MOB-US-042 is progress; MOB-US-070 is document retrieval. MOB-US-043 is
   status; MOB-US-071 is payment evidence and review outcome.
 - MOB-US-049 is the discrepancy report; MOB-US-069 is evidence attachment.
-- MOB-US-028 is navigation handoff; MOB-US-029 and MOB-US-045 are future
-  location outcomes with separate consent and retention questions.
+- MOB-US-028 is navigation handoff; MOB-US-029 and MOB-US-045 implement accepted operational tracking and relationship-scoped live maps under the 2026-10-01 Owner closure.
 - The final count is 73 because the independent outcomes above were missing
   from the historical 49; the count is not a fixed target.
+
+Owner clarification 2026-10-01: chat is exclusively Sales ↔ Buyer in an authorized relationship. Driver ↔ Buyer and other chat participant pairs are excluded from this scope.

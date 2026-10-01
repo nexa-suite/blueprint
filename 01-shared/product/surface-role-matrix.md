@@ -28,5 +28,11 @@ Context or becomes authoritative over business state.
   Cold Chain contexts.
 - Driver and Buyer outcomes are separate facts. A Buyer receipt or discrepancy
   never overwrites the Driver attempt/POD history.
-- Maps, camera, phone/WhatsApp, push provider and device secure storage are
+- Maps, camera, Sales ↔ Buyer contextual Nexa chat, push provider and device secure storage are
   surface integrations; provider choice and credentials remain open gates.
+
+## Operational location and communication scope
+
+[Owner closure](owner-decisions-2026-10-01-mobile-operations.md) limits internal Driver location visibility to Driver own context, Dispatch Coordinator and BOM where responsibility requires it. Warehouse, Sales and Tenant Administrator have no location access merely by role. Buyer maps are current relationship + own Delivery scoped. Chat is business-contextual; WhatsApp/SMS and implicit personal telephone exposure are excluded. Sales location remains voluntary/contextual.
+
+Owner clarification 2026-10-01: chat is exclusively Sales ↔ Buyer in an authorized relationship. Driver ↔ Buyer and other chat participant pairs are excluded from this scope.

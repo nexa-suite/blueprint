@@ -21,8 +21,7 @@ body. Lifecycle metadata is indexed in [master-mobile-backlog.md](master-mobile-
   Verification, Product Acceptance and production readiness.
 - Mobile remains online-first; local state is non-authoritative and external
   navigation is the V1 navigation handoff boundary.
-- `MOB-US-073` remains conditional and hypothesis-level inside this planning
-  envelope.
+- `MOB-US-073` has accepted manual Celsius evidence and preventive safeguards; automated IoT remains FUTURE inside the historical planning provenance.
 
 ## Historical Planning Bands
 
@@ -53,3 +52,7 @@ Production Gate remain OPEN.
 Academic Sprint assignment is recorded separately in the [academic backlog
 boundary](academic-backlog-boundary.md). Academic planning is not a Product
 release.
+
+## Current operational scope supersession
+
+[Owner closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md) accepts operational-hours Driver tracking, Buyer live Delivery maps and contextual Nexa chat. External navigation remains a separate action. Historical bands below do not defer these newly accepted meanings or prove implementation.

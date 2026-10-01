@@ -129,8 +129,7 @@ V1-generation field commercial convenience, Buyer commerce, and selected
 transfer or reorder behavior where the individual story remains deferred.
 
 Genuinely FUTURE / RUNWAY capabilities remain outside accepted current V1
-behavior: IoT/automatic telemetry; permanent, background or live Driver
-tracking; rich chat; full Returns/RMA; full Procurement; advanced CRM; advanced
+behavior: IoT/automatic telemetry; off-duty Driver surveillance; generic social messaging; full Returns/RMA; full Procurement; advanced CRM; advanced
 Finance; formal order amendments where not required; backorders; advanced
 BI/data warehouse; SUNAT integration; Control Center; advanced warehouse
 optimization; predictive inventory; multi-user Buyer organizations;
@@ -146,3 +145,9 @@ This file remains the single Product / Business V1 authority. The Strategic DDD 
 ## Authority boundary
 
 See [Current accepted decisions](current-decisions.md), [V1 scope](vision/v1-scope.md), [Known domain rules](../domain/business-rules/README.md) and [Unresolved decisions](rules/future-scope.md). Product completeness remains distinct from AS-IS implementation evidence.
+
+## Operations Mobile supersession — 2026-10-01
+
+[Accepted Owner closure](owner-decisions-2026-10-01-mobile-operations.md) requires continuous Driver location during operational work hours, relationship-scoped Buyer live Delivery maps and Sales ↔ Buyer contextual Nexa in-app chat. Earlier blanket exclusions of background/live Driver tracking and chat are superseded for this bounded scope. Neither implementation nor acceptance is implied.
+
+Owner clarification 2026-10-01: chat is exclusively Sales ↔ Buyer in an authorized relationship. Driver ↔ Buyer and other chat participant pairs are excluded from this scope.

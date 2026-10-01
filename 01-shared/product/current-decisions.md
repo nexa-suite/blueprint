@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-09-18
+last-reviewed: 2026-10-01
 ---
 
 # Current accepted decisions
@@ -13,6 +13,10 @@ input. Historical PRE-V1 decisions remain provenance where explicitly labeled;
 the current Post-AV1/course-end Product Generation state is authoritative. It
 outranks implementation evidence. AS-IS evidence records what exists; it never
 silently changes TARGET.
+
+## Accepted Operations Mobile closure — 2026-10-01
+
+[Explicit Owner decisions](owner-decisions-2026-10-01-mobile-operations.md) supersede conflicting earlier exclusions for operational-hours Driver tracking, Buyer live Delivery maps, Sales ↔ Buyer contextual Nexa chat, exception handling, simple grouped loads, bilateral Driver load acceptance, scoped instructions and manual temperature safeguards. These are accepted TARGET requirements; missing backend contracts and implementation remain separate. Off-duty tracking, WhatsApp/SMS for this Mobile communication scope, automated IoT, route optimization, mixed-temperature compartments and direct 3PL access are excluded or FUTURE as specified there. Exact raw-location retention remains OPEN.
 
 ## Product and business closure
 
@@ -140,7 +144,7 @@ BC-07 owns the Financial Adjustment effect on obligation and exposure. BC-09 own
 - PREPAID requires Payment Confirmed before Sales Order confirmation and physical fulfillment. IMMEDIATE may confirm SO before payment; payment is immediately due. Exact prepaid timeout is OPEN-NON-BLOCKER policy.
 - Historical financial facts are never rewritten: original obligation + explicit Financial Adjustments - valid Payments/Refund effects = current net obligation. A correction does not erase Payment history.
 - V1 Business Documents are Sales Order Document, Delivery Note, Commercial Invoice, Payment Receipt and Financial Adjustment. Commercial Invoice is a Nexa document, not a SUNAT fiscal document. Issued documents are immutable; corrections create linked revisions/replacements.
-- V1 notification channels are in-app and email. Notification failure retries and never changes source business state. WhatsApp is external/manual.
+- V1 notification channels are in-app and email. Notification failure retries and never changes source business state. WhatsApp and SMS are excluded from the accepted V1 Mobile operational communication scope; Sales ↔ Buyer contextual Nexa in-app chat follows the 2026-10-01 Owner decision.
 - Business Traceability is append-only and separate from Notifications and Security Audit. Significant transitions, pricing/terms, inventory disposition, fulfillment/delivery/POD, credit, receivables, payments and document facts retain actor, timestamp, reason, correlation and evidence references. Secrets and unnecessary sensitive payment data are excluded.
 
 ## Transaction, concurrency, event and tenant semantics
@@ -162,3 +166,5 @@ BC-07 owns the Financial Adjustment effect on obligation and exposure. BC-09 own
 ## Authority and evidence boundary
 
 Accepted decisions and canonical Blueprint outrank verified implementation evidence. Current repository refs, tests, runtime and browser captures are AS-IS evidence. Legacy is historical evidence. Unverified facts are labeled `UNVERIFIED`; implementation completeness, production readiness and V1 release are not implied by this document.
+
+Owner clarification 2026-10-01: chat is exclusively Sales ↔ Buyer in an authorized relationship. Driver ↔ Buyer and other chat participant pairs are excluded from this scope.
