@@ -603,7 +603,7 @@ US-073 — ACCEPTED WITH AUTOMATION DEFERRED
 
 Explicitly deferred:
 
-- exact raw-location retention duration;
+- any shorter raw-location retention window imposed by Privacy/Security;
 - advanced route optimization;
 - mixed-temperature vehicle compartments;
 - external 3PL direct Nexa access;
@@ -615,7 +615,7 @@ Explicitly deferred:
 
 ## Implementation and contract boundary
 
-Where an accepted decision needs an absent backend contract or data projection, record `BACKEND CONTRACT GAP` separately. Do not claim an API, runtime behavior, device/provider integration or business transition exists because this Product decision is accepted. Raw-location retention duration remains OPEN for Privacy/Security/Data Governance. No indefinite retention or unrelated reuse is authorized. Contextual chat correction/edit rules remain to be made explicit before supporting those mutations. Automated IoT integration, route optimization, mixed-temperature compartments and direct external 3PL access remain FUTURE.
+Where an accepted decision needs an absent backend contract or data projection, record `BACKEND CONTRACT GAP` separately. Do not claim an API, runtime behavior, device/provider integration or business transition exists because this Product decision is accepted. The subsequent US-029 clarification below establishes a maximum raw-coordinate retention of 24 hours; Privacy/Security/Data Governance may shorten it. No indefinite retention or unrelated reuse is authorized. Contextual chat correction/edit rules remain to be made explicit before supporting those mutations. Automated IoT integration, route optimization, mixed-temperature compartments and direct external 3PL access remain FUTURE.
 
 ## 8. US-005 — Tipos explícitos de reportes Driver
 
@@ -648,3 +648,25 @@ Raw coordinates expire no later than 24 hours after capture; Privacy/Security ma
 Accepted Product/Owner clarification on 2026-10-01: V1 permits Dispatch to explicitly attest `capacitySufficient`, `handlingCompatible`, `zoneReasonable` and `noExclusiveTransportRestriction`. Each must be true to group the evaluated Deliveries. Preserve the authenticated actor, timestamp, evaluated Deliveries/load, assessment result and reason or observation where applicable.
 
 This assessment cannot override server checks for origin Warehouse, compatible states, delivery windows, temperature ranges, HOLD/cold-chain restrictions or other structured domain restrictions. It does not mutate stock, Delivery results or other business authority. A fleet-capacity catalog is not required for V1; richer structured modeling remains future work.
+
+## 11. US-059 — Explicit planning when the delivery window is absent
+
+Accepted Product/Owner decision on 2026-10-01: Dispatch may establish an operational delivery window for a compatible READY Preparation/Delivery only when no valid window exists. Preserve `windowStart`, `windowEnd`, authenticated actor, timestamp and reason. Require `windowStart < windowEnd`, current Tenant/Workspace, compatible planning state and every known temporal restriction.
+
+An existing commercial or Delivery window is preserved. Changing it requires a separate explicit, traceable rescheduling workflow; this mechanism cannot silently overwrite it. Operational planning does not rewrite the Sales Order or a historical commercial promise. US-059 compatibility uses the effective delivery window and rejects incompatible windows.
+
+## 12. US-061 — In-transit temperature excursion and execution HOLD
+
+Accepted Product/Owner decision on 2026-10-01: after handover, an out-of-range reading records TemperatureEvidence, requires photo evidence, creates a CRITICAL exception and places the affected quantity/SKU under an execution HOLD owned by BC-06 Fulfillment & Delivery. Normal delivery, successful POD and Buyer acceptance of that quantity remain blocked until an authorized disposition.
+
+Allowed dispositions are `RELEASE`, `CONTINUE_HOLD`, `REJECT` and `WASTE`. Driver reporting does not grant disposition authority. RELEASE permits execution to resume; CONTINUE_HOLD preserves the stop; REJECT and WASTE record authorized outcomes and require any subsequent operational handling to follow its explicit workflow.
+
+Preserve Delivery, Delivery Attempt when applicable, quantity/SKU, temperature/unit, reporting actor, capture and recording timestamps, evidence, exception, disposition, authorizing actor and reason. Do not recreate available stock or model additional in-transit inventory as a prerequisite. Returns and other physical consequences remain explicit subsequent workflows. This decision does not automatically modify Sales Order, Receivable, Payment, Buyer Receipt or Delivery result.
+
+## 13. US-005 — Explicit BOM coordination authority
+
+Accepted Product/Owner decision on 2026-10-01: provide an explicit BOM role with capabilities to view cross-functional exceptions, assume responsibility, assign/reassign to authorized actors, change responsibility, record follow-up and administrative/operational resolution, and close only after the underlying workflow has a valid resolution.
+
+Exception coordination authority is separate from underlying domain authority. BOM does not implicitly release stock, lift Inventory HOLD, authorize cold-chain RELEASE/REJECT/WASTE, modify Physical Allocation, Sales Order or Delivery result, resolve Financial Adjustment, or gain other capabilities. Where BC-05 or BC-06 owns the decision, an authorized actor must first record the authoritative outcome. Administrative closure never releases goods automatically.
+
+Preserve `assignedTo`, `assignedBy`, timestamps, reason, resolution/outcome and each reassignment/closure fact. Accepted Product scope is distinct from implementation or verification status.
