@@ -642,3 +642,9 @@ Accepted Product/Owner clarification on 2026-10-01: continuous Driver location c
 Buyer live location is limited to the Buyer's own Delivery, from actual departure to terminal completion or cancellation. This visibility does not grant workforce-location access.
 
 Raw coordinates expire no later than 24 hours after capture; Privacy/Security may impose a shorter window. Capture duration and retention duration are separate constraints. Business Traceability retains operational facts without coordinates. No indefinite coordinate history or unrelated reuse is authorized.
+
+## 10. US-059 — Explicit Dispatch compatibility assessment
+
+Accepted Product/Owner clarification on 2026-10-01: V1 permits Dispatch to explicitly attest `capacitySufficient`, `handlingCompatible`, `zoneReasonable` and `noExclusiveTransportRestriction`. Each must be true to group the evaluated Deliveries. Preserve the authenticated actor, timestamp, evaluated Deliveries/load, assessment result and reason or observation where applicable.
+
+This assessment cannot override server checks for origin Warehouse, compatible states, delivery windows, temperature ranges, HOLD/cold-chain restrictions or other structured domain restrictions. It does not mutate stock, Delivery results or other business authority. A fleet-capacity catalog is not required for V1; richer structured modeling remains future work.
