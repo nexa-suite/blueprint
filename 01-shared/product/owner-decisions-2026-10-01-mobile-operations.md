@@ -634,3 +634,11 @@ Decisión Product/Owner aprobada el 2026-10-01: los nuevos reportes Driver admit
 Los reportes históricos ambiguos no se reclasifican retroactivamente sin evidencia suficiente. Cada excepción conserva como mínimo tipo, severidad, reporter/detector, responsable, objeto de negocio afectado, timestamps, resolution/outcome, reason y evidencia cuando corresponda.
 
 Reportar, tomar responsabilidad o cerrar una excepción no amplía permisos ni autoriza por sí solo liberar stock, resolver una disposición cold-chain o ejecutar acciones fuera de las capacidades del actor. Claim/review no resuelve una excepción ni elimina su bloqueo operativo. La resolución y cierre siguen sujetos a la autoridad del proceso dueño y a las reglas previamente aceptadas.
+
+## 9. US-029 — Operational capture and coordinate retention
+
+Accepted Product/Owner clarification on 2026-10-01: continuous Driver location capture and transmission are required only during an active operational Driver workday. Starting that workday requires location availability. Ending or closing the workday stops capture and transmission. Tracking outside the operational workday is prohibited.
+
+Buyer live location is limited to the Buyer's own Delivery, from actual departure to terminal completion or cancellation. This visibility does not grant workforce-location access.
+
+Raw coordinates expire no later than 24 hours after capture; Privacy/Security may impose a shorter window. Capture duration and retention duration are separate constraints. Business Traceability retains operational facts without coordinates. No indefinite coordinate history or unrelated reuse is authorized.
