@@ -616,3 +616,21 @@ Explicitly deferred:
 ## Implementation and contract boundary
 
 Where an accepted decision needs an absent backend contract or data projection, record `BACKEND CONTRACT GAP` separately. Do not claim an API, runtime behavior, device/provider integration or business transition exists because this Product decision is accepted. Raw-location retention duration remains OPEN for Privacy/Security/Data Governance. No indefinite retention or unrelated reuse is authorized. Contextual chat correction/edit rules remain to be made explicit before supporting those mutations. Automated IoT integration, route optimization, mixed-temperature compartments and direct external 3PL access remain FUTURE.
+
+## 8. US-005 — Tipos explícitos de reportes Driver
+
+Decisión Product/Owner aprobada el 2026-10-01: los nuevos reportes Driver admiten un tipo explícito. La severidad se deriva autoritativamente en el servidor; el cliente no la elige libremente.
+
+| Tipo V1 | Severidad derivada |
+| --- | --- |
+| Demora | WARNING |
+| Instrucción incompleta | WARNING |
+| Acceso bloqueado | BLOCKING |
+| Cliente ausente | BLOCKING |
+| Delivery no ejecutable | BLOCKING |
+| Excursión térmica | CRITICAL |
+| Daño que pueda comprometer bienes o personas | CRITICAL |
+
+Los reportes históricos ambiguos no se reclasifican retroactivamente sin evidencia suficiente. Cada excepción conserva como mínimo tipo, severidad, reporter/detector, responsable, objeto de negocio afectado, timestamps, resolution/outcome, reason y evidencia cuando corresponda.
+
+Reportar, tomar responsabilidad o cerrar una excepción no amplía permisos ni autoriza por sí solo liberar stock, resolver una disposición cold-chain o ejecutar acciones fuera de las capacidades del actor. Claim/review no resuelve una excepción ni elimina su bloqueo operativo. La resolución y cierre siguen sujetos a la autoridad del proceso dueño y a las reglas previamente aceptadas.
