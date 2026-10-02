@@ -670,3 +670,11 @@ Accepted Product/Owner decision on 2026-10-01: provide an explicit BOM role with
 Exception coordination authority is separate from underlying domain authority. BOM does not implicitly release stock, lift Inventory HOLD, authorize cold-chain RELEASE/REJECT/WASTE, modify Physical Allocation, Sales Order or Delivery result, resolve Financial Adjustment, or gain other capabilities. Where BC-05 or BC-06 owns the decision, an authorized actor must first record the authoritative outcome. Administrative closure never releases goods automatically.
 
 Preserve `assignedTo`, `assignedBy`, timestamps, reason, resolution/outcome and each reassignment/closure fact. Accepted Product scope is distinct from implementation or verification status.
+
+## 14. US-019 — Generic LOT and WAREHOUSE temperature excursions
+
+Accepted Product/Owner decision on 2026-10-01: an out-of-range LOT reading preserves traceable evidence, including photo when applicable, current version, value, unit, capture time, authenticated actor, affected quantity and reason. BC-06 records the cold-chain evidence and exception; BC-05 applies a preventive HOLD only to the affected lot and quantity. A partial excursion does not implicitly hold the entire lot. HOLD never authorizes automatic release and requires a subsequent authorized disposition.
+
+An out-of-range WAREHOUSE reading records evidence and an exception without automatically holding every lot in that Warehouse. Applying BC-05 HOLD requires explicit, authorized selection of the affected lots and quantities. When impact cannot yet be determined, the exception remains open for evaluation; no inventory impact is invented.
+
+The decision does not grant reporting actors additional inventory or disposition capabilities. Tenant/Workspace and Warehouse authorization, current-version concurrency controls and evidence eligibility remain mandatory. Accepted TARGET behavior is distinct from implementation, verification and Product Acceptance.

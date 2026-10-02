@@ -971,11 +971,8 @@ so that a future accepted location service can support a bounded delivery need.
 
 ### Acceptance Criteria
 
-- Scenario: Operational workday — Given the actor is working as Driver using Operations Mobile, when the operational workday is active, then location collection follows the accepted operational policy within current Tenant/Workspace, never private off-duty surveillance.
-- Scenario: Permission loss — Given required OS location permission is revoked or disabled during that workday, when detected, then Nexa shows and records the condition and can block Driver functions that require location until restoration.
-- Scenario: Bounded visibility — Given responsibility requires location, when Driver, Dispatch Coordinator or BOM reads it, then only permitted operational context is disclosed; unrelated roles have no implicit access.
-- Scenario: Buyer map — Given the Buyer own Delivery has actually left dispatch, when live tracking is requested, then only its assigned Driver location is disclosed through the current Buyer Relationship; tracking stops on terminal/cancelled Delivery.
-- Scenario: Privacy — Given workday ends or scope/assignment is lost, when further disclosure or collection is attempted, then off-duty/unrelated tracking is refused; retention is finite and unrelated reuse is not authorized.
+- Scenario: Operational workday — Given the actor is working as Driver using Operations Mobile, when the operational workday is active, then location collection follows the accepted operational policy within current Tenant/Workspace, never private off-duty surveillance. Permission loss — Given required OS location permission is revoked or disabled during that workday, when detected, then Nexa shows and records the condition and can block Driver functions that require location until restoration.
+- Scenario: Bounded visibility — Given responsibility requires location, when Driver, Dispatch Coordinator or BOM reads it, then only permitted operational context is disclosed; unrelated roles have no implicit access. Buyer map — Given the Buyer own Delivery has actually left dispatch, when live tracking is requested, then only its assigned Driver location is disclosed through the current Buyer Relationship; tracking stops on terminal/cancelled Delivery. Privacy — Given workday ends or scope/assignment is lost, when further disclosure or collection is attempted, then off-duty/unrelated tracking is refused; retention is finite and unrelated reuse is not authorized.
 
 Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
@@ -2029,8 +2026,7 @@ so that compatible deliveries can be dispatched with their constraints visible.
 
 - Scenario: Compatible load — Given READY_FOR_DISPATCH Deliveries with same origin Warehouse, compatible windows, reasonable geographic route, same temperature range, compatible handling, enough capacity and no separation restriction, when grouped, then every Delivery, stop and condition is shown; same Customer or prior Driver is not required.
 - Scenario: Incompatible Delivery — Given a different origin/range, incompatible window/handling, insufficient capacity, BLOCKED/HOLD/cold-chain or dedicated/customer-contract restriction, when grouping is attempted, then the Delivery remains outside with the reason.
-- Scenario: Stop order — Given an authorized coordinator, when ordering stops manually or with assistance, then current order is explicit without requiring automatic optimization.
-- Scenario: Controlled changes — Given permitted pre-handoff Delivery state, when moved between loads, then current authoritative state is checked; after Driver handoff, operational stop reordering preserves actor, time, previous/new order and reason.
+- Scenario: Stop order — Given an authorized coordinator, when ordering stops manually or with assistance, then current order is explicit without requiring automatic optimization. Controlled changes — Given permitted pre-handoff Delivery state, when moved between loads, then current authoritative state is checked; after Driver handoff, operational stop reordering preserves actor, time, previous/new order and reason.
 
 Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
@@ -2073,8 +2069,7 @@ so that everyone can see who controls the load after it leaves the warehouse.
 ### Acceptance Criteria
 
 - Scenario: Load review — Given a prepared load offered to its assigned authorized Driver, when reviewed, then Deliveries, relevant quantities/summary, critical restrictions/instructions and applicable condition/evidence are visible.
-- Scenario: Bilateral acceptance — Given both parties operate through Nexa, when Dispatch confirms handoff and Driver explicitly accepts the whole load, then responsibility is recorded with both identities and time; Buyer Receipt is separate.
-- Scenario: Incomplete handoff — Given only one acceptance exists, when responsibility is reviewed, then the bilateral transfer is not claimed complete.
+- Scenario: Bilateral acceptance — Given both parties operate through Nexa, when Dispatch confirms handoff and Driver explicitly accepts the whole load, then responsibility is recorded with both identities and time; Buyer Receipt is separate. Incomplete handoff — Given only one acceptance exists, when responsibility is reviewed, then the bilateral transfer is not claimed complete.
 - Scenario: External carrier — Given an external 3PL, when its operational reference/evidence is recorded, then no direct Mobile access is granted; vehicle/plate data remain optional unless Tenant policy requires them.
 
 Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
@@ -2203,9 +2198,8 @@ so that I can coordinate the handoff with the intended person.
 
 - Scenario: Instruction provenance — Given Buyer/authorized Customer contact instructions or Sales faithfully recording them, when stored, then actual recorder/provenance is retained; Dispatch/BOM creates operational instructions within authority.
 - Scenario: Buyer edit boundary — Given Delivery reaches READY_FOR_DISPATCH, when Buyer requests a subsequent change, then it goes through Nexa coordination and an explicit Dispatch decision rather than direct active-instruction mutation.
-- Scenario: Minimum current view — Given current active assignment, when Driver reads instructions, then destination, needed recipient identity, window, goods/load summary, customer/operational instructions, cold-chain and critical safety/handling are available; credit, prices, payments and unrelated Customer information are excluded.
+- Scenario: Minimum current view — Given current active assignment, when Driver reads instructions, then destination, needed recipient identity, window, goods/load summary, customer/operational instructions, cold-chain and critical safety/handling are available; credit, prices, payments and unrelated Customer information are excluded. Access loss — Given reassignment, cancellation or completion/closure, when instructions are requested, then operational access no longer needed is revoked.
 - Scenario: Critical acknowledgment — Given cold-chain handling, access restriction, special unloading, customer safety or validity-compromising handling instructions, when relevant execution is requested, then acknowledgment of current version/content, actor and timestamp is required; normal instructions have no mandatory acknowledgment.
-- Scenario: Access loss — Given reassignment, cancellation or completion/closure, when instructions are requested, then operational access no longer needed is revoked.
 
 Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
 
@@ -2608,3 +2602,9 @@ so that future automation can assist work without becoming unexamined stock trut
 - Scenario: Applicability — Given product cold-chain requirements, when Receiving/Delivery is performed, then required temperature is enforced; temperature is not universally mandatory during Fulfillment and no IoT sensor/telemetry provider is selected.
 
 Owner decision provenance: [2026-10-01 closure](../../01-shared/product/owner-decisions-2026-10-01-mobile-operations.md). Product closure does not claim client implementation or acceptance.
+
+### Outcome Conditions
+
+- Accepted manual-temperature safeguards remain independently implementable and require attributable evidence, affected-quantity protection and authorized disposition.
+- Automated observations remain FUTURE until their business outcome, trust model and provider responsibilities are explicitly accepted; manual capture does not prove automation.
+- Any future automation must preserve owning-context authority and historical traceability and must not turn observations into automatic stock or Delivery disposition.

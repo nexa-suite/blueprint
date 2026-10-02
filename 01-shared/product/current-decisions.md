@@ -16,7 +16,7 @@ silently changes TARGET.
 
 ## Accepted Operations Mobile closure — 2026-10-01
 
-[Explicit Owner decisions](owner-decisions-2026-10-01-mobile-operations.md) supersede conflicting earlier exclusions for operational-hours Driver tracking, Buyer live Delivery maps, Sales ↔ Buyer contextual Nexa chat, exception handling, simple grouped loads, bilateral Driver load acceptance, scoped instructions and manual temperature safeguards. These are accepted TARGET requirements; missing backend contracts and implementation remain separate. Off-duty tracking, WhatsApp/SMS for this Mobile communication scope, automated IoT, route optimization, mixed-temperature compartments and direct 3PL access are excluded or FUTURE as specified there. Exact raw-location retention remains OPEN.
+[Explicit Owner decisions](owner-decisions-2026-10-01-mobile-operations.md) supersede conflicting earlier exclusions for operational-hours Driver tracking, Buyer live Delivery maps, Sales ↔ Buyer contextual Nexa chat, exception handling, simple grouped loads, bilateral Driver load acceptance, scoped instructions and manual temperature safeguards. These are accepted TARGET requirements; missing backend contracts and implementation remain separate. Off-duty tracking, WhatsApp/SMS for this Mobile communication scope, automated IoT, route optimization, mixed-temperature compartments and direct 3PL access are excluded or FUTURE as specified there. Raw coordinates expire no later than 24 hours after capture; Privacy/Security may impose a shorter window. Generic LOT excursions protect only the explicitly affected quantity through BC-05 HOLD. WAREHOUSE excursions require explicit affected-lot selection and never imply a blanket inventory HOLD.
 
 ## Product and business closure
 
