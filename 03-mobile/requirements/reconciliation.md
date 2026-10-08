@@ -45,7 +45,7 @@ reconciliation history; they do not define current Product releases.
 | MOB-US-006 | Search Customer Accounts | RELEASE_MOVE | Find a customer and buyer relationship | MOBILE-EPIC-06 | V2 | DEFERRED | — |
 | MOB-US-007 | Review catalog, pricing and availability | RELEASE_MOVE | Review products, prices and availability | MOBILE-EPIC-06 | V2 | DEFERRED | — |
 | MOB-US-008 | Prepare a commercial operation for a Customer | RELEASE_MOVE | Prepare a customer request | MOBILE-EPIC-06 | V2 | DEFERRED | — |
-| MOB-US-009 | Capture a Purchase Request or Direct Order on Mobile | RELEASE_MOVE | Submit a purchase request from field work | MOBILE-EPIC-06 | V2 | DEFERRED | — |
+| MOB-US-009 | Capture a Purchase Request or Direct Order on Mobile | RELEASE_MOVE | Create a direct order from field work | MOBILE-EPIC-06 | V2 | PLANNED | Owner correction 2026-10-08 supersedes Purchase Request-only wording; historical V2 band remains provenance. |
 | MOB-US-010 | Review Orders, Credit and Customer history | RELEASE_MOVE | Follow customer commitments and credit | MOBILE-EPIC-06 | V2 | DEFERRED | — |
 | MOB-US-011 | Identify a SKU using the device camera and code scanning | REFINE | Identify a product from a package or label code | MOBILE-EPIC-02 | V1 | PLANNED | — |
 | MOB-US-012 | Identify a SKU manually when scanning is unavailable | REFINE | Find a product manually when scanning is unavailable | MOBILE-EPIC-02 | V1 | PLANNED | — |

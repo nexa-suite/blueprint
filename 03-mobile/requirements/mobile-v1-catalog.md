@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: runway
 owner: product
-last-reviewed: 2026-09-18
+last-reviewed: 2026-10-08
 ---
 
 # Master Mobile Functional Story Registry
@@ -301,36 +301,39 @@ so that I can organize an intention before an authorized submission.
 - Scenario: Changed information — Given product or customer information changes, when the request is reviewed, then the change is visible before submission.
 - Scenario: Local draft — Given the person loses connection, when the request is edited, then it remains an unconfirmed draft.
 
-## MOB-US-009 — Submit a purchase request from field work
+## MOB-US-009 — Create a direct order from field work
 
 | Field | Value |
 |---|---|
 | ID | MOB-US-009 |
-| Status | DEFERRED |
+| Status | PLANNED |
 | Product | Mobile |
 | Surface | Operations Mobile |
 | Actor | Sales Representative |
 | Epic | MOBILE-EPIC-06 — Commercial & Operational Mobile Convenience |
 | Priority | P2 |
-| Title | Submit a purchase request from field work |
+| Title | Create a direct order from field work |
 | Owning Bounded Context | BC-04 — Sales Commitment |
 | Relevant Bounded Contexts | BC-02 — Customer & Buyer Relationships; BC-03 — Catalog & Commercial Policy; BC-05 — Inventory Availability; BC-07 — Credit & Receivables |
 | Shared Capability | CAP-06 — Purchase Requests and Sales Orders |
 | Goal / Outcome | Send field demand through the same authoritative commitment rules used elsewhere. |
 | Research status | PENDING |
-| Connectivity and authority | Deferred; no disconnected Purchase Request success is allowed. |
+| Connectivity and authority | Server-authoritative Direct Order; no disconnected order success is allowed. |
 
 ### User Story
 
 As a Sales Representative,
-I want to submit a purchase request from field work,
-so that customer demand enters an authorized commitment process.
+I want to create a direct order from field work,
+so that customer demand becomes an explicitly confirmed or pending prepaid Sales Order through the authoritative commitment process.
 
 ### Acceptance Criteria
 
-- Scenario: Valid request — Given an accepted request and authorized relationship, when the representative submits it, then one Purchase Request is recorded.
+- Scenario: Confirmed direct order — Given current customer, catalog, availability, credit and permission checks pass, when the representative submits a Direct Order, then the server atomically records one confirmed Sales Order and its required commitments.
+- Scenario: Prepaid order — Given the server requires prepaid confirmation, when submission returns a pending Sales Order, then the client displays that pending state and does not claim confirmation.
 - Scenario: Invalid request — Given information is stale or authorization is missing, when the representative submits it, then no partial commitment is recorded.
-- Scenario: Uncertain result — Given the outcome is unknown, when the representative retries, then Nexa resolves the first result without creating a second request.
+- Scenario: Uncertain result — Given the outcome is unknown, when the representative retries, then Nexa resolves the first result without creating a second order.
+
+Owner scope correction accepted on 2026-10-08: [Direct Order decision](../../01-shared/product/owner-decisions-2026-10.md). This supersedes the prior Purchase Request-only wording for this story; implementation, verification and acceptance remain separate.
 
 ## MOB-US-010 — Follow customer commitments and credit
 
