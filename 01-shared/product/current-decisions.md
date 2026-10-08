@@ -45,6 +45,8 @@ are construction decisions, not proof of client implementation, solution
 validation or Product Acceptance. Exact technology/build baselines live in
 [Technology baseline](../architecture/technology-baseline.md).
 
+The [2026-10 Owner decision](owner-decisions-2026-10.md) makes MOB-US-009 an Operations Direct Order creation flow over the existing server contract. It supersedes the prior Purchase Request-only story wording without changing the approval-required Purchase Request workflow or the separate verification and acceptance gates.
+
 ## Identity, relationship and governance language
 
 - Human Identity, Workforce Membership, Buyer Relationship and Customer Account are distinct concepts.
