@@ -47,7 +47,7 @@ validation or Product Acceptance. Exact technology/build baselines live in
 
 The [2026-10 Owner decision](owner-decisions-2026-10.md) makes MOB-US-009 an Operations Direct Order creation flow over the existing server contract. It supersedes the prior Purchase Request-only story wording without changing the approval-required Purchase Request workflow or the separate verification and acceptance gates.
 
-The [2026-10 Owner decisions](owner-decisions-2026-10.md) also accept TARGET planning for a supplier-scoped Buyer wallet with rechargeable PEN funds separate from commercial credit, and an internal onboarding/health console with temporary authorized support. They do not establish stored-value implementation, standing cross-tenant access or released Control Center/Support capability. The ledger and support-authorization contracts remain OPEN as recorded there.
+The [2026-10 Owner decisions](owner-decisions-2026-10.md) also authorize construction of remaining role workflows, including Buyer Mobile, and restrict Driver execution to Operations Mobile with no Driver Web interface. They accept BC-08 ownership of supplier-scoped rechargeable PEN funds separate from commercial credit, with order reservation/consumption/release and explicit refunds, excluding withdrawals and inter-supplier transfers. Internal customer-data support is restricted to read-only sessions of at most one hour with Company Owner consent, independent internal approval, revocation and audit. These decisions do not establish implementation, standing cross-tenant access, release or Production Readiness; operational and regulatory wallet release conditions remain OPEN.
 
 ## Identity, relationship and governance language
 
