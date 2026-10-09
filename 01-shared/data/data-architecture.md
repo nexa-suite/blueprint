@@ -3,12 +3,12 @@ status: accepted
 maturity: BASELINED
 scope: v1
 owner: data
-last-reviewed: 2026-08-23
+last-reviewed: 2026-10-09
 ---
 
-# Data Architecture TARGET — PRE-V1
+# Data architecture — ownership and persistence states
 
-Shared PostgreSQL is the V1 topology. It is infrastructure, not a Bounded Context boundary. This target closes logical ownership and invariants; physical migrations, retention, legal hold and production operations remain separate gates.
+AS-IS: the current API uses shared PostgreSQL with Tenant/Workspace scope and RLS. TARGET: the [accepted Owner decision](../product/owner-decisions-2026-10.md#physical-database-isolation-by-tenant) requires a central identity/governance database and a physically independent business database per Tenant. The earlier shared PostgreSQL deployment target is superseded. Neither physical topology defines Bounded Context ownership. The logical ownership and invariants below remain applicable; physical migration, retention, legal hold and production operations remain separate gates.
 
 ## Ownership matrix
 
@@ -44,3 +44,5 @@ Financial Adjustment business effect belongs to Credit & Receivables; an issued 
 ## Migration policy
 
 Use additive forward migrations, scoped backfills, compatibility windows and explicit translation aliases. Existing `catalog_item_id`, `exposure`, `used` and reservation columns are AS-IS translation points. No current schema is silently renamed into a strategic owner. Keep, refine or rework before any rewrite.
+
+The physical split requires rehearsed extraction and reconciliation, provisioned database identity checks, isolated credentials and pools, and explicit cross-database consistency contracts. Existing cross-schema foreign keys and joins cannot be assumed to work across independent databases. Preserve published migration history; no production cutover follows from this documentation. Apply BCNF, 4NF and 5NF only to documented dependencies with lossless decomposition, while preserving immutable business evidence.

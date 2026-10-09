@@ -8,6 +8,8 @@ last-reviewed: 2026-08-23
 
 # Data Architecture readiness
 
+The [2026-10 Owner decision](../product/owner-decisions-2026-10.md#physical-database-isolation-by-tenant) supersedes the PRE-V1 shared physical topology below. The current construction TARGET uses central identity/Tenant governance and a physically independent business database per Tenant. Shared PostgreSQL/RLS remains current implementation evidence until a verified migration. Logical BC ownership and business invariants remain accepted; cross-database boundaries require explicit consistency contracts.
+
 PRE-V1 logical data ownership, history, scope and concurrency are accepted for construction. Current PostgreSQL/Flyway/RLS evidence remains AS-IS and may be `CONFORMING`, `DRIFT`, `MISSING` or `UNVERIFIED` relative to the target.
 
 ## Closed for PRE-V1 construction

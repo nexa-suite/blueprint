@@ -3,18 +3,20 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: architecture
-last-reviewed: 2026-08-14
+last-reviewed: 2026-10-09
 ---
 
 # Multi-tenant context propagation
 
 ## Question answered
 
-**¿Cómo opera una identidad dentro de un Tenant autorizado y cómo llega esa decisión hasta la persistencia sin convertir Tenant en una capa física?**
+**¿Cómo opera una identidad dentro de un Tenant autorizado y cómo llega esa decisión hasta la persistencia correspondiente?**
 
 La respuesta es un flujo de autorización y contexto. Tenant no es una aplicación, un Docker container ni una capa horizontal de despliegue. V1 mantiene `Tenant 1:1 Workspace`, pero `Tenant != Workspace`.
 
-## Modelo conceptual
+AS-IS: el flujo observado usa PostgreSQL compartido y RLS. TARGET: la [decisión aceptada del Owner](../../product/owner-decisions-2026-10.md#physical-database-isolation-by-tenant) establece una base central de identidad/gobernanza y una base física de negocio independiente por Tenant. Ese aislamiento no convierte cada Tenant en un Bounded Context ni demuestra una migración del runtime actual.
+
+## Modelo de propagación AS-IS
 
 ```mermaid
 flowchart TB
@@ -39,7 +41,9 @@ flowchart TB
     SCOPE --> DB
 ```
 
-El diagrama expresa relaciones autorizadas, no tablas o aggregates finales.
+El diagrama expresa el flujo compartido AS-IS, no el objetivo físico ni tablas o aggregates finales.
+
+En el TARGET, la identidad y membership se revalidan contra la autoridad central antes de resolver un binding Tenant/base provisionado y confiable. La conexión de negocio debe comprobar la identidad de esa base y mantener el mismo binding durante toda la transacción. Un binding ausente, suspendido, ambiguo o no disponible falla cerrado, sin fallback a la base central o a otro Tenant. RLS y las comprobaciones de alcance siguen siendo defensa en profundidad dentro de la base seleccionada.
 
 ## Propagación observada en el API
 
@@ -68,7 +72,9 @@ El Website puede enviar un `Contact/Request Demo` público al API. Esa interacci
 
 El outbox y los workers actuales transportan `tenant_id`/`workspace_id` en eventos o recuperan el contexto de la tarea y establecen `RlsRequestScope` antes de operar. El actor técnico y el comportamiento de colas que pueden reclamar across-tenants son excepciones controladas que requieren Security/Data Architecture. La propagación en workers no se considera cerrada solo porque exista un ThreadLocal en requests.
 
-## Aislamiento defendible en V1
+El TARGET requiere resolver y validar el binding de cada tarea, aislar sus conexiones y aplicar contratos explícitos de reintento y consistencia cuando intervenga la base central. La propagación request-local actual no demuestra ese aislamiento de workers.
+
+## Controles de aislamiento AS-IS y verificaciones pendientes
 
 El aislamiento se preserva como defensa compuesta:
 
@@ -84,3 +90,5 @@ No se afirma que una fila `tenant_id` aislada sea suficiente. La cobertura total
 ## No finalizado en este documento
 
 No se definen tablas ni schemas físicos finales en esta propagation view. Aggregate roots, foreign keys and implementation RLS coverage must preserve accepted Strategic DDD/Data/Security ownership and remain implementation/Production Gate work.
+
+La topología física TARGET está aceptada; su aprovisionamiento, migración de datos existentes, pruebas entre bases independientes, backup/restore, aislamiento de almacenamiento y soporte autorizado siguen requiriendo evidencia de implementación y verificación antes de un cutover.

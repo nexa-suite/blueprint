@@ -14,6 +14,8 @@ V1/Post-AV1 TARGET Data Architecture and later physical migration work.
 
 ## Current status
 
+The [2026-10 Owner decision](../product/owner-decisions-2026-10.md#physical-database-isolation-by-tenant) supersedes the physical shared-database target: central identity/Tenant governance plus a physically independent business database per Tenant is now the construction TARGET. Existing shared PostgreSQL models below remain logical ownership and AS-IS/migration input; they do not prove the new topology is implemented. Database-per-Tenant does not mean database-per-Bounded-Context. Routing, provisioning, migration reconciliation, worker isolation and cutover verification remain required.
+
 AS-IS database evidence is BASELINED as evidence. Current V1/Post-AV1 TARGET
 data ownership, isolation, history and concurrency are ACCEPTED for
 construction; physical schema evolution, retention and production operations

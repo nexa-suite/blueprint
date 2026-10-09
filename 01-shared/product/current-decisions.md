@@ -47,6 +47,8 @@ validation or Product Acceptance. Exact technology/build baselines live in
 
 The [2026-10 Owner decision](owner-decisions-2026-10.md) makes MOB-US-009 an Operations Direct Order creation flow over the existing server contract. It supersedes the prior Purchase Request-only story wording without changing the approval-required Purchase Request workflow or the separate verification and acceptance gates.
 
+The [2026-10 Owner decisions](owner-decisions-2026-10.md) also authorize construction of remaining role workflows, including Buyer Mobile, and restrict Driver execution to Operations Mobile with no Driver Web interface. They accept BC-08 ownership of supplier-scoped rechargeable PEN funds separate from commercial credit, with order reservation/consumption/release and explicit refunds, excluding withdrawals and inter-supplier transfers. Internal customer-data support is restricted to read-only sessions of at most one hour with Company Owner consent, independent internal approval, revocation and audit. These decisions do not establish implementation, standing cross-tenant access, release or Production Readiness; operational and regulatory wallet release conditions remain OPEN.
+
 ## Identity, relationship and governance language
 
 - Human Identity, Workforce Membership, Buyer Relationship and Customer Account are distinct concepts.
@@ -93,6 +95,8 @@ credit, PR/SO, authorization, inventory and Delivery-finalization success stay
 server-authoritative.
 
 ## Accepted Strategic DDD
+
+The [2026-10 Owner decisions](owner-decisions-2026-10.md) authorize a central identity/Tenant-governance database and a physically independent business database per Tenant. This is the construction TARGET; current shared PostgreSQL/RLS implementation remains AS-IS until migration and cutover are verified. Database routing must derive from verified authority and trusted provisioning, fail closed without cross-Tenant fallback, and preserve published migrations and business consistency. The decision changes deployment isolation, not the eleven-context strategic catalog.
 
 The V1 TARGET has **11 frozen Bounded Contexts**. Existing Java packages, Spring Modulith modules, PostgreSQL schemas, endpoints and frontend folders are AS-IS implementation evidence only.
 
