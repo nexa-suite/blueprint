@@ -24,6 +24,18 @@ On 2026-10-09 the Owner explicitly requested construction of the remaining Web a
 
 The construction request includes the separate Buyer Mobile client, using the already accepted Flutter/Dart target and `PORTAL` business surface with `NATIVE` transport. Earlier story deferrals do not prohibit constructing this authorized client scope. Research, solution validation, technical verification, Product Acceptance and release remain independent gates; the request does not establish their completion. The eleven-context catalog and server business authority remain unchanged.
 
+## Physical database isolation by Tenant
+
+On 2026-10-09 the Owner explicitly confirmed a central database for identity, Tenant registration and suite governance, plus a physically independent business database for each Tenant. Orders, inventory, fulfillment, payments and other Tenant business facts must not share a business database with another Tenant. This supersedes the shared-database deployment target for future construction; it does not establish migration of the current API or cloud environment.
+
+The current API implementation uses shared PostgreSQL schemas with explicit Tenant/Workspace scope and RLS. That remains AS-IS evidence until a verified cutover. The eleven Bounded Contexts and their business ownership remain unchanged; a database is an isolation/deployment boundary, not a Bounded Context.
+
+Routing must use server-verified membership and a trusted provisioned Tenant-to-database binding. Missing, suspended, ambiguous or unavailable bindings fail closed, without fallback to the central database or another Tenant database. Provisioning, database credentials, pools, migrations, backup/restore, object storage, workers and support sessions require explicit Tenant isolation. Identity credentials must not be copied into Tenant business databases. Cross-database operations must use explicit consistency and retry contracts rather than pretending to retain a single local transaction.
+
+Construction must preserve published migration history and user data. An additive, rehearsed migration must prove data reconciliation, isolation under concurrent requests and background work, and safe rollback or roll-forward before enabling the target on existing Tenants. No production cutover is authorized by this construction decision.
+
+Relational models must document candidate keys and functional, multivalued and join dependencies. BCNF, 4NF and 5NF decompositions apply where those dependencies justify them and must preserve lossless reconstruction; immutable evidence snapshots remain explicitly distinguished from mutable master data. Normalization prevents update anomalies and redundancy; it does not replace authentication, authorization, database isolation or least-privilege credentials.
+
 
 ## Buyer wallet — supplier balance and separate commercial credit
 

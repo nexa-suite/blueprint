@@ -96,6 +96,8 @@ server-authoritative.
 
 ## Accepted Strategic DDD
 
+The [2026-10 Owner decisions](owner-decisions-2026-10.md) authorize a central identity/Tenant-governance database and a physically independent business database per Tenant. This is the construction TARGET; current shared PostgreSQL/RLS implementation remains AS-IS until migration and cutover are verified. Database routing must derive from verified authority and trusted provisioning, fail closed without cross-Tenant fallback, and preserve published migrations and business consistency. The decision changes deployment isolation, not the eleven-context strategic catalog.
+
 The V1 TARGET has **11 frozen Bounded Contexts**. Existing Java packages, Spring Modulith modules, PostgreSQL schemas, endpoints and frontend folders are AS-IS implementation evidence only.
 
 | ID | Bounded Context | Classification | Conceptual authority |
