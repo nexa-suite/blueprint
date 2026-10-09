@@ -47,6 +47,8 @@ validation or Product Acceptance. Exact technology/build baselines live in
 
 The [2026-10 Owner decision](owner-decisions-2026-10.md) makes MOB-US-009 an Operations Direct Order creation flow over the existing server contract. It supersedes the prior Purchase Request-only story wording without changing the approval-required Purchase Request workflow or the separate verification and acceptance gates.
 
+The [2026-10 Owner decisions](owner-decisions-2026-10.md) also accept TARGET planning for a supplier-scoped Buyer wallet with rechargeable PEN funds separate from commercial credit, and an internal onboarding/health console with temporary authorized support. They do not establish stored-value implementation, standing cross-tenant access or released Control Center/Support capability. The ledger and support-authorization contracts remain OPEN as recorded there.
+
 ## Identity, relationship and governance language
 
 - Human Identity, Workforce Membership, Buyer Relationship and Customer Account are distinct concepts.
