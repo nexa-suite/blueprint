@@ -26,7 +26,7 @@ Canonical terms are maintained in [Ubiquitous Language](README.md). This index h
 | REJECT | outcome: quantity not accepted for normal sellable/fulfillment use | automatic RETURN_TO_SUPPLIER |
 | RETURN_TO_SUPPLIER | possible physical action after REJECT | REJECT outcome |
 | Credit Reservation | reserved credit for commercial demand | Outstanding Receivable |
-| Available Credit | Credit Limit - Credit Reservations - Outstanding Receivables | global Buyer balance, `exposure`, `used` |
+| Available Credit | max(0, Credit Limit - Financed Exposure - Outstanding Receivables - Active Credit Reservations) | global Buyer balance, `exposure`, `used` |
 | Payment | business money movement/report/confirmation | Stripe, Receivable or Credit |
 | Receivable | formal commercial debt | Payment or invoice rendering |
 | Financial Adjustment | explicit correction of historical obligation | silent rewrite or SUNAT Credit Note |

@@ -38,7 +38,7 @@ Financial Adjustment business effect belongs to Credit & Receivables; an issued 
 - Submitted PR and confirmed SO retain price, terms, line, delivery and commercial snapshots. Inventory facts retain lot, expiry, quantity, hold/disposition and allocation evidence. Payment and document facts retain provider/reference identity without secrets.
 - `Sellable Availability = usable physical on-hand - active Commercial Commitments - Safety Stock` at business scope. Inventory Reservation backing distributes protected demand across SKU + Warehouse authorities without double counting. HOLD, QUARANTINE, DAMAGED/WASTE, EXPIRED and IN_TRANSIT are excluded from usable sellable quantity.
 - Inventory Availability owns Inventory Reservation backing, deterministic Warehouse sourcing and Physical Allocation authority; Fulfillment & Delivery owns execution. One demand line may be backed by multiple eligible Warehouses. Physical Allocation cannot exceed committed/backed quantity or usable physical quantity.
-- Credit formula is `Credit Limit - Active Credit Reservations - Outstanding Receivable Balances`. Reservation-to-receivable transition is explicit and cannot double count.
+- Available Credit is `max(0, Credit Limit - Financed Exposure - Outstanding Receivable Balances - Active Credit Reservations)`. These are separate current-use buckets; one obligation must not be counted twice when its balance moves between buckets.
 - Append-only traceability and issued documents preserve history. Retention/deletion/anonymization periods are Production/Legal Gate decisions; no destructive deletion is assumed.
 
 ## Migration policy

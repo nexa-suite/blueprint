@@ -109,7 +109,8 @@ ReceivableRepository ..> Receivable : persists
 
 legend right
 TARGET / V1 / tactical design aid
-Available credit = limit - active reservations - outstanding receivables.
+Available credit = max(0, limit - financed exposure - outstanding receivables - active reservations).
+Buckets are separate; one obligation is not counted twice when its balance moves between buckets.
 Receivable posts from confirmed SalesOrder; BusinessDocument is optional secondary evidence.
 Payment, SalesOrder and BusinessDocument references are stable IDs; no cross-BC FK.
 *-- composition | --> domain dependency | ..> port/use

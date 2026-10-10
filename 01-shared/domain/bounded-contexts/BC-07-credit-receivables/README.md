@@ -13,7 +13,7 @@ last-reviewed: 2026-09-20
 | Purpose / classification | Owns credit risk, reservation, formal obligation and correction; Supporting. Strategic importance: protects commercial acceptance and financial consistency. |
 | Language / actors | Credit Account, Credit Limit, Credit Reservation, Available Credit, Receivable, Financial Adjustment. Actors: Business Operations Manager, Sales Representative, B2B Buyer. |
 | Responsibilities / data | Credit policy, reservations, available credit formula, Receivable posting at confirmed SalesOrder/application and explicit financial corrections; BusinessDocument reference is secondary and optional. |
-| Invariants | Available Credit is explicit; reservation and receivable do not double count; corrections preserve history; Payment != Receivable. |
+| Invariants | Available Credit = max(0, Credit Limit - Financed Exposure - Outstanding Receivable Balances - Active Credit Reservations); these are separate current-use buckets, and one obligation is not counted twice when its balance moves between buckets; corrections preserve history; Payment != Receivable. |
 | Commands | SetCreditLimit, EvaluateCredit, EstablishCreditReservation, ConvertReservationToReceivable, ApplyPayment, ReleaseCredit, RecordFinancialAdjustment. |
 | Domain / published events | Internal: CreditEvaluated, CreditReservationReleased, PaymentApplied, FinancialAdjustmentRecorded. Published: CreditReservationEstablished.v1, ReceivablePosted.v1. |
 | Upstream / downstream | Upstream: Sales Commitment and Payments facts. Downstream: Sales Commitment, Documents, Portal/Platform and Traceability. Sync: reservation decision; async: payment/receivable announcements. |

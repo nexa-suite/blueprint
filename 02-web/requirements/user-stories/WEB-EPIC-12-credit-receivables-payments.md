@@ -22,12 +22,12 @@ This epic is part of the frozen Web catalog. It records product-level story iden
 | Status | CONFIRMED / V1 |
 | Product | Web |
 | Surface | Platform |
-| Actor | Business Operations Manager |
+| Actor | Business Operations Manager (primary); Company Owner (secondary) |
 | Epic | WEB-EPIC-12 — Credit, Receivables & Payments |
 | Priority | MUST |
 | Owning Bounded Context | BC-07 — Credit & Receivables |
 | Capability / family | Credit, receivables and payments |
-| Refinement | CATALOG FROZEN — ACCEPTANCE CRITERIA PENDING |
+| Refinement | ACCEPTANCE CRITERIA ACCEPTED — 2026-10-09 OWNER DECISION |
 
 ### User Story
 
@@ -35,11 +35,14 @@ As a Business Operations Manager,
 I want to configure Credit Limit,
 so that credit exposure is bounded before eligible commitments consume capacity.
 
-### Current Scope
+### Acceptance Criteria
 
-Product-level scope only; final behavior is refined against the accepted Product, DDD and business-rule canon.
+- Given a verified active `PLATFORM` membership with the canonical Business Operations Manager role (primary) or Company Owner role (secondary), current `client.credit.configuration.manage` capability and Tenant/Workspace scope, when the user opens credit configuration, then the server returns the current Credit Limit, currency, active state and separate used-credit buckets; the candidate directory returns only account id, commercial name and status. The broader `client.credit.manage` capability does not itself grant configuration authority.
+- When an authorized operator creates the first Credit Account configuration, then the request supplies an explicit currency, `If-None-Match: *` and an `Idempotency-Key`; when updating an existing configuration, it supplies the current `If-Match` version and an `Idempotency-Key`. BC-07 returns the authoritative saved values and version.
+- When a proposed Credit Limit is below financed exposure plus outstanding Receivable balances plus active Credit Reservations, then the server rejects the change without partial updates. These are distinct current buckets; a debt shift between financed exposure and a Receivable is not counted twice. Deactivation blocks new credit use but preserves existing reservations, Receivables and history.
+- When membership, capability, Tenant/Workspace scope, explicit currency or required version is missing or stale, then the API rejects the command and the UI preserves the last authoritative state for refresh. A retry reuses the same idempotency key; no client-side calculation or role label grants authority.
 
-No final Acceptance Criteria, Story Points, Sprints or academic traceability are authored in this catalog-freeze wave.
+These criteria apply the Owner-approved total-current-use floor. They do not change the reservation lifecycle, receivable posting trigger, role hierarchy, or Bounded Context ownership. Product Acceptance and later verification gates remain separate.
 
 ## WEB-US-105 — Review Customer credit exposure
 

@@ -58,7 +58,7 @@ Expiration, FEFO, storage constraints, distinct HOLD/QUARANTINE states, traceabi
 
 ### Basic credit and payments
 
-Tenant-specific Credit Limit, Credit Reserved, Outstanding Receivables and Available Credit exposed live in Buyer Portal for current supplier relationship, with `Available Credit = Credit Limit - Credit Reserved - Outstanding Receivables`, hard block when unavailable, payment terms, payment recording, Stripe-backed Nexa online-payment direction and external/manual payment representation. No global Buyer credit balance. Full accounting, reconciliation and advanced receivables are future.
+Tenant-specific Credit Limit, financed exposure, Credit Reserved, Outstanding Receivables and Available Credit exposed live in Buyer Portal for current supplier relationship, with `Available Credit = max(0, Credit Limit - Financed Exposure - Outstanding Receivables - Active Credit Reservations)`, hard block when unavailable, payment terms, payment recording, Stripe-backed Nexa online-payment direction and external/manual payment representation. These are separate current-use buckets; one obligation is not counted twice when its balance moves between buckets. No global Buyer credit balance. Full accounting, reconciliation and advanced receivables are future.
 
 ### Basic documents
 

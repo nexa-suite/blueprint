@@ -21,8 +21,11 @@ Visual ERD: [PlantUML](database-diagram.puml) · [SVG](database-diagram.svg) · 
 | `financial_ledger_entry` | `entry_id`; receivable/adjustment/application FK | append-only ledger fact |
 
 SQL defines money precision/currency, PK/FK, NOT NULL, amount/status checks,
-uniques and due/ledger indexes. RLS scopes tenant/workspace. Available credit
-is a domain calculation, not a denormalized authority column. A Receivable is
+uniques and due/ledger indexes. RLS scopes tenant/workspace. Available Credit is
+`max(0, Credit Limit - Financed Exposure - Outstanding Receivable Balances - Active Credit Reservations)`;
+these are separate current-use buckets, and one obligation is not counted twice
+when its balance moves between buckets. Available credit is a domain calculation,
+not a denormalized authority column. A Receivable is
 posted from confirmed `sales_order_id`; `business_document_id` is a secondary,
 optional reference and neither delivery completion nor document issuance is a
 universal posting trigger.

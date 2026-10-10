@@ -55,7 +55,8 @@ The [2026-10 Owner decisions](owner-decisions-2026-10.md) also authorize constru
 - One human has one Nexa identity. A human may have independent workforce and Buyer relationships with multiple Tenants; data remains tenant-scoped.
 - A Customer Account may exist without Portal identity. V1 allows one principal active Buyer Identity per Customer Account; multi-user Buyer organizations are future scope.
 - Buyer Relationship states are `PENDING / INVITED`, `ACTIVE`, `SUSPENDED` and `REVOKED`.
-- V1 has one Company Owner, zero or more Business Operations Managers and one Internal Web Platform. Tenant Administrator governs technical access; Company Owner governs company identity, sensitive organization data and workforce roles; Business Operations Manager governs cross-functional operations.
+- V1 has one Company Owner, zero or more Business Operations Managers and one Internal Web Platform. Tenant Administrator governs technical access; Company Owner governs company identity, sensitive organization data and workforce roles; Business Operations Manager governs cross-functional operations. The 2026-10 Owner decision grants the Business Operations Manager primary authority and Company Owner secondary authority for the narrow CAP-11 command to configure a Customer Account's Credit Limit and Credit Account active state. Both require a verified active `PLATFORM` membership, `client.credit.configuration.manage` and current Tenant/Workspace scope; this does not create a global role hierarchy. The broader `client.credit.manage` capability does not grant this configuration command.
+- Company Owner and Tenant Administrator may explicitly grant or revoke one Warehouse at a time for the exact active reserved `SYSTEM_WORKFLOW` membership representing `NEXA_AUTOMATION` in the current Tenant/Workspace. No automatic or global Warehouse grants are authorized. Existing INTERNAL grant behavior remains; this is accepted construction TARGET, not implementation or verification evidence.
 
 ## Mobile rebaseline
 
@@ -140,7 +141,7 @@ BC-07 owns the Financial Adjustment effect on obligation and exposure. BC-09 own
 
 ## Finance, documents, notifications and traceability
 
-- Available Credit = Credit Limit - Active Credit Reservations - Outstanding Receivable Balances.
+- Available Credit = Credit Limit - Financed Exposure - Outstanding Receivable Balances - Active Credit Reservations, bounded at zero. For CAP-11 configuration, used credit is the sum of those three separate current buckets; the Owner's 2026-10-09 decision confirms that a debt shift between financed exposure and a Receivable is not counted twice.
 - Credit purchase reserves credit at PR submission, or during the same logical SO confirmation for direct order. Commercial Commitment, complete Inventory Reservation backing and applicable Credit Reservation are all-or-nothing.
 - For credit/net terms, Receivable posts at Sales Order confirmation. Delivery completion or invoice issuance is not a universal receivable trigger.
 - PREPAID requires Payment Confirmed before Sales Order confirmation and physical fulfillment. IMMEDIATE may confirm SO before payment; payment is immediately due. Exact prepaid timeout is OPEN-NON-BLOCKER policy.
