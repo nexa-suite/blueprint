@@ -51,7 +51,7 @@ explicit translation contract.
 | RETURN_TO_SUPPLIER | possible physical action after an authorized rejected outcome | rejection outcome or automatic workflow |
 | HOLD | non-sellable pending disposition | Quarantine, Waste or Release |
 | Credit Reservation | credit amount reserved for active commercial demand | Outstanding Receivable |
-| Available Credit | Credit Limit - Credit Reservations - Outstanding Receivables | global Buyer balance or `exposure`/`used` |
+| Available Credit | max(0, Credit Limit - Financed Exposure - Outstanding Receivables - Active Credit Reservations) | global Buyer balance or `exposure`/`used` |
 | Receivable | formal commercial debt/claim posted at accepted trigger | Payment or document rendering |
 | Payment | business money movement/report/confirmation lifecycle | Stripe provider or Receivable |
 | Payment Report | external/manual payment claim awaiting handling | Payment Confirmed |

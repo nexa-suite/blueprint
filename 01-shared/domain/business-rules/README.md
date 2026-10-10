@@ -50,7 +50,7 @@ Canonical V1 invariants. Ownership and lifecycle details are in [Strategic DDD](
 ## Cold-chain, credit, payments and finance
 
 - Cold-chain is optional per Tenant/SKU. V1 temperature capture is manual. Excursion places affected quantity on HOLD pending `ColdChainDisposition`. `REJECT` means inventory is not accepted for normal sellable/fulfillment use; `RETURN_TO_SUPPLIER` is a possible physical action after that outcome. No automatic destruction.
-- Available Credit = Credit Limit - Active Credit Reservations - Outstanding Receivable Balances. Reservations and receivables must not double count.
+- Available Credit = max(0, Credit Limit - Financed Exposure - Outstanding Receivable Balances - Active Credit Reservations). These are separate current-use buckets; one obligation must not be counted twice when its balance moves between buckets.
 - Credit purchase reserves at PR submission; direct order reserves during same SO confirmation. Commitment and credit reservation are all-or-nothing.
 - Credit/net Receivable posts at Sales Order confirmation. Delivery or document issuance is not a universal trigger.
 - PREPAID requires Payment Confirmed before Sales Order confirmation and physical fulfillment. IMMEDIATE permits SO before payment. Payment is distinct from Receivable, Credit and Stripe.

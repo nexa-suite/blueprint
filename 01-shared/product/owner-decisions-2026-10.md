@@ -3,7 +3,7 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: product
-last-reviewed: 2026-10-09
+last-reviewed: 2026-10-10
 ---
 
 # Owner decisions — 2026-10
@@ -36,6 +36,14 @@ Construction must preserve published migration history and user data. An additiv
 
 Relational models must document candidate keys and functional, multivalued and join dependencies. BCNF, 4NF and 5NF decompositions apply where those dependencies justify them and must preserve lossless reconstruction; immutable evidence snapshots remain explicitly distinguished from mutable master data. Normalization prevents update anomalies and redundancy; it does not replace authentication, authorization, database isolation or least-privilege credentials.
 
+## Credit policy configuration — Business Operations Manager and Company Owner
+
+On 2026-10-09 the Owner explicitly authorized the Business Operations Manager to configure a Customer Account's Credit Limit and activate or deactivate its Credit Account. The Owner subsequently confirmed that a Company Owner may perform the same narrowly scoped configuration under the same authority checks; the Business Operations Manager remains the primary operator and Company Owner is secondary. Both require a verified active `PLATFORM` membership, the dedicated `client.credit.configuration.manage` capability, and current Tenant/Workspace scope. The broader `client.credit.manage` capability does not itself authorize configuration. Role labels alone grant no authority.
+
+The configuration floor is the total current credit use: financed exposure plus outstanding Receivable balances plus active Credit Reservations. The Owner confirmed these are distinct outstanding buckets and must be summed; a balance shifting between financed exposure and a Receivable must not be counted twice. A lower limit beneath this total is rejected without partial change. Deactivation blocks new credit use; it does not erase Receivables, reservations or financial history.
+
+This is a narrow CAP-11 command grant and does not establish a global role hierarchy or grant authority over other Bounded Contexts. Existing reservations and receivable obligations retain their current lifecycle. The server remains authoritative for membership, capability, Tenant/Workspace scope, concurrency and the credit decision. This decision authorizes construction, not implementation, Technical Verification, Product Acceptance, System Acceptance or Production Readiness.
+
 
 ## Buyer wallet — supplier balance and separate commercial credit
 
@@ -64,3 +72,9 @@ The console is a surface over existing owners, not a twelfth Bounded Context. Pl
 ### Accepted support construction contract — 2026-10-09
 
 The Owner subsequently accepted initial customer-data support sessions restricted to read-only access, a maximum duration of one hour, explicit Company Owner consent and approval by a different named internal operator. The session must carry explicit Tenant/resource scope, immediate revocation and an immutable access audit. Impersonation, standing customer access and business mutations are excluded. Internal authentication, consent evidence, approval, expiry and fencing must be implemented and verified before any customer-data support route becomes accessible. Emergency break-glass remains governed separately by ADR-0017; this decision does not authorize bypassing its controls.
+
+## Explicit Warehouse access for SYSTEM_WORKFLOW
+
+On 2026-10-10 the Owner approved Company Owner and Tenant Administrator commands to grant and revoke Warehouse access explicitly for the active `SYSTEM_WORKFLOW` membership in the exact Tenant/Workspace. Each grant names one Warehouse; no global or automatic Warehouse grant is authorized. The target must resolve to the persisted `NEXA_AUTOMATION` identity with its active reserved `system_workflow` role.
+
+This is accepted construction TARGET. It authorizes explicit per-Warehouse access configuration only; it does not authorize impersonation, a human-issued token for the technical actor, a new system principal or automatic grant provisioning. Existing INTERNAL grant behavior remains. This decision does not establish implementation, Technical Verification, Product Acceptance, System Acceptance or Production Readiness.

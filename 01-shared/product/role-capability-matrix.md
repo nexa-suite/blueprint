@@ -29,7 +29,7 @@ by the Website/onboarding boundary and are not workforce role columns here.
 | CAP-08 Receiving and warehouse operations | EXCEPTION AUTHORITY | NONE | OVERSIGHT | NONE | COMMAND; EXCEPTION AUTHORITY | QUERY | NONE | NONE |
 | CAP-09 Fulfillment, dispatch and delivery | OVERSIGHT | NONE | OVERSIGHT | QUERY | COMMAND; QUERY | COMMAND; EXCEPTION AUTHORITY | COMMAND; QUERY | QUERY |
 | CAP-10 Cold-chain evidence and disposition | EXCEPTION AUTHORITY | NONE | OVERSIGHT | NONE | COMMAND; EXCEPTION AUTHORITY | COMMAND; QUERY | COMMAND; QUERY | QUERY |
-| CAP-11 Credit and receivables | EXCEPTION AUTHORITY; OVERSIGHT | NONE | OVERSIGHT | QUERY | NONE | NONE | NONE | QUERY |
+| CAP-11 Credit and receivables | COMMAND*; EXCEPTION AUTHORITY; OVERSIGHT | NONE | COMMAND; OVERSIGHT | QUERY | NONE | NONE | NONE | QUERY |
 | CAP-12 Payments and correction | EXCEPTION AUTHORITY; OVERSIGHT | NONE | OVERSIGHT | QUERY | NONE | NONE | NONE | COMMAND; QUERY |
 | CAP-13 Business documents | OVERSIGHT | NONE | OVERSIGHT | QUERY | QUERY | QUERY | QUERY | QUERY |
 | CAP-14 Notifications | OVERSIGHT | COMMAND; OVERSIGHT | QUERY | QUERY | QUERY | QUERY | QUERY | QUERY |
@@ -46,5 +46,6 @@ by the Website/onboarding boundary and are not workforce role columns here.
 - Driver authority is limited to assigned Delivery work. Buyer authority is
   limited to the authorized supplier relationship.
 - Finance is a capability responsibility, not a new actor or Bounded Context.
+- CAP-11 configuration command is limited to configuring a Customer Account's Credit Limit and activating or deactivating its Credit Account under the [2026-10 Owner decision](owner-decisions-2026-10.md). Business Operations Manager is the primary operator; Company Owner is secondary. Both require verified active `PLATFORM` membership, `client.credit.configuration.manage` and current Tenant/Workspace scope. The broader `client.credit.manage` capability does not grant this configuration command. `*` marks this narrow Company Owner command; it grants no general role inheritance or cross-context authority.
 - The matrix is a target authorization projection. Current implementation
   support is recorded in [the compatibility baseline](../../04-delivery/compatibility-baseline-2026-08-29.md).

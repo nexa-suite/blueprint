@@ -43,7 +43,7 @@ coordinates BC-08 and BC-07 without a giant cross-context aggregate.
 | `FinancialLedgerEntry` | Entity / immutable fact | type, source ID, amount, occurredAt, correlation | none after append | durable financial history |
 | `Money` / `CreditLimit` | Value Objects | amount, currency/limit | `subtract()`, `isSufficient()` | no negative balance |
 | `ReceivableStatus` / `ReservationStatus` | Enum | `OPEN`, `PARTIALLY_SETTLED`, `SETTLED`, `WRITTEN_OFF`; `ACTIVE`, `RELEASED`, `CONSUMED`, `EXPIRED` | none | lifecycle constraints |
-| `CreditExposurePolicy` | Domain Service | none | `calculateAvailable(limit, reservations, receivables)` | formula authority |
+| `CreditExposurePolicy` | Domain Service | none | `calculateAvailable(limit, financedExposure, receivables, reservations)` | formula authority |
 | `ReceivablePostingPolicy` | Domain Service | none | `postAtSalesOrderConfirmation()` | policy, no source aggregate ownership |
 | `CreditAccountRepository` / `ReceivableRepository` | Repository interfaces | none | `save()`, `byId()` | roots only |
 | `CreditReservationEstablished` / `ReceivablePosted` | Domain Events | IDs, amount, occurredAt | immutable facts | existing published events only |
@@ -79,8 +79,10 @@ coordinates BC-08 and BC-07 without a giant cross-context aggregate.
 
 ## Invariants and transaction boundaries
 
-- Available Credit = Credit Limit − Active Credit Reservations − Outstanding
-  Receivable Balances.
+- Available Credit = max(0, Credit Limit − Financed Exposure − Outstanding
+  Receivable Balances − Active Credit Reservations). These are separate
+  current-use buckets; one obligation is not counted twice when its balance
+  moves between buckets.
 - Credit purchase reserves at PR submission; direct order reserves during same
   logical SO confirmation.
 - Credit/net Receivable posts at SO confirmation. Delivery completion or
