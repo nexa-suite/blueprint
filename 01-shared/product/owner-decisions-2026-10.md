@@ -57,6 +57,10 @@ Construction must preserve supplier isolation and server authority. No client-pr
 
 The Owner subsequently accepted BC-08 ownership of an immutable stored-funds ledger per Buyer and supplier Tenant in PEN. BC-04 requests a reservation when placing a supplier order and consumes the reservation upon authoritative order confirmation. Cancellation releases an unconsumed reservation. Explicit refund movements restore consumed funds to that supplier balance without rewriting prior facts. BC-07 commercial credit remains separate. Cash withdrawals and transfers between supplier balances are excluded from this initial scope.
 
+### Accepted wallet refund workflow — 2026-10-10
+
+The Owner accepted the Business Operations Manager as the primary operator for explicit Buyer wallet refunds and the Company Owner as the backup operator. Both use the existing `payment.reconcile` capability in the verified Tenant/Workspace context. A refund is allowed only for a `CANCELLED` Sales Order; cancellation itself never issues an automatic refund. An operator may refund all or part of the amount consumed for that order, in PEN, to the original Buyer's wallet with the same supplier Tenant. Each refund requires a reason and creates an immutable ledger entry retaining the acting membership, reason and durable idempotency identity. Cumulative refunds for an order may not exceed its consumed amount. This narrowly scoped authority does not grant general Sales Order read access or permit a client-selected Buyer or Tenant.
+
 This closes the Product decisions on ownership, reservation, consumption, release, refund destination and excluded transfers. Provider confirmation, concurrency, durable callback deduplication, reconciliation and integration contracts require implementation and verification. Operational and regulatory release conditions remain OPEN; construction authorization is not Production Readiness or a release authorization.
 
 ## Internal Nexa console — onboarding, health and authorized support
