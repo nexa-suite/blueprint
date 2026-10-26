@@ -3,10 +3,23 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: product
-last-reviewed: 2026-10-10
+last-reviewed: 2026-10-26
 ---
 
 # Owner decisions — 2026-10
+
+## Minimum delivery lead time — business days
+
+On 2026-10-26 the Owner confirmed that the minimum delivery lead time is counted
+in business days, excluding weekends and Peruvian public holidays. This decision
+sets the target counting rule; it does not itself prohibit a requested delivery
+date that falls on a weekend or holiday after the minimum has elapsed.
+
+The official holiday source, handling of newly declared holidays, contract
+transition, migration of existing settings and verification remain open
+engineering and release gates. Previously applied migrations remain immutable.
+This decision does not establish implementation, Technical Verification,
+Product Acceptance, System Acceptance or Production Readiness.
 
 ## MOB-US-009 — Direct Order from field work
 

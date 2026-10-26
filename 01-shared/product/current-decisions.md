@@ -3,7 +3,7 @@ status: accepted
 maturity: FROZEN
 scope: cross-cutting
 owner: governance
-last-reviewed: 2026-09-18
+last-reviewed: 2026-10-26
 ---
 
 # Current accepted decisions
@@ -136,6 +136,7 @@ BC-07 owns the Financial Adjustment effect on obligation and exposure. BC-09 own
 - FEFO is default for expiry-tracked SKU. Override needs reason and never selects expired or quarantined stock. Warehouse Transfer states are `REQUESTED`, `IN_TRANSIT`, `RECEIVED`; in-transit stock is not sellable in both locations.
 - Fulfillment supports `PLANNED`, `ALLOCATED`, `PICKING`, `PICKED`, `PACKED`, `STAGED`, `READY_FOR_DISPATCH`, `HANDED_OVER`, `COMPLETED`, plus explicit shortage, hold and cancellation exceptions. Multiple Fulfillments per Sales Order are valid.
 - Delivery attempts belong to one Delivery. Failed attempts do not create a new Delivery. Operations decides exhaustion; no universal numeric attempt limit is accepted. Partial delivery closes the current Delivery and creates an idempotent Continuation Delivery for the remaining obligation.
+- Minimum delivery lead time is counted in business days, excluding weekends and Peruvian public holidays, as recorded in the [Owner decision](owner-decisions-2026-10.md#minimum-delivery-lead-time--business-days). Contract transition, holiday maintenance and implementation verification remain open.
 - POD is immutable evidence. Amendments/addenda never overwrite the original. Photo/signature is policy-driven, not universally mandatory.
 - Cold-chain is optional per Tenant/SKU. V1 captures temperature manually. Excursion places affected quantity on HOLD pending `ColdChainDisposition`; `REJECT` is an outcome, while `RETURN_TO_SUPPLIER` is a possible physical action after that outcome. It does not automatically mean destruction. IoT automation is deferred.
 
