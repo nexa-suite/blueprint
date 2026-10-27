@@ -10,18 +10,15 @@ last-reviewed: 2026-10-26
 
 ## Minimum delivery lead time — business days
 
-On 2026-10-26 the Owner confirmed that the minimum delivery lead time is counted
-in business days, excluding weekends and Peruvian public holidays. This decision
-sets the target counting rule; it does not itself prohibit a requested delivery
-date that falls on a weekend or holiday after the minimum has elapsed.
+On 2026-10-26 the Owner superseded the earlier holiday-based and configurable
+lead-time decisions. The minimum delivery lead time is five business days
+globally, counting Monday through Friday. No holiday calendar is required.
+This counting rule does not itself prohibit a requested delivery date that
+falls on a weekend after the minimum has elapsed.
 
-The Owner also decided to preserve each existing numeric minimum lead-time
-value when its interpretation changes to business days. No numeric conversion
-or recalculation is authorized.
-
-The official holiday source, handling of newly declared holidays, contract
-transition, technical migration mechanics and verification remain open
-engineering and release gates. Previously applied migrations remain immutable.
+The transition from existing configurable values, contract compatibility and
+technical verification remain open engineering and release gates. Previously
+applied migrations remain immutable.
 This decision does not establish implementation, Technical Verification,
 Product Acceptance, System Acceptance or Production Readiness.
 
