@@ -15,8 +15,12 @@ in business days, excluding weekends and Peruvian public holidays. This decision
 sets the target counting rule; it does not itself prohibit a requested delivery
 date that falls on a weekend or holiday after the minimum has elapsed.
 
+The Owner also decided to preserve each existing numeric minimum lead-time
+value when its interpretation changes to business days. No numeric conversion
+or recalculation is authorized.
+
 The official holiday source, handling of newly declared holidays, contract
-transition, migration of existing settings and verification remain open
+transition, technical migration mechanics and verification remain open
 engineering and release gates. Previously applied migrations remain immutable.
 This decision does not establish implementation, Technical Verification,
 Product Acceptance, System Acceptance or Production Readiness.
