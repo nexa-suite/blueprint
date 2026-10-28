@@ -78,3 +78,9 @@ The Owner subsequently accepted initial customer-data support sessions restricte
 On 2026-10-10 the Owner approved Company Owner and Tenant Administrator commands to grant and revoke Warehouse access explicitly for the active `SYSTEM_WORKFLOW` membership in the exact Tenant/Workspace. Each grant names one Warehouse; no global or automatic Warehouse grant is authorized. The target must resolve to the persisted `NEXA_AUTOMATION` identity with its active reserved `system_workflow` role.
 
 This is accepted construction TARGET. It authorizes explicit per-Warehouse access configuration only; it does not authorize impersonation, a human-issued token for the technical actor, a new system principal or automatic grant provisioning. Existing INTERNAL grant behavior remains. This decision does not establish implementation, Technical Verification, Product Acceptance, System Acceptance or Production Readiness.
+
+## Wave 1 SQL ownership clarification — 2026-10-27
+
+For the API Wave 1 checkpoint, the Owner clarified that `sales.buyer_address`, `sales.buyer_catalog_favorite` and `sales.buyer_sales_message` belong to BC-02. `payments.buyer_payment_method_setup_attempt`, `payments.buyer_payment_method_setup_event`, `payments.buyer_payment_provider_profile` and `payments.buyer_saved_payment_method` belong to BC-08. This is a bounded interpretation for reconciling the existing API implementation; it does not claim that the associated capabilities or the checkpoint have passed Product or System Acceptance.
+
+BC-03 remains authoritative for catalog content, SKU visibility and commercial offers; BC-04 for Purchase Requests and Sales Orders; and BC-07 for credit and receivables. Favorites and communications do not grant cross-context mutation authority. No new Bounded Context or published integration event is authorized by this clarification. Saved payment methods are references to provider-managed methods; PAN, CVV and provider secrets must not be stored.
