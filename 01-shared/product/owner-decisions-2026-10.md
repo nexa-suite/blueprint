@@ -3,10 +3,31 @@ status: accepted
 maturity: BASELINED
 scope: cross-cutting
 owner: product
-last-reviewed: 2026-10-10
+last-reviewed: 2026-10-26
 ---
 
 # Owner decisions — 2026-10
+
+## Minimum delivery lead time — business days
+
+On 2026-10-26 the Owner superseded the earlier holiday-based and configurable
+lead-time decisions. The minimum delivery lead time is five business days
+globally, counting Monday through Friday. No holiday calendar is required.
+This counting rule does not itself prohibit a requested delivery date that
+falls on a weekend after the minimum has elapsed.
+
+On 2026-10-29 the Owner confirmed the academic checkpoint rule: use the
+calendar date in `America/Lima` as the reference, exclude that date, and start
+counting on the next business day. The policy is global and is not configurable
+by Tenant or Workspace. API makes the final decision; clients present the
+server-provided minimum. Historical persisted settings do not determine this
+rule and must not be removed without a compatibility plan.
+
+The transition from existing configurable values, contract compatibility and
+technical verification remain open engineering and release gates. Previously
+applied migrations remain immutable.
+This decision does not establish implementation, Technical Verification,
+Product Acceptance, System Acceptance or Production Readiness.
 
 ## MOB-US-009 — Direct Order from field work
 
