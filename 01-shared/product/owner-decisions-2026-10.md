@@ -16,6 +16,13 @@ globally, counting Monday through Friday. No holiday calendar is required.
 This counting rule does not itself prohibit a requested delivery date that
 falls on a weekend after the minimum has elapsed.
 
+On 2026-10-29 the Owner confirmed the academic checkpoint rule: use the
+calendar date in `America/Lima` as the reference, exclude that date, and start
+counting on the next business day. The policy is global and is not configurable
+by Tenant or Workspace. API makes the final decision; clients present the
+server-provided minimum. Historical persisted settings do not determine this
+rule and must not be removed without a compatibility plan.
+
 The transition from existing configurable values, contract compatibility and
 technical verification remain open engineering and release gates. Previously
 applied migrations remain immutable.
